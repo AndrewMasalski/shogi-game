@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yasc", "Yasc\Yasc.csproj", "{E8497624-9F29-411B-A917-C2DE3A87661D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{94F07960-A013-46AF-BCC3-6E55DD48989E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B0F701A-77D7-4BA0-96E6-0CDDE27B8BE8}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		Yasc.vsmdi = Yasc.vsmdi
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Yasc.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8497624-9F29-411B-A917-C2DE3A87661D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8497624-9F29-411B-A917-C2DE3A87661D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8497624-9F29-411B-A917-C2DE3A87661D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8497624-9F29-411B-A917-C2DE3A87661D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
