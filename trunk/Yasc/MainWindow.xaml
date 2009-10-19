@@ -9,17 +9,23 @@
     <Yasc:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
     
     <DataTemplate DataType="{x:Type ShogiCore:Piece}">
-      <Grid>
+      <Grid Height="10" Width="10">
         <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
               Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform">
           <Path.RenderTransform>
-            <RotateTransform CenterX="5" CenterY="5" Angle="{Binding Color, Mode=OneTime, Converter={StaticResource ColorToAngleConverter}}"/>
+            <RotateTransform CenterX="5" CenterY="5" 
+                             Angle="180"/>
           </Path.RenderTransform>
         </Path>
 
-        <TextBlock Text="{Binding Type.Symbol}" FontSize="6"
+        <TextBlock Text="{Binding Type}" FontSize="6"
                      VerticalAlignment="Center" 
                      HorizontalAlignment="Center"/>
+        <Grid.RenderTransform>
+          <RotateTransform CenterX="5" CenterY="5"
+                           Angle="{Binding Color, Mode=OneTime, 
+                             Converter={StaticResource ColorToAngleConverter}}"/>
+        </Grid.RenderTransform>
       </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type Utils:Cell}">
@@ -31,7 +37,16 @@
   <!--  <StackPanel>-->
   <!--    <Button Click="Button_Click">Connect</Button>-->
   <Viewbox Margin="10">
-    <UniformGrid Rows="9" Columns="9" x:Name="_board" Width="180" Height="180"/>
+    <ItemsControl Width="180" Height="180" ItemsSource="{Binding}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="9" Columns="9"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+    </ItemsControl>
+<!--    <UniformGrid Rows="9" Columns="9"-->
+<!--                 x:Name="_board" Width="180" -->
+<!--                 Height="180"/>-->
   </Viewbox>
   <!--  </StackPanel>-->
 </Window>

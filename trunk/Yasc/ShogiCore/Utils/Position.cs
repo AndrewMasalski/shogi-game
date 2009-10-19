@@ -16,7 +16,7 @@ namespace Yasc.ShogiCore.Utils
       {
         for (int i = 0; i < 9; i++)
           for (int j = 0; j < 9; j++)
-            yield return new Position(i, j);
+            yield return new Position(j, i);
       }
     }
     public Position(string position)
