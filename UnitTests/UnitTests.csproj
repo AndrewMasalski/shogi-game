@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardSnapshotTest.cs" />
+    <Compile Include="DropMoves\DropMovesTest.cs" />
     <Compile Include="UsualMoves\BishopTest.cs" />
     <Compile Include="BoardTest.cs" />
     <Compile Include="CellTest.cs" />
