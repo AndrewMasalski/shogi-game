@@ -149,12 +149,12 @@ namespace Yasc.ShogiCore
     }
     private void Move(UsualMoveSnapshot move)
     {
-      if (this[move.From] == null) return;
+//      if (this[move.From] == null) return;
 
       if (move.IsPromoting)
         this[move.From] = this[move.From].ClonePromoted();
 
-      if (move.From == move.To) return;
+//      if (move.From == move.To) return;
 
       if (this[move.To] != null)
         HandInternal(OneWhoMoves).Add(this[move.To]);
