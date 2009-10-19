@@ -19,22 +19,22 @@ namespace UnitTests
     public void WhiteOnG5()
     {
       var vmth = new ValidMovesTestHelper();
-      vmth.Init("g5", new Piece(vmth.Board.White, "竜"));
+      vmth.Init("5g", new Piece(vmth.Board.White, "竜"));
       var initialValidMoves = new HashSet<Position> {
-                                                      "g1", "g2", "g3", "g7", "g8", "g9",  
-                                                      "a5", "b5", "c5", "d5", "e5", "i5",  
-                                                      "f4", "f5", "f6", 
-                                                      "g4", "g6",  
-                                                      "h4", "h5", "h6", };
+            "1g", "2g", "3g", "7g", "8g", "9g",  
+            "5a", "5b", "5c", "5d", "5e", "5i",  
+            "4f", "5f", "6f", 
+            "4g", "6g",  
+            "4h", "5h", "6h", };
 
       vmth.TestMoves(initialValidMoves);
 
-      vmth.Board["f5"] = new Piece(vmth.Board.Black, PieceType.桂);
-      initialValidMoves.ExceptWith(new Position[] { "a5", "b5", "c5", "d5", "e5" });
+      vmth.Board["5f"] = new Piece(vmth.Board.Black, PieceType.桂);
+      initialValidMoves.ExceptWith(new Position[] {"5a", "5b", "5c", "5d", "5e"});
       vmth.TestMoves(initialValidMoves);
 
-      vmth.Board["f5"] = new Piece(vmth.Board.White, PieceType.桂);
-      initialValidMoves.ExceptWith(new Position[] {  "f5" });
+      vmth.Board["5f"] = new Piece(vmth.Board.White, PieceType.桂);
+      initialValidMoves.ExceptWith(new Position[] {  "5f" });
       vmth.TestMoves(initialValidMoves);
     }
 
@@ -43,22 +43,23 @@ namespace UnitTests
     public void BlackOnG5()
     {
       var vmth = new ValidMovesTestHelper();
-      vmth.Init("g5", new Piece(vmth.Board.Black, "竜"));
+      vmth.Init("5g", new Piece(vmth.Board.Black, "竜"));
       var initialValidMoves = new HashSet<Position> {
-                                                      "g1", "g2", "g3", "g7", "g8", "g9",  
-                                                      "a5", "b5", "c5", "d5", "e5", "i5",  
-                                                      "f4", "f5", "f6", 
-                                                      "g4", "g6",  
-                                                      "h4", "h5", "h6", };
+        "1g", "2g", "3g", "7g", "8g", "9g",  
+        "5a", "5b", "5c", "5d", "5e", "5i",  
+        "4f", "5f", "6f", 
+        "4g", "6g",
+        "4h", "5h", "6h", 
+      };
 
       vmth.TestMoves(initialValidMoves);
 
-      vmth.Board["f5"] = new Piece(vmth.Board.White, PieceType.桂);
-      initialValidMoves.ExceptWith(new Position[] { "a5", "b5", "c5", "d5", "e5"});
+      vmth.Board["5f"] = new Piece(vmth.Board.White, PieceType.桂);
+      initialValidMoves.ExceptWith(new Position[] { "5a","5b", "5c", "5d","5e"});
       vmth.TestMoves(initialValidMoves);
 
-      vmth.Board["f5"] = new Piece(vmth.Board.Black, PieceType.桂);
-      initialValidMoves.ExceptWith(new Position[] {  "f5" });
+      vmth.Board["5f"] = new Piece(vmth.Board.Black, PieceType.桂);
+      initialValidMoves.ExceptWith(new Position[] {  "5f" });
       vmth.TestMoves(initialValidMoves);
     }
   }

@@ -14,13 +14,14 @@ namespace UnitTests
       var board = new Board();
       Shogi.InititBoard(board);
       var original = new BoardSnapshot(board);
-      var clone = new BoardSnapshot(original, new UsualMoveSnapshot("c3", "d3", false));
+      var clone = new BoardSnapshot(original,
+        new UsualMoveSnapshot("3c", "3d", false));
       
-      Assert.IsNull(clone["c3"]);
-      Assert.IsNotNull(clone["d3"]);
+      Assert.IsNull(clone["3c"]);
+      Assert.IsNotNull(clone["3d"]);
 
-      Assert.IsNotNull(original["c3"]);
-      Assert.IsNull(original["d3"]);
+      Assert.IsNotNull(original["3c"]);
+      Assert.IsNull(original["3d"]);
     }
   }
 }

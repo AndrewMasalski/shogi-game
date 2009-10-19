@@ -8,8 +8,8 @@ namespace Yasc.ShogiCore.Utils
   [Serializable]
   public struct Position
   {
-    public int X { get; set; }
-    public int Y { get; set; }
+    public int X { get; private set; }
+    public int Y { get; private set; }
     public static IEnumerable<Position> OnBoard
     {
       get
@@ -23,8 +23,8 @@ namespace Yasc.ShogiCore.Utils
       : this()
     {
       if (position.Length != 2) throw new ArgumentOutOfRangeException("position");
-      Y = char.ToLower(position[0]) - 'a';
-      X = int.Parse(position[1].ToString()) - 1;
+      X = int.Parse(position[0].ToString()) - 1;
+      Y = char.ToLower(position[1]) - 'a';
       if (X < 0 || X > 8) throw new ArgumentOutOfRangeException("position");
       if (Y < 0 || Y > 8) throw new ArgumentOutOfRangeException("position");
     }
@@ -47,7 +47,7 @@ namespace Yasc.ShogiCore.Utils
     }
     public override string ToString()
     {
-      return Line + Column;
+      return Column + Line;
     }
 
     public static implicit operator Position(string s)

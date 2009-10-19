@@ -61,36 +61,36 @@ namespace UnitTests
     [TestMethod]
     public void PutPieceTest()
     {
-      _board["g5"] = new Piece(_board.White, "馬");
-      Assert.IsNotNull(_board["g5"]);
+      _board["5g"] = new Piece(_board.White, "馬");
+      Assert.IsNotNull(_board["5g"]);
     }
     [TestMethod]
     public void ValidMoveWithoutTakingPieceTest()
     {
       Shogi.InititBoard(_board);
-      var move = _board.GetUsualMove("c9", "d9", false);
+      var move = _board.GetUsualMove("9c", "9d", false);
       Assert.IsNotNull(move);
       _board.MakeMove(move);
-      Assert.IsNull(_board["c9"]);
-      Assert.AreEqual(PieceType.歩, _board["d9"].Type);
+      Assert.IsNull(_board["9c"]);
+      Assert.AreEqual(PieceType.歩, _board["9d"].Type);
     }
     [TestMethod]
     public void ValidMoveWithTakingPieceTest()
     {
       Shogi.InititBoard(_board);
 
-      _board.MakeMove(_board.GetUsualMove("c9", "d9", false)); _board.OneWhoMoves = _board.White;
-      _board.MakeMove(_board.GetUsualMove("d9", "e9", false)); _board.OneWhoMoves = _board.White;
-      _board.MakeMove(_board.GetUsualMove("e9", "f9", false)); _board.OneWhoMoves = _board.White;
-      _board.MakeMove(_board.GetUsualMove("f9", "g9", false));
+      _board.MakeMove(_board.GetUsualMove("9c", "9d", false)); _board.OneWhoMoves = _board.White;
+      _board.MakeMove(_board.GetUsualMove("9d", "9e", false)); _board.OneWhoMoves = _board.White;
+      _board.MakeMove(_board.GetUsualMove("9e", "9f", false)); _board.OneWhoMoves = _board.White;
+      _board.MakeMove(_board.GetUsualMove("9f", "9g", false));
 
-      Assert.IsNull(_board["c9"]);
-      Assert.IsNull(_board["d9"]);
-      Assert.IsNull(_board["e9"]);
-      Assert.IsNull(_board["f9"]);
+      Assert.IsNull(_board["9c"]);
+      Assert.IsNull(_board["9d"]);
+      Assert.IsNull(_board["9e"]);
+      Assert.IsNull(_board["9f"]);
 
-      Assert.AreEqual(PieceType.歩, _board["g9"].Type);
-      Assert.AreEqual(_board.White, _board["g9"].Owner);
+      Assert.AreEqual(PieceType.歩, _board["9g"].Type);
+      Assert.AreEqual(_board.White, _board["9g"].Owner);
       Assert.AreEqual(1, _board.White.Hand.Count);
       Assert.AreEqual(PieceType.歩, _board.White.Hand[0].Type);
       Assert.AreEqual(_board.White, _board.White.Hand[0].Owner);
@@ -98,15 +98,15 @@ namespace UnitTests
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]
     public void InvalidMoveTest()
     {
-      var badMove = _board.GetUsualMove("c1", "d1", false);
-      _board.MakeMove(badMove);
+      var badMove = _board.GetUsualMove("1c", "1d", false);
+      _board.MakeMove(badMove);                 
     }
     [TestMethod]
     public void InvalidMoveMessageTest()
     {
-      var badMove = _board.GetUsualMove("c1", "d1", false);
+      var badMove = _board.GetUsualMove("1c", "1d", false);
       Assert.IsFalse(badMove.IsValid);
-      Assert.AreEqual("No piece at c1", badMove.ErrorMessage);
+      Assert.AreEqual("No piece at 1c", badMove.ErrorMessage);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void MakeNullMoveTest()
@@ -118,16 +118,16 @@ namespace UnitTests
     {
       var board = new Board();
       Shogi.InititBoard(board);
-      var move = board.GetUsualMove("c3", "d3", false);
+      var move = board.GetUsualMove("3c", "3d", false);
       _board.MakeMove(move);
     }
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]
     public void GetUsualMoveFromEmptyCell()
     {
-      var move = _board.GetUsualMove("d3", "e3", false);
+      var move = _board.GetUsualMove("3d", "3e", false);
 
       Assert.IsFalse(move.IsValid);
-      Assert.AreEqual("No piece at d3", move.ErrorMessage);
+      Assert.AreEqual("No piece at 3d", move.ErrorMessage);
       _board.MakeMove(move);
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
@@ -163,17 +163,17 @@ namespace UnitTests
     public void TestMoveOrder()
     {
       Shogi.InititBoard(_board);
-      _board.MakeMove(_board.GetUsualMove("c3", "d3", false));
+      _board.MakeMove(_board.GetUsualMove("3c", "3d", false));
       Assert.AreEqual("It's Black's move now",
-        _board.GetUsualMove("d3", "e3", false).ErrorMessage);
+        _board.GetUsualMove("3d", "3e", false).ErrorMessage);
     }
     [TestMethod]
     public void TestIgnoreMoveOrder()
     {
       Shogi.InititBoard(_board);
       _board.IsMovesOrderMaintained = false;
-      _board.MakeMove(_board.GetUsualMove("c3", "d3", false));
-      _board.MakeMove(_board.GetUsualMove("d3", "e3", false));
+      _board.MakeMove(_board.GetUsualMove("3c", "3d", false));
+      _board.MakeMove(_board.GetUsualMove("3d", "3e", false));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedNotificationTest()

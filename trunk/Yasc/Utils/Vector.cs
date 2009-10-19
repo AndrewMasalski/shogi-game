@@ -17,9 +17,17 @@ namespace Yasc.Utils
     {
       return new Position(a.X + b.X, a.Y + b.Y);
     }
+    public static Vector operator +(Vector a, Vector b)
+    {
+      return new Vector(a.X + b.X, a.Y + b.Y);
+    }
     public static Vector operator *(Vector a, Vector b)
     {
       return new Vector(a.X*b.X, a.Y*b.Y);
+    }
+    public static implicit operator Vector(Position p)
+    {
+      return new Vector(p.X, p.Y);
     }
   }
 }

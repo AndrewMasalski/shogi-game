@@ -138,20 +138,6 @@ namespace Yasc.ShogiCore
       return color == PieceColor.White ? WhiteHand : BlackHand;
     }
 
-//    public BoardSnapshot CloneFor(DropMoveSnapshot move)
-//    {
-//      var clone = new BoardSnapshot(this, move);
-//      clone.Move(move);
-//      clone.CalculateHashcode();
-//      return clone;
-//    }
-//    public BoardSnapshot CloneFor(UsualMoveSnapshot move)
-//    {
-//      var clone = (BoardSnapshot)MemberwiseClone();
-//      clone.Move(move);
-//      clone.CalculateHashcode();
-//      return clone;
-//    }
     #endregion
 
     #region ' Implemetation '
