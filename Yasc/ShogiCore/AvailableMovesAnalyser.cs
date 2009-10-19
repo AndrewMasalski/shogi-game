@@ -131,6 +131,9 @@ namespace Yasc.ShogiCore
     private IEnumerable<Position> Go(int dx, int dy, int count)
     {
       var delta = new Vector(dx, dy) * UpDirection;
+      var v = (Vector) _from + delta;
+      if (v.X < 0 || v.X > 8 || v.Y < 0 || v.Y > 8)
+        yield break;
       var curr = _from + delta;
       for (int i = 0; i < count; i++)
         for (int j = 0; j < count; j++)

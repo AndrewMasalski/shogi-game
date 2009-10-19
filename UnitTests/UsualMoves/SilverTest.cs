@@ -12,15 +12,15 @@ namespace UnitTests
     public void WhiteOnG5()
     {
       var vmth = new ValidMovesTestHelper();
-      vmth.Init("g5", new Piece(vmth.Board.White, "銀"));
-      var positions = new HashSet<Position> {"h4", "h5", "h6", "f4", "f6"};
+      vmth.Init("5g", new Piece(vmth.Board.White, "銀"));
+      var positions = new HashSet<Position> { "4h", "5h", "6h", "4f", "6f" };
       vmth.TestMoves(positions);
 
-      vmth.Board["h5"] = new Piece(vmth.Board.Black, "金");
+      vmth.Board["5h"] = new Piece(vmth.Board.Black, "金");
       vmth.TestMoves(positions);
 
-      vmth.Board["h5"] = new Piece(vmth.Board.White, "金");
-      positions.ExceptWith(new Position[] { "h5" });
+      vmth.Board["5h"] = new Piece(vmth.Board.White, "金");
+      positions.ExceptWith(new Position[] { "5h" });
       vmth.TestMoves(positions);
     }
 
@@ -28,15 +28,15 @@ namespace UnitTests
     public void BlackOnG5()
     {
       var vmth = new ValidMovesTestHelper();
-      vmth.Init("g5", new Piece(vmth.Board.Black, "銀"));
-      var positions = new HashSet<Position> { "f4", "f5", "f6", "h4", "h6" };
+      vmth.Init("5g", new Piece(vmth.Board.Black, "銀"));
+      var positions = new HashSet<Position> { "4f", "5f", "6f", "4h", "6h" };
       vmth.TestMoves(positions);
 
-      vmth.Board["f5"] = new Piece(vmth.Board.White, "金");
+      vmth.Board["5f"] = new Piece(vmth.Board.White, "金");
       vmth.TestMoves(positions);
 
-      vmth.Board["f5"] = new Piece(vmth.Board.Black, "金");
-      positions.ExceptWith(new Position[] { "f5" });
+      vmth.Board["5f"] = new Piece(vmth.Board.Black, "金");
+      positions.ExceptWith(new Position[] { "5f" });
       vmth.TestMoves(positions);
     }
   }

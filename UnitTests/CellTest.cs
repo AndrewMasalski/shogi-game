@@ -4,22 +4,14 @@ using Yasc.ShogiCore.Utils;
 namespace UnitTests
 {
   [TestClass]
-  public class CellTest
+  public class PositionTest
   {
     [TestMethod]
     public void Strings()
     {
-      Assert.AreEqual(0, new Position("a1").X);
-      Assert.AreEqual(0, new Position("b1").X);
-
-      Assert.AreEqual(0, new Position("a1").Y);
-      Assert.AreEqual(0, new Position("a2").Y);
-
-      Assert.AreEqual(0, new Position("a1").Y);
-      Assert.AreEqual(1, new Position("b1").Y);
-
-      Assert.AreEqual(0, new Position("a1").X);
-      Assert.AreEqual(1, new Position("a2").X);
+      Assert.AreEqual(new Position(0, 0), new Position("1a"));
+      Assert.AreEqual(new Position(1, 0), new Position("2a"));
+      Assert.AreEqual(new Position(0, 1), new Position("1b"));
     }
   }
 }

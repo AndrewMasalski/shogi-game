@@ -19,17 +19,17 @@ namespace UnitTests
     public void WhiteOnG5()
     {
       var vmth = new ValidMovesTestHelper();
-      vmth.Init("g5", new Piece(vmth.Board.White, "香"));
+      vmth.Init("5g", new Piece(vmth.Board.White, "香"));
       // Can't move to i5 without promotion
-      var moves = new HashSet<Position> { "h5" };
+      var moves = new HashSet<Position> { "5h" };
 
       vmth.TestMoves(moves);
 
-      vmth.Board["i5"] = new Piece(vmth.Board.Black, PieceType.桂);
+      vmth.Board["5i"] = new Piece(vmth.Board.Black, PieceType.桂);
       vmth.TestMoves(moves);
 
-      vmth.Board["i5"] = new Piece(vmth.Board.White, PieceType.桂);
-      moves.ExceptWith(new Position[] {  "i5" });
+      vmth.Board["5i"] = new Piece(vmth.Board.White, PieceType.桂);
+      moves.ExceptWith(new Position[] {  "5i" });
       vmth.TestMoves(moves);
     }
 
@@ -38,18 +38,18 @@ namespace UnitTests
     public void BlackOnG5()
     {
       var vmth = new ValidMovesTestHelper();
-      vmth.Init("g5", new Piece(vmth.Board.Black, "香"));
+      vmth.Init("5g", new Piece(vmth.Board.Black, "香"));
       // Can't move to a5 without promotion
-      var moves = new HashSet<Position> { "b5", "c5", "d5", "e5", "f5" };
+      var moves = new HashSet<Position> {"5b", "5c", "5d", "5e", "5f"};
 
       vmth.TestMoves(moves);
 
-      vmth.Board["c5"] = new Piece(vmth.Board.White, PieceType.桂);
-      moves.ExceptWith(new Position[] { "b5", });
+      vmth.Board["5c"] = new Piece(vmth.Board.White, PieceType.桂);
+      moves.ExceptWith(new Position[] { "5b", });
       vmth.TestMoves(moves);
 
-      vmth.Board["c5"] = new Piece(vmth.Board.Black, PieceType.桂);
-      moves.ExceptWith(new Position[] { "c5" });
+      vmth.Board["5c"] = new Piece(vmth.Board.Black, PieceType.桂);
+      moves.ExceptWith(new Position[] { "5c" });
       vmth.TestMoves(moves);
     }
   }
