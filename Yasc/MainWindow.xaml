@@ -4,22 +4,21 @@
     xmlns:Yasc="clr-namespace:Yasc"
     xmlns:Utils="clr-namespace:Yasc.ShogiCore.Utils"
     xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore"
-    Title="MainWindow" Height="90" Width="90">
+    Title="MainWindow" Height="300" Width="300">
   <Window.Resources>
     <Yasc:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
-    
+
     <DataTemplate DataType="{x:Type ShogiCore:Piece}">
       <Grid Height="10" Width="10">
-        <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
+        <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".5"
               Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform">
           <Path.RenderTransform>
-            <RotateTransform CenterX="5" CenterY="5" 
-                             Angle="180"/>
+            <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
           </Path.RenderTransform>
         </Path>
 
         <TextBlock Text="{Binding Type}" FontSize="6"
-                     VerticalAlignment="Center" 
+                     VerticalAlignment="Center"
                      HorizontalAlignment="Center"/>
         <Grid.RenderTransform>
           <RotateTransform CenterX="5" CenterY="5"
@@ -29,24 +28,143 @@
       </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type Utils:Cell}">
-      <Border BorderThickness=".15" BorderBrush="Black">
-        <ContentPresenter Content="{Binding Piece}"/>
-      </Border>
+      <ContentPresenter Content="{Binding Piece}"/>
     </DataTemplate>
   </Window.Resources>
-  <!--  <StackPanel>-->
-  <!--    <Button Click="Button_Click">Connect</Button>-->
-  <Viewbox Margin="10">
-    <ItemsControl Width="180" Height="180" ItemsSource="{Binding}">
-      <ItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-          <UniformGrid Rows="9" Columns="9"/>
-        </ItemsPanelTemplate>
-      </ItemsControl.ItemsPanel>
-    </ItemsControl>
-<!--    <UniformGrid Rows="9" Columns="9"-->
-<!--                 x:Name="_board" Width="180" -->
-<!--                 Height="180"/>-->
-  </Viewbox>
-  <!--  </StackPanel>-->
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto" MinWidth="20"/>
+    </Grid.ColumnDefinitions>
+    <Yasc:UniformPanel>
+      <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.Resources>
+          <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
+            <Setter Property="Grid.RowSpan" Value="9"/>
+            <Setter Property="Grid.Row" Value="1"/>
+            <Setter Property="Data" Value="M0,0 0,1"/>
+            <Setter Property="Stretch" Value="Fill"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+          </Style>
+          <Style x:Key="HorizontalLine" TargetType="{x:Type Path}">
+            <Setter Property="Grid.ColumnSpan" Value="9"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="Data" Value="M0,0 1,0"/>
+            <Setter Property="Stretch" Value="Fill"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+          </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="15" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="15" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="15" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="15" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="a" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="b" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="c" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="d" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="e" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="f" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="g" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="8" Text="h" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="9" Text="i" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Column="10" Grid.Row="1" Text="a" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="2" Text="b" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="3" Text="c" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="4" Text="d" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="5" Text="e" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="6" Text="f" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="7" Text="g" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="8" Text="h" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="10" Grid.Row="9" Text="i" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        
+        <TextBlock Grid.Row="0" Grid.Column="9" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="8" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="7" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="6" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="5" Text="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="4" Text="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" Text="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Row="10" Grid.Column="9" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="8" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="7" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="6" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="5" Text="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="4" Text="6" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="3" Text="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="2" Text="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="10" Grid.Column="1" Text="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="1"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="2"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="3"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="4"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="5"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="6"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="7"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="8"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="9"/>
+        <Path Style="{StaticResource VerticalLine}" Grid.Column="9" HorizontalAlignment="Right"/>
+
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="1"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="2"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="3"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="4"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="5"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="6"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="7"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="8"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="9"/>
+        <Path Style="{StaticResource HorizontalLine}" Grid.Row="9" VerticalAlignment="Bottom"/>
+
+        <Viewbox
+                 Grid.Row="1" Grid.Column="1" 
+                 Grid.RowSpan="9" Grid.ColumnSpan="9">
+          
+          <ItemsControl ItemsSource="{Binding}" Width="150" Height="150"
+                        BorderBrush="Red" BorderThickness=".6">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <UniformGrid Rows="9" Columns="9"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+          </ItemsControl>
+        </Viewbox>
+      </Grid>
+    </Yasc:UniformPanel>
+    <Border BorderBrush="Green" BorderThickness="1" Grid.Column="1"/>
+  </Grid>
+
 </Window>
