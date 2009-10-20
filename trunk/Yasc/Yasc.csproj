@@ -45,9 +45,18 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -55,6 +64,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -68,6 +81,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ShogiBoard.cs" />
     <Compile Include="ShogiCore\AvailableMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />
     <Compile Include="ShogiCore\Moves\DropMoveSnapshot.cs" />
@@ -76,6 +90,7 @@
     <Compile Include="ShogiCore\Moves\Validation\DropMoveValidator.cs" />
     <Compile Include="ShogiCore\PromotionAnalyser.cs" />
     <Compile Include="ShogiCore\SituationAnalizer.cs" />
+    <Compile Include="UniformPanel.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
     <Compile Include="ShogiCore\Moves\Validation\UsualMovesValidator.cs" />
     <Compile Include="ShogiCore\Utils\MovesHistory.cs" />
