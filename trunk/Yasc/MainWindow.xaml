@@ -10,14 +10,15 @@
 
     <DataTemplate DataType="{x:Type ShogiCore:Piece}">
       <Grid Height="10" Width="10">
-        <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".5"
-              Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform">
+        <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
+              Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
           <Path.RenderTransform>
             <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
           </Path.RenderTransform>
         </Path>
 
-        <TextBlock Text="{Binding Type}" FontSize="6"
+        <TextBlock Text="{Binding Type}" FontSize="7" FontFamily="MS Mincho"
+                   Margin="0,1,0,0"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Center"/>
         <Grid.RenderTransform>
@@ -149,11 +150,20 @@
         <Path Style="{StaticResource HorizontalLine}" Grid.Row="9"/>
         <Path Style="{StaticResource HorizontalLine}" Grid.Row="9" VerticalAlignment="Bottom"/>
 
+        <Ellipse Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                 Fill="Black" Width="10" Height="10"/>
+        <Ellipse Grid.Row="6" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                 Fill="Black" Width="10" Height="10"/>
+        <Ellipse Grid.Row="3" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                 Fill="Black" Width="10" Height="10"/>
+        <Ellipse Grid.Row="6" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                 Fill="Black" Width="10" Height="10"/>
+        
         <Viewbox
                  Grid.Row="1" Grid.Column="1" 
                  Grid.RowSpan="9" Grid.ColumnSpan="9">
           
-          <ItemsControl ItemsSource="{Binding}" Width="150" Height="150"
+          <ItemsControl ItemsSource="{Binding}" Width="120" Height="120"
                         BorderBrush="Red" BorderThickness=".6">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
