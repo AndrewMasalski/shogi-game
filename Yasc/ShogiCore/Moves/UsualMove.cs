@@ -28,12 +28,7 @@ namespace Yasc.ShogiCore.Moves
     }
     protected internal override void Make()
     {
-//      if (Board[From] == null) return;
-
       if (IsPromoting) Board[From].IsPromoted = true;
-
-//      if (From == To) return;
-
       if (Board[To] != null)
         Who.Hand.Add(Board[To]);
       Board[To] = Board[From];
@@ -43,6 +38,11 @@ namespace Yasc.ShogiCore.Moves
     protected override string GetErrorMessage()
     {
       return UsualMovesValidator.GetError(BoardSnapshot, new UsualMoveSnapshot(this));
+    }
+
+    public override string ToString()
+    {
+      return From + "-" + To + (IsPromoting ? "+" : "");
     }
   }
 }

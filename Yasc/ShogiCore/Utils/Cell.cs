@@ -19,7 +19,7 @@ namespace Yasc.ShogiCore.Utils
       {
         if (_piece == value) return;
         _piece = value;
-        OnPropertyChanged("Type");
+        OnPropertyChanged("Piece");
       }
     }
 

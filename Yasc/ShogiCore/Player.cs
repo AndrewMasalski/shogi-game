@@ -40,5 +40,13 @@ namespace Yasc.ShogiCore
     {
       return Name ?? Color.ToString();
     }
+
+    public Piece GetPieceFromHandByType(PieceType pieceType)
+    {
+      foreach (var piece in Hand)
+        if (piece.Type == pieceType)
+          return piece;
+      return null;
+    }
   }
 }

@@ -31,5 +31,10 @@ namespace Yasc.ShogiCore.Moves
     {
       return DropMoveValidator.GetError(BoardSnapshot, new DropMoveSnapshot(this));
     }
+
+    public override string ToString()
+    {
+      return Piece + "'" + To;
+    }
   }
 }
