@@ -37,6 +37,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -81,6 +82,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Networking\ActionListener.cs" />
+    <Compile Include="Networking\PortUtils.cs" />
+    <Compile Include="Networking\IPlayerGameController.cs" />
+    <Compile Include="Networking\ISpectatorController.cs" />
+    <Compile Include="Networking\Server.cs" />
     <Compile Include="ShogiBoard.cs" />
     <Compile Include="ShogiCore\AvailableMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />

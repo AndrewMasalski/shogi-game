@@ -1,7 +1,9 @@
+using System;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.ShogiCore.Moves
 {
+  [Serializable]
   public class DropMoveSnapshot : MoveSnapshotBase
   {
     public PieceSnapshot Piece { get; private set; }

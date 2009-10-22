@@ -9,9 +9,6 @@ namespace Yasc
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiBoard),
         new FrameworkPropertyMetadata(typeof(ShogiBoard)));
-
     }
-
-    
   }
 }
