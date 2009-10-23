@@ -15,7 +15,7 @@ namespace Yasc.ShogiCore.Utils
       get
       {
         for (int i = 0; i < 9; i++)
-          for (int j = 0; j < 9; j++)
+          for (int j = 8; j >= 0; j--)
             yield return new Position(j, i);
       }
     }
