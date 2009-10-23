@@ -1,35 +1,46 @@
 ﻿<Window x:Class="Yasc.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Yasc="clr-namespace:Yasc"
-    xmlns:Utils="clr-namespace:Yasc.ShogiCore.Utils"
-    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore"
-    Title="MainWindow" Height="300" Width="300">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Yasc="clr-namespace:Yasc"
+        xmlns:Utils="clr-namespace:Yasc.ShogiCore.Utils"
+        xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore"
+        xmlns:local="clr-namespace:Yasc.GenericDragDrop"
+        Title="MainWindow" Height="300" Width="300">
   <Window.Resources>
     <Yasc:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
+    <Yasc:DragDropAdorner x:Key="DragDropAdorner"/>
 
     <DataTemplate DataType="{x:Type ShogiCore:Piece}">
-      <Grid Height="10" Width="10">
-        <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
-              Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
-          <Path.RenderTransform>
-            <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
-          </Path.RenderTransform>
-        </Path>
+      <Viewbox>
+        <Grid Height="14" Width="14">
+          <Grid Height="10" Width="10">
+            <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
+                  Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
+              <Path.RenderTransform>
+                <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
+              </Path.RenderTransform>
+            </Path>
 
-        <TextBlock Text="{Binding Type}" FontSize="7" FontFamily="MS Mincho"
-                   Margin="0,1,0,0"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"/>
-        <Grid.RenderTransform>
-          <RotateTransform CenterX="5" CenterY="5"
-                           Angle="{Binding Color, Mode=OneTime, 
-                             Converter={StaticResource ColorToAngleConverter}}"/>
-        </Grid.RenderTransform>
-      </Grid>
+            <TextBlock Text="{Binding Type}" FontSize="7" FontFamily="MS Mincho"
+                         Margin="0,1,0,0" 
+                         VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Grid.RenderTransform>
+              <RotateTransform CenterX="5" CenterY="5"
+                                 Angle="{Binding Color, Mode=OneTime, 
+                                 Converter={StaticResource ColorToAngleConverter}}"/>
+            </Grid.RenderTransform>
+          </Grid>
+        </Grid>
+      </Viewbox>
     </DataTemplate>
     <DataTemplate DataType="{x:Type Utils:Cell}">
-      <ContentPresenter Content="{Binding Piece}"/>
+      <Grid local:DragDropHelper.IsDragSource="true" 
+            local:DragDropHelper.DragDropControl="{StaticResource DragDropAdorner}"
+            local:DragDropHelper.DropTarget="ShogiBoardGrid"
+            local:DragDropHelper.AdornerLayer="adornerLayer">
+        <ContentPresenter Content="{Binding Piece}"/>
+
+      </Grid>
     </DataTemplate>
   </Window.Resources>
   <Grid>
@@ -38,7 +49,7 @@
       <ColumnDefinition Width="Auto" MinWidth="20"/>
     </Grid.ColumnDefinitions>
     <Yasc:UniformPanel>
-      <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+      <Grid Name="ShogiBoardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.Resources>
           <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
             <Setter Property="Grid.RowSpan" Value="9"/>
@@ -107,7 +118,7 @@
         <TextBlock Grid.Column="10" Grid.Row="7" Text="g" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="10" Grid.Row="8" Text="h" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Column="10" Grid.Row="9" Text="i" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        
+
         <TextBlock Grid.Row="0" Grid.Column="9" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="0" Grid.Column="8" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="0" Grid.Column="7" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -127,7 +138,7 @@
         <TextBlock Grid.Row="10" Grid.Column="3" Text="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="10" Grid.Column="2" Text="8" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="10" Grid.Column="1" Text="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        
+
         <Path Style="{StaticResource VerticalLine}" Grid.Column="1"/>
         <Path Style="{StaticResource VerticalLine}" Grid.Column="2"/>
         <Path Style="{StaticResource VerticalLine}" Grid.Column="3"/>
@@ -158,20 +169,17 @@
                  Fill="Black" Width="10" Height="10"/>
         <Ellipse Grid.Row="6" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2"
                  Fill="Black" Width="10" Height="10"/>
-        
-        <Viewbox
-                 Grid.Row="1" Grid.Column="1" 
-                 Grid.RowSpan="9" Grid.ColumnSpan="9">
-          
-          <ItemsControl ItemsSource="{Binding}" Width="120" Height="120"
-                        BorderBrush="Red" BorderThickness=".6">
-            <ItemsControl.ItemsPanel>
-              <ItemsPanelTemplate>
-                <UniformGrid Rows="9" Columns="9"/>
-              </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-          </ItemsControl>
-        </Viewbox>
+
+        <ItemsControl Grid.Row="1" Grid.Column="1"
+                      Grid.RowSpan="9" Grid.ColumnSpan="9"
+                      ItemsSource="{Binding}"
+                      BorderBrush="Red" BorderThickness="2">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <UniformGrid Rows="9" Columns="9"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
       </Grid>
     </Yasc:UniformPanel>
     <StackPanel Grid.Column="1">
@@ -180,7 +188,12 @@
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
       <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
       <Button Content="move" Click="OnMoveClick"/>
+      <Grid Width="80" Height="80">
+        <Grid.Background>
+          <VisualBrush Visual="{Binding ElementName=ShogiBoardGrid}"/>
+        </Grid.Background>
+      </Grid>
     </StackPanel>
+    <Canvas x:Name="adornerLayer" Visibility="Collapsed"/>
   </Grid>
-
 </Window>

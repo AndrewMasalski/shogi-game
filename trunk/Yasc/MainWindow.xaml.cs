@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Yasc.GenericDragDrop;
 using Yasc.Networking;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
@@ -20,6 +21,12 @@ namespace Yasc
       DataContext = _board;
       if (!Server.ServerIsStartedOnThisComputer)
         StartServer();
+      DragDropHelper.ItemDropped += DragDropHelperOnItemDropped;
+    }
+
+    private void DragDropHelperOnItemDropped(object sender, DragDropEventArgs args)
+    {
+
     }
 
     private void OnConnectClick(object sender, RoutedEventArgs e)
@@ -48,7 +55,7 @@ namespace Yasc
       {
         var move = _moveTextBox.Text;
         _board.MakeMove(_board.GetMove(move));
-        _ticket.Move(move);
+        if (_ticket != null) _ticket.Move(move);
       }
       catch (Exception x)
       {
