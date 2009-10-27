@@ -13,10 +13,6 @@ namespace Yasc.GenericDragDrop
       DependencyProperty.Register("AdornerDropState", typeof (DropState),
       typeof (DragDropAdornerBase), new UIPropertyMetadata(DropStateChanged));
 
-    public static readonly DependencyProperty SourceVisualProperty =
-      DependencyProperty.Register("SourceVisual", typeof(Visual),
-      typeof (DragDropAdornerBase));
-
     public DragDropAdornerBase()
     {
       var transGroup = new TransformGroup();
@@ -33,11 +29,6 @@ namespace Yasc.GenericDragDrop
     {
       get { return (DropState) GetValue(AdornerDropStateProperty); }
       set { SetValue(AdornerDropStateProperty, value); }
-    }
-    public Visual SourceVisual
-    {
-      get { return (Visual)GetValue(SourceVisualProperty); }
-      set { SetValue(SourceVisualProperty, value); }
     }
 
     private static void DropStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

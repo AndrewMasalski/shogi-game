@@ -1,82 +1,64 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace Yasc.GenericDragDrop
 {
-  public class DragDropHelper
+  public class DragDropHelper : IDisposable
   {
-    private static DragDropHelper _instance;
-    private DragDropAdornerBase _adorner;
-    private Canvas _adornerLayer;
-    private Point _delta;
-    private object _draggedData;
-    private Rect _dropBoundingBox;
-    private UIElement _dropTarget;
+    private readonly UIElement _dragSource;
+    private MyAdorner _adorner;
     private Point _initialMousePosition;
     private bool _mouseCaptured;
-    private Point _scrollTarget;
-    private Visual _draggedVisual;
 
     private Window _topWindow;
 
-    private static DragDropHelper Instance
-    {
-      get
-      {
-        if (_instance == null)
-        {
-          _instance = new DragDropHelper();
-        }
-        return _instance;
-      }
-    }
-
     #region Attached Properties
 
-    public static readonly DependencyProperty AdornerLayerProperty =
-      DependencyProperty.RegisterAttached("AdornerLayer", typeof (string), 
-      typeof (DragDropHelper), new UIPropertyMetadata(null));
-
-    public static readonly DependencyProperty DragDropControlProperty =
-      DependencyProperty.RegisterAttached("DragDropControl", typeof (UIElement), 
-      typeof (DragDropHelper), new UIPropertyMetadata(null));
-
     public static readonly DependencyProperty DropTargetProperty =
-      DependencyProperty.RegisterAttached("DropTarget", typeof (string), 
-      typeof (DragDropHelper), new UIPropertyMetadata(string.Empty));
+      DependencyProperty.RegisterAttached("DropTarget", typeof(string),
+      typeof(DragDropHelper), new UIPropertyMetadata(string.Empty));
 
     public static readonly DependencyProperty IsDragSourceProperty =
-      DependencyProperty.RegisterAttached("IsDragSource", typeof (bool), 
-      typeof (DragDropHelper), new UIPropertyMetadata(false, IsDragSourceChanged));
+      DependencyProperty.RegisterAttached("IsDragSource", typeof(bool),
+      typeof(DragDropHelper), new UIPropertyMetadata(false, IsDragSourceChanged));
 
+    private static readonly DependencyPropertyKey DragDropHelperPropertyKey =
+      DependencyProperty.RegisterAttachedReadOnly("DragDropHelper", typeof(DragDropHelper),
+      typeof(DragDropHelper), new UIPropertyMetadata(null));
+
+    public static readonly DependencyProperty DragDropHelperProperty = DragDropHelperPropertyKey.DependencyProperty;
+    private bool _started;
+    private AdornerLayer _adornerLayer;
+
+    private DragDropHelper(UIElement dragSource)
+    {
+      _dragSource = dragSource;
+      _dragSource.PreviewMouseLeftButtonDown += DragSourcePreviewMouseDown;
+      _dragSource.PreviewMouseLeftButtonUp += DragSourcePreviewMouseLeftButtonUp;
+      _dragSource.PreviewMouseMove += DragSourcePreviewMouseMove;
+    }
+
+    public static DragDropHelper GetDragDropHelper(DependencyObject obj)
+    {
+      return (DragDropHelper)obj.GetValue(DragDropHelperProperty);
+    }
 
     public static bool GetIsDragSource(DependencyObject obj)
     {
-      return (bool) obj.GetValue(IsDragSourceProperty);
+      return (bool)obj.GetValue(IsDragSourceProperty);
     }
-
     public static void SetIsDragSource(DependencyObject obj, bool value)
     {
       obj.SetValue(IsDragSourceProperty, value);
     }
 
-    public static UIElement GetDragDropControl(DependencyObject obj)
-    {
-      return (UIElement) obj.GetValue(DragDropControlProperty);
-    }
-
-    public static void SetDragDropControl(DependencyObject obj, UIElement value)
-    {
-      obj.SetValue(DragDropControlProperty, value);
-    }
 
     public static string GetDropTarget(DependencyObject obj)
     {
-      return (string) obj.GetValue(DropTargetProperty);
+      return (string)obj.GetValue(DropTargetProperty);
     }
 
     public static void SetDropTarget(DependencyObject obj, string value)
@@ -84,225 +66,95 @@ namespace Yasc.GenericDragDrop
       obj.SetValue(DropTargetProperty, value);
     }
 
-    public static string GetAdornerLayer(DependencyObject obj)
-    {
-      return (string) obj.GetValue(AdornerLayerProperty);
-    }
-
-    public static void SetAdornerLayer(DependencyObject obj, string value)
-    {
-      obj.SetValue(AdornerLayerProperty, value);
-    }
-
-
     private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
     {
       var dragSource = obj as UIElement;
-      if (dragSource == null) return;
-      if (Equals(e.NewValue, true))
+
+      if (dragSource == null)
+        throw new NotSupportedException(
+          "You can't set DragDropHelper.IsDragSource if object is not UIElement ");
+
+      var value = (bool)e.NewValue;
+      var helper = GetDragDropHelper(dragSource);
+      if (value && helper == null)
       {
-        dragSource.PreviewMouseLeftButtonDown += Instance.DragSourcePreviewMouseLeftButtonDown;
-        dragSource.PreviewMouseLeftButtonUp += Instance.DragSourcePreviewMouseLeftButtonUp;
-        dragSource.PreviewMouseMove += Instance.DragSourcePreviewMouseMove;
+        dragSource.SetValue(DragDropHelperPropertyKey, new DragDropHelper(dragSource));
       }
-      else
+      else if (!value && helper != null)
       {
-        dragSource.PreviewMouseLeftButtonDown -= Instance.DragSourcePreviewMouseLeftButtonDown;
-        dragSource.PreviewMouseLeftButtonUp -= Instance.DragSourcePreviewMouseLeftButtonUp;
-        dragSource.PreviewMouseMove -= Instance.DragSourcePreviewMouseMove;
+        helper.Dispose();
+        dragSource.ClearValue(DragDropHelperPropertyKey);
       }
     }
 
     #endregion
 
-    #region Utilities
-
-    public static FrameworkElement FindAncestor(Type ancestorType, Visual visual)
-    {
-      while (visual != null && !ancestorType.IsInstanceOfType(visual))
-      {
-        visual = (Visual) VisualTreeHelper.GetParent(visual);
-      }
-      return visual as FrameworkElement;
-    }
-
-    public static bool IsMovementBigEnough(Point initialMousePosition, Point currentPosition)
-    {
-      return (Math.Abs(currentPosition.X - initialMousePosition.X) >= SystemParameters.MinimumHorizontalDragDistance ||
-              Math.Abs(currentPosition.Y - initialMousePosition.Y) >= SystemParameters.MinimumVerticalDragDistance);
-    }
-
-    #endregion
 
     #region Drag Handlers
 
-    private void DragSourcePreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    private void DragSourcePreviewMouseDown(object sender, MouseButtonEventArgs e)
     {
-      try
-      {
-        var visual = e.OriginalSource as Visual;
-        _topWindow = (Window) FindAncestor(typeof (Window), visual);
-        _initialMousePosition = e.GetPosition(_topWindow);
-
-        string adornerLayerName = GetAdornerLayer(sender as DependencyObject);
-        _adornerLayer = (Canvas) _topWindow.FindName(adornerLayerName);
-
-        string dropTargetName = GetDropTarget(sender as DependencyObject);
-        _dropTarget = (UIElement) _topWindow.FindName(dropTargetName);
-
-        _draggedData = sender;
-        _draggedVisual = (Visual) sender;
-      }
-      catch (Exception exc)
-      {
-        Console.WriteLine("Exception in DragDropHelper: " + exc.InnerException);
-      }
+      _topWindow = _dragSource.FindAncestor<Window>();
+      _initialMousePosition = e.GetPosition(_topWindow);
+      _started = true;
     }
 
-    // Drag = mouse down + move by a certain amount
     private void DragSourcePreviewMouseMove(object sender, MouseEventArgs e)
     {
-      if (!_mouseCaptured && _draggedData != null)
-      {
-        // Only drag when user moved the mouse by a reasonable amount.
-        if (IsMovementBigEnough(_initialMousePosition, e.GetPosition(_topWindow)))
-        {
-          _adorner = (DragDropAdornerBase) GetDragDropControl(sender as DependencyObject);
-          _adorner.DataContext = _draggedData;
-//          _adorner.SourceVisual = _draggedVisual;
-          _adorner.Opacity = 0.7;
+      if (!_started || _mouseCaptured) return;
 
-          _adornerLayer.Visibility = Visibility.Visible;
-          _adornerLayer.Children.Add(_adorner);
-          _mouseCaptured = Mouse.Capture(_adorner);
+      _adornerLayer = AdornerLayer.GetAdornerLayer((Visual)sender);
+      _adorner = new MyAdorner((FrameworkElement)sender);
+      _adornerLayer.Add(_adorner);
 
-          Canvas.SetLeft(_adorner, _initialMousePosition.X - 20);
-          Canvas.SetTop(_adorner, _initialMousePosition.Y - 15);
-          _adornerLayer.PreviewMouseMove += AdornerMouseMove;
-          _adornerLayer.PreviewMouseUp += AdornerMouseUp;
-        }
-      }
+      _mouseCaptured = _adorner.CaptureMouse();
+
+      _topWindow.PreviewMouseMove += AdornerMouseMove;
+      _topWindow.PreviewMouseUp += AdornerMouseUp;
     }
 
     private void AdornerMouseMove(object sender, MouseEventArgs e)
     {
-      Point currentPoint = e.GetPosition(_topWindow);
-      currentPoint.X = currentPoint.X - 20;
-      currentPoint.Y = currentPoint.Y - 15;
-
-      _delta = new Point(_initialMousePosition.X - currentPoint.X, _initialMousePosition.Y - currentPoint.Y);
-      _scrollTarget = new Point(_initialMousePosition.X - _delta.X, _initialMousePosition.Y - _delta.Y);
-
-      Canvas.SetLeft(_adorner, _scrollTarget.X);
-      Canvas.SetTop(_adorner, _scrollTarget.Y);
-
-      _adorner.AdornerDropState = DropState.CannotDrop;
-
-      if (_dropTarget != null)
-      {
-        GeneralTransform t = _dropTarget.TransformToVisual(_adornerLayer);
-        _dropBoundingBox = t.TransformBounds(new Rect(0, 0, _dropTarget.RenderSize.Width, _dropTarget.RenderSize.Height));
-
-        if (e.GetPosition(_adornerLayer).X > _dropBoundingBox.Left &&
-            e.GetPosition(_adornerLayer).X < _dropBoundingBox.Right &&
-            e.GetPosition(_adornerLayer).Y > _dropBoundingBox.Top &&
-            e.GetPosition(_adornerLayer).Y < _dropBoundingBox.Bottom)
-        {
-          _adorner.AdornerDropState = DropState.CanDrop;
-        }
-      }
+      _adorner.Offset = e.GetPosition(_topWindow) - _initialMousePosition;
     }
 
     private void AdornerMouseUp(object sender, MouseEventArgs e)
     {
-      switch (_adorner.AdornerDropState)
-      {
-        case DropState.CanDrop:
-          try
-          {
-            var storyboard = ((Storyboard) _adorner.Resources["canDrop"]);
-            storyboard.Completed += (s, args) =>
-                {
-                  _adornerLayer.Children.Clear();
-                  _adornerLayer.Visibility = Visibility.Collapsed;
-                };
-            storyboard.Begin(_adorner);
+      _topWindow.PreviewMouseMove -= AdornerMouseMove;
+      _topWindow.PreviewMouseUp -= AdornerMouseUp;
 
-            if (ItemDropped != null)
-              ItemDropped(_adorner, new DragDropEventArgs(_draggedData));
-          }
-          catch (Exception x)
-          {
-            Console.WriteLine(x);
-          }
-          break;
-        case DropState.CannotDrop:
-          try
-          {
-            var sb = (Storyboard)_adorner.Resources["cannotDrop"];
-            var aniX = (DoubleAnimation)sb.Children[0];
-            aniX.To = _delta.X;
-            var aniY = (DoubleAnimation)sb.Children[1];
-            aniY.To = _delta.Y;
-            sb.Completed += (s, args) =>
-                              {
-                                _adornerLayer.Children.Clear();
-                                _adornerLayer.Visibility = Visibility.Collapsed;
-                              };
-            sb.Begin(_adorner);
-          }
-          catch (Exception x)
-          {
-            Console.WriteLine(x);
-          }
-          break;
-      }
-
-      _draggedData = null;
-      _draggedVisual = null;
-      _adornerLayer.PreviewMouseMove -= AdornerMouseMove;
-      _adornerLayer.PreviewMouseUp -= AdornerMouseUp;
-
-      if (_adorner != null)
-      {
-        _adorner.ReleaseMouseCapture();
-      }
-      _adorner = null;
-      _mouseCaptured = false;
+      Release();
     }
 
     private void DragSourcePreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
-      _draggedData = null;
-      _draggedVisual = null;
+      Release();
+    }
+
+    private void Release()
+    {
       _mouseCaptured = false;
+      _started = false;
 
       if (_adorner != null)
       {
         _adorner.ReleaseMouseCapture();
+        _adornerLayer.Remove(_adorner);
       }
+      _adorner = null;
     }
 
     #endregion
 
-    #region Events
+    #region Implementation of IDisposable
 
-    public static event EventHandler<DragDropEventArgs> ItemDropped;
+    public void Dispose()
+    {
+      _dragSource.PreviewMouseLeftButtonDown -= DragSourcePreviewMouseDown;
+      _dragSource.PreviewMouseLeftButtonUp -= DragSourcePreviewMouseLeftButtonUp;
+      _dragSource.PreviewMouseMove -= DragSourcePreviewMouseMove;
+    }
 
     #endregion
-  }
-
-  public class DragDropEventArgs : EventArgs
-  {
-    public object Content;
-
-    public DragDropEventArgs()
-    {
-    }
-
-    public DragDropEventArgs(object content)
-    {
-      Content = content;
-    }
   }
 }

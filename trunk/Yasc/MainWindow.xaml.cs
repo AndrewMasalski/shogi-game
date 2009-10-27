@@ -21,12 +21,6 @@ namespace Yasc
       DataContext = _board;
       if (!Server.ServerIsStartedOnThisComputer)
         StartServer();
-      DragDropHelper.ItemDropped += DragDropHelperOnItemDropped;
-    }
-
-    private void DragDropHelperOnItemDropped(object sender, DragDropEventArgs args)
-    {
-
     }
 
     private void OnConnectClick(object sender, RoutedEventArgs e)
