@@ -34,7 +34,9 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type Utils:Cell}">
       <Grid local:DragDropHelper.IsDragSource="true"
-            local:DragDropHelper.DropTarget="ShogiBoardGrid">
+            local:DragDropHelper.DropTarget="ShogiBoardGrid"
+            Background="Transparent">     
+        
         <ContentPresenter Content="{Binding Piece}"/>
 
       </Grid>
@@ -45,7 +47,7 @@
       <ColumnDefinition Width="*"/>
       <ColumnDefinition Width="Auto" MinWidth="20"/>
     </Grid.ColumnDefinitions>
-    <Yasc:UniformPanel>
+    <Yasc:UniformPanel local:DragDropHelper.Drop="DropHandler">
       <Grid Name="ShogiBoardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.Resources>
           <Style x:Key="VerticalLine" TargetType="{x:Type Path}">

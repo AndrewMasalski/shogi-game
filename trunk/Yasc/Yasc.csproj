@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="GenericDragDrop\DragDropAdornerBase.cs" />
     <Compile Include="GenericDragDrop\DragDropHelper.cs" />
+    <Compile Include="GenericDragDrop\DropEventArgs.cs" />
     <Compile Include="GenericDragDrop\MyAdorner.cs" />
     <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
     <Compile Include="Networking\ActionListener.cs" />
