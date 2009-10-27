@@ -91,6 +91,8 @@
     </Compile>
     <Compile Include="GenericDragDrop\DragDropAdornerBase.cs" />
     <Compile Include="GenericDragDrop\DragDropHelper.cs" />
+    <Compile Include="GenericDragDrop\MyAdorner.cs" />
+    <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
     <Compile Include="Networking\ActionListener.cs" />
     <Compile Include="Networking\PortUtils.cs" />
     <Compile Include="Networking\IPlayerGameController.cs" />

@@ -8,7 +8,6 @@
         Title="MainWindow" Height="300" Width="300">
   <Window.Resources>
     <Yasc:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
-    <Yasc:DragDropAdorner x:Key="DragDropAdorner"/>
 
     <DataTemplate DataType="{x:Type ShogiCore:Piece}">
       <Viewbox>
@@ -34,10 +33,8 @@
       </Viewbox>
     </DataTemplate>
     <DataTemplate DataType="{x:Type Utils:Cell}">
-      <Grid local:DragDropHelper.IsDragSource="true" 
-            local:DragDropHelper.DragDropControl="{StaticResource DragDropAdorner}"
-            local:DragDropHelper.DropTarget="ShogiBoardGrid"
-            local:DragDropHelper.AdornerLayer="adornerLayer">
+      <Grid local:DragDropHelper.IsDragSource="true"
+            local:DragDropHelper.DropTarget="ShogiBoardGrid">
         <ContentPresenter Content="{Binding Piece}"/>
 
       </Grid>
@@ -183,7 +180,7 @@
       </Grid>
     </Yasc:UniformPanel>
     <StackPanel Grid.Column="1">
-      <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton"/>
+      <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />
       <TextBox x:Name="_address" Text="ws098"/>
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
       <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
@@ -194,6 +191,5 @@
         </Grid.Background>
       </Grid>
     </StackPanel>
-    <Canvas x:Name="adornerLayer" Visibility="Collapsed"/>
   </Grid>
 </Window>
