@@ -66,5 +66,12 @@ namespace Yasc
       Server.Start();
       _startServerButton.Content = "Done!";
     }
+
+    private void DropHandler(object sender, DropEventArgs e)
+    {
+      var from = (Cell) e.DragSource.DataContext;
+      var to = (Cell) e.DragTarget.DataContext;
+      _board.MakeMove(_board.GetUsualMove(from.Position, to.Position, false));
+    }
   }
 }

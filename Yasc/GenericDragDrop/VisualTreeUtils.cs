@@ -18,13 +18,16 @@ namespace Yasc.GenericDragDrop
       }
       return res;
     }
-    public static DependencyObject FindAncestor(this DependencyObject obj, Predicate<DependencyObject> predicate)
+    public static T FindAncestor<T>(this DependencyObject obj, Predicate<T> predicate)
+      where T : DependencyObject
     {
-      while (obj != null && !predicate(obj))
+      var res = obj as T;
+      while (res == null || !predicate(res))
       {
         obj = VisualTreeHelper.GetParent(obj);
+        res = obj as T;
       }
-      return obj;
+      return res;
     }
 
     public static T FindChild<T>(this DependencyObject obj)
