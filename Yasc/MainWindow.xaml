@@ -33,8 +33,8 @@
       </Viewbox>
     </DataTemplate>
     <DataTemplate DataType="{x:Type Utils:Cell}">
-      <Grid local:DragDropHelper.IsDragSource="true"
-            local:DragDropHelper.DropTarget="ShogiBoardGrid"
+      <Grid local:Dnd.IsDragSource="true"
+            local:Dnd.IsDropTarget="true"
             Background="Transparent">     
         
         <ContentPresenter Content="{Binding Piece}"/>
@@ -47,7 +47,7 @@
       <ColumnDefinition Width="*"/>
       <ColumnDefinition Width="Auto" MinWidth="20"/>
     </Grid.ColumnDefinitions>
-    <Yasc:UniformPanel local:DragDropHelper.Drop="DropHandler">
+    <Yasc:UniformPanel local:Dnd.Drop="DropHandler">
       <Grid Name="ShogiBoardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.Resources>
           <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
@@ -187,11 +187,6 @@
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
       <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
       <Button Content="move" Click="OnMoveClick"/>
-      <Grid Width="80" Height="80">
-        <Grid.Background>
-          <VisualBrush Visual="{Binding ElementName=ShogiBoardGrid}"/>
-        </Grid.Background>
-      </Grid>
     </StackPanel>
   </Grid>
 </Window>

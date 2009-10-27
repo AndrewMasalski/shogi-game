@@ -5,21 +5,21 @@ using System.Windows.Input;
 
 namespace Yasc.GenericDragDrop
 {
-  public class DragDropHelper : IDisposable
+  public class Dnd : IDisposable
   {
     #region ' Static Stuff '
 
-    public static readonly DependencyProperty DropTargetProperty =
-      DependencyProperty.RegisterAttached("DropTarget", typeof(string),
-      typeof(DragDropHelper), new UIPropertyMetadata(string.Empty));
+    public static readonly DependencyProperty IsDropTargetProperty =
+      DependencyProperty.RegisterAttached("IsDropTarget", typeof(bool),
+      typeof(Dnd), new UIPropertyMetadata(false));
 
     public static readonly DependencyProperty IsDragSourceProperty =
       DependencyProperty.RegisterAttached("IsDragSource", typeof(bool),
-      typeof(DragDropHelper), new UIPropertyMetadata(false, IsDragSourceChanged));
+      typeof(Dnd), new UIPropertyMetadata(false, IsDragSourceChanged));
 
     private static readonly DependencyPropertyKey DragDropHelperPropertyKey =
-      DependencyProperty.RegisterAttachedReadOnly("DragDropHelper", typeof(DragDropHelper),
-      typeof(DragDropHelper), new UIPropertyMetadata(null));
+      DependencyProperty.RegisterAttachedReadOnly("Dnd", typeof(Dnd),
+      typeof(Dnd), new UIPropertyMetadata(null));
 
     private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
     {
@@ -27,13 +27,13 @@ namespace Yasc.GenericDragDrop
 
       if (dragSource == null)
         throw new NotSupportedException(
-          "You can't set DragDropHelper.IsDragSource if object is not UIElement ");
+          "You can't set Dnd.IsDragSource if object is not UIElement ");
 
       var value = (bool)e.NewValue;
       var helper = GetDragDropHelper(dragSource);
       if (value && helper == null)
       {
-        dragSource.SetValue(DragDropHelperPropertyKey, new DragDropHelper(dragSource));
+        dragSource.SetValue(DragDropHelperPropertyKey, new Dnd(dragSource));
       }
       else if (!value && helper != null)
       {
@@ -43,9 +43,9 @@ namespace Yasc.GenericDragDrop
     }
 
     public static readonly DependencyProperty DragDropHelperProperty = DragDropHelperPropertyKey.DependencyProperty;
-    public static DragDropHelper GetDragDropHelper(DependencyObject obj)
+    public static Dnd GetDragDropHelper(DependencyObject obj)
     {
-      return (DragDropHelper)obj.GetValue(DragDropHelperProperty);
+      return (Dnd)obj.GetValue(DragDropHelperProperty);
     }
     public static bool GetIsDragSource(DependencyObject obj)
     {
@@ -55,17 +55,17 @@ namespace Yasc.GenericDragDrop
     {
       obj.SetValue(IsDragSourceProperty, value);
     }
-    public static string GetDropTarget(DependencyObject obj)
+    public static bool GetIsDropTarget(DependencyObject obj)
     {
-      return (string)obj.GetValue(DropTargetProperty);
+      return (bool)obj.GetValue(IsDropTargetProperty);
     }
-    public static void SetDropTarget(DependencyObject obj, string value)
+    public static void SetIsDropTarget(DependencyObject obj, bool value)
     {
-      obj.SetValue(DropTargetProperty, value);
+      obj.SetValue(IsDropTargetProperty, value);
     }
 
     public static readonly RoutedEvent DropEvent = EventManager.RegisterRoutedEvent(
-        "Drop", RoutingStrategy.Bubble, typeof(EventHandler<DropEventArgs>), typeof(DragDropHelper));
+        "Drop", RoutingStrategy.Bubble, typeof(EventHandler<DropEventArgs>), typeof(Dnd));
 
     public static void AddDropHandler(DependencyObject d, EventHandler<DropEventArgs> handler)
     {
@@ -83,20 +83,20 @@ namespace Yasc.GenericDragDrop
 
     #endregion
 
-    private DragDropHelper(FrameworkElement dragSource)
+    private Dnd(FrameworkElement dragSource)
     {
       _dragSource = dragSource;
       _dragSource.PreviewMouseLeftButtonDown += MouseDown;
     }
 
-    private MyAdorner Adorner
+    private DndAdorner Adorner
     {
       get
       {
         if (_adorner == null)
         {
           _adornerLayer = AdornerLayer.GetAdornerLayer(_dragSource);
-          _adorner = new MyAdorner(_dragSource) { IsHitTestVisible = false };
+          _adorner = new DndAdorner(_dragSource) { IsHitTestVisible = false };
           _adornerLayer.Add(_adorner);
         }
         return _adorner;
@@ -123,7 +123,7 @@ namespace Yasc.GenericDragDrop
     private void MouseUp(object sender, MouseEventArgs e)
     {
       var target = ((DependencyObject) e.OriginalSource).
-        FindAncestor<FrameworkElement>(a => GetDropTarget(a) == "ShogiBoardGrid");
+        FindAncestor<FrameworkElement>(GetIsDropTarget);
       if (target != null)
         RaiseDropEvent(target, _dragSource);
       Release();
@@ -142,7 +142,7 @@ namespace Yasc.GenericDragDrop
 
     #region ' Fields '
 
-    private MyAdorner _adorner;
+    private DndAdorner _adorner;
     private AdornerLayer _adornerLayer;
     private Window _topWindow;
 
