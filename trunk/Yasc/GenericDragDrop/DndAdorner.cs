@@ -4,13 +4,13 @@ using System.Windows.Media;
 
 namespace Yasc.GenericDragDrop
 {
-  public class MyAdorner : Adorner
+  public class DndAdorner : Adorner
   {
     private readonly FrameworkElement _adornedElement;
     private readonly VisualBrush _brush;
 
     public static readonly DependencyProperty OffsetProperty =
-      DependencyProperty.Register("Offset", typeof(Vector), typeof(MyAdorner),
+      DependencyProperty.Register("Offset", typeof(Vector), typeof(DndAdorner),
         new FrameworkPropertyMetadata(new Vector(),
           FrameworkPropertyMetadataOptions.AffectsRender));
 
@@ -20,7 +20,7 @@ namespace Yasc.GenericDragDrop
       set { SetValue(OffsetProperty, value); }
     }
 
-    public MyAdorner(FrameworkElement adornedElement)
+    public DndAdorner(FrameworkElement adornedElement)
       : base(adornedElement)
     {
       _adornedElement = adornedElement;

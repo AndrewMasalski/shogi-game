@@ -71,7 +71,8 @@ namespace Yasc
     {
       var from = (Cell) e.DragSource.DataContext;
       var to = (Cell) e.DragTarget.DataContext;
-      _board.MakeMove(_board.GetUsualMove(from.Position, to.Position, false));
+      var move = _board.GetUsualMove(from.Position, to.Position, false);
+      if (move.IsValid) _board.MakeMove(move);
     }
   }
 }
