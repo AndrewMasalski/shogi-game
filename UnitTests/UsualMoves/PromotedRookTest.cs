@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
-namespace UnitTests
+namespace UnitTests.UsualMoves
 {
   [TestClass]
   public class PromotedRookTest
@@ -21,11 +21,11 @@ namespace UnitTests
       var vmth = new ValidMovesTestHelper();
       vmth.Init("5g", new Piece(vmth.Board.White, "竜"));
       var initialValidMoves = new HashSet<Position> {
-            "1g", "2g", "3g", "7g", "8g", "9g",  
-            "5a", "5b", "5c", "5d", "5e", "5i",  
-            "4f", "5f", "6f", 
-            "4g", "6g",  
-            "4h", "5h", "6h", };
+                                                      "1g", "2g", "3g", "7g", "8g", "9g",  
+                                                      "5a", "5b", "5c", "5d", "5e", "5i",  
+                                                      "4f", "5f", "6f", 
+                                                      "4g", "6g",  
+                                                      "4h", "5h", "6h", };
 
       vmth.TestMoves(initialValidMoves);
 
@@ -45,12 +45,12 @@ namespace UnitTests
       var vmth = new ValidMovesTestHelper();
       vmth.Init("5g", new Piece(vmth.Board.Black, "竜"));
       var initialValidMoves = new HashSet<Position> {
-        "1g", "2g", "3g", "7g", "8g", "9g",  
-        "5a", "5b", "5c", "5d", "5e", "5i",  
-        "4f", "5f", "6f", 
-        "4g", "6g",
-        "4h", "5h", "6h", 
-      };
+                                                      "1g", "2g", "3g", "7g", "8g", "9g",  
+                                                      "5a", "5b", "5c", "5d", "5e", "5i",  
+                                                      "4f", "5f", "6f", 
+                                                      "4g", "6g",
+                                                      "4h", "5h", "6h", 
+                                                    };
 
       vmth.TestMoves(initialValidMoves);
 
