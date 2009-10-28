@@ -68,6 +68,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MoveTest.cs" />
+    <Compile Include="PieceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsualMoves\BishopTest.cs">
       <SubType>Code</SubType>

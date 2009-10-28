@@ -75,7 +75,16 @@ namespace Yasc
       {
         var from = (Cell) e.DragSource.DataContext;
         var to = (Cell) e.DragTarget.DataContext;
-        move = _board.GetUsualMove(from.Position, to.Position, false);
+        var m1 = _board.GetUsualMove(from.Position, to.Position, false);
+        var m2 = _board.GetUsualMove(from.Position, to.Position, true);
+        if (m1.IsValid && m2.IsValid)
+        {
+          var answer = MessageBox.Show("Promote?", "Q",
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+          move = answer == MessageBoxResult.Yes ? m2 : m1;
+        }
+        else if (m1.IsValid) move = m1;
+        else if (m2.IsValid) move = m2;
       }
       else
       {
@@ -84,12 +93,18 @@ namespace Yasc
         move = _board.GetDropMove(piece, to.Position);
       }
 
-      if (move != null && move.IsValid)
+      if (move != null)
       {
-        _board.MakeMove(move);
+        if (move.IsValid)
+        {
+          _board.MakeMove(move);
 
-        if (_ticket != null) 
-          _ticket.Move(move.ToString());
+          if (_ticket != null)
+          {
+            _ticket.Move(move.ToString());
+          }
+        }
+        else _errorText.Text = move.ErrorMessage;
       }
     }
   }

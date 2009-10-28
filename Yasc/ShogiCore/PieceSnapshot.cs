@@ -27,7 +27,7 @@ namespace Yasc.ShogiCore
 
     public bool IsThatPromitionZoneFor(Position p)
     {
-      return HowFarFromTheLastLine(p) <= 3;
+      return HowFarFromTheLastLine(p) < 3;
     }
     public int HowFarFromTheLastLine(Position p)
     {
