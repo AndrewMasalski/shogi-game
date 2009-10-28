@@ -11,7 +11,7 @@ namespace Yasc.ShogiCore.Moves
 
     public DropMoveSnapshot(DropMove move)
     {
-      Piece = new PieceSnapshot(move.Piece);
+      Piece = new PieceSnapshot(move.PieceType, move.Who.Color);
       To = move.To;
     }
 

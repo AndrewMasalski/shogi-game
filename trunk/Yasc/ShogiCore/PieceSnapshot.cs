@@ -19,7 +19,7 @@ namespace Yasc.ShogiCore
       Color = piece.Color;
       Type = piece.Type;
     }
-    private PieceSnapshot(PieceType type, PieceColor color)
+    public PieceSnapshot(PieceType type, PieceColor color)
     {
       Type = type;
       Color = color;

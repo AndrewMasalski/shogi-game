@@ -3,6 +3,7 @@ using System.Windows;
 using Yasc.GenericDragDrop;
 using Yasc.Networking;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc
@@ -69,19 +70,26 @@ namespace Yasc
 
     private void DropHandler(object sender, DropEventArgs e)
     {
+      MoveBase move = null;
       if (e.DragSource.DataContext is Cell)
       {
         var from = (Cell) e.DragSource.DataContext;
         var to = (Cell) e.DragTarget.DataContext;
-        var move = _board.GetUsualMove(from.Position, to.Position, false);
-        if (move.IsValid) _board.MakeMove(move);
+        move = _board.GetUsualMove(from.Position, to.Position, false);
       }
       else
       {
         var piece = (Piece)e.DragSource.DataContext;
         var to = (Cell)e.DragTarget.DataContext;
-        var move = _board.GetDropMove(piece, to.Position);
-        if (move.IsValid) _board.MakeMove(move);
+        move = _board.GetDropMove(piece, to.Position);
+      }
+
+      if (move != null && move.IsValid)
+      {
+        _board.MakeMove(move);
+
+        if (_ticket != null) 
+          _ticket.Move(move.ToString());
       }
     }
   }
