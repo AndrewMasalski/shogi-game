@@ -44,10 +44,13 @@
   </Window.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="60"/>
       <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="60"/>
       <ColumnDefinition Width="Auto" MinWidth="20"/>
     </Grid.ColumnDefinitions>
-    <Yasc:UniformPanel local:Dnd.Drop="DropHandler">
+    <ItemsControl Grid.Column="0" ItemsSource="{Binding White.Hand}"/>
+    <Yasc:UniformPanel local:Dnd.Drop="DropHandler" Grid.Column="1">
       <Grid Name="ShogiBoardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.Resources>
           <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
@@ -181,7 +184,8 @@
         </ItemsControl>
       </Grid>
     </Yasc:UniformPanel>
-    <StackPanel Grid.Column="1">
+    <ItemsControl Grid.Column="2" ItemsSource="{Binding Black.Hand}"/>
+    <StackPanel Grid.Column="3">
       <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />
       <TextBox x:Name="_address" Text="ws098"/>
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
