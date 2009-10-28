@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
-namespace UnitTests
+namespace UnitTests.UsualMoves
 {
   [TestClass]
   public class RookTest
@@ -21,9 +21,9 @@ namespace UnitTests
       var vmth = new ValidMovesTestHelper();
       vmth.Init("5g", new Piece(vmth.Board.White, "飛"));
       var moves = new HashSet<Position> {
-               "1g", "2g", "3g", "4g", "6g", "7g", "8g", "9g",  
-               "5a", "5b", "5c", "5d", "5e", "5f","5h", "5i",  
-           };
+                                          "1g", "2g", "3g", "4g", "6g", "7g", "8g", "9g",  
+                                          "5a", "5b", "5c", "5d", "5e", "5f","5h", "5i",  
+                                        };
 
       vmth.TestMoves(moves);
 
@@ -43,9 +43,9 @@ namespace UnitTests
       var vmth = new ValidMovesTestHelper();
       vmth.Init("5g", new Piece(vmth.Board.Black, "飛"));
       var moves = new HashSet<Position> {
-               "1g", "2g", "3g", "4g", "6g", "7g", "8g", "9g",  
-               "5a", "5b", "5c", "5d", "5e", "5f","5h", "5i",  
-             };
+                                          "1g", "2g", "3g", "4g", "6g", "7g", "8g", "9g",  
+                                          "5a", "5b", "5c", "5d", "5e", "5f","5h", "5i",  
+                                        };
 
       vmth.TestMoves(moves);
 

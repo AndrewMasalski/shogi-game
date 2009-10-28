@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
-namespace UnitTests
+namespace UnitTests.UsualMoves
 {
   [TestClass]
   public class PromotedBishopTest
@@ -14,10 +14,10 @@ namespace UnitTests
       var vmth = new ValidMovesTestHelper();
       vmth.Init("5g", new Piece(vmth.Board.White, "馬"));
       var initialValidMoves = new HashSet<Position> {
-          "1c", "2d", "3e", "4f", "6h", "7i",
-          "9c", "8d", "7e", "6f", "4h", "3i",
-          "4g", "6g", "5f", "5h",
-        };
+                                                      "1c", "2d", "3e", "4f", "6h", "7i",
+                                                      "9c", "8d", "7e", "6f", "4h", "3i",
+                                                      "4g", "6g", "5f", "5h",
+                                                    };
 
       vmth.TestMoves(initialValidMoves);
 
@@ -37,10 +37,10 @@ namespace UnitTests
       var vmth = new ValidMovesTestHelper();
       vmth.Init("5g", new Piece(vmth.Board.Black, "馬"));
       var initialValidMoves = new HashSet<Position> {
-          "1c", "2d", "3e", "4f", "6h", "7i",
-          "9c", "8d", "7e", "6f", "4h", "3i",
-          "4g", "6g", "5f", "5h",
-          };
+                                                      "1c", "2d", "3e", "4f", "6h", "7i",
+                                                      "9c", "8d", "7e", "6f", "4h", "3i",
+                                                      "4g", "6g", "5f", "5h",
+                                                    };
 
       vmth.TestMoves(initialValidMoves);
 
