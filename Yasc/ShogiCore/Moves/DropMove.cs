@@ -5,26 +5,27 @@ namespace Yasc.ShogiCore.Moves
 {
   public class DropMove : MoveBase
   {
-    public Piece Piece { get; private set; }
+    public PieceType PieceType { get; private set; }
     public Position To { get; private set; }
 
-    private DropMove(Board board, Piece piece, Position to) 
+    private DropMove(Board board, PieceType pieceType, Position to) 
       : base(board)
     {
-      Piece = piece;
+      PieceType = pieceType;
       To = to;
     }
-    public static DropMove Create(Board board, Piece piece, Position to)
+    public static DropMove Create(Board board, PieceType pieceType, Position to)
     {
-      var res = new DropMove(board, piece, to);
+      var res = new DropMove(board, pieceType, to);
       res.Validate();
       return res;
     }
 
     protected internal override void Make()
     {
-      Who.Hand.Remove(Piece);
-      Board[To] = Piece;
+      Piece piece = Who.GetPieceFromHandByType(PieceType);
+      Who.Hand.Remove(piece);
+      Board[To] = piece;
     }
 
     protected override string GetErrorMessage()
@@ -34,7 +35,7 @@ namespace Yasc.ShogiCore.Moves
 
     public override string ToString()
     {
-      return Piece + "'" + To;
+      return PieceType.Latin + "'" + To;
     }
   }
 }
