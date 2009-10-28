@@ -11,7 +11,7 @@ namespace Yasc.GenericDragDrop
       where T : DependencyObject
     {
       var res = obj as T;
-      while (res == null)
+      while (obj != null && res == null)
       {
         obj = VisualTreeHelper.GetParent(obj);
         res = obj as T;
@@ -22,7 +22,7 @@ namespace Yasc.GenericDragDrop
       where T : DependencyObject
     {
       var res = obj as T;
-      while (res == null || !predicate(res))
+      while (obj != null &&(res == null || !predicate(res)))
       {
         obj = VisualTreeHelper.GetParent(obj);
         res = obj as T;
