@@ -36,8 +36,8 @@
     <DataTemplate DataType="{x:Type Utils:Cell}">
       <Grid local:Dnd.IsDragSource="true"
             local:Dnd.IsDropTarget="true"
-            Background="Transparent">     
-        
+            Background="Transparent">
+
         <ContentPresenter Name="host" Content="{Binding Piece}"
                           ContentTemplate="{StaticResource Piece}"/>
       </Grid>
@@ -59,23 +59,16 @@
                   VerticalAlignment="Top" HorizontalAlignment="Right">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
-          <UniformGrid Columns="2">
-            <UniformGrid.LayoutTransform>
-              <ScaleTransform ScaleX="-1" ScaleY="1"/>
-            </UniformGrid.LayoutTransform>
-
-          </UniformGrid>
+          <UniformGrid Columns="2"/>
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <ContentPresenter Content="{Binding}"
-                            ContentTemplate="{StaticResource Piece}"
-                            local:Dnd.IsDragSource="True">
-            <ContentPresenter.LayoutTransform>
-              <ScaleTransform ScaleX="-1" ScaleY="1"/>
-            </ContentPresenter.LayoutTransform>
-          </ContentPresenter>
+          <Grid Background="Transparent" 
+                local:Dnd.IsDragSource="True">
+            <ContentPresenter Content="{Binding}"
+                              ContentTemplate="{StaticResource Piece}"/>
+          </Grid>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
@@ -217,22 +210,16 @@
                   VerticalAlignment="Bottom" HorizontalAlignment="Left" >
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
-          <UniformGrid Columns="2" >
-            <UniformGrid.LayoutTransform>
-              <ScaleTransform ScaleX="1" ScaleY="-1"/>
-            </UniformGrid.LayoutTransform>
-          </UniformGrid>
+          <UniformGrid Columns="2" />
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <ContentPresenter Content="{Binding}"
-                            ContentTemplate="{StaticResource Piece}"
-                            local:Dnd.IsDragSource="True">
-            <ContentPresenter.LayoutTransform>
-              <ScaleTransform ScaleX="1" ScaleY="-1"/>
-            </ContentPresenter.LayoutTransform>
-          </ContentPresenter>
+          <Grid Background="Transparent" 
+                local:Dnd.IsDragSource="True">
+            <ContentPresenter Content="{Binding}"
+                              ContentTemplate="{StaticResource Piece}"/>
+          </Grid>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
