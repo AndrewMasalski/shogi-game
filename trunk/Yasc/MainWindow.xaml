@@ -56,6 +56,10 @@
       <ColumnDefinition Width="*"/>
       <ColumnDefinition Width="Auto" MinWidth="20"/>
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
     <ItemsControl Grid.Column="0" ItemsSource="{Binding White.Hand}"
                   VerticalAlignment="Top" HorizontalAlignment="Right">
       <ItemsControl.ItemsPanel>
@@ -238,5 +242,6 @@
         </ItemsControl.ItemTemplate>
       </ItemsControl>
     </StackPanel>
+    <TextBlock x:Name="_errorText" Grid.Row="1" Grid.ColumnSpan="4"/>
   </Grid>
 </Window>

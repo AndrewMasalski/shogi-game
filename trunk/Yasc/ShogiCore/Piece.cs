@@ -18,7 +18,7 @@ namespace Yasc.ShogiCore
       set
       {
         if (value == IsPromoted) return;
-        Type = value ? Type.Unpromote() : Type.Promote();
+        Type = value ? Type.Promote() : Type.Unpromote();
         OnPropertyChanged("IsPromoted");
       }
     }
