@@ -5,6 +5,7 @@
         xmlns:Utils="clr-namespace:Yasc.ShogiCore.Utils"
         xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore"
         xmlns:local="clr-namespace:Yasc.GenericDragDrop"
+        xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
         Title="MainWindow" Height="300" Width="300">
   <Window.Resources>
     <Yasc:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
@@ -229,6 +230,13 @@
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
       <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
       <Button Content="move" Click="OnMoveClick"/>
+      <ItemsControl ItemsSource="{Binding History.MovesDone}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate DataType="{x:Type Moves:MoveBase}">
+            <ContentPresenter Content="{Binding}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
     </StackPanel>
   </Grid>
 </Window>
