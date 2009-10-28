@@ -9,7 +9,7 @@
   <Window.Resources>
     <Yasc:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
 
-    <DataTemplate DataType="{x:Type ShogiCore:Piece}">
+    <DataTemplate x:Key="Piece" DataType="{x:Type ShogiCore:Piece}">
       <Viewbox>
         <Grid Height="14" Width="14">
           <Grid Height="10" Width="10">
@@ -21,35 +21,64 @@
             </Path>
 
             <TextBlock Text="{Binding Type}" FontSize="7" FontFamily="MS Mincho"
-                         Margin="0,1,0,0" 
-                         VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                       Margin="0,1,0,0" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Grid.RenderTransform>
               <RotateTransform CenterX="5" CenterY="5"
-                                 Angle="{Binding Color, Mode=OneTime, 
-                                 Converter={StaticResource ColorToAngleConverter}}"/>
+                               Angle="{Binding Color, Mode=OneTime, 
+                               Converter={StaticResource ColorToAngleConverter}}"/>
             </Grid.RenderTransform>
           </Grid>
         </Grid>
       </Viewbox>
     </DataTemplate>
+
     <DataTemplate DataType="{x:Type Utils:Cell}">
       <Grid local:Dnd.IsDragSource="true"
             local:Dnd.IsDropTarget="true"
             Background="Transparent">     
         
-        <ContentPresenter Content="{Binding Piece}"/>
-
+        <ContentPresenter Name="host" Content="{Binding Piece}"
+                          ContentTemplate="{StaticResource Piece}"/>
       </Grid>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Piece}" Value="{x:Null}">
+          <Setter TargetName="host" Property="ContentTemplate" Value="{x:Null}"/>
+        </DataTrigger>
+      </DataTemplate.Triggers>
     </DataTemplate>
   </Window.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="60"/>
       <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="60"/>
+      <ColumnDefinition Width="5*"/>
+      <ColumnDefinition Width="*"/>
       <ColumnDefinition Width="Auto" MinWidth="20"/>
     </Grid.ColumnDefinitions>
-    <ItemsControl Grid.Column="0" ItemsSource="{Binding White.Hand}"/>
+    <ItemsControl Grid.Column="0" ItemsSource="{Binding White.Hand}"
+                  VerticalAlignment="Top" HorizontalAlignment="Right">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Columns="2">
+            <UniformGrid.LayoutTransform>
+              <ScaleTransform ScaleX="-1" ScaleY="1"/>
+            </UniformGrid.LayoutTransform>
+
+          </UniformGrid>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <ContentPresenter Content="{Binding}"
+                            ContentTemplate="{StaticResource Piece}"
+                            local:Dnd.IsDragSource="True">
+            <ContentPresenter.LayoutTransform>
+              <ScaleTransform ScaleX="-1" ScaleY="1"/>
+            </ContentPresenter.LayoutTransform>
+          </ContentPresenter>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
     <Yasc:UniformPanel local:Dnd.Drop="DropHandler" Grid.Column="1">
       <Grid Name="ShogiBoardGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.Resources>
@@ -184,7 +213,29 @@
         </ItemsControl>
       </Grid>
     </Yasc:UniformPanel>
-    <ItemsControl Grid.Column="2" ItemsSource="{Binding Black.Hand}"/>
+    <ItemsControl Grid.Column="2" ItemsSource="{Binding Black.Hand}"
+                  VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Columns="2" >
+            <UniformGrid.LayoutTransform>
+              <ScaleTransform ScaleX="1" ScaleY="-1"/>
+            </UniformGrid.LayoutTransform>
+          </UniformGrid>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <ContentPresenter Content="{Binding}"
+                            ContentTemplate="{StaticResource Piece}"
+                            local:Dnd.IsDragSource="True">
+            <ContentPresenter.LayoutTransform>
+              <ScaleTransform ScaleX="1" ScaleY="-1"/>
+            </ContentPresenter.LayoutTransform>
+          </ContentPresenter>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
     <StackPanel Grid.Column="3">
       <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />
       <TextBox x:Name="_address" Text="ws098"/>

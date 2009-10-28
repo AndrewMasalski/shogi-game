@@ -77,7 +77,7 @@ namespace Yasc.GenericDragDrop
     }
     private static void RaiseDropEvent(DependencyObject d, object source)
     {
-      ((UIElement)d).RaiseEvent(new DropEventArgs(DropEvent, 
+      ((UIElement)d).RaiseEvent(new DropEventArgs(DropEvent,
         source, (FrameworkElement)source, (FrameworkElement)d));
     }
 
@@ -95,13 +95,23 @@ namespace Yasc.GenericDragDrop
       {
         if (_adorner == null)
         {
-          _adornerLayer = AdornerLayer.GetAdornerLayer(_dragSource);
           _adorner = new DndAdorner(_dragSource) { IsHitTestVisible = false };
-          _adornerLayer.Add(_adorner);
         }
         return _adorner;
       }
     }
+    private AdornerLayer AdornerLayer
+    {
+      get
+      {
+        if (_adornerLayer == null)
+        {
+          _adornerLayer = AdornerLayer.GetAdornerLayer(_dragSource);
+        }
+        return _adornerLayer;
+      }
+    }
+
 
     private void MouseDown(object sender, MouseButtonEventArgs e)
     {
@@ -118,11 +128,17 @@ namespace Yasc.GenericDragDrop
         Release();
         return;
       }
+      if (!_adornerIsShown)
+      {
+        AdornerLayer.Add(Adorner);
+        _adornerIsShown = true;
+      }
+
       Adorner.Offset = e.GetPosition(_topWindow) - _initialMousePosition;
     }
     private void MouseUp(object sender, MouseEventArgs e)
     {
-      var target = ((DependencyObject) e.OriginalSource).
+      var target = ((DependencyObject)e.OriginalSource).
         FindAncestor<FrameworkElement>(GetIsDropTarget);
       if (target != null)
         RaiseDropEvent(target, _dragSource);
@@ -132,7 +148,11 @@ namespace Yasc.GenericDragDrop
     {
       _topWindow.PreviewMouseMove -= MouseMove;
       _topWindow.PreviewMouseUp -= MouseUp;
-      if (_adorner != null) _adornerLayer.Remove(_adorner);
+      if (_adornerIsShown)
+      {
+        _adornerLayer.Remove(_adorner);
+        _adornerIsShown = false;
+      }
     }
 
     public void Dispose()
@@ -148,6 +168,7 @@ namespace Yasc.GenericDragDrop
 
     private Point _initialMousePosition;
     private readonly FrameworkElement _dragSource;
+    private bool _adornerIsShown;
 
     #endregion
   }

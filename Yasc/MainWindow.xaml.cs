@@ -69,10 +69,20 @@ namespace Yasc
 
     private void DropHandler(object sender, DropEventArgs e)
     {
-      var from = (Cell) e.DragSource.DataContext;
-      var to = (Cell) e.DragTarget.DataContext;
-      var move = _board.GetUsualMove(from.Position, to.Position, false);
-      if (move.IsValid) _board.MakeMove(move);
+      if (e.DragSource.DataContext is Cell)
+      {
+        var from = (Cell) e.DragSource.DataContext;
+        var to = (Cell) e.DragTarget.DataContext;
+        var move = _board.GetUsualMove(from.Position, to.Position, false);
+        if (move.IsValid) _board.MakeMove(move);
+      }
+      else
+      {
+        var piece = (Piece)e.DragSource.DataContext;
+        var to = (Cell)e.DragTarget.DataContext;
+        var move = _board.GetDropMove(piece, to.Position);
+        if (move.IsValid) _board.MakeMove(move);
+      }
     }
   }
 }
