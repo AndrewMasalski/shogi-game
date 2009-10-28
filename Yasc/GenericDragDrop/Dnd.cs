@@ -132,7 +132,7 @@ namespace Yasc.GenericDragDrop
     {
       _topWindow.PreviewMouseMove -= MouseMove;
       _topWindow.PreviewMouseUp -= MouseUp;
-      _adornerLayer.Remove(_adorner);
+      if (_adorner != null) _adornerLayer.Remove(_adorner);
     }
 
     public void Dispose()
