@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Moves.Validation;
 using Yasc.ShogiCore.Utils;
 
@@ -190,5 +192,11 @@ namespace UnitTests
       Assert.IsFalse(_board.IsMovesOrderMaintained);
     }
    
+    [TestMethod]
+    public void TestGetAvailableMoves()
+    {
+      Shogi.InititBoard(_board);
+      IEnumerable<MoveBase> r  = _board.GetAvailableMoves("a4");
+    }
   }
 }

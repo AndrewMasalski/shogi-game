@@ -26,6 +26,12 @@ namespace Yasc.ShogiCore.Moves
       res.Validate();
       return res;
     }
+    public static UsualMove Create(Board board, UsualMoveSnapshot snapshot)
+    {
+      var res = new UsualMove(board, snapshot.From, snapshot.To, snapshot.IsPromoting);
+      res.Validate();
+      return res;
+    }
     protected internal override void Make()
     {
       if (IsPromoting) Board[From].IsPromoted = true;
