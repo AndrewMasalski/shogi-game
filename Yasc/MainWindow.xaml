@@ -237,9 +237,18 @@
       <ItemsControl ItemsSource="{Binding History.MovesDone}">
         <ItemsControl.ItemTemplate>
           <DataTemplate DataType="{x:Type Moves:MoveBase}">
-            <ContentPresenter Content="{Binding}"/>
+            <StackPanel Orientation="Horizontal" Margin="5,2">
+              <TextBlock Text="{Binding Number}"/>
+              <TextBlock Text=". "/>
+              <TextBlock Text="{Binding}"/>
+            </StackPanel>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <UniformGrid Columns="2"/>
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
       </ItemsControl>
     </StackPanel>
     <TextBlock x:Name="_errorText" Grid.Row="1" Grid.ColumnSpan="4"/>
