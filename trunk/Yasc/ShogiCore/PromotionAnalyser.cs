@@ -11,7 +11,7 @@ namespace Yasc.ShogiCore
       CannotBePromoted, CanBePromoted, MustBePromoted
     }
 
-    public static IEnumerator<UsualMoveSnapshot> DuplicateForPromoting(IEnumerable<UsualMoveSnapshot> enumerable)
+    public static IEnumerable<UsualMoveSnapshot> DuplicateForPromoting(IEnumerable<UsualMoveSnapshot> enumerable)
     {
       foreach (var snapshot in enumerable)
       {
