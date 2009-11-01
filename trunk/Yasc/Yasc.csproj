@@ -94,6 +94,7 @@
     <Compile Include="ShogiBoard.cs" />
     <Compile Include="ShogiCore\AvailableMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />
+    <Compile Include="ShogiCore\MoveEventArgs.cs" />
     <Compile Include="ShogiCore\Moves\DropMoveSnapshot.cs" />
     <Compile Include="ShogiCore\Moves\MoveSnapshotBase.cs" />
     <Compile Include="ShogiCore\Moves\UsualMoveSnapshot.cs" />
