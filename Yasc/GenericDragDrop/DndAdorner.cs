@@ -6,13 +6,24 @@ namespace Yasc.GenericDragDrop
 {
   public class DndAdorner : Adorner
   {
-    private readonly FrameworkElement _adornedElement;
     private readonly VisualBrush _brush;
+    private readonly RectangleGeometry _geometry;
+    private readonly FrameworkElement _adornedElement;
 
     public static readonly DependencyProperty OffsetProperty =
       DependencyProperty.Register("Offset", typeof(Vector), typeof(DndAdorner),
-        new FrameworkPropertyMetadata(new Vector(),
-          FrameworkPropertyMetadataOptions.AffectsRender));
+        new UIPropertyMetadata(new Vector(), OnOffsetChanged));
+
+    private static void OnOffsetChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    {
+      ((DndAdorner) o).OnOffsetChanged((Vector) args.NewValue);
+    }
+
+    private void OnOffsetChanged(Vector offset)
+    {
+      _geometry.Rect = new Rect((Point)offset, _adornedElement.RenderSize);
+    }
+
 
     public Vector Offset
     {
@@ -25,14 +36,13 @@ namespace Yasc.GenericDragDrop
     {
       _adornedElement = adornedElement;
       _brush = new VisualBrush(adornedElement);
+      _geometry = new RectangleGeometry(
+        new Rect((Point)Offset, _adornedElement.RenderSize));
     }
 
     protected override void OnRender(DrawingContext drawingContext)
     {
-      drawingContext.DrawGeometry(_brush, null, 
-        new RectangleGeometry(
-          new Rect((Point)Offset, _adornedElement.RenderSize)
-          ));
+      drawingContext.DrawGeometry(_brush, null, _geometry);
     }
   }
 }
