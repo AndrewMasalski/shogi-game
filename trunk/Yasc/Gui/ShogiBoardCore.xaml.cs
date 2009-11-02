@@ -34,33 +34,25 @@ namespace Yasc.Gui
       var m = args.Move as UsualMove;
       if (m == null) return;
       var from = Board[m.From.X, m.From.Y];
-//      var to = Board[m.To.X, m.To.Y];
+      var to = Board[m.To.X, m.To.Y];
       var fromCtrl = (FrameworkElement)_cells.ItemContainerGenerator.ContainerFromItem(from);
-//      var grid = fromCtrl.FindChild<Grid>();
-      var presenter = fromCtrl.FindChild<ContentPresenter>();
-      var s = presenter.RenderSize;
-//      var l = _adornerLayer.TransformToVisual(presenter);
-//      _adornerLayer.RenderTransform = (Transform) l;
-      var grid = (Grid) presenter.Parent;
-      grid.Children.Remove(presenter);
-      presenter.Width = s.Width*10;
-      presenter.Height = s.Height*10;
-      Canvas.SetLeft(presenter, 0);
-      Canvas.SetTop(presenter, 0);
+      var toCtrl = (FrameworkElement)_cells.ItemContainerGenerator.ContainerFromItem(to);
+      
+      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
+      var renderSize = pieceControl.RenderSize;
+      _adornerLayer.RenderTransform = (Transform) pieceControl.TransformToVisual(_adornerLayer);
+      ((Grid)pieceControl.Parent).Children.Remove(pieceControl);
+      pieceControl.Width = renderSize.Width;
+      pieceControl.Height = renderSize.Height;
+      toCtrl.Visibility = Visibility.Hidden;
+      _adornerLayer.Children.Add(pieceControl);
 
-//      var toCtrl = (FrameworkElement)_cells.ItemContainerGenerator.ContainerFromItem(to);
-//      MessageBox.Show(fromCtrl.ToString() + toCtrl);
-//      fromCtrl.Visibility = Visibility.Hidden;
-//      toCtrl.Visibility = Visibility.Hidden;
-//      var layer = AdornerLayer.GetAdornerLayer(fromCtrl);
-//      var adorner = new DndAdorner(presenter) { Offset = new Vector(30, 30) };
-      _adornerLayer.Children.Add(presenter);
-      new DispatcherTimer(TimeSpan.FromSeconds(1),
+      new DispatcherTimer(TimeSpan.FromSeconds(5),
            DispatcherPriority.ApplicationIdle, (o, eventArgs) =>
               {
-                fromCtrl.Visibility = Visibility.Visible;
-//                toCtrl.Visibility = Visibility.Visible;
-//                _adornerLayer.Children.Remove(presenter);
+//                fromCtrl.Visibility = Visibility.Visible;
+                toCtrl.Visibility = Visibility.Visible;
+                _adornerLayer.Children.Remove(pieceControl);
               }, Dispatcher);
     }
 
