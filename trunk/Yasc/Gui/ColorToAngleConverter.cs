@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Yasc.ShogiCore.Utils;
 
-namespace Yasc
+namespace Yasc.Gui
 {
   public class ColorToAngleConverter : IValueConverter
   {

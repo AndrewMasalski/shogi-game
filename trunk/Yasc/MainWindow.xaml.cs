@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Yasc.Gui;
 using Yasc.Networking;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;

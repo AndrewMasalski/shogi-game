@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Yasc
+namespace Yasc.Gui
 {
   public class ShogiBoard : Control
   {
-
     static ShogiBoard()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiBoard),
