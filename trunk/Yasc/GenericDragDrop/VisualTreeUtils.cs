@@ -48,11 +48,11 @@ namespace Yasc.GenericDragDrop
       where T : DependencyObject
     {
       if (obj == null) yield break;
-      if (obj is T) yield return (T)obj;
       var count = VisualTreeHelper.GetChildrenCount(obj);
       for (int i = 0; i < count; i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
+        if (child is T) yield return (T)child;
         foreach (var c in FindChildren<T>(child))
           yield return c;
       }
