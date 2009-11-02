@@ -19,6 +19,7 @@ namespace Yasc.ShogiCore
 
     public AvailableMovesAnalyser(BoardSnapshot board, Position from)
     {
+      if (board == null) throw new ArgumentNullException("board");
       _board = board;
       _from = from;
     }
