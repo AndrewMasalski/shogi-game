@@ -12,18 +12,35 @@ namespace Yasc.Gui
     public ShogiBoardCore()
     {
       InitializeComponent();
+      DataContextChanged += OnDataContextChanged;
+    }
+
+    private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs args)
+    {
+      Board.Move += BoardOnMove;
+    }
+
+    private void BoardOnMove(object sender, MoveEventArgs args)
+    {
+      var m = args.Move as UsualMove;
+      if (m == null) return;
+      var from = Board[m.From.X, m.From.Y];
+      var to = Board[m.To.X, m.To.Y];
+      var fromCtrl = _cells.ItemContainerGenerator.ContainerFromItem(from);
+      var toCtrl = _cells.ItemContainerGenerator.ContainerFromItem(to);
+      MessageBox.Show(fromCtrl.ToString() + toCtrl);
     }
 
     public Board Board
     {
-      get { return (Board) DataContext;}
+      get { return (Board)DataContext; }
     }
 
     #region ' MoveAttempt '
 
     public static readonly RoutedEvent MoveAttemptEvent = EventManager.
-      RegisterRoutedEvent("MoveAttempt", RoutingStrategy.Bubble, 
-                          typeof(EventHandler<MoveAttemptEventArgs>), typeof(ShogiBoardCore));
+      RegisterRoutedEvent("MoveAttempt", RoutingStrategy.Bubble,
+        typeof(EventHandler<MoveAttemptEventArgs>), typeof(ShogiBoardCore));
     public event EventHandler<MoveAttemptEventArgs> MoveAttempt
     {
       add { AddHandler(MoveAttemptEvent, value); }
@@ -36,7 +53,7 @@ namespace Yasc.Gui
 
     #endregion
 
-    private void DropHandler(object sender, DropEventArgs e)
+    private void OnDragDrop(object sender, DropEventArgs e)
     {
       MoveBase move;
       if (e.DragSource.DataContext is Cell)

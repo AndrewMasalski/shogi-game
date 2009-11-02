@@ -17,7 +17,6 @@ namespace Yasc
       InitializeComponent();
 
       _board = new Board();
-//      _board.Move += BoardOnMove;
       Shogi.InititBoard(_board);
       DataContext = _board;
       if (!Server.ServerIsStartedOnThisComputer)
@@ -27,17 +26,6 @@ namespace Yasc
     {
       _errorLabel.Text = e.Move.ErrorMessage;
     }
-
-//    private void BoardOnMove(object sender, MoveEventArgs args)
-//    {
-//      var m = args.Move as UsualMove;
-//      if (m == null) return;
-//      var from = _board[m.From.X, m.From.Y];
-//      var to = _board[m.To.X, m.To.Y];
-//      DependencyObject fromCtrl = _cells.ItemContainerGenerator.ContainerFromItem(from);
-//      DependencyObject toCtrl = _cells.ItemContainerGenerator.ContainerFromItem(to);
-//      MessageBox.Show(fromCtrl.ToString() + toCtrl);
-//    }
 
     private void OnConnectClick(object sender, RoutedEventArgs e)
     {
@@ -82,6 +70,5 @@ namespace Yasc
       Server.Start();
       _startServerButton.Content = "Done!";
     }
-
   }
 }
