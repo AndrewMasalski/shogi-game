@@ -196,7 +196,9 @@ namespace UnitTests
     public void TestGetAvailableMoves()
     {
       Shogi.InititBoard(_board);
-      IEnumerable<MoveBase> r  = _board.GetAvailableMoves("a4");
+      var a = (from UsualMove m in _board.GetAvailableMoves("4a") 
+              select m.To).ToList();
+      CollectionAssert.AreEquivalent(new Position[]{"5b", "4b", "3b"}, a);
     }
   }
 }

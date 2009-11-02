@@ -1,46 +1,29 @@
-using System;
 using System.Collections.Generic;
 using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Moves.Validation;
 
 namespace Yasc.ShogiCore
 {
   public class PromotionAnalyser
   {
-    enum PromotionOption
+    public static IEnumerable<UsualMoveSnapshot> DuplicateForPromoting(BoardSnapshot board, IEnumerable<UsualMoveSnapshot> moves)
     {
-      CannotBePromoted, CanBePromoted, MustBePromoted
-    }
-
-    public static IEnumerable<UsualMoveSnapshot> DuplicateForPromoting(IEnumerable<UsualMoveSnapshot> enumerable)
-    {
-      foreach (var snapshot in enumerable)
+      foreach (var m in moves)
       {
-        switch (AnalysePromotion(snapshot))
-        {
-          case PromotionOption.CannotBePromoted:
-            yield return snapshot;
-            break;
-          case PromotionOption.CanBePromoted:
-            yield return snapshot;
-            yield return Promoted(snapshot);
-            break;
-          case PromotionOption.MustBePromoted:
-            yield return Promoted(snapshot);
-            break;
-        }
+        var allowed = UsualMovesValidator.
+          IsPromotionAllowed(board[m.From], m.From, m.To) == null;
+
+        var mandatory = UsualMovesValidator.
+          IsPromotionAllowed(board[m.From], m.From, m.To) == null;
+
+        if (!mandatory) yield return m;
+        if (allowed) yield return Promoted(m);
       }
     }
 
-
-    private static UsualMoveSnapshot Promoted(UsualMoveSnapshot snapshot)
+    private static UsualMoveSnapshot Promoted(UsualMoveSnapshot m)
     {
-      throw new NotImplementedException();
+      return new UsualMoveSnapshot(m.From, m.To, !m.IsPromoting);
     }
-
-    private static PromotionOption AnalysePromotion(UsualMoveSnapshot moveSnapshot)
-    {
-      throw new NotImplementedException();
-    }
-    
   }
 }
