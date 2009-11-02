@@ -4,9 +4,10 @@
     xmlns:local="clr-namespace:Yasc"
     xmlns:gdd="clr-namespace:Yasc.GenericDragDrop"
     xmlns:Utils="clr-namespace:Yasc.ShogiCore.Utils"
-    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore">
+    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore"
+    xmlns:Gui="clr-namespace:Yasc.Gui">
 
-  <local:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
+  <Gui:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
 
   <DataTemplate x:Key="Piece" DataType="{x:Type ShogiCore:Piece}">
     <Viewbox>
@@ -47,20 +48,20 @@
     </DataTemplate.Triggers>
   </DataTemplate>
 
-  <Style TargetType="{x:Type local:ShogiBoard}">
+  <Style TargetType="{x:Type Gui:ShogiBoard}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiBoard}">
+        <ControlTemplate TargetType="{x:Type Gui:ShogiBoard}">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="5*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <local:ShogiHand DataContext="{Binding White.Hand}" Grid.Column="0" 
+            <Gui:ShogiHand DataContext="{Binding White.Hand}" Grid.Column="0" 
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
 
-            <local:UniformPanel Grid.Column="1">
+            <Gui:UniformPanel Grid.Column="1">
               <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Grid.Resources>
                   <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
@@ -185,11 +186,11 @@
                 <Border Grid.Row="1" Grid.Column="1"
                         Grid.RowSpan="9" Grid.ColumnSpan="9"
                         BorderBrush="Red" BorderThickness="2">
-                  <local:ShogiBoardCore/>
+                  <Gui:ShogiBoardCore/>
                 </Border>
               </Grid>
-            </local:UniformPanel>
-            <local:ShogiHand DataContext="{Binding Black.Hand}" Grid.Column="2" 
+            </Gui:UniformPanel>
+            <Gui:ShogiHand DataContext="{Binding Black.Hand}" Grid.Column="2" 
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
           </Grid>
         </ControlTemplate>
@@ -197,10 +198,10 @@
     </Setter>
   </Style>
 
-  <Style TargetType="{x:Type local:ShogiBoardCore}">
+  <Style TargetType="{x:Type Gui:ShogiBoardCore}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiBoardCore}">
+        <ControlTemplate TargetType="{x:Type Gui:ShogiBoardCore}">
           <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
@@ -213,10 +214,10 @@
     </Setter>
   </Style>
 
-  <Style TargetType="{x:Type local:ShogiHand}">
+  <Style TargetType="{x:Type Gui:ShogiHand}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiHand}">
+        <ControlTemplate TargetType="{x:Type Gui:ShogiHand}">
           <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>

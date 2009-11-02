@@ -5,7 +5,7 @@ using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Utils;
 
-namespace Yasc
+namespace Yasc.Gui
 {
   public partial class ShogiBoardCore
   {
@@ -19,20 +19,22 @@ namespace Yasc
       get { return (Board) DataContext;}
     }
 
+    #region ' MoveAttempt '
+
     public static readonly RoutedEvent MoveAttemptEvent = EventManager.
       RegisterRoutedEvent("MoveAttempt", RoutingStrategy.Bubble, 
-      typeof(EventHandler<MoveAttemptEventArgs>), typeof(ShogiBoardCore));
-
+                          typeof(EventHandler<MoveAttemptEventArgs>), typeof(ShogiBoardCore));
     public event EventHandler<MoveAttemptEventArgs> MoveAttempt
     {
       add { AddHandler(MoveAttemptEvent, value); }
       remove { RemoveHandler(MoveAttemptEvent, value); }
     }
-
     private void RaiseMoveAttemptEvent(MoveBase move)
     {
       RaiseEvent(new MoveAttemptEventArgs(MoveAttemptEvent, this, move));
     }
+
+    #endregion
 
     private void DropHandler(object sender, DropEventArgs e)
     {
@@ -57,7 +59,6 @@ namespace Yasc
           Board.MakeMove(move);
       }
     }
-
     private MoveBase GetUsualMove(Cell from, Cell to)
     {
       MoveBase move;
@@ -71,17 +72,6 @@ namespace Yasc
       }
       else move = m1.IsValid ? m1 : m2;
       return move;
-    }
-  }
-
-  public class MoveAttemptEventArgs : RoutedEventArgs
-  {
-    public MoveBase Move { get; private set; }
-
-    public MoveAttemptEventArgs(RoutedEvent routedEvent, object source, MoveBase move) 
-      : base(routedEvent, source)
-    {
-      Move = move;
     }
   }
 }
