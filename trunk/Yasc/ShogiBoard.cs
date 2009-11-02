@@ -12,14 +12,14 @@ namespace Yasc
         new FrameworkPropertyMetadata(typeof(ShogiBoard)));
     }
 
-    public override void OnApplyTemplate()
-    {
-      base.OnApplyTemplate();
-      var boardCore = GetTemplateChild("PART_BoardCore") as ContentControl;
-      if (boardCore != null)
-      {
-        boardCore.Content = new Canvas();
-      }
-    }
+//    public override void OnApplyTemplate()
+//    {
+//      base.OnApplyTemplate();
+//      var boardCore = GetTemplateChild("PART_BoardCore") as ContentControl;
+//      if (boardCore != null)
+//      {
+//        boardCore.Content = new Canvas();
+//      }
+//    }
   }
 }

@@ -57,23 +57,9 @@
               <ColumnDefinition Width="5*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--            <ItemsControl Grid.Column="0" ItemsSource="{Binding White.Hand}"-->
-            <!--                          VerticalAlignment="Top" HorizontalAlignment="Right">-->
-            <!--              <ItemsControl.ItemsPanel>-->
-            <!--                <ItemsPanelTemplate>-->
-            <!--                  <UniformGrid Columns="2"/>-->
-            <!--                </ItemsPanelTemplate>-->
-            <!--              </ItemsControl.ItemsPanel>-->
-            <!--              <ItemsControl.ItemTemplate>-->
-            <!--                <DataTemplate>-->
-            <!--                  <Grid Background="Transparent" -->
-            <!--                        gdd:Dnd.IsDragSource="True">-->
-            <!--                    <ContentPresenter Content="{Binding}"-->
-            <!--                                      ContentTemplate="{StaticResource Piece}"/>-->
-            <!--                  </Grid>-->
-            <!--                </DataTemplate>-->
-            <!--              </ItemsControl.ItemTemplate>-->
-            <!--            </ItemsControl>-->
+            <local:ShogiHand DataContext="{Binding White.Hand}" Grid.Column="0" 
+                             VerticalAlignment="Top" HorizontalAlignment="Right"/>
+
             <local:UniformPanel Grid.Column="1">
               <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Grid.Resources>
@@ -203,23 +189,8 @@
                 </Border>
               </Grid>
             </local:UniformPanel>
-            <!--            <ItemsControl Grid.Column="2" ItemsSource="{Binding Black.Hand}"-->
-            <!--                          VerticalAlignment="Bottom" HorizontalAlignment="Left" >-->
-            <!--              <ItemsControl.ItemsPanel>-->
-            <!--                <ItemsPanelTemplate>-->
-            <!--                  <UniformGrid Columns="2" />-->
-            <!--                </ItemsPanelTemplate>-->
-            <!--              </ItemsControl.ItemsPanel>-->
-            <!--              <ItemsControl.ItemTemplate>-->
-            <!--                <DataTemplate>-->
-            <!--                  <Grid Background="Transparent" -->
-            <!--                        gdd:Dnd.IsDragSource="True">-->
-            <!--                    <ContentPresenter Content="{Binding}"-->
-            <!--                                      ContentTemplate="{StaticResource Piece}"/>-->
-            <!--                  </Grid>-->
-            <!--                </DataTemplate>-->
-            <!--              </ItemsControl.ItemTemplate>-->
-            <!--            </ItemsControl>-->
+            <local:ShogiHand DataContext="{Binding Black.Hand}" Grid.Column="2" 
+                             VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -236,6 +207,31 @@
                 <UniformGrid Rows="9" Columns="9"/>
               </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+          </ItemsControl>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="{x:Type local:ShogiHand}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:ShogiHand}">
+          <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <UniformGrid Columns="2"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Grid Background="Transparent" 
+                      gdd:Dnd.IsDragSource="True">
+                  <ContentPresenter Content="{Binding}"
+                                    ContentTemplate="{StaticResource Piece}"/>
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
           </ItemsControl>
         </ControlTemplate>
       </Setter.Value>
