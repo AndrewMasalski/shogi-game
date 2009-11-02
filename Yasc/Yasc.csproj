@@ -112,6 +112,7 @@
     <Compile Include="ShogiCore\Moves\Validation\DropMoveValidator.cs" />
     <Compile Include="ShogiCore\PromotionAnalyser.cs" />
     <Compile Include="ShogiCore\SituationAnalizer.cs" />
+    <Compile Include="ShogiHand.cs" />
     <Compile Include="SssWindow.xaml.cs">
       <DependentUpon>SssWindow.xaml</DependentUpon>
     </Compile>

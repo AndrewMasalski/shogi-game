@@ -18,7 +18,7 @@ namespace Yasc
       InitializeComponent();
 
       _board = new Board();
-      _board.Move += BoardOnMove;
+//      _board.Move += BoardOnMove;
       Shogi.InititBoard(_board);
       DataContext = _board;
       if (!Server.ServerIsStartedOnThisComputer)
