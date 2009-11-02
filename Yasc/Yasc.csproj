@@ -68,6 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ShogiBoardCore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SssWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,7 +100,9 @@
     <Compile Include="Networking\ISpectatorController.cs" />
     <Compile Include="Networking\Server.cs" />
     <Compile Include="ShogiBoard.cs" />
-    <Compile Include="ShogiBoardCore.cs" />
+    <Compile Include="ShogiBoardCore.xaml.cs">
+      <DependentUpon>ShogiBoardCore.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShogiCore\AvailableMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />
     <Compile Include="ShogiCore\MoveEventArgs.cs" />
