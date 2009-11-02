@@ -43,7 +43,7 @@ namespace Yasc.ShogiCore.Moves
 
     protected override string GetErrorMessage()
     {
-      return UsualMovesValidator.GetError(BoardSnapshot, new UsualMoveSnapshot(this));
+      return UsualMovesValidator.Check1(BoardSnapshot, new UsualMoveSnapshot(this));
     }
 
     public override string ToString()
