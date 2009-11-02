@@ -68,6 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SssWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +96,7 @@
     <Compile Include="Networking\ISpectatorController.cs" />
     <Compile Include="Networking\Server.cs" />
     <Compile Include="ShogiBoard.cs" />
+    <Compile Include="ShogiBoardCore.cs" />
     <Compile Include="ShogiCore\AvailableMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />
     <Compile Include="ShogiCore\MoveEventArgs.cs" />
@@ -101,6 +106,9 @@
     <Compile Include="ShogiCore\Moves\Validation\DropMoveValidator.cs" />
     <Compile Include="ShogiCore\PromotionAnalyser.cs" />
     <Compile Include="ShogiCore\SituationAnalizer.cs" />
+    <Compile Include="SssWindow.xaml.cs">
+      <DependentUpon>SssWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UniformPanel.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
     <Compile Include="ShogiCore\Moves\Validation\UsualMovesValidator.cs" />

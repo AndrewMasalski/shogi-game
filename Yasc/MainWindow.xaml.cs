@@ -119,5 +119,14 @@ namespace Yasc
         else _errorText.Text = move.ErrorMessage;
       }
     }
+
+    private void OnShowSssClick(object sender, RoutedEventArgs e)
+    {
+      var window = new SssWindow();
+      Application.Current.MainWindow = window;
+      window.DataContext = _board;
+      window.Show();
+      Close();
+    }
   }
 }

@@ -229,6 +229,7 @@
       </ItemsControl.ItemTemplate>
     </ItemsControl>
     <StackPanel Grid.Column="3">
+      <Button Content="SSS" Click="OnShowSssClick"/>
       <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />
       <TextBox x:Name="_address" Text="ws098"/>
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
