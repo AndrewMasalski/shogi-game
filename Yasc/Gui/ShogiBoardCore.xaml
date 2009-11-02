@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Yasc.GenericDragDrop"
     >
+  <Grid>
     <ItemsControl x:Name="_cells" ItemsSource="{Binding}" local:Dnd.Drop="OnDragDrop">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
@@ -10,4 +11,6 @@
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
     </ItemsControl>
+    <Canvas x:Name="_adornerLayer"/>
+  </Grid>
 </UserControl>

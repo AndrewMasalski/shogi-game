@@ -1,45 +1,26 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Yasc"
     xmlns:gdd="clr-namespace:Yasc.GenericDragDrop"
-    xmlns:Utils="clr-namespace:Yasc.ShogiCore.Utils"
-    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore"
-    xmlns:Gui="clr-namespace:Yasc.Gui">
+    xmlns:utils="clr-namespace:Yasc.ShogiCore.Utils"
+    xmlns:core="clr-namespace:Yasc.ShogiCore"
+    xmlns:local="clr-namespace:Yasc.Gui">
 
-  <Gui:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
+  <local:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
+  <local:ToStirngConverter x:Key="ToStirngConverter"/>
 
-  <DataTemplate x:Key="Piece" DataType="{x:Type ShogiCore:Piece}">
-    <Viewbox>
-      <Grid Height="14" Width="14">
-        <Grid Height="10" Width="10">
-          <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
-                  Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
-            <Path.RenderTransform>
-              <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
-            </Path.RenderTransform>
-          </Path>
-
-          <TextBlock Text="{Binding Type}" FontSize="7" FontFamily="MS Mincho"
-                       Margin="0,1,0,0" 
-                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-          <Grid.RenderTransform>
-            <RotateTransform CenterX="5" CenterY="5"
-                               Angle="{Binding Color, Mode=OneTime, 
-                               Converter={StaticResource ColorToAngleConverter}}"/>
-          </Grid.RenderTransform>
-        </Grid>
-      </Grid>
-    </Viewbox>
+  <DataTemplate x:Key="Piece" DataType="{x:Type core:Piece}">
+    <local:ShogiPiece PieceType="{Binding Type, Mode=OneTime}"
+                      PieceColor="{Binding Color, Mode=OneTime}" />
   </DataTemplate>
 
-  <DataTemplate DataType="{x:Type Utils:Cell}">
+  <DataTemplate DataType="{x:Type utils:Cell}">
     <Grid gdd:Dnd.IsDragSource="true"
             gdd:Dnd.IsDropTarget="true"
             Background="Transparent">
 
       <ContentPresenter Name="host" Content="{Binding Piece}"
-                          ContentTemplate="{StaticResource Piece}"/>
+                        ContentTemplate="{StaticResource Piece}"/>
     </Grid>
     <DataTemplate.Triggers>
       <DataTrigger Binding="{Binding Piece}" Value="{x:Null}">
@@ -48,20 +29,20 @@
     </DataTemplate.Triggers>
   </DataTemplate>
 
-  <Style TargetType="{x:Type Gui:ShogiBoard}">
+  <Style TargetType="{x:Type local:ShogiBoard}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Gui:ShogiBoard}">
+        <ControlTemplate TargetType="{x:Type local:ShogiBoard}">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="5*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Gui:ShogiHand DataContext="{Binding White.Hand}" Grid.Column="0" 
+            <local:ShogiHand DataContext="{Binding White.Hand}" Grid.Column="0" 
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
 
-            <Gui:UniformPanel Grid.Column="1">
+            <local:UniformPanel Grid.Column="1">
               <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Grid.Resources>
                   <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
@@ -186,11 +167,11 @@
                 <Border Grid.Row="1" Grid.Column="1"
                         Grid.RowSpan="9" Grid.ColumnSpan="9"
                         BorderBrush="Red" BorderThickness="2">
-                  <Gui:ShogiBoardCore/>
+                  <local:ShogiBoardCore/>
                 </Border>
               </Grid>
-            </Gui:UniformPanel>
-            <Gui:ShogiHand DataContext="{Binding Black.Hand}" Grid.Column="2" 
+            </local:UniformPanel>
+            <local:ShogiHand DataContext="{Binding Black.Hand}" Grid.Column="2" 
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
           </Grid>
         </ControlTemplate>
@@ -198,10 +179,10 @@
     </Setter>
   </Style>
 
-  <Style TargetType="{x:Type Gui:ShogiBoardCore}">
+  <Style TargetType="{x:Type local:ShogiBoardCore}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Gui:ShogiBoardCore}">
+        <ControlTemplate TargetType="{x:Type local:ShogiBoardCore}">
           <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
@@ -214,10 +195,10 @@
     </Setter>
   </Style>
 
-  <Style TargetType="{x:Type Gui:ShogiHand}">
+  <Style TargetType="{x:Type local:ShogiHand}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Gui:ShogiHand}">
+        <ControlTemplate TargetType="{x:Type local:ShogiHand}">
           <ItemsControl ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
@@ -234,6 +215,41 @@
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="{x:Type local:ShogiPiece}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:ShogiPiece}">
+          <Viewbox>
+            <Grid Height="14" Width="14">
+              <Grid Height="10" Width="10">
+                <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
+                      Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
+                  <Path.RenderTransform>
+                    <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
+                  </Path.RenderTransform>
+                </Path>
+
+                <TextBlock Text="{Binding PieceType, Mode=OneTime, 
+                    Converter={StaticResource ToStirngConverter},
+                    RelativeSource={RelativeSource TemplatedParent}}"
+                           FontSize="7" 
+                           FontFamily="MS Mincho" Margin="0,1,0,0" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+                <Grid.RenderTransform>
+                  <RotateTransform CenterX="5" CenterY="5"
+                       Angle="{Binding PieceColor, Mode=OneTime, 
+                    Converter={StaticResource ColorToAngleConverter},
+                    RelativeSource={RelativeSource TemplatedParent}}"/>
+                </Grid.RenderTransform>
+              </Grid>
+            </Grid>
+          </Viewbox>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

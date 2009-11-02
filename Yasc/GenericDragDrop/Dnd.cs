@@ -17,7 +17,7 @@ namespace Yasc.GenericDragDrop
       DependencyProperty.RegisterAttached("IsDragSource", typeof(bool),
       typeof(Dnd), new UIPropertyMetadata(false, IsDragSourceChanged));
 
-    private static readonly DependencyPropertyKey DragDropHelperPropertyKey =
+    private static readonly DependencyPropertyKey _dragDropHelperPropertyKey =
       DependencyProperty.RegisterAttachedReadOnly("Dnd", typeof(Dnd),
       typeof(Dnd), new UIPropertyMetadata(null));
 
@@ -33,16 +33,16 @@ namespace Yasc.GenericDragDrop
       var helper = GetDragDropHelper(dragSource);
       if (value && helper == null)
       {
-        dragSource.SetValue(DragDropHelperPropertyKey, new Dnd(dragSource));
+        dragSource.SetValue(_dragDropHelperPropertyKey, new Dnd(dragSource));
       }
       else if (!value && helper != null)
       {
         helper.Dispose();
-        dragSource.ClearValue(DragDropHelperPropertyKey);
+        dragSource.ClearValue(_dragDropHelperPropertyKey);
       }
     }
 
-    public static readonly DependencyProperty DragDropHelperProperty = DragDropHelperPropertyKey.DependencyProperty;
+    public static readonly DependencyProperty DragDropHelperProperty = _dragDropHelperPropertyKey.DependencyProperty;
     public static Dnd GetDragDropHelper(DependencyObject obj)
     {
       return (Dnd)obj.GetValue(DragDropHelperProperty);
