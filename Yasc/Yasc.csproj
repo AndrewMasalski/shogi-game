@@ -72,10 +72,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SssWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,9 +109,6 @@
     <Compile Include="ShogiCore\PromotionAnalyser.cs" />
     <Compile Include="ShogiCore\SituationAnalizer.cs" />
     <Compile Include="ShogiHand.cs" />
-    <Compile Include="SssWindow.xaml.cs">
-      <DependentUpon>SssWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UniformPanel.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
     <Compile Include="ShogiCore\Moves\Validation\UsualMovesValidator.cs" />
