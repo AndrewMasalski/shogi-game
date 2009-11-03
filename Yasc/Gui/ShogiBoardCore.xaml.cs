@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Utils;
 using Yasc.Utils;
-using Vector=System.Windows.Vector;
-using System.Linq;
 
 namespace Yasc.Gui
 {
@@ -40,20 +37,34 @@ namespace Yasc.Gui
       
       var pieceControl = fromCtrl.FindChild<ShogiPiece>();
       var renderSize = pieceControl.RenderSize;
-      _adornerLayer.RenderTransform = (Transform) pieceControl.TransformToVisual(_adornerLayer);
+      var fromTransform = (MatrixTransform)fromCtrl.TransformToVisual(_adornerLayer).Clone();
+      var toTransform = (MatrixTransform)toCtrl.TransformToVisual(_adornerLayer);
+//      _adornerLayer.RenderTransform = fromTransform;
       ((Grid)pieceControl.Parent).Children.Remove(pieceControl);
       pieceControl.Width = renderSize.Width;
       pieceControl.Height = renderSize.Height;
       toCtrl.Visibility = Visibility.Hidden;
       _adornerLayer.Children.Add(pieceControl);
 
-      new DispatcherTimer(TimeSpan.FromSeconds(5),
-           DispatcherPriority.ApplicationIdle, (o, eventArgs) =>
-              {
+//      new DispatcherTimer(TimeSpan.FromSeconds(5),
+//           DispatcherPriority.ApplicationIdle, (o, eventArgs) =>
+//              {
 //                fromCtrl.Visibility = Visibility.Visible;
-                toCtrl.Visibility = Visibility.Visible;
-                _adornerLayer.Children.Remove(pieceControl);
-              }, Dispatcher);
+//                toCtrl.Visibility = Visibility.Visible;
+//                _adornerLayer.Children.Remove(pieceControl);
+//              }, Dispatcher);
+      var animation = new MatrixAnimationUsingKeyFrames();
+      animation.KeyFrames.Add(new DiscreteMatrixKeyFrame(fromTransform.Matrix, KeyTime.FromTimeSpan(TimeSpan.Zero)));
+      animation.KeyFrames.Add(new DiscreteMatrixKeyFrame(toTransform.Matrix, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1))));
+      animation.Duration = Duration.Automatic;
+      Storyboard.SetTarget(animation, fromTransform);
+      Storyboard.SetTargetProperty(animation, new PropertyPath("Matrix"));
+      int counter = 0;
+      animation.Completed += (o, eventArgs) => counter++;
+      var sb = new Storyboard();
+      sb.Children.Add(animation);
+//      sb.Duration = TimeSpan.FromSeconds(4);
+      sb.Begin();
     }
 
     public Board Board
@@ -111,7 +122,7 @@ namespace Yasc.Gui
       if (m1.IsValid && m2.IsValid)
       {
         var answer = MessageBox.Show("Promote?", "Q",
-                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
         move = answer == MessageBoxResult.Yes ? m2 : m1;
       }
       else move = m1.IsValid ? m1 : m2;
