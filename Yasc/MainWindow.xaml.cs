@@ -6,6 +6,7 @@ using Yasc.Networking;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 using Yasc.GenericDragDrop;
+using Yasc.Utils;
 
 namespace Yasc
 {
@@ -28,7 +29,7 @@ namespace Yasc
 
     private void BoardOnMove(object sender, MoveEventArgs args)
     {
-      if (_ticket != null)
+      if (!_opponentMoveReaction && _ticket != null)
         _ticket.Move(args.Move.ToString());
     }
 
@@ -52,10 +53,13 @@ namespace Yasc
         MessageBox.Show(x.ToString());
       }
     }
- 
+
+    private readonly Flag _opponentMoveReaction = new Flag();
+
     private void TicketOnOpponentMadeMove(string move)
     {
-      _board.MakeMove(_board.GetMove(move));
+      using (_opponentMoveReaction.Set())
+        _board.MakeMove(_board.GetMove(move));
     }
     private void OnMoveClick(object sender, RoutedEventArgs e)
     {
