@@ -11,16 +11,17 @@
 
   <DataTemplate x:Key="Piece" DataType="{x:Type core:Piece}">
     <Grid>
-    <local:ShogiPiece PieceType="{Binding Type, Mode=OneTime}"
-                      PieceColor="{Binding Color, Mode=OneTime}" />
-      </Grid>
+      <local:ShogiPiece PieceType="{Binding Type, Mode=OneTime}"
+                        PieceColor="{Binding Color, Mode=OneTime}" />
+    </Grid>
   </DataTemplate>
 
   <DataTemplate DataType="{x:Type utils:Cell}">
     <Grid gdd:Dnd.IsDragSource="true"
-            gdd:Dnd.IsDropTarget="true"
-            Background="Transparent">
+          gdd:Dnd.IsDropTarget="true"
+          Background="Transparent">
 
+      <Grid.Resources><local:DebugConverter x:Key="DebugConverter"/></Grid.Resources>
       <ContentPresenter Name="host" Content="{Binding Piece}"
                         ContentTemplate="{StaticResource Piece}"/>
     </Grid>
@@ -157,14 +158,10 @@
                 <Path Style="{StaticResource HorizontalLine}" Grid.Row="9"/>
                 <Path Style="{StaticResource HorizontalLine}" Grid.Row="9" VerticalAlignment="Bottom"/>
 
-                <Ellipse Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                 Fill="Black" Width="10" Height="10"/>
-                <Ellipse Grid.Row="6" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                 Fill="Black" Width="10" Height="10"/>
-                <Ellipse Grid.Row="3" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                 Fill="Black" Width="10" Height="10"/>
-                <Ellipse Grid.Row="6" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                 Fill="Black" Width="10" Height="10"/>
+                <Ellipse Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Fill="Black" Width="10" Height="10"/>
+                <Ellipse Grid.Row="6" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" Fill="Black" Width="10" Height="10"/>
+                <Ellipse Grid.Row="3" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2" Fill="Black" Width="10" Height="10"/>
+                <Ellipse Grid.Row="6" Grid.Column="6" Grid.RowSpan="2" Grid.ColumnSpan="2" Fill="Black" Width="10" Height="10"/>
 
                 <Border Grid.Row="1" Grid.Column="1"
                         Grid.RowSpan="9" Grid.ColumnSpan="9"
@@ -209,10 +206,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <Grid Background="Transparent" 
-                      gdd:Dnd.IsDragSource="True">
-                  <ContentPresenter Content="{Binding}"
-                                    ContentTemplate="{StaticResource Piece}"/>
+                <Grid Background="Transparent" gdd:Dnd.IsDragSource="True">
+                  <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Piece}"/>
                 </Grid>
               </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -227,33 +222,31 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiPiece}">
           <Border Background="{TemplateBinding Background}">
-          <Viewbox>
-            <Grid Height="14" Width="14">
-              <Grid Height="10" Width="10">
-                <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
-                      Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
-                  <Path.RenderTransform>
-                    <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
-                  </Path.RenderTransform>
-                </Path>
+            <Viewbox>
+              <Grid Height="14" Width="14">
+                <Grid Height="10" Width="10">
+                  <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
+                        Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
+                    <Path.RenderTransform>
+                      <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
+                    </Path.RenderTransform>
+                  </Path>
 
-                <TextBlock Text="{Binding PieceType, Mode=OneTime, 
-                    Converter={StaticResource ToStirngConverter},
-                    RelativeSource={RelativeSource TemplatedParent}}"
-                           FontSize="7" 
-                           FontFamily="MS Mincho" Margin="0,1,0,0" 
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"/>
-                <Grid.RenderTransform>
-                  <RotateTransform CenterX="5" CenterY="5"
-                       Angle="{Binding PieceColor, Mode=OneTime, 
-                    Converter={StaticResource ColorToAngleConverter},
-                    RelativeSource={RelativeSource TemplatedParent}}"/>
-                </Grid.RenderTransform>
+                  <TextBlock Text="{Binding PieceType, Mode=OneTime, 
+                             Converter={StaticResource ToStirngConverter},
+                             RelativeSource={RelativeSource TemplatedParent}}"
+                             FontSize="7" FontFamily="MS Mincho" Margin="0,1,0,0" 
+                             VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                  <Grid.RenderTransform>
+                    <RotateTransform CenterX="5" CenterY="5"               
+                                     Angle="{Binding PieceColor, Mode=OneTime,      
+                                     Converter={StaticResource ColorToAngleConverter},                    
+                                     RelativeSource={RelativeSource TemplatedParent}}"/>
+                  </Grid.RenderTransform>
+                </Grid>
               </Grid>
-            </Grid>
-          </Viewbox>
-            </Border>
+            </Viewbox>
+          </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

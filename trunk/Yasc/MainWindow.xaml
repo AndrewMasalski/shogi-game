@@ -15,11 +15,11 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <Gui:ShogiBoard Gui:ShogiBoardCore.MoveAttempt="OnMoveAttempt"/>
+    <Gui:ShogiBoard Gui:ShogiBoardCore.MoveAttempt="OnMoveAttempt" MouseMove="MouseMove1"/>
 
     <StackPanel Grid.Column="1">
       <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />
-      <TextBox x:Name="_address" Text="ws098"/>
+      <TextBox x:Name="_address" Text="localhost"/>
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
       <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
       <Button Content="move" Click="OnMoveClick"/>

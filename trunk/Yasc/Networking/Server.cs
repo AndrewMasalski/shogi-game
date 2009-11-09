@@ -5,6 +5,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
+using System.Windows;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Networking
@@ -21,7 +22,7 @@ namespace Yasc.Networking
     public static bool ThisDomainIsServerHost { get; private set; }
     public static bool ServerIsStartedOnThisComputer
     { 
-      get { return PortUtils.IsPortInUse(Port); }
+      get { return PortUtils.IsPortBusy(Port); }
     }
     public IPlayerGameController ParticipateGame()
     {
@@ -68,7 +69,9 @@ namespace Yasc.Networking
 
     private PlayerGameController Opponent(PlayerGameController controller)
     {
-      return controller == _whitePlayer ? _blackPlayer : _whitePlayer;
+      var opponent = controller == _whitePlayer ? _blackPlayer : _whitePlayer;
+      if (opponent == null) MessageBox.Show("Opponent is not found!");
+      return opponent;
     }
 
     private void Move(PlayerGameController controller, string move)
@@ -93,7 +96,6 @@ namespace Yasc.Networking
       RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
       RemotingServices.Marshal(new Server(), typeof(Server).FullName);
 
-//      RemotingConfiguration.Configure("Yasc.exe.config", false);
       ThisDomainIsServerHost = true;
     }
 

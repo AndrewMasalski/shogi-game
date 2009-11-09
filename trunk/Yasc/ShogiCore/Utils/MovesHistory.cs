@@ -1,12 +1,13 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using MvvmFoundation.Wpf;
 using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Utils
 {
-  public class MovesHistory : ViewModelBase
+  public class MovesHistory : ObservableObject
   {
     private readonly ObservableCollection<MoveBase> _movesDone;
 

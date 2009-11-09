@@ -1,10 +1,12 @@
+using MvvmFoundation.Wpf;
+
 namespace Yasc.ShogiCore.Utils
 {
   /// <summary>Cell is a place on a board where piece may appear. 
   ///   Shogi board is consist of 9x9 cells.</summary>
   /// <remarks>This class is invented to make board to be collection of cells. 
   ///   That drammaticaly simplifies GUI binding</remarks>
-  public class Cell : ViewModelBase
+  public class Cell : ObservableObject
   {
     private Piece _piece;
 
@@ -20,7 +22,7 @@ namespace Yasc.ShogiCore.Utils
       {
         if (_piece == value) return;
         _piece = value;
-        OnPropertyChanged("Piece");
+        RaisePropertyChanged("Piece");
       }
     }
 
