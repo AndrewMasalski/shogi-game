@@ -1,8 +1,9 @@
+using MvvmFoundation.Wpf;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.ShogiCore
 {
-  public class Piece : ViewModelBase
+  public class Piece : ObservableObject
   {
     public Player Owner { get; set; }
     public PieceType Type { get; private set; }
@@ -19,7 +20,7 @@ namespace Yasc.ShogiCore
       {
         if (value == IsPromoted) return;
         Type = value ? Type.Promote() : Type.Unpromote();
-        OnPropertyChanged("IsPromoted");
+        RaisePropertyChanged("IsPromoted");
       }
     }
 
@@ -27,6 +28,10 @@ namespace Yasc.ShogiCore
     {
       Owner = owner;
       Type = type;
+    }
+    public override string ToString()
+    {
+      return Owner.Color + " " + (IsPromoted ? "promoted " : " ") + Type;
     }
   }
 }

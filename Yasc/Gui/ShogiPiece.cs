@@ -32,5 +32,10 @@ namespace Yasc.Gui
       get { return (PieceColor) GetValue(PieceColorProperty); }
       set { SetValue(PieceColorProperty, value); }
     }
+
+    public override string ToString()
+    {
+      return PieceColor + (PieceType.IsPromoted ? " promoted " : " ") + PieceType;
+    }
   }
 }

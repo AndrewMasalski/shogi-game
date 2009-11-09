@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using Yasc.Gui;
 using Yasc.Networking;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
+using Yasc.GenericDragDrop;
 
 namespace Yasc
 {
@@ -17,11 +19,19 @@ namespace Yasc
       InitializeComponent();
 
       _board = new Board();
+      _board.Move += BoardOnMove;
       Shogi.InititBoard(_board);
       DataContext = _board;
       if (!Server.ServerIsStartedOnThisComputer)
         StartServer();
     }
+
+    private void BoardOnMove(object sender, MoveEventArgs args)
+    {
+      if (_ticket != null)
+        _ticket.Move(args.Move.ToString());
+    }
+
     private void OnMoveAttempt(object sender, MoveAttemptEventArgs e)
     {
       _errorLabel.Text = e.Move.ErrorMessage;
@@ -69,6 +79,16 @@ namespace Yasc
     {
       Server.Start();
       _startServerButton.Content = "Done!";
+    }
+
+    private void MouseMove1(object sender, MouseEventArgs e)
+    {
+      var obj = e.OriginalSource as DependencyObject;
+      if (obj != null)
+      {
+        var ancestor = obj.FindAncestor<ShogiPiece>();
+        if (ancestor != null) Title = ancestor.ToString();
+      }
     }
   }
 }

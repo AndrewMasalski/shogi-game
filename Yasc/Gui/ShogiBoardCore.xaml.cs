@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
@@ -32,39 +30,51 @@ namespace Yasc.Gui
       if (m == null) return;
       var from = Board[m.From.X, m.From.Y];
       var to = Board[m.To.X, m.To.Y];
-      var fromCtrl = (FrameworkElement)_cells.ItemContainerGenerator.ContainerFromItem(from);
-      var toCtrl = (FrameworkElement)_cells.ItemContainerGenerator.ContainerFromItem(to);
-      
-      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
-      var renderSize = pieceControl.RenderSize;
-      var fromTransform = (MatrixTransform)fromCtrl.TransformToVisual(_adornerLayer).Clone();
-      var toTransform = (MatrixTransform)toCtrl.TransformToVisual(_adornerLayer);
-//      _adornerLayer.RenderTransform = fromTransform;
-      ((Grid)pieceControl.Parent).Children.Remove(pieceControl);
-      pieceControl.Width = renderSize.Width;
-      pieceControl.Height = renderSize.Height;
-      toCtrl.Visibility = Visibility.Hidden;
-      _adornerLayer.Children.Add(pieceControl);
 
-//      new DispatcherTimer(TimeSpan.FromSeconds(5),
-//           DispatcherPriority.ApplicationIdle, (o, eventArgs) =>
-//              {
-//                fromCtrl.Visibility = Visibility.Visible;
-//                toCtrl.Visibility = Visibility.Visible;
-//                _adornerLayer.Children.Remove(pieceControl);
-//              }, Dispatcher);
-      var animation = new MatrixAnimationUsingKeyFrames();
-      animation.KeyFrames.Add(new DiscreteMatrixKeyFrame(fromTransform.Matrix, KeyTime.FromTimeSpan(TimeSpan.Zero)));
-      animation.KeyFrames.Add(new DiscreteMatrixKeyFrame(toTransform.Matrix, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(1))));
-      animation.Duration = Duration.Automatic;
-      Storyboard.SetTarget(animation, fromTransform);
-      Storyboard.SetTargetProperty(animation, new PropertyPath("Matrix"));
-      int counter = 0;
-      animation.Completed += (o, eventArgs) => counter++;
-      var sb = new Storyboard();
-      sb.Children.Add(animation);
-//      sb.Duration = TimeSpan.FromSeconds(4);
-      sb.Begin();
+      var generator = _cells.ItemContainerGenerator;
+      AnimateMove(generator.ContainerFromItem(from), 
+        (FrameworkElement)generator.ContainerFromItem(to));
+    }
+
+    private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
+    {
+      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
+      MoveToAdornerLayer(pieceControl);
+      var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
+      toCtrl.Visibility = Visibility.Hidden;
+
+      AnimatePosition(pieceControl, to, (sender, args) =>
+        {
+          toCtrl.Visibility = Visibility.Visible;
+          _adornerLayer.Children.Remove(pieceControl);
+        });
+    }
+
+    private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
+    {
+      ctrl.BeginAnimation(Canvas.LeftProperty,
+        new DoubleAnimation(to.X, new Duration(TimeSpan.FromSeconds(.25))));
+
+      var anim = new DoubleAnimation(to.Y, new Duration(TimeSpan.FromSeconds(.25)));
+      anim.Completed += completed;
+      ctrl.BeginAnimation(Canvas.TopProperty, anim);
+    }
+
+    private void MoveToAdornerLayer(FrameworkElement ctrl)
+    {
+      var transform = ctrl.TransformToVisual(_adornerLayer);
+      var point = transform.Transform(new Point(0, 0));
+      Canvas.SetLeft(ctrl, point.X);
+      Canvas.SetTop(ctrl, point.Y);
+      ctrl.Width = ctrl.ActualWidth;
+      ctrl.Height = ctrl.ActualHeight;
+      RemoveFromParentControl(ctrl);
+      _adornerLayer.Children.Add(ctrl);
+    }
+
+    private static void RemoveFromParentControl(FrameworkElement ctrl)
+    {
+      ((Grid)ctrl.Parent).Children.Remove(ctrl);
     }
 
     public Board Board
