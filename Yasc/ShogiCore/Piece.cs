@@ -31,7 +31,12 @@ namespace Yasc.ShogiCore
     }
     public override string ToString()
     {
-      return Owner.Color + " " + (IsPromoted ? "promoted " : " ") + Type;
+      return Owner.Color + (IsPromoted ? " promoted " : " ") + Type;
+    }
+
+    public string ToLatinString()
+    {
+      return Owner.Color + (IsPromoted ? " promoted " : " ") + Type.Latin;
     }
   }
 }
