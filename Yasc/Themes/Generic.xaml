@@ -17,19 +17,10 @@
   </DataTemplate>
 
   <DataTemplate DataType="{x:Type utils:Cell}">
-    <Grid gdd:Dnd.IsDragSource="true"
-          gdd:Dnd.IsDropTarget="true"
-          Background="Transparent">
-
-      <Grid.Resources><local:DebugConverter x:Key="DebugConverter"/></Grid.Resources>
-      <ContentPresenter Name="host" Content="{Binding Piece}"
-                        ContentTemplate="{StaticResource Piece}"/>
-    </Grid>
-    <DataTemplate.Triggers>
-      <DataTrigger Binding="{Binding Piece}" Value="{x:Null}">
-        <Setter TargetName="host" Property="ContentTemplate" Value="{x:Null}"/>
-      </DataTrigger>
-    </DataTemplate.Triggers>
+    <local:ShogiCell
+      gdd:Dnd.IsDragSource="true"
+      gdd:Dnd.IsDropTarget="true"
+      Piece="{Binding Piece}" />
   </DataTemplate>
 
   <Style TargetType="{x:Type local:ShogiBoard}">
@@ -221,7 +212,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiPiece}">
-          <Border Background="{TemplateBinding Background}">
+          <Border Name="border">
             <Viewbox>
               <Grid Height="14" Width="14">
                 <Grid Height="10" Width="10">
@@ -247,6 +238,28 @@
               </Grid>
             </Viewbox>
           </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="{x:Type local:ShogiCell}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:ShogiCell}">
+
+          <Border Name="border" Background="Transparent">
+            <ContentPresenter Name="host" Content="{Binding Piece}"
+                        ContentTemplate="{StaticResource Piece}"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsPossibleMoveTarget" Value="True">
+              <Setter TargetName="border" Property="Background" Value="Red"/>
+            </Trigger>
+            <Trigger Property="Piece" Value="{x:Null}">
+              <Setter TargetName="host" Property="ContentTemplate" Value="{x:Null}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

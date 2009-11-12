@@ -4,7 +4,9 @@
     xmlns:local="clr-namespace:Yasc.GenericDragDrop"
     >
   <Grid>
-    <ItemsControl x:Name="_cells" ItemsSource="{Binding}" local:Dnd.Drop="OnDragDrop">
+    <ItemsControl x:Name="_cells" ItemsSource="{Binding}" 
+                  local:Dnd.Drop="OnDragDrop"
+                  local:Dnd.Drag="OnDrag">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
           <UniformGrid Rows="9" Columns="9"/>
