@@ -34,11 +34,16 @@ namespace Yasc.ShogiCore.Moves
     }
     protected internal override void Make()
     {
-      if (IsPromoting) Board[From].IsPromoted = true;
-      if (Board[To] != null)
-        Who.Hand.Add(Board[To]);
-      Board[To] = Board[From];
+      var piece = Board[From];
       Board[From] = null;
+      if (IsPromoting) piece.IsPromoted = true;
+      var targetPiece = Board[To];
+      if (targetPiece != null)
+      {
+        Board[To] = null;
+        Who.Hand.Add(targetPiece);
+      }
+      Board[To] = piece;
     }
 
     protected override string GetErrorMessage()

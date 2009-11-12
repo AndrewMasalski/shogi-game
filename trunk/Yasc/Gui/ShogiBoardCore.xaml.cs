@@ -12,16 +12,28 @@ namespace Yasc.Gui
 {
   public partial class ShogiBoardCore
   {
+    private readonly Flag _dragMove = new Flag();
+
+    #region ' Helpers '
+
     public ShogiBoardCore()
     {
       InitializeComponent();
       DataContextChanged += OnDataContextChanged;
     }
 
+    public Board Board
+    {
+      get { return (Board)DataContext; }
+    }
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs args)
     {
       Board.Move += BoardOnMove;
     }
+
+    #endregion
+
+    #region ' Move Animation '
 
     private void BoardOnMove(object sender, MoveEventArgs args)
     {
@@ -33,9 +45,8 @@ namespace Yasc.Gui
 
       var generator = _cells.ItemContainerGenerator;
       AnimateMove(generator.ContainerFromItem(from), 
-        (FrameworkElement)generator.ContainerFromItem(to));
+                  (FrameworkElement)generator.ContainerFromItem(to));
     }
-
     private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
     {
       var pieceControl = fromCtrl.FindChild<ShogiPiece>();
@@ -44,22 +55,20 @@ namespace Yasc.Gui
       toCtrl.Visibility = Visibility.Hidden;
 
       AnimatePosition(pieceControl, to, (sender, args) =>
-        {
-          toCtrl.Visibility = Visibility.Visible;
-          _adornerLayer.Children.Remove(pieceControl);
-        });
+          {
+            toCtrl.Visibility = Visibility.Visible;
+            _adornerLayer.Children.Remove(pieceControl);
+          });
     }
-
     private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
     {
       ctrl.BeginAnimation(Canvas.LeftProperty,
-        new DoubleAnimation(to.X, new Duration(TimeSpan.FromSeconds(.25))));
+         new DoubleAnimation(to.X, new Duration(TimeSpan.FromSeconds(.25))));
 
       var anim = new DoubleAnimation(to.Y, new Duration(TimeSpan.FromSeconds(.25)));
       anim.Completed += completed;
       ctrl.BeginAnimation(Canvas.TopProperty, anim);
     }
-
     private void MoveToAdornerLayer(FrameworkElement ctrl)
     {
       var transform = ctrl.TransformToVisual(_adornerLayer);
@@ -71,18 +80,14 @@ namespace Yasc.Gui
       RemoveFromParentControl(ctrl);
       _adornerLayer.Children.Add(ctrl);
     }
-
     private static void RemoveFromParentControl(FrameworkElement ctrl)
     {
       ((Grid)ctrl.Parent).Children.Remove(ctrl);
     }
 
-    public Board Board
-    {
-      get { return (Board)DataContext; }
-    }
+    #endregion
 
-    #region ' MoveAttempt '
+    #region ' MoveAttempt Routed Event '
 
     public static readonly RoutedEvent MoveAttemptEvent = EventManager.
       RegisterRoutedEvent("MoveAttempt", RoutingStrategy.Bubble,
@@ -99,30 +104,33 @@ namespace Yasc.Gui
 
     #endregion
 
-    private readonly Flag _dragMove = new Flag();
+    #region ' Drag'n'Drop Moves '
 
     private void OnDragDrop(object sender, DropEventArgs e)
     {
-      MoveBase move;
-      if (e.DragSource.DataContext is Cell)
-      {
-        var from = (Cell)e.DragSource.DataContext;
-        var to = (Cell)e.DragTarget.DataContext;
-        move = GetUsualMove(from, to);
-      }
-      else
-      {
-        var piece = (Piece)e.DragSource.DataContext;
-        var to = (Cell)e.DragTarget.DataContext;
-        move = Board.GetDropMove(piece, to.Position);
-      }
-
+      var move = RecognizeMove(e);
       if (move == null) return;
+
       RaiseMoveAttemptEvent(move);
 
       if (move.IsValid)
         using (_dragMove.Set())
           Board.MakeMove(move);
+    }
+    private MoveBase RecognizeMove(DropEventArgs e)
+    {
+      if (e.DragSource.DataContext is Cell)
+      {
+        var from = (Cell)e.DragSource.DataContext;
+        var to = (Cell)e.DragTarget.DataContext;
+        return GetUsualMove(from, to);
+      }
+      else
+      {
+        var piece = (Piece)e.DragSource.DataContext;
+        var to = (Cell)e.DragTarget.DataContext;
+        return Board.GetDropMove(piece, to.Position);
+      }
     }
     private MoveBase GetUsualMove(Cell from, Cell to)
     {
@@ -132,11 +140,13 @@ namespace Yasc.Gui
       if (m1.IsValid && m2.IsValid)
       {
         var answer = MessageBox.Show("Promote?", "Q",
-            MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         move = answer == MessageBoxResult.Yes ? m2 : m1;
       }
       else move = m1.IsValid ? m1 : m2;
       return move;
     }
+
+    #endregion
   }
 }
