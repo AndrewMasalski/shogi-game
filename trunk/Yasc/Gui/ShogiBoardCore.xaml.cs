@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -45,7 +46,25 @@ namespace Yasc.Gui
 
       var generator = _cells.ItemContainerGenerator;
       AnimateMove(generator.ContainerFromItem(from), 
-                  (FrameworkElement)generator.ContainerFromItem(to));
+         (FrameworkElement)generator.ContainerFromItem(to));
+    }
+    private ShogiPiece GetPiece(Cell cell)
+    {
+      return _cells.ItemContainerGenerator.
+        ContainerFromItem(cell).FindChild<ShogiPiece>();
+    }
+    private ShogiPiece GetPiece(Position p)
+    {
+      return GetPiece(Board[p.X, p.Y]);
+    }
+    private ShogiCell GetCell(Cell cell)
+    {
+      return _cells.ItemContainerGenerator.
+        ContainerFromItem(cell).FindChild<ShogiCell>();
+    }
+    private ShogiCell GetCell(Position p)
+    {
+      return GetCell(Board[p.X, p.Y]);
     }
     private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
     {
@@ -140,7 +159,7 @@ namespace Yasc.Gui
       if (m1.IsValid && m2.IsValid)
       {
         var answer = MessageBox.Show("Promote?", "Q",
-                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
+          MessageBoxButton.YesNo, MessageBoxImage.Question);
         move = answer == MessageBoxResult.Yes ? m2 : m1;
       }
       else move = m1.IsValid ? m1 : m2;
@@ -148,5 +167,12 @@ namespace Yasc.Gui
     }
 
     #endregion
+
+    private void OnDrag(object sender, RoutedEventArgs e)
+    {
+      var cell = (Cell) ((FrameworkElement) e.OriginalSource).DataContext;
+      foreach (UsualMove move in Board.GetAvailableMoves(cell.Position))
+        GetCell(move.To).IsPossibleMoveTarget = true;
+    }
   }
 }

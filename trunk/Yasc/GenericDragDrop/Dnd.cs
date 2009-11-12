@@ -75,10 +75,24 @@ namespace Yasc.GenericDragDrop
     {
       ((UIElement)d).RemoveHandler(DropEvent, handler);
     }
-    private static void RaiseDropEvent(DependencyObject d, object source)
+    private static void RaiseDropEvent(FrameworkElement d, FrameworkElement source)
     {
-      ((UIElement)d).RaiseEvent(new DropEventArgs(DropEvent,
-        source, (FrameworkElement)source, (FrameworkElement)d));
+      d.RaiseEvent(new DropEventArgs(DropEvent, source, source, d));
+    }
+    public static readonly RoutedEvent DragEvent = EventManager.RegisterRoutedEvent(
+        "Drag", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Dnd));
+
+    public static void AddDragHandler(DependencyObject d, RoutedEventHandler handler)
+    {
+      ((UIElement)d).AddHandler(DragEvent, handler);
+    }
+    public static void RemoveDragHandler(DependencyObject d, RoutedEventHandler handler)
+    {
+      ((UIElement)d).RemoveHandler(DragEvent, handler);
+    }
+    private static void RaiseDragEvent(IInputElement d)
+    {
+      d.RaiseEvent(new RoutedEventArgs(DragEvent, d));
     }
 
     #endregion
@@ -120,6 +134,7 @@ namespace Yasc.GenericDragDrop
 
       _topWindow.PreviewMouseMove += MouseMove;
       _topWindow.PreviewMouseUp += MouseUp;
+      RaiseDragEvent(_dragSource);
     }
     private void MouseMove(object sender, MouseEventArgs e)
     {
