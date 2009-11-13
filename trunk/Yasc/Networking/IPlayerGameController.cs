@@ -11,7 +11,6 @@ namespace Yasc.Networking
     void Move(MoveMsg move);
     void Say(string move);
 
-    event Action<MoveMsg> OpponentMadeMove;
-    event Action<string> OpponentSaidSomething;
+    Func<MoveMsg, DateTime> OpponentMadeMove { set; }
   }
 }
