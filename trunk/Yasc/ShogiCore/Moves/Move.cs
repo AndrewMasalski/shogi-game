@@ -12,13 +12,13 @@ namespace Yasc.ShogiCore.Moves
     public bool IsValid { get { return ErrorMessage == null; }}
     public string ErrorMessage { get; private set; }
 
-    protected MoveBase(Board board)
+    protected MoveBase(Board board, Player who)
     {
       if (board == null) throw new ArgumentNullException("board");
       
       Board = board;
       TimeStamp = DateTime.Now;
-      Who = Board.OneWhoMoves;
+      Who = who;
       Number = Board.History.MovesDone.Count + 1;
       BoardSnapshot = Board.CurrentSnapshot;
     }
