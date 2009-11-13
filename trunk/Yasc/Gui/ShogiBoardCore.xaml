@@ -5,7 +5,7 @@
     >
   <Grid>
     <ItemsControl x:Name="_cells" ItemsSource="{Binding}" 
-                  local:Dnd.Drop="OnDragDrop"
+                  local:Dnd.Drop="OnDrop"
                   local:Dnd.Drag="OnDrag">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>

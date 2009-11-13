@@ -125,8 +125,11 @@ namespace Yasc.Gui
 
     #region ' Drag'n'Drop Moves '
 
-    private void OnDragDrop(object sender, DropEventArgs e)
+    private void OnDrop(object sender, DropEventArgs e)
     {
+      ReleaseDragSource((Cell)e.DragSource.DataContext);
+      if (e.DragTarget == null) return;
+
       var move = RecognizeMove(e);
       if (move == null) return;
 
@@ -136,6 +139,15 @@ namespace Yasc.Gui
         using (_dragMove.Set())
           Board.MakeMove(move);
     }
+
+    private void ReleaseDragSource(Cell cell)
+    {
+      // Technically it's possible to drag empty cell
+      if (cell.Piece == null) return;
+      foreach (UsualMove move in Board.GetAvailableMoves(cell.Position))
+        GetCell(move.To).IsPossibleMoveTarget = false;
+    }
+
     private MoveBase RecognizeMove(DropEventArgs e)
     {
       if (e.DragSource.DataContext is Cell)
@@ -171,6 +183,8 @@ namespace Yasc.Gui
     private void OnDrag(object sender, RoutedEventArgs e)
     {
       var cell = (Cell) ((FrameworkElement) e.OriginalSource).DataContext;
+      // Technically it's possible to drag empty cell
+      if (cell.Piece == null) return;
       foreach (UsualMove move in Board.GetAvailableMoves(cell.Position))
         GetCell(move.To).IsPossibleMoveTarget = true;
     }
