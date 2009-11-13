@@ -17,7 +17,10 @@ namespace UnitTests.UsualMoves
       vmth.TestMoves(moves);
 
       vmth.Board["5f"] = new Piece(vmth.Board.Black, PieceType.金);
-      vmth.TestMoves(moves);
+      var clone = new HashSet<Position>(moves);
+      // Can't move to check
+      clone.ExceptWith(new Position[] { "4g", "6g", "4f", "6f" });
+      vmth.TestMoves(clone);
 
       vmth.Board["5f"] = new Piece(vmth.Board.White, PieceType.金);
       moves.Remove("5f");
@@ -33,7 +36,10 @@ namespace UnitTests.UsualMoves
       vmth.TestMoves(moves);
 
       vmth.Board["5f"] = new Piece(vmth.Board.White, PieceType.金);
-      vmth.TestMoves(moves);
+      var clone = new HashSet<Position>(moves);
+      // Can't move to check
+      clone.ExceptWith(new Position[] { "4f", "6f" });
+      vmth.TestMoves(clone);
 
       vmth.Board["5f"] = new Piece(vmth.Board.Black, PieceType.金);
       moves.Remove("5f");
