@@ -28,7 +28,7 @@ namespace UnitTests
       foreach (var validCell in validMoves)
       {
         var move = Board.GetUsualMove(_startPosition, validCell, false);
-        Assert.IsTrue(move.IsValid, move.ErrorMessage);
+        Assert.IsTrue(move.IsValid, move + ": " + move.ErrorMessage);
       }
 
       // Check invalid moves
