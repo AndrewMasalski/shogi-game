@@ -30,7 +30,7 @@ namespace Yasc
     private void BoardOnMove(object sender, MoveEventArgs args)
     {
       if (!_opponentMoveReaction && _ticket != null)
-        _ticket.Move(args.Move.ToString());
+        _ticket.Move(new MoveMsg(args.Move.ToString()));
     }
 
     private void OnMoveAttempt(object sender, MoveAttemptEventArgs e)
@@ -45,7 +45,7 @@ namespace Yasc
         var server = Server.Connect(_address.Text);
         _ticket = server.ParticipateGame();
         if (_ticket == null) throw new Exception("There might be two players only");
-        _ticket.OpponentMadeMove += new ActionListener<string>(TicketOnOpponentMadeMove);
+        _ticket.OpponentMadeMove += new ActionListener<MoveMsg>(TicketOnOpponentMadeMove);
         _connectButton.Content = "Done!";
       }
       catch (Exception x)
@@ -56,16 +56,16 @@ namespace Yasc
 
     private readonly Flag _opponentMoveReaction = new Flag();
 
-    private void TicketOnOpponentMadeMove(string move)
+    private void TicketOnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
-        _board.MakeMove(_board.GetMove(move));
+        _board.MakeMove(_board.GetMove(move.Move));
     }
     private void OnMoveClick(object sender, RoutedEventArgs e)
     {
       try
       {
-        var move = _moveTextBox.Text;
+        var move = new MoveMsg(_moveTextBox.Text);
         _board.MakeMove(_board.GetMove(move));
         if (_ticket != null) _ticket.Move(move);
       }

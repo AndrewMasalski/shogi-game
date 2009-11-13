@@ -101,6 +101,7 @@
     <Compile Include="Mvvm\PropertyObserver.cs" />
     <Compile Include="Mvvm\RelayCommand.cs" />
     <Compile Include="Networking\ActionListener.cs" />
+    <Compile Include="Networking\MoveMsg.cs" />
     <Compile Include="Networking\PortUtils.cs" />
     <Compile Include="Networking\IPlayerGameController.cs" />
     <Compile Include="Networking\ISpectatorController.cs" />

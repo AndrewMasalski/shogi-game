@@ -23,7 +23,6 @@ namespace Yasc.ShogiCore.Moves
       BoardSnapshot = Board.CurrentSnapshot;
     }
 
-
     protected internal abstract void Make();
     
     protected void Validate()
@@ -32,5 +31,10 @@ namespace Yasc.ShogiCore.Moves
     }
 
     protected abstract string GetErrorMessage();
+
+    public void CorrectTimeStamp(DateTime timeStamp)
+    {
+      TimeStamp = timeStamp; 
+    }
   }
 }
