@@ -92,6 +92,7 @@
     <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
     <Compile Include="Gui\DebugConverter.cs" />
     <Compile Include="Gui\ShogiCell.cs" />
+    <Compile Include="Gui\SwitchControl.cs" />
     <Compile Include="Gui\ToStirngConverter.cs" />
     <Compile Include="Gui\MoveAttemptEventArgs.cs" />
     <Compile Include="Gui\ShogiPiece.cs" />
