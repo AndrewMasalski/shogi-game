@@ -6,7 +6,7 @@ using Yasc.Utils;
 
 namespace Yasc.ShogiCore
 {
-  public class AvailableMovesAnalyser : IEnumerable<Position>
+  public class AvailableUsualMovesAnalyser : IEnumerable<Position>
   {
     private readonly BoardSnapshot _board;
     private readonly Position _from;
@@ -17,7 +17,7 @@ namespace Yasc.ShogiCore
 
     private const int Max = 8;
 
-    public AvailableMovesAnalyser(BoardSnapshot board, Position from)
+    public AvailableUsualMovesAnalyser(BoardSnapshot board, Position from)
     {
       if (board == null) throw new ArgumentNullException("board");
       _board = board;

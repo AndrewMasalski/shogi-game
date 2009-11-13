@@ -92,7 +92,9 @@ namespace Yasc.Gui
       var piece = context as Piece;
       if (piece != null)
       {
-        // Need to highlight available drop moves
+        var moves = Board.GetAvailableMoves(piece);
+        var positions = from DropMove m in moves select m.To;
+        _boardCore.HighlightAvailableMoves(positions);
       }
     }
 
