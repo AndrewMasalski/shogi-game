@@ -8,7 +8,7 @@ namespace Yasc.Gui
     static ShogiHand()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiHand),
-                                               new FrameworkPropertyMetadata(typeof(ShogiHand)));
+        new FrameworkPropertyMetadata(typeof(ShogiHand)));
     }
   }
 }
