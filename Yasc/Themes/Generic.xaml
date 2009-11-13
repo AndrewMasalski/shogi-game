@@ -243,6 +243,12 @@
     </Setter>
   </Style>
 
+  <RadialGradientBrush x:Key="PossibleMoveTarget">
+    <GradientStop Color="#FF935656" Offset="1"/>
+    <GradientStop Color="#FFFFFFFF" Offset="0"/>
+    <GradientStop Color="#FFFFFFFF" Offset="0.772"/>
+  </RadialGradientBrush>
+  
   <Style TargetType="{x:Type local:ShogiCell}">
     <Setter Property="Template">
       <Setter.Value>
@@ -254,7 +260,7 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsPossibleMoveTarget" Value="True">
-              <Setter TargetName="border" Property="Background" Value="Red"/>
+              <Setter TargetName="border" Property="Background" Value="{StaticResource PossibleMoveTarget}"/>
             </Trigger>
             <Trigger Property="Piece" Value="{x:Null}">
               <Setter TargetName="host" Property="ContentTemplate" Value="{x:Null}"/>
