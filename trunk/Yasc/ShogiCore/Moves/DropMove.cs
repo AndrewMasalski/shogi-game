@@ -20,7 +20,13 @@ namespace Yasc.ShogiCore.Moves
       res.Validate();
       return res;
     }
-
+    public static DropMove Create(Board board, DropMoveSnapshot snapshot)
+    {
+      var res = new DropMove(board, snapshot.Piece.Type,
+        snapshot.To, board[snapshot.Piece.Color]);
+      res.Validate();
+      return res;
+    }
     protected internal override void Make()
     {
       Piece piece = Who.GetPieceFromHandByType(PieceType);

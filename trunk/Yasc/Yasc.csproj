@@ -109,7 +109,8 @@
     <Compile Include="Gui\ShogiBoardCore.xaml.cs">
       <DependentUpon>ShogiBoardCore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShogiCore\AvailableMovesAnalyser.cs" />
+    <Compile Include="ShogiCore\AvailableDropMovesAnalyser.cs" />
+    <Compile Include="ShogiCore\AvailableUsualMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />
     <Compile Include="ShogiCore\MoveEventArgs.cs" />
     <Compile Include="ShogiCore\Moves\DropMoveSnapshot.cs" />
