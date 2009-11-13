@@ -5,7 +5,7 @@ namespace Yasc.Networking
 {
   public interface ISpectatorController
   {
-    event Action<PieceColor, string> PlayerMadeMove;
+    event Action<PieceColor, MoveMsg> PlayerMadeMove;
     event Action<PieceColor, string> PlayerSomeoneSaidSomething;
   }
 }

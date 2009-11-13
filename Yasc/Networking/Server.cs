@@ -74,7 +74,7 @@ namespace Yasc.Networking
       return opponent;
     }
 
-    private void Move(PlayerGameController controller, string move)
+    private void Move(PlayerGameController controller, MoveMsg move)
     {
       Opponent(controller).InvokeOpponentMadeMove(move);
 
@@ -103,9 +103,9 @@ namespace Yasc.Networking
 
     private class SpectatorController : MarshalByRefObject, ISpectatorController
     {
-      public event Action<PieceColor, string> PlayerMadeMove;
+      public event Action<PieceColor, MoveMsg> PlayerMadeMove;
 
-      public void InvokePlayerMadeMove(PieceColor color, string move)
+      public void InvokePlayerMadeMove(PieceColor color, MoveMsg move)
       {
         var handler = PlayerMadeMove;
         if (handler != null) handler(color, move);
@@ -126,23 +126,21 @@ namespace Yasc.Networking
 
     private class PlayerGameController : MarshalByRefObject, IPlayerGameController
     {
-      private readonly Server _owner;
-      private readonly PieceColor _color;
+      private readonly Server _server;
+
+      public TimeSpan TimeLeft { get; private set; }
 
       public PlayerGameController(Server owner, PieceColor color)
       {
-        _owner = owner;
-        _color = color;
+        _server = owner;
+        MyColor = color;
       }
 
-      public PieceColor MyColor
-      {
-        get { return _color; }
-      }
+      public PieceColor MyColor { get; private set; }
 
-      public void Move(string move)
+      public void Move(MoveMsg move)
       {
-        _owner.Move(this, move);
+        _server.Move(this, move);
       }
 
       public void Say(string move)
@@ -150,9 +148,9 @@ namespace Yasc.Networking
         throw new NotImplementedException();
       }
 
-      public event Action<string> OpponentMadeMove;
+      public event Action<MoveMsg> OpponentMadeMove;
 
-      public void InvokeOpponentMadeMove(string move)
+      public void InvokeOpponentMadeMove(MoveMsg move)
       {
         var handler = OpponentMadeMove;
         if (handler != null) handler(move);

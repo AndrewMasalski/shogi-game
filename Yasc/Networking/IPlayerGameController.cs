@@ -6,11 +6,12 @@ namespace Yasc.Networking
   public interface IPlayerGameController
   {
     PieceColor MyColor { get; }
+    TimeSpan TimeLeft { get; }
 
-    void Move(string move);
+    void Move(MoveMsg move);
     void Say(string move);
 
-    event Action<string> OpponentMadeMove;
+    event Action<MoveMsg> OpponentMadeMove;
     event Action<string> OpponentSaidSomething;
   }
 }
