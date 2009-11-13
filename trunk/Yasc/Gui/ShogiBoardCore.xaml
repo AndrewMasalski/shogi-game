@@ -1,7 +1,6 @@
 ﻿<UserControl x:Class="Yasc.Gui.ShogiBoardCore"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Yasc.GenericDragDrop"
     >
   <Grid>
     <ItemsControl x:Name="_cells" ItemsSource="{Binding}" >

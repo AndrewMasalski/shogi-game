@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Gui
@@ -24,19 +23,6 @@ namespace Yasc.Gui
       get { return (Board)DataContext; }
     }
 
-    #endregion
-
-    #region ' Move Animation '
-
-    private ShogiPiece GetPiece(Cell cell)
-    {
-      return _cells.ItemContainerGenerator.
-        ContainerFromItem(cell).FindChild<ShogiPiece>();
-    }
-    private ShogiPiece GetPiece(Position p)
-    {
-      return GetPiece(Board[p.X, p.Y]);
-    }
     private ShogiCell GetCell(Cell cell)
     {
       return _cells.ItemContainerGenerator.
@@ -47,12 +33,30 @@ namespace Yasc.Gui
       return GetCell(Board[p.X, p.Y]);
     }
 
+    #endregion
+
+    #region ' Public Interface '
+
     public void AnimateMove(Cell from, Cell to)
     {
       var generator = _cells.ItemContainerGenerator;
       AnimateMove(generator.ContainerFromItem(from),
-         (FrameworkElement)generator.ContainerFromItem(to));
+                  (FrameworkElement)generator.ContainerFromItem(to));
     }
+    public void HighlightAvailableMoves(IEnumerable<Position> cells)
+    {
+      foreach (Position p in cells)
+        GetCell(p).IsPossibleMoveTarget = true;
+    }
+    public void ResetAvailableMoves()
+    {
+      foreach (var p in Position.OnBoard)
+        GetCell(p).IsPossibleMoveTarget = false;
+    }
+
+    #endregion
+
+    #region ' Move Animation '
 
     private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
     {
@@ -93,17 +97,5 @@ namespace Yasc.Gui
     }
 
     #endregion
-
-    public void HighlightAvailableMoves(IEnumerable<MoveBase> moves)
-    {
-      foreach (UsualMove move in moves)
-        GetCell(move.To).IsPossibleMoveTarget = true;
-    }
-
-    public void ResetAvailableMoves()
-    {
-      foreach (var p in Position.OnBoard)
-        GetCell(p).IsPossibleMoveTarget = false;
-    }
   }
 }
