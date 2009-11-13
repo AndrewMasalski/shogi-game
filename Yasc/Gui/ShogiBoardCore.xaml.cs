@@ -7,47 +7,27 @@ using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Utils;
-using Yasc.Utils;
 
 namespace Yasc.Gui
 {
   public partial class ShogiBoardCore
   {
-    private readonly Flag _dragMove = new Flag();
-
     #region ' Helpers '
 
     public ShogiBoardCore()
     {
       InitializeComponent();
-      DataContextChanged += OnDataContextChanged;
     }
 
     public Board Board
     {
       get { return (Board)DataContext; }
     }
-    private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs args)
-    {
-      Board.Move += BoardOnMove;
-    }
 
     #endregion
 
     #region ' Move Animation '
 
-    private void BoardOnMove(object sender, MoveEventArgs args)
-    {
-      if (_dragMove) return;
-      var m = args.Move as UsualMove;
-      if (m == null) return;
-      var from = Board[m.From.X, m.From.Y];
-      var to = Board[m.To.X, m.To.Y];
-
-      var generator = _cells.ItemContainerGenerator;
-      AnimateMove(generator.ContainerFromItem(from), 
-         (FrameworkElement)generator.ContainerFromItem(to));
-    }
     private ShogiPiece GetPiece(Cell cell)
     {
       return _cells.ItemContainerGenerator.
@@ -66,6 +46,14 @@ namespace Yasc.Gui
     {
       return GetCell(Board[p.X, p.Y]);
     }
+
+    public void AnimateMove(Cell from, Cell to)
+    {
+      var generator = _cells.ItemContainerGenerator;
+      AnimateMove(generator.ContainerFromItem(from),
+         (FrameworkElement)generator.ContainerFromItem(to));
+    }
+
     private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
     {
       var pieceControl = fromCtrl.FindChild<ShogiPiece>();
@@ -106,87 +94,16 @@ namespace Yasc.Gui
 
     #endregion
 
-    #region ' MoveAttempt Routed Event '
-
-    public static readonly RoutedEvent MoveAttemptEvent = EventManager.
-      RegisterRoutedEvent("MoveAttempt", RoutingStrategy.Bubble,
-        typeof(EventHandler<MoveAttemptEventArgs>), typeof(ShogiBoardCore));
-    public event EventHandler<MoveAttemptEventArgs> MoveAttempt
+    public void HighlightAvailableMoves(IEnumerable<MoveBase> moves)
     {
-      add { AddHandler(MoveAttemptEvent, value); }
-      remove { RemoveHandler(MoveAttemptEvent, value); }
-    }
-    private void RaiseMoveAttemptEvent(MoveBase move)
-    {
-      RaiseEvent(new MoveAttemptEventArgs(MoveAttemptEvent, this, move));
-    }
-
-    #endregion
-
-    #region ' Drag'n'Drop Moves '
-
-    private void OnDrop(object sender, DropEventArgs e)
-    {
-      ReleaseDragSource((Cell)e.DragSource.DataContext);
-      if (e.DragTarget == null) return;
-
-      var move = RecognizeMove(e);
-      if (move == null) return;
-
-      RaiseMoveAttemptEvent(move);
-
-      if (move.IsValid)
-        using (_dragMove.Set())
-          Board.MakeMove(move);
-    }
-
-    private void ReleaseDragSource(Cell cell)
-    {
-      // Technically it's possible to drag empty cell
-      if (cell.Piece == null) return;
-      foreach (UsualMove move in Board.GetAvailableMoves(cell.Position))
-        GetCell(move.To).IsPossibleMoveTarget = false;
-    }
-
-    private MoveBase RecognizeMove(DropEventArgs e)
-    {
-      if (e.DragSource.DataContext is Cell)
-      {
-        var from = (Cell)e.DragSource.DataContext;
-        var to = (Cell)e.DragTarget.DataContext;
-        return GetUsualMove(from, to);
-      }
-      else
-      {
-        var piece = (Piece)e.DragSource.DataContext;
-        var to = (Cell)e.DragTarget.DataContext;
-        return Board.GetDropMove(piece, to.Position);
-      }
-    }
-    private MoveBase GetUsualMove(Cell from, Cell to)
-    {
-      MoveBase move;
-      var m1 = Board.GetUsualMove(from.Position, to.Position, false);
-      var m2 = Board.GetUsualMove(from.Position, to.Position, true);
-      if (m1.IsValid && m2.IsValid)
-      {
-        var answer = MessageBox.Show("Promote?", "Q",
-          MessageBoxButton.YesNo, MessageBoxImage.Question);
-        move = answer == MessageBoxResult.Yes ? m2 : m1;
-      }
-      else move = m1.IsValid ? m1 : m2;
-      return move;
-    }
-
-    #endregion
-
-    private void OnDrag(object sender, RoutedEventArgs e)
-    {
-      var cell = (Cell) ((FrameworkElement) e.OriginalSource).DataContext;
-      // Technically it's possible to drag empty cell
-      if (cell.Piece == null) return;
-      foreach (UsualMove move in Board.GetAvailableMoves(cell.Position))
+      foreach (UsualMove move in moves)
         GetCell(move.To).IsPossibleMoveTarget = true;
+    }
+
+    public void ResetAvailableMoves()
+    {
+      foreach (var p in Position.OnBoard)
+        GetCell(p).IsPossibleMoveTarget = false;
     }
   }
 }

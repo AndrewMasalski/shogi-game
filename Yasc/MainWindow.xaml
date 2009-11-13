@@ -15,7 +15,7 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <Gui:ShogiBoard Gui:ShogiBoardCore.MoveAttempt="OnMoveAttempt" MouseMove="MouseMove1"/>
+    <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" MouseMove="MouseMove1"/>
 
     <StackPanel Grid.Column="1">
       <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />

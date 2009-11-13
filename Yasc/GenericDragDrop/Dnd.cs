@@ -77,7 +77,7 @@ namespace Yasc.GenericDragDrop
     }
     private static void RaiseDropEvent(FrameworkElement d, FrameworkElement source)
     {
-      d.RaiseEvent(new DropEventArgs(DropEvent, source, source, d));
+      source.RaiseEvent(new DropEventArgs(DropEvent, source, source, d));
     }
     public static readonly RoutedEvent DragEvent = EventManager.RegisterRoutedEvent(
         "Drag", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Dnd));
