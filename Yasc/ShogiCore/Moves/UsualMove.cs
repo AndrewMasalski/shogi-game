@@ -12,7 +12,7 @@ namespace Yasc.ShogiCore.Moves
     public bool IsPromoting { get; private set; }
 
     private UsualMove(Board board, Position from, Position to, bool isPromoting)
-      : base(board)
+      : base(board, board.OneWhoMoves)
     {
       From = from;
       To = to;

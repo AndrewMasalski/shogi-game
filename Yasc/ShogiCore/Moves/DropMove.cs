@@ -8,15 +8,15 @@ namespace Yasc.ShogiCore.Moves
     public PieceType PieceType { get; private set; }
     public Position To { get; private set; }
 
-    private DropMove(Board board, PieceType pieceType, Position to) 
-      : base(board)
+    private DropMove(Board board, PieceType pieceType, Position to, Player who) 
+      : base(board, who)
     {
       PieceType = pieceType;
       To = to;
     }
-    public static DropMove Create(Board board, PieceType pieceType, Position to)
+    public static DropMove Create(Board board, PieceType pieceType, Position to, Player who)
     {
-      var res = new DropMove(board, pieceType, to);
+      var res = new DropMove(board, pieceType, to, who);
       res.Validate();
       return res;
     }
