@@ -155,8 +155,7 @@ namespace Yasc.GenericDragDrop
     {
       var target = ((DependencyObject)e.OriginalSource).
         FindAncestor<FrameworkElement>(GetIsDropTarget);
-      if (target != null)
-        RaiseDropEvent(target, _dragSource);
+      RaiseDropEvent(target, _dragSource);
       Release();
     }
     private void Release()
