@@ -25,4 +25,29 @@ namespace Yasc.Networking
       return l.Act;
     }
   }
+  /// <summary>This class is needed because delegate target object must be 
+  /// <see cref="MarshalByRefObject"/> and target method must be public</summary>
+  public class FuncListener<T, TResult> : MarshalByRefObject
+  {
+    private readonly Func<T, TResult> _action;
+    private readonly SynchronizationContext _synch;
+
+    public FuncListener(Func<T, TResult> action)
+    {
+      _synch = SynchronizationContext.Current;
+      _action = action;
+    }
+
+    public TResult Act(T obj)
+    {
+      var res = default(TResult);
+      _synch.Send(p => res = _action(obj), null);
+      return res;
+    }
+
+    public static implicit operator Func<T, TResult>(FuncListener<T, TResult> l)
+    {
+      return l.Act;
+    }
+  }
 }

@@ -127,6 +127,7 @@ namespace Yasc.Networking
     private class PlayerGameController : MarshalByRefObject, IPlayerGameController
     {
       private readonly Server _server;
+      private DateTime? _gotLastOpponentMoveAt;
 
       public TimeSpan TimeLeft { get; private set; }
 
@@ -134,6 +135,7 @@ namespace Yasc.Networking
       {
         _server = owner;
         MyColor = color;
+        TimeLeft = TimeSpan.FromMinutes(5);
       }
 
       public PieceColor MyColor { get; private set; }
@@ -141,6 +143,10 @@ namespace Yasc.Networking
       public void Move(MoveMsg move)
       {
         _server.Move(this, move);
+        if (_gotLastOpponentMoveAt != null)
+        {
+          TimeLeft -= move.TimeStamp - (DateTime)_gotLastOpponentMoveAt;
+        }
       }
 
       public void Say(string move)
@@ -148,12 +154,15 @@ namespace Yasc.Networking
         throw new NotImplementedException();
       }
 
-      public event Action<MoveMsg> OpponentMadeMove;
+      public Func<MoveMsg, DateTime> OpponentMadeMove { private get; set; }
 
       public void InvokeOpponentMadeMove(MoveMsg move)
       {
         var handler = OpponentMadeMove;
-        if (handler != null) handler(move);
+        if (handler != null)
+        {
+          _gotLastOpponentMoveAt = handler(move);
+        }
       }
 
       public event Action<string> OpponentSaidSomething;
