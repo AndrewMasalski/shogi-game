@@ -1,7 +1,6 @@
 ﻿<Window x:Class="Yasc.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Yasc="clr-namespace:Yasc"
         xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
         xmlns:Gui="clr-namespace:Yasc.Gui"
         Title="MainWindow" Height="300" Width="300">

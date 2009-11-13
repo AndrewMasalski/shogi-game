@@ -126,7 +126,6 @@ namespace Yasc.GenericDragDrop
       }
     }
 
-
     private void MouseDown(object sender, MouseButtonEventArgs e)
     {
       _topWindow = _dragSource.FindAncestor<Window>();

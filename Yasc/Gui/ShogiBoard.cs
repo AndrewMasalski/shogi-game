@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Yasc.GenericDragDrop;
@@ -13,6 +14,8 @@ namespace Yasc.Gui
   {
     private readonly Flag _dragMove = new Flag();
     private ShogiBoardCore _boardCore;
+
+    #region ' Helpers '
 
     static ShogiBoard()
     {
@@ -32,6 +35,16 @@ namespace Yasc.Gui
       get { return (Board)DataContext; }
     }
 
+    public override void OnApplyTemplate()
+    {
+      _boardCore = this.FindChild<ShogiBoardCore>();
+      base.OnApplyTemplate();
+    }
+
+    #endregion
+
+    #region ' Moves Animation '
+
     private void BoardOnMove(object sender, MoveEventArgs args)
     {
       if (_dragMove) return;
@@ -42,6 +55,8 @@ namespace Yasc.Gui
 
       _boardCore.AnimateMove(from, to);
     }
+
+    #endregion
 
     #region ' Drag'n'Drop Moves '
 
@@ -62,13 +77,16 @@ namespace Yasc.Gui
     private void OnDrag(object sender, RoutedEventArgs e)
     {
       var context = ((FrameworkElement)e.OriginalSource).DataContext;
+      
       var cell = context as Cell;
       if (cell != null)
       {
-        // Technically it's possible to drag empty cell
-        if (cell.Piece == null) return;
-        _boardCore.HighlightAvailableMoves(
-          Board.GetAvailableMoves(cell.Position));
+        if (cell.Piece == null) 
+          return; // Technically it's possible to drag empty cell
+
+        var moves = Board.GetAvailableMoves(cell.Position);
+        var positions = from UsualMove m in moves select m.To;
+        _boardCore.HighlightAvailableMoves(positions.Distinct());
       }
 
       var piece = context as Piece;
@@ -114,13 +132,6 @@ namespace Yasc.Gui
     }
 
     #endregion
-
-    public override void OnApplyTemplate()
-    {
-      _boardCore = this.FindChild<ShogiBoardCore>();
-      base.OnApplyTemplate();
-    }
-
 
     #region ' MoveAttempt Routed Event '
 
