@@ -7,10 +7,12 @@ namespace Yasc.Gui
 {
   public class WelcomeViewModel : ObservableObject
   {
+    private string _userName;
+    private bool _saveAndSkip;
     private WelcomeChoice _mode;
-    public event EventHandler ChoiceDone;
-
     private RelayCommand _autoplayCommand;
+    private RelayCommand _connectCommand;
+    private RelayCommand _becomeServerCommand;
 
     public ICommand AutoplayCommand
     {
@@ -23,20 +25,28 @@ namespace Yasc.Gui
         return _autoplayCommand;
       }
     }
-
-    private void Autoplay()
+    public ICommand ConnectCommand
     {
-      Mode = WelcomeChoice.Autoplay;
-      Done();
+      get
+      {
+        if (_connectCommand == null)
+        {
+          _connectCommand = new RelayCommand(Connect);
+        }
+        return _connectCommand;
+      }
     }
 
-    private void Done()
+    public ICommand BecomeServerCommand
     {
-      Settings.Default.UserName = UserName;
-      Settings.Default.SkipWelcomePage = SaveAndSkip;
-      Settings.Default.DefaultStartMode = Mode;
-      Settings.Default.Save();
-      OnChoiceDone(EventArgs.Empty);
+      get
+      {
+        if (_becomeServerCommand == null)
+        {
+          _becomeServerCommand = new RelayCommand(BecomeServer);
+        }
+        return _becomeServerCommand;
+      }
     }
 
     public string UserName
@@ -49,38 +59,16 @@ namespace Yasc.Gui
         RaisePropertyChanged("UserName");
       }
     }
-
-    private string _userName;
-    
-
-    private void OnChoiceDone(EventArgs e)
-    {
-      var handler = ChoiceDone;
-      if (handler != null) handler(this, e);
-    }
-
     public WelcomeChoice Mode
     {
       get { return _mode; }
-      set 
+      set
       {
         if (_mode == value) return;
         _mode = value;
         RaisePropertyChanged("Mode");
       }
     }
-
-    public WelcomeViewModel()
-    {
-      UserName = Settings.Default.UserName;
-      SaveAndSkip = Settings.Default.SkipWelcomePage;
-      ConnectingViewModel = new ConnectingViewModel();
-    }
-
-    public ConnectingViewModel ConnectingViewModel { get; private set; }
-
-    private bool _saveAndSkip;
-    
     public bool SaveAndSkip
     {
       get { return _saveAndSkip; }
@@ -90,6 +78,46 @@ namespace Yasc.Gui
         _saveAndSkip = value;
         RaisePropertyChanged("SaveAndSkip");
       }
+    }
+    public ConnectingViewModel ConnectingViewModel { get; private set; }
+
+    public WelcomeViewModel()
+    {
+      UserName = Settings.Default.UserName;
+      SaveAndSkip = Settings.Default.SkipWelcomePage;
+      ConnectingViewModel = new ConnectingViewModel();
+    }
+
+    public event EventHandler ChoiceDone;
+
+    private void Autoplay()
+    {
+      Mode = WelcomeChoice.Autoplay;
+      Done();
+    }
+    private void Connect()
+    {
+      Mode = WelcomeChoice.ConnectToServer;
+      Done();
+    }
+    private void BecomeServer()
+    {
+      Mode = WelcomeChoice.BecomeServer;
+      Done();
+    }
+    private void Done()
+    {
+      Settings.Default.UserName = UserName;
+      Settings.Default.SkipWelcomePage = SaveAndSkip;
+      Settings.Default.DefaultStartMode = Mode;
+      Settings.Default.Save();
+      OnChoiceDone(EventArgs.Empty);
+    }
+
+    private void OnChoiceDone(EventArgs e)
+    {
+      var handler = ChoiceDone;
+      if (handler != null) handler(this, e);
     }
   }
 }

@@ -50,13 +50,15 @@
         <TextBox Name="_nameEdit" Text="{Binding UserName}" Grid.Row="1" Margin="5,0,5,5"/>
         <Label Target="{Binding ElementName=_serverCombo}" Content="Enter server address:" 
              VerticalAlignment="Center" Grid.Row="2"/>
-        <ComboBox Margin="5,0,5,5" IsEditable="True" Name="_serverCombo" 
+        <ComboBox Margin="5,0,5,5" IsEditable="True" Name="_serverCombo" Text="{Binding ConnectingViewModel.Address}" 
                 SelectedIndex="0" Grid.Row="3">
           <System:String>ws211</System:String>
         </ComboBox>
         <Button Margin="5" Grid.Row="4" Height="23" Width="80" 
-              HorizontalAlignment="Right" Content="Connect"/>
-        <TextBlock Grid.Row="5" ><Hyperlink>Let me be a server</Hyperlink></TextBlock>
+              HorizontalAlignment="Right" Content="Connect" Command="{Binding ConnectCommand}"/>
+        <TextBlock Grid.Row="5" >
+          <Hyperlink Command="{Binding BecomeServerCommand}">Let me be a server</Hyperlink>
+        </TextBlock>
       </Grid>
     </Grid>
     <CheckBox Margin="15" VerticalAlignment="Bottom" IsChecked="{Binding SaveAndSkip}"

@@ -17,7 +17,6 @@ namespace Yasc.Gui
 
     public ServerViewModel()
     {
-
       Server = Server.Start();
     }
 
