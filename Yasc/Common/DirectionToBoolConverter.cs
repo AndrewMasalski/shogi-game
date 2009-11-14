@@ -1,22 +1,19 @@
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Yasc.Gui
+namespace Yasc.Common
 {
-  public class DebugConverter : IValueConverter
+  public class DirectionToBoolConverter : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      Debugger.Break();
-      return value;
+      return (TimerDirection) value == TimerDirection.Forward ? true : false;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      Debugger.Break();
-      return value;
+      return (bool)value ? TimerDirection.Forward : TimerDirection.Backward;
     }
   }
 }

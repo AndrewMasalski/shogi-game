@@ -1,51 +1,19 @@
 ﻿<Window x:Class="Yasc.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
         xmlns:Gui="clr-namespace:Yasc.Gui"
-        xmlns:Yasc="clr-namespace:Yasc"
         Title="MainWindow" Height="300" Width="300">
  
-  <Window.Resources><Yasc:DirectionToBoolConverter x:Key="DirectionToBoolConverter"/></Window.Resources>
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="Auto" MinWidth="20"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-    <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" MouseMove="MouseMove1"/>
-
-    <StackPanel Grid.Column="1">
-      <Button Content="Start Server" Click="OnStartServer" x:Name="_startServerButton" />
-      <TextBox x:Name="_address" Text="localhost"/>
-      <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
-      <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
-      <Button Content="move" Click="OnMoveClick"/>
-      <Grid Width="200">
-      <Gui:StopwatchControl x:Name="stopwatch"/>
-        </Grid>
-      <CheckBox Content="Run" IsChecked="{Binding ElementName=stopwatch, Path=IsLaunched}"/>
-      <CheckBox Content="Forward" IsChecked="{Binding ElementName=stopwatch, Path=Direction, Converter={StaticResource DirectionToBoolConverter}}"/>
-      <ItemsControl ItemsSource="{Binding History.MovesDone}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate DataType="{x:Type Moves:MoveBase}">
-            <StackPanel Orientation="Horizontal" Margin="5,2">
-              <TextBlock Text="{Binding Number}"/>
-              <TextBlock Text=". "/>
-              <TextBlock Text="{Binding}"/>
-            </StackPanel>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-        <ItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <UniformGrid Columns="2"/>
-          </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-      </ItemsControl>
-    </StackPanel>
-    <TextBlock x:Name="_errorLabel" Grid.Row="1" Grid.ColumnSpan="2"/>
-  </Grid>
+  <Window.Resources>
+    <DataTemplate DataType="{x:Type Gui:WelcomeViewModel}">
+      <Gui:WelcomeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type Gui:ConnectingViewModel}">
+      <Gui:ConnectingView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type Gui:GameViewModel}">
+      <Gui:GameView/>
+    </DataTemplate>
+  </Window.Resources>
+  <ContentPresenter Content="{Binding CurrentView}"/>
 </Window>

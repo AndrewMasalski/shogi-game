@@ -64,11 +64,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Common\ProgressCircle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\ConnectingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\ServerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\WelcomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Gui\ShogiBoardCore.xaml">
+    <Page Include="Controls\ShogiBoardCore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,18 +110,44 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectionToBoolConverter.cs" />
+    <Compile Include="Common\ProgressCircle.xaml.cs">
+      <DependentUpon>ProgressCircle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DirectionToBoolConverter.cs" />
+    <Compile Include="Common\TimerDirection.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DropEventArgs.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
     <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
-    <Compile Include="Gui\DebugConverter.cs" />
-    <Compile Include="Gui\ShogiCell.cs" />
-    <Compile Include="Gui\StopwatchControl.cs" />
-    <Compile Include="Gui\SwitchControl.cs" />
-    <Compile Include="Gui\ToStirngConverter.cs" />
-    <Compile Include="Gui\MoveAttemptEventArgs.cs" />
-    <Compile Include="Gui\ShogiPiece.cs" />
+    <Compile Include="Common\DebugConverter.cs" />
+    <Compile Include="Controls\ShogiCell.cs" />
+    <Compile Include="Common\StopwatchControl.cs" />
+    <Compile Include="Common\SwitchControl.cs" />
+    <Compile Include="Common\ToStirngConverter.cs" />
+    <Compile Include="Controls\MoveAttemptEventArgs.cs" />
+    <Compile Include="Controls\ShogiPiece.cs" />
+    <Compile Include="Gui\ConnectingView.xaml.cs">
+      <DependentUpon>ConnectingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ConnectingViewModel.cs" />
+    <Compile Include="Gui\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\GameViewModel.cs" />
+    <Compile Include="Gui\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\LoginViewModel.cs" />
+    <Compile Include="Gui\ServerView.xaml.cs">
+      <DependentUpon>ServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ServerViewModel.cs" />
+    <Compile Include="Gui\WelcomeChoice.cs" />
+    <Compile Include="Gui\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\WelcomeViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Mvvm\Messenger.cs" />
     <Compile Include="Mvvm\ObservableObject.cs" />
     <Compile Include="Mvvm\PropertyObserver.cs" />
@@ -108,8 +158,8 @@
     <Compile Include="Networking\IPlayerGameController.cs" />
     <Compile Include="Networking\ISpectatorController.cs" />
     <Compile Include="Networking\Server.cs" />
-    <Compile Include="Gui\ShogiBoard.cs" />
-    <Compile Include="Gui\ShogiBoardCore.xaml.cs">
+    <Compile Include="Controls\ShogiBoard.cs" />
+    <Compile Include="Controls\ShogiBoardCore.xaml.cs">
       <DependentUpon>ShogiBoardCore.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShogiCore\AvailableDropMovesAnalyser.cs" />
@@ -122,8 +172,8 @@
     <Compile Include="ShogiCore\Moves\Validation\DropMoveValidator.cs" />
     <Compile Include="ShogiCore\PromotionAnalyser.cs" />
     <Compile Include="ShogiCore\SituationAnalizer.cs" />
-    <Compile Include="Gui\ShogiHand.cs" />
-    <Compile Include="Gui\UniformPanel.cs" />
+    <Compile Include="Controls\ShogiHand.cs" />
+    <Compile Include="Common\UniformPanel.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
     <Compile Include="ShogiCore\Moves\Validation\UsualMovesValidator.cs" />
     <Compile Include="ShogiCore\Utils\MovesHistory.cs" />
@@ -131,7 +181,7 @@
     <Compile Include="ShogiCore\PieceSnapshot.cs" />
     <Compile Include="Utils\ListUtils.cs" />
     <Compile Include="ShogiCore\Utils\Position.cs" />
-    <Compile Include="Gui\ColorToAngleConverter.cs" />
+    <Compile Include="Controls\ColorToAngleConverter.cs" />
     <Compile Include="ShogiCore\Moves\DropMove.cs" />
     <Compile Include="ShogiCore\Moves\UsualMove.cs" />
     <Compile Include="Utils\Flag.cs" />

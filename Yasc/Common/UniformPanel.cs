@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Yasc.Gui
+namespace Yasc.Common
 {
   public class UniformPanel : Panel
   {
