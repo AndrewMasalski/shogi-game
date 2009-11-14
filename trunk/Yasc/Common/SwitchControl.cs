@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Yasc.Gui
+namespace Yasc.Controls
 {
   public class SwitchControl : ContentPresenter
   {

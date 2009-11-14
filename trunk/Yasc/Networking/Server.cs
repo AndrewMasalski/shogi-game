@@ -12,12 +12,13 @@ namespace Yasc.Networking
 {
   public class Server : MarshalByRefObject
   {
+    private static int _port = 1937;
+    private static readonly Random _rnd = new Random();
+
     private PlayerGameController _whitePlayer;
     private PlayerGameController _blackPlayer;
     private readonly List<SpectatorController>
       _spectators = new List<SpectatorController>();
-
-    private readonly Random _rnd = new Random();
 
     public static bool ThisDomainIsServerHost { get; private set; }
     public static bool ServerIsStartedOnThisComputer
@@ -51,7 +52,6 @@ namespace Yasc.Networking
       return spectator;
     }
     public void Ping() { }
-    private static int _port = 1937;
     public static int Port
     {
       get { return _port; }
@@ -73,30 +73,12 @@ namespace Yasc.Networking
       if (opponent == null) MessageBox.Show("Opponent is not found!");
       return opponent;
     }
-
     private void Move(PlayerGameController controller, MoveMsg move)
     {
       Opponent(controller).InvokeOpponentMadeMove(move);
 
       foreach (var spectator in _spectators)
         spectator.InvokePlayerMadeMove(controller.MyColor, move);
-    }
-
-    public static void Start()
-    {
-      var provider = new BinaryServerFormatterSinkProvider
-                       {
-                         TypeFilterLevel = TypeFilterLevel.Full
-                       };
-      IDictionary properties = new Hashtable();
-      properties["name"] = "some name";
-      properties["port"] = Port;
-      ChannelServices.RegisterChannel(new TcpChannel(properties, null, provider), false);
-
-      RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
-      RemotingServices.Marshal(new Server(), typeof(Server).FullName);
-
-      ThisDomainIsServerHost = true;
     }
 
     #region ' SpectatorController '
@@ -176,6 +158,24 @@ namespace Yasc.Networking
 
     #endregion
 
+    public static Server Start()
+    {
+      var provider = new BinaryServerFormatterSinkProvider
+      {
+        TypeFilterLevel = TypeFilterLevel.Full
+      };
+      IDictionary properties = new Hashtable();
+      properties["name"] = "some name";
+      properties["port"] = Port;
+      ChannelServices.RegisterChannel(new TcpChannel(properties, null, provider), false);
+
+      RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
+      var server = new Server();
+      RemotingServices.Marshal(server, typeof(Server).FullName);
+
+      ThisDomainIsServerHost = true;
+      return server;
+    }
     public static Server Connect(string url)
     {
       if (!ThisDomainIsServerHost)

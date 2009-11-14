@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Yasc.ShogiCore;
 
-namespace Yasc.Gui
+namespace Yasc.Common
 {
   public class ToStirngConverter : IValueConverter
   {
@@ -17,5 +17,4 @@ namespace Yasc.Gui
       throw new NotSupportedException();
     }
   }
-
 }

@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Yasc.Gui.WelcomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    MinHeight="200" MinWidth="375">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="1.8*" />
+    </Grid.ColumnDefinitions>
+    <Border BorderThickness="0,0,1,0" SnapsToDevicePixels="True">
+      <Border.BorderBrush>
+          <LinearGradientBrush EndPoint="0,0.3" StartPoint="0,0.7">
+            <GradientStop Color="#0000" Offset="0"/>
+            <GradientStop Color="#FF8B93F0" Offset="0.3"/>
+            <GradientStop Color="#FF8B93F0" Offset="0.7"/>
+            <GradientStop Color="#0000" Offset="1"/>
+          </LinearGradientBrush>
+      </Border.BorderBrush>
+      
+    </Border>
+    <Grid Width="120" VerticalAlignment="Center">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Button Margin="0,15" Height="23" Content="Play with comp."/>
+      <Button Margin="0,15" Height="23" Grid.Row="1" Content="Play with myself" Command="{Binding AutoplayCommand}"/>
+    </Grid>
+    <Grid Grid.Column="1" VerticalAlignment="Center" Margin="15">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Label Target="{Binding ElementName=_nameEdit}" Content="Enter your name:" VerticalAlignment="Center"/>
+      <TextBox Name="_nameEdit" Text="Ilya" Grid.Column="1" Margin="5"/>
+      <Label Target="{Binding ElementName=_serverCombo}" Content="Enter server address:" VerticalAlignment="Center" Grid.Row="1"/>
+      <ComboBox Margin="5" IsEditable="True" Name="_serverCombo" SelectedIndex="0" Grid.Row="1" Grid.Column="1">
+        <System:String>ws211</System:String>
+      </ComboBox>
+      <Button Margin="5" Grid.Row="2" Grid.Column="1" Height="23" Width="80" HorizontalAlignment="Right">Connect</Button>
+      <TextBlock Grid.Row="3" ><Hyperlink>Let me be a server</Hyperlink></TextBlock>
+    </Grid>
+    <CheckBox Margin="15" VerticalAlignment="Bottom" Content="Don't show this page again" Grid.ColumnSpan="2"/>
+  </Grid>
+</UserControl>
