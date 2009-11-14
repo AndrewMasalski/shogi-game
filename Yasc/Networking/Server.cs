@@ -180,6 +180,8 @@ namespace Yasc.Networking
     {
       if (!ThisDomainIsServerHost)
       {
+        // We need a channel to get messages back from the server
+        // doesn't matter what port it will have
         var chnl = new TcpChannel(PortUtils.GetFreePortToListen());
         ChannelServices.RegisterChannel(chnl, false);
       }

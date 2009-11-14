@@ -3,14 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Common="clr-namespace:Yasc.Common">
 
-  <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+  <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
     <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Margin="5" FontSize="18">Connecting to ws211</TextBlock>
-  <Common:ProgressCircle Grid.Row="1" Width="24" Margin="8" />
-    <Button Content="Cancel" Grid.Row="2" Margin="5" Padding="15,2" HorizontalAlignment="Center" />
-    </Grid>
+    <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="5" FontSize="18" Text="{Binding Path=Address, StringFormat='Connecting to {0}'}"/>
+    <Common:ProgressCircle Grid.Row="2" Width="24" Margin="8" />
+    <Button Content="Cancel" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding CancelCommand}"/>
+    <TextBlock Grid.Row="5" Text="{Binding LastError}" Margin="8"/>
+  </Grid>
 </UserControl>
