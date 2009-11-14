@@ -9,8 +9,6 @@ namespace Yasc.Networking
     private static readonly IPAddress _localHost
       = new IPAddress(new byte[] { 127, 0, 0, 1 });
 
-    private const int PosrtIsBusy = 10048;
-
     public static bool IsPortBusy(int port)
     {
       var s = new Socket(AddressFamily.InterNetwork,
@@ -23,7 +21,7 @@ namespace Yasc.Networking
       }
       catch (SocketException ex)
       {
-        if (ex.ErrorCode == PosrtIsBusy)
+        if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
           return true;
 
         throw;

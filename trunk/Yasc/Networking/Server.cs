@@ -14,6 +14,7 @@ namespace Yasc.Networking
   {
     private static int _port = 1937;
     private static readonly Random _rnd = new Random();
+    private static bool _backwardChannelIsRegistred;
 
     private PlayerGameController _whitePlayer;
     private PlayerGameController _blackPlayer;
@@ -178,12 +179,13 @@ namespace Yasc.Networking
     }
     public static Server Connect(string url)
     {
-      if (!ThisDomainIsServerHost)
+      if (!_backwardChannelIsRegistred && !ThisDomainIsServerHost)
       {
         // We need a channel to get messages back from the server
         // doesn't matter what port it will have
         var chnl = new TcpChannel(PortUtils.GetFreePortToListen());
         ChannelServices.RegisterChannel(chnl, false);
+        _backwardChannelIsRegistred = true;
       }
 
       url = string.Format("tcp://{0}:{1}/{2}", url, Port, typeof(Server).FullName);
