@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
+using Yasc.Properties;
 
 namespace Yasc.Gui
 {
@@ -26,10 +27,32 @@ namespace Yasc.Gui
     private void Autoplay()
     {
       Mode = WelcomeChoice.Autoplay;
+      Done();
+    }
+
+    private void Done()
+    {
+      Settings.Default.UserName = UserName;
+      Settings.Default.SkipWelcomePage = SaveAndSkip;
+      Settings.Default.DefaultStartMode = Mode;
+      Settings.Default.Save();
       OnChoiceDone(EventArgs.Empty);
     }
 
+    public string UserName
+    {
+      get { return _userName; }
+      set
+      {
+        if (_userName == value) return;
+        _userName = value;
+        RaisePropertyChanged("UserName");
+      }
+    }
+
+    private string _userName;
     
+
     private void OnChoiceDone(EventArgs e)
     {
       var handler = ChoiceDone;
@@ -49,9 +72,24 @@ namespace Yasc.Gui
 
     public WelcomeViewModel()
     {
+      UserName = Settings.Default.UserName;
+      SaveAndSkip = Settings.Default.SkipWelcomePage;
       ConnectingViewModel = new ConnectingViewModel();
     }
 
     public ConnectingViewModel ConnectingViewModel { get; private set; }
+
+    private bool _saveAndSkip;
+    
+    public bool SaveAndSkip
+    {
+      get { return _saveAndSkip; }
+      set
+      {
+        if (_saveAndSkip == value) return;
+        _saveAndSkip = value;
+        RaisePropertyChanged("SaveAndSkip");
+      }
+    }
   }
 }
