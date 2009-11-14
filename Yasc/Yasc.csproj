@@ -86,12 +86,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectionToBoolConverter.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DropEventArgs.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
     <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
     <Compile Include="Gui\DebugConverter.cs" />
     <Compile Include="Gui\ShogiCell.cs" />
+    <Compile Include="Gui\StopwatchControl.cs" />
     <Compile Include="Gui\SwitchControl.cs" />
     <Compile Include="Gui\ToStirngConverter.cs" />
     <Compile Include="Gui\MoveAttemptEventArgs.cs" />
