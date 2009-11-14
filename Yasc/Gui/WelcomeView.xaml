@@ -39,7 +39,7 @@
         <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
       <Label Target="{Binding ElementName=_nameEdit}" Content="Enter your name:" VerticalAlignment="Center"/>
-      <TextBox Name="_nameEdit" Text="Ilya" Grid.Column="1" Margin="5"/>
+      <TextBox Name="_nameEdit" Text="{Binding UserName}" Grid.Column="1" Margin="5"/>
       <Label Target="{Binding ElementName=_serverCombo}" Content="Enter server address:" VerticalAlignment="Center" Grid.Row="1"/>
       <ComboBox Margin="5" IsEditable="True" Name="_serverCombo" SelectedIndex="0" Grid.Row="1" Grid.Column="1">
         <System:String>ws211</System:String>
@@ -47,6 +47,7 @@
       <Button Margin="5" Grid.Row="2" Grid.Column="1" Height="23" Width="80" HorizontalAlignment="Right">Connect</Button>
       <TextBlock Grid.Row="3" ><Hyperlink>Let me be a server</Hyperlink></TextBlock>
     </Grid>
-    <CheckBox Margin="15" VerticalAlignment="Bottom" Content="Don't show this page again" Grid.ColumnSpan="2"/>
+    <CheckBox Margin="15" VerticalAlignment="Bottom" IsChecked="{Binding SaveAndSkip}"
+              Content="Don't show this page again" Grid.ColumnSpan="2"/>
   </Grid>
 </UserControl>

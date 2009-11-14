@@ -2,6 +2,7 @@
 using MvvmFoundation.Wpf;
 using Yasc.Gui;
 using Yasc.Networking;
+using Yasc.Properties;
 
 namespace Yasc
 {
@@ -22,7 +23,19 @@ namespace Yasc
 
     public MainWindowViewModel()
     {
-      GoWelcome();
+      if (!Settings.Default.SkipWelcomePage)
+      {
+        GoWelcome();
+      }
+      else
+      {
+        switch (Settings.Default.DefaultStartMode)
+        {
+          case WelcomeChoice.Autoplay:
+            GoGame(WelcomeChoice.Autoplay);
+            break;
+        }
+      }
     }
 
     private void WelcomeOnChoiceDone(object sender, EventArgs args)
