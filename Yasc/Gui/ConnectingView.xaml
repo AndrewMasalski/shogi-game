@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="Yasc.Gui.ConnectingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Common="clr-namespace:Yasc.Common">
-
+    xmlns:Common="clr-namespace:Yasc.Common"
+    xmlns:Controls="clr-namespace:Yasc.Controls">
   <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
@@ -12,9 +12,26 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="5" FontSize="18" Text="{Binding Path=Address, StringFormat='Connecting to {0}'}"/>
-    <Common:ProgressCircle Grid.Row="2" Width="24" Margin="8" />
-    <Button Content="Cancel" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding CancelCommand}"/>
-    <TextBlock Grid.Row="5" Text="{Binding LastError}" Margin="8"/>
+    <Controls:SwitchControl Content="{Binding}"  Switcher="{Binding IsConnecting}" Grid.Row="2" >
+      <Controls:SwitchControl.Resources>
+        <DataTemplate x:Key="True">
+          <StackPanel>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="5" FontSize="18" Text="{Binding Path=Address, StringFormat='Connecting to {0}'}"/>
+            <Common:ProgressCircle Margin="8" Width="24" />
+            <Button Content="Cancel" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding CancelCommand}"/>
+          </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="False">
+          <StackPanel>
+            <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="18" 
+                       Text="{Binding Path=Address, StringFormat='Sorry, but an attempt to connect to {0} failed'}"/>
+            <TextBlock Grid.Row="5" Text="{Binding LastError.Message}" Foreground="Red" 
+                       HorizontalAlignment="Center" Margin="8" ToolTip="{Binding LastError}"/>
+            <Button Content="Get back" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding CancelCommand}"/>
+            <Button Content="Retry" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding RetryCommand}"/>
+          </StackPanel>
+        </DataTemplate>
+      </Controls:SwitchControl.Resources>
+    </Controls:SwitchControl>
   </Grid>
 </UserControl>

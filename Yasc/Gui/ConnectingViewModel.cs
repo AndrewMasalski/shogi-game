@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -11,8 +12,11 @@ namespace Yasc.Gui
   {
     private string _address;
     private Server _server;
+    private bool _isConnecting;
+    private Exception _lastError;
     private readonly Dispatcher _dispatcher;
     private RelayCommand _cancelCommand;
+    private RelayCommand _retryCommand;
 
     public ICommand CancelCommand
     {
@@ -25,18 +29,37 @@ namespace Yasc.Gui
         return _cancelCommand;
       }
     }
-
+    public ICommand RetryCommand
+    {
+      get
+      {
+        if (_retryCommand == null)
+        {
+          _retryCommand = new RelayCommand(Retry);
+        }
+        return _retryCommand;
+      }
+    }
     public string Address
     {
       get { return _address; }
       set
       {
         if (_address == value) return;
-        bool wasEmpty = string.IsNullOrEmpty(_address);
         _address = value;
         RaisePropertyChanged("Address");
-        if (wasEmpty && !string.IsNullOrEmpty(_address))
+        if (!string.IsNullOrEmpty(_address))
           ThreadPool.QueueUserWorkItem(TryingToConnect);
+      }
+    }
+    public bool IsConnecting
+    {
+      get { return _isConnecting; }
+      set
+      {
+        if (_isConnecting == value) return;
+        _isConnecting = value;
+        RaisePropertyChanged("IsConnecting");
       }
     }
     public Server Server
@@ -48,6 +71,16 @@ namespace Yasc.Gui
         _server = value;
         RaisePropertyChanged("Server");
         OnSucceed(EventArgs.Empty);
+      }
+    }
+    public Exception LastError
+    {
+      get { return _lastError; }
+      set
+      {
+        if (_lastError == value) return;
+        _lastError = value;
+        RaisePropertyChanged("LastError");
       }
     }
 
@@ -70,44 +103,55 @@ namespace Yasc.Gui
       if (succeed != null) succeed(this, e);
     }
 
+    private void Retry()
+    {
+      if (!IsConnecting)
+        ThreadPool.QueueUserWorkItem(TryingToConnect);
+    }
+
     private void TryingToConnect(object state)
     {
-      while (!string.IsNullOrEmpty(Address))
+      try
       {
-        try
-        {
-          var server = Server.Connect(Address);
-          server.Ping();
-          _dispatcher.BeginInvoke(DispatcherPriority.Normal,
-            new Action(() =>
-                         {
-                           Server = server;
-                           LastError = null;
-                         }));
-          Thread.Sleep(1000);
-          return;
-        }
-        catch (Exception x)
-        {
-          _dispatcher.BeginInvoke(
-            DispatcherPriority.Normal,
-            new Action(() => LastError = x));
-        }
+        AsynchConnectionStarted();
+        var server = Server.Connect(Address);
+        server.Ping();
+        AsynchConnectionSucceed(server);
+      }
+      catch (Exception x)
+      {
+        AsynchConnectionFailed(x);
       }
     }
 
-    public Exception LastError
+    private void AsynchConnectionStarted()
     {
-      get { return _lastError; }
-      set
-      {
-        if (_lastError == value) return;
-        _lastError = value;
-        RaisePropertyChanged("LastError");
-      }
+      _dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                              new Action(() =>
+                              {
+                                IsConnecting = true;
+                                LastError = null;
+                              }));
     }
-
-    private Exception _lastError;
+    private void AsynchConnectionSucceed(Server server)
+    {
+      _dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                              new Action(() =>
+                              {
+                                Server = server;
+                                LastError = null;
+                                IsConnecting = false;
+                              }));
+    }
+    private void AsynchConnectionFailed(Exception x)
+    {
+      _dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                              new Action(() =>
+                              {
+                                LastError = x;
+                                IsConnecting = false;
+                              }));
+    }
 
   }
 }

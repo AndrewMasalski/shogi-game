@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,19 +12,35 @@ namespace Yasc.Controls
         new FrameworkPropertyMetadata(typeof(SwitchControl)));
     }
 
-    public SwitchControl()
+    public static readonly DependencyProperty SwitcherProperty =
+      DependencyProperty.Register("Switcher", typeof(object),
+        typeof(SwitchControl), new UIPropertyMetadata(null, SwitcherPropertyChangedCallback));
+
+    private static void SwitcherPropertyChangedCallback(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
-      ContentTemplateSelector = new MyTemplateSelector();
+      ((SwitchControl)o).SwitcherPropertyChangedCallback(args.NewValue);
     }
 
-    private class MyTemplateSelector : DataTemplateSelector
+    private void SwitcherPropertyChangedCallback(object value)
     {
-      public override DataTemplate SelectTemplate(object item, DependencyObject container)
+      ContentTemplate = value == null ? null :
+        TryFindResource(value.ToString()) as DataTemplate;
+    }
+
+    public object Switcher
+    {
+      get { return GetValue(SwitcherProperty); }
+      set { SetValue(SwitcherProperty, value); }
+    }
+
+    protected override DataTemplate ChooseTemplate()
+    {
+      if (Switcher == null)
       {
-        if (item == null) return null;
-        return ((FrameworkElement)container).
-          TryFindResource(item.ToString()) as DataTemplate;
+        var template = TryFindResource("Default") as DataTemplate;
+        if (template != null) return template;
       }
+      return base.ChooseTemplate();
     }
   }
 }
