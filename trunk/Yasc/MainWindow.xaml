@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
         xmlns:Gui="clr-namespace:Yasc.Gui"
+        xmlns:Yasc="clr-namespace:Yasc"
         Title="MainWindow" Height="300" Width="300">
  
+  <Window.Resources><Yasc:DirectionToBoolConverter x:Key="DirectionToBoolConverter"/></Window.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
@@ -22,6 +24,11 @@
       <Button Content="Connect" Click="OnConnectClick" x:Name="_connectButton"/>
       <TextBox x:Name="_moveTextBox" Text="1c-1d"/>
       <Button Content="move" Click="OnMoveClick"/>
+      <Grid Width="200">
+      <Gui:StopwatchControl x:Name="stopwatch"/>
+        </Grid>
+      <CheckBox Content="Run" IsChecked="{Binding ElementName=stopwatch, Path=IsLaunched}"/>
+      <CheckBox Content="Forward" IsChecked="{Binding ElementName=stopwatch, Path=Direction, Converter={StaticResource DirectionToBoolConverter}}"/>
       <ItemsControl ItemsSource="{Binding History.MovesDone}">
         <ItemsControl.ItemTemplate>
           <DataTemplate DataType="{x:Type Moves:MoveBase}">
