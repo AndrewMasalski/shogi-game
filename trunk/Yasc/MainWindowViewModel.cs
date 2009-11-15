@@ -51,7 +51,7 @@ namespace Yasc
         case WelcomeChoice.ConnectToServer:
           if (welcomeViewModel.ConnectingViewModel.Server != null)
           {
-            GoServer(welcomeViewModel.ConnectingViewModel.Server);
+            GoServer(welcomeViewModel.ConnectingViewModel.Session);
           }
           else
           {
@@ -70,7 +70,7 @@ namespace Yasc
     }
     private void ConnectingOnSucceed(object sender, EventArgs e)
     {
-      GoServer(LeaveConnecting(sender).Server);
+      GoServer(LeaveConnecting(sender).Session);
     }
     private void OnDisconnected(object sender, EventArgs args)
     {
@@ -111,9 +111,9 @@ namespace Yasc
       serverViewModel.GameNegotiation += OnGameNegotiation;
       CurrentView = serverViewModel;
     }
-    private void GoServer(Server server)
+    private void GoServer(IServerSession session)
     {
-      var serverViewModel = new ServerViewModel(server);
+      var serverViewModel = new ServerViewModel(session);
       serverViewModel.Disconnected += OnDisconnected;
       serverViewModel.Game += OnGame;
       serverViewModel.GameNegotiation += OnGameNegotiation;

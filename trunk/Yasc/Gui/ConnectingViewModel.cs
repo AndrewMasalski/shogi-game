@@ -10,13 +10,15 @@ namespace Yasc.Gui
 {
   public class ConnectingViewModel : ObservableObject
   {
-    private string _address;
+    private readonly string _userName;
+    private readonly string _address;
     private Server _server;
     private bool _isConnecting;
     private Exception _lastError;
     private readonly Dispatcher _dispatcher;
     private RelayCommand _cancelCommand;
     private RelayCommand _retryCommand;
+    private IServerSession _session;
 
     public ICommand CancelCommand
     {
@@ -40,18 +42,7 @@ namespace Yasc.Gui
         return _retryCommand;
       }
     }
-    public string Address
-    {
-      get { return _address; }
-      set
-      {
-        if (_address == value) return;
-        _address = value;
-        RaisePropertyChanged("Address");
-        if (!string.IsNullOrEmpty(_address))
-          ThreadPool.QueueUserWorkItem(TryingToConnect);
-      }
-    }
+
     public bool IsConnecting
     {
       get { return _isConnecting; }
@@ -84,9 +75,26 @@ namespace Yasc.Gui
       }
     }
 
-    public ConnectingViewModel()
+    public IServerSession Session
     {
+      get 
+      {
+        if (_session == null)
+        {
+          _session = Server.Login(_userName);
+        }
+        return _session;
+      }
+    }
+
+    public ConnectingViewModel(string address, string userName)
+    {
+      if (address == null) throw new ArgumentNullException("address");
+      if (userName == null) throw new ArgumentNullException("userName");
+      _address = address;
+      _userName = userName;
       _dispatcher = Dispatcher.CurrentDispatcher;
+      ThreadPool.QueueUserWorkItem(TryingToConnect);
     }
 
     public event EventHandler Fail;
@@ -114,7 +122,7 @@ namespace Yasc.Gui
       try
       {
         AsynchConnectionStarted();
-        var server = Server.Connect(Address);
+        var server = Server.Connect(_address);
         server.Ping();
         AsynchConnectionSucceed(server);
       }

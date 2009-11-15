@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows.Input;
 using MvvmFoundation.Wpf;
+using Yasc.AI;
 using Yasc.Networking;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
@@ -14,6 +16,25 @@ namespace Yasc.Gui
 
     public Board Board { get; private set; }
 
+    public ICommand GetBackCommand
+    {
+      get
+      {
+        if (_getBackCommand == null)
+        {
+          _getBackCommand = new RelayCommand(GetBack);
+        }
+        return _getBackCommand;
+      }
+    }
+
+    private void GetBack()
+    {
+      OnGameOver(EventArgs.Empty);
+    }
+
+    private RelayCommand _getBackCommand;
+
     public event EventHandler GameOver;
 
     private void OnGameOver(EventArgs e)
@@ -27,7 +48,7 @@ namespace Yasc.Gui
       switch (choice)
       {
         case WelcomeChoice.ArtificialIntelligence:
-          Init(new AIController());
+          Init(new AiController());
           break;
         case WelcomeChoice.Autoplay:
           InitBoard();
@@ -43,7 +64,7 @@ namespace Yasc.Gui
     private void Init(IPlayerGameController ticket)
     {
       _ticket = ticket;
-      _ticket.OpponentMadeMove = new FuncListener<MoveMsg, DateTime>(TicketOnOpponentMadeMove);
+      _ticket.OpponentMadeMove = new FuncListener<MoveMsg, DateTime>(OnOpponentMadeMove);
 
       InitBoard();
     }
@@ -57,47 +78,16 @@ namespace Yasc.Gui
 
     private void BoardOnMove(object sender, MoveEventArgs args)
     {
+      // If it's not opponent than it must be me
       if (!_opponentMoveReaction && _ticket != null)
         _ticket.Move(new MoveMsg(args.Move.ToString()));
     }
 
-    private DateTime TicketOnOpponentMadeMove(MoveMsg move)
+    private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
         Board.MakeMove(Board.GetMove(move.Move));
       return DateTime.Now;
     }
-  }
-
-  public class AIController : IPlayerGameController
-  {
-    #region Implementation of IPlayerGameController
-
-    public PieceColor MyColor
-    {
-      get { throw new NotImplementedException(); }
-    }
-
-    public TimeSpan TimeLeft
-    {
-      get { throw new NotImplementedException(); }
-    }
-
-    public void Move(MoveMsg move)
-    {
-      throw new NotImplementedException();
-    }
-
-    public void Say(string move)
-    {
-      throw new NotImplementedException();
-    }
-
-    public Func<MoveMsg, DateTime> OpponentMadeMove
-    {
-      set { throw new NotImplementedException(); }
-    }
-
-    #endregion
   }
 }
