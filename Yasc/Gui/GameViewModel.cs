@@ -11,6 +11,7 @@ namespace Yasc.Gui
 {
   public class GameViewModel : ObservableObject
   {
+    private readonly IServerGame _game;
     private IPlayerGameController _ticket;
     private readonly Flag _opponentMoveReaction = new Flag();
 
@@ -56,9 +57,15 @@ namespace Yasc.Gui
       }
     }
 
+
     public GameViewModel(IPlayerGameController ticket)
     {
       Init(ticket);
+    }
+
+    public GameViewModel(IServerGame game)
+    {
+      _game = game;
     }
 
     private void Init(IPlayerGameController ticket)

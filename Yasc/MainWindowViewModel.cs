@@ -49,17 +49,11 @@ namespace Yasc
           GoGame(welcomeViewModel.Mode);
           break;
         case WelcomeChoice.ConnectToServer:
-          if (welcomeViewModel.ConnectingViewModel.Server != null)
-          {
-            GoServer(welcomeViewModel.ConnectingViewModel.Session);
-          }
-          else
-          {
-            GoConnecting(welcomeViewModel.ConnectingViewModel);
-          }
+            GoConnecting(new ConnectingViewModel(
+              welcomeViewModel.Address, welcomeViewModel.UserName));
           break;
         case WelcomeChoice.BecomeServer:
-          GoServer();
+          GoServer(welcomeViewModel.UserName);
           break;
       }
     }
@@ -86,9 +80,10 @@ namespace Yasc
     {
       throw new NotImplementedException();
     }
-    private void OnGame(object sender, EventArgs e)
+    private void OnGame(object sender, InvitationAcceptedEventArgs e)
     {
-      GoGame(LeaveServer(sender).GameTicket);
+      LeaveServer(sender);
+      GoGame(e.Ticket);
     }
 
     private void GoWelcome()
@@ -103,9 +98,9 @@ namespace Yasc
       connectingViewModel.Succeed += ConnectingOnSucceed;
       CurrentView = connectingViewModel;
     }
-    private void GoServer()
+    private void GoServer(string userName)
     {
-      var serverViewModel = new ServerViewModel();
+      var serverViewModel = new ServerViewModel(userName);
       serverViewModel.Disconnected += OnDisconnected;
       serverViewModel.Game += OnGame;
       serverViewModel.GameNegotiation += OnGameNegotiation;
@@ -145,13 +140,12 @@ namespace Yasc
       connectingViewModel.Succeed -= ConnectingOnSucceed;
       return connectingViewModel;
     }
-    private ServerViewModel LeaveServer(object sender)
+    private void LeaveServer(object sender)
     {
       var serverViewModel = (ServerViewModel)sender;
       serverViewModel.Disconnected -= OnDisconnected;
       serverViewModel.Game -= OnGame;
       serverViewModel.GameNegotiation -= OnGameNegotiation;
-      return serverViewModel;
     }
     private void LeaveGame(object sender)
     {

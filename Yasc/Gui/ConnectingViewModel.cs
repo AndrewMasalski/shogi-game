@@ -11,7 +11,6 @@ namespace Yasc.Gui
   public class ConnectingViewModel : ObservableObject
   {
     private readonly string _userName;
-    private readonly string _address;
     private Server _server;
     private bool _isConnecting;
     private Exception _lastError;
@@ -42,6 +41,8 @@ namespace Yasc.Gui
         return _retryCommand;
       }
     }
+
+    public string Address { get; private set; }
 
     public bool IsConnecting
     {
@@ -91,7 +92,7 @@ namespace Yasc.Gui
     {
       if (address == null) throw new ArgumentNullException("address");
       if (userName == null) throw new ArgumentNullException("userName");
-      _address = address;
+      Address = address;
       _userName = userName;
       _dispatcher = Dispatcher.CurrentDispatcher;
       ThreadPool.QueueUserWorkItem(TryingToConnect);
@@ -122,7 +123,7 @@ namespace Yasc.Gui
       try
       {
         AsynchConnectionStarted();
-        var server = Server.Connect(_address);
+        var server = Server.Connect(Address);
         server.Ping();
         AsynchConnectionSucceed(server);
       }

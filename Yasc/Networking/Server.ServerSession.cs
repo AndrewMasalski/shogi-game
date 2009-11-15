@@ -18,14 +18,19 @@ namespace Yasc.Networking
         _user = user;
       }
 
-      public IEnumerable<IServerUser> Users
+      public IServerUser[] Users
       {
         get
         {
-          return from u in Server._users.Keys
+          return (from u in Server._users.Keys
                  where u != _user
-                 select (IServerUser)u;
+                 select (IServerUser)u).ToArray();
         }
+      }
+
+      public IServerGame[] Games
+      {
+        get { return (from g in Server._games select (IServerGame) g).ToArray(); }
       }
 
       public IInvitorTicket InvitePlay(IServerUser user)

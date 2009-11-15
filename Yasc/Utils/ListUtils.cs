@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Yasc.Utils
 {
@@ -43,5 +44,14 @@ namespace Yasc.Utils
     {
       throw new NotImplementedException();
     }
+
+    public static void Update<T, U>(this IList<T> list, IEnumerable<U> src, Comparer<T, U> comparer, Converter<U, T> converter)
+    {
+      list.Clear();
+      foreach (var item in src)
+        list.Add(converter(item));
+    }
   }
+
+  public delegate bool Comparer<T, U>(T t, U u);
 }

@@ -1,8 +1,24 @@
 ﻿<UserControl x:Class="Yasc.Gui.ServerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Height="300" Width="300">
-    <Grid>
-            
-    </Grid>
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="1*" />
+      <ColumnDefinition Width="1*" />
+    </Grid.ColumnDefinitions>
+    <GroupBox Header="Users" Margin="4" >
+      <DockPanel LastChildFill="True" >
+        <Button Content="Refresh" HorizontalAlignment="Right" DockPanel.Dock="Bottom"
+                Margin="4" Command="{Binding RefreshUsers}"/>
+        <ListBox ItemsSource="{Binding Users}" Margin="4" VerticalAlignment="Stretch"/>
+      </DockPanel>
+    </GroupBox>
+    <GroupBox Header="Games"  Grid.Column="1" Margin="4" >
+      <DockPanel LastChildFill="True" >
+        <Button Content="Refresh" HorizontalAlignment="Right" DockPanel.Dock="Bottom"
+                Margin="4" Command="{Binding RefreshGames}"/>
+        <ListBox ItemsSource="{Binding Games}" Margin="4"/>
+      </DockPanel>
+    </GroupBox>
+  </Grid>
 </UserControl>

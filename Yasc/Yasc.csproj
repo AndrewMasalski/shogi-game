@@ -144,6 +144,7 @@
       <DependentUpon>ServerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\ServerViewModel.cs" />
+    <Compile Include="Gui\UserViewModel.cs" />
     <Compile Include="Gui\WelcomeChoice.cs" />
     <Compile Include="Gui\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
