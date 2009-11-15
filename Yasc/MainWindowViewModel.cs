@@ -34,6 +34,13 @@ namespace Yasc
           case WelcomeChoice.Autoplay:
             GoGame(WelcomeChoice.Autoplay);
             break;
+          case WelcomeChoice.BecomeServer:
+            GoServer(Settings.Default.UserName);
+            break;
+          case WelcomeChoice.ConnectToServer:
+            GoConnecting(new ConnectingViewModel(
+              Settings.Default.Address, Settings.Default.UserName));
+            break;
         }
       }
     }
@@ -49,8 +56,8 @@ namespace Yasc
           GoGame(welcomeViewModel.Mode);
           break;
         case WelcomeChoice.ConnectToServer:
-            GoConnecting(new ConnectingViewModel(
-              welcomeViewModel.Address, welcomeViewModel.UserName));
+          GoConnecting(new ConnectingViewModel(
+            welcomeViewModel.Address, welcomeViewModel.UserName));
           break;
         case WelcomeChoice.BecomeServer:
           GoServer(welcomeViewModel.UserName);
