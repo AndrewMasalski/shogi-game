@@ -93,6 +93,7 @@ namespace Yasc.Gui
 
     public WelcomeViewModel()
     {
+      Address = Settings.Default.Address;
       UserName = Settings.Default.UserName;
       SaveAndSkip = Settings.Default.SkipWelcomePage;
     }
@@ -119,6 +120,7 @@ namespace Yasc.Gui
       Settings.Default.UserName = UserName;
       Settings.Default.SkipWelcomePage = SaveAndSkip;
       Settings.Default.DefaultStartMode = Mode;
+      Settings.Default.Address = Address;
       Settings.Default.Save();
       OnChoiceDone(EventArgs.Empty);
     }

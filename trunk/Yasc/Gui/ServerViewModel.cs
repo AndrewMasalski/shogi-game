@@ -97,7 +97,7 @@ namespace Yasc.Gui
       }
     }
 
-    protected ObservableCollection<GameViewModel> Games { get; private set; }
+    public ObservableCollection<GameViewModel> Games { get; private set; }
 
     public ServerViewModel(string userName)
     {
