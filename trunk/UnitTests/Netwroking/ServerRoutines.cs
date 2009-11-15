@@ -12,15 +12,12 @@ namespace UnitTests.Netwroking
       var johnSession = server.Login("John");
       var jackSession = server.Login("Jack");
 
-      IInviteeTicket inviteeTicket = null;
-      jackSession.InvitationReceived += i => inviteeTicket = i;
-
-      var invitorTicket = johnSession.InvitePlay(johnSession.Users.First());
+      IPlayerGameController jackController = null;
+      jackSession.InvitationReceived += i => jackController = i.Accept();
 
       IPlayerGameController johnController = null;
-      invitorTicket.InvitationAccepted += c => johnController = c;
+      johnSession.InvitePlay(johnSession.Users.First(), c => johnController = c);
 
-      var jackController = inviteeTicket.Accept();
 
       c1 = jackController;
       c2 = johnController;

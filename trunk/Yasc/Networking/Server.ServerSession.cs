@@ -32,9 +32,9 @@ namespace Yasc.Networking
         get { return (from g in Server._games select (IServerGame) g).ToArray(); }
       }
 
-      public IInvitorTicket InvitePlay(IServerUser user)
+      public void InvitePlay(IServerUser user, Action<IPlayerGameController> invitationAccepted)
       {
-        return Server.Invite(_user, (ServerUser)user);
+        Server.Invite(_user, invitationAccepted, (ServerUser)user);
       }
       public event Action<IInviteeTicket> InvitationReceived;
 

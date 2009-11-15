@@ -88,17 +88,15 @@ namespace Yasc.Networking
       // Do nothing
     }
 
-    private IInvitorTicket Invite(ServerUser from, ServerUser to)
+    private void Invite(ServerUser from, Action<IPlayerGameController> invitationAccepted, ServerUser to)
     {
-      var invitorTicket = new InvitorTicket(from);
-      _users[to].ReceiveInvitation(new InviteeTicket(this, invitorTicket, to));
-      return invitorTicket;
+      _users[to].ReceiveInvitation(new InviteeTicket(this, from, invitationAccepted, to));
     }
-    private IPlayerGameController InviteAccepted(InvitorTicket invitorTicket, ServerUser invitee)
+    private IPlayerGameController InviteAccepted(ServerUser from, Action<IPlayerGameController> invitationAccepted, ServerUser invitee)
     {
-      var game = new ServerGame(this, invitorTicket.Invitor, invitee);
+      var game = new ServerGame(this, from, invitee);
       _games.Add(game);
-      invitorTicket.InvokeInvitationAccepted(game.WhitePlayer);
+      invitationAccepted(game.WhitePlayer);
       return game.BlackPlayer;
     }
   }
