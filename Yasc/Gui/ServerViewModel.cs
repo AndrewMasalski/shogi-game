@@ -26,12 +26,11 @@ namespace Yasc.Gui
 
     private void Init()
     {
-      Session.InvitationReceived += new Action<IInviteeTicket>(ticket => ticket.Accept());
+      Session.InvitationReceived += new ActionListener<IInviteeTicket>(ticket => ticket.Accept());
 
-      Users = new ObservableCollection<UserViewModel>(
-        from u in Session.Users select new UserViewModel(Session, u));
-
+      Users = new ObservableCollection<UserViewModel>();
       Users.CollectionChanged += UsersOnCollectionChanged;
+      Users.Update(Session.Users, null, u => new UserViewModel(Session, u));
 
       Games = new ObservableCollection<GameViewModel>(
         from g in Session.Games select new GameViewModel(g));

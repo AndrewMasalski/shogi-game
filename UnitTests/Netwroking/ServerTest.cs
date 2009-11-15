@@ -36,6 +36,7 @@ namespace UnitTests.Netwroking
       IPlayerGameController johnController = null;
       johnSession.InvitePlay(johnSession.Users.First(), c => johnController = c);
 
+      DispatcherUtils.WaitForAllDefferedOperations();
       Assert.AreSame(jackController.Game, johnController.Game);
     }
 
