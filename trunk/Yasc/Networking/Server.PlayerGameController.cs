@@ -1,4 +1,8 @@
 using System;
+using System.Collections;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Serialization.Formatters;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Networking
