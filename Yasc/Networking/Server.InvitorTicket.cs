@@ -4,7 +4,7 @@ namespace Yasc.Networking
 {
   public partial class Server 
   {
-    private class InvitorTicket : MarshalByRefObject, IInvitorTicket
+    /*private class InvitorTicket : MarshalByRefObject, IInvitorTicket
     {
       public event Action<IPlayerGameController> InvitationAccepted;
 
@@ -20,6 +20,6 @@ namespace Yasc.Networking
         var accepted = InvitationAccepted;
         if (accepted != null) accepted(obj);
       }
-    }
+    }*/
   }
 }

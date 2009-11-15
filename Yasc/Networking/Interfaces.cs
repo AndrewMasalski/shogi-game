@@ -12,17 +12,12 @@ namespace Yasc.Networking
     IServerGame[] Games { get; }
     
     event Action<IInviteeTicket> InvitationReceived;
-    IInvitorTicket InvitePlay(IServerUser user);
+    void InvitePlay(IServerUser user, Action<IPlayerGameController> invitationAccepted);
   }
 
   public interface IInviteeTicket
   {
     IPlayerGameController Accept();
-  }
-
-  public interface IInvitorTicket
-  {
-    event Action<IPlayerGameController> InvitationAccepted;
   }
 
   public interface IServerUser

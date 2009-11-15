@@ -26,18 +26,15 @@ namespace UnitTests.Netwroking
     public void TestInvitation()
     {
       var server = new Server();
+
       var johnSession = server.Login("John");
-      johnSession.InvitationReceived += i => Assert.Fail("John doesn't get invitation");
-
       var jackSession = server.Login("Jack");
-      IInviteeTicket invitation = null;
-      jackSession.InvitationReceived += i => invitation = i;
 
-      var ticket = johnSession.InvitePlay(johnSession.Users.First());
+      IPlayerGameController jackController = null;
+      jackSession.InvitationReceived += i => jackController = i.Accept();
+
       IPlayerGameController johnController = null;
-      ticket.InvitationAccepted += c => johnController = c;
-
-      var jackController = invitation.Accept();
+      johnSession.InvitePlay(johnSession.Users.First(), c => johnController = c);
 
       Assert.AreSame(jackController.Game, johnController.Game);
     }

@@ -16,19 +16,26 @@
       <Controls:SwitchControl.Resources>
         <DataTemplate x:Key="True">
           <StackPanel>
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="5" FontSize="18" Text="{Binding Path=Address, StringFormat='Connecting to {0}'}"/>
-            <Common:ProgressCircle Margin="8" Width="24" />
+            <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="18"
+                       >Connecting to <TextBlock FontWeight="Bold" Text="{Binding Path=Address}"/></TextBlock>
+
+            <Common:ProgressCircle Margin="8" Width="32" />
             <Button Content="Cancel" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding CancelCommand}"/>
           </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="False">
           <StackPanel>
-            <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="18" 
-                       Text="{Binding Path=Address, StringFormat='Sorry, but an attempt to connect to {0} failed'}"/>
+            <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="18">Sorry, but your attempt to 
+              connect to <TextBlock FontWeight="Bold" Text="{Binding Path=Address}"/> failed
+            </TextBlock>
+            <Image Source="..\Resources\Error.png" Width="32" Margin="8" 
+                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
             <TextBlock Grid.Row="5" Text="{Binding LastError.Message}" Foreground="Red" 
                        HorizontalAlignment="Center" Margin="8" ToolTip="{Binding LastError}"/>
-            <Button Content="Get back" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding CancelCommand}"/>
-            <Button Content="Retry" Grid.Row="3" Margin="5" Padding="15,2" HorizontalAlignment="Center" Command="{Binding RetryCommand}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+              <Button Content="Get back" Grid.Row="3" Margin="5" Padding="15,2" Command="{Binding CancelCommand}"/>
+              <Button Content="Retry" Grid.Row="3" Margin="5" Padding="15,2" Command="{Binding RetryCommand}"/>
+            </StackPanel>
           </StackPanel>
         </DataTemplate>
       </Controls:SwitchControl.Resources>

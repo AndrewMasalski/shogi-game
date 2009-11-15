@@ -9,7 +9,6 @@ namespace Yasc.Gui
   {
     private readonly IServerSession _session;
     private readonly IServerUser _user;
-    private IInvitorTicket _ticket;
 
     public UserViewModel(IServerSession session, IServerUser user)
     {
@@ -36,15 +35,14 @@ namespace Yasc.Gui
 
     public void Invite()
     {
-      _ticket = _session.InvitePlay(_user);
-      _ticket.InvitationAccepted += new ActionListener<IPlayerGameController>(OnInvitationAccepted);
+      _session.InvitePlay(_user, 
+        new ActionListener<IPlayerGameController>(OnInvitationAccepted));
 
       InvokeInvited(EventArgs.Empty);
     }
 
     private void OnInvitationAccepted(IPlayerGameController obj)
     {
-      _ticket = null;
       InvokeInvitationAccepted(obj);
     }
 
@@ -52,7 +50,7 @@ namespace Yasc.Gui
 
     private void InvokeInvited(EventArgs e)
     {
-      EventHandler invited = Invited;
+      var invited = Invited;
       if (invited != null) invited(this, e);
     }
 
