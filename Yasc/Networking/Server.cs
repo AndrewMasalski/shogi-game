@@ -39,14 +39,7 @@ namespace Yasc.Networking
 
     public static Server Start()
     {
-      var provider = new BinaryServerFormatterSinkProvider
-                       {
-                         TypeFilterLevel = TypeFilterLevel.Full
-                       };
-      IDictionary properties = new Hashtable();
-      properties["name"] = "some name";
-      properties["port"] = Port;
-      ChannelServices.RegisterChannel(new TcpChannel(properties, null, provider), false);
+      RegisterChannel(Port);
 
       RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
       var server = new Server();
@@ -61,8 +54,7 @@ namespace Yasc.Networking
       {
         // We need a channel to get messages back from the server
         // doesn't matter what port it will have
-        var chnl = new TcpChannel(PortUtils.GetFreePortToListen());
-        ChannelServices.RegisterChannel(chnl, false);
+        RegisterChannel(PortUtils.GetFreePortToListen());
         _backwardChannelIsRegistred = true;
       }
 
@@ -70,6 +62,17 @@ namespace Yasc.Networking
       return (Server)Activator.GetObject(typeof(Server), url);
     }
 
+    private static void RegisterChannel(int port)
+    {
+      var provider = new BinaryServerFormatterSinkProvider
+      {
+        TypeFilterLevel = TypeFilterLevel.Full
+      };
+      IDictionary properties = new Hashtable();
+      properties["name"] = "backward channel";
+      properties["port"] = port;
+      ChannelServices.RegisterChannel(new TcpChannel(properties, null, provider), false);
+    }
 
     #endregion
 
