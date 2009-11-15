@@ -6,8 +6,11 @@ namespace Yasc.Networking
 {
   public interface IServerSession
   {
-    IEnumerable<IServerUser> Users { get; }
     Server Server { get; }
+
+    IServerUser[] Users { get; }
+    IServerGame[] Games { get; }
+    
     event Action<IInviteeTicket> InvitationReceived;
     IInvitorTicket InvitePlay(IServerUser user);
   }

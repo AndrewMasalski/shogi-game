@@ -90,13 +90,11 @@ namespace Yasc.Gui
         RaisePropertyChanged("SaveAndSkip");
       }
     }
-    public ConnectingViewModel ConnectingViewModel { get; private set; }
 
     public WelcomeViewModel()
     {
       UserName = Settings.Default.UserName;
       SaveAndSkip = Settings.Default.SkipWelcomePage;
-      ConnectingViewModel = new ConnectingViewModel(Address, UserName);
     }
 
     public event EventHandler ChoiceDone;
