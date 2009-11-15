@@ -68,6 +68,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MoveTest.cs" />
+    <Compile Include="Netwroking\DispatcherUtils.cs" />
     <Compile Include="Netwroking\ServerRoutines.cs" />
     <Compile Include="Netwroking\TestLog.cs" />
     <Compile Include="PieceTest.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="ValidMovesTestHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Yasc\Yasc.csproj">

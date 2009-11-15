@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using System.Windows;
 using Yasc.ShogiCore.Utils;
+using System.Linq;
 
 namespace Yasc.Networking
 {
@@ -35,6 +36,12 @@ namespace Yasc.Networking
     public static bool ServerIsStartedOnThisComputer
     {
       get { return PortUtils.IsPortBusy(Port); }
+    }
+
+    public IServerUser[] Users
+    {
+      get { return _users.Keys.Cast<IServerUser>().ToArray(); }
+      set { throw new NotImplementedException(); }
     }
 
     public static Server Start()

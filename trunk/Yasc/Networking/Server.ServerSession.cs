@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Windows.Threading;
 
 namespace Yasc.Networking
 {
@@ -41,7 +42,9 @@ namespace Yasc.Networking
       public void ReceiveInvitation(InviteeTicket ticket)
       {
         var handler = InvitationReceived;
-        if (handler != null) handler(ticket);
+        if (handler != null)
+          Dispatcher.CurrentDispatcher.BeginInvoke(
+            DispatcherPriority.Input, new Action(() => handler(ticket)));
       }
     }
   }
