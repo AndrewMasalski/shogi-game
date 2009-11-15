@@ -127,6 +127,7 @@
     <Compile Include="Common\ToStirngConverter.cs" />
     <Compile Include="Controls\MoveAttemptEventArgs.cs" />
     <Compile Include="Controls\ShogiPiece.cs" />
+    <Compile Include="AI\AiController.cs" />
     <Compile Include="Gui\ConnectingView.xaml.cs">
       <DependentUpon>ConnectingView.xaml</DependentUpon>
     </Compile>
@@ -156,13 +157,19 @@
     <Compile Include="Networking\ActionListener.cs" />
     <Compile Include="Networking\MoveMsg.cs" />
     <Compile Include="Networking\PortUtils.cs" />
-    <Compile Include="Networking\IPlayerGameController.cs" />
-    <Compile Include="Networking\ISpectatorController.cs" />
+    <Compile Include="Networking\Interfaces.cs" />
     <Compile Include="Networking\Server.cs" />
     <Compile Include="Controls\ShogiBoard.cs" />
     <Compile Include="Controls\ShogiBoardCore.xaml.cs">
       <DependentUpon>ShogiBoardCore.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Networking\Server.InviteeTicket.cs" />
+    <Compile Include="Networking\Server.InvitorTicket.cs" />
+    <Compile Include="Networking\Server.PlayerGameController.cs" />
+    <Compile Include="Networking\Server.ServerGame.cs" />
+    <Compile Include="Networking\Server.ServerSession.cs" />
+    <Compile Include="Networking\Server.ServerUser.cs" />
+    <Compile Include="Networking\Server.SpectatorController.cs" />
     <Compile Include="ShogiCore\AvailableDropMovesAnalyser.cs" />
     <Compile Include="ShogiCore\AvailableUsualMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />

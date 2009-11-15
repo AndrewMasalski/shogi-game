@@ -3,35 +3,41 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
     xmlns:Gui="clr-namespace:Yasc.Controls">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="Auto" MinWidth="20"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-    <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" DataContext="{Binding Board}"/>
+  <DockPanel LastChildFill="True">
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
+    </Menu>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto" MinWidth="20"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" DataContext="{Binding Board}"/>
 
-    <StackPanel Grid.Column="1">
-      <ItemsControl ItemsSource="{Binding Board.History.MovesDone}" Grid.Column="1">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate DataType="{x:Type Moves:MoveBase}">
-            <StackPanel Orientation="Horizontal" Margin="5,2">
-              <TextBlock Text="{Binding Number}"/>
-              <TextBlock Text=". "/>
-              <TextBlock Text="{Binding}"/>
-            </StackPanel>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-        <ItemsControl.ItemsPanel>
-          <ItemsPanelTemplate>
-            <UniformGrid Columns="2"/>
-          </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-      </ItemsControl>
-    </StackPanel>
-    <TextBlock x:Name="_errorLabel" Grid.Row="1" Grid.ColumnSpan="2"/>
-  </Grid>
+      <StackPanel Grid.Column="1">
+        <ItemsControl ItemsSource="{Binding Board.History.MovesDone}" Grid.Column="1">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type Moves:MoveBase}">
+              <StackPanel Orientation="Horizontal" Margin="5,2">
+                <TextBlock Text="{Binding Number}"/>
+                <TextBlock Text=". "/>
+                <TextBlock Text="{Binding}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <UniformGrid Columns="2"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
+      </StackPanel>
+      <TextBlock x:Name="_errorLabel" Grid.Row="1" Grid.ColumnSpan="2"/>
+    </Grid>
+  </DockPanel>
+
 </UserControl>

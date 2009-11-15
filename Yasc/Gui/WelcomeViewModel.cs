@@ -9,6 +9,7 @@ namespace Yasc.Gui
   {
     private string _userName;
     private bool _saveAndSkip;
+    private string _address;
     private WelcomeChoice _mode;
     private RelayCommand _autoplayCommand;
     private RelayCommand _connectCommand;
@@ -59,6 +60,16 @@ namespace Yasc.Gui
         RaisePropertyChanged("UserName");
       }
     }
+    public string Address
+    {
+      get { return _address; }
+      set
+      {
+        if (_address == value) return;
+        _address = value;
+        RaisePropertyChanged("Address");
+      }
+    }
     public WelcomeChoice Mode
     {
       get { return _mode; }
@@ -85,7 +96,7 @@ namespace Yasc.Gui
     {
       UserName = Settings.Default.UserName;
       SaveAndSkip = Settings.Default.SkipWelcomePage;
-      ConnectingViewModel = new ConnectingViewModel();
+      ConnectingViewModel = new ConnectingViewModel(Address, UserName);
     }
 
     public event EventHandler ChoiceDone;

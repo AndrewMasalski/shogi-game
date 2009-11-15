@@ -6,13 +6,15 @@ namespace Yasc.Gui
 {
   public class ServerViewModel : ObservableObject
   {
+    public IServerSession Session { get; internal set; }
     public Server Server { get; private set; }
 
     public IPlayerGameController GameTicket { get; set; }
 
-    public ServerViewModel(Server server)
+    public ServerViewModel(IServerSession session)
     {
-      Server = server;
+      Server = session.Server;
+      Session = session;
     }
 
     public ServerViewModel()

@@ -1,5 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UnitTests.Netwroking;
 using Yasc.Networking;
 
 namespace UnitTests
@@ -10,9 +11,9 @@ namespace UnitTests
     [TestMethod]
     public void Test1()
     {
-      var server = new Server();
-      var player1 = server.ParticipateGame();
-      var player2 = server.ParticipateGame();
+      IPlayerGameController player1;
+      IPlayerGameController player2;
+      ServerRoutines.CrateGame(out player1, out player2);
       
       var localTimeBase = new []
                             {
