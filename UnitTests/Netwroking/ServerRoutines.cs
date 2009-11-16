@@ -18,8 +18,6 @@ namespace UnitTests.Netwroking
       IPlayerGameController johnController = null;
       johnSession.InvitePlay(johnSession.Users.First(), c => johnController = c);
 
-      DispatcherUtils.WaitForAllDefferedOperations();
-
       c1 = jackController;
       c2 = johnController;
     }

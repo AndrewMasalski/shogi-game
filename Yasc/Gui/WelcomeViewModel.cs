@@ -12,6 +12,7 @@ namespace Yasc.Gui
     private bool _saveAndSkip;
     private string _address;
     private WelcomeChoice _mode;
+
     private RelayCommand _autoplayCommand;
     private RelayCommand _connectCommand;
     private RelayCommand _becomeServerCommand;
