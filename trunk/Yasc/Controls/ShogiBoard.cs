@@ -13,7 +13,10 @@ namespace Yasc.Controls
   public class ShogiBoard : Control
   {
     private readonly Flag _dragMove = new Flag();
-    private ShogiBoardCore _boardCore;
+    private ShogiBoardCore BoardCore 
+    {
+      get { return this.FindChild<ShogiBoardCore>(); }
+    }
 
     #region ' Helpers '
 
@@ -48,12 +51,6 @@ namespace Yasc.Controls
       }
     }
 
-    public override void OnApplyTemplate()
-    {
-      _boardCore = this.FindChild<ShogiBoardCore>();
-      base.OnApplyTemplate();
-    }
-
     #endregion
 
     #region ' Moves Animation '
@@ -66,7 +63,7 @@ namespace Yasc.Controls
       var from = Board[m.From.X, m.From.Y];
       var to = Board[m.To.X, m.To.Y];
 
-      _boardCore.AnimateMove(from, to);
+      BoardCore.AnimateMove(from, to);
     }
 
     #endregion
@@ -99,7 +96,7 @@ namespace Yasc.Controls
 
         var moves = Board.GetAvailableMoves(cell.Position);
         var positions = from UsualMove m in moves select m.To;
-        _boardCore.HighlightAvailableMoves(positions.Distinct());
+        BoardCore.HighlightAvailableMoves(positions.Distinct());
       }
 
       var piece = context as Piece;
@@ -107,13 +104,13 @@ namespace Yasc.Controls
       {
         var moves = Board.GetAvailableMoves(piece);
         var positions = from DropMove m in moves select m.To;
-        _boardCore.HighlightAvailableMoves(positions);
+        BoardCore.HighlightAvailableMoves(positions);
       }
     }
 
     private void ReleaseDragSource()
     {
-      _boardCore.ResetAvailableMoves();
+      BoardCore.ResetAvailableMoves();
     }
 
     private MoveBase RecognizeMove(DropEventArgs e)
@@ -167,13 +164,7 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty IsFlippedProperty =
       DependencyProperty.Register("IsFlipped", typeof (bool),
-        typeof (ShogiBoard), new UIPropertyMetadata(false, IsFlippedPropertyChanged));
-
-    private static void IsFlippedPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
-    {
-      var child = o.FindChild<ShogiBoardCore>();
-      child.IsFlipped = (bool) args.NewValue;
-    }
+        typeof (ShogiBoard), new UIPropertyMetadata(false));
 
     public bool IsFlipped
     {

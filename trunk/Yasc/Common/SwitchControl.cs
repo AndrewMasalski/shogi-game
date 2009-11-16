@@ -42,5 +42,16 @@ namespace Yasc.Controls
       }
       return base.ChooseTemplate();
     }
+
+    public SwitchControl()
+    {
+      Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs args)
+    {
+      ContentTemplate = Switcher == null ? null :
+       TryFindResource(Switcher.ToString()) as DataTemplate;
+    }
   }
 }
