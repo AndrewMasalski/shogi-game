@@ -10,7 +10,7 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto" MinWidth="20"/>
+        <ColumnDefinition Width="200"/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
@@ -18,24 +18,26 @@
       </Grid.RowDefinitions>
       <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" DataContext="{Binding Board}"/>
 
-      <StackPanel Grid.Column="1">
-        <ItemsControl ItemsSource="{Binding Board.History.MovesDone}" Grid.Column="1">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type Moves:MoveBase}">
-              <StackPanel Orientation="Horizontal" Margin="5,2">
-                <TextBlock Text="{Binding Number}"/>
-                <TextBlock Text=". "/>
-                <TextBlock Text="{Binding}"/>
-              </StackPanel>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <UniformGrid Columns="2"/>
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-        </ItemsControl>
-      </StackPanel>
+      <GroupBox Header="Moves log:" Grid.Column="1">
+        <StackPanel>
+          <ItemsControl ItemsSource="{Binding Board.History.MovesDone}" Grid.Column="1">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate DataType="{x:Type Moves:MoveBase}">
+                <StackPanel Orientation="Horizontal" Margin="5,2">
+                  <TextBlock Text="{Binding Number}"/>
+                  <TextBlock Text=". "/>
+                  <TextBlock Text="{Binding}"/>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <UniformGrid Columns="2"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+          </ItemsControl>
+        </StackPanel>
+      </GroupBox>
       <TextBlock x:Name="_errorLabel" Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>
   </DockPanel>
