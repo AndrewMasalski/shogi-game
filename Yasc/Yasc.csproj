@@ -141,6 +141,7 @@
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\LoginViewModel.cs" />
+    <Compile Include="Gui\LvsSettingsExtension.cs" />
     <Compile Include="Gui\ServerView.xaml.cs">
       <DependentUpon>ServerView.xaml</DependentUpon>
     </Compile>
