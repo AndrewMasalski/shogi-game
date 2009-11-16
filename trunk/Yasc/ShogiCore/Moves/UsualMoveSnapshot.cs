@@ -23,5 +23,10 @@ namespace Yasc.ShogiCore.Moves
       To = to;
       IsPromoting = isPromoting;
     }
+
+    public override MoveBase AsRealMove(Board board)
+    {
+      return board.GetUsualMove(From, To, IsPromoting);
+    }
   }
 }

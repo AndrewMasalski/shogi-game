@@ -20,5 +20,10 @@ namespace Yasc.ShogiCore.Moves
       Piece = piece;
       To = to;
     }
+
+    public override MoveBase AsRealMove(Board board)
+    {
+      return board.GetDropMove(Piece.Type, To, board[Piece.Color]);
+    }
   }
 }

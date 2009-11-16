@@ -112,6 +112,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AiControllerBase.cs" />
     <Compile Include="Common\AndConverter.cs" />
     <Compile Include="Common\ProgressCircle.xaml.cs">
       <DependentUpon>ProgressCircle.xaml</DependentUpon>
