@@ -13,7 +13,7 @@ namespace Yasc.AI
 
     IServerGame IPlayerGameController.Game
     {
-      get { return new AIGame(); }
+      get { return new AiGame(); }
     }
     PieceColor IPlayerGameController.MyColor
     {
@@ -42,7 +42,7 @@ namespace Yasc.AI
       remove { }
     }
 
-    private class AIGame : IServerGame
+    private class AiGame : IServerGame
     {
       public ISpectatorController Watch()
       {
@@ -65,7 +65,7 @@ namespace Yasc.AI
     }
     private class Comp : IServerUser
     {
-      private IServerGame _currentGame;
+      private readonly IServerGame _currentGame;
 
       public Comp(IServerGame currentGame)
       {
@@ -84,7 +84,7 @@ namespace Yasc.AI
     }
     private class Human : IServerUser
     {
-      private IServerGame _currentGame;
+      private readonly IServerGame _currentGame;
 
       public Human(IServerGame currentGame)
       {
@@ -107,6 +107,7 @@ namespace Yasc.AI
     protected abstract void OnHumanMoved(string move);
     protected void Move(string move)
     {
+
       _compMadeMove(new MoveMsg(move, DateTime.Now));
     }
   }

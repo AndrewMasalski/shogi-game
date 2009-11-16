@@ -12,11 +12,11 @@ namespace Yasc.Gui
   public class GameViewModel : ObservableObject
   {
     private readonly IServerGame _game;
+    private RelayCommand _getBackCommand;
     private IPlayerGameController _ticket;
     private readonly Flag _opponentMoveReaction = new Flag();
 
     public Board Board { get; private set; }
-
     public ICommand GetBackCommand
     {
       get
@@ -27,21 +27,6 @@ namespace Yasc.Gui
         }
         return _getBackCommand;
       }
-    }
-
-    private void GetBack()
-    {
-      OnGameOver(EventArgs.Empty);
-    }
-
-    private RelayCommand _getBackCommand;
-
-    public event EventHandler GameOver;
-
-    private void OnGameOver(EventArgs e)
-    {
-      var handler = GameOver;
-      if (handler != null) handler(this, e);
     }
 
     public GameViewModel(WelcomeChoice choice)
@@ -56,17 +41,16 @@ namespace Yasc.Gui
           break;
       }
     }
-
-
     public GameViewModel(IPlayerGameController ticket)
     {
       Init(ticket);
     }
-
     public GameViewModel(IServerGame game)
     {
       _game = game;
     }
+
+    public event EventHandler GameOver;
 
     private void Init(IPlayerGameController ticket)
     {
@@ -75,21 +59,29 @@ namespace Yasc.Gui
 
       InitBoard();
     }
-
     private void InitBoard()
     {
       Board = new Board();
-      Board.Move += BoardOnMove;
+      Board.Moved += BoardOnMoved;
       Shogi.InititBoard(Board);
     }
+    
+    private void GetBack()
+    {
+      OnGameOver(EventArgs.Empty);
+    }
+    private void OnGameOver(EventArgs e)
+    {
+      var handler = GameOver;
+      if (handler != null) handler(this, e);
+    }
 
-    private void BoardOnMove(object sender, MoveEventArgs args)
+    private void BoardOnMoved(object sender, MoveEventArgs args)
     {
       // If it's not opponent than it must be me
       if (!_opponentMoveReaction && _ticket != null)
         _ticket.Move(new MoveMsg(args.Move.ToString()));
     }
-
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
