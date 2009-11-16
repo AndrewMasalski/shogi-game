@@ -29,17 +29,28 @@ namespace Yasc
       }
       else
       {
+        string userName = Settings.Default.UserName;
         switch (Settings.Default.DefaultStartMode)
         {
           case WelcomeChoice.Autoplay:
             GoGame(WelcomeChoice.Autoplay);
             break;
           case WelcomeChoice.BecomeServer:
-            GoServer(Settings.Default.UserName);
+            if (string.IsNullOrEmpty(userName))
+            {
+              GoWelcome();
+              return;
+            }
+            GoServer(userName);
             break;
           case WelcomeChoice.ConnectToServer:
-            GoConnecting(new ConnectingViewModel(
-              Settings.Default.Address, Settings.Default.UserName));
+            string address = Settings.Default.Address;
+            if (string.IsNullOrEmpty(address) || string.IsNullOrEmpty(userName))
+            {
+              GoWelcome();
+              return;
+            }
+            GoConnecting(new ConnectingViewModel(address, userName));
             break;
         }
       }

@@ -98,6 +98,9 @@ namespace Yasc.Gui
       UserName = Settings.Default.UserName;
       SaveAndSkip = Settings.Default.SkipWelcomePage;
       LastVsistedServers = new ObservableCollection<string>(Settings.Default.LoadLvs());
+
+      if (string.IsNullOrEmpty(Address)) Address = "localhost";
+      if (string.IsNullOrEmpty(UserName)) UserName = "John Doe";
     }
 
     public event EventHandler ChoiceDone;
