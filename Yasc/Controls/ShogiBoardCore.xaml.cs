@@ -21,7 +21,7 @@ namespace Yasc.Controls
 
     public Board Board
     {
-      get { return (Board)DataContext; }
+      get { return this.FindAncestor<ShogiBoard>().RepresentedBoard; }
     }
 
     private ShogiCell GetCell(Cell cell)

@@ -16,7 +16,9 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" DataContext="{Binding Board}"/>
+      <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" 
+                      RepresentedBoard="{Binding Board}" 
+                      IsFlipped="{Binding IsFlipped}"/>
 
       <GroupBox Header="Moves log:" Grid.Column="1">
         <StackPanel>

@@ -17,6 +17,20 @@ namespace Yasc.Gui
     private readonly Flag _opponentMoveReaction = new Flag();
 
     public Board Board { get; private set; }
+
+    public bool IsFlipped
+    {
+      get { return _isFlipped; }
+      set
+      {
+        if (_isFlipped == value) return;
+        _isFlipped = value;
+        RaisePropertyChanged("IsFlipped");
+      }
+    }
+
+    private bool _isFlipped;
+
     public ICommand GetBackCommand
     {
       get
@@ -57,6 +71,7 @@ namespace Yasc.Gui
       _ticket = ticket;
       _ticket.OpponentMadeMove = new FuncListener<MoveMsg, DateTime>(OnOpponentMadeMove);
 
+      IsFlipped = _ticket.MyColor == PieceColor.White;
       InitBoard();
     }
     private void InitBoard()

@@ -30,25 +30,6 @@ namespace Yasc.Controls
     {
       Dnd.AddDragHandler(this, OnDrag);
       Dnd.AddDropHandler(this, OnDrop);
-      DataContextChanged += ((s, e) => Board = (Board) e.NewValue);
-    }
-
-    private Board _board;
-
-    public Board Board
-    {
-      get { return _board; }
-      private set
-      {
-        if (_board == value) return;
-        if (_board != null)
-          _board.Moving -= BoardOnMoving;
-
-        _board = value;
-
-        if (_board != null)
-          _board.Moving += BoardOnMoving;
-      }
     }
 
     #endregion
@@ -60,8 +41,8 @@ namespace Yasc.Controls
       if (_dragMove) return;
       var m = args.Move as UsualMove;
       if (m == null) return;
-      var from = Board[m.From.X, m.From.Y];
-      var to = Board[m.To.X, m.To.Y];
+      var from = RepresentedBoard[m.From.X, m.From.Y];
+      var to = RepresentedBoard[m.To.X, m.To.Y];
 
       BoardCore.AnimateMove(from, to);
     }
@@ -82,7 +63,7 @@ namespace Yasc.Controls
 
       if (move.IsValid)
         using (_dragMove.Set())
-          Board.MakeMove(move);
+          RepresentedBoard.MakeMove(move);
     }
     private void OnDrag(object sender, RoutedEventArgs e)
     {
@@ -94,7 +75,7 @@ namespace Yasc.Controls
         if (cell.Piece == null) 
           return; // Technically it's possible to drag empty cell
 
-        var moves = Board.GetAvailableMoves(cell.Position);
+        var moves = RepresentedBoard.GetAvailableMoves(cell.Position);
         var positions = from UsualMove m in moves select m.To;
         BoardCore.HighlightAvailableMoves(positions.Distinct());
       }
@@ -102,7 +83,7 @@ namespace Yasc.Controls
       var piece = context as Piece;
       if (piece != null)
       {
-        var moves = Board.GetAvailableMoves(piece);
+        var moves = RepresentedBoard.GetAvailableMoves(piece);
         var positions = from DropMove m in moves select m.To;
         BoardCore.HighlightAvailableMoves(positions);
       }
@@ -125,14 +106,14 @@ namespace Yasc.Controls
       {
         var piece = (Piece)e.DragSource.DataContext;
         var to = (Cell)e.DragTarget.DataContext;
-        return Board.GetDropMove(piece, to.Position);
+        return RepresentedBoard.GetDropMove(piece, to.Position);
       }
     }
     private MoveBase GetUsualMove(Cell from, Cell to)
     {
       MoveBase move;
-      var m1 = Board.GetUsualMove(from.Position, to.Position, false);
-      var m2 = Board.GetUsualMove(from.Position, to.Position, true);
+      var m1 = RepresentedBoard.GetUsualMove(from.Position, to.Position, false);
+      var m2 = RepresentedBoard.GetUsualMove(from.Position, to.Position, true);
       if (m1.IsValid && m2.IsValid)
       {
         var answer = MessageBox.Show("Promote?", "Q",
@@ -171,5 +152,25 @@ namespace Yasc.Controls
       get { return (bool) GetValue(IsFlippedProperty); }
       set { SetValue(IsFlippedProperty, value); }
     }
+
+    public static readonly DependencyProperty RepresentedBoardProperty =
+      DependencyProperty.Register("RepresentedBoard", typeof (Board),
+                                  typeof (ShogiBoard), new UIPropertyMetadata(default(Board), PropertyChangedCallback));
+
+    private static void PropertyChangedCallback(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    {
+      if (args.OldValue != null)
+        ((Board)args.OldValue).Moving -= ((ShogiBoard)o).BoardOnMoving;
+
+      if (args.NewValue != null)
+        ((Board)args.NewValue).Moving += ((ShogiBoard)o).BoardOnMoving;
+    }
+
+    public Board RepresentedBoard
+    {
+      get { return (Board) GetValue(RepresentedBoardProperty); }
+      set { SetValue(RepresentedBoardProperty, value); }
+    }
+    
   }
 }
