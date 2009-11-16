@@ -22,7 +22,6 @@ namespace UnitTests.ViewModel
       model.Game += (s, e) => counter[0]++;
       jack.InvitePlay(jack.Users[0], controller => counter[0]++);
 
-      DispatcherUtils.WaitForAllDefferedOperations();
       Assert.AreEqual(2, counter[0]);
     }
   }
