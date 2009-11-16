@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
 using Yasc.Properties;
@@ -90,12 +91,13 @@ namespace Yasc.Gui
         RaisePropertyChanged("SaveAndSkip");
       }
     }
-
+    public ObservableCollection<string> LastVsistedServers { get; private set; }
     public WelcomeViewModel()
     {
       Address = Settings.Default.Address;
       UserName = Settings.Default.UserName;
       SaveAndSkip = Settings.Default.SkipWelcomePage;
+      LastVsistedServers = new ObservableCollection<string>(Settings.Default.LoadLvs());
     }
 
     public event EventHandler ChoiceDone;
@@ -117,11 +119,14 @@ namespace Yasc.Gui
     }
     private void Done()
     {
-      Settings.Default.UserName = UserName;
-      Settings.Default.SkipWelcomePage = SaveAndSkip;
-      Settings.Default.DefaultStartMode = Mode;
-      Settings.Default.Address = Address;
-      Settings.Default.Save();
+      var s = Settings.Default;
+      s.UserName = UserName;
+      s.SkipWelcomePage = SaveAndSkip;
+      s.DefaultStartMode = Mode;
+      s.Address = Address;
+      s.SaveLvs(LastVsistedServers, Address);
+
+      s.Save();
       OnChoiceDone(EventArgs.Empty);
     }
 

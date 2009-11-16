@@ -70,5 +70,125 @@ namespace Yasc.Properties {
                 this["Address"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer1 {
+            get {
+                return ((string)(this["LastVisitedServer1"]));
+            }
+            set {
+                this["LastVisitedServer1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer2 {
+            get {
+                return ((string)(this["LastVisitedServer2"]));
+            }
+            set {
+                this["LastVisitedServer2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer3 {
+            get {
+                return ((string)(this["LastVisitedServer3"]));
+            }
+            set {
+                this["LastVisitedServer3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer4 {
+            get {
+                return ((string)(this["LastVisitedServer4"]));
+            }
+            set {
+                this["LastVisitedServer4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer5 {
+            get {
+                return ((string)(this["LastVisitedServer5"]));
+            }
+            set {
+                this["LastVisitedServer5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer6 {
+            get {
+                return ((string)(this["LastVisitedServer6"]));
+            }
+            set {
+                this["LastVisitedServer6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer7 {
+            get {
+                return ((string)(this["LastVisitedServer7"]));
+            }
+            set {
+                this["LastVisitedServer7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer8 {
+            get {
+                return ((string)(this["LastVisitedServer8"]));
+            }
+            set {
+                this["LastVisitedServer8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer9 {
+            get {
+                return ((string)(this["LastVisitedServer9"]));
+            }
+            set {
+                this["LastVisitedServer9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastVisitedServer10 {
+            get {
+                return ((string)(this["LastVisitedServer10"]));
+            }
+            set {
+                this["LastVisitedServer10"] = value;
+            }
+        }
     }
 }

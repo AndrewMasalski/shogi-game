@@ -51,9 +51,7 @@
         <Label Target="{Binding ElementName=_serverCombo}" Content="Enter server address:" 
              VerticalAlignment="Center" Grid.Row="2"/>
         <ComboBox Margin="5,0,5,5" IsEditable="True" Name="_serverCombo" Text="{Binding Address}" 
-                SelectedIndex="0" Grid.Row="3">
-          <System:String>ws211</System:String>
-        </ComboBox>
+                SelectedIndex="0" Grid.Row="3" ItemsSource="{Binding LastVsistedServers}"/>
         <Button Margin="5" Grid.Row="4" Height="23" Width="80" 
               HorizontalAlignment="Right" Content="Connect" Command="{Binding ConnectCommand}"/>
         <TextBlock Grid.Row="5" >

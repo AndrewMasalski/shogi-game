@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -90,8 +89,8 @@ namespace Yasc.Gui
 
     public ConnectingViewModel(string address, string userName)
     {
-      if (address == null) throw new ArgumentNullException("address");
-      if (userName == null) throw new ArgumentNullException("userName");
+      if (string.IsNullOrEmpty(address)) throw new ArgumentNullException("address");
+      if (string.IsNullOrEmpty(userName)) throw new ArgumentNullException("userName");
       Address = address;
       _userName = userName;
       _dispatcher = Dispatcher.CurrentDispatcher;
