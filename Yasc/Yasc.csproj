@@ -112,6 +112,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AndConverter.cs" />
     <Compile Include="Common\ProgressCircle.xaml.cs">
       <DependentUpon>ProgressCircle.xaml</DependentUpon>
     </Compile>
@@ -146,6 +147,7 @@
       <DependentUpon>ServerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\ServerViewModel.cs" />
+    <Compile Include="Gui\StringRangeValidationRule.cs" />
     <Compile Include="Gui\UserViewModel.cs" />
     <Compile Include="Gui\WelcomeChoice.cs" />
     <Compile Include="Gui\WelcomeView.xaml.cs">
@@ -173,6 +175,7 @@
     <Compile Include="Networking\Server.ServerSession.cs" />
     <Compile Include="Networking\Server.ServerUser.cs" />
     <Compile Include="Networking\Server.SpectatorController.cs" />
+    <Compile Include="Common\ScalarConverter.cs" />
     <Compile Include="ShogiCore\AvailableDropMovesAnalyser.cs" />
     <Compile Include="ShogiCore\AvailableUsualMovesAnalyser.cs" />
     <Compile Include="ShogiCore\Board.cs" />
