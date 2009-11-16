@@ -7,25 +7,26 @@ namespace Yasc.Controls
 {
   public class ColorToAngleConverter : IValueConverter
   {
-    #region Implementation of IValueConverter
-
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      switch ((PieceColor)value)
-      {
-        case PieceColor.Black:
-          return 0;
-        case PieceColor.White:
-          return 180;
-      }
-      throw new InvalidCastException();
+      return (PieceColor) value == PieceColor.White ? 180 : 0;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
+  }
+  public class IsFlippedToAngleConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return (bool) value ? 180 : 0;
+    }
 
-    #endregion
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

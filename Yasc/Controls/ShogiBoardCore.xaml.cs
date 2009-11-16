@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,6 +7,7 @@ using System.Windows.Media.Animation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
+using System.Linq;
 
 namespace Yasc.Controls
 {
@@ -98,5 +100,36 @@ namespace Yasc.Controls
     }
 
     #endregion
+
+    public bool IsFlipped
+    {
+      get { return _isFlipped; }
+      set
+      {
+        if (_isFlipped == value) return;
+        _isFlipped = value;
+        RefillCells();
+      }
+    }
+
+    private void RefillCells()
+    {
+      _cells.ItemsSource = !IsFlipped ? Board : Flip(Board);
+    }
+
+    private static IEnumerable<Cell> Flip(IEnumerable<Cell> board)
+    {
+      var list = board.ToList();
+      for (int i = 8; i >= 0; i--)
+        for (int j = 8; j >= 0; j--)
+          yield return list[i*9 + j];
+    }
+
+    private bool _isFlipped;
+
+    private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+      RefillCells();
+    }
   }
 }

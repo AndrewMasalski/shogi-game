@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
+using Yasc.GenericDragDrop;
 
 namespace Yasc.Controls
 {
@@ -36,6 +37,27 @@ namespace Yasc.Controls
     public override string ToString()
     {
       return PieceColor + (PieceType.IsPromoted ? " promoted " : " ") + PieceType;
+    }
+
+    public static readonly DependencyProperty IsFlippedProperty =
+      DependencyProperty.Register("IsFlipped", typeof (bool),
+        typeof (ShogiPiece), new UIPropertyMetadata(false));
+
+    public bool IsFlipped
+    {
+      get { return (bool) GetValue(IsFlippedProperty); }
+      set { SetValue(IsFlippedProperty, value); }
+    }
+
+    public ShogiPiece()
+    {
+      Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs args)
+    {
+      var ancestor = this.FindAncestor<ShogiBoard>();
+      IsFlipped = ancestor.IsFlipped;
     }
   }
 }

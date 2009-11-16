@@ -1,9 +1,10 @@
 ﻿<UserControl x:Class="Yasc.Controls.ShogiBoardCore"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             DataContextChanged="UserControl_DataContextChanged"
     >
   <Grid>
-    <ItemsControl x:Name="_cells" ItemsSource="{Binding}" >
+    <ItemsControl x:Name="_cells" >
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
           <UniformGrid Rows="9" Columns="9"/>
