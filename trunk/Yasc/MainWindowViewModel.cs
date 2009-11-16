@@ -30,10 +30,12 @@ namespace Yasc
       else
       {
         string userName = Settings.Default.UserName;
-        switch (Settings.Default.DefaultStartMode)
+        var mode = Settings.Default.DefaultStartMode;
+        switch (mode)
         {
+          case WelcomeChoice.ArtificialIntelligence:
           case WelcomeChoice.Autoplay:
-            GoGame(WelcomeChoice.Autoplay);
+              GoGame(mode);
             break;
           case WelcomeChoice.BecomeServer:
             if (string.IsNullOrEmpty(userName))
