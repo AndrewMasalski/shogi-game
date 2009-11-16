@@ -1,45 +1,37 @@
 using System;
-using Yasc.Networking;
+using Yasc.ShogiCore;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Utils;
+using System.Linq;
 
 namespace Yasc.AI
 {
-  public class AiController : IPlayerGameController
+  public class AiController : AiControllerBase
   {
-    #region Implementation of IPlayerGameController
+    private readonly Board _board;
+    private readonly static Random _rnd = new Random();
 
-    public IServerGame Game
+    public AiController()
     {
-      get { throw new NotImplementedException(); }
+      _board = new Board();
+      Shogi.InititBoard(_board);
     }
 
-    public PieceColor MyColor
+    protected override void OnHumanMoved(string hisMove)
     {
-      get { throw new NotImplementedException(); }
+      _board.MakeMove(_board.GetMove(hisMove));
+      var myMove = ChooseAbsolutelyRandomMove();
+      _board.MakeMove(myMove);
+      Move(myMove.ToString());
     }
 
-    public TimeSpan TimeLeft
+    private MoveBase ChooseAbsolutelyRandomMove()
     {
-      get { throw new NotImplementedException(); }
+      var moves = SituationAnalizer.GetAllValidMoves(
+        _board.CurrentSnapshot, PieceColor.Black).ToList();
+
+      var m = moves[_rnd.Next(moves.Count)];
+      return m.AsRealMove(_board);
     }
-
-    public void Move(MoveMsg move)
-    {
-      throw new NotImplementedException();
-    }
-
-    public void Say(string move)
-    {
-      throw new NotImplementedException();
-    }
-
-    public Func<MoveMsg, DateTime> OpponentMadeMove
-    {
-      set { throw new NotImplementedException(); }
-    }
-
-    public event Action<string> OpponentSaidSomething;
-
-    #endregion
   }
 }
