@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
@@ -13,6 +15,8 @@ namespace Yasc.Gui
     private RelayCommand _logoutCommand;
     private RelayCommand _usersRefreshCommand;
     private RelayCommand _refreshGamesCommand;
+
+    private readonly List<IDisposable> _handlers = new List<IDisposable>();
 
     public ICommand LogoutCommand
     {
@@ -80,6 +84,7 @@ namespace Yasc.Gui
       Session.InvitationReceived += new ActionListener<IInviteeTicket>(OnInvitationReceived);
 
       Users = new ObservableCollection<UserViewModel>();
+      Users.CollectionChanged += OnUsersCollectionChanged;
       Users.Update(Session.Users, null, u => new UserViewModel(Session, u));
 
       Games = new ObservableCollection<GameViewModel>(
@@ -118,32 +123,7 @@ namespace Yasc.Gui
     {
       OnGame(new InvitationAcceptedEventArgs(controller));
     }
-  }
-
-  public class InvitationAcceptedEventArgs : EventArgs
-  {
-    public IPlayerGameController Ticket { get; private set; }
-
-    public InvitationAcceptedEventArgs(IPlayerGameController ticket)
-    {
-      Ticket = ticket;
-    }
-  }
-}
-
-
-/*
- 
-
- * * 
-      Users.CollectionChanged += UsersOnCollectionChanged;
-    private readonly List<IDisposable> _handlers = new List<IDisposable>();
-    private void OnUserInvited(UserViewModel user)
-    {
-
-    }
- * 
-    private void UsersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+    private void OnUsersCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
       switch (args.Action)
       {
@@ -160,8 +140,8 @@ namespace Yasc.Gui
             _handlers.Add(new UserHandler(this, user));
           break;
       }
-    }  
-  
+    }
+
     private struct UserHandler : IDisposable
     {
       private readonly ServerViewModel _owner;
@@ -172,25 +152,28 @@ namespace Yasc.Gui
       {
         _owner = owner;
         _user = user;
-        _user.Invited += OnInvited;
         _user.InvitationAccepted += OnAccepted;
       }
 
-      private void OnAccepted(IPlayerGameController obj)
+      private void OnAccepted(IPlayerGameController controller)
       {
-        _owner.OnInvitationAccepted(_user, obj);
-      }
-
-      private void OnInvited(object sender, EventArgs args)
-      {
-        _owner.OnUserInvited(_user);
+        _owner.OnInvitationAccepted(controller);
       }
 
       public void Dispose()
       {
-        _user.Invited -= OnInvited;
         _user.InvitationAccepted -= OnAccepted;
       }
     }
-* 
- */
+  }
+
+  public class InvitationAcceptedEventArgs : EventArgs
+  {
+    public IPlayerGameController Ticket { get; private set; }
+
+    public InvitationAcceptedEventArgs(IPlayerGameController ticket)
+    {
+      Ticket = ticket;
+    }
+  }
+}
