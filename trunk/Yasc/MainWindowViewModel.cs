@@ -71,8 +71,10 @@ namespace Yasc
     }
     private void ConnectingOnSucceed(object sender, EventArgs e)
     {
-      GoServer(LeaveConnecting(sender).Session);
+      var connectingViewModel = LeaveConnecting(sender);
+      GoServer(connectingViewModel.Address, connectingViewModel.Session);
     }
+
     private void OnDisconnected(object sender, EventArgs args)
     {
       LeaveServer(sender);
@@ -113,9 +115,9 @@ namespace Yasc
       serverViewModel.GameNegotiation += OnGameNegotiation;
       CurrentView = serverViewModel;
     }
-    private void GoServer(IServerSession session)
+    private void GoServer(string serverAddress, IServerSession session)
     {
-      var serverViewModel = new ServerViewModel(session);
+      var serverViewModel = new ServerViewModel(serverAddress, session);
       serverViewModel.Disconnected += OnDisconnected;
       serverViewModel.Game += OnGame;
       serverViewModel.GameNegotiation += OnGameNegotiation;

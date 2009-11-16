@@ -43,8 +43,7 @@ namespace Yasc.Networking
       {
         var handler = InvitationReceived;
         if (handler != null)
-          Dispatcher.CurrentDispatcher.BeginInvoke(
-            DispatcherPriority.Input, new Action(() => handler(ticket)));
+          _disp.BeginInvoke(DispatcherPriority.Input, new Action(() => handler(ticket)));
       }
     }
   }

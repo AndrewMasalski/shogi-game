@@ -18,7 +18,10 @@ namespace Yasc.Networking
 
     public void Act(T obj)
     {
-      _synch.Send(p => _action(obj), null);
+      if (_synch == null) 
+        _action(obj);
+      else
+        _synch.Send(p => _action(obj), null);
     }
     public static implicit operator Action<T>(ActionListener<T> l)
     {
