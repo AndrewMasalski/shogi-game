@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using System.Windows;
+using System.Windows.Threading;
 using Yasc.ShogiCore.Utils;
 using System.Linq;
 
@@ -17,6 +18,7 @@ namespace Yasc.Networking
 
     private static int _port = 1937;
     private static bool _backwardChannelIsRegistred;
+    private static Dispatcher _disp;
 
     public static int Port
     {
@@ -46,6 +48,7 @@ namespace Yasc.Networking
 
     public static Server Start()
     {
+      _disp = Dispatcher.CurrentDispatcher;
       RegisterChannel(Port);
 
       RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;

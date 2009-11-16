@@ -35,28 +35,13 @@ namespace Yasc.Gui
 
     public void Invite()
     {
-      _session.InvitePlay(_user, 
+      _session.InvitePlay(_user,
         new ActionListener<IPlayerGameController>(OnInvitationAccepted));
-
-      InvokeInvited(EventArgs.Empty);
-    }
-
-    private void OnInvitationAccepted(IPlayerGameController obj)
-    {
-      InvokeInvitationAccepted(obj);
-    }
-
-    public event EventHandler Invited;
-
-    private void InvokeInvited(EventArgs e)
-    {
-      var invited = Invited;
-      if (invited != null) invited(this, e);
     }
 
     public event Action<IPlayerGameController> InvitationAccepted;
 
-    private void InvokeInvitationAccepted(IPlayerGameController obj)
+    private void OnInvitationAccepted(IPlayerGameController obj)
     {
       var accepted = InvitationAccepted;
       if (accepted != null) accepted(obj);
