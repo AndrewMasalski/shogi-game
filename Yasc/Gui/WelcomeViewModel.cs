@@ -15,6 +15,7 @@ namespace Yasc.Gui
     private RelayCommand _autoplayCommand;
     private RelayCommand _connectCommand;
     private RelayCommand _becomeServerCommand;
+    private RelayCommand _playWithCompCommand;
 
     public ICommand AutoplayCommand
     {
@@ -22,7 +23,8 @@ namespace Yasc.Gui
       {
         if (_autoplayCommand == null)
         {
-          _autoplayCommand = new RelayCommand(Autoplay);
+          _autoplayCommand = new RelayCommand(
+            () => Done(WelcomeChoice.Autoplay));
         }
         return _autoplayCommand;
       }
@@ -33,21 +35,34 @@ namespace Yasc.Gui
       {
         if (_connectCommand == null)
         {
-          _connectCommand = new RelayCommand(Connect);
+          _connectCommand = new RelayCommand(
+            () => Done(WelcomeChoice.ConnectToServer));
         }
         return _connectCommand;
       }
     }
-
     public ICommand BecomeServerCommand
     {
       get
       {
         if (_becomeServerCommand == null)
         {
-          _becomeServerCommand = new RelayCommand(BecomeServer);
+          _becomeServerCommand = new RelayCommand(
+            () => Done(WelcomeChoice.BecomeServer));
         }
         return _becomeServerCommand;
+      }
+    }
+    public ICommand PlayWithCompCommand
+    {
+      get
+      {
+        if (_playWithCompCommand == null)
+        {
+          _playWithCompCommand = new RelayCommand(
+            () => Done(WelcomeChoice.ArtificialIntelligence));
+        }
+        return _playWithCompCommand;
       }
     }
 
@@ -105,23 +120,10 @@ namespace Yasc.Gui
 
     public event EventHandler ChoiceDone;
 
-    private void Autoplay()
+    private void Done(WelcomeChoice mode)
     {
-      Mode = WelcomeChoice.Autoplay;
-      Done();
-    }
-    private void Connect()
-    {
-      Mode = WelcomeChoice.ConnectToServer;
-      Done();
-    }
-    private void BecomeServer()
-    {
-      Mode = WelcomeChoice.BecomeServer;
-      Done();
-    }
-    private void Done()
-    {
+      Mode = mode;
+
       var s = Settings.Default;
       s.UserName = UserName;
       s.SkipWelcomePage = SaveAndSkip;
@@ -132,7 +134,6 @@ namespace Yasc.Gui
       s.Save();
       OnChoiceDone(EventArgs.Empty);
     }
-
     private void OnChoiceDone(EventArgs e)
     {
       var handler = ChoiceDone;
