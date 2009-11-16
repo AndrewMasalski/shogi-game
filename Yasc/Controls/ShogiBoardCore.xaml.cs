@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,20 +100,10 @@ namespace Yasc.Controls
 
     #endregion
 
-    public bool IsFlipped
-    {
-      get { return _isFlipped; }
-      set
-      {
-        if (_isFlipped == value) return;
-        _isFlipped = value;
-        RefillCells();
-      }
-    }
-
     private void RefillCells()
     {
-      _cells.ItemsSource = !IsFlipped ? Board : Flip(Board);
+      bool isFlipped = this.FindAncestor<ShogiBoard>().IsFlipped;
+      _cells.ItemsSource = !isFlipped ? Board : Flip(Board);
     }
 
     private static IEnumerable<Cell> Flip(IEnumerable<Cell> board)
@@ -125,9 +114,7 @@ namespace Yasc.Controls
           yield return list[i*9 + j];
     }
 
-    private bool _isFlipped;
-
-    private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
       RefillCells();
     }
