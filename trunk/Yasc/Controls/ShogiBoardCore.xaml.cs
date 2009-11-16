@@ -73,10 +73,11 @@ namespace Yasc.Controls
     }
     private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
     {
-      ctrl.BeginAnimation(Canvas.LeftProperty,
-         new DoubleAnimation(to.X, new Duration(TimeSpan.FromSeconds(.25))));
+      var duration = new Duration(TimeSpan.FromSeconds(.3));
+      
+      ctrl.BeginAnimation(Canvas.LeftProperty, new DoubleAnimation(to.X, duration));
 
-      var anim = new DoubleAnimation(to.Y, new Duration(TimeSpan.FromSeconds(.25)));
+      var anim = new DoubleAnimation(to.Y, duration);
       anim.Completed += completed;
       ctrl.BeginAnimation(Canvas.TopProperty, anim);
     }

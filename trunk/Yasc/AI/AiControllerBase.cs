@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Yasc.Networking;
 using Yasc.ShogiCore.Utils;
 
@@ -8,6 +9,7 @@ namespace Yasc.AI
   public abstract class AiControllerBase : IPlayerGameController
   {
     private Func<MoveMsg, DateTime> _compMadeMove;
+    private readonly SynchronizationContext _synch = SynchronizationContext.Current;
 
     #region Implementation of IPlayerGameController
 
@@ -107,8 +109,14 @@ namespace Yasc.AI
     protected abstract void OnHumanMoved(string move);
     protected void Move(string move)
     {
-
-      _compMadeMove(new MoveMsg(move, DateTime.Now));
+      if (_synch == null)
+      {
+        _compMadeMove(new MoveMsg(move, DateTime.Now));
+      }
+      else
+      {
+        _synch.Post(state => _compMadeMove(new MoveMsg(move, DateTime.Now)), null);
+      }
     }
   }
 }
