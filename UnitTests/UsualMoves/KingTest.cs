@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
+using System.Linq;
 
 namespace UnitTests.UsualMoves
 {
@@ -19,7 +20,7 @@ namespace UnitTests.UsualMoves
       vmth.Board["5f"] = new Piece(vmth.Board.Black, PieceType.金);
       var clone = new HashSet<Position>(moves);
       // Can't move to check
-      clone.ExceptWith(new Position[] { "4g", "6g", "4f", "6f" });
+      clone.ExceptWith(new Position[] { "4f", "6f" });
       vmth.TestMoves(clone);
 
       vmth.Board["5f"] = new Piece(vmth.Board.White, PieceType.金);

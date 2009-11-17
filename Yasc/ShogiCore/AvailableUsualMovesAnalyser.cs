@@ -12,7 +12,7 @@ namespace Yasc.ShogiCore
     private readonly Position _from;
     private Vector UpDirection
     {
-      get { return _board.OneWhoMoves == PieceColor.White ? new Vector(1, 1) : new Vector(1, -1); } 
+      get { return _board[_from].Color == PieceColor.White ? new Vector(1, 1) : new Vector(1, -1); }
     }
 
     private const int Max = 8;
@@ -41,20 +41,14 @@ namespace Yasc.ShogiCore
         case "歩": return GetMovesFor歩();
         case "竜": return GetMovesFor竜();
         case "馬": return GetMovesFor馬();
-        case "成": return GetMovesFor成();
-        case "と": return GetMovesForと();
+        case "全": return GetMovesFor金();
+        case "今": return GetMovesFor金();
+        case "仝": return GetMovesFor金();
+        case "と": return GetMovesFor金();
       }
       throw new Exception();
     }
 
-    private IEnumerable<Position> GetMovesForと()
-    {
-      return GetMovesFor金();
-    }
-    private IEnumerable<Position> GetMovesFor成()
-    {
-      return GetMovesFor金();
-    }
     private IEnumerable<Position> GetMovesFor馬()
     {
       return Join(GetMovesFor角(), Up(1), Right(1), Down(1), Left(1));
@@ -132,30 +126,23 @@ namespace Yasc.ShogiCore
     private IEnumerable<Position> Go(int dx, int dy, int count)
     {
       var delta = new Vector(dx, dy) * UpDirection;
-      var v = (Vector) _from + delta;
-      if (v.X < 0 || v.X > 8 || v.Y < 0 || v.Y > 8)
-        yield break;
-      var curr = _from + delta;
-      for (int i = 0; i < count; i++)
-        for (int j = 0; j < count; j++)
+      for (var curr = _from + delta; count > 0; count--, curr += delta)
+      {
+        if (!curr.IsValidPosition)
         {
-          if (_board[curr] == null)
-          {
-            yield return curr;
-          }
-          else if (_board[curr].Color != MyColor)
-          {
-            yield return curr;
-            yield break;
-          }
-          else yield break;
-
-          if (curr.X == 0 || curr.X == 8 || curr.Y == 0 || curr.Y == 8)
-          {
-            yield break;
-          }
-          curr += delta;
+          yield break;
         }
+        if (_board[curr] == null)
+        {
+          yield return curr;
+        }
+        else if (_board[curr].Color != MyColor)
+        {
+          yield return curr;
+          yield break;
+        }
+        else yield break;
+      }
     }
 
     private PieceColor MyColor
