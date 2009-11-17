@@ -8,13 +8,6 @@ namespace UnitTests.UsualMoves
   [TestClass]
   public class LanceTest
   {
-    /* Имея те же свойства, что и ладья в шахматах, 
-     * она может ходить на любое число полей по вертикали или горизонтали.
-     * 
-     * После переворота дополнительно к своим начальным возможностям получает 
-     * право ходить на одно поле по любой диагонали.
-     */
-
     [TestMethod]
     public void WhiteOnG5()
     {
@@ -31,6 +24,13 @@ namespace UnitTests.UsualMoves
       vmth.Board["5i"] = new Piece(vmth.Board.White, PieceType.桂);
       moves.ExceptWith(new Position[] {  "5i" });
       vmth.TestMoves(moves);
+    }
+    [TestMethod]
+    public void WhiteOnG5A()
+    {
+      var board = new Board();
+      board["1a"] = new Piece(board.White, "香");
+      Assert.IsTrue(board.GetUsualMove("1a", "1d", false).IsValid);
     }
 
     
