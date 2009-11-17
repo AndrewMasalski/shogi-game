@@ -34,6 +34,17 @@ namespace Yasc.Controls
       set { SetValue(PieceColorProperty, value); }
     }
 
+    public static readonly DependencyProperty IsPromotedProperty =
+      DependencyProperty.Register("IsPromoted", typeof (bool),
+                                  typeof (ShogiPiece), new UIPropertyMetadata(default(bool)));
+
+    public bool IsPromoted
+    {
+      get { return (bool) GetValue(IsPromotedProperty); }
+      set { SetValue(IsPromotedProperty, value); }
+    }
+    
+
     public override string ToString()
     {
       return PieceColor + (PieceType.IsPromoted ? " promoted " : " ") + PieceType;
