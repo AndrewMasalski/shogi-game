@@ -15,11 +15,13 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <Gui:ShogiBoard MoveAttempt="OnMoveAttempt" 
+      <Gui:ShogiBoard x:Name="board" MoveAttempt="OnMoveAttempt" 
                       RepresentedBoard="{Binding Board}" 
                       IsFlipped="{Binding IsFlipped}"/>
 
+      <CheckBox Content="Enforce rules" Grid.Row="1" IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"/>
       <GroupBox Header="Moves log:" Grid.Column="1">
         <StackPanel>
           <ItemsControl ItemsSource="{Binding Board.History.MovesDone}" Grid.Column="1">
@@ -40,7 +42,7 @@
           </ItemsControl>
         </StackPanel>
       </GroupBox>
-      <TextBlock x:Name="_errorLabel" Grid.Row="1" Grid.ColumnSpan="2"/>
+      <TextBlock x:Name="_errorLabel" Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
   </DockPanel>
 
