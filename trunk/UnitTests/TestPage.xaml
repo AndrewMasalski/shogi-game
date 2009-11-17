@@ -1,0 +1,8 @@
+﻿<Window x:Class="UnitTests.TestPage" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:Diagram="clr-namespace:Yasc.Diagram;assembly=Yasc" 
+        Height="500" Width="1000">
+  
+  <Diagram:BoardDiagram Black="K1i" White="R3i, G3g" WhiteHand="P"/>
+</Window>

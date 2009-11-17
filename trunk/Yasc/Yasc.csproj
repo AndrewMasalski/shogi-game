@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Common\DirectionToBoolConverter.cs" />
     <Compile Include="Common\TimerDirection.cs" />
+    <Compile Include="Diagram\BoardDiagram.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DropEventArgs.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
