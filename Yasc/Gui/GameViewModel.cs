@@ -15,9 +15,9 @@ namespace Yasc.Gui
     private RelayCommand _getBackCommand;
     private IPlayerGameController _ticket;
     private readonly Flag _opponentMoveReaction = new Flag();
+    private bool _isFlipped;
 
     public Board Board { get; private set; }
-
     public bool IsFlipped
     {
       get { return _isFlipped; }
@@ -29,7 +29,31 @@ namespace Yasc.Gui
       }
     }
 
-    private bool _isFlipped;
+    public ICommand CleanBoardCommand
+    {
+      get
+      {
+        if (_cleanBoardCommand == null)
+        {
+          _cleanBoardCommand = new RelayCommand(CleanBoard);
+        }
+        return _cleanBoardCommand;
+      }
+    }
+
+    private void CleanBoard()
+    {
+      foreach (var cell in Board)
+      {
+        if (cell.Piece != null)
+        {
+          cell.Piece.Owner.Hand.Add(cell.Piece);
+          cell.Piece = null;
+        }
+      }
+    }
+
+    private RelayCommand _cleanBoardCommand;
 
     public ICommand GetBackCommand
     {
