@@ -86,12 +86,13 @@
               </MultiBinding>
           </Button.IsEnabled>
         </Button>
-        <TextBlock Grid.Row="5" >
-          <Hyperlink Command="{Binding BecomeServerCommand}">Let me be a server</Hyperlink>
-        </TextBlock>
       </Grid>
     </Grid>
     <CheckBox Margin="15" VerticalAlignment="Bottom" IsChecked="{Binding SaveAndSkip}"
               Content="Don't show this page again" Grid.Row="4"/>
+    <TextBlock Margin="15" VerticalAlignment="Bottom" Grid.Row="4" HorizontalAlignment="Right"
+               IsEnabled="{Binding IsServerStartedOnThisComputer, Converter={StaticResource NotConverter}}">
+          <Hyperlink Command="{Binding BecomeServerCommand}">Let me be a server</Hyperlink>
+    </TextBlock>
   </Grid>
 </UserControl>

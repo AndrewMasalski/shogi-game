@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Remoting.Channels.Tcp;
 
 namespace Yasc.Networking
 {
   public static class PortUtils
   {
-    private static readonly IPAddress _localHost
-      = new IPAddress(new byte[] { 127, 0, 0, 1 });
-
     public static bool IsPortBusy(int port)
     {
-      var s = new Socket(AddressFamily.InterNetwork,
-                         SocketType.Stream, ProtocolType.Tcp);
       try
       {
-        s.Bind(new IPEndPoint(_localHost, port));
-        s.Close();
+        new TcpChannel(port).StopListening(null);
         return false;
       }
       catch (SocketException ex)
