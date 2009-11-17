@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
+using Yasc.Networking;
 using Yasc.Properties;
 
 namespace Yasc.Gui
@@ -108,6 +109,10 @@ namespace Yasc.Gui
       }
     }
     public ObservableCollection<string> LastVsistedServers { get; private set; }
+    public bool IsServerStartedOnThisComputer
+    {
+      get { return Server.IsServerStartedOnThisComputer; }
+    }
     public WelcomeViewModel()
     {
       Address = Settings.Default.Address;

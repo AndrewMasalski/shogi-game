@@ -5,9 +5,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
-using System.Windows;
 using System.Windows.Threading;
-using Yasc.ShogiCore.Utils;
 using System.Linq;
 
 namespace Yasc.Networking
@@ -25,7 +23,7 @@ namespace Yasc.Networking
       get { return _port; }
       set
       {
-        if (ThisDomainIsServerHost)
+        if (IsThisDomainServerHost)
         {
           throw new InvalidOperationException(
             "Can't change server port when it is started");
@@ -34,8 +32,8 @@ namespace Yasc.Networking
         _port = value;
       }
     }
-    public static bool ThisDomainIsServerHost { get; private set; }
-    public static bool ServerIsStartedOnThisComputer
+    public static bool IsThisDomainServerHost { get; private set; }
+    public static bool IsServerStartedOnThisComputer
     {
       get { return PortUtils.IsPortBusy(Port); }
     }
@@ -55,12 +53,12 @@ namespace Yasc.Networking
       var server = new Server();
       RemotingServices.Marshal(server, typeof(Server).FullName);
 
-      ThisDomainIsServerHost = true;
+      IsThisDomainServerHost = true;
       return server;
     }
     public static Server Connect(string url)
     {
-      if (!_backwardChannelIsRegistred && !ThisDomainIsServerHost)
+      if (!_backwardChannelIsRegistred && !IsThisDomainServerHost)
       {
         // We need a channel to get messages back from the server
         // doesn't matter what port it will have

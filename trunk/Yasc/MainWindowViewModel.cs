@@ -38,7 +38,7 @@ namespace Yasc
               GoGame(mode);
             break;
           case WelcomeChoice.BecomeServer:
-            if (string.IsNullOrEmpty(userName))
+            if (string.IsNullOrEmpty(userName) || Server.IsServerStartedOnThisComputer)
             {
               GoWelcome();
               return;
