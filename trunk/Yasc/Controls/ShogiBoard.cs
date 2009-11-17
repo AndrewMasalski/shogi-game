@@ -104,14 +104,21 @@ namespace Yasc.Controls
 
     private void M(Piece piece, Cell cell)
     {
-      throw new NotImplementedException();
+      piece.Owner.Hand.Remove(piece);
+      var m = RepresentedBoard[cell.Position];
+      RepresentedBoard[cell.Position] = null;
+      RepresentedBoard[cell.Position] = piece;
+      if (m != null) piece.Owner.Hand.Add(m);
     }
 
     private void M(Cell from, Cell to)
     {
       var piece = RepresentedBoard[from.Position];
       RepresentedBoard[from.Position] = null;
+      var m = RepresentedBoard[to.Position];
+      RepresentedBoard[to.Position] = null;
       RepresentedBoard[to.Position] = piece;
+      if (m != null) piece.Owner.Hand.Add(m);
     }
 
     private void OnDrag(object sender, RoutedEventArgs e)
@@ -223,7 +230,17 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
       DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
-                                  typeof (ShogiBoard), new UIPropertyMetadata(default(bool)));
+                                  typeof (ShogiBoard), new UIPropertyMetadata(true, PropertyChangedCallback));
+
+    private static void PropertyChangedCallback(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    {
+      ((ShogiBoard)o).Prop((bool) args.NewValue);
+    }
+
+    private void Prop(bool value)
+    {
+      RepresentedBoard.IsMovesOrderMaintained = value;
+    }
 
     public bool AreMoveRulesEnforced
     {
