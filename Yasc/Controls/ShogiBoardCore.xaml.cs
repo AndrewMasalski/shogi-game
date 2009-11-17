@@ -90,6 +90,11 @@ namespace Yasc.Controls
       Canvas.SetTop(ctrl, point.Y);
       ctrl.Width = ctrl.ActualWidth;
       ctrl.Height = ctrl.ActualHeight;
+      // When we move piece away from its tamplate it changes DataContext
+      // to the one _adornelLyer has. There's nothing wrong with it except
+      // XAML might define bindings which become invalid. As far as piece
+      // is going to be thrown away after animation it's not a big deal.
+      ctrl.DataContext = ctrl.DataContext;
       RemoveFromParentControl(ctrl);
       _adornerLayer.Children.Add(ctrl);
     }
