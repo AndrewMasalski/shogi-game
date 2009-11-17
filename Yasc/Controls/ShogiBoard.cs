@@ -54,17 +54,66 @@ namespace Yasc.Controls
     private void OnDrop(object sender, DropEventArgs e)
     {
       ReleaseDragSource();
+      // Object was dropped to space
       if (e.DragTarget == null) return;
 
-      var move = RecognizeMove(e);
-      if (move == null) return;
+      if (AreMoveRulesEnforced)
+      {
+        var move = RecognizeMove(e);
+        if (move == null) return;
 
-      RaiseMoveAttemptEvent(move);
+        RaiseMoveAttemptEvent(move);
 
-      if (move.IsValid)
-        using (_dragMove.Set())
-          RepresentedBoard.MakeMove(move);
+        if (move.IsValid)
+          using (_dragMove.Set())
+            RepresentedBoard.MakeMove(move);
+      }
+      else
+      {
+        var from = e.DragSource.DataContext;
+        var to = e.DragTarget.DataContext;
+
+        if (from is Cell && to is Cell)
+        {
+          M((Cell) from, (Cell) to);
+        }
+        else if (from is Piece && to is Cell)
+        {
+          M((Piece)from, (Cell)to);
+        }
+        else if (from is Cell && to is Piece)
+        {
+          M((Cell)from, (Piece)to);
+        }
+        else if (from is Piece && to is Piece)
+        {
+          M((Piece)from, (Piece)to);
+        }
+      }
     }
+
+    private void M(Piece piece, Piece o)
+    {
+      throw new NotImplementedException();
+    }
+
+    private void M(Cell piece, Piece o)
+    {
+      throw new NotImplementedException();
+    }
+
+    private void M(Piece piece, Cell cell)
+    {
+      throw new NotImplementedException();
+    }
+
+    private void M(Cell from, Cell to)
+    {
+      var piece = RepresentedBoard[from.Position];
+      RepresentedBoard[from.Position] = null;
+      RepresentedBoard[to.Position] = piece;
+    }
+
     private void OnDrag(object sender, RoutedEventArgs e)
     {
       var context = ((FrameworkElement)e.OriginalSource).DataContext;
@@ -155,9 +204,9 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty RepresentedBoardProperty =
       DependencyProperty.Register("RepresentedBoard", typeof (Board),
-                                  typeof (ShogiBoard), new UIPropertyMetadata(default(Board), PropertyChangedCallback));
+                                  typeof (ShogiBoard), new UIPropertyMetadata(default(Board), RepresentedBoardPropertyChanged));
 
-    private static void PropertyChangedCallback(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    private static void RepresentedBoardPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
       if (args.OldValue != null)
         ((Board)args.OldValue).Moving -= ((ShogiBoard)o).BoardOnMoving;
@@ -171,6 +220,17 @@ namespace Yasc.Controls
       get { return (Board) GetValue(RepresentedBoardProperty); }
       set { SetValue(RepresentedBoardProperty, value); }
     }
+
+    public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
+      DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
+                                  typeof (ShogiBoard), new UIPropertyMetadata(default(bool)));
+
+    public bool AreMoveRulesEnforced
+    {
+      get { return (bool) GetValue(AreMoveRulesEnforcedProperty); }
+      set { SetValue(AreMoveRulesEnforcedProperty, value); }
+    }
+    
     
   }
 }
