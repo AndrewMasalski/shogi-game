@@ -28,5 +28,15 @@ namespace Yasc.ShogiCore.Moves
     {
       return board.GetUsualMove(From, To, IsPromoting);
     }
+
+    public override PieceColor GetColor(BoardSnapshot snapshot)
+    {
+      return snapshot[From].Color;
+    }
+
+    public override string ToString()
+    {
+      return From + "-" + To + (IsPromoting ? "+" : "");
+    }
   }
 }
