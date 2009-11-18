@@ -21,6 +21,7 @@ namespace Yasc.AI
     {
       _board.MakeMove(_board.GetMove(hisMove));
       var myMove = ChooseAbsolutelyRandomMove();
+      if (myMove == null) return; // mate
       _board.MakeMove(myMove);
       Move(myMove.ToString());
     }
@@ -30,6 +31,7 @@ namespace Yasc.AI
       var moves = SituationAnalizer.GetAllValidMoves(
         _board.CurrentSnapshot, PieceColor.Black).ToList();
 
+      if (moves.Count == 0) return null; // mate
       var m = moves[_rnd.Next(moves.Count)];
       return m.AsRealMove(_board);
     }
