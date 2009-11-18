@@ -78,9 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Netwroking\TimerTest.cs" />
-    <Compile Include="TestPage.xaml.cs">
-      <DependentUpon>TestPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UsualMoves\BishopTest.cs">
       <SubType>Code</SubType>
     </Compile>
