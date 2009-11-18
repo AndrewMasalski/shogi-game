@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +10,8 @@ namespace Yasc.Common
     protected override Size MeasureOverride(Size constraint)
     {
       double size = Math.Min(constraint.Width, constraint.Height);
+      if (size == Double.NaN || size == Double.NegativeInfinity || size == Double.PositiveInfinity)
+        size = 1000;
       var availableSize = new Size(size, size);
       foreach (FrameworkElement child in InternalChildren)
         child.Measure(availableSize);
