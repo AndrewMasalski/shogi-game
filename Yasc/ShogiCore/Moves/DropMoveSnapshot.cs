@@ -25,5 +25,10 @@ namespace Yasc.ShogiCore.Moves
     {
       return board.GetDropMove(Piece.Type, To, board[Piece.Color]);
     }
+
+    public override PieceColor GetColor(BoardSnapshot snapshot)
+    {
+      return Piece.Color;
+    }
   }
 }

@@ -1,4 +1,4 @@
 ﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="1000" Height="500"
       xmlns:Diagram="clr-namespace:Yasc.Diagram;assembly=Yasc,Version=0.5.0.0,PublicKeyToken=a6c1e7ea651779a0,Culture=neutral" >
-  <Diagram:BoardDiagram Black="K1i" White="R3i, G3g" WhiteHand="P"/>
+  <Diagram:BoardDiagram Black="K1i, P1g" White="R2h, G3g" WhiteHand="P"/>
 </Page>
