@@ -399,7 +399,7 @@
 
             </Border.ToolTip>
             <Viewbox>
-              <Grid Height="14" Width="14">
+              <Grid Height="13" Width="13">
                 <Grid Height="10" Width="10">
                   <Grid.RenderTransform>
                     <TransformGroup>
@@ -414,8 +414,8 @@
                     </TransformGroup>
                   </Grid.RenderTransform>
 
-                  <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3"
-                        Data="M0,0 L2,9 5,10 8,9 10,0 z" x:Name="transform" Fill="yellow">
+                  <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3" StrokeLineJoin="Round"
+                        Data="M0.1,0.1 L2,9 5,9.9 8,9 9.9,0.1 z" x:Name="transform" Fill="yellow">
                     <Path.RenderTransform>
                       <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
                     </Path.RenderTransform>
