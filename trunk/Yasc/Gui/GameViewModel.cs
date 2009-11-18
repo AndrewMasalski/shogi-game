@@ -72,7 +72,7 @@ namespace Yasc.Gui
       switch (choice)
       {
         case WelcomeChoice.ArtificialIntelligence:
-          Init(new AiController());
+          Init(new CleverAiController());
           break;
         case WelcomeChoice.Autoplay:
           InitBoard();

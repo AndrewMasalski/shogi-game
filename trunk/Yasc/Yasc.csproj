@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AiControllerBase.cs" />
+    <Compile Include="AI\CleverAiController.cs" />
     <Compile Include="Common\AndConverter.cs" />
     <Compile Include="Common\ProgressCircle.xaml.cs">
       <DependentUpon>ProgressCircle.xaml</DependentUpon>
@@ -132,7 +133,7 @@
     <Compile Include="Common\ToStirngConverter.cs" />
     <Compile Include="Controls\MoveAttemptEventArgs.cs" />
     <Compile Include="Controls\ShogiPiece.cs" />
-    <Compile Include="AI\AiController.cs" />
+    <Compile Include="AI\RandomAiController.cs" />
     <Compile Include="Gui\ConnectingView.xaml.cs">
       <DependentUpon>ConnectingView.xaml</DependentUpon>
     </Compile>
