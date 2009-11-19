@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
@@ -121,7 +122,8 @@ namespace Yasc.Controls
     }
     private static void RemoveFromParentControl(FrameworkElement ctrl)
     {
-      ((Grid)ctrl.Parent).Children.Remove(ctrl);
+      var cp = (ContentPresenter)VisualTreeHelper.GetParent(ctrl);
+      cp.Content = null;
     }
 
     #endregion
