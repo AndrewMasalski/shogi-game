@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using System.Linq;
 
 namespace Yasc.GenericDragDrop
 {
@@ -36,6 +37,21 @@ namespace Yasc.GenericDragDrop
       int counter = 0;
       T res = null;
       foreach (var child in FindChildren<T>(obj))
+      {
+        if (counter == 0) res = child;
+        if (counter == 1) throw new Exception("There are more than one fitting child");
+        counter++;
+      }
+      return res;
+    }
+
+
+    public static T FindChild<T>(this DependencyObject obj, Func<T, bool> predicate)
+      where T : DependencyObject
+    {
+      int counter = 0;
+      T res = null;
+      foreach (var child in FindChildren<T>(obj).Where(predicate))
       {
         if (counter == 0) res = child;
         if (counter == 1) throw new Exception("There are more than one fitting child");

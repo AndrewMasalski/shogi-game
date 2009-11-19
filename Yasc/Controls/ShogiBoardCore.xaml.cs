@@ -27,8 +27,7 @@ namespace Yasc.Controls
 
     private ShogiCell GetCell(Cell cell)
     {
-      return _cells.ItemContainerGenerator.
-        ContainerFromItem(cell).FindChild<ShogiCell>();
+      return this.FindChild<ShogiCell>(c => c.Cell == cell);
     }
     private ShogiCell GetCell(Position p)
     {
@@ -41,9 +40,7 @@ namespace Yasc.Controls
 
     public void AnimateMove(Cell from, Cell to)
     {
-      var generator = _cells.ItemContainerGenerator;
-      AnimateMove(generator.ContainerFromItem(from),
-                  (FrameworkElement)generator.ContainerFromItem(to));
+      AnimateMove(GetCell(from), GetCell(to));
     }
     public void HighlightAvailableMoves(IEnumerable<Position> cells)
     {
@@ -120,10 +117,9 @@ namespace Yasc.Controls
       RemoveFromParentControl(ctrl);
       _adornerLayer.Children.Add(ctrl);
     }
-    private static void RemoveFromParentControl(FrameworkElement ctrl)
+    private static void RemoveFromParentControl(DependencyObject ctrl)
     {
-      var cp = (ContentPresenter)VisualTreeHelper.GetParent(ctrl);
-      cp.Content = null;
+      ((ContentPresenter)VisualTreeHelper.GetParent(ctrl)).Content = null;
     }
 
     #endregion
