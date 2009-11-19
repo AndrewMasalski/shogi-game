@@ -7,6 +7,8 @@
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
       <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
+      <MenuItem Header="Enforce rules" IsCheckable="True"
+                IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
     </Menu>
     <Grid>
       <Grid.ColumnDefinitions>
@@ -22,31 +24,35 @@
                       RepresentedBoard="{Binding Board}" 
                       IsFlipped="{Binding IsFlipped}"/>
 
-      <CheckBox Content="Enforce rules" Grid.Row="1" 
-                IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"/>
-      <Grid Grid.Column="1">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Label Content="Moves Entry:"/>
-        <ListBox ItemsSource="{Binding Board.History.MovesDone}" Grid.Row="1" >
-          <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type Moves:MoveBase}">
-              <StackPanel Orientation="Horizontal" Margin="5,2">
-                <TextBlock Text="{Binding Number}"/>
-                <TextBlock Text=". "/>
-                <TextBlock Text="{Binding}"/>
-              </StackPanel>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <UniformGrid Columns="2"/>
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-        </ListBox>
-      </Grid>
+      <TabControl Grid.Column="1">
+        <TabItem Header="Moves">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="4*"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ListBox ItemsSource="{Binding Board.History.MovesDone}" >
+              <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type Moves:MoveBase}">
+                  <StackPanel Orientation="Horizontal" Margin="5,2">
+                    <TextBlock Text="{Binding Number}"/>
+                    <TextBlock Text=". "/>
+                    <TextBlock Text="{Binding}"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <UniformGrid Columns="2" VerticalAlignment="Top"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ListBox>
+            <TextBox Grid.Row="1" Margin="0,3,0,0"/>
+          </Grid>
+
+        </TabItem>
+      </TabControl>
+
       <TextBlock x:Name="_errorLabel" Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
   </DockPanel>
