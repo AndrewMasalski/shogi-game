@@ -102,7 +102,7 @@ namespace Yasc.Controls
     private void OnDropToHand(object sender, DropToHandEventArgs e)
     {
       ReleaseDragSource();
-      if (!AreMoveRulesEnforced) return;
+      if (AreMoveRulesEnforced) return;
 
       var fromBoard = e.From as DragFromBoardEventArgs;
       if (fromBoard != null)
