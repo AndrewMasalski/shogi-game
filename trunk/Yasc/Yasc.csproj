@@ -95,10 +95,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ShogiBoardCore.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,6 +118,7 @@
     <Compile Include="Common\DirectionToBoolConverter.cs" />
     <Compile Include="Common\TimerDirection.cs" />
     <Compile Include="Controls\BoardBorder.cs" />
+    <Compile Include="Controls\ShogiBoardCore.cs" />
     <Compile Include="Diagram\BoardDiagram.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
@@ -174,9 +171,6 @@
     <Compile Include="Networking\Interfaces.cs" />
     <Compile Include="Networking\Server.cs" />
     <Compile Include="Controls\ShogiBoard.cs" />
-    <Compile Include="Controls\ShogiBoardCore.xaml.cs">
-      <DependentUpon>ShogiBoardCore.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Networking\Server.InviteeTicket.cs" />
     <Compile Include="Networking\Server.InvitorTicket.cs" />
     <Compile Include="Networking\Server.PlayerGameController.cs" />

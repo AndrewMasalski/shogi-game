@@ -11,20 +11,77 @@ using System.Linq;
 
 namespace Yasc.Controls
 {
-  public partial class ShogiBoardCore
+  [TemplatePart(Name = "PART_AdornerLayer", Type = typeof(Canvas))]
+  public class ShogiBoardCore : Control
   {
+    static ShogiBoardCore()
+    {
+      DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiBoardCore),
+        new FrameworkPropertyMetadata(typeof(ShogiBoardCore)));
+    }
+
+    public override void OnApplyTemplate()
+    {
+      _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
+      base.OnApplyTemplate();
+    }
+    #region IsFlippedProperty
+
+    public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
+      typeof(ShogiBoardCore), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits, OnIsFlippedChanged));
+
+    private static void OnIsFlippedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+
+      ((ShogiBoardCore)d).OnIsFlippedChanged((bool)e.NewValue);
+    }
+
+    private void OnIsFlippedChanged(bool value)
+    {
+      Cells = !value ? Board : Flip(Board);
+    }
+
+    public bool IsFlipped
+    {
+      get { return (bool)GetValue(IsFlippedProperty); }
+      set { SetValue(IsFlippedProperty, value); }
+    }
+
+    #endregion
+
     #region ' Helpers '
 
-    public ShogiBoardCore()
+    public static readonly DependencyProperty BoardProperty =
+      DependencyProperty.Register("Board", typeof (Board),
+        typeof (ShogiBoardCore), new UIPropertyMetadata(null, OnBoardChanged));
+
+    private static void OnBoardChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      InitializeComponent();
+      ((ShogiBoardCore) d).OnBoardChanged((Board) e.NewValue);
+    }
+
+    private void OnBoardChanged(IEnumerable<Cell> board)
+    {
+      Cells = !IsFlipped ? board : Flip(board);
     }
 
     public Board Board
     {
-      get { return this.FindAncestor<ShogiBoard>().RepresentedBoard; }
+      get { return (Board) GetValue(BoardProperty); }
+      set { SetValue(BoardProperty, value); }
     }
 
+
+    public static readonly DependencyProperty CellsProperty =
+      DependencyProperty.Register("Cells", typeof(IEnumerable<Cell>),
+        typeof (ShogiBoardCore), new UIPropertyMetadata(null));
+
+    public IEnumerable<Cell> Cells
+    {
+      get { return (IEnumerable<Cell>) GetValue(CellsProperty); }
+      set { SetValue(CellsProperty, value); }
+    }
+    
     private ShogiCell GetCell(Cell cell)
     {
       return this.FindChild<ShogiCell>(c => c.Cell == cell);
@@ -40,6 +97,7 @@ namespace Yasc.Controls
 
     public void AnimateMove(Cell from, Cell to)
     {
+      if (_adornerLayer == null) return;
       AnimateMove(GetCell(from), GetCell(to));
     }
     public void HighlightAvailableMoves(IEnumerable<Position> cells)
@@ -54,6 +112,7 @@ namespace Yasc.Controls
     }
 
     private Position? _moveSource;
+    private Canvas _adornerLayer;
 
     public Position? MoveSource
     {
@@ -123,30 +182,15 @@ namespace Yasc.Controls
     }
 
     #endregion
-    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-    {
-      if (e.Property == ShogiBoard.IsFlippedProperty)
-      {
-        RefillCells((bool) e.NewValue);
-      }
-      base.OnPropertyChanged(e);
-    }
-    private void RefillCells(bool isFlipped)
-    {
-      _cells.ItemsSource = !isFlipped ? Board : Flip(Board);
-    }
 
+    
     private static IEnumerable<Cell> Flip(IEnumerable<Cell> board)
     {
+      if (board == null) yield break;
       var list = board.ToList();
       for (int i = 8; i >= 0; i--)
         for (int j = 8; j >= 0; j--)
           yield return list[i*9 + j];
-    }
-
-    private void UserControl_Loaded(object sender, RoutedEventArgs e)
-    {
-      RefillCells(ShogiBoard.GetIsFlipped(this));
     }
   }
 }
