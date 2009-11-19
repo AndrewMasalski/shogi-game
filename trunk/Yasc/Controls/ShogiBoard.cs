@@ -70,7 +70,6 @@ namespace Yasc.Controls
       BoardCore.HighlightAvailableMoves(positions);
     }
 
-
     private void OnDropToBoard(object sender, DropToBoardEventArgs e)
     {
       ReleaseDragSource();

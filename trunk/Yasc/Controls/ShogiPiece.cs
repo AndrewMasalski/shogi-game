@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
+using MvvmFoundation.Wpf;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
@@ -12,42 +15,49 @@ namespace Yasc.Controls
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiPiece),
         new FrameworkPropertyMetadata(typeof(ShogiPiece)));
     }
-    
-    public static readonly DependencyProperty PieceTypeProperty =
-      DependencyProperty.Register("PieceType", typeof(PieceType),
-      typeof(ShogiPiece), new UIPropertyMetadata(PieceType.歩));
 
-    public PieceType PieceType
-    {
-      get { return (PieceType) GetValue(PieceTypeProperty); }
-      set { SetValue(PieceTypeProperty, value); }
-    }
-    
-    public static readonly DependencyProperty PieceColorProperty =
-      DependencyProperty.Register("PieceColor", typeof(PieceColor),
-      typeof(ShogiPiece), new UIPropertyMetadata(PieceColor.White));
+    #region PieceProperty
 
-    public PieceColor PieceColor
+    public static readonly DependencyProperty PieceProperty =
+      DependencyProperty.Register("Piece", typeof (Piece),
+        typeof (ShogiPiece), new UIPropertyMetadata(default(Piece), OnPieceChanged));
+
+    private static void OnPieceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      get { return (PieceColor) GetValue(PieceColorProperty); }
-      set { SetValue(PieceColorProperty, value); }
+      ((ShogiPiece) d).OnPieceChanged((Piece) e.NewValue);
     }
 
-    public static readonly DependencyProperty IsPromotedProperty =
-      DependencyProperty.Register("IsPromoted", typeof (bool),
-        typeof (ShogiPiece), new UIPropertyMetadata(default(bool)));
-
-    public bool IsPromoted
+    private void OnPieceChanged(Piece piece)
     {
-      get { return (bool) GetValue(IsPromotedProperty); }
-      set { SetValue(IsPromotedProperty, value); }
-    }
-    
+      PieceType = piece.Type;
+      PieceColor = piece.Color;
+      IsPromoted = piece.IsPromoted;
 
-    public override string ToString()
-    {
-      return PieceColor + (PieceType.IsPromoted ? " promoted " : " ") + PieceType;
+      _pieceObserver = new PropertyObserver<Piece>(piece).
+        RegisterHandler(p => p.Type, p => PieceType = p.Type).
+        RegisterHandler(p => p.Color, p => PieceColor = p.Color).
+        RegisterHandler(p => p.IsPromoted, p => IsPromoted = p.IsPromoted);
     }
+
+    public Piece Piece
+    {
+      get { return (Piece) GetValue(PieceProperty); }
+      set { SetValue(PieceProperty, value); }
+    }
+
+    #endregion
+
+    public ShogiPiece()
+    {
+    }
+
+    public ShogiPiece(Piece piece)
+    {
+      if (piece == null) throw new ArgumentNullException("piece");
+      Piece = piece;
+    }
+
+    #region IsFlippedProperty
 
     public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
       typeof(ShogiPiece), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
@@ -56,6 +66,48 @@ namespace Yasc.Controls
     {
       get { return (bool)GetValue(IsFlippedProperty); }
       set { SetValue(IsFlippedProperty, value); }
+    }
+
+    #endregion
+
+    public override string ToString()
+    {
+      return Piece.ToLatinString();
+    }
+
+    public static readonly DependencyProperty PieceTypeProperty =
+        DependencyProperty.Register("PieceType", typeof(PieceType),
+        typeof(ShogiPiece), new UIPropertyMetadata(default(PieceType)));
+
+    public PieceType PieceType
+    {
+      get { return (PieceType)GetValue(PieceTypeProperty); }
+      set { SetValue(PieceTypeProperty, value); }
+    }
+
+    public static readonly DependencyProperty PieceColorProperty =
+      DependencyProperty.Register("PieceColor", typeof(PieceColor),
+      typeof(ShogiPiece), new UIPropertyMetadata(PieceColor.White));
+
+    public PieceColor PieceColor
+    {
+      get { return (PieceColor)GetValue(PieceColorProperty); }
+      set { SetValue(PieceColorProperty, value); }
+    }
+
+    public static readonly DependencyProperty IsPromotedProperty =
+      DependencyProperty.Register("IsPromoted", typeof(bool),
+        typeof(ShogiPiece), new UIPropertyMetadata(default(bool)));
+
+// ReSharper disable UnaccessedField.Local
+    // Need to prevent GC collect observer
+    private PropertyObserver<Piece> _pieceObserver;
+// ReSharper restore UnaccessedField.Local
+
+    public bool IsPromoted
+    {
+      get { return (bool)GetValue(IsPromotedProperty); }
+      set { SetValue(IsPromotedProperty, value); }
     }
   }
 }

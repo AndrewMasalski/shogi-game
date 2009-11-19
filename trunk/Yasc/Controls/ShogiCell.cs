@@ -1,9 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using Yasc.ShogiCore;
+using MvvmFoundation.Wpf;
+using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Controls
 {
+  [TemplatePart(Name = "Part_Piece", Type = typeof(ContentPresenter))]
   public class ShogiCell : Control
   {
     static ShogiCell()
@@ -12,9 +15,11 @@ namespace Yasc.Controls
         new FrameworkPropertyMetadata(typeof(ShogiCell)));
     }
 
+    #region IsPossibleMoveTarget
+
     public static readonly DependencyProperty IsPossibleMoveTargetProperty =
       DependencyProperty.Register("IsPossibleMoveTarget", typeof(bool),
-      typeof(ShogiCell), new UIPropertyMetadata(false));
+                                  typeof(ShogiCell), new UIPropertyMetadata(false));
 
     public bool IsPossibleMoveTarget
     {
@@ -22,25 +27,81 @@ namespace Yasc.Controls
       set { SetValue(IsPossibleMoveTargetProperty, value); }
     }
 
-    public static readonly DependencyProperty PieceProperty =
-      DependencyProperty.Register("Piece", typeof(Piece),
-      typeof(ShogiCell), new UIPropertyMetadata(null));
+    #endregion
 
-    public Piece Piece
+    #region CellProperty
+
+    public static readonly DependencyProperty CellProperty =
+      DependencyProperty.Register("Cell", typeof (Cell),
+        typeof (ShogiCell), new UIPropertyMetadata(null, OnCellChanged));
+
+    private static void OnCellChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      get { return (Piece)GetValue(PieceProperty); }
-      set { SetValue(PieceProperty, value); }
+
+      ((ShogiCell) d).OnCellChanged((Cell) e.NewValue);
     }
+
+    private void OnCellChanged(Cell cell)
+    {
+        UpdateCp(cell);
+      _cellObserver = new PropertyObserver<Cell>(cell).
+        RegisterHandler(c => c.Piece, UpdateCp);
+    }
+
+
+    private void UpdateCp(Cell cell)
+    {
+      if (_cp == null) return;
+      _cp.Content = cell == null || cell.Piece == null ? null : new ShogiPiece(cell.Piece);
+    }
+
+    public Cell Cell
+    {
+      get { return (Cell) GetValue(CellProperty); }
+      set { SetValue(CellProperty, value); }
+    }
+
+    #endregion
+
+    #region IsMoveSourceProperty
 
     public static readonly DependencyProperty IsMoveSourceProperty =
       DependencyProperty.Register("IsMoveSource", typeof (bool),
-                                  typeof (ShogiCell), new UIPropertyMetadata(default(bool)));
+                                  typeof(ShogiCell), new UIPropertyMetadata(default(bool)));
+
 
     public bool IsMoveSource
     {
       get { return (bool) GetValue(IsMoveSourceProperty); }
       set { SetValue(IsMoveSourceProperty, value); }
     }
-    
+
+    #endregion
+
+    #region IsFlippedProperty
+
+    public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
+      typeof(ShogiCell), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
+
+    public bool IsFlipped
+    {                            
+      get { return (bool)GetValue(IsFlippedProperty); }
+      set { SetValue(IsFlippedProperty, value); }
+    }
+
+    #endregion
+
+    public override void OnApplyTemplate()
+    {
+        _cp = GetTemplateChild("Part_Piece") as ContentPresenter;
+        UpdateCp(Cell);
+      base.OnApplyTemplate();
+    }
+    private ContentPresenter _cp;
+
+// ReSharper disable UnaccessedField.Local
+    // We need it for GC not to collect it
+    private PropertyObserver<Cell> _cellObserver;
+// ReSharper restore UnaccessedField.Local
   }
 }
