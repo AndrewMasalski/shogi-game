@@ -200,13 +200,23 @@ namespace Yasc.Controls
     #endregion
 
     public static readonly DependencyProperty IsFlippedProperty =
-      DependencyProperty.Register("IsFlipped", typeof (bool),
-        typeof (ShogiBoard), new UIPropertyMetadata(false));
+      DependencyProperty.RegisterAttached("IsFlipped", typeof (bool),
+        typeof (ShogiBoard), new FrameworkPropertyMetadata(false, 
+          FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
     public bool IsFlipped
     {
       get { return (bool) GetValue(IsFlippedProperty); }
       set { SetValue(IsFlippedProperty, value); }
+    }
+
+    public static bool GetIsFlipped(DependencyObject obj)
+    {
+      return (bool)obj.GetValue(IsFlippedProperty);
+    }
+    public static void SetIsFlipped(DependencyObject obj, bool value)
+    {
+      obj.SetValue(IsFlippedProperty, value);
     }
 
     public static readonly DependencyProperty RepresentedBoardProperty =
