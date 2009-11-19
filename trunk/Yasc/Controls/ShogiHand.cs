@@ -25,7 +25,7 @@ namespace Yasc.Controls
 
     private void OnBoardChanged(Board board)
     {
-      Hand = board[Color].Hand;
+      Hand = board == null? null : board[Color].Hand;
     }
 
     public Board Board

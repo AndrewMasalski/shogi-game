@@ -88,7 +88,7 @@ namespace Yasc.Controls
     }
     private ShogiCell GetCell(Position p)
     {
-      return GetCell(Board[p.X, p.Y]);
+      return Board == null ? null : GetCell(Board[p.X, p.Y]);
     }
 
     #endregion
@@ -103,12 +103,20 @@ namespace Yasc.Controls
     public void HighlightAvailableMoves(IEnumerable<Position> cells)
     {
       foreach (Position p in cells)
-        GetCell(p).IsPossibleMoveTarget = true;
+      {
+        var cell = GetCell(p);
+        if (cell == null) continue;
+        cell.IsPossibleMoveTarget = true;
+      }
     }
     public void ResetAvailableMoves()
     {
       foreach (var p in Position.OnBoard)
-        GetCell(p).IsPossibleMoveTarget = false;
+      {
+        var cell = GetCell(p);
+        if (cell == null) continue;
+        cell.IsPossibleMoveTarget = false;
+      }
     }
 
     private Position? _moveSource;
