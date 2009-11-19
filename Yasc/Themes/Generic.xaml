@@ -35,29 +35,86 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CheckBox}">
-          <Border Name="Border">
-            <Image Source="..\Resources\Rotate.png" Width="22"
-                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-                   
+          <Border Name="Border" CornerRadius="6" Background="Transparent">
+            <Image Name="Image" Source="..\Resources\Rotate.png" Width="22"
+                   RenderOptions.BitmapScalingMode="NearestNeighbor">
+              <Image.RenderTransform>
+                <RotateTransform x:Name="Rotate" CenterX="11" CenterY="11"/>
+              </Image.RenderTransform>
+            </Image>
           </Border>
           <ControlTemplate.Triggers>
-<!--            <Trigger Property="IsChecked" Value="false">-->
-<!--              <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>-->
-<!--            </Trigger>-->
-<!--            <Trigger Property="IsChecked" Value="{x:Null}">-->
-<!--              <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />-->
-<!--            </Trigger>-->
-<!--            <Trigger Property="IsMouseOver" Value="true">-->
-<!--              <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkBrush}" />-->
-<!--            </Trigger>-->
+            <Trigger Property="IsChecked" Value="true">
+              <Trigger.EnterActions>
+                <BeginStoryboard>
+                  <BeginStoryboard.Storyboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="Image"
+                                       Storyboard.TargetProperty="(UIElement.RenderTransform).Angle"
+                                       To="180" Duration="0:0:0.2" />
+                    </Storyboard>
+                  </BeginStoryboard.Storyboard>
+                </BeginStoryboard>
+              </Trigger.EnterActions>
+              <Trigger.ExitActions>
+                <BeginStoryboard>
+                  <BeginStoryboard.Storyboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="Image"
+                                       Storyboard.TargetProperty="(UIElement.RenderTransform).Angle"
+                                       To="0" Duration="0:0:0.2" />
+                    </Storyboard>
+                  </BeginStoryboard.Storyboard>
+                </BeginStoryboard>
+              </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Trigger.EnterActions>
+                <BeginStoryboard>
+                  <BeginStoryboard.Storyboard>
+                    <Storyboard>
+                      <ColorAnimation Storyboard.TargetName="Border"
+                                      Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                      To="LightBlue" Duration="0:0:0.2" />
+                    </Storyboard>
+                  </BeginStoryboard.Storyboard>
+                </BeginStoryboard>
+              </Trigger.EnterActions>
+              <Trigger.ExitActions>
+                <BeginStoryboard>
+                  <BeginStoryboard.Storyboard>
+                    <Storyboard>
+                      <ColorAnimation Storyboard.TargetName="Border"
+                                      Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                                      To="Transparent" Duration="0:0:0.2" />
+                    </Storyboard>
+                  </BeginStoryboard.Storyboard>
+                </BeginStoryboard>
+              </Trigger.ExitActions>
+            </Trigger>
 <!--            <Trigger Property="IsPressed" Value="true">-->
-<!--              <Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />-->
-<!--              <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PressedBorderBrush}" />-->
-<!--            </Trigger>-->
-<!--            <Trigger Property="IsEnabled" Value="false">-->
-<!--              <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />-->
-<!--              <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />-->
-<!--              <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>-->
+<!--              <Trigger.EnterActions>-->
+<!--                <BeginStoryboard>-->
+<!--                  <BeginStoryboard.Storyboard>-->
+<!--                    <Storyboard>-->
+<!--                      <ColorAnimation Storyboard.TargetName="Border"-->
+<!--                                      Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"-->
+<!--                                      To="Yellow" Duration="0:0:0.2" />-->
+<!--                    </Storyboard>-->
+<!--                  </BeginStoryboard.Storyboard>-->
+<!--                </BeginStoryboard>-->
+<!--              </Trigger.EnterActions>-->
+<!--              <Trigger.ExitActions>-->
+<!--                <BeginStoryboard>-->
+<!--                  <BeginStoryboard.Storyboard>-->
+<!--                    <Storyboard>-->
+<!--                      <ColorAnimation Storyboard.TargetName="Border"-->
+<!--                                      Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"-->
+<!--                                      To="Transparent" Duration="0:0:0.2" />-->
+<!--                    </Storyboard>-->
+<!--                  </BeginStoryboard.Storyboard>-->
+<!--                </BeginStoryboard>-->
+<!--              </Trigger.ExitActions>-->
 <!--            </Trigger>-->
           </ControlTemplate.Triggers>
 
@@ -84,7 +141,7 @@
               <local:BoardBorder>
                 <Grid>
                   <local:ShogiBoardCore/>
-                  <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-18,-19,0"
+                  <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-19,-21,0"
                             Style="{StaticResource IsFlippedButtonStyle}"
                           IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
                 </Grid>
