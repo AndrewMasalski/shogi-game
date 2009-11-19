@@ -29,36 +29,72 @@
       Piece="{Binding Piece}" />
   </DataTemplate>
 
+  <Style x:Key="IsFlippedButtonStyle" TargetType="{x:Type CheckBox}">
+    <Setter Property="SnapsToDevicePixels" Value="true"/>
+    <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type CheckBox}">
+          <Border Name="Border">
+            <Image Source="..\Resources\Rotate.png" Width="22"
+                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                   
+          </Border>
+          <ControlTemplate.Triggers>
+<!--            <Trigger Property="IsChecked" Value="false">-->
+<!--              <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>-->
+<!--            </Trigger>-->
+<!--            <Trigger Property="IsChecked" Value="{x:Null}">-->
+<!--              <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />-->
+<!--            </Trigger>-->
+<!--            <Trigger Property="IsMouseOver" Value="true">-->
+<!--              <Setter TargetName="Border" Property="Background" Value="{StaticResource DarkBrush}" />-->
+<!--            </Trigger>-->
+<!--            <Trigger Property="IsPressed" Value="true">-->
+<!--              <Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />-->
+<!--              <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PressedBorderBrush}" />-->
+<!--            </Trigger>-->
+<!--            <Trigger Property="IsEnabled" Value="false">-->
+<!--              <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />-->
+<!--              <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />-->
+<!--              <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>-->
+<!--            </Trigger>-->
+          </ControlTemplate.Triggers>
+
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <!--  ShogiBoard  -->
   <Style TargetType="{x:Type local:ShogiBoard}">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiBoard}">
           <Grid>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="*"/>
-              </Grid.ColumnDefinitions>
-              <local:ShogiHand x:Name="WhiteHand"
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="5*"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <local:ShogiHand x:Name="WhiteHand"
                                DataContext="{Binding RepresentedBoard.White.Hand, 
                                             RelativeSource={RelativeSource TemplatedParent}}" 
                                Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-              <Common:UniformPanel Grid.Column="1">
-                <local:BoardBorder>
+            <Common:UniformPanel Grid.Column="1">
+              <local:BoardBorder>
+                <Grid>
                   <local:ShogiBoardCore/>
-                </local:BoardBorder>
-              </Common:UniformPanel>
-              <local:ShogiHand x:Name="BlackHand"
+                  <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-18,-19,0"
+                            Style="{StaticResource IsFlippedButtonStyle}"
+                          IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
+                </Grid>
+              </local:BoardBorder>
+            </Common:UniformPanel>
+
+            <local:ShogiHand x:Name="BlackHand"
                                DataContext="{Binding RepresentedBoard.Black.Hand, 
                                              RelativeSource={RelativeSource TemplatedParent}}" 
                                Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-            </Grid>
-            <CheckBox Grid.Row="1" IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsFlipped" Value="True">
@@ -75,6 +111,7 @@
     </Setter>
   </Style>
 
+  <!--  ShogiHand  -->
   <Style TargetType="{x:Type local:ShogiHand}">
     <Setter Property="Template">
       <Setter.Value>
@@ -98,6 +135,7 @@
     </Setter>
   </Style>
 
+  <!--  ShogiPiece  -->
   <Style TargetType="{x:Type local:ShogiPiece}">
     <Setter Property="Template">
       <Setter.Value>
@@ -156,6 +194,7 @@
     </Setter>
   </Style>
 
+  <!--  ShogiCell  -->
   <Style TargetType="{x:Type local:ShogiCell}">
     <Setter Property="Template">
       <Setter.Value>
@@ -178,6 +217,7 @@
     </Setter>
   </Style>
 
+  <!--  StopwatchControl  -->
   <Style TargetType="{x:Type Common:StopwatchControl}">
     <Setter Property="Template">
       <Setter.Value>
@@ -200,6 +240,7 @@
     </Setter>
   </Style>
 
+  <!--  BoardDiagram  -->
   <Style TargetType="{x:Type Diagram:BoardDiagram}">
     <Setter Property="Template">
       <Setter.Value>
