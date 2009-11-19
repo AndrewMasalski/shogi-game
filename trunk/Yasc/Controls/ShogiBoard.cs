@@ -99,9 +99,22 @@ namespace Yasc.Controls
         }
       }
     }
-    private void OnDropToHand(object sender, DropToHandEventArgs args)
+    private void OnDropToHand(object sender, DropToHandEventArgs e)
     {
       ReleaseDragSource();
+      if (!AreMoveRulesEnforced) return;
+
+      var fromBoard = e.From as DragFromBoardEventArgs;
+      if (fromBoard != null)
+      {
+        M(fromBoard.FromCell, e.ToHand);
+      }
+      var fromHand = e.From as DragFromHandEventArgs;
+      if (fromHand != null)
+      {
+        M(fromHand.Piece, e.ToHand);
+      }
+      
     }
     private void OnDragCancelled(object sender, DragFromEventArgs args)
     {
@@ -123,32 +136,36 @@ namespace Yasc.Controls
       throw new ArgumentOutOfRangeException("e");
     }
 
-    private void M(Piece piece, Piece o)
+    private void M(Piece piece, ShogiHand hand)
     {
-      throw new NotImplementedException();
+      if (piece.Color == hand.Color) return;
+      piece.Owner.Hand.Remove(piece);
+      hand.Hand.Add(piece);
     }
 
-    private void M(Cell piece, Piece o)
+    private void M(Cell cell, ShogiHand hand)
     {
-      throw new NotImplementedException();
+      var piece = cell.Piece;
+      cell.Piece = null;
+      hand.Hand.Add(piece);
     }
 
-    private void M(Piece piece, Cell cell)
+    private static void M(Piece piece, Cell cell)
     {
       piece.Owner.Hand.Remove(piece);
-      var m = RepresentedBoard[cell.Position];
-      RepresentedBoard[cell.Position] = null;
-      RepresentedBoard[cell.Position] = piece;
+      var m = cell.Piece;
+      cell.Piece = null;
+      cell.Piece = piece;
       if (m != null) piece.Owner.Hand.Add(m);
     }
 
-    private void M(Cell from, Cell to)
+    private static void M(Cell from, Cell to)
     {
-      var piece = RepresentedBoard[from.Position];
-      RepresentedBoard[from.Position] = null;
-      var m = RepresentedBoard[to.Position];
-      RepresentedBoard[to.Position] = null;
-      RepresentedBoard[to.Position] = piece;
+      var piece = from.Piece;
+      from.Piece = null;
+      var m = to.Piece;
+      to.Piece = null;
+      to.Piece = piece;
       if (m != null) piece.Owner.Hand.Add(m);
     }
 
