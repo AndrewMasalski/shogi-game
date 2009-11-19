@@ -1,107 +1,22 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using Yasc.Controls;
 
 namespace Yasc.GenericDragDrop
 {
   public class Dnd : IDisposable
   {
-    #region ' Static Stuff '
-
-    public static readonly DependencyProperty IsDropTargetProperty =
-      DependencyProperty.RegisterAttached("IsDropTarget", typeof(bool),
-      typeof(Dnd), new UIPropertyMetadata(false));
-
-    public static readonly DependencyProperty IsDragSourceProperty =
-      DependencyProperty.RegisterAttached("IsDragSource", typeof(bool),
-      typeof(Dnd), new UIPropertyMetadata(false, IsDragSourceChanged));
-
-    private static readonly DependencyPropertyKey _dragDropHelperPropertyKey =
-      DependencyProperty.RegisterAttachedReadOnly("Dnd", typeof(Dnd),
-      typeof(Dnd), new UIPropertyMetadata(null));
-
-    private static void IsDragSourceChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+    public Dnd(ShogiBoard board)
     {
-      var dragSource = obj as FrameworkElement;
-
-      if (dragSource == null)
-        throw new NotSupportedException(
-          "You can't set Dnd.IsDragSource if object is not UIElement ");
-
-      var value = (bool)e.NewValue;
-      var helper = GetDragDropHelper(dragSource);
-      if (value && helper == null)
-      {
-        dragSource.SetValue(_dragDropHelperPropertyKey, new Dnd(dragSource));
-      }
-      else if (!value && helper != null)
-      {
-        helper.Dispose();
-        dragSource.ClearValue(_dragDropHelperPropertyKey);
-      }
+      _board = board;
+      _board.PreviewMouseLeftButtonDown += MouseDown;
     }
 
-    public static readonly DependencyProperty DragDropHelperProperty = _dragDropHelperPropertyKey.DependencyProperty;
-    public static Dnd GetDragDropHelper(DependencyObject obj)
-    {
-      return (Dnd)obj.GetValue(DragDropHelperProperty);
-    }
-    public static bool GetIsDragSource(DependencyObject obj)
-    {
-      return (bool)obj.GetValue(IsDragSourceProperty);
-    }
-    public static void SetIsDragSource(DependencyObject obj, bool value)
-    {
-      obj.SetValue(IsDragSourceProperty, value);
-    }
-    public static bool GetIsDropTarget(DependencyObject obj)
-    {
-      return (bool)obj.GetValue(IsDropTargetProperty);
-    }
-    public static void SetIsDropTarget(DependencyObject obj, bool value)
-    {
-      obj.SetValue(IsDropTargetProperty, value);
-    }
-
-    public static readonly RoutedEvent DropEvent = EventManager.RegisterRoutedEvent(
-        "Drop", RoutingStrategy.Bubble, typeof(EventHandler<DropEventArgs>), typeof(Dnd));
-
-    public static void AddDropHandler(DependencyObject d, EventHandler<DropEventArgs> handler)
-    {
-      ((UIElement)d).AddHandler(DropEvent, handler);
-    }
-    public static void RemoveDropHandler(DependencyObject d, EventHandler<DropEventArgs> handler)
-    {
-      ((UIElement)d).RemoveHandler(DropEvent, handler);
-    }
-    private static void RaiseDropEvent(FrameworkElement d, FrameworkElement source)
-    {
-      source.RaiseEvent(new DropEventArgs(DropEvent, source, source, d));
-    }
-    public static readonly RoutedEvent DragEvent = EventManager.RegisterRoutedEvent(
-        "Drag", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Dnd));
-
-    public static void AddDragHandler(DependencyObject d, RoutedEventHandler handler)
-    {
-      ((UIElement)d).AddHandler(DragEvent, handler);
-    }
-    public static void RemoveDragHandler(DependencyObject d, RoutedEventHandler handler)
-    {
-      ((UIElement)d).RemoveHandler(DragEvent, handler);
-    }
-    private static void RaiseDragEvent(IInputElement d)
-    {
-      d.RaiseEvent(new RoutedEventArgs(DragEvent, d));
-    }
-
-    #endregion
-
-    private Dnd(FrameworkElement dragSource)
-    {
-      _dragSource = dragSource;
-      _dragSource.PreviewMouseLeftButtonDown += MouseDown;
-    }
+    #region ' Implementation '
 
     private DndAdorner Adorner
     {
@@ -109,7 +24,7 @@ namespace Yasc.GenericDragDrop
       {
         if (_adorner == null)
         {
-          _adorner = new DndAdorner(_dragSource) { IsHitTestVisible = false };
+          _adorner = new DndAdorner(_piece) { IsHitTestVisible = false };
         }
         return _adorner;
       }
@@ -120,7 +35,7 @@ namespace Yasc.GenericDragDrop
       {
         if (_adornerLayer == null)
         {
-          _adornerLayer = AdornerLayer.GetAdornerLayer(_dragSource);
+          _adornerLayer = AdornerLayer.GetAdornerLayer(_piece);
         }
         return _adornerLayer;
       }
@@ -128,60 +43,126 @@ namespace Yasc.GenericDragDrop
 
     private void MouseDown(object sender, MouseButtonEventArgs e)
     {
-      _topWindow = _dragSource.FindAncestor<Window>();
-      _initialMousePosition = e.GetPosition(_topWindow);
+      _piece = (e.OriginalSource as DependencyObject).FindAncestor<ShogiPiece>();
+      if (_piece == null) return;
 
-      _topWindow.PreviewMouseMove += MouseMove;
-      _topWindow.PreviewMouseUp += MouseUp;
-      RaiseDragEvent(_dragSource);
+      _initialMousePosition = e.GetPosition(_board);
+      _board.PreviewMouseMove += MouseMove;
+      _board.PreviewMouseUp += MouseUp;
+      _board.CaptureMouse();
+
+      var cell = _piece.FindAncestor<ShogiCell>();
+      if (cell != null)
+      {
+        _dragFrom = OnDragFromBoard(new DragFromBoardEventArgs(_piece, cell));
+      }
+      else
+      {
+        _dragFrom = OnDragFromHand(new DragFromHandEventArgs(_board, _piece));
+      }
     }
     private void MouseMove(object sender, MouseEventArgs e)
     {
-      if (e.LeftButton == MouseButtonState.Released)
-      {
-        Release();
-        return;
-      }
       if (!_adornerIsShown)
       {
         AdornerLayer.Add(Adorner);
         _adornerIsShown = true;
       }
 
-      Adorner.Offset = e.GetPosition(_topWindow) - _initialMousePosition;
+      Adorner.Offset = e.GetPosition(_board) - _initialMousePosition;
     }
     private void MouseUp(object sender, MouseEventArgs e)
     {
-      var target = ((DependencyObject)e.OriginalSource).
-        FindAncestor<FrameworkElement>(GetIsDropTarget);
-      RaiseDropEvent(target, _dragSource);
-      Release();
+      try
+      {
+        var result = VisualTreeHelper.HitTest(_board, e.GetPosition(_board));
+        var cell = result.VisualHit.FindAncestor<ShogiCell>();
+        var hand = result.VisualHit.FindAncestor<ShogiHand>();
+        Debug.Assert(cell == null || hand == null);
+        if (cell != null) OnDropToBoard(new DropToBoardEventArgs(_dragFrom, cell));
+        if (hand != null) OnDropToHand(new DropToHandEventArgs(_dragFrom, hand));
+        if (cell == null && hand == null) OnDragCancelled(_dragFrom);
+        result.ToString();
+      }
+      finally
+      {
+        Release();
+      }
     }
     private void Release()
     {
-      _topWindow.PreviewMouseMove -= MouseMove;
-      _topWindow.PreviewMouseUp -= MouseUp;
-      if (_adornerIsShown)
-      {
-        _adornerLayer.Remove(_adorner);
-        _adornerIsShown = false;
-      }
+      _dragFrom = null;
+      _piece = null;
+
+      _board.ReleaseMouseCapture();
+      _board.PreviewMouseMove -= MouseMove;
+      _board.PreviewMouseUp -= MouseUp;
+
+      if (!_adornerIsShown) return;
+      _adornerLayer.Remove(_adorner);
+      _adornerIsShown = false;
+      _adorner = null;
     }
+
+    #endregion
 
     public void Dispose()
     {
-      _dragSource.PreviewMouseLeftButtonDown -= MouseDown;
+      _board.PreviewMouseLeftButtonDown -= MouseDown;
+      _board = null;
+
+      _adornerLayer = null;
     }
 
     #region ' Fields '
 
+    private ShogiBoard _board;
     private DndAdorner _adorner;
     private AdornerLayer _adornerLayer;
-    private Window _topWindow;
 
     private Point _initialMousePosition;
-    private readonly FrameworkElement _dragSource;
     private bool _adornerIsShown;
+    private ShogiPiece _piece;
+
+    private DragFromEventArgs _dragFrom;
+
+    #endregion
+
+    #region ' Events '
+
+    public event EventHandler<DragFromBoardEventArgs> DragFromBoard;
+    public event EventHandler<DragFromHandEventArgs> DragFromHand;
+    public event EventHandler<DropToBoardEventArgs> DropToBoard;
+    public event EventHandler<DropToHandEventArgs> DropToHand;
+    public event EventHandler<DragFromEventArgs> DragCancelled;
+
+    private DragFromBoardEventArgs OnDragFromBoard(DragFromBoardEventArgs e)
+    {
+      var drag = DragFromBoard;
+      if (drag != null) drag(this, e);
+      return e;
+    }
+    private DragFromHandEventArgs OnDragFromHand(DragFromHandEventArgs e)
+    {
+      var drag = DragFromHand;
+      if (drag != null) drag(this, e);
+      return e;
+    }
+    private void OnDropToBoard(DropToBoardEventArgs e)
+    {
+      var drag = DropToBoard;
+      if (drag != null) drag(this, e);
+    }
+    private void OnDropToHand(DropToHandEventArgs e)
+    {
+      var drag = DropToHand;
+      if (drag != null) drag(this, e);
+    }
+    private void OnDragCancelled(DragFromEventArgs e)
+    {
+      var cancelled = DragCancelled;
+      if (cancelled != null) cancelled(this, e);
+    }
 
     #endregion
   }
