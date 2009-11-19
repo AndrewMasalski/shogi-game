@@ -28,8 +28,12 @@ namespace Yasc.Controls
 
     public ShogiBoard()
     {
-      Dnd.AddDragHandler(this, OnDrag);
-      Dnd.AddDropHandler(this, OnDrop);
+      _dnd = new Dnd(this);
+      _dnd.DragFromBoard += OnDragFromBoard;
+      _dnd.DragFromHand += OnDragFromHand;
+      _dnd.DropToHand += OnDropToHand;
+      _dnd.DropToBoard += OnDropToBoard;
+      _dnd.DragCancelled += OnDragCancelled;
     }
 
     #endregion
@@ -51,11 +55,25 @@ namespace Yasc.Controls
 
     #region ' Drag'n'Drop Moves '
 
-    private void OnDrop(object sender, DropEventArgs e)
+    private void OnDragFromBoard(object sender, DragFromBoardEventArgs args)
+    {
+      var moves = RepresentedBoard.GetAvailableMoves(args.FromPosition);
+      var positions = from UsualMove m in moves select m.To;
+      BoardCore.HighlightAvailableMoves(positions.Distinct());
+
+      BoardCore.MoveSource = args.FromPosition;
+    }
+    private void OnDragFromHand(object sender, DragFromHandEventArgs args)
+    {
+      var moves = RepresentedBoard.GetAvailableMoves(args.Piece);
+      var positions = from DropMove m in moves select m.To;
+      BoardCore.HighlightAvailableMoves(positions);
+    }
+
+
+    private void OnDropToBoard(object sender, DropToBoardEventArgs e)
     {
       ReleaseDragSource();
-      // Object was dropped to space
-      if (e.DragTarget == null) return;
 
       if (AreMoveRulesEnforced)
       {
@@ -70,26 +88,40 @@ namespace Yasc.Controls
       }
       else
       {
-        var from = e.DragSource.DataContext;
-        var to = e.DragTarget.DataContext;
-
-        if (from is Cell && to is Cell)
+        var fromBoard = e.From as DragFromBoardEventArgs;
+        if (fromBoard != null)
         {
-          M((Cell) from, (Cell) to);
+          M(fromBoard.FromCell, e.ToCell);
         }
-        else if (from is Piece && to is Cell)
+        var fromHand = e.From as DragFromHandEventArgs;
+        if (fromHand != null)
         {
-          M((Piece)from, (Cell)to);
-        }
-        else if (from is Cell && to is Piece)
-        {
-          M((Cell)from, (Piece)to);
-        }
-        else if (from is Piece && to is Piece)
-        {
-          M((Piece)from, (Piece)to);
+          M(fromHand.Piece, e.ToCell);
         }
       }
+    }
+    private void OnDropToHand(object sender, DropToHandEventArgs args)
+    {
+      ReleaseDragSource();
+    }
+    private void OnDragCancelled(object sender, DragFromEventArgs args)
+    {
+      ReleaseDragSource();
+    }
+
+    private MoveBase RecognizeMove(DropToBoardEventArgs e)
+    {
+      var fromBoard = e.From as DragFromBoardEventArgs;
+      if (fromBoard != null)
+      {
+        return GetUsualMove(fromBoard.FromCell, e.ToCell);
+      }
+      var fromHand = e.From as DragFromHandEventArgs;
+      if (fromHand != null)
+      {
+        return RepresentedBoard.GetDropMove(fromHand.Piece, e.ToPosition);
+      }
+      throw new ArgumentOutOfRangeException("e");
     }
 
     private void M(Piece piece, Piece o)
@@ -121,50 +153,15 @@ namespace Yasc.Controls
       if (m != null) piece.Owner.Hand.Add(m);
     }
 
-    private void OnDrag(object sender, RoutedEventArgs e)
-    {
-      var context = ((FrameworkElement)e.OriginalSource).DataContext;
-      
-      var cell = context as Cell;
-      if (cell != null)
-      {
-        if (cell.Piece == null) 
-          return; // Technically it's possible to drag empty cell
 
-        var moves = RepresentedBoard.GetAvailableMoves(cell.Position);
-        var positions = from UsualMove m in moves select m.To;
-        BoardCore.HighlightAvailableMoves(positions.Distinct());
-      }
-
-      var piece = context as Piece;
-      if (piece != null)
-      {
-        var moves = RepresentedBoard.GetAvailableMoves(piece);
-        var positions = from DropMove m in moves select m.To;
-        BoardCore.HighlightAvailableMoves(positions);
-      }
-    }
 
     private void ReleaseDragSource()
     {
       BoardCore.ResetAvailableMoves();
+      BoardCore.MoveSource = null;
     }
 
-    private MoveBase RecognizeMove(DropEventArgs e)
-    {
-      if (e.DragSource.DataContext is Cell)
-      {
-        var from = (Cell)e.DragSource.DataContext;
-        var to = (Cell)e.DragTarget.DataContext;
-        return GetUsualMove(from, to);
-      }
-      else
-      {
-        var piece = (Piece)e.DragSource.DataContext;
-        var to = (Cell)e.DragTarget.DataContext;
-        return RepresentedBoard.GetDropMove(piece, to.Position);
-      }
-    }
+    
     private MoveBase GetUsualMove(Cell from, Cell to)
     {
       MoveBase move;
@@ -241,6 +238,8 @@ namespace Yasc.Controls
     public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
       DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
                                   typeof (ShogiBoard), new UIPropertyMetadata(true, PropertyChangedCallback));
+
+    private readonly Dnd _dnd;
 
     private static void PropertyChangedCallback(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {

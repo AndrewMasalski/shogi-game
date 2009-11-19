@@ -22,11 +22,7 @@
   </DataTemplate>
 
   <DataTemplate DataType="{x:Type utils:Cell}">
-    <local:ShogiCell
-      Margin="1,1,0,0" 
-      gdd:Dnd.IsDragSource="true"
-      gdd:Dnd.IsDropTarget="true"
-      Piece="{Binding Piece}" />
+    <local:ShogiCell Margin="1,1,0,0" Piece="{Binding Piece}" />
   </DataTemplate>
 
   <Style x:Key="IsFlippedButtonStyle" TargetType="{x:Type CheckBox}">
@@ -181,7 +177,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <Grid Background="Transparent" gdd:Dnd.IsDragSource="True">
+                <Grid Background="Transparent" >
                   <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Piece}"/>
                 </Grid>
               </DataTemplate>
@@ -264,6 +260,9 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsPossibleMoveTarget" Value="True">
               <Setter TargetName="border" Property="Fill" Value="LightBlue"/>
+            </Trigger>
+            <Trigger Property="IsMoveSource" Value="True">
+              <Setter TargetName="border" Property="Fill" Value="Yellow"/>
             </Trigger>
             <Trigger Property="Piece" Value="{x:Null}">
               <Setter TargetName="host" Property="ContentTemplate" Value="{x:Null}"/>

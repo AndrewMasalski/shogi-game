@@ -31,5 +31,16 @@ namespace Yasc.Controls
       get { return (Piece)GetValue(PieceProperty); }
       set { SetValue(PieceProperty, value); }
     }
+
+    public static readonly DependencyProperty IsMoveSourceProperty =
+      DependencyProperty.Register("IsMoveSource", typeof (bool),
+                                  typeof (ShogiCell), new UIPropertyMetadata(default(bool)));
+
+    public bool IsMoveSource
+    {
+      get { return (bool) GetValue(IsMoveSourceProperty); }
+      set { SetValue(IsMoveSourceProperty, value); }
+    }
+    
   }
 }

@@ -55,6 +55,27 @@ namespace Yasc.Controls
         GetCell(p).IsPossibleMoveTarget = false;
     }
 
+    private Position? _moveSource;
+
+    public Position? MoveSource
+    {
+      get { return _moveSource; }
+      set
+      {
+        if (_moveSource == value) return;
+        
+        if (_moveSource != null)
+        {
+          GetCell((Position) _moveSource).IsMoveSource = false;
+        }
+        _moveSource = value;
+        if (_moveSource != null)
+        {
+          GetCell((Position)_moveSource).IsMoveSource = true;
+        }
+      }
+    }
+
     #endregion
 
     #region ' Move Animation '
