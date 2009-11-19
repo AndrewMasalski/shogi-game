@@ -14,6 +14,7 @@ namespace Yasc.GenericDragDrop
     {
       _board = board;
       _board.PreviewMouseLeftButtonDown += MouseDown;
+      _board.Loaded += BoardOnLoaded;
     }
 
     #region ' Implementation '
@@ -76,13 +77,12 @@ namespace Yasc.GenericDragDrop
       try
       {
         var result = VisualTreeHelper.HitTest(_board, e.GetPosition(_board));
+        if (result == null) return;
         var cell = result.VisualHit.FindAncestor<ShogiCell>();
         var hand = result.VisualHit.FindAncestor<ShogiHand>();
         Debug.Assert(cell == null || hand == null);
         if (cell != null) OnDropToBoard(new DropToBoardEventArgs(_dragFrom, cell));
         if (hand != null) OnDropToHand(new DropToHandEventArgs(_dragFrom, hand));
-        if (cell == null && hand == null) OnDragCancelled(_dragFrom);
-        result.ToString();
       }
       finally
       {
@@ -91,8 +91,11 @@ namespace Yasc.GenericDragDrop
     }
     private void Release()
     {
+      if (!_successfulDrop) OnDragCancelled(_dragFrom);
+
       _dragFrom = null;
       _piece = null;
+      _successfulDrop = false;
 
       _board.ReleaseMouseCapture();
       _board.PreviewMouseMove -= MouseMove;
@@ -104,12 +107,26 @@ namespace Yasc.GenericDragDrop
       _adorner = null;
     }
 
+    private void BoardOnLoaded(object sender, RoutedEventArgs args)
+    {
+      _topWindow = _board.FindAncestor<Window>();
+      _topWindow.Deactivated += TopWindowOnDeactivated;
+    }
+    private void TopWindowOnDeactivated(object sender, EventArgs args)
+    {
+      Release();
+    }
+
     #endregion
 
     public void Dispose()
     {
       _board.PreviewMouseLeftButtonDown -= MouseDown;
+      _board.Loaded -= BoardOnLoaded;
       _board = null;
+
+      _topWindow.Deactivated -= TopWindowOnDeactivated;
+      _topWindow = null;
 
       _adornerLayer = null;
     }
@@ -125,6 +142,8 @@ namespace Yasc.GenericDragDrop
     private ShogiPiece _piece;
 
     private DragFromEventArgs _dragFrom;
+    private Window _topWindow;
+    private bool _successfulDrop;
 
     #endregion
 
@@ -150,11 +169,13 @@ namespace Yasc.GenericDragDrop
     }
     private void OnDropToBoard(DropToBoardEventArgs e)
     {
+      _successfulDrop = true;
       var drag = DropToBoard;
       if (drag != null) drag(this, e);
     }
     private void OnDropToHand(DropToHandEventArgs e)
     {
+      _successfulDrop = true;
       var drag = DropToHand;
       if (drag != null) drag(this, e);
     }
