@@ -104,10 +104,16 @@ namespace Yasc.Controls
     }
 
     #endregion
-
-    private void RefillCells()
+    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
     {
-      bool isFlipped = this.FindAncestor<ShogiBoard>().IsFlipped;
+      if (e.Property == ShogiBoard.IsFlippedProperty)
+      {
+        RefillCells((bool) e.NewValue);
+      }
+      base.OnPropertyChanged(e);
+    }
+    private void RefillCells(bool isFlipped)
+    {
       _cells.ItemsSource = !isFlipped ? Board : Flip(Board);
     }
 
@@ -121,7 +127,7 @@ namespace Yasc.Controls
 
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
-      RefillCells();
+      RefillCells(ShogiBoard.GetIsFlipped(this));
     }
   }
 }

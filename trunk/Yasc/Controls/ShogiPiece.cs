@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
-using Yasc.GenericDragDrop;
 
 namespace Yasc.Controls
 {
@@ -36,7 +35,7 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty IsPromotedProperty =
       DependencyProperty.Register("IsPromoted", typeof (bool),
-                                  typeof (ShogiPiece), new UIPropertyMetadata(default(bool)));
+        typeof (ShogiPiece), new UIPropertyMetadata(default(bool)));
 
     public bool IsPromoted
     {
@@ -50,25 +49,13 @@ namespace Yasc.Controls
       return PieceColor + (PieceType.IsPromoted ? " promoted " : " ") + PieceType;
     }
 
-    public static readonly DependencyProperty IsFlippedProperty =
-      DependencyProperty.Register("IsFlipped", typeof (bool),
-        typeof (ShogiPiece), new UIPropertyMetadata(false));
+    public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
+      typeof(ShogiPiece), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
 
     public bool IsFlipped
     {
-      get { return (bool) GetValue(IsFlippedProperty); }
+      get { return (bool)GetValue(IsFlippedProperty); }
       set { SetValue(IsFlippedProperty, value); }
-    }
-
-    public ShogiPiece()
-    {
-      Loaded += OnLoaded;
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs args)
-    {
-      var ancestor = this.FindAncestor<ShogiBoard>();
-      IsFlipped = ancestor.IsFlipped;
     }
   }
 }
