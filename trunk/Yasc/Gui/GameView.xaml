@@ -21,7 +21,7 @@
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
       <Gui:ShogiBoard x:Name="board" MoveAttempt="OnMoveAttempt" 
-                      RepresentedBoard="{Binding Board}" 
+                      Board="{Binding Board}" 
                       IsFlipped="{Binding IsFlipped}"/>
 
       <TabControl Grid.Column="1">

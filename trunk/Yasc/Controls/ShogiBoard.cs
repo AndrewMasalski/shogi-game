@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
@@ -10,13 +13,10 @@ using Yasc.Utils;
 
 namespace Yasc.Controls
 {
+  [TemplatePart(Name = "PART_AdornerLayer", Type = typeof(Canvas))]
   public class ShogiBoard : Control
   {
     private readonly Flag _dragMove = new Flag();
-    private ShogiBoardCore BoardCore 
-    {
-      get { return this.FindChild<ShogiBoardCore>(); }
-    }
 
     #region ' Helpers '
 
@@ -45,10 +45,10 @@ namespace Yasc.Controls
       if (_dragMove) return;
       var m = args.Move as UsualMove;
       if (m == null) return;
-      var from = RepresentedBoard[m.From.X, m.From.Y];
-      var to = RepresentedBoard[m.To.X, m.To.Y];
+      var from = Board[m.From.X, m.From.Y];
+      var to = Board[m.To.X, m.To.Y];
 
-      BoardCore.AnimateMove(from, to);
+      AnimateMove(from, to);
     }
 
     #endregion
@@ -57,17 +57,17 @@ namespace Yasc.Controls
 
     private void OnDragFromBoard(object sender, DragFromBoardEventArgs args)
     {
-      var moves = RepresentedBoard.GetAvailableMoves(args.FromPosition);
+      var moves = Board.GetAvailableMoves(args.FromPosition);
       var positions = from UsualMove m in moves select m.To;
-      BoardCore.HighlightAvailableMoves(positions.Distinct());
+      HighlightAvailableMoves(positions.Distinct());
 
-      BoardCore.MoveSource = args.FromPosition;
+      MoveSource = args.FromPosition;
     }
     private void OnDragFromHand(object sender, DragFromHandEventArgs args)
     {
-      var moves = RepresentedBoard.GetAvailableMoves(args.Piece);
+      var moves = Board.GetAvailableMoves(args.Piece);
       var positions = from DropMove m in moves select m.To;
-      BoardCore.HighlightAvailableMoves(positions);
+      HighlightAvailableMoves(positions);
     }
 
     private void OnDropToBoard(object sender, DropToBoardEventArgs e)
@@ -83,19 +83,19 @@ namespace Yasc.Controls
 
         if (move.IsValid)
           using (_dragMove.Set())
-            RepresentedBoard.MakeMove(move);
+            Board.MakeMove(move);
       }
       else
       {
         var fromBoard = e.From as DragFromBoardEventArgs;
         if (fromBoard != null)
         {
-          M(fromBoard.FromCell, e.ToCell);
+          ArbitraryMove(fromBoard.FromCell, e.ToCell);
         }
         var fromHand = e.From as DragFromHandEventArgs;
         if (fromHand != null)
         {
-          M(fromHand.Piece, e.ToCell);
+          ArbitraryMove(fromHand.Piece, e.ToCell);
         }
       }
     }
@@ -107,12 +107,12 @@ namespace Yasc.Controls
       var fromBoard = e.From as DragFromBoardEventArgs;
       if (fromBoard != null)
       {
-        M(fromBoard.FromCell, e.ToHand);
+        ArbitraryMove(fromBoard.FromCell, e.ToHand);
       }
       var fromHand = e.From as DragFromHandEventArgs;
       if (fromHand != null)
       {
-        M(fromHand.Piece, e.ToHand);
+        ArbitraryMove(fromHand.Piece, e.ToHand);
       }
       
     }
@@ -131,26 +131,24 @@ namespace Yasc.Controls
       var fromHand = e.From as DragFromHandEventArgs;
       if (fromHand != null)
       {
-        return RepresentedBoard.GetDropMove(fromHand.Piece, e.ToPosition);
+        return Board.GetDropMove(fromHand.Piece, e.ToPosition);
       }
       throw new ArgumentOutOfRangeException("e");
     }
 
-    private void M(Piece piece, ShogiHand hand)
+    private static void ArbitraryMove(Piece piece, ShogiHand hand)
     {
       if (piece.Color == hand.Color) return;
       piece.Owner.Hand.Remove(piece);
       hand.Hand.Add(piece);
     }
-
-    private void M(Cell cell, ShogiHand hand)
+    private static void ArbitraryMove(Cell cell, ShogiHand hand)
     {
       var piece = cell.Piece;
       cell.Piece = null;
       hand.Hand.Add(piece);
     }
-
-    private static void M(Piece piece, Cell cell)
+    private static void ArbitraryMove(Piece piece, Cell cell)
     {
       piece.Owner.Hand.Remove(piece);
       var m = cell.Piece;
@@ -158,8 +156,7 @@ namespace Yasc.Controls
       cell.Piece = piece;
       if (m != null) piece.Owner.Hand.Add(m);
     }
-
-    private static void M(Cell from, Cell to)
+    private static void ArbitraryMove(Cell from, Cell to)
     {
       var piece = from.Piece;
       from.Piece = null;
@@ -169,20 +166,16 @@ namespace Yasc.Controls
       if (m != null) piece.Owner.Hand.Add(m);
     }
 
-
-
     private void ReleaseDragSource()
     {
-      BoardCore.ResetAvailableMoves();
-      BoardCore.MoveSource = null;
+      ResetAvailableMoves();
+      MoveSource = null;
     }
-
-    
     private MoveBase GetUsualMove(Cell from, Cell to)
     {
       MoveBase move;
-      var m1 = RepresentedBoard.GetUsualMove(from.Position, to.Position, false);
-      var m2 = RepresentedBoard.GetUsualMove(from.Position, to.Position, true);
+      var m1 = Board.GetUsualMove(from.Position, to.Position, false);
+      var m2 = Board.GetUsualMove(from.Position, to.Position, true);
       if (m1.IsValid && m2.IsValid)
       {
         var answer = MessageBox.Show("Promote?", "Q",
@@ -212,10 +205,12 @@ namespace Yasc.Controls
 
     #endregion
 
+    #region IsFlippedProperty
+
     public static readonly DependencyProperty IsFlippedProperty =
       DependencyProperty.RegisterAttached("IsFlipped", typeof (bool),
-        typeof (ShogiBoard), new FrameworkPropertyMetadata(false, 
-          FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+                                          typeof (ShogiBoard), new FrameworkPropertyMetadata(false, 
+                                                                                             FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
     public bool IsFlipped
     {
@@ -232,11 +227,16 @@ namespace Yasc.Controls
       obj.SetValue(IsFlippedProperty, value);
     }
 
-    public static readonly DependencyProperty RepresentedBoardProperty =
-      DependencyProperty.Register("RepresentedBoard", typeof (Board),
-                                  typeof (ShogiBoard), new UIPropertyMetadata(default(Board), RepresentedBoardPropertyChanged));
 
-    private static void RepresentedBoardPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    #endregion
+
+    #region BoardProperty
+
+    public static readonly DependencyProperty BoardProperty =
+      DependencyProperty.Register("Board", typeof (Board),
+                                  typeof (ShogiBoard), new UIPropertyMetadata(default(Board), BoardPropertyChanged));
+
+    private static void BoardPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
       if (args.OldValue != null)
         ((Board)args.OldValue).Moving -= ((ShogiBoard)o).BoardOnMoving;
@@ -245,26 +245,30 @@ namespace Yasc.Controls
         ((Board)args.NewValue).Moving += ((ShogiBoard)o).BoardOnMoving;
     }
 
-    public Board RepresentedBoard
+    public Board Board
     {
-      get { return (Board) GetValue(RepresentedBoardProperty); }
-      set { SetValue(RepresentedBoardProperty, value); }
+      get { return (Board) GetValue(BoardProperty); }
+      set { SetValue(BoardProperty, value); }
     }
+
+
+    #endregion
+
+    #region AreMoveRulesEnforcedProperty
 
     public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
       DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
-                                  typeof (ShogiBoard), new UIPropertyMetadata(true, PropertyChangedCallback));
+                                  typeof (ShogiBoard), new UIPropertyMetadata(true, OnMoveRulesEnforcedChanged));
 
-    private readonly Dnd _dnd;
 
-    private static void PropertyChangedCallback(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    private static void OnMoveRulesEnforcedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
-      ((ShogiBoard)o).Prop((bool) args.NewValue);
+      ((ShogiBoard)o).OnMoveRulesEnforcedChanged((bool) args.NewValue);
     }
 
-    private void Prop(bool value)
+    private void OnMoveRulesEnforcedChanged(bool value)
     {
-      RepresentedBoard.IsMovesOrderMaintained = value;
+      Board.IsMovesOrderMaintained = value;
     }
 
     public bool AreMoveRulesEnforced
@@ -272,7 +276,122 @@ namespace Yasc.Controls
       get { return (bool) GetValue(AreMoveRulesEnforcedProperty); }
       set { SetValue(AreMoveRulesEnforcedProperty, value); }
     }
+
+    #endregion
+
+    private readonly Dnd _dnd;
+
+    private Canvas _adornerLayer;
+
+    public override void OnApplyTemplate()
+    {
+      _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
+      base.OnApplyTemplate();
+    }
     
-    
+    #region ' Public Interface '
+
+    public void AnimateMove(Cell from, Cell to)
+    {
+      if (_adornerLayer == null) return;
+      AnimateMove(GetCell(from), GetCell(to));
+    }
+    public void HighlightAvailableMoves(IEnumerable<Position> cells)
+    {
+      foreach (Position p in cells)
+      {
+        var cell = GetCell(p);
+        if (cell == null) continue;
+        cell.IsPossibleMoveTarget = true;
+      }
+    }
+    public void ResetAvailableMoves()
+    {
+      foreach (var p in Position.OnBoard)
+      {
+        var cell = GetCell(p);
+        if (cell == null) continue;
+        cell.IsPossibleMoveTarget = false;
+      }
+    }
+
+    private Position? _moveSource;
+    public Position? MoveSource
+    {
+      get { return _moveSource; }
+      set
+      {
+        if (_moveSource == value) return;
+
+        if (_moveSource != null)
+        {
+          GetCell((Position)_moveSource).IsMoveSource = false;
+        }
+        _moveSource = value;
+        if (_moveSource != null)
+        {
+          GetCell((Position)_moveSource).IsMoveSource = true;
+        }
+      }
+    }
+
+    private ShogiCell GetCell(Cell cell)
+    {
+      return this.FindChild<ShogiCell>(c => c.Cell == cell);
+    }
+    private ShogiCell GetCell(Position p)
+    {
+      return Board == null ? null : GetCell(Board[p.X, p.Y]);
+    }
+
+    #endregion
+
+    #region ' Move Animation '
+
+    private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
+    {
+      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
+      MoveToAdornerLayer(pieceControl);
+      var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
+      toCtrl.Visibility = Visibility.Hidden;
+
+      AnimatePosition(pieceControl, to, (sender, args) =>
+      {
+        toCtrl.Visibility = Visibility.Visible;
+        _adornerLayer.Children.Remove(pieceControl);
+      });
+    }
+    private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
+    {
+      var duration = new Duration(TimeSpan.FromSeconds(.3));
+
+      ctrl.BeginAnimation(Canvas.LeftProperty, new DoubleAnimation(to.X, duration));
+
+      var anim = new DoubleAnimation(to.Y, duration);
+      anim.Completed += completed;
+      ctrl.BeginAnimation(Canvas.TopProperty, anim);
+    }
+    private void MoveToAdornerLayer(FrameworkElement ctrl)
+    {
+      var transform = ctrl.TransformToVisual(_adornerLayer);
+      var point = transform.Transform(new Point(0, 0));
+      Canvas.SetLeft(ctrl, point.X);
+      Canvas.SetTop(ctrl, point.Y);
+      ctrl.Width = ctrl.ActualWidth;
+      ctrl.Height = ctrl.ActualHeight;
+      // When we move piece from its tamplate piece DataContext changes 
+      // to the one _adornelLyer has. There's nothing wrong with it except
+      // XAML might define bindings which become invalid. As far as piece
+      // is going to be thrown away after animation it's not a big deal.
+      ctrl.DataContext = ctrl.DataContext;
+      RemoveFromParentControl(ctrl);
+      _adornerLayer.Children.Add(ctrl);
+    }
+    private static void RemoveFromParentControl(DependencyObject ctrl)
+    {
+      ((ContentPresenter)VisualTreeHelper.GetParent(ctrl)).Content = null;
+    }
+
+    #endregion
   }
 }
