@@ -159,6 +159,7 @@ namespace Yasc.Controls
 
     private void OnPieceTypeChanged(PieceType pieceType)
     {
+      if (Hand == null) return;
       PiecesCount = Count(Hand, pieceType);
       UpdateCp(pieceType, PieceColor);
     }

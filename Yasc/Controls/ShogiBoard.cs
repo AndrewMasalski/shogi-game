@@ -103,7 +103,7 @@ namespace Yasc.Controls
     }
     private void OnDragFromHand(object sender, DragFromHandEventArgs args)
     {
-      var moves = Board.GetAvailableMoves(args.Piece);
+      var moves = Board.GetAvailableMoves(args.PieceType, args.PieceColor);
       var positions = from DropMove m in moves select m.To;
       HighlightAvailableMoves(positions);
     }
@@ -133,7 +133,7 @@ namespace Yasc.Controls
         var fromHand = e.From as DragFromHandEventArgs;
         if (fromHand != null)
         {
-          ArbitraryMove(fromHand.Piece, e.ToCell);
+          ArbitraryMove(fromHand.PieceType, fromHand.PieceColor, e.ToCell);
         }
       }
     }
@@ -150,7 +150,7 @@ namespace Yasc.Controls
       var fromHand = e.From as DragFromHandEventArgs;
       if (fromHand != null)
       {
-        ArbitraryMove(fromHand.Piece, e.ToHand);
+        ArbitraryMove(fromHand.PieceType, fromHand.PieceColor, e.ToHand);
       }
       
     }
@@ -169,14 +169,15 @@ namespace Yasc.Controls
       var fromHand = e.From as DragFromHandEventArgs;
       if (fromHand != null)
       {
-        return Board.GetDropMove(fromHand.Piece, e.ToPosition);
+        return Board.GetDropMove(fromHand.PieceType, e.ToPosition, Board[fromHand.PieceColor]);
       }
       throw new ArgumentOutOfRangeException("e");
     }
 
-    private static void ArbitraryMove(Piece piece, ShogiHand hand)
+    private void ArbitraryMove(PieceType pieceType, PieceColor color, ShogiHand hand)
     {
-      if (piece.Color == hand.Color) return;
+      if (color == hand.Color) return;
+      var piece = Board[color].GetPieceFromHandByType(pieceType);
       piece.Owner.Hand.Remove(piece);
       hand.Hand.Add(piece);
     }
@@ -186,8 +187,9 @@ namespace Yasc.Controls
       cell.Piece = null;
       hand.Hand.Add(piece);
     }
-    private static void ArbitraryMove(Piece piece, Cell cell)
+    private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell)
     {
+      var piece = Board[color].GetPieceFromHandByType(pieceType);
       piece.Owner.Hand.Remove(piece);
       var m = cell.Piece;
       cell.Piece = null;
