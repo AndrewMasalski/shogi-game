@@ -94,12 +94,12 @@
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <local:ShogiHand x:Name="WhiteHand" Color="White" Grid.Column="0" 
-                             Board="{TemplateBinding RepresentedBoard}"
+                             Board="{TemplateBinding Board}"
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
             <Common:UniformPanel Grid.Column="1">
               <local:BoardBorder>
                 <Grid>
-                  <local:ShogiBoardCore Board="{TemplateBinding RepresentedBoard}"/>
+                  <local:ShogiBoardCore Board="{TemplateBinding Board}"/>
                   <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-19,-21,0"
                             Style="{StaticResource IsFlippedButtonStyle}"
                             IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -108,8 +108,9 @@
             </Common:UniformPanel>
 
             <local:ShogiHand x:Name="BlackHand" Color="Black" Grid.Column="2" 
-                             Board="{TemplateBinding RepresentedBoard}"
+                             Board="{TemplateBinding Board}"
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+            <Canvas Name="PART_AdornerLayer"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsFlipped" Value="True">
@@ -211,7 +212,7 @@
         <ControlTemplate TargetType="{x:Type local:ShogiCell}">
           <Grid Background="Transparent" >
             <Rectangle Name="border" Stretch="Fill" SnapsToDevicePixels="True"/>
-            <ContentPresenter Name="Part_Piece"/>
+            <ContentPresenter Name="PART_Piece"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsPossibleMoveTarget" Value="True">
@@ -254,7 +255,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Diagram:BoardDiagram}">
-          <local:ShogiBoard RepresentedBoard="{TemplateBinding Board}"/>
+          <local:ShogiBoard Board="{TemplateBinding Board}"/>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -278,7 +279,6 @@
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Canvas Name="PART_AdornerLayer"/>
           </Grid>
         </ControlTemplate>
       </Setter.Value>

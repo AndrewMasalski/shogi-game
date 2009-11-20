@@ -6,7 +6,7 @@ using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Controls
 {
-  [TemplatePart(Name = "Part_Piece", Type = typeof(ContentPresenter))]
+  [TemplatePart(Name = "PART_Piece", Type = typeof(ContentPresenter))]
   public class ShogiCell : Control
   {
     static ShogiCell()
@@ -93,7 +93,7 @@ namespace Yasc.Controls
 
     public override void OnApplyTemplate()
     {
-        _cp = GetTemplateChild("Part_Piece") as ContentPresenter;
+        _cp = GetTemplateChild("PART_Piece") as ContentPresenter;
         UpdateCp(Cell);
       base.OnApplyTemplate();
     }
