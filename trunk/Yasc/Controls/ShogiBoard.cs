@@ -40,22 +40,24 @@ namespace Yasc.Controls
 
     private void BoardOnMoving(object sender, MoveEventArgs args)
     {
-      if (_dragMove) return;
-      var m = args.Move as UsualMove;
-      if (m == null) return;
-      var from = Board[m.From.X, m.From.Y];
-      var to = Board[m.To.X, m.To.Y];
-
-      AnimateMove(from, to);
-    }
-    private void AnimateMove(Cell from, Cell to)
-    {
       if (_adornerLayer == null) return;
-      AnimateMove(GetCell(from), GetCell(to));
+      if (_dragMove) return;
+      
+      var u = args.Move as UsualMove;
+      if (u != null)
+      {
+        AnimateMove(GetCell(u.From), GetCell(u.To));
+      }
+
+      var d = args.Move as DropMove;
+      if (d != null)
+      {
+//        AnimateMove();
+      }
     }
-    private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
+    private void AnimateMove(ShogiCell fromControl, UIElement toCtrl)
     {
-      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
+      var pieceControl = fromControl.ShogiPiece;
       MoveToAdornerLayer(pieceControl);
       var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
       toCtrl.Visibility = Visibility.Hidden;
@@ -76,7 +78,7 @@ namespace Yasc.Controls
       anim.Completed += completed;
       ctrl.BeginAnimation(Canvas.TopProperty, anim);
     }
-    private void MoveToAdornerLayer(FrameworkElement ctrl)
+    private void MoveToAdornerLayer(ShogiPiece ctrl)
     {
       var transform = ctrl.TransformToVisual(_adornerLayer);
       var point = transform.Transform(new Point(0, 0));
@@ -84,17 +86,8 @@ namespace Yasc.Controls
       Canvas.SetTop(ctrl, point.Y);
       ctrl.Width = ctrl.ActualWidth;
       ctrl.Height = ctrl.ActualHeight;
-      // When we move piece from its tamplate piece DataContext changes 
-      // to the one _adornelLyer has. There's nothing wrong with it except
-      // XAML might define bindings which become invalid. As far as piece
-      // is going to be thrown away after animation it's not a big deal.
-      ctrl.DataContext = ctrl.DataContext;
-      RemoveFromParentControl(ctrl);
+      ctrl.DeattachFromCell();
       _adornerLayer.Children.Add(ctrl);
-    }
-    private static void RemoveFromParentControl(DependencyObject ctrl)
-    {
-      ((ContentPresenter)VisualTreeHelper.GetParent(ctrl)).Content = null;
     }
 
     #endregion
@@ -393,13 +386,13 @@ namespace Yasc.Controls
 
     #region ' Helpers '
 
+    private ShogiCell GetCell(Position position)
+    {
+      return Board == null ? null : GetCell(Board[position.X, position.Y]);
+    }
     private ShogiCell GetCell(Cell cell)
     {
       return this.FindChild<ShogiCell>(c => c.Cell == cell);
-    }
-    private ShogiCell GetCell(Position p)
-    {
-      return Board == null ? null : GetCell(Board[p.X, p.Y]);
     }
 
     #endregion

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using MvvmFoundation.Wpf;
 using Yasc.ShogiCore.Utils;
@@ -90,6 +89,12 @@ namespace Yasc.Controls
     }
 
     #endregion
+
+
+    public ShogiPiece  ShogiPiece
+    {
+      get { return _cp != null ? (ShogiPiece)_cp.Content : null;  }
+    }
 
     public override void OnApplyTemplate()
     {
