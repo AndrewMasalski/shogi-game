@@ -58,7 +58,7 @@ namespace Yasc.Controls
     private void AnimateMove(PieceHolderBase fromControl, UIElement toCtrl)
     {
       var pieceControl = fromControl.ShogiPiece;
-      MoveToAdornerLayer(pieceControl);
+      MoveToAdornerLayer(fromControl);
       var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
       toCtrl.Visibility = Visibility.Hidden;
 
@@ -78,16 +78,16 @@ namespace Yasc.Controls
       anim.Completed += completed;
       ctrl.BeginAnimation(Canvas.TopProperty, anim);
     }
-    private void MoveToAdornerLayer(ShogiPiece ctrl)
+    private void MoveToAdornerLayer(PieceHolderBase cell)
     {
-      var transform = ctrl.TransformToVisual(_adornerLayer);
+      var piece = cell.ShogiPiece;
+      var transform = piece.TransformToVisual(_adornerLayer);
       var point = transform.Transform(new Point(0, 0));
-      Canvas.SetLeft(ctrl, point.X);
-      Canvas.SetTop(ctrl, point.Y);
-      ctrl.Width = ctrl.ActualWidth;
-      ctrl.Height = ctrl.ActualHeight;
-      ctrl.DeattachFromCell();
-      _adornerLayer.Children.Add(ctrl);
+      Canvas.SetLeft(piece, point.X);
+      Canvas.SetTop(piece, point.Y);
+      piece.Width = piece.ActualWidth;
+      piece.Height = piece.ActualHeight;
+      _adornerLayer.Children.Add(cell.DeattachPiece());
     }
 
     #endregion
@@ -99,7 +99,6 @@ namespace Yasc.Controls
       var moves = Board.GetAvailableMoves(args.FromPosition);
       var positions = from UsualMove m in moves select m.To;
       HighlightAvailableMoves(positions.Distinct());
-
       MoveSource = args.FromPosition;
     }
     private void OnDragFromHand(object sender, DragFromHandEventArgs args)

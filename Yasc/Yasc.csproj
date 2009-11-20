@@ -119,6 +119,7 @@
     <Compile Include="Common\TimerDirection.cs" />
     <Compile Include="Controls\BoardBorder.cs" />
     <Compile Include="Controls\HandNest.cs" />
+    <Compile Include="Controls\PieceHolderBase.cs" />
     <Compile Include="Controls\ShogiBoardCore.cs" />
     <Compile Include="Diagram\BoardDiagram.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />

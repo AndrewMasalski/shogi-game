@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using MvvmFoundation.Wpf;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
@@ -108,11 +107,6 @@ namespace Yasc.Controls
     {
       get { return (bool)GetValue(IsPromotedProperty); }
       set { SetValue(IsPromotedProperty, value); }
-    }
-
-    public void DeattachFromCell()
-    {
-      ((ContentPresenter)VisualTreeHelper.GetParent(this)).Content = null;
     }
   }
 }

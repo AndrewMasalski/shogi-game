@@ -15,20 +15,6 @@ namespace Yasc.Controls
         new FrameworkPropertyMetadata(typeof(HandNest)));
     }
 
-    #region ' IsPossible MoveTarget '
-
-    public static readonly DependencyProperty IsPossibleMoveTargetProperty =
-      DependencyProperty.Register("IsPossibleMoveTarget", typeof(bool),
-        typeof(HandNest), new UIPropertyMetadata(false));
-
-    public bool IsPossibleMoveTarget
-    {
-      get { return (bool)GetValue(IsPossibleMoveTargetProperty); }
-      set { SetValue(IsPossibleMoveTargetProperty, value); }
-    }
-
-    #endregion
-
     #region ' Hand Property '
 
     public static readonly DependencyProperty HandProperty =
@@ -80,33 +66,6 @@ namespace Yasc.Controls
     {
       get { return (ObservableCollection<Piece>)GetValue(HandProperty); }
       set { SetValue(HandProperty, value); }
-    }
-
-    #endregion
-
-    #region ' IsMoveSource Property '
-
-    public static readonly DependencyProperty IsMoveSourceProperty =
-      DependencyProperty.Register("IsMoveSource", typeof(bool),
-        typeof(HandNest), new UIPropertyMetadata(false));
-
-    public bool IsMoveSource
-    {
-      get { return (bool)GetValue(IsMoveSourceProperty); }
-      set { SetValue(IsMoveSourceProperty, value); }
-    }
-
-    #endregion
-
-    #region ' IsFlipped Property '
-
-    public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
-      typeof(HandNest), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
-
-    public bool IsFlipped
-    {
-      get { return (bool)GetValue(IsFlippedProperty); }
-      set { SetValue(IsFlippedProperty, value); }
     }
 
     #endregion
@@ -186,6 +145,5 @@ namespace Yasc.Controls
 
 
     #endregion
-
   }
 }
