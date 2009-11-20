@@ -128,19 +128,12 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiHand}">
-          <ItemsControl ItemsSource="{TemplateBinding Hand}">
+          <ItemsControl ItemsSource="{TemplateBinding Items}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
                 <UniformGrid Columns="2"/>
               </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <Grid Background="Transparent" >
-                  <local:ShogiPiece Piece="{Binding}"/>
-                </Grid>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
           </ItemsControl>
         </ControlTemplate>
       </Setter.Value>

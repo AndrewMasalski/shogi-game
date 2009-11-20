@@ -1,5 +1,7 @@
+using System;
 using Yasc.Controls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Utils;
 
 namespace Yasc.GenericDragDrop
 {
@@ -7,13 +9,18 @@ namespace Yasc.GenericDragDrop
   {
     public ShogiBoard ShogiBoard { get; set; }
     public ShogiPiece ShogiPiece { get; private set; }
-    public Piece Piece
+    public PieceType PieceType
     {
-      get { return (Piece)ShogiPiece.DataContext; }
+      get { return ShogiPiece.PieceType; }
     }
     public ShogiHand ShogiHand
     {
       get { return ShogiPiece.FindAncestor<ShogiHand>(); }
+    }
+
+    public PieceColor PieceColor
+    {
+      get { return ShogiPiece.PieceColor; }
     }
 
     public DragFromHandEventArgs(ShogiBoard shogiBoard, ShogiPiece piece)
