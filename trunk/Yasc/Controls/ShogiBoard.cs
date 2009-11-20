@@ -16,9 +16,7 @@ namespace Yasc.Controls
   [TemplatePart(Name = "PART_AdornerLayer", Type = typeof(Canvas))]
   public class ShogiBoard : Control
   {
-    private readonly Flag _dragMove = new Flag();
-
-    #region ' Helpers '
+    #region ' Ctors '
 
     static ShogiBoard()
     {
@@ -49,6 +47,54 @@ namespace Yasc.Controls
       var to = Board[m.To.X, m.To.Y];
 
       AnimateMove(from, to);
+    }
+    private void AnimateMove(Cell from, Cell to)
+    {
+      if (_adornerLayer == null) return;
+      AnimateMove(GetCell(from), GetCell(to));
+    }
+    private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
+    {
+      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
+      MoveToAdornerLayer(pieceControl);
+      var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
+      toCtrl.Visibility = Visibility.Hidden;
+
+      AnimatePosition(pieceControl, to, (sender, args) =>
+      {
+        toCtrl.Visibility = Visibility.Visible;
+        _adornerLayer.Children.Remove(pieceControl);
+      });
+    }
+    private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
+    {
+      var duration = new Duration(TimeSpan.FromSeconds(.3));
+
+      ctrl.BeginAnimation(Canvas.LeftProperty, new DoubleAnimation(to.X, duration));
+
+      var anim = new DoubleAnimation(to.Y, duration);
+      anim.Completed += completed;
+      ctrl.BeginAnimation(Canvas.TopProperty, anim);
+    }
+    private void MoveToAdornerLayer(FrameworkElement ctrl)
+    {
+      var transform = ctrl.TransformToVisual(_adornerLayer);
+      var point = transform.Transform(new Point(0, 0));
+      Canvas.SetLeft(ctrl, point.X);
+      Canvas.SetTop(ctrl, point.Y);
+      ctrl.Width = ctrl.ActualWidth;
+      ctrl.Height = ctrl.ActualHeight;
+      // When we move piece from its tamplate piece DataContext changes 
+      // to the one _adornelLyer has. There's nothing wrong with it except
+      // XAML might define bindings which become invalid. As far as piece
+      // is going to be thrown away after animation it's not a big deal.
+      ctrl.DataContext = ctrl.DataContext;
+      RemoveFromParentControl(ctrl);
+      _adornerLayer.Children.Add(ctrl);
+    }
+    private static void RemoveFromParentControl(DependencyObject ctrl)
+    {
+      ((ContentPresenter)VisualTreeHelper.GetParent(ctrl)).Content = null;
     }
 
     #endregion
@@ -205,117 +251,10 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region IsFlippedProperty
-
-    public static readonly DependencyProperty IsFlippedProperty =
-      DependencyProperty.RegisterAttached("IsFlipped", typeof (bool),
-                                          typeof (ShogiBoard), new FrameworkPropertyMetadata(false, 
-                                                                                             FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
-    public bool IsFlipped
-    {
-      get { return (bool) GetValue(IsFlippedProperty); }
-      set { SetValue(IsFlippedProperty, value); }
-    }
-
-    public static bool GetIsFlipped(DependencyObject obj)
-    {
-      return (bool)obj.GetValue(IsFlippedProperty);
-    }
-    public static void SetIsFlipped(DependencyObject obj, bool value)
-    {
-      obj.SetValue(IsFlippedProperty, value);
-    }
-
-
-    #endregion
-
-    #region BoardProperty
-
-    public static readonly DependencyProperty BoardProperty =
-      DependencyProperty.Register("Board", typeof (Board),
-                                  typeof (ShogiBoard), new UIPropertyMetadata(default(Board), BoardPropertyChanged));
-
-    private static void BoardPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
-    {
-      if (args.OldValue != null)
-        ((Board)args.OldValue).Moving -= ((ShogiBoard)o).BoardOnMoving;
-
-      if (args.NewValue != null)
-        ((Board)args.NewValue).Moving += ((ShogiBoard)o).BoardOnMoving;
-    }
-
-    public Board Board
-    {
-      get { return (Board) GetValue(BoardProperty); }
-      set { SetValue(BoardProperty, value); }
-    }
-
-
-    #endregion
-
-    #region AreMoveRulesEnforcedProperty
-
-    public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
-      DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
-                                  typeof (ShogiBoard), new UIPropertyMetadata(true, OnMoveRulesEnforcedChanged));
-
-
-    private static void OnMoveRulesEnforcedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
-    {
-      ((ShogiBoard)o).OnMoveRulesEnforcedChanged((bool) args.NewValue);
-    }
-
-    private void OnMoveRulesEnforcedChanged(bool value)
-    {
-      Board.IsMovesOrderMaintained = value;
-    }
-
-    public bool AreMoveRulesEnforced
-    {
-      get { return (bool) GetValue(AreMoveRulesEnforcedProperty); }
-      set { SetValue(AreMoveRulesEnforcedProperty, value); }
-    }
-
-    #endregion
-
-    private readonly Dnd _dnd;
-
-    private Canvas _adornerLayer;
-
-    public override void OnApplyTemplate()
-    {
-      _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
-      base.OnApplyTemplate();
-    }
-    
-    #region ' Public Interface '
-
-    public void AnimateMove(Cell from, Cell to)
-    {
-      if (_adornerLayer == null) return;
-      AnimateMove(GetCell(from), GetCell(to));
-    }
-    public void HighlightAvailableMoves(IEnumerable<Position> cells)
-    {
-      foreach (Position p in cells)
-      {
-        var cell = GetCell(p);
-        if (cell == null) continue;
-        cell.IsPossibleMoveTarget = true;
-      }
-    }
-    public void ResetAvailableMoves()
-    {
-      foreach (var p in Position.OnBoard)
-      {
-        var cell = GetCell(p);
-        if (cell == null) continue;
-        cell.IsPossibleMoveTarget = false;
-      }
-    }
+    #region ' MoveSource Property '
 
     private Position? _moveSource;
+
     public Position? MoveSource
     {
       get { return _moveSource; }
@@ -335,6 +274,125 @@ namespace Yasc.Controls
       }
     }
 
+    #endregion
+
+    #region ' IsFlipped Property '
+
+    public static readonly DependencyProperty IsFlippedProperty =
+      DependencyProperty.RegisterAttached("IsFlipped", typeof (bool),
+        typeof (ShogiBoard), new FrameworkPropertyMetadata(false, 
+          FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+    public bool IsFlipped
+    {
+      get { return (bool) GetValue(IsFlippedProperty); }
+      set { SetValue(IsFlippedProperty, value); }
+    }
+
+    public static bool GetIsFlipped(DependencyObject obj)
+    {
+      return (bool)obj.GetValue(IsFlippedProperty);
+    }
+    public static void SetIsFlipped(DependencyObject obj, bool value)
+    {
+      obj.SetValue(IsFlippedProperty, value);
+    }
+
+    #endregion
+
+    #region ' Board Property '
+
+    public static readonly DependencyProperty BoardProperty =
+      DependencyProperty.Register("Board", typeof (Board),
+       typeof (ShogiBoard), new UIPropertyMetadata(null, BoardPropertyChanged));
+
+    private static void BoardPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    {
+      ((ShogiBoard)o).BoardPropertyChanged((Board)args.OldValue, (Board)args.NewValue);
+    }
+
+    private void BoardPropertyChanged(Board oldValue, Board newValue)
+    {
+      if (oldValue != null)
+      {
+        oldValue.Moving -= BoardOnMoving;
+      }
+
+      if (newValue != null)
+      {
+        newValue.Moving += BoardOnMoving;
+      }
+    }
+
+    public Board Board
+    {
+      get { return (Board) GetValue(BoardProperty); }
+      set { SetValue(BoardProperty, value); }
+    }
+    
+    #endregion
+
+    #region ' AreMoveRulesEnforced Property '
+
+    public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
+      DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
+        typeof (ShogiBoard), new UIPropertyMetadata(true, OnMoveRulesEnforcedChanged));
+
+
+    private static void OnMoveRulesEnforcedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    {
+      ((ShogiBoard)o).OnMoveRulesEnforcedChanged((bool) args.NewValue);
+    }
+    private void OnMoveRulesEnforcedChanged(bool value)
+    {
+      Board.IsMovesOrderMaintained = value;
+    }
+
+    public bool AreMoveRulesEnforced
+    {
+      get { return (bool) GetValue(AreMoveRulesEnforcedProperty); }
+      set { SetValue(AreMoveRulesEnforcedProperty, value); }
+    }
+
+    #endregion
+
+    #region ' Parts '
+
+    public override void OnApplyTemplate()
+    {
+      _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
+      base.OnApplyTemplate();
+    }
+
+    private Canvas _adornerLayer;
+
+    #endregion
+
+    #region ' Highlight Available Moves '
+
+    private void HighlightAvailableMoves(IEnumerable<Position> cells)
+    {
+      foreach (Position p in cells)
+      {
+        var cell = GetCell(p);
+        if (cell == null) continue;
+        cell.IsPossibleMoveTarget = true;
+      }
+    }
+    private void ResetAvailableMoves()
+    {
+      foreach (var p in Position.OnBoard)
+      {
+        var cell = GetCell(p);
+        if (cell == null) continue;
+        cell.IsPossibleMoveTarget = false;
+      }
+    }
+
+    #endregion
+
+    #region ' Helpers '
+
     private ShogiCell GetCell(Cell cell)
     {
       return this.FindChild<ShogiCell>(c => c.Cell == cell);
@@ -346,52 +404,7 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region ' Move Animation '
-
-    private void AnimateMove(DependencyObject fromCtrl, UIElement toCtrl)
-    {
-      var pieceControl = fromCtrl.FindChild<ShogiPiece>();
-      MoveToAdornerLayer(pieceControl);
-      var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
-      toCtrl.Visibility = Visibility.Hidden;
-
-      AnimatePosition(pieceControl, to, (sender, args) =>
-      {
-        toCtrl.Visibility = Visibility.Visible;
-        _adornerLayer.Children.Remove(pieceControl);
-      });
-    }
-    private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
-    {
-      var duration = new Duration(TimeSpan.FromSeconds(.3));
-
-      ctrl.BeginAnimation(Canvas.LeftProperty, new DoubleAnimation(to.X, duration));
-
-      var anim = new DoubleAnimation(to.Y, duration);
-      anim.Completed += completed;
-      ctrl.BeginAnimation(Canvas.TopProperty, anim);
-    }
-    private void MoveToAdornerLayer(FrameworkElement ctrl)
-    {
-      var transform = ctrl.TransformToVisual(_adornerLayer);
-      var point = transform.Transform(new Point(0, 0));
-      Canvas.SetLeft(ctrl, point.X);
-      Canvas.SetTop(ctrl, point.Y);
-      ctrl.Width = ctrl.ActualWidth;
-      ctrl.Height = ctrl.ActualHeight;
-      // When we move piece from its tamplate piece DataContext changes 
-      // to the one _adornelLyer has. There's nothing wrong with it except
-      // XAML might define bindings which become invalid. As far as piece
-      // is going to be thrown away after animation it's not a big deal.
-      ctrl.DataContext = ctrl.DataContext;
-      RemoveFromParentControl(ctrl);
-      _adornerLayer.Children.Add(ctrl);
-    }
-    private static void RemoveFromParentControl(DependencyObject ctrl)
-    {
-      ((ContentPresenter)VisualTreeHelper.GetParent(ctrl)).Content = null;
-    }
-
-    #endregion
+    private readonly Dnd _dnd;
+    private readonly Flag _dragMove = new Flag();
   }
 }
