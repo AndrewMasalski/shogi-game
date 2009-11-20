@@ -206,13 +206,14 @@
           <Grid Background="Transparent" >
             <Rectangle Name="border" Stretch="Fill" SnapsToDevicePixels="True"/>
             <ContentPresenter Name="PART_Piece"/>
+            <Rectangle Name="border1" Stretch="Fill" SnapsToDevicePixels="True"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsPossibleMoveTarget" Value="True">
               <Setter TargetName="border" Property="Fill" Value="LightBlue"/>
             </Trigger>
             <Trigger Property="IsMoveSource" Value="True">
-              <Setter TargetName="border" Property="Fill" Value="#FFF8C8FF"/>
+              <Setter TargetName="border1" Property="Fill" Value="#FFF8C8FF"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
