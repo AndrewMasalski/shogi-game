@@ -60,6 +60,12 @@ namespace Yasc.GenericDragDrop
       return res;
     }
 
+    public static T FindLastChild<T>(this DependencyObject obj, Func<T, bool> predicate)
+      where T : DependencyObject
+    {
+      return FindChildren<T>(obj).Where(predicate).LastOrDefault();
+    }
+
     public static IEnumerable<T> FindChildren<T>(this DependencyObject obj)
       where T : DependencyObject
     {

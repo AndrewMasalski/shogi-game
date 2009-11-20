@@ -2,14 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
-using System.Windows.Controls;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Controls
 {
-  [TemplatePart(Name = "PART_Piece", Type = typeof(ContentPresenter))]
-  public class HandNest : Control
+  public class HandNest : PieceHolderBase
   {
     static HandNest()
     {
@@ -113,24 +111,15 @@ namespace Yasc.Controls
 
     #endregion
 
-    public ShogiPiece ShogiPiece
-    {
-      get { return _cp != null ? (ShogiPiece)_cp.Content : null; }
-    }
-
-    public override void OnApplyTemplate()
-    {
-      _cp = GetTemplateChild("PART_Piece") as ContentPresenter;
-      UpdateCp(PieceType, PieceColor);
-      base.OnApplyTemplate();
-    }
     private void UpdateCp(PieceType pieceType, PieceColor pieceColor)
     {
-      if (_cp == null) return;
-      _cp.Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
+      if (Cp == null) return;
+      Cp.Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
     }
-
-    private ContentPresenter _cp;
+    protected override void UpdateCp()
+    {
+      UpdateCp(PieceType, PieceColor);
+    }
 
     #region ' PiecesCount Property '
 
