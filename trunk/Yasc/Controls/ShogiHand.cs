@@ -14,6 +14,8 @@ namespace Yasc.Controls
         new FrameworkPropertyMetadata(typeof(ShogiHand)));
     }
 
+    #region ' Board Property '
+
     public static readonly DependencyProperty BoardProperty =
       DependencyProperty.Register("Board", typeof (Board),
                                   typeof (ShogiHand), new UIPropertyMetadata(default(Board), OnBoardChanged));
@@ -34,9 +36,14 @@ namespace Yasc.Controls
       set { SetValue(BoardProperty, value); }
     }
 
+
+    #endregion
+
+    #region ' Color Property '
+
     public static readonly DependencyProperty ColorProperty =
       DependencyProperty.Register("Color", typeof (PieceColor),
-        typeof (ShogiHand), new UIPropertyMetadata(default(PieceColor), OnColorChanged));
+                                  typeof (ShogiHand), new UIPropertyMetadata(default(PieceColor), OnColorChanged));
 
     private static void OnColorChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
@@ -54,6 +61,10 @@ namespace Yasc.Controls
       set { SetValue(ColorProperty, value); }
     }
 
+    #endregion
+
+    #region ' Hand Property '
+
     public static readonly DependencyProperty HandProperty =
       DependencyProperty.Register("Hand", typeof (ObservableCollection<Piece>),
                                   typeof (ShogiHand), new UIPropertyMetadata(default(ObservableCollection<Piece>)));
@@ -63,6 +74,7 @@ namespace Yasc.Controls
       get { return (ObservableCollection<Piece>) GetValue(HandProperty); }
       set { SetValue(HandProperty, value); }
     }
-    
+
+    #endregion
   }
 }
