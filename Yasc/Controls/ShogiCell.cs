@@ -6,7 +6,34 @@ using Yasc.ShogiCore.Utils;
 namespace Yasc.Controls
 {
   [TemplatePart(Name = "PART_Piece", Type = typeof(ContentPresenter))]
-  public class ShogiCell : Control
+  public abstract class PieceHolderBase : Control
+  {
+    static PieceHolderBase()
+    {
+      DefaultStyleKeyProperty.OverrideMetadata(typeof(PieceHolderBase),
+        new FrameworkPropertyMetadata(typeof(PieceHolderBase)));
+    }
+
+    public override void OnApplyTemplate()
+    {
+      Cp = GetTemplateChild("PART_Piece") as ContentPresenter;
+      UpdateCp();
+      base.OnApplyTemplate();
+    }
+
+    protected abstract void UpdateCp();
+
+    public ContentPresenter Cp { get; private set; }
+
+    public ShogiPiece ShogiPiece
+    {
+      get { return Cp != null ? (ShogiPiece)Cp.Content : null; }
+    }
+
+
+  }
+
+  public class ShogiCell : PieceHolderBase
   {
     static ShogiCell()
     {
@@ -50,8 +77,8 @@ namespace Yasc.Controls
 
     private void UpdateCp(Cell cell)
     {
-      if (_cp == null) return;
-      _cp.Content = cell == null || cell.Piece == null ? null : new ShogiPiece(cell.Piece);
+      if (Cp == null) return;
+      Cp.Content = cell == null || cell.Piece == null ? null : new ShogiPiece(cell.Piece);
     }
 
     public Cell Cell
@@ -91,22 +118,21 @@ namespace Yasc.Controls
     #endregion
 
 
-    public ShogiPiece ShogiPiece
-    {
-      get { return _cp != null ? (ShogiPiece)_cp.Content : null;  }
-    }
-
-    public override void OnApplyTemplate()
-    {
-        _cp = GetTemplateChild("PART_Piece") as ContentPresenter;
-        UpdateCp(Cell);
-      base.OnApplyTemplate();
-    }
-    private ContentPresenter _cp;
 
 // ReSharper disable UnaccessedField.Local
     // We need it for GC not to collect it
     private PropertyObserver<Cell> _cellObserver;
 // ReSharper restore UnaccessedField.Local
+
+    #region Overrides of PieceHolderBase
+
+    protected override void UpdateCp()
+    {
+      UpdateCp(Cell);
+    }
+
+
+
+    #endregion
   }
 }

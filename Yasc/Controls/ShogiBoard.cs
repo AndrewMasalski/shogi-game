@@ -51,10 +51,11 @@ namespace Yasc.Controls
       var d = args.Move as DropMove;
       if (d != null)
       {
-//        AnimateMove();
+        AnimateMove(GetNest(d.PieceType, d.Who.Color), GetCell(d.To));
       }
     }
-    private void AnimateMove(ShogiCell fromControl, UIElement toCtrl)
+
+    private void AnimateMove(PieceHolderBase fromControl, UIElement toCtrl)
     {
       var pieceControl = fromControl.ShogiPiece;
       MoveToAdornerLayer(pieceControl);
@@ -69,7 +70,7 @@ namespace Yasc.Controls
     }
     private static void AnimatePosition(IAnimatable ctrl, Point to, EventHandler completed)
     {
-      var duration = new Duration(TimeSpan.FromSeconds(.3));
+      var duration = new Duration(TimeSpan.FromSeconds(.4));
 
       ctrl.BeginAnimation(Canvas.LeftProperty, new DoubleAnimation(to.X, duration));
 
@@ -394,6 +395,12 @@ namespace Yasc.Controls
     private ShogiCell GetCell(Cell cell)
     {
       return this.FindChild<ShogiCell>(c => c.Cell == cell);
+    }
+    
+    private HandNest GetNest(PieceType type, PieceColor color)
+    {
+      var hand = this.FindChild<ShogiHand>(h => h.Color == color);
+      return hand.FindLastChild<HandNest>(n => n.PieceType == type);
     }
 
     #endregion
