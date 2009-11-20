@@ -14,7 +14,7 @@ namespace Yasc.Controls
         new FrameworkPropertyMetadata(typeof(ShogiCell)));
     }
 
-    #region IsPossibleMoveTarget
+    #region 'IsPossible MoveTarget '
 
     public static readonly DependencyProperty IsPossibleMoveTargetProperty =
       DependencyProperty.Register("IsPossibleMoveTarget", typeof(bool),
@@ -28,7 +28,7 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region CellProperty
+    #region ' Cell Property '
 
     public static readonly DependencyProperty CellProperty =
       DependencyProperty.Register("Cell", typeof (Cell),
@@ -62,11 +62,11 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region IsMoveSourceProperty
+    #region ' IsMoveSource Property '
 
     public static readonly DependencyProperty IsMoveSourceProperty =
       DependencyProperty.Register("IsMoveSource", typeof (bool),
-                                  typeof(ShogiCell), new UIPropertyMetadata(default(bool)));
+       typeof(ShogiCell), new UIPropertyMetadata(false));
 
 
     public bool IsMoveSource
@@ -77,7 +77,7 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region IsFlippedProperty
+    #region ' IsFlipped Property '
 
     public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
       typeof(ShogiCell), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
@@ -91,7 +91,7 @@ namespace Yasc.Controls
     #endregion
 
 
-    public ShogiPiece  ShogiPiece
+    public ShogiPiece ShogiPiece
     {
       get { return _cp != null ? (ShogiPiece)_cp.Content : null;  }
     }
