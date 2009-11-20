@@ -79,71 +79,32 @@ namespace Yasc.Controls
     {
       UpdateCp(PieceType, PieceColor);
     }
+    protected override void OnPieceTypeChanged(PieceType pieceType)
+    {
+      if (Hand == null) return;
+      PiecesCount = Count(Hand, pieceType);
+      UpdateCp(pieceType, PieceColor);
+      base.OnPieceTypeChanged(pieceType);
+    }
+    protected override void OnPieceColorChanged(PieceColor pieceColor)
+    {
+      UpdateCp(PieceType, pieceColor);
+      base.OnPieceColorChanged(pieceColor);
+    }
 
     #region ' PiecesCount Property '
 
     public static readonly DependencyProperty PiecesCountProperty =
-      DependencyProperty.Register("PiecesCount", typeof (int),
-        typeof (HandNest), new UIPropertyMetadata(0));
+      DependencyProperty.Register("PiecesCount", typeof(int),
+        typeof(HandNest), new UIPropertyMetadata(0));
 
     public int PiecesCount
     {
-      get { return (int) GetValue(PiecesCountProperty); }
+      get { return (int)GetValue(PiecesCountProperty); }
       set { SetValue(PiecesCountProperty, value); }
     }
 
     #endregion
 
-    #region ' PieceType Property '
-
-    public static readonly DependencyProperty PieceTypeProperty =
-      DependencyProperty.Register("PieceType", typeof (PieceType),
-        typeof (HandNest), new UIPropertyMetadata(default(PieceType), OnPieceTypeChanged));
-
-    private static void OnPieceTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-      ((HandNest) d).OnPieceTypeChanged((PieceType) e.NewValue);
-    }
-
-    private void OnPieceTypeChanged(PieceType pieceType)
-    {
-      if (Hand == null) return;
-      PiecesCount = Count(Hand, pieceType);
-      UpdateCp(pieceType, PieceColor);
-    }
-
-    public PieceType PieceType
-    {
-      get { return (PieceType) GetValue(PieceTypeProperty); }
-      set { SetValue(PieceTypeProperty, value); }
-    }
-
-    #endregion
-
-    #region ' PieceColor Property '
-
-    public static readonly DependencyProperty PieceColorProperty =
-      DependencyProperty.Register("PieceColor", typeof(PieceColor),
-        typeof(HandNest), new UIPropertyMetadata(default(PieceColor), OnPieceColorChanged));
-
-    private static void OnPieceColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-      ((HandNest)d).OnPieceColorChanged((PieceColor)e.NewValue);
-    }
-
-    private void OnPieceColorChanged(PieceColor pieceColor)
-    {
-      UpdateCp(PieceType, pieceColor);
-    }
-
-    public PieceColor PieceColor
-    {
-      get { return (PieceColor)GetValue(PieceColorProperty); }
-      set { SetValue(PieceColorProperty, value); }
-    }
-    
-
-
-    #endregion
   }
 }
