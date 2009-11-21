@@ -91,6 +91,12 @@ namespace Yasc.Controls
       UpdateCp(PieceType, pieceColor);
       base.OnPieceColorChanged(pieceColor);
     }
+    public override ShogiPiece DeattachPiece()
+    {
+      var res = base.DeattachPiece();
+      if (PiecesCount > 1) UpdateCp(PieceType, PieceColor);
+      return res;
+    }
 
     #region ' PiecesCount Property '
 
