@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
 using Yasc.AI;
@@ -119,8 +120,19 @@ namespace Yasc.Gui
     {
       // If it's not opponent than it must be me
       if (!_opponentMoveReaction && _ticket != null)
+      {
         _ticket.Move(new MoveMsg(args.Move.ToString()));
+        if (Board.CurrentSnapshot.IsMateFor(Opponent(_ticket.MyColor)))
+        {
+          MessageBox.Show("You won!");
+        }
+      }
     }
+    private static PieceColor Opponent(PieceColor color)
+    {
+      return color == PieceColor.White ? PieceColor.Black : PieceColor.White;
+    }
+
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())

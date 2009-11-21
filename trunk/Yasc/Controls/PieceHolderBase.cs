@@ -101,7 +101,7 @@ namespace Yasc.Controls
     }
     protected abstract void UpdateCp();
 
-    public ShogiPiece DeattachPiece()
+    public virtual ShogiPiece DeattachPiece()
     {
       if (Cp == null) return null;
       var piece = ShogiPiece;
@@ -113,7 +113,6 @@ namespace Yasc.Controls
     {
       get { return Cp != null ? (ShogiPiece)Cp.Content : null; }
     }
-
 
     #region ' PieceType Property '
 
