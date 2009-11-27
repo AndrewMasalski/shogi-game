@@ -1,0 +1,14 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="1000" Height="500"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:UnitTests"
+      xmlns:Diagram1="clr-namespace:Yasc.Diagram" >
+  <Diagram1:BoardDiagram Black="K1i, P1g" White="R2h, G3g" WhiteHand="P"/>
+  <Page.Resources>
+    <local:ValidMovesManifest x:Key="ValidMovesManifest">
+      <local:AvailableUsualMoves From="1i" To="2i, 3i" Mode="AndNoMore"/>
+      <local:AvailableDropMoves For="White" Piece="P" To="2i, 3i" Mode="AndOther"/>
+      <local:ForbiddenDropMoves For="White" Piece="P" To="2i, 3i" Mode="AndNoMore"/>
+      <local:ForbiddenUsualMoves From="1i" To="2i, 3i" Mode="AndOther"/>
+    </local:ValidMovesManifest>
+  </Page.Resources>
+</Page>
