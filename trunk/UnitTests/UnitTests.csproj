@@ -12,8 +12,6 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../Marhoily.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,8 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Diagram\AvailableDropMoves.cs" />
-    <Compile Include="Diagram\AvailableUsualMoves.cs" />
     <Compile Include="BoardSnapshotTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -71,17 +67,9 @@
     <Compile Include="CellTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Diagram\BoardDiagram.cs" />
-    <Compile Include="Diagram\ForbiddenDropMoves.cs" />
-    <Compile Include="Diagram\ForbiddenUsualMoves.cs" />
-    <Compile Include="Diagram\IDropMoves.cs" />
-    <Compile Include="Diagram\IUsualMoves.cs" />
-    <Compile Include="Diagram\MovesValidatorMode.cs" />
-    <Compile Include="Diagram\UsualMovesBase.cs" />
     <Compile Include="DropMoves\DropMovesTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Diagram\InputBamlStreamList.cs" />
     <Compile Include="MoveTest.cs" />
     <Compile Include="Netwroking\DispatcherUtils.cs" />
     <Compile Include="Netwroking\ServerRoutines.cs" />
@@ -126,20 +114,20 @@
     <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RulesVisualization\RulesVisualization.csproj">
+      <Project>{A3972558-F892-47C4-B46D-640DDFB4BAC8}</Project>
+      <Name>RulesVisualization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yasc\Yasc.csproj">
       <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
       <Name>Yasc</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Diagram\TestPage.xaml">
+    <Page Include="Positions\TestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <CodeAnalysisDictionary Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
