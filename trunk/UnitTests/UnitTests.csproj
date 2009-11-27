@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Diagram\AvailableDropMoves.cs" />
     <Compile Include="Diagram\AvailableUsualMoves.cs" />
     <Compile Include="BoardSnapshotTest.cs">
       <SubType>Code</SubType>
@@ -71,6 +72,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Diagram\BoardDiagram.cs" />
+    <Compile Include="Diagram\ForbiddenDropMoves.cs" />
+    <Compile Include="Diagram\ForbiddenUsualMoves.cs" />
+    <Compile Include="Diagram\IDropMoves.cs" />
+    <Compile Include="Diagram\IUsualMoves.cs" />
+    <Compile Include="Diagram\MovesValidatorMode.cs" />
+    <Compile Include="Diagram\UsualMovesBase.cs" />
     <Compile Include="DropMoves\DropMovesTest.cs">
       <SubType>Code</SubType>
     </Compile>

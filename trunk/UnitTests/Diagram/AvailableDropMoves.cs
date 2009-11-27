@@ -1,6 +1,6 @@
 namespace UnitTests.Diagram
 {
-  public class AvailableUsualMoves : UsualMovesBase
+  public class AvailableDropMoves : DropMovesBase
   {
     public override bool IsAvailable
     {

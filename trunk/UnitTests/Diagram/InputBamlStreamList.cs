@@ -3,47 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 
-namespace UnitTests
+namespace UnitTests.Diagram
 {
   /// <summary>Class that enumerates all the baml streams in the input file</summary>
   public static class BamlEnumerator
   {
     const string Prefix = "/{0};component/";
 
-    /// <summary>Enumerates all the baml streams in the input assembly</summary>
-    /// <param name="assembly"></param>
-    /// <returns></returns>
+    /// <summary>Enumerates all the baml streams in the assembly</summary>
+    /// <param name="assembly">assembly to enumerate bamls in</param>
+    /// <returns>References to XAMLs</returns>
     public static IEnumerable<Uri> GetBamls(this Assembly assembly)
     {
       string prefix = string.Format(Prefix, GetAsmName(assembly));
 
-      foreach (string resourceName in assembly.GetManifestResourceNames())
-        if (assembly.GetManifestResourceStream(resourceName) != null)
-// ReSharper disable AssignNullToNotNullAttribute
-          using (var reader = new ResourceReader(assembly.GetManifestResourceStream(resourceName)))
-// ReSharper restore AssignNullToNotNullAttribute
-            foreach (var uri in EnumerateBamlInResources(reader, prefix))
-              yield return uri;
+      var manifestResourceStreams =
+        from string resourceName in assembly.GetManifestResourceNames()
+        select assembly.GetManifestResourceStream(resourceName);
+
+      foreach (var stream in manifestResourceStreams)
+        using (var reader = new ResourceReader(stream))
+          foreach (var uri in EnumerateBamlInResources(reader))
+            yield return new Uri(prefix + uri, UriKind.Relative);
     }
 
     private static string GetAsmName(Assembly asm)
     {
       string name = asm.FullName;
-// ReSharper disable PossibleNullReferenceException
+      if (name == null) throw new ArgumentOutOfRangeException("asm");
       return name.Substring(0, name.IndexOf(","));
-// ReSharper restore PossibleNullReferenceException
     }
 
     /// <summary>Enumerate baml streams in a resources file</summary>        
-    private static IEnumerable<Uri> EnumerateBamlInResources(ResourceReader resourceReader, string prefix)
+    private static IEnumerable<string> EnumerateBamlInResources(ResourceReader resourceReader)
     {
       foreach (DictionaryEntry resource in resourceReader)
         if (IsResourceEntryBamlStream(resource))
-          yield return new Uri(prefix +
-            Path.ChangeExtension((string)resource.Key, ".xaml"), UriKind.Relative);
+          yield return Path.ChangeExtension((string)resource.Key, ".xaml");
     }
 
     /// <summary>Determines whether a stream name and value pair indicates a baml stream</summary>
