@@ -107,6 +107,7 @@
     <Compile Include="UsualMoves\SilverTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UsualMoves\UsualMovesTest.cs" />
     <Compile Include="ValidMovesTestHelper.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -123,13 +124,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Positions\BoshopMoves.xaml">
+    <Page Include="Positions\BishopMoves.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Positions\PawnMoves.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

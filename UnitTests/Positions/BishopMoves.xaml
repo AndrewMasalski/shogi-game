@@ -1,10 +1,9 @@
 ﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-      Width="490" Height="371"
       xmlns:rv="clr-namespace:RulesVisualization;assembly=RulesVisualization"
-      >
+      Width="490" Height="371">
   
   <rv:BoardDiagram Black="B3g, P1e" White="B3c, P5e" MovesToShow="0">
+    <rv:AvailableUsualMoves From="3c" To="2b, 1a, 2d, 1e, 4b, 5a, 4d" Mode="AndNoMore"/>
     <rv:AvailableUsualMoves From="3g" To="1i, 2h, 2f, 4h, 5i, 4f, 5e" Mode="AndNoMore"/>
-    <rv:ForbiddenUsualMoves From="1i" To="2i, 3i" Mode="AndOther"/>
   </rv:BoardDiagram>
 </Page>
