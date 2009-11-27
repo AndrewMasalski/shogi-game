@@ -1,10 +1,10 @@
 ﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-      Width="1000" Height="500"
+      Width="490" Height="371"
       xmlns:rv="clr-namespace:RulesVisualization;assembly=RulesVisualization"
       >
   
-  <rv:BoardDiagram Black="K1i, P1g" White="R2h, G3g" WhiteHand="P">
-    <rv:AvailableUsualMoves From="1i" To="2i, 3i" Mode="AndNoMore"/>
+  <rv:BoardDiagram Black="B3g, P1e" White="B3c, P5e">
+    <rv:AvailableUsualMoves From="3g" To="2i, 3i" Mode="AndNoMore"/>
     <rv:AvailableDropMoves For="White" Piece="P" To="2i, 3i" Mode="AndOther"/>
     <rv:ForbiddenDropMoves For="White" Piece="P" To="2i, 3i" Mode="AndNoMore"/>
     <rv:ForbiddenUsualMoves From="1i" To="2i, 3i" Mode="AndOther"/>

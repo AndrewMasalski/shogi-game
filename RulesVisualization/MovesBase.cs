@@ -26,5 +26,10 @@ namespace RulesVisualization
           return new Position[0];
       }
     }
+
+    public bool IsExclusive
+    {
+      get { return Mode == MovesValidatorMode.AndNoMore; }
+    }
   }
 }
