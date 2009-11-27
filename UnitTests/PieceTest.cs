@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTests.Diagram;
+using RulesVisualization;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
 
 namespace UnitTests
 {
@@ -27,12 +22,11 @@ namespace UnitTests
     [TestMethod]
     public void DiagramTest()
     {
-      foreach (var uri in typeof(PieceTest).Assembly.GetBamls())
+      var assembly = typeof(PieceTest).Assembly;
+      foreach (var page in assembly.ActivateObjectsOfType<Page>("Positions"))
       {
-        var p = (Page)Application.LoadComponent(uri);
-        var diagram = (BoardDiagram)p.Content;
+        var diagram = (BoardDiagram)page.Content;
         Assert.AreEqual("玉", (string)diagram.Board["1i"].Type);
-        
       }
     }
   }
