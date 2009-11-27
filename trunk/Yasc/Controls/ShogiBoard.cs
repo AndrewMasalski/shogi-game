@@ -387,16 +387,15 @@ namespace Yasc.Controls
 
     #region ' Helpers '
 
-    private ShogiCell GetCell(Position position)
+    public ShogiCell GetCell(Position position)
     {
       return Board == null ? null : GetCell(Board[position.X, position.Y]);
     }
-    private ShogiCell GetCell(Cell cell)
+    public ShogiCell GetCell(Cell cell)
     {
       return this.FindChild<ShogiCell>(c => c.Cell == cell);
     }
-    
-    private HandNest GetNest(PieceType type, PieceColor color)
+    public HandNest GetNest(PieceType type, PieceColor color)
     {
       var hand = this.FindChild<ShogiHand>(h => h.Color == color);
       return hand.FindLastChild<HandNest>(n => n.PieceType == type);

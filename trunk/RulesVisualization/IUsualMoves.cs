@@ -8,5 +8,6 @@ namespace RulesVisualization
     Position From { get; }
     IEnumerable<Position> To { get; }
     IEnumerable<Position> NotTo { get; }
+    bool IsExclusive { get; }
   }
 }

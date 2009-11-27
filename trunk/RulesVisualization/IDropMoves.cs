@@ -10,5 +10,6 @@ namespace RulesVisualization
     PieceType Piece { get; }
     IEnumerable<Position> To { get; }
     IEnumerable<Position> NotTo { get; }
+    bool IsExclusive { get;  }
   }
 }

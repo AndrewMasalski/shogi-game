@@ -64,14 +64,13 @@
     <Compile Include="BoardTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CellTest.cs">
+    <Compile Include="PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DropMoves\DropMovesTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MoveTest.cs" />
-    <Compile Include="Netwroking\DispatcherUtils.cs" />
     <Compile Include="Netwroking\ServerRoutines.cs" />
     <Compile Include="Netwroking\TestLog.cs" />
     <Compile Include="PieceTest.cs" />
@@ -124,9 +123,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Positions\TestPage.xaml">
+    <Page Include="Positions\BoshopMoves.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Positions\PawnMoves.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
