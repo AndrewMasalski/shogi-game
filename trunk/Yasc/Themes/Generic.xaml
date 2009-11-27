@@ -265,17 +265,6 @@
     </Setter>
   </Style>
 
-  <!--  BoardDiagram  -->
-  <Style TargetType="{x:Type Diagram:BoardDiagram}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Diagram:BoardDiagram}">
-          <local:ShogiBoard Board="{TemplateBinding Board}"/>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
   <!--  ShogiBoardCore  -->
   <Style TargetType="{x:Type local:ShogiBoardCore}">
     <Setter Property="Template">
