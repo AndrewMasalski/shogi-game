@@ -1,10 +1,10 @@
 namespace UnitTests.Diagram
 {
-  public class AvailableUsualMoves : UsualMovesBase
+  public class ForbiddenDropMoves : DropMovesBase
   {
     public override bool IsAvailable
     {
-      get { return true; }
+      get { return false; }
     }
   }
 }

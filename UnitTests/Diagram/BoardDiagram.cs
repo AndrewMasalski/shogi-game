@@ -1,16 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
-namespace Yasc.Diagram
+namespace UnitTests.Diagram
 {
+  [ContentProperty("Content")]
   public class BoardDiagram : Control
   {
     static BoardDiagram()
     {
       DefaultStyleKeyProperty.OverrideMetadata(typeof(BoardDiagram), new FrameworkPropertyMetadata(typeof(BoardDiagram)));
+    }
+    public BoardDiagram()
+    {
+      Content = new List<object>();
     }
 
     public static readonly DependencyProperty WhiteProperty =
@@ -132,5 +138,7 @@ namespace Yasc.Diagram
           trim.Substring(trim.Length - 2, 2), trim.Substring(0, trim.Length - 2));
       }
     }
+  
+    public List<object> Content { get; set; }
   }
 }
