@@ -16,7 +16,7 @@
     <WarningLevel>4</WarningLevel>
     <ApplicationIcon>App.ico</ApplicationIcon>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Marhoily.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../Marhoily.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -122,7 +122,6 @@
     <Compile Include="Controls\PieceDirection.cs" />
     <Compile Include="Controls\PieceHolderBase.cs" />
     <Compile Include="Controls\ShogiBoardCore.cs" />
-    <Compile Include="Diagram\BoardDiagram.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
     <Compile Include="GenericDragDrop\DragFromBoardEventArgs.cs" />
@@ -236,7 +235,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Marhoily.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

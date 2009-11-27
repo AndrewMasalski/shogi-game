@@ -110,6 +110,7 @@ namespace Yasc.GenericDragDrop
     private void BoardOnLoaded(object sender, RoutedEventArgs args)
     {
       _topWindow = _board.FindAncestor<Window>();
+      if (_topWindow == null) return;
       _topWindow.Deactivated += TopWindowOnDeactivated;
     }
     private void TopWindowOnDeactivated(object sender, EventArgs args)
@@ -125,8 +126,11 @@ namespace Yasc.GenericDragDrop
       _board.Loaded -= BoardOnLoaded;
       _board = null;
 
-      _topWindow.Deactivated -= TopWindowOnDeactivated;
-      _topWindow = null;
+      if (_topWindow != null)
+      {
+        _topWindow.Deactivated -= TopWindowOnDeactivated;
+        _topWindow = null;
+      }
 
       _adornerLayer = null;
     }
