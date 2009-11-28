@@ -77,15 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Netwroking\TimerTest.cs" />
-    <Compile Include="UsualMoves\BishopTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UsualMoves\GoldTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UsualMoves\KingTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UsualMoves\KnightTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -127,6 +118,14 @@
     <Page Include="Positions\BishopMoves.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Positions\KingTest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Positions\GoldMoves.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

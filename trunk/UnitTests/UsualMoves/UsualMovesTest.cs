@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RulesVisualization;
+using Yasc.RulesVisualization;
 using Yasc.ShogiCore;
 
 namespace UnitTests.UsualMoves
@@ -46,13 +46,13 @@ namespace UnitTests.UsualMoves
       foreach (var to in dropMoves.To)
       {
         var move = board.GetDropMove(dropMoves.Piece, to, board[dropMoves.For]);
-        Assert.IsTrue(move.IsValid, "Move " + move + " is not valid");
+        Assert.IsTrue(move.IsValid, move.ErrorMessage);
       }
 
       foreach (var to in dropMoves.NotTo)
       {
         var move = board.GetDropMove(dropMoves.Piece, to, board[dropMoves.For]);
-        Assert.IsFalse(move.IsValid, move.ErrorMessage);
+        Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
       }
     }
     private static void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
@@ -61,13 +61,13 @@ namespace UnitTests.UsualMoves
       foreach (var to in usualMoves.To)
       {
         var move = board.GetUsualMove(usualMoves.From, to, false);
-        Assert.IsTrue(move.IsValid, "Move " + move + " is not valid");
+        Assert.IsTrue(move.IsValid, move.ErrorMessage);
       }
 
       foreach (var to in usualMoves.NotTo)
       {
         var move = board.GetUsualMove(usualMoves.From, to, false);
-        Assert.IsFalse(move.IsValid, move.ErrorMessage);
+        Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
       }
     }
   }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Yasc.ShogiCore.Utils;
 
-namespace RulesVisualization
+namespace Yasc.RulesVisualization
 {
   public interface IUsualMoves
   {

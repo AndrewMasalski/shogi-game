@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Resources;
 using System.Windows;
 
-namespace RulesVisualization
+namespace Yasc.RulesVisualization
 {
   /// <summary>Class that enumerates all the baml streams in the input file</summary>
   public static class BamlEnumerator

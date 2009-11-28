@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
-namespace RulesVisualization
+namespace Yasc.RulesVisualization
 {
   public abstract class DropMovesBase : MovesBase, IDropMoves
   {
