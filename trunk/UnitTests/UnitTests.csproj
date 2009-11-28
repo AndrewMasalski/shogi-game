@@ -77,9 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Netwroking\TimerTest.cs" />
-    <Compile Include="UsualMoves\PawnTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UsualMoves\PromotedBishopTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,6 +109,10 @@
     <Page Include="Positions\BishopMoves.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Positions\PromotedBishopMoves.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Positions\PawnMoves.xaml">
       <Generator>MSBuild:Compile</Generator>
