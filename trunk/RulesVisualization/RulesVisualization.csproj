@@ -67,6 +67,7 @@
     <Compile Include="IDropMoves.cs" />
     <Compile Include="InputBamlStreamList.cs" />
     <Compile Include="IUsualMoves.cs" />
+    <Compile Include="MoveDest.cs" />
     <Compile Include="MovesBase.cs" />
     <Compile Include="MovesValidatorMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
