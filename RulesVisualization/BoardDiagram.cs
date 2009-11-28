@@ -8,7 +8,7 @@ using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 using Yasc.GenericDragDrop;
 
-namespace RulesVisualization
+namespace Yasc.RulesVisualization
 {
   [ContentProperty("Moves")]
   public class BoardDiagram : Control

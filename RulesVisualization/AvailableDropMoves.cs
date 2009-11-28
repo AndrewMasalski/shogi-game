@@ -1,4 +1,4 @@
-namespace RulesVisualization
+namespace Yasc.RulesVisualization
 {
   public class AvailableDropMoves : DropMovesBase
   {

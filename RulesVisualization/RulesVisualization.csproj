@@ -8,8 +8,8 @@
     <ProjectGuid>{A3972558-F892-47C4-B46D-640DDFB4BAC8}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RulesVisualization</RootNamespace>
-    <AssemblyName>RulesVisualization</AssemblyName>
+    <RootNamespace>Yasc.RulesVisualization</RootNamespace>
+    <AssemblyName>Yasc.RulesVisualization</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
