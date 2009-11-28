@@ -60,13 +60,13 @@ namespace UnitTests.UsualMoves
       board.OneWhoMoves = board[usualMoves.From].Owner;
       foreach (var to in usualMoves.To)
       {
-        var move = board.GetUsualMove(usualMoves.From, to, false);
+        var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
         Assert.IsTrue(move.IsValid, move.ErrorMessage);
       }
 
       foreach (var to in usualMoves.NotTo)
       {
-        var move = board.GetUsualMove(usualMoves.From, to, false);
+        var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
         Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
       }
     }
