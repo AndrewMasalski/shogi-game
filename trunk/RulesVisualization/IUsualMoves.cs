@@ -6,8 +6,8 @@ namespace Yasc.RulesVisualization
   public interface IUsualMoves
   {
     Position From { get; }
-    IEnumerable<Position> To { get; }
-    IEnumerable<Position> NotTo { get; }
+    IEnumerable<MoveDest> To { get; }
+    IEnumerable<MoveDest> NotTo { get; }
     bool IsExclusive { get; }
   }
 }

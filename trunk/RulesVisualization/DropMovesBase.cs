@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Utils;
 
@@ -21,6 +22,22 @@ namespace Yasc.RulesVisualization
     IEnumerable<Position> IDropMoves.NotTo
     {
       get { return IsAvailable ? GetNotTo() : GetTo(); }
+    }
+
+    protected IEnumerable<Position> GetTo()
+    {
+      return from s in To.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) select (Position)s;
+    }
+    protected IEnumerable<Position> GetNotTo()
+    {
+      switch (Mode)
+      {
+        case MovesValidatorMode.AndNoMore:
+          var set = new HashSet<Position>(GetTo());
+          return from p in Position.OnBoard where !set.Contains(p) select p;
+        default:
+          return new Position[0];
+      }
     }
   }
 }

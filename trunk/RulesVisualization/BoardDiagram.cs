@@ -187,7 +187,7 @@ namespace Yasc.RulesVisualization
         board.GetCell(usualMoves.From).IsMoveSource = true;
 
         foreach (var p in usualMoves.To)
-          board.GetCell(p).IsPossibleMoveTarget = true;
+          board.GetCell(p.Position).IsPossibleMoveTarget = true;
       }
 
       var dropMoves = moves as IDropMoves;
