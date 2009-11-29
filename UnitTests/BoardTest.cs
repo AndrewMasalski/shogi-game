@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
@@ -156,7 +155,7 @@ namespace UnitTests
       Assert.AreEqual(81, _board.Count());
 
       int counter = 0;
-      foreach (var cell in (IEnumerable)_board)
+      for (var i = ((IEnumerable)_board).GetEnumerator(); i.MoveNext(); )
         counter++;
 
       Assert.AreEqual(81, counter);
