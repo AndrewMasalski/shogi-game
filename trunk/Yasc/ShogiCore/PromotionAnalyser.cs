@@ -14,16 +14,11 @@ namespace Yasc.ShogiCore
           IsPromotionAllowed(board[m.From], m.From, m.To) == null;
 
         var mandatory = UsualMovesValidator.
-          IsPromotionAllowed(board[m.From], m.From, m.To) == null;
+          IsPromotionMandatory(board[m.From], m.To) != null;
 
-        if (!mandatory) yield return m;
-        if (allowed) yield return Promoted(m);
+        if (!mandatory) yield return new UsualMoveSnapshot(m.From, m.To, false);
+        if (allowed) yield return new UsualMoveSnapshot(m.From, m.To, true);
       }
-    }
-
-    private static UsualMoveSnapshot Promoted(UsualMoveSnapshot m)
-    {
-      return new UsualMoveSnapshot(m.From, m.To, !m.IsPromoting);
     }
   }
 }
