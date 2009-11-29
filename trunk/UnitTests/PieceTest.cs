@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Utils;
 
 namespace UnitTests
 {
@@ -15,6 +16,20 @@ namespace UnitTests
       Assert.AreEqual("と", (string)p.Type);
       p.IsPromoted = false;
       Assert.AreEqual("歩", (string)p.Type);
+    }
+    [TestMethod]
+    public void CellTest()
+    {
+      var b = new Board();
+      var c = b[0, 0];
+      Assert.IsNull(c.Piece);
+      c.Piece = null;
+      Assert.IsNull(c.Piece);
+      var piece = new Piece(b.White, "馬");
+      c.Piece = piece;
+      Assert.AreSame(c.Piece, piece);
+      c.Piece = piece;
+      Assert.AreSame(c.Piece, piece);
     }
   }
 }
