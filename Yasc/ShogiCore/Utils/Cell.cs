@@ -12,10 +12,6 @@ namespace Yasc.ShogiCore.Utils
     private Piece _piece;
 
     public Position Position { get; private set; }
-    public bool IsInPromotionZone
-    {
-      get { return Position.Y < 3 || Position.Y >= 6; }
-    }
     public Piece Piece
     {
       get { return _piece; }
@@ -27,7 +23,7 @@ namespace Yasc.ShogiCore.Utils
       }
     }
 
-    public Cell(Position position)
+    internal Cell(Position position)
     {
       Position = position;
     }

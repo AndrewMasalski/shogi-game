@@ -22,6 +22,7 @@ namespace Yasc.ShogiCore.Utils
     public Position(string position)
       : this()
     {
+      if (position == null) throw new ArgumentNullException("position");
       if (position.Length != 2) throw new ArgumentOutOfRangeException("position");
       X = int.Parse(position[0].ToString()) - 1;
       Y = char.ToLower(position[1]) - 'a';
@@ -61,7 +62,6 @@ namespace Yasc.ShogiCore.Utils
     }
     public override bool Equals(object obj)
     {
-      if (ReferenceEquals(null, obj)) return false;
       if (obj.GetType() != typeof(Position)) return false;
       return Equals((Position)obj);
     }

@@ -19,6 +19,11 @@ namespace Yasc.Utils
       X = x;
       Y = y;
     }
+
+    public static Vector operator +(Vector a, Position b)
+    {
+      return new Vector(b.X + a.X, b.Y + a.Y);
+    }
     public static Vector operator +(Position a, Vector b)
     {
       return new Vector(a.X + b.X, a.Y + b.Y);
