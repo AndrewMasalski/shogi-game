@@ -77,12 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Netwroking\TimerTest.cs" />
-    <Compile Include="UsualMoves\PromotedRookTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="UsualMoves\RookTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="UsualMoves\SilverTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -108,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Positions\PromotedRookMoves.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Positions\RookMoves.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
