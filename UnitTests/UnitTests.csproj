@@ -64,6 +64,7 @@
     <Compile Include="BoardTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DropMoves\TestInvalidMoveMessages.cs" />
     <Compile Include="PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,6 +98,10 @@
     <Page Include="Positions\BishopMoves.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Positions\Drops.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Positions\SilverMoves.xaml">
       <Generator>MSBuild:Compile</Generator>
