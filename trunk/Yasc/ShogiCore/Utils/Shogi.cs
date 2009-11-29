@@ -20,21 +20,21 @@ namespace Yasc.ShogiCore.Utils
                       }, 
                     s => (Position) s));
 
-    private static IEnumerable<KeyValuePair<K, T>> Pairs<K, T>(IEnumerable<T> list, Converter<T, K> firstConverter)
+    private static IEnumerable<KeyValuePair<TKey, TValue>> Pairs<TKey, TValue>(IEnumerable<TValue> list, Converter<TValue, TKey> firstConverter)
     {
       int i = 0;
-      T first = default(T);
+      TValue first = default(TValue);
       foreach (var item in list)
       {
         if (++i % 2 == 1)
           first = item;
         else
-          yield return new KeyValuePair<K, T>(firstConverter(first), item);
+          yield return new KeyValuePair<TKey, TValue>(firstConverter(first), item);
       }
     }
-    private static Dictionary<K, V> Dic<K, V>(IEnumerable<KeyValuePair<K, V>> source)
+    private static Dictionary<TKey, TValue> Dic<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> source)
     {
-      var result = new Dictionary<K, V>();
+      var result = new Dictionary<TKey, TValue>();
       foreach (var pair in source)
         result.Add(pair.Key, pair.Value);
       return result;

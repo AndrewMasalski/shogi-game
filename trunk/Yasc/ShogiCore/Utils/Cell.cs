@@ -1,4 +1,3 @@
-using System;
 using MvvmFoundation.Wpf;
 
 namespace Yasc.ShogiCore.Utils

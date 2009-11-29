@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.SnapShots;
 using Yasc.ShogiCore.Utils;
 
 namespace UnitTests

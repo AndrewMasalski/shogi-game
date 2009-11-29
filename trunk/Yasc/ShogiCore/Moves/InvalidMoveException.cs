@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.ShogiCore.Moves.Validation
+namespace Yasc.ShogiCore.Moves
 {
   [Serializable]
   public class InvalidMoveException : Exception
