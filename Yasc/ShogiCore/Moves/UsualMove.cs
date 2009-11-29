@@ -1,4 +1,4 @@
-using Yasc.ShogiCore.Moves.Validation;
+using Yasc.ShogiCore.SnapShots;
 using Yasc.ShogiCore.Utils;
 
 namespace Yasc.ShogiCore.Moves
@@ -48,7 +48,7 @@ namespace Yasc.ShogiCore.Moves
 
     protected override string GetErrorMessage()
     {
-      return UsualMovesValidator.Check1(BoardSnapshot, new UsualMoveSnapshot(this));
+      return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
     }
 
     public override string ToString()

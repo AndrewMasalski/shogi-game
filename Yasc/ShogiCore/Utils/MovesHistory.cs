@@ -10,26 +10,23 @@ namespace Yasc.ShogiCore.Utils
   public class MovesHistory : ObservableObject
   {
     private readonly ObservableCollection<MoveBase> _movesDone;
+    private readonly ObservableCollection<MoveBase> _movesUndone;
+    private readonly CompositeCollection _allMoves;
 
     public ReadOnlyObservableCollection<MoveBase> MovesDone
     {
       get { return new ReadOnlyObservableCollection<MoveBase>(_movesDone); }
     }
-
     public ReadOnlyObservableCollection<MoveBase> MovesUndone
     {
       get { return new ReadOnlyObservableCollection<MoveBase>(_movesUndone); }
     }
-
     public CompositeCollection AllMoves
     {
       get { return _allMoves; }
     }
 
-    private readonly ObservableCollection<MoveBase> _movesUndone;
-    private readonly CompositeCollection _allMoves;
-
-    public MovesHistory()
+    internal MovesHistory()
     {
       _movesDone = new ThreadSafeObservableCollection<MoveBase>();
       _movesUndone = new ThreadSafeObservableCollection<MoveBase>();
