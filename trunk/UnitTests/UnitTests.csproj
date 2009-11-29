@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Netwroking\TimerTest.cs" />
+    <Compile Include="UsualMoves\GetAvailableMovesTest.cs" />
     <Compile Include="UsualMoves\UsualMovesTest.cs" />
     <Compile Include="ValidMovesTestHelper.cs">
       <SubType>Code</SubType>
