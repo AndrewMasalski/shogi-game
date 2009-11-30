@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using MvvmFoundation.Wpf;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore;
 
 namespace Yasc.Controls
 {

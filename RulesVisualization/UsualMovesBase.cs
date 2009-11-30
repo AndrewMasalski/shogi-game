@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore;
 
 namespace Yasc.RulesVisualization
 {
@@ -22,11 +22,11 @@ namespace Yasc.RulesVisualization
       get { return IsAvailable ? GetNotTo() : GetTo(); }
     }
 
-    protected IEnumerable<MoveDest> GetTo()
+    private IEnumerable<MoveDest> GetTo()
     {
       return from s in To.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) select new MoveDest(s);
     }
-    protected IEnumerable<MoveDest> GetNotTo()
+    private IEnumerable<MoveDest> GetNotTo()
     {
       switch (Mode)
       {

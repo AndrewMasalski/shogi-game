@@ -1,5 +1,5 @@
 using System;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore;
 
 namespace Yasc.Networking
 {

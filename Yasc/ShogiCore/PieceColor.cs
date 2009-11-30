@@ -1,4 +1,4 @@
-namespace Yasc.ShogiCore.Utils
+namespace Yasc.ShogiCore
 {
   public enum PieceColor
   {

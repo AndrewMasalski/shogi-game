@@ -182,18 +182,18 @@
     <Compile Include="Networking\Server.SpectatorController.cs" />
     <Compile Include="Common\ScalarConverter.cs" />
     <Compile Include="ShogiCore\Board.cs" />
-    <Compile Include="ShogiCore\MoveEventArgs.cs" />
+    <Compile Include="ShogiCore\Moves\MoveEventArgs.cs" />
     <Compile Include="ShogiCore\SnapShots\DropMoveSnapshot.cs" />
     <Compile Include="ShogiCore\SnapShots\MoveSnapshotBase.cs" />
     <Compile Include="ShogiCore\SnapShots\UsualMoveSnapshot.cs" />
     <Compile Include="Controls\ShogiHand.cs" />
     <Compile Include="Common\UniformPanel.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
-    <Compile Include="ShogiCore\Utils\MovesHistory.cs" />
+    <Compile Include="ShogiCore\Moves\MovesHistory.cs" />
     <Compile Include="ShogiCore\SnapShots\BoardSnapshot.cs" />
     <Compile Include="ShogiCore\SnapShots\PieceSnapshot.cs" />
     <Compile Include="Utils\ListUtils.cs" />
-    <Compile Include="ShogiCore\Utils\Position.cs" />
+    <Compile Include="ShogiCore\Position.cs" />
     <Compile Include="Controls\ColorToAngleConverter.cs" />
     <Compile Include="ShogiCore\Moves\DropMove.cs" />
     <Compile Include="ShogiCore\Moves\UsualMove.cs" />
@@ -202,9 +202,9 @@
     <Compile Include="ShogiCore\Moves\Move.cs" />
     <Compile Include="ShogiCore\Player.cs" />
     <Compile Include="ShogiCore\Piece.cs" />
-    <Compile Include="ShogiCore\Utils\PieceColor.cs" />
+    <Compile Include="ShogiCore\PieceColor.cs" />
     <Compile Include="ShogiCore\PieceType.cs" />
-    <Compile Include="ShogiCore\Utils\Cell.cs" />
+    <Compile Include="ShogiCore\Cell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -218,7 +218,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ShogiCore\Utils\Shogi.cs" />
+    <Compile Include="ShogiCore\Shogi.cs" />
     <Compile Include="Utils\ObservableCollectionLocker.cs">
       <SubType>Code</SubType>
     </Compile>

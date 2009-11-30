@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Yasc.Networking;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore;
 
 namespace Yasc.AI
 {

@@ -1,7 +1,5 @@
-using System;
 using Yasc.Controls;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
 
 namespace Yasc.GenericDragDrop
 {

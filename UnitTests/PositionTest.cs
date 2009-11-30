@@ -1,6 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore;
 using Yasc.Utils;
 
 namespace UnitTests

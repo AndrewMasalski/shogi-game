@@ -5,7 +5,7 @@ using MvvmFoundation.Wpf;
 using Yasc.AI;
 using Yasc.Networking;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
 
 namespace Yasc.Gui

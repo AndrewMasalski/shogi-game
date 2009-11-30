@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Yasc.ShogiCore.Utils;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore

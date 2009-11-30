@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using Yasc.Controls;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
 using Yasc.GenericDragDrop;
 
 namespace Yasc.RulesVisualization

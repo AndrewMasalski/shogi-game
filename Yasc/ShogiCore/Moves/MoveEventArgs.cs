@@ -1,7 +1,6 @@
 using System;
-using Yasc.ShogiCore.Moves;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Moves
 {
   public class MoveEventArgs : EventArgs
   {

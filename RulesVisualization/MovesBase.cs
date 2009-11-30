@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Yasc.ShogiCore.Utils;
-
 namespace Yasc.RulesVisualization
 {
   public abstract class MovesBase

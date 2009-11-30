@@ -1,6 +1,6 @@
 using MvvmFoundation.Wpf;
 
-namespace Yasc.ShogiCore.Utils
+namespace Yasc.ShogiCore
 {
   /// <summary>Cell is a place on a board where piece may appear. 
   ///   Shogi board is consist of 9x9 cells.</summary>

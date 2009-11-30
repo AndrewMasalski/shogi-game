@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
 
 namespace Yasc.RulesVisualization
 {

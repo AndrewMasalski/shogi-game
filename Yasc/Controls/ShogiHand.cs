@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Controls
 {

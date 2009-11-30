@@ -7,7 +7,6 @@ using System.Windows.Media.Animation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
-using Yasc.ShogiCore.Utils;
 using Yasc.Utils;
 
 namespace Yasc.Controls
