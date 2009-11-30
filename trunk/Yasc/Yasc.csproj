@@ -186,8 +186,6 @@
     <Compile Include="ShogiCore\SnapShots\DropMoveSnapshot.cs" />
     <Compile Include="ShogiCore\SnapShots\MoveSnapshotBase.cs" />
     <Compile Include="ShogiCore\SnapShots\UsualMoveSnapshot.cs" />
-    <Compile Include="ShogiCore\PromotionAnalyser.cs" />
-    <Compile Include="ShogiCore\SituationAnalizer.cs" />
     <Compile Include="Controls\ShogiHand.cs" />
     <Compile Include="Common\UniformPanel.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
@@ -231,6 +229,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="ShogiCore\SnapShots\SnapShotsDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

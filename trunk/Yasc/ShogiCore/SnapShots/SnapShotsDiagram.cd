@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Yasc.ShogiCore.SnapShots.BoardSnapshot">
+    <Position X="5.25" Y="0.5" Width="3.75" />
+    <Members>
+      <Field Name="_blackHand" Hidden="true" />
+      <Field Name="_blackHandRo" Hidden="true" />
+      <Field Name="_cells" Hidden="true" />
+      <Field Name="_cellsRo" Hidden="true" />
+      <Field Name="_hashCode" Hidden="true" />
+      <Field Name="_whiteHand" Hidden="true" />
+      <Field Name="_whiteHandRo" Hidden="true" />
+      <Method Name="CalculateHashcode" Hidden="true" />
+      <Method Name="DoesntHaveValidMoves" Hidden="true" />
+      <Method Name="Down" Hidden="true" />
+      <Method Name="DownLeft" Hidden="true" />
+      <Method Name="DownRight" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="FindTheKing" Hidden="true" />
+      <Method Name="GetAllValidDropMoves" Hidden="true" />
+      <Method Name="GetAllValidUsualMoves" Hidden="true" />
+      <Method Name="GetAllValidUsualMovesWithoutCheck3" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="GetMovesFor桂" Hidden="true" />
+      <Method Name="GetMovesFor歩" Hidden="true" />
+      <Method Name="GetMovesFor玉" Hidden="true" />
+      <Method Name="GetMovesFor竜" Hidden="true" />
+      <Method Name="GetMovesFor角" Hidden="true" />
+      <Method Name="GetMovesFor金" Hidden="true" />
+      <Method Name="GetMovesFor銀" Hidden="true" />
+      <Method Name="GetMovesFor飛" Hidden="true" />
+      <Method Name="GetMovesFor香" Hidden="true" />
+      <Method Name="GetMovesFor馬" Hidden="true" />
+      <Method Name="Go" Hidden="true" />
+      <Method Name="HandInternal" Hidden="true" />
+      <Method Name="IsTherePawnOnThisColumn" Hidden="true" />
+      <Method Name="Join" Hidden="true" />
+      <Method Name="Left" Hidden="true" />
+      <Field Name="MaxMoveLength" Hidden="true" />
+      <Method Name="Move" Hidden="true" />
+      <Method Name="Opponent" Hidden="true" />
+      <Method Name="Right" Hidden="true" />
+      <Method Name="ShortValidateUsualMove" Hidden="true" />
+      <Method Name="Up" Hidden="true" />
+      <Method Name="UpLeft" Hidden="true" />
+      <Method Name="UpRight" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>QCARCgMAQKAEAAgbigPJIIAIEEAgApAACAShJAABAiM=</HashCode>
+      <FileName>ShogiCore\SnapShots\BoardSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.SnapShots.UsualMoveSnapshot" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAEAIAAAAAAAAAIAACAAAAAgAAAAAA=</HashCode>
+      <FileName>ShogiCore\SnapShots\UsualMoveSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.SnapShots.DropMoveSnapshot" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAACAAAAAoAAAAAA=</HashCode>
+      <FileName>ShogiCore\SnapShots\DropMoveSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.SnapShots.MoveSnapshotBase" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAA=</HashCode>
+      <FileName>ShogiCore\SnapShots\MoveSnapshotBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.SnapShots.PieceSnapshot" Collapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAhAAAgACAABAAAAAAAIAAAQAAgAAAAiQ=</HashCode>
+      <FileName>ShogiCore\SnapShots\PieceSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
