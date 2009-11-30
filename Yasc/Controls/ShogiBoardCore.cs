@@ -27,7 +27,7 @@ namespace Yasc.Controls
 
     private void OnIsFlippedChanged(bool value)
     {
-      Cells = !value ? Board : Flip(Board);
+      Cells = !value ? Board.Cells : Flip(Board.Cells);
     }
 
     public bool IsFlipped
@@ -49,9 +49,9 @@ namespace Yasc.Controls
       ((ShogiBoardCore) d).OnBoardChanged((Board) e.NewValue);
     }
 
-    private void OnBoardChanged(IEnumerable<Cell> board)
+    private void OnBoardChanged(Board board)
     {
-      Cells = !IsFlipped ? board : Flip(board);
+      Cells = !IsFlipped ? board.Cells : Flip(board.Cells);
     }
 
     public Board Board
