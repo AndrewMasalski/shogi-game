@@ -2,10 +2,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using MvvmFoundation.Wpf;
-using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
 
-namespace Yasc.ShogiCore.Utils
+namespace Yasc.ShogiCore.Moves
 {
   public class MovesHistory : ObservableObject
   {

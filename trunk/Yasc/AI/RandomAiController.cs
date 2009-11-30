@@ -1,7 +1,6 @@
 using System;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
-using Yasc.ShogiCore.Utils;
 using System.Linq;
 
 namespace Yasc.AI

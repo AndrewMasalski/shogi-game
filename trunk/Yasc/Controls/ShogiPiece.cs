@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using MvvmFoundation.Wpf;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Controls
 {

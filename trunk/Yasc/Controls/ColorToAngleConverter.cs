@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using Yasc.ShogiCore.Utils;
+using Yasc.ShogiCore;
 
 namespace Yasc.Controls
 {

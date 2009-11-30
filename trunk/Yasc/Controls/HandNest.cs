@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Utils;
 
 namespace Yasc.Controls
 {
