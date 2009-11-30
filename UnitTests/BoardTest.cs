@@ -183,12 +183,21 @@ namespace UnitTests
     }
    
     [TestMethod]
-    public void TestGetAvailableMoves()
+    public void TestGetAvailableUsualMoves()
     {
       Shogi.InititBoard(_board);
       var a = (from UsualMove m in _board.GetAvailableMoves("4a") 
               select m.To).ToList();
       CollectionAssert.AreEquivalent(new Position[]{"5b", "4b", "3b"}, a);
+    }
+    [TestMethod]
+    public void TestGetAvailableDropMoves()
+    {
+      var piece = new Piece(_board.White, "馬");
+      _board.White.Hand.Add(piece);
+
+      var a = (from m in _board.GetAvailableMoves(piece) select m.To).ToList();
+      CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), a);
     }
   }
 }
