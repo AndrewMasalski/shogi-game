@@ -229,6 +229,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Controls\ControlsDiagram.cd" />
+    <None Include="Networking\NetworkingDiagram.cd" />
     <None Include="ShogiCore\Moves\MovesDiagram.cd" />
     <None Include="ShogiCore\BoardDiagram.cd" />
     <None Include="ShogiCore\SnapShots\SnapShotsDiagram.cd" />
