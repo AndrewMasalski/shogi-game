@@ -95,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -155,6 +159,7 @@
       <DependentUpon>ServerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\ServerViewModel.cs" />
+    <Compile Include="Gui\SkinViewModel.cs" />
     <Compile Include="Gui\StringRangeValidationRule.cs" />
     <Compile Include="Gui\UserViewModel.cs" />
     <Compile Include="Gui\WelcomeChoice.cs" />
@@ -188,6 +193,15 @@
     <Compile Include="ShogiCore\SnapShots\UsualMoveSnapshot.cs" />
     <Compile Include="Controls\ShogiHand.cs" />
     <Compile Include="Common\UniformPanel.cs" />
+    <Compile Include="Gui\SkinningViewModel.cs" />
+    <Compile Include="Skins\AppDomainAssemblySkin.cs" />
+    <Compile Include="Skins\BamlHelper.cs" />
+    <Compile Include="Skins\DirectAssemblySkin.cs" />
+    <Compile Include="Skins\ISkinBamlResolver.cs" />
+    <Compile Include="Skins\LooseXamlSkin.cs" />
+    <Compile Include="Skins\ReferencedAssemblySkin.cs" />
+    <Compile Include="Skins\Skin.cs" />
+    <Compile Include="Skins\SkinBamlResolver.cs" />
     <Compile Include="Utils\ReadOnlySquareArray.cs" />
     <Compile Include="ShogiCore\Moves\MovesHistory.cs" />
     <Compile Include="ShogiCore\SnapShots\BoardSnapshot.cs" />

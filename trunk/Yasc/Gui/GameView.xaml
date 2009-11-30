@@ -2,13 +2,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
-    xmlns:Gui="clr-namespace:Yasc.Controls">
+    xmlns:controls="clr-namespace:Yasc.Controls"
+    xmlns:gui="clr-namespace:Yasc.Gui">
+  
   <DockPanel LastChildFill="True">
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
       <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
       <MenuItem Header="Enforce rules" IsCheckable="True"
                 IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
+      <MenuItem Header="Skins" DataContext="{x:Static gui:SkinningViewModel.Instance}" ItemsSource="{Binding AvailableSkins}">
+        <MenuItem.ItemTemplate>
+          <DataTemplate>
+            <MenuItem Header="{Binding Name}" IsChecked="{Binding IsSelected}" Command="{Binding LoadCommand}"/>
+          </DataTemplate>
+        </MenuItem.ItemTemplate>
+      </MenuItem>
     </Menu>
     <Grid>
       <Grid.ColumnDefinitions>
@@ -20,7 +29,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-      <Gui:ShogiBoard x:Name="board" MoveAttempt="OnMoveAttempt" 
+      <controls:ShogiBoard x:Name="board" MoveAttempt="OnMoveAttempt" 
                       Board="{Binding Board}" 
                       IsFlipped="{Binding IsFlipped}"/>
 
