@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Yasc.Controls.BoardBorder">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <Members>
+      <Method Name="BoardBorder" Hidden="true" />
+      <Field Name="IsFlippedProperty" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\BoardBorder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.ShogiPiece">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_pieceObserver" Hidden="true" />
+      <Field Name="IsFlippedProperty" Hidden="true" />
+      <Field Name="IsPromotedProperty" Hidden="true" />
+      <Method Name="OnPieceChanged" Hidden="true" />
+      <Field Name="PieceColorProperty" Hidden="true" />
+      <Field Name="PieceProperty" Hidden="true" />
+      <Field Name="PieceTypeProperty" Hidden="true" />
+      <Method Name="ShogiPiece" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAABABAAABCAEAAAAAAAAEBEAABAAAAAAOCAAAAA=</HashCode>
+      <FileName>Controls\ShogiPiece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.ColorToAngleConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\ColorToAngleConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Yasc.Controls.IsFlippedToAngleConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\ColorToAngleConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Yasc.Controls.HandNest">
+    <Position X="5.5" Y="3.75" Width="1.5" />
+    <Members>
+      <Method Name="Count" Hidden="true" />
+      <Method Name="DeattachPiece" Hidden="true" />
+      <Method Name="HandNest" Hidden="true" />
+      <Field Name="HandProperty" Hidden="true" />
+      <Method Name="OnHandChanged" Hidden="true" />
+      <Method Name="OnHandCollectionChanged" Hidden="true" />
+      <Method Name="OnPieceColorChanged" Hidden="true" />
+      <Method Name="OnPieceTypeChanged" Hidden="true" />
+      <Field Name="PiecesCountProperty" Hidden="true" />
+      <Method Name="UpdateCp" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAJAAAQgAACQAAAAQAAAQAAAAAIAAAAA=</HashCode>
+      <FileName>Controls\HandNest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.MoveAttemptEventArgs">
+    <Position X="0.5" Y="7" Width="2.25" />
+    <Members>
+      <Method Name="MoveAttemptEventArgs" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\MoveAttemptEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.PieceHolderBase">
+    <Position X="6.25" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="EffectiveDirectionProperty" Hidden="true" />
+      <Method Name="GetEffectiveDirection" Hidden="true" />
+      <Field Name="IsFlippedProperty" Hidden="true" />
+      <Field Name="IsMoveSourceProperty" Hidden="true" />
+      <Field Name="IsPossibleMoveTargetProperty" Hidden="true" />
+      <Method Name="OnApplyTemplate" Hidden="true" />
+      <Method Name="OnIsFlippedChanged" Hidden="true" />
+      <Method Name="OnPieceColorChanged" Hidden="true" />
+      <Method Name="OnPieceTypeChanged" Hidden="true" />
+      <Field Name="PieceColorProperty" Hidden="true" />
+      <Method Name="PieceHolderBase" Hidden="true" />
+      <Field Name="PieceTypeProperty" Hidden="true" />
+      <Method Name="UpdateCp" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AACAAABABGBAAKAAAQgAAAAEAIEAgBAQAAAAEIGAAEA=</HashCode>
+      <FileName>Controls\PieceHolderBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.ShogiBoard">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="_adornerLayer" Hidden="true" />
+      <Field Name="_dnd" Hidden="true" />
+      <Field Name="_dragMove" Hidden="true" />
+      <Field Name="_moveSource" Hidden="true" />
+      <Method Name="AnimateMove" Hidden="true" />
+      <Method Name="AnimatePosition" Hidden="true" />
+      <Method Name="ArbitraryMove" Hidden="true" />
+      <Field Name="AreMoveRulesEnforcedProperty" Hidden="true" />
+      <Method Name="BoardOnMoving" Hidden="true" />
+      <Field Name="BoardProperty" Hidden="true" />
+      <Method Name="BoardPropertyChanged" Hidden="true" />
+      <Method Name="GetUsualMove" Hidden="true" />
+      <Method Name="HighlightAvailableMoves" Hidden="true" />
+      <Field Name="IsFlippedProperty" Hidden="true" />
+      <Field Name="MoveAttemptEvent" Hidden="true" />
+      <Method Name="MoveToAdornerLayer" Hidden="true" />
+      <Method Name="OnDragCancelled" Hidden="true" />
+      <Method Name="OnDragFromBoard" Hidden="true" />
+      <Method Name="OnDragFromHand" Hidden="true" />
+      <Method Name="OnDropToBoard" Hidden="true" />
+      <Method Name="OnDropToHand" Hidden="true" />
+      <Method Name="OnMoveRulesEnforcedChanged" Hidden="true" />
+      <Method Name="RaiseMoveAttemptEvent" Hidden="true" />
+      <Method Name="RecognizeMove" Hidden="true" />
+      <Method Name="ReleaseDragSource" Hidden="true" />
+      <Method Name="ResetAvailableMoves" Hidden="true" />
+      <Method Name="ShogiBoard" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>UFAAhEZAgBRQCAAEAAAAAAgAEAEkCBoAQAAIAGCAQAI=</HashCode>
+      <FileName>Controls\ShogiBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.ShogiBoardCore">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="BoardProperty" Hidden="true" />
+      <Field Name="CellsProperty" Hidden="true" />
+      <Method Name="Flip" Hidden="true" />
+      <Field Name="IsFlippedProperty" Hidden="true" />
+      <Method Name="OnBoardChanged" Hidden="true" />
+      <Method Name="OnIsFlippedChanged" Hidden="true" />
+      <Method Name="ShogiBoardCore" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAABQQAAAAAAEAAoAAAEAAAEAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Controls\ShogiBoardCore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.ShogiCell">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <Members>
+      <Field Name="_cellObserver" Hidden="true" />
+      <Field Name="CellProperty" Hidden="true" />
+      <Method Name="OnCellChanged" Hidden="true" />
+      <Method Name="ShogiCell" Hidden="true" />
+      <Method Name="UpdateCp" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AEAAACAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAIIAAAA=</HashCode>
+      <FileName>Controls\ShogiCell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Controls.ShogiHand">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <Members>
+      <Field Name="_synchStrategy" Hidden="true" />
+      <Field Name="BoardProperty" Hidden="true" />
+      <Field Name="ColorProperty" Hidden="true" />
+      <Field Name="HandProperty" Hidden="true" />
+      <Field Name="IsGroupingProperty" Hidden="true" />
+      <Field Name="ItemsProperty" Hidden="true" />
+      <Method Name="OnBoardChanged" Hidden="true" />
+      <Method Name="OnColorChanged" Hidden="true" />
+      <Method Name="OnHandChanged" Hidden="true" />
+      <Method Name="OnIsGroupingChanged" Hidden="true" />
+      <Method Name="ShogiHand" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Class Name="Yasc.Controls.ShogiHand.SynchStrategy" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\ShogiHand.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Yasc.Controls.ShogiHand.PlainSynch" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\ShogiHand.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Yasc.Controls.ShogiHand.GroupSynch" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\ShogiHand.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQQCAASBAFAAAAAAAAAACRAAAAgAAAgCAAAAA=</HashCode>
+      <FileName>Controls\ShogiHand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Yasc.Controls.PieceDirection">
+    <Position X="3" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\PieceDirection.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
