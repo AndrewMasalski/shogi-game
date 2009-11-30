@@ -18,6 +18,7 @@
     <ShowAsAssociation>
       <Property Name="White" />
       <Property Name="Black" />
+      <Property Name="OneWhoMoves" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
@@ -61,7 +62,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Player">
-    <Position X="4" Y="0.5" Width="2" />
+    <Position X="4.25" Y="0.5" Width="2" />
     <Members>
       <Method Name="OnHandCollectionChanged" Hidden="true" />
       <Method Name="Player" Hidden="true" />
