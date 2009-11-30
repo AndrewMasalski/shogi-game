@@ -37,12 +37,19 @@ namespace Yasc.Utils
 
     public static bool Equal(IEnumerable a, IEnumerable b)
     {
-      throw new NotImplementedException();
-    }
-
-    public static bool Equivalent(IEnumerable a, IEnumerable b)
-    {
-      throw new NotImplementedException();
+      IEnumerator ae = a.GetEnumerator();
+      IEnumerator be = b.GetEnumerator();
+      while (true)
+      {
+        bool an = ae.MoveNext();
+        bool bn = be.MoveNext();
+        if (an != bn)
+          return false;
+        if (!an)
+          return true;
+        if (!Equals(ae.Current, be.Current))
+          return false;
+      }
     }
 
     public static void Update<T, U>(this IList<T> list, IEnumerable<U> src, Comparer<T, U> comparer, Converter<U, T> converter)
