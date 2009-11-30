@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
@@ -150,13 +149,7 @@ namespace UnitTests
     [TestMethod]
     public void TestEnumerable()
     {
-      Assert.AreEqual(81, _board.Count());
-
-      int counter = 0;
-      for (var i = ((IEnumerable)_board).GetEnumerator(); i.MoveNext(); )
-        counter++;
-
-      Assert.AreEqual(81, counter);
+      Assert.AreEqual(81, _board.Cells.Count());
     }
     [TestMethod]
     public void TestMoveOrder()

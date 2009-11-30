@@ -44,7 +44,7 @@ namespace Yasc.Gui
 
     private void CleanBoard()
     {
-      foreach (var cell in Board)
+      foreach (var cell in Board.Cells)
       {
         if (cell.Piece != null)
         {
