@@ -7,7 +7,11 @@ namespace Yasc.ShogiCore.SnapShots
   [Serializable]
   public abstract class MoveSnapshotBase
   {
-    public abstract MoveBase AsRealMove(Board board);
+    protected abstract MoveBase AsRealMoveCore(Board board);
+    public MoveBase AsRealMove(Board board)
+    {
+      return AsRealMoveCore(board);
+    }
     public abstract PieceColor GetColor(BoardSnapshot snapshot);
   }
 }

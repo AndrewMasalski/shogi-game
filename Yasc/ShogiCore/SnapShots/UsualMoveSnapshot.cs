@@ -25,7 +25,11 @@ namespace Yasc.ShogiCore.SnapShots
       IsPromoting = isPromoting;
     }
 
-    public override MoveBase AsRealMove(Board board)
+    protected override MoveBase AsRealMoveCore(Board board)
+    {
+      return AsRealMove(board);
+    }
+    public new UsualMove AsRealMove(Board board)
     {
       return board.GetUsualMove(From, To, IsPromoting);
     }

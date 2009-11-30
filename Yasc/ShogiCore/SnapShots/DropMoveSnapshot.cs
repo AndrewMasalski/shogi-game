@@ -22,7 +22,11 @@ namespace Yasc.ShogiCore.SnapShots
       To = to;
     }
 
-    public override MoveBase AsRealMove(Board board)
+    protected override MoveBase AsRealMoveCore(Board board)
+    {
+      return AsRealMove(board);
+    }
+    public new DropMove AsRealMove(Board board)
     {
       return board.GetDropMove(Piece.Type, To, board[Piece.Color]);
     }
