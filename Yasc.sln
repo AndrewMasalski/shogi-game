@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RulesVisualization", "RulesVisualization\RulesVisualization.csproj", "{A3972558-F892-47C4-B46D-640DDFB4BAC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSkin", "SampleSkin\SampleSkin.csproj", "{24A89C00-9135-495D-924C-1617DD11DCB2}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Yasc.vsmdi
@@ -35,6 +37,10 @@ Global
 		{A3972558-F892-47C4-B46D-640DDFB4BAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3972558-F892-47C4-B46D-640DDFB4BAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3972558-F892-47C4-B46D-640DDFB4BAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A89C00-9135-495D-924C-1617DD11DCB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A89C00-9135-495D-924C-1617DD11DCB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A89C00-9135-495D-924C-1617DD11DCB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A89C00-9135-495D-924C-1617DD11DCB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
