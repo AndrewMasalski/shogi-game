@@ -27,7 +27,14 @@ namespace Yasc.Controls
 
     private void OnIsFlippedChanged(bool value)
     {
-      Cells = !value ? Board.Cells : Flip(Board.Cells);
+      if (Board == null)
+      {
+        Cells = null;
+      }
+      else
+      {
+        Cells = !value ? Board.Cells : Flip(Board.Cells);
+      }
     }
 
     public bool IsFlipped
@@ -51,7 +58,14 @@ namespace Yasc.Controls
 
     private void OnBoardChanged(Board board)
     {
-      Cells = !IsFlipped ? board.Cells : Flip(board.Cells);
+      if (board == null)
+      {
+        Cells = null;
+      }
+      else
+      {
+        Cells = !IsFlipped ? board.Cells : Flip(board.Cells);
+      }
     }
 
     public Board Board

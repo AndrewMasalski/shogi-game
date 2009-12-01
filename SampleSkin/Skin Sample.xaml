@@ -17,7 +17,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CheckBox}">
-          <Border Name="Border" CornerRadius="6" Background="Transparent">
+          <Border Name="Border" CornerRadius="6" Background="Red">
             <Image Name="Image" Source="..\Resources\Rotate.png" Width="22"
                    RenderOptions.BitmapScalingMode="NearestNeighbor">
               <Image.RenderTransform>
@@ -86,7 +86,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiBoard}">
-          <Grid>
+          <Grid Background="Blue">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="5*"/>
@@ -97,8 +97,8 @@
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
             <Common:UniformPanel Grid.Column="1">
               <local:BoardBorder>
-                <Grid>
-                  <local:ShogiBoardCore Board="{TemplateBinding Board}"/>
+                <Grid Background="#2FF0">
+                  <local:ShogiBoardCore Board="{Binding Board, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DebugConverter}}" />
                   <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-19,-21,0"
                             Style="{StaticResource IsFlippedButtonStyle}"
                             IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -269,7 +269,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiBoardCore}">
-          <Grid>
+          <Grid Background="Green">
             <ItemsControl ItemsSource="{TemplateBinding Cells}" >
               <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -325,7 +325,7 @@
               <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
           </ControlTemplate.Resources>
-          <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+          <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Green">
             <Grid.RowDefinitions>
               <RowDefinition Height="15" />
               <RowDefinition Height="*" />
@@ -400,7 +400,7 @@
 
             <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="9" Grid.ColumnSpan="9"
                   SnapsToDevicePixels="True" Margin="0,0,-1,-1">
-              <Border BorderThickness="2" BorderBrush="DarkRed" Background="AliceBlue"/>
+              <Border BorderThickness="2" BorderBrush="DarkRed" Background="#20F0"/>
               <Viewbox>
                 <Grid Width="80" Height="80" >
                   <Grid.RowDefinitions>
