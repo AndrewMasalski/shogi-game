@@ -86,12 +86,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Error.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Ico.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Rotate.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
