@@ -12,11 +12,13 @@
       <MenuItem Header="Enforce rules" IsCheckable="True"
                 IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
       <MenuItem Header="Skins" DataContext="{x:Static gui:SkinningViewModel.Instance}" ItemsSource="{Binding AvailableSkins}">
-        <MenuItem.ItemTemplate>
-          <DataTemplate>
-            <MenuItem Header="{Binding Name}" IsChecked="{Binding IsSelected}" Command="{Binding LoadCommand}"/>
-          </DataTemplate>
-        </MenuItem.ItemTemplate>
+        <MenuItem.ItemContainerStyle>
+          <Style TargetType="MenuItem">
+            <Setter Property="Header" Value="{Binding Name}"/>
+            <Setter Property="IsChecked" Value="{Binding IsSelected}"/>
+            <Setter Property="Command" Value="{Binding LoadCommand}"/>
+          </Style>
+        </MenuItem.ItemContainerStyle>
       </MenuItem>
     </Menu>
     <Grid>
