@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DropMoves\TestInvalidMoveMessages.cs" />
+    <Compile Include="MovesHistoryTest.cs" />
     <Compile Include="PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>

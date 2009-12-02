@@ -11,7 +11,8 @@
       <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
       <MenuItem Header="Enforce rules" IsCheckable="True"
                 IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
-      <MenuItem Header="Skins" DataContext="{x:Static gui:SkinningViewModel.Instance}" ItemsSource="{Binding AvailableSkins}">
+      <MenuItem Header="Skins" ItemsSource="{Binding AvailableSkins}"
+                DataContext="{x:Static gui:SkinningViewModel.Instance}" >
         <MenuItem.ItemContainerStyle>
           <Style TargetType="MenuItem">
             <Setter Property="Header" Value="{Binding Name}"/>
@@ -42,7 +43,7 @@
               <RowDefinition Height="4*"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox ItemsSource="{Binding Board.History.MovesDone}" >
+            <ListBox ItemsSource="{Binding Board.History}" >
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type Moves:MoveBase}">
                   <StackPanel Orientation="Horizontal" Margin="5,2">

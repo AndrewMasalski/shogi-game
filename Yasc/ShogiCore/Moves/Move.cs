@@ -16,11 +16,13 @@ namespace Yasc.ShogiCore.Moves
     protected MoveBase(Board board, Player who)
     {
       if (board == null) throw new ArgumentNullException("board");
+      if (who == null) throw new ArgumentNullException("who");
+      board.EnsurePlayerBelongs(who);
       
       Board = board;
       TimeStamp = DateTime.Now;
       Who = who;
-      Number = Board.History.MovesDone.Count + 1;
+      Number = Board.History.Count + 1;
       BoardSnapshot = Board.CurrentSnapshot;
     }
 
