@@ -1,57 +1,80 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Data;
-using MvvmFoundation.Wpf;
+using System.ComponentModel;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Moves
 {
-  public class MovesHistory : ObservableObject
+  public class MovesHistory : ReadOnlyObservableCollection<MoveBase>
   {
-    private readonly ObservableCollection<MoveBase> _movesDone;
-    private readonly ObservableCollection<MoveBase> _movesUndone;
-    private readonly CompositeCollection _allMoves;
+    private int _currentMoveIndex = -1;
 
-    public ReadOnlyObservableCollection<MoveBase> MovesDone
+    public MovesHistory()
+      : base(new ThreadSafeObservableCollection<MoveBase>())
     {
-      get { return new ReadOnlyObservableCollection<MoveBase>(_movesDone); }
-    }
-    public ReadOnlyObservableCollection<MoveBase> MovesUndone
-    {
-      get { return new ReadOnlyObservableCollection<MoveBase>(_movesUndone); }
-    }
-    public CompositeCollection AllMoves
-    {
-      get { return _allMoves; }
     }
 
-    internal MovesHistory()
+    public void Do(MoveBase move)
     {
-      _movesDone = new ThreadSafeObservableCollection<MoveBase>();
-      _movesUndone = new ThreadSafeObservableCollection<MoveBase>();
-      _allMoves = new CompositeCollection { MovesDone, MovesUndone };
+      if (move == null) throw new ArgumentNullException("move");
+
+      while (!IsCurrentMoveLast)
+        Items.RemoveAt(Count - 1);
+
+      Items.Add(move);
+      CurrentMoveIndex++;
+
+      if (Items.Count == 1)
+        OnPropertyChanged(new PropertyChangedEventArgs("IsEmpty"));
     }
 
-    internal void Do(MoveBase move)
+    public MoveBase CurrentMove
     {
-      _movesDone.Add(move);
-      _movesUndone.Clear();
-    }
-    internal void Undo()
-    {
-      if (_movesDone.Count == 0) throw new InvalidOperationException("Cannot undo: history is empty");
+      get { return _currentMoveIndex < 0 ? null : Items[_currentMoveIndex]; }
+      set
+      {
+        if (CurrentMove == value) return;
 
-      var move = _movesDone[_movesDone.Count - 1];
-      _movesDone.RemoveAt(_movesDone.Count - 1);
-      _movesUndone.Insert(0, move);
-    }
-    internal void Redo()
-    {
-      if (_movesUndone.Count == 0) throw new InvalidOperationException("Cannot redo: there are no further moves");
+        if (value == null)
+        {
+          CurrentMoveIndex = -1;
+          return;
+        }
 
-      var move = _movesUndone[0];
-      _movesUndone.RemoveAt(0);
-      _movesDone.Add(move);
+        int index = Items.IndexOf(value);
+        if (index == -1) throw new ArgumentOutOfRangeException("value", 
+          "You can only assign to MovesHistory.CurrentMove move from MovesHistory");
+
+        CurrentMoveIndex = index;
+      }
+    }
+
+    public int CurrentMoveIndex
+    {
+      get { return _currentMoveIndex; }
+      set
+      {
+        if (_currentMoveIndex == value) return;
+        if (value < -1 || value >= Count) 
+          throw new ArgumentOutOfRangeException("value", 
+            "Index must be grater or equal -1 and less than elements count");
+
+        _currentMoveIndex = value;
+        OnPropertyChanged(new PropertyChangedEventArgs("CurrentMoveIndex"));
+        OnPropertyChanged(new PropertyChangedEventArgs("CurrentMove"));
+        OnPropertyChanged(new PropertyChangedEventArgs("IsCurrentMoveLast"));
+      }
+    }
+
+    public bool IsEmpty
+    {
+      get { return Items.Count == 0; }
+    }
+
+    public bool IsCurrentMoveLast
+    {
+      get { return _currentMoveIndex == Count - 1; }
+      set { CurrentMoveIndex = Count - 1; }
     }
   }
 }
