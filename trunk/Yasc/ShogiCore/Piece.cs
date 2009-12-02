@@ -1,3 +1,4 @@
+using System;
 using MvvmFoundation.Wpf;
 
 namespace Yasc.ShogiCore
@@ -20,6 +21,7 @@ namespace Yasc.ShogiCore
         if (value == IsPromoted) return;
         Type = value ? Type.Promote() : Type.Unpromote();
         RaisePropertyChanged("IsPromoted");
+        RaisePropertyChanged("Type");
       }
     }
 

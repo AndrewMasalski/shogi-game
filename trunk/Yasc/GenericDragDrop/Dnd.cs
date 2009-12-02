@@ -13,8 +13,7 @@ namespace Yasc.GenericDragDrop
     public Dnd(ShogiBoard board)
     {
       _board = board;
-      _board.PreviewMouseLeftButtonDown += MouseDown;
-      _board.Loaded += BoardOnLoaded;
+      _board.PreviewMouseLeftButtonDown += MouseLeftDown;
     }
 
     #region ' Implementation '
@@ -42,15 +41,18 @@ namespace Yasc.GenericDragDrop
       }
     }
 
-    private void MouseDown(object sender, MouseButtonEventArgs e)
+    private void MouseLeftDown(object sender, MouseButtonEventArgs e)
     {
       _piece = (e.OriginalSource as DependencyObject).FindAncestor<ShogiPiece>();
+
       if (_piece == null) return;
 
+      _wasOriginallyPromoted = _piece.IsPromoted;
       _initialMousePosition = e.GetPosition(_board);
       _board.PreviewMouseMove += MouseMove;
-      _board.PreviewMouseUp += MouseUp;
-      _board.CaptureMouse();
+      _board.PreviewMouseLeftButtonUp += MouseLeftUp;
+      _board.PreviewMouseRightButtonDown += MouseRightDown;
+      _board.MouseLeave += OnMouseLeaveBoard;
 
       var cell = _piece.FindAncestor<ShogiCell>();
       if (cell != null)
@@ -62,6 +64,23 @@ namespace Yasc.GenericDragDrop
         _dragFrom = OnDragFromHand(new DragFromHandEventArgs(_board, _piece));
       }
     }
+
+    private void MouseRightDown(object sender, MouseButtonEventArgs e)
+    {
+      if (_piece == null || _wasOriginallyPromoted) return;
+
+      var cell = (e.OriginalSource as DependencyObject).FindAncestor<ShogiCell>();
+      if (cell == null || !cell.IsPromotionAllowed)
+      {
+        _promotionUserChoice = false;
+        _piece.IsPromoted = false;
+      }
+      else
+      {
+        _promotionUserChoice = !_piece.IsPromoted;
+        _piece.IsPromoted = !_piece.IsPromoted;
+      }
+    }
     private void MouseMove(object sender, MouseEventArgs e)
     {
       if (!_adornerIsShown)
@@ -71,8 +90,24 @@ namespace Yasc.GenericDragDrop
       }
 
       Adorner.Offset = e.GetPosition(_board) - _initialMousePosition;
+
+      if (_wasOriginallyPromoted) return;
+      var cell = (e.OriginalSource as DependencyObject).FindAncestor<ShogiCell>();
+      if (cell == null) return;
+      if (!cell.IsPromotionAllowed)
+      {
+        _piece.IsPromoted = false;
+      }
+      else if (_promotionUserChoice != null)
+      {
+        _piece.IsPromoted = (bool)_promotionUserChoice;
+      }
+      else if (cell.IsPromotionRecommended)
+      {
+        _piece.IsPromoted = true;
+      }
     }
-    private void MouseUp(object sender, MouseEventArgs e)
+    private void MouseLeftUp(object sender, MouseEventArgs e)
     {
       try
       {
@@ -81,7 +116,7 @@ namespace Yasc.GenericDragDrop
         var cell = result.VisualHit.FindAncestor<ShogiCell>();
         var hand = result.VisualHit.FindAncestor<ShogiHand>();
         Debug.Assert(cell == null || hand == null);
-        if (cell != null) OnDropToBoard(new DropToBoardEventArgs(_dragFrom, cell));
+        if (cell != null) OnDropToBoard(new DropToBoardEventArgs(_dragFrom, cell, _piece.IsPromoted != _wasOriginallyPromoted));
         if (hand != null) OnDropToHand(new DropToHandEventArgs(_dragFrom, hand));
       }
       finally
@@ -96,10 +131,12 @@ namespace Yasc.GenericDragDrop
       _dragFrom = null;
       _piece = null;
       _successfulDrop = false;
+      _promotionUserChoice = null;
 
-      _board.ReleaseMouseCapture();
       _board.PreviewMouseMove -= MouseMove;
-      _board.PreviewMouseUp -= MouseUp;
+      _board.PreviewMouseLeftButtonUp -= MouseLeftUp;
+      _board.PreviewMouseRightButtonDown -= MouseRightDown;
+      _board.MouseLeave -= OnMouseLeaveBoard;
 
       if (!_adornerIsShown) return;
       _adornerLayer.Remove(_adorner);
@@ -107,30 +144,17 @@ namespace Yasc.GenericDragDrop
       _adorner = null;
     }
 
-    private void BoardOnLoaded(object sender, RoutedEventArgs args)
-    {
-      _topWindow = _board.FindAncestor<Window>();
-      if (_topWindow == null) return;
-      _topWindow.Deactivated += TopWindowOnDeactivated;
-    }
-    private void TopWindowOnDeactivated(object sender, EventArgs args)
+    private void OnMouseLeaveBoard(object sender, MouseEventArgs e)
     {
       Release();
     }
-
     #endregion
 
     public void Dispose()
     {
-      _board.PreviewMouseLeftButtonDown -= MouseDown;
-      _board.Loaded -= BoardOnLoaded;
+      _board.PreviewMouseLeftButtonDown -= MouseLeftDown;
+      _board.PreviewMouseRightButtonDown -= MouseRightDown;
       _board = null;
-
-      if (_topWindow != null)
-      {
-        _topWindow.Deactivated -= TopWindowOnDeactivated;
-        _topWindow = null;
-      }
 
       _adornerLayer = null;
     }
@@ -146,8 +170,9 @@ namespace Yasc.GenericDragDrop
     private ShogiPiece _piece;
 
     private DragFromEventArgs _dragFrom;
-    private Window _topWindow;
     private bool _successfulDrop;
+    private bool _wasOriginallyPromoted;
+    private bool? _promotionUserChoice;
 
     #endregion
 
@@ -173,20 +198,29 @@ namespace Yasc.GenericDragDrop
     }
     private void OnDropToBoard(DropToBoardEventArgs e)
     {
+      _piece.IsPromoted = _wasOriginallyPromoted;
       _successfulDrop = true;
       var drag = DropToBoard;
       if (drag != null) drag(this, e);
     }
     private void OnDropToHand(DropToHandEventArgs e)
     {
+      _piece.IsPromoted = _wasOriginallyPromoted;
       _successfulDrop = true;
       var drag = DropToHand;
       if (drag != null) drag(this, e);
     }
     private void OnDragCancelled(DragFromEventArgs e)
     {
+      if (_piece != null)
+      {
+        _piece.IsPromoted = _wasOriginallyPromoted;
+      }
       var cancelled = DragCancelled;
-      if (cancelled != null) cancelled(this, e);
+      if (cancelled != null)
+      {
+        cancelled(this, e);
+      }
     }
 
     #endregion

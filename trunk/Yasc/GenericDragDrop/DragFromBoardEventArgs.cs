@@ -13,7 +13,7 @@ namespace Yasc.GenericDragDrop
     }
     public Piece Piece
     {
-      get { return (Piece)ShogiPiece.DataContext; }
+      get { return ShogiPiece.Piece; }
     }
     public Position FromPosition
     {

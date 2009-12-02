@@ -5,7 +5,7 @@ namespace Yasc.GenericDragDrop
 {
   public class DragFromHandEventArgs : DragFromEventArgs
   {
-    public ShogiBoard ShogiBoard { get; set; }
+    public ShogiBoard ShogiBoard { get; private set; }
     public ShogiPiece ShogiPiece { get; private set; }
     public PieceType PieceType
     {

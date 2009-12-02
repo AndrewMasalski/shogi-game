@@ -40,7 +40,7 @@ namespace Yasc.Controls
     {
       if (_adornerLayer == null) return;
       if (_dragMove) return;
-      
+
       var u = args.Move as UsualMove;
       if (u != null)
       {
@@ -96,15 +96,28 @@ namespace Yasc.Controls
     private void OnDragFromBoard(object sender, DragFromBoardEventArgs args)
     {
       var moves = Board.GetAvailableMoves(args.FromPosition);
-      var positions = from UsualMove m in moves select m.To;
-      HighlightAvailableMoves(positions.Distinct());
+      var positions = from m in moves select m.To;
+
+      SetForCells(positions.Distinct(),
+        PieceHolderBase.IsPossibleMoveTargetProperty, true);
+
+      SetForCells(from m in moves where m.IsPromoting select m.To,
+        ShogiCell.IsPromotionAllowedProperty, true);
+
+      if (args.Piece.Type != "銀")
+      {
+        SetForCells(from m in moves where m.IsPromoting select m.To,
+          ShogiCell.IsPromotionRecommendedProperty, true);
+      }
+
       MoveSource = args.FromPosition;
     }
+
     private void OnDragFromHand(object sender, DragFromHandEventArgs args)
     {
       var moves = Board.GetAvailableMoves(args.PieceType, args.PieceColor);
-      var positions = from DropMove m in moves select m.To;
-      HighlightAvailableMoves(positions);
+      SetForCells(from m in moves select m.To,
+        PieceHolderBase.IsPossibleMoveTargetProperty, true);
     }
 
     private void OnDropToBoard(object sender, DropToBoardEventArgs e)
@@ -127,12 +140,12 @@ namespace Yasc.Controls
         var fromBoard = e.From as DragFromBoardEventArgs;
         if (fromBoard != null)
         {
-          ArbitraryMove(fromBoard.FromCell, e.ToCell);
+          ArbitraryMove(fromBoard.FromCell, e.ToCell, e.PromotionRequest);
         }
         var fromHand = e.From as DragFromHandEventArgs;
         if (fromHand != null)
         {
-          ArbitraryMove(fromHand.PieceType, fromHand.PieceColor, e.ToCell);
+          ArbitraryMove(fromHand.PieceType, fromHand.PieceColor, e.ToCell, e.PromotionRequest);
         }
       }
     }
@@ -151,7 +164,7 @@ namespace Yasc.Controls
       {
         ArbitraryMove(fromHand.PieceType, fromHand.PieceColor, e.ToHand);
       }
-      
+
     }
     private void OnDragCancelled(object sender, DragFromEventArgs args)
     {
@@ -163,7 +176,7 @@ namespace Yasc.Controls
       var fromBoard = e.From as DragFromBoardEventArgs;
       if (fromBoard != null)
       {
-        return GetUsualMove(fromBoard.FromCell, e.ToCell);
+        return Board.GetUsualMove(fromBoard.FromCell.Position, e.ToCell.Position, e.PromotionRequest);
       }
       var fromHand = e.From as DragFromHandEventArgs;
       if (fromHand != null)
@@ -186,18 +199,20 @@ namespace Yasc.Controls
       cell.Piece = null;
       hand.Hand.Add(piece);
     }
-    private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell)
+    private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
     {
       var piece = Board[color].GetPieceFromHandByType(pieceType);
+      if (promotionRequest) piece.IsPromoted = true;
       piece.Owner.Hand.Remove(piece);
       var m = cell.Piece;
       cell.Piece = null;
       cell.Piece = piece;
       if (m != null) piece.Owner.Hand.Add(m);
     }
-    private static void ArbitraryMove(Cell from, Cell to)
+    private static void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
     {
       var piece = from.Piece;
+      if (promotionRequest) piece.IsPromoted = true;
       from.Piece = null;
       var m = to.Piece;
       to.Piece = null;
@@ -207,22 +222,16 @@ namespace Yasc.Controls
 
     private void ReleaseDragSource()
     {
-      ResetAvailableMoves();
+      SetForCells(Position.OnBoard,
+        PieceHolderBase.IsPossibleMoveTargetProperty, false);
+
+      SetForCells(Position.OnBoard,
+        ShogiCell.IsPromotionAllowedProperty, false);
+
+      SetForCells(Position.OnBoard,
+        ShogiCell.IsPromotionRecommendedProperty, false);
+
       MoveSource = null;
-    }
-    private MoveBase GetUsualMove(Cell from, Cell to)
-    {
-      MoveBase move;
-      var m1 = Board.GetUsualMove(from.Position, to.Position, false);
-      var m2 = Board.GetUsualMove(from.Position, to.Position, true);
-      if (m1.IsValid && m2.IsValid)
-      {
-        var answer = MessageBox.Show("Promote?", "Q",
-          MessageBoxButton.YesNo, MessageBoxImage.Question);
-        move = answer == MessageBoxResult.Yes ? m2 : m1;
-      }
-      else move = m1.IsValid ? m1 : m2;
-      return move;
     }
 
     #endregion
@@ -272,13 +281,13 @@ namespace Yasc.Controls
     #region ' IsFlipped Property '
 
     public static readonly DependencyProperty IsFlippedProperty =
-      DependencyProperty.RegisterAttached("IsFlipped", typeof (bool),
-        typeof (ShogiBoard), new FrameworkPropertyMetadata(false, 
+      DependencyProperty.RegisterAttached("IsFlipped", typeof(bool),
+        typeof(ShogiBoard), new FrameworkPropertyMetadata(false,
           FrameworkPropertyMetadataOptions.Inherits | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
     public bool IsFlipped
     {
-      get { return (bool) GetValue(IsFlippedProperty); }
+      get { return (bool)GetValue(IsFlippedProperty); }
       set { SetValue(IsFlippedProperty, value); }
     }
 
@@ -296,8 +305,8 @@ namespace Yasc.Controls
     #region ' Board Property '
 
     public static readonly DependencyProperty BoardProperty =
-      DependencyProperty.Register("Board", typeof (Board),
-       typeof (ShogiBoard), new UIPropertyMetadata(null, BoardPropertyChanged));
+      DependencyProperty.Register("Board", typeof(Board),
+       typeof(ShogiBoard), new UIPropertyMetadata(null, BoardPropertyChanged));
 
     private static void BoardPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
@@ -319,22 +328,22 @@ namespace Yasc.Controls
 
     public Board Board
     {
-      get { return (Board) GetValue(BoardProperty); }
+      get { return (Board)GetValue(BoardProperty); }
       set { SetValue(BoardProperty, value); }
     }
-    
+
     #endregion
 
     #region ' AreMoveRulesEnforced Property '
 
     public static readonly DependencyProperty AreMoveRulesEnforcedProperty =
-      DependencyProperty.Register("AreMoveRulesEnforced", typeof (bool),
-        typeof (ShogiBoard), new UIPropertyMetadata(true, OnMoveRulesEnforcedChanged));
+      DependencyProperty.Register("AreMoveRulesEnforced", typeof(bool),
+        typeof(ShogiBoard), new UIPropertyMetadata(true, OnMoveRulesEnforcedChanged));
 
 
     private static void OnMoveRulesEnforcedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
-      ((ShogiBoard)o).OnMoveRulesEnforcedChanged((bool) args.NewValue);
+      ((ShogiBoard)o).OnMoveRulesEnforcedChanged((bool)args.NewValue);
     }
     private void OnMoveRulesEnforcedChanged(bool value)
     {
@@ -343,7 +352,7 @@ namespace Yasc.Controls
 
     public bool AreMoveRulesEnforced
     {
-      get { return (bool) GetValue(AreMoveRulesEnforcedProperty); }
+      get { return (bool)GetValue(AreMoveRulesEnforcedProperty); }
       set { SetValue(AreMoveRulesEnforcedProperty, value); }
     }
 
@@ -361,24 +370,18 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region ' Highlight Available Moves '
+    #region ' Set Cells Flags '
 
-    private void HighlightAvailableMoves(IEnumerable<Position> cells)
+    private void SetForCells(
+      IEnumerable<Position> cells,
+      DependencyProperty property,
+      object value)
     {
       foreach (Position p in cells)
       {
         var cell = GetCell(p);
         if (cell == null) continue;
-        cell.IsPossibleMoveTarget = true;
-      }
-    }
-    private void ResetAvailableMoves()
-    {
-      foreach (var p in Position.OnBoard)
-      {
-        var cell = GetCell(p);
-        if (cell == null) continue;
-        cell.IsPossibleMoveTarget = false;
+        cell.SetValue(property, value);
       }
     }
 
