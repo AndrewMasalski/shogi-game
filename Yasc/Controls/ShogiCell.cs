@@ -46,6 +46,30 @@ namespace Yasc.Controls
 
     #endregion
 
+    #region ' IsPromotionAllowed Property  '
+
+    public static readonly DependencyProperty IsPromotionAllowedProperty =
+      DependencyProperty.Register("IsPromotionAllowed", typeof(bool),
+        typeof(PieceHolderBase), new UIPropertyMetadata(false));
+
+    public bool IsPromotionAllowed
+    {
+      get { return (bool)GetValue(IsPromotionAllowedProperty); }
+      set { SetValue(IsPromotionAllowedProperty, value); }
+    }
+
+    public static readonly DependencyProperty IsPromotionRecommendedProperty =
+      DependencyProperty.Register("IsPromotionRecommended", typeof(bool),
+        typeof(PieceHolderBase), new UIPropertyMetadata(false));
+
+    public bool IsPromotionRecommended
+    {
+      get { return (bool)GetValue(IsPromotionRecommendedProperty); }
+      set { SetValue(IsPromotionRecommendedProperty, value); }
+    }
+
+    #endregion
+
     protected override void UpdateCp()
     {
       UpdateCp(Cell);

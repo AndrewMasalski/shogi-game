@@ -95,7 +95,18 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty IsPromotedProperty =
       DependencyProperty.Register("IsPromoted", typeof(bool),
-        typeof(ShogiPiece), new UIPropertyMetadata(default(bool)));
+        typeof(ShogiPiece), new UIPropertyMetadata(false, OnIsPromotedChanged));
+
+    private static void OnIsPromotedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+    {
+      ((ShogiPiece) o).OnIsPromotedChanged((bool)args.NewValue);
+    }
+
+    private void OnIsPromotedChanged(bool value)
+    {
+      if (Piece == null) return;
+      Piece.IsPromoted = value;
+    }
 
 // ReSharper disable UnaccessedField.Local
     // Need to prevent GC collect observer

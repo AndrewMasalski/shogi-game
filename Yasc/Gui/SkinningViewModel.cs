@@ -42,7 +42,7 @@ namespace Yasc.Gui
                          { 
                            DefaultSkin,
                            new SkinViewModel(this, new ReferencedAssemblySkin("Red", new Uri(@"/Yasc;component/Themes/Red.xaml", UriKind.Relative))), 
-                           new SkinViewModel(this, new DirectAssemblySkin("Sample Skin", @"x:\My SVN Projects\shogi-game\SampleSkin\bin\Debug\SampleSkin.dll")), 
+//                           new SkinViewModel(this, new DirectAssemblySkin("Sample Skin", @"x:\My SVN Projects\shogi-game\SampleSkin\bin\Debug\SampleSkin.dll")), 
                          };
       _selectedSkin = AvailableSkins[0];
     }
