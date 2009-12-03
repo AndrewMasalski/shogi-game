@@ -1,3 +1,4 @@
+using System;
 using Yasc.ShogiCore.SnapShots;
 
 namespace Yasc.ShogiCore.Moves
@@ -48,6 +49,11 @@ namespace Yasc.ShogiCore.Moves
     protected override string GetErrorMessage()
     {
       return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
+    }
+
+    public override MoveSnapshotBase Shanpshot()
+    {
+      return new UsualMoveSnapshot(this);
     }
 
     public override string ToString()

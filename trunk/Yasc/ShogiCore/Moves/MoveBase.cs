@@ -39,5 +39,7 @@ namespace Yasc.ShogiCore.Moves
     {
       TimeStamp = timeStamp; 
     }
+
+    public abstract MoveSnapshotBase Shanpshot();
   }
 }
