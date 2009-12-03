@@ -1,3 +1,4 @@
+using System;
 using Yasc.ShogiCore.SnapShots;
 
 namespace Yasc.ShogiCore.Moves
@@ -37,6 +38,12 @@ namespace Yasc.ShogiCore.Moves
     {
       return BoardSnapshot.ValidateDropMove(new DropMoveSnapshot(this));
     }
+
+    public override MoveSnapshotBase Shanpshot()
+    {
+      return new DropMoveSnapshot(this);
+    }
+
     public override string ToString()
     {
       return PieceType.Latin + "'" + To;

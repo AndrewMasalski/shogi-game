@@ -214,7 +214,7 @@
     <Compile Include="ShogiCore\Moves\UsualMove.cs" />
     <Compile Include="Utils\Flag.cs" />
     <Compile Include="ShogiCore\Moves\InvalidMoveException.cs" />
-    <Compile Include="ShogiCore\Moves\Move.cs" />
+    <Compile Include="ShogiCore\Moves\MoveBase.cs" />
     <Compile Include="ShogiCore\Player.cs" />
     <Compile Include="ShogiCore\Piece.cs" />
     <Compile Include="ShogiCore\PieceColor.cs" />
