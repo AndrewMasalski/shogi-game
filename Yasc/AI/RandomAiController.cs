@@ -28,7 +28,7 @@ namespace Yasc.AI
     private MoveBase ChooseAbsolutelyRandomMove()
     {
       var moves = _board.CurrentSnapshot.
-        GetAllValidMoves(PieceColor.Black).ToList();
+        GetAllAvailableMoves(PieceColor.Black).ToList();
 
       if (moves.Count == 0) return null; // mate
       var m = moves[_rnd.Next(moves.Count)];

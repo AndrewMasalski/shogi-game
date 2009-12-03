@@ -19,15 +19,6 @@ namespace Yasc.ShogiCore
       Hand.CollectionChanged += OnHandCollectionChanged;
     }
 
-    private void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
-    {
-      if (args.Action == NotifyCollectionChangedAction.Add)
-        foreach (Piece p in args.NewItems)
-        {
-          p.Owner = this;
-          p.IsPromoted = false;
-        }
-    }
     public Player Oppenent
     {
       get { return Board.Black == this ? Board.White : Board.Black; }
@@ -36,12 +27,6 @@ namespace Yasc.ShogiCore
     {
       get { return Board.White == this ? PieceColor.White : PieceColor.Black; }
     }
-
-    public override string ToString()
-    {
-      return Name ?? Color.ToString();
-    }
-
     public Piece GetPieceFromHandByType(PieceType pieceType)
     {
       foreach (var piece in Hand)
@@ -49,7 +34,6 @@ namespace Yasc.ShogiCore
           return piece;
       return null;
     }
-
     public void LoadSnapshot(IEnumerable<PieceSnapshot> collection)
     {
 #warning some synchronizer doesn't support clear. Implement cool update. See ListUtils.Update
@@ -60,5 +44,24 @@ namespace Yasc.ShogiCore
       foreach (var snapshot in collection)
         Hand.Add(new Piece(this, snapshot.Type));
     }
+    public override string ToString()
+    {
+      return Name ?? Color.ToString();
+    }
+
+    #region ' Ipmlementation '
+
+    private void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+    {
+      if (args.Action == NotifyCollectionChangedAction.Add)
+        foreach (Piece p in args.NewItems)
+        {
+          p.Owner = this;
+          p.IsPromoted = false;
+        }
+    }
+
+
+    #endregion
   }
 }

@@ -187,6 +187,7 @@
     <Compile Include="Networking\Server.SpectatorController.cs" />
     <Compile Include="Common\ScalarConverter.cs" />
     <Compile Include="ShogiCore\Board.cs" />
+    <Compile Include="ShogiCore\HistoryNavigateEventArgs.cs" />
     <Compile Include="ShogiCore\Moves\MoveEventArgs.cs" />
     <Compile Include="ShogiCore\SnapShots\DropMoveSnapshot.cs" />
     <Compile Include="ShogiCore\SnapShots\MoveSnapshotBase.cs" />

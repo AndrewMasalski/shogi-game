@@ -8,7 +8,7 @@
       <Method Name="Make" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAIAFAAAAAAAAIAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAABAAAAAAAAIAFAAAAAAAAIAAQA=</HashCode>
       <FileName>ShogiCore\Moves\DropMove.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -20,12 +20,12 @@
       <Method Name="UsualMove" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AgAAAEAAAAAIAAAEAIAAAAAAAAAIAEAAAAAAAAIAAQA=</HashCode>
+      <HashCode>AgAAAEAAAAAIAAAEAIBAAAAAAAAIAEAAAAAAAAIAAQA=</HashCode>
       <FileName>ShogiCore\Moves\UsualMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.InvalidMoveException" Collapsed="true">
-    <Position X="1.25" Y="5.25" Width="2.25" />
+    <Position X="4.75" Y="5.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ShogiCore\Moves\InvalidMoveException.cs</FileName>
@@ -41,51 +41,62 @@
       <Method Name="Validate" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AQAAABCAAACAAAAAAkgAAAAAAAAAAAAAAAAIACIAAQA=</HashCode>
-      <FileName>ShogiCore\Moves\Move.cs</FileName>
+      <HashCode>AQAAABCAAACAAAAAAkhAAAAAAAAAAAAAAAAIACIAAQA=</HashCode>
+      <FileName>ShogiCore\Moves\MoveBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.MoveEventArgs">
-    <Position X="3.75" Y="5.25" Width="1.5" />
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ShogiCore\Moves\MoveEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.MovesHistory">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+    <Position X="4.25" Y="0.5" Width="2" />
     <Members>
-      <Field Name="_allMoves" Hidden="true" />
-      <Field Name="_movesDone" Hidden="true" />
-      <Field Name="_movesUndone" Hidden="true" />
+      <Field Name="_currentMoveIndex" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAABIAIAAAAAAABCAAQACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAACACAAQAgQAAACAAAAAA=</HashCode>
       <FileName>ShogiCore\Moves\MovesHistory.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="MovesDone" />
-      <Property Name="MovesUndone" />
-    </ShowAsCollectionAssociation>
+    <ShowAsAssociation>
+      <Property Name="CurrentMove" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Board">
     <Position X="0.5" Y="0.5" Width="2.5" />
     <Members>
       <Field Name="_cells" Hidden="true" />
+      <Field Name="_currentMoveIndex" Hidden="true" />
       <Field Name="_currentSnapshot" Hidden="true" />
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
+      <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
+      <Method Name="EnsurePlayerBelongs" Hidden="true" />
+      <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
+      <Method Name="OnHistoryNavigated" Hidden="true" />
+      <Method Name="OnHistoryNavigating" Hidden="true" />
+      <Method Name="OnHistoryPropertyChanged" Hidden="true" />
       <Method Name="OnMoved" Hidden="true" />
       <Method Name="OnMoving" Hidden="true" />
       <Method Name="ResetCurrentSnapshot" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCANhACAIAQAoAABCAIAAAAABAAAAgQAAEACABAAIAA=</HashCode>
+      <HashCode>BCAdhACAIQQAoIAhCAKAAAAQBAAAAgQAAEACSFCAIAA=</HashCode>
       <FileName>ShogiCore\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="History" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Yasc.ShogiCore.HistoryNavigateEventArgs">
+    <Position X="2.25" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ShogiCore\HistoryNavigateEventArgs.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

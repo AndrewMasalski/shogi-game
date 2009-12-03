@@ -11,6 +11,17 @@ namespace Yasc.ShogiCore.Moves
     public Piece TakenPiece { get; private set; }
     public bool IsPromoting { get; private set; }
 
+    public override MoveSnapshotBase Shanpshot()
+    {
+      return new UsualMoveSnapshot(this);
+    }
+    public override string ToString()
+    {
+      return From + "-" + To + (IsPromoting ? "+" : "");
+    }
+
+    #region ' Construction '
+
     private UsualMove(Board board, Position from, Position to, bool isPromoting)
       : base(board, board.OneWhoMoves)
     {
@@ -20,6 +31,7 @@ namespace Yasc.ShogiCore.Moves
       MovingPiece = board[from];
       TakenPiece = board[to];
     }
+
     public static UsualMove Create(Board board, Position from, Position to, bool isPromoting)
     {
       var res = new UsualMove(board, from, to, isPromoting);
@@ -31,6 +43,13 @@ namespace Yasc.ShogiCore.Moves
       var res = new UsualMove(board, snapshot.From, snapshot.To, snapshot.IsPromoting);
       res.Validate();
       return res;
+    }
+
+    #endregion
+
+    protected override string GetErrorMessage()
+    {
+      return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
     }
     protected internal override void Make()
     {
@@ -44,21 +63,6 @@ namespace Yasc.ShogiCore.Moves
         Who.Hand.Add(targetPiece);
       }
       Board[To] = piece;
-    }
-
-    protected override string GetErrorMessage()
-    {
-      return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
-    }
-
-    public override MoveSnapshotBase Shanpshot()
-    {
-      return new UsualMoveSnapshot(this);
-    }
-
-    public override string ToString()
-    {
-      return From + "-" + To + (IsPromoting ? "+" : "");
     }
   }
 }

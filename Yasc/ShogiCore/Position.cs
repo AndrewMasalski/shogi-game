@@ -10,15 +10,7 @@ namespace Yasc.ShogiCore
   {
     public int X { get; private set; }
     public int Y { get; private set; }
-    public static IEnumerable<Position> OnBoard
-    {
-      get
-      {
-        for (int i = 0; i < 9; i++)
-          for (int j = 8; j >= 0; j--)
-            yield return new Position(j, i);
-      }
-    }
+    
     public Position(string position)
       : this()
     {
@@ -38,6 +30,7 @@ namespace Yasc.ShogiCore
       if (X < 0 || X > 8) throw new ArgumentOutOfRangeException("x");
       if (Y < 0 || Y > 8) throw new ArgumentOutOfRangeException("y");
     }
+
     public string Line
     {
       get { return ((char)(Y + 'a')).ToString(); }
@@ -51,10 +44,7 @@ namespace Yasc.ShogiCore
       return Column + Line;
     }
 
-    public static implicit operator Position(string s)
-    {
-      return new Position(s);
-    }
+    #region  ' Equality '
 
     public bool Equals(Position other)
     {
@@ -72,7 +62,6 @@ namespace Yasc.ShogiCore
         return (X * 397) ^ Y;
       }
     }
-
     public static bool operator ==(Position left, Position right)
     {
       return left.Equals(right);
@@ -81,9 +70,29 @@ namespace Yasc.ShogiCore
     {
       return !left.Equals(right);
     }
+
+    #endregion
+
+    #region ' Operators & Statics '
+
+    public static implicit operator Position(string s)
+    {
+      return new Position(s);
+    }
     public static Vector operator -(Position a, Position b)
     {
       return new Vector(b.X - a.X, b.Y - a.Y);
     }
+    public static IEnumerable<Position> OnBoard
+    {
+      get
+      {
+        for (int i = 0; i < 9; i++)
+          for (int j = 8; j >= 0; j--)
+            yield return new Position(j, i);
+      }
+    }
+
+    #endregion
   }
 }

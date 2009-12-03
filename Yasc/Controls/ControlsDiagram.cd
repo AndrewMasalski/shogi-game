@@ -108,6 +108,7 @@
       <Field Name="_dnd" Hidden="true" />
       <Field Name="_dragMove" Hidden="true" />
       <Field Name="_moveSource" Hidden="true" />
+      <Method Name="AnimateInvertedMove" Hidden="true" />
       <Method Name="AnimateMove" Hidden="true" />
       <Method Name="AnimatePosition" Hidden="true" />
       <Method Name="ArbitraryMove" Hidden="true" />
@@ -123,6 +124,7 @@
       <Method Name="OnDragFromHand" Hidden="true" />
       <Method Name="OnDropToBoard" Hidden="true" />
       <Method Name="OnDropToHand" Hidden="true" />
+      <Method Name="OnHistoryNavigating" Hidden="true" />
       <Method Name="OnMoveRulesEnforcedChanged" Hidden="true" />
       <Method Name="RaiseMoveAttemptEvent" Hidden="true" />
       <Method Name="RecognizeMove" Hidden="true" />
@@ -130,7 +132,7 @@
       <Method Name="ShogiBoard" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>UFAAhEZAgBRQCAAEAAAgAAgAEAEECBoAQACIAGCAAAI=</HashCode>
+      <HashCode>UFAAxEZAgBRQCAAEAAAgAAgAEAEECBoAQACIAGCAAAI=</HashCode>
       <FileName>Controls\ShogiBoard.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

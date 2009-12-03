@@ -14,25 +14,23 @@ namespace Yasc.ShogiCore.SnapShots
       Piece = new PieceSnapshot(move.PieceType, move.Who.Color);
       To = move.To;
     }
-
     public DropMoveSnapshot(PieceSnapshot piece, Position to)
     {
       Piece = piece;
       To = to;
     }
-
-    protected override MoveBase AsRealMoveCore(Board board)
+    public override PieceColor GetColor(BoardSnapshot snapshot)
     {
-      return AsRealMove(board);
+      return Piece.Color;
     }
     public new DropMove AsRealMove(Board board)
     {
       return board.GetDropMove(Piece.Type, To, board[Piece.Color]);
     }
-
-    public override PieceColor GetColor(BoardSnapshot snapshot)
+    
+    protected override MoveBase AsRealMoveCore(Board board)
     {
-      return Piece.Color;
+      return AsRealMove(board);
     }
   }
 }
