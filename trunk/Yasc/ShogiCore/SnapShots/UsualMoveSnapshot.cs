@@ -16,7 +16,6 @@ namespace Yasc.ShogiCore.SnapShots
       To = move.To;
       IsPromoting = move.IsPromoting;
     }
-
     public UsualMoveSnapshot(Position from, Position to, bool isPromoting)
     {
       From = from;
@@ -24,18 +23,17 @@ namespace Yasc.ShogiCore.SnapShots
       IsPromoting = isPromoting;
     }
 
-    protected override MoveBase AsRealMoveCore(Board board)
-    {
-      return AsRealMove(board);
-    }
     public new UsualMove AsRealMove(Board board)
     {
       return board.GetUsualMove(From, To, IsPromoting);
     }
-
     public override PieceColor GetColor(BoardSnapshot snapshot)
     {
       return snapshot[From].Color;
+    }
+    protected override MoveBase AsRealMoveCore(Board board)
+    {
+      return AsRealMove(board);
     }
 
     public override string ToString()

@@ -1,4 +1,3 @@
-using System;
 using MvvmFoundation.Wpf;
 
 namespace Yasc.ShogiCore
@@ -7,12 +6,10 @@ namespace Yasc.ShogiCore
   {
     public Player Owner { get; set; }
     public PieceType Type { get; private set; }
-
     public PieceColor Color
     {
       get { return Owner.Color; }
     }
-
     public bool IsPromoted
     {
       get { return Type.IsPromoted; }
@@ -30,11 +27,11 @@ namespace Yasc.ShogiCore
       Owner = owner;
       Type = type;
     }
+
     public override string ToString()
     {
       return Owner.Color + (IsPromoted ? " promoted " : " ") + Type;
     }
-
     public string ToLatinString()
     {
       return Owner.Color + (IsPromoted ? " promoted " : " ") + Type.Latin;

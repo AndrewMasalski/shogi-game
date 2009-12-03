@@ -21,7 +21,7 @@
       <Method Name="FindTheKing" Hidden="true" />
       <Method Name="GetAllValidDropMoves" Hidden="true" />
       <Method Name="GetAllValidUsualMovesWithoutCheck3" Hidden="true" />
-      <Method Name="GetAvailableMoves" Hidden="true" />
+      <Method Name="GetAvailableDropMoves" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="GetMovesFor桂" Hidden="true" />
       <Method Name="GetMovesFor歩" Hidden="true" />
@@ -48,13 +48,13 @@
       <Method Name="UpRight" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QCARCgMAQKAEAAgZigNJIIAIEEAgApQACAShJAABAiM=</HashCode>
+      <HashCode>QCARCgMAQKAEAAiZigNJJIAIEEAhApAACAShJAABAiM=</HashCode>
       <FileName>ShogiCore\SnapShots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
-      <Property Name="WhiteHand" />
       <Property Name="BlackHand" />
+      <Property Name="WhiteHand" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.SnapShots.UsualMoveSnapshot">
@@ -107,15 +107,22 @@
     <Position X="0.5" Y="0.5" Width="2.5" />
     <Members>
       <Field Name="_cells" Hidden="true" />
+      <Field Name="_currentMoveIndex" Hidden="true" />
       <Field Name="_currentSnapshot" Hidden="true" />
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
+      <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
+      <Method Name="EnsurePlayerBelongs" Hidden="true" />
+      <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
+      <Method Name="OnHistoryNavigated" Hidden="true" />
+      <Method Name="OnHistoryNavigating" Hidden="true" />
+      <Method Name="OnHistoryPropertyChanged" Hidden="true" />
       <Method Name="OnMoved" Hidden="true" />
       <Method Name="OnMoving" Hidden="true" />
       <Method Name="ResetCurrentSnapshot" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCANhACAIAQAoAABCAIAAAAABAAAAgQAAEACABAAIAA=</HashCode>
+      <HashCode>BCAdhACAIQQAoIAhCAKAAAAQBAAAAgQAAEACSFCAIAA=</HashCode>
       <FileName>ShogiCore\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

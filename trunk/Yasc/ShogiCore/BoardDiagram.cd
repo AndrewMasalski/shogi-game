@@ -4,15 +4,22 @@
     <Position X="0.5" Y="0.5" Width="2.5" />
     <Members>
       <Field Name="_cells" Hidden="true" />
+      <Field Name="_currentMoveIndex" Hidden="true" />
       <Field Name="_currentSnapshot" Hidden="true" />
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
+      <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
+      <Method Name="EnsurePlayerBelongs" Hidden="true" />
+      <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
+      <Method Name="OnHistoryNavigated" Hidden="true" />
+      <Method Name="OnHistoryNavigating" Hidden="true" />
+      <Method Name="OnHistoryPropertyChanged" Hidden="true" />
       <Method Name="OnMoved" Hidden="true" />
       <Method Name="OnMoving" Hidden="true" />
       <Method Name="ResetCurrentSnapshot" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCANhACAIAQAoAABCAIAAAAABAAAAgQAAEACABAAIAA=</HashCode>
+      <HashCode>BCAdhACAIQQAoIAhCAKAAAAQBAAAAgQAAEACSFCAIAA=</HashCode>
       <FileName>ShogiCore\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -25,7 +32,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Shogi">
-    <Position X="0.5" Y="4.5" Width="1.5" />
+    <Position X="0.5" Y="4.75" Width="1.5" />
     <Members>
       <Method Name="Dic" Hidden="true" />
       <Method Name="Pairs" Hidden="true" />
@@ -68,7 +75,7 @@
       <Method Name="Player" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQACAAAAAEAAAAACQAAAgAAAAAAAAAgCAAAAA=</HashCode>
+      <HashCode>AAAAAAAQACAAAAAEAAAAACQAAAgAAAAAAAAAwCAAAAA=</HashCode>
       <FileName>ShogiCore\Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
