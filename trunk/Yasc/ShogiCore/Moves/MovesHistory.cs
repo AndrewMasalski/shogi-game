@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Yasc.ShogiCore.SnapShots;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Moves
@@ -75,6 +76,20 @@ namespace Yasc.ShogiCore.Moves
     {
       get { return _currentMoveIndex == Count - 1; }
       set { CurrentMoveIndex = Count - 1; }
+    }
+
+    public BoardSnapshot GetCurrentSnapshot()
+    {
+      if (CurrentMoveIndex == -1)
+      {
+        return Count > 0 ? this[0].BoardSnapshot : null;
+      }
+      if (CurrentMoveIndex < Count - 1)
+      {
+        return this[CurrentMoveIndex + 1].BoardSnapshot;
+      }
+      return new BoardSnapshot(
+        CurrentMove.BoardSnapshot, CurrentMove.Shanpshot());
     }
   }
 }

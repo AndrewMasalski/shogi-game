@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Yasc.ShogiCore.SnapShots;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore
@@ -46,6 +48,17 @@ namespace Yasc.ShogiCore
         if (piece.Type == pieceType)
           return piece;
       return null;
+    }
+
+    public void LoadSnapshot(IEnumerable<PieceSnapshot> collection)
+    {
+#warning some synchronizer doesn't support clear. Implement cool update. See ListUtils.Update
+
+      while (Hand.Count > 0)
+        Hand.RemoveAt(Hand.Count - 1);
+//      Hand.Clear();
+      foreach (var snapshot in collection)
+        Hand.Add(new Piece(this, snapshot.Type));
     }
   }
 }
