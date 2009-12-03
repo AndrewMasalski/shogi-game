@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using System.Linq;
 
@@ -49,7 +50,7 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty BoardProperty =
       DependencyProperty.Register("Board", typeof (Board),
-                                  typeof (ShogiBoardCore), new UIPropertyMetadata(null, OnBoardChanged));
+                  typeof (ShogiBoardCore), new UIPropertyMetadata(null, OnBoardChanged));
 
     private static void OnBoardChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -80,7 +81,13 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty CellsProperty =
       DependencyProperty.Register("Cells", typeof(IEnumerable<Cell>),
-        typeof (ShogiBoardCore), new UIPropertyMetadata(null));
+        typeof (ShogiBoardCore), 
+        new UIPropertyMetadata(null, OnCellsPropertyChanged));
+
+    private static void OnCellsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+      ((ShogiBoardCore) d)._shogiCells = null;
+    }
 
     public IEnumerable<Cell> Cells
     {
@@ -97,6 +104,33 @@ namespace Yasc.Controls
       for (int i = 8; i >= 0; i--)
         for (int j = 8; j >= 0; j--)
           yield return list[i*9 + j];
+    }
+
+    public override void OnApplyTemplate()
+    {
+      _shogiCells = null;
+      base.OnApplyTemplate();
+    }
+    public ShogiCell GetCell(Position position)
+    {
+      return ShogiCells[position.X, position.Y];
+    }
+    private ShogiCell[,] _shogiCells;
+    public ShogiCell[,] ShogiCells
+    {
+      get
+      {
+        if (_shogiCells == null)
+        {
+          _shogiCells = new ShogiCell[9, 9];
+          foreach (var cell in this.FindChildren<ShogiCell>())
+          {
+            var position = cell.Cell.Position;
+            _shogiCells[position.X, position.Y] = cell;
+          }
+        }
+        return _shogiCells;
+      }
     }
   }
 }

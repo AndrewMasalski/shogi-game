@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Yasc.Controls.BoardBorder">
-    <Position X="3.25" Y="4.5" Width="1.5" />
+    <Position X="3.25" Y="5.5" Width="1.5" />
     <Members>
       <Method Name="BoardBorder" Hidden="true" />
       <Field Name="IsFlippedProperty" Hidden="true" />
@@ -15,11 +15,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.Controls.ShogiPiece">
-    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Position X="10" Y="0.5" Width="1.5" />
     <Members>
       <Field Name="_pieceObserver" Hidden="true" />
       <Field Name="IsFlippedProperty" Hidden="true" />
       <Field Name="IsPromotedProperty" Hidden="true" />
+      <Method Name="OnIsPromotedChanged" Hidden="true" />
       <Method Name="OnPieceChanged" Hidden="true" />
       <Field Name="PieceColorProperty" Hidden="true" />
       <Field Name="PieceProperty" Hidden="true" />
@@ -28,7 +29,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAABABAAABCAEAAAAAAAAEBEAABAAAAAAOCAAAAA=</HashCode>
+      <HashCode>AAIAAABABAAABCAEAAAAAAAAEBEAABAAAAAAOCAAAAA=</HashCode>
       <FileName>Controls\ShogiPiece.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -49,7 +50,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Yasc.Controls.HandNest">
-    <Position X="5.5" Y="3.75" Width="1.5" />
+    <Position X="8.5" Y="3.75" Width="1.5" />
     <Members>
       <Method Name="Count" Hidden="true" />
       <Method Name="DeattachPiece" Hidden="true" />
@@ -78,7 +79,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.Controls.PieceHolderBase">
-    <Position X="6.25" Y="0.5" Width="2" />
+    <Position X="7" Y="0.5" Width="2" />
     <Members>
       <Field Name="EffectiveDirectionProperty" Hidden="true" />
       <Method Name="GetEffectiveDirection" Hidden="true" />
@@ -100,9 +101,10 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.Controls.ShogiBoard">
-    <Position X="0.5" Y="0.5" Width="2" />
+    <Position X="0.5" Y="2.75" Width="2" />
     <Members>
       <Field Name="_adornerLayer" Hidden="true" />
+      <Field Name="_core" Hidden="true" />
       <Field Name="_dnd" Hidden="true" />
       <Field Name="_dragMove" Hidden="true" />
       <Field Name="_moveSource" Hidden="true" />
@@ -113,8 +115,6 @@
       <Method Name="BoardOnMoving" Hidden="true" />
       <Field Name="BoardProperty" Hidden="true" />
       <Method Name="BoardPropertyChanged" Hidden="true" />
-      <Method Name="GetUsualMove" Hidden="true" />
-      <Method Name="HighlightAvailableMoves" Hidden="true" />
       <Field Name="IsFlippedProperty" Hidden="true" />
       <Field Name="MoveAttemptEvent" Hidden="true" />
       <Method Name="MoveToAdornerLayer" Hidden="true" />
@@ -127,46 +127,56 @@
       <Method Name="RaiseMoveAttemptEvent" Hidden="true" />
       <Method Name="RecognizeMove" Hidden="true" />
       <Method Name="ReleaseDragSource" Hidden="true" />
-      <Method Name="ResetAvailableMoves" Hidden="true" />
       <Method Name="ShogiBoard" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>UFAAhEZAgBRQCAAEAAAAAAgAEAEkCBoAQAAIAGCAQAI=</HashCode>
+      <HashCode>UFAAhEZAgBRQCAAEAAAgAAgAEAEECBoAQACIAGCAAAI=</HashCode>
       <FileName>Controls\ShogiBoard.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Core" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.Controls.ShogiBoardCore">
-    <Position X="3.25" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="3.25" Width="1.5" />
     <Members>
+      <Field Name="_shogiCells" Hidden="true" />
       <Field Name="BoardProperty" Hidden="true" />
       <Field Name="CellsProperty" Hidden="true" />
       <Method Name="Flip" Hidden="true" />
       <Field Name="IsFlippedProperty" Hidden="true" />
+      <Method Name="OnApplyTemplate" Hidden="true" />
       <Method Name="OnBoardChanged" Hidden="true" />
+      <Method Name="OnCellsPropertyChanged" Hidden="true" />
       <Method Name="OnIsFlippedChanged" Hidden="true" />
       <Method Name="ShogiBoardCore" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAABQQAAAAAAEAAoAAAEAAAEAAAAAAAAAACAAAAA=</HashCode>
+      <HashCode>QAAAAABQQABAAAAEAAoQAAEAAAEIAAAAAAAAACCAAAA=</HashCode>
       <FileName>Controls\ShogiBoardCore.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ShogiCells" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Yasc.Controls.ShogiCell">
-    <Position X="7.5" Y="3.75" Width="1.5" />
+    <Position X="6" Y="3.75" Width="2.25" />
     <Members>
       <Field Name="_cellObserver" Hidden="true" />
       <Field Name="CellProperty" Hidden="true" />
+      <Field Name="IsPromotionAllowedProperty" Hidden="true" />
+      <Field Name="IsPromotionRecommendedProperty" Hidden="true" />
       <Method Name="OnCellChanged" Hidden="true" />
       <Method Name="ShogiCell" Hidden="true" />
       <Method Name="UpdateCp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AEAAACAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAIIAAAA=</HashCode>
+      <HashCode>AEAAACAAAAAAAAAAAADAAAAAgAAAAAAIAEAAAIIAAAA=</HashCode>
       <FileName>Controls\ShogiCell.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.Controls.ShogiHand">
-    <Position X="3.25" Y="2.25" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.5" />
     <Members>
       <Field Name="_synchStrategy" Hidden="true" />
       <Field Name="BoardProperty" Hidden="true" />
