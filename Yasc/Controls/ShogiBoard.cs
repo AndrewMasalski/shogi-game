@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,17 +97,17 @@ namespace Yasc.Controls
       var moves = Board.GetAvailableMoves(args.FromPosition);
       var positions = from m in moves select m.To;
 
-      SetForCells(positions.Distinct(),
-        PieceHolderBase.IsPossibleMoveTargetProperty, true);
+      foreach (var p in positions.Distinct())
+        GetCell(p).IsPossibleMoveTarget = true;
 
-      SetForCells(from m in moves where m.IsPromoting select m.To,
-        ShogiCell.IsPromotionAllowedProperty, true);
+      var promoting = from m in moves where m.IsPromoting select m.To;
+
+      foreach (var p in promoting)
+        GetCell(p).IsPromotionAllowed = true;
 
       if (args.Piece.Type != "銀")
-      {
-        SetForCells(from m in moves where m.IsPromoting select m.To,
-          ShogiCell.IsPromotionRecommendedProperty, true);
-      }
+        foreach (var p in promoting)
+          GetCell(p).IsPromotionRecommended = true;
 
       MoveSource = args.FromPosition;
     }
@@ -116,8 +115,8 @@ namespace Yasc.Controls
     private void OnDragFromHand(object sender, DragFromHandEventArgs args)
     {
       var moves = Board.GetAvailableMoves(args.PieceType, args.PieceColor);
-      SetForCells(from m in moves select m.To,
-        PieceHolderBase.IsPossibleMoveTargetProperty, true);
+      foreach (var p in from m in moves select m.To)
+        GetCell(p).IsPossibleMoveTarget = true;
     }
 
     private void OnDropToBoard(object sender, DropToBoardEventArgs e)
@@ -222,14 +221,14 @@ namespace Yasc.Controls
 
     private void ReleaseDragSource()
     {
-      SetForCells(Position.OnBoard,
-        PieceHolderBase.IsPossibleMoveTargetProperty, false);
+      foreach (var p in Position.OnBoard)
+        GetCell(p).IsPossibleMoveTarget = false;
 
-      SetForCells(Position.OnBoard,
-        ShogiCell.IsPromotionAllowedProperty, false);
+      foreach (var p in Position.OnBoard)
+        GetCell(p).IsPromotionAllowed = false;
 
-      SetForCells(Position.OnBoard,
-        ShogiCell.IsPromotionRecommendedProperty, false);
+      foreach (var p in Position.OnBoard)
+        GetCell(p).IsPromotionRecommended = false;
 
       MoveSource = null;
     }
@@ -370,33 +369,20 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region ' Set Cells Flags '
+    #region ' Helpers '
 
-    private void SetForCells(
-      IEnumerable<Position> cells,
-      DependencyProperty property,
-      object value)
+    private ShogiBoardCore Core
     {
-      foreach (Position p in cells)
+      get
       {
-        var cell = GetCell(p);
-        if (cell == null) continue;
-        cell.SetValue(property, value);
+        if (_core == null)
+        {
+          _core = this.FindChild<ShogiBoardCore>();
+        }
+        return _core;
       }
     }
 
-    #endregion
-
-    #region ' Helpers '
-
-    public ShogiCell GetCell(Position position)
-    {
-      return Board == null ? null : GetCell(Board[position.X, position.Y]);
-    }
-    public ShogiCell GetCell(Cell cell)
-    {
-      return this.FindChild<ShogiCell>(c => c.Cell == cell);
-    }
     public HandNest GetNest(PieceType type, PieceColor color)
     {
       var hand = this.FindChild<ShogiHand>(h => h.Color == color);
@@ -407,5 +393,11 @@ namespace Yasc.Controls
 
     private readonly Dnd _dnd;
     private readonly Flag _dragMove = new Flag();
+    private ShogiBoardCore _core;
+
+    public ShogiCell GetCell(Position position)
+    {
+      return Core.GetCell(position);
+    }
   }
 }
