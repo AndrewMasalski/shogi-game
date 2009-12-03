@@ -199,5 +199,18 @@ namespace UnitTests
       var a = (from m in _board.GetAvailableMoves(piece) select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), a);
     }
+    [TestMethod]
+    public void HistoryTest()
+    {
+      _board["1a"] = new Piece(_board.White, "歩");
+      var move = _board.GetMove("1a-1b");
+      var s1 = _board.CurrentSnapshot;
+      _board.MakeMove(move);
+      var s2 = _board.CurrentSnapshot;
+      _board.History.CurrentMoveIndex = -1;
+      Assert.AreEqual(s1, _board.CurrentSnapshot);
+      _board.History.CurrentMoveIndex = 0;
+      Assert.AreEqual(s2, _board.CurrentSnapshot);
+    }
   }
 }

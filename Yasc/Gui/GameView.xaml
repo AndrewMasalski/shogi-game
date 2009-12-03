@@ -43,7 +43,7 @@
               <RowDefinition Height="4*"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox ItemsSource="{Binding Board.History}" >
+            <ListBox ItemsSource="{Binding Board.History}" SelectedIndex="{Binding Board.History.CurrentMoveIndex}" >
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type Moves:MoveBase}">
                   <StackPanel Orientation="Horizontal" Margin="5,2">

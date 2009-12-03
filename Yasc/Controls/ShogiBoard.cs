@@ -37,19 +37,39 @@ namespace Yasc.Controls
 
     private void BoardOnMoving(object sender, MoveEventArgs args)
     {
-      if (_adornerLayer == null) return;
       if (_dragMove) return;
+      AnimateMove(args.Move);
+    }
 
-      var u = args.Move as UsualMove;
+    private void AnimateMove(MoveBase move)
+    {
+      if (_adornerLayer == null) return;
+      var u = move as UsualMove;
       if (u != null)
       {
         AnimateMove(GetCell(u.From), GetCell(u.To));
       }
 
-      var d = args.Move as DropMove;
+      var d = move as DropMove;
       if (d != null)
       {
         AnimateMove(GetNest(d.PieceType, d.Who.Color), GetCell(d.To));
+      }
+    }
+
+    private void AnimateInvertedMove(MoveBase move)
+    {
+      if (_adornerLayer == null) return;
+      var u = move as UsualMove;
+      if (u != null)
+      {
+        AnimateMove(GetCell(u.To), GetCell(u.From));
+      }
+
+      var d = move as DropMove;
+      if (d != null)
+      {
+        AnimateMove(GetCell(d.To), GetNest(d.PieceType, d.Who.Color));
       }
     }
 
@@ -317,11 +337,26 @@ namespace Yasc.Controls
       if (oldValue != null)
       {
         oldValue.Moving -= BoardOnMoving;
+        newValue.HistoryNavigating -= OnHistoryNavigating;
       }
 
       if (newValue != null)
       {
         newValue.Moving += BoardOnMoving;
+        newValue.HistoryNavigating += OnHistoryNavigating;
+      }
+    }
+
+    private void OnHistoryNavigating(object sender, HistoryNavigateEventArgs args)
+    {
+      var history = Board.History;
+      if (args.Step == -1)
+      {
+        AnimateInvertedMove(history[history.CurrentMoveIndex - args.Step]);
+      }
+      else if (args.Step == 1)
+      {
+        AnimateMove(history.CurrentMove);
       }
     }
 
