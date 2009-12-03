@@ -337,7 +337,7 @@ namespace Yasc.Controls
       if (oldValue != null)
       {
         oldValue.Moving -= BoardOnMoving;
-        newValue.HistoryNavigating -= OnHistoryNavigating;
+        oldValue.HistoryNavigating -= OnHistoryNavigating;
       }
 
       if (newValue != null)
