@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore;
+using Yasc.Utils;
 
 namespace UnitTests.UsualMoves
 {

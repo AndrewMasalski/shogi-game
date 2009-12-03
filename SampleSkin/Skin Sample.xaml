@@ -98,7 +98,7 @@
             <Common:UniformPanel Grid.Column="1">
               <local:BoardBorder>
                 <Grid Background="#2FF0">
-                  <local:ShogiBoardCore Board="{Binding Board, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DebugConverter}}" />
+                  <local:ShogiBoardCore Board="{Binding Board, RelativeSource={RelativeSource TemplatedParent}}" />
                   <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-19,-21,0"
                             Style="{StaticResource IsFlippedButtonStyle}"
                             IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>

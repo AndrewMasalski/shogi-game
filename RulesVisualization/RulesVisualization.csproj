@@ -65,7 +65,6 @@
     <Compile Include="ForbiddenDropMoves.cs" />
     <Compile Include="ForbiddenUsualMoves.cs" />
     <Compile Include="IDropMoves.cs" />
-    <Compile Include="InputBamlStreamList.cs" />
     <Compile Include="IUsualMoves.cs" />
     <Compile Include="MoveDest.cs" />
     <Compile Include="MovesBase.cs" />
