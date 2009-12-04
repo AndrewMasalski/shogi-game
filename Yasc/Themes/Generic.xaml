@@ -116,6 +116,9 @@
               <Setter TargetName="WhiteHand" Property="Color" Value="Black"/>
               <Setter TargetName="BlackHand" Property="Color" Value="White"/>
             </Trigger>
+            <!--            <Trigger Property="IsCurrentMoveLast" Value="False">-->
+            <!--              <Setter TargetName="shield" Property="Background" Value="#2222"/>-->
+            <!--            </Trigger>-->
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

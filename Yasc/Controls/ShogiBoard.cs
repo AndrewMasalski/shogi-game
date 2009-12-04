@@ -344,6 +344,10 @@ namespace Yasc.Controls
       {
         newValue.Moving += BoardOnMoving;
         newValue.HistoryNavigating += OnHistoryNavigating;
+
+        IsCurrentMoveLast = newValue.History.IsCurrentMoveLast;
+        _movesHistoryObserver = new PropertyObserver<MovesHistory>(newValue.History).
+          RegisterHandler(h => h.IsCurrentMoveLast, h => IsCurrentMoveLast = h.IsCurrentMoveLast);
       }
     }
 
@@ -392,6 +396,21 @@ namespace Yasc.Controls
 
     #endregion
 
+    #region ' IsCurrentMoveLast Property '
+
+    public static readonly DependencyProperty IsCurrentMoveLastProperty =
+      DependencyProperty.Register("IsCurrentMoveLast", typeof (bool),
+        typeof (ShogiBoard), new UIPropertyMetadata(default(bool)));
+
+    public bool IsCurrentMoveLast
+    {
+      get { return (bool) GetValue(IsCurrentMoveLastProperty); }
+      set { SetValue(IsCurrentMoveLastProperty, value); }
+    }
+    
+    #endregion
+
+
     #region ' Parts '
 
     public override void OnApplyTemplate()
@@ -428,11 +447,6 @@ namespace Yasc.Controls
 
     private readonly Dnd _dnd;
     private readonly Flag _dragMove = new Flag();
-    private ShogiBoardCore _core;
-
-    public ShogiCell GetCell(Position position)
-    {
-      return Core.GetCell(position);
-    }
+    private PropertyObserver<MovesHistory> _movesHistoryObserver;
   }
 }
