@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -12,6 +13,7 @@ using Yasc.Utils;
 namespace Yasc.Controls
 {
   [TemplatePart(Name = "PART_AdornerLayer", Type = typeof(Canvas))]
+  [TemplatePart(Name = "PART_Shield", Type = typeof(ContentControl))]
   public class ShogiBoard : Control
   {
     #region ' Ctors '
@@ -401,7 +403,43 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty IsCurrentMoveLastProperty =
       DependencyProperty.Register("IsCurrentMoveLast", typeof (bool),
-        typeof (ShogiBoard), new UIPropertyMetadata(default(bool)));
+        typeof(ShogiBoard), new UIPropertyMetadata(false, OnIsCurrentMoveLastPropertyChanged));
+
+    private static void OnIsCurrentMoveLastPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+      ((ShogiBoard)d).OnIsCurrentMoveLastPropertyChanged((bool)e.NewValue);
+
+    }
+    private void OnIsCurrentMoveLastPropertyChanged(bool value)
+    {
+      if (!value)
+      {
+        Shield shieldControl; 
+        if (_shieldControl == null)
+        {
+          _shieldControl = new WeakReference<Shield>(shieldControl = CreateShield());
+        }
+        else
+        {
+          shieldControl = _shieldControl.Target;
+        }
+
+        if (shieldControl == null)
+        {
+          _shieldControl.Target = shieldControl = CreateShield();
+        }
+
+        _shieldContainer.Content = shieldControl;
+      }
+      else _shieldContainer.Content = null;
+    }
+
+    private Shield CreateShield()
+    {
+      var shield = new Shield();
+      shield.MouseUp += (s, e) => Board.History.GoToTheLast();
+      return shield;
+    }
 
     public bool IsCurrentMoveLast
     {
@@ -411,16 +449,17 @@ namespace Yasc.Controls
     
     #endregion
 
-
     #region ' Parts '
 
     public override void OnApplyTemplate()
     {
       _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
+      _shieldContainer = GetTemplateChild("PART_Shield") as ContentControl;
       base.OnApplyTemplate();
     }
 
     private Canvas _adornerLayer;
+    private ContentControl _shieldContainer;
 
     #endregion
 
@@ -448,13 +487,37 @@ namespace Yasc.Controls
       return Core.GetCell(position);
     }
 
-
     #endregion
 
-
+    private WeakReference<Shield> _shieldControl;
     private readonly Dnd _dnd;
     private ShogiBoardCore _core;
     private readonly Flag _dragMove = new Flag();
     private PropertyObserver<MovesHistory> _movesHistoryObserver;
+  }
+
+  public class WeakReference<T> : WeakReference
+    where T : class 
+  {
+    public WeakReference(T target) 
+      : base(target)
+    {
+    }
+
+    public WeakReference(T target, bool trackResurrection) 
+      : base(target, trackResurrection)
+    {
+    }
+
+    protected WeakReference(SerializationInfo info, StreamingContext context) 
+      : base(info, context)
+    {
+    }
+
+    public new T Target
+    {
+      get { return (T) base.Target; }
+      set { base.Target = value; }
+    }
   }
 }
