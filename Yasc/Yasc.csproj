@@ -125,6 +125,7 @@
     <Compile Include="Controls\HandNest.cs" />
     <Compile Include="Controls\PieceDirection.cs" />
     <Compile Include="Controls\PieceHolderBase.cs" />
+    <Compile Include="Controls\Shield.cs" />
     <Compile Include="Controls\ShogiBoardCore.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 using Yasc.ShogiCore.SnapShots;
 using Yasc.Utils;
 
@@ -75,7 +76,6 @@ namespace Yasc.ShogiCore.Moves
     public bool IsCurrentMoveLast
     {
       get { return _currentMoveIndex == Count - 1; }
-      set { CurrentMoveIndex = Count - 1; }
     }
 
     public BoardSnapshot GetCurrentSnapshot()
@@ -90,6 +90,11 @@ namespace Yasc.ShogiCore.Moves
       }
       return new BoardSnapshot(
         CurrentMove.BoardSnapshot, CurrentMove.Shanpshot());
+    }
+
+    public void GoToTheLast()
+    {
+      CurrentMoveIndex = Count - 1;
     }
   }
 }

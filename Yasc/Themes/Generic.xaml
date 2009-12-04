@@ -110,15 +110,13 @@
                              Board="{TemplateBinding Board}"
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Canvas Name="PART_AdornerLayer"/>
+            <ContentControl Name="PART_Shield" Grid.ColumnSpan="3"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsFlipped" Value="True">
               <Setter TargetName="WhiteHand" Property="Color" Value="Black"/>
               <Setter TargetName="BlackHand" Property="Color" Value="White"/>
             </Trigger>
-            <!--            <Trigger Property="IsCurrentMoveLast" Value="False">-->
-            <!--              <Setter TargetName="shield" Property="Background" Value="#2222"/>-->
-            <!--            </Trigger>-->
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
@@ -460,6 +458,17 @@
               <Setter TargetName="y9" Property="Text" Value="a"/>
             </Trigger>
           </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!--  Shield  -->
+  <Style TargetType="{x:Type local:Shield}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:Shield}">
+          <Border Background="#2222"/>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
