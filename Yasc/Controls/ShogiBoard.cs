@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using MvvmFoundation.Wpf;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
@@ -442,10 +443,17 @@ namespace Yasc.Controls
       var hand = this.FindChild<ShogiHand>(h => h.Color == color);
       return hand.FindLastChild<HandNest>(n => n.PieceType == type);
     }
+    public ShogiCell GetCell(Position position)
+    {
+      return Core.GetCell(position);
+    }
+
 
     #endregion
 
+
     private readonly Dnd _dnd;
+    private ShogiBoardCore _core;
     private readonly Flag _dragMove = new Flag();
     private PropertyObserver<MovesHistory> _movesHistoryObserver;
   }
