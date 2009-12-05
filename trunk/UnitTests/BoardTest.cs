@@ -6,17 +6,17 @@ using Yasc.ShogiCore.Moves;
 
 namespace UnitTests
 {
-  [TestClass]
+  [TestClass, NUnit.Framework.TestFixture]
   public class BoardTest
   {
     private Board _board;
 
-    [TestInitialize]
+    [TestInitialize, NUnit.Framework.SetUp]
     public void Init()
     {
       _board = new Board();
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestInitialPosition()
     {
       //    ______________
@@ -33,7 +33,7 @@ namespace UnitTests
           if (!Shogi.InitialPosition.ContainsKey(new Position(i, j)))
             Assert.IsNull(_board[i, j].Piece);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void CheckPlaceHoldersBindability()
     {
       int counter = 0;
@@ -56,13 +56,13 @@ namespace UnitTests
       Shogi.InititBoard(_board);
       Assert.AreEqual(counter, Shogi.InitialPosition.Count());
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void PutPieceTest()
     {
       _board["5g"] = new Piece(_board.White, "馬");
       Assert.IsNotNull(_board["5g"]);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void ValidMoveWithoutTakingPieceTest()
     {
       Shogi.InititBoard(_board);
@@ -72,7 +72,7 @@ namespace UnitTests
       Assert.IsNull(_board["9c"]);
       Assert.AreEqual(PieceType.歩, _board["9d"].Type);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void ValidMoveWithTakingPieceTest()
     {
       Shogi.InititBoard(_board);
@@ -99,7 +99,7 @@ namespace UnitTests
       var badMove = _board.GetUsualMove("1c", "1d", false);
       _board.MakeMove(badMove);                 
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void InvalidMoveMessageTest()
     {
       var badMove = _board.GetUsualMove("1c", "1d", false);
@@ -133,25 +133,25 @@ namespace UnitTests
     {
       _board.OneWhoMoves = new Board().White;
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void ResetSnapshotOnPlayerChange()
     {
       Assert.AreEqual(PieceColor.White, _board.CurrentSnapshot.OneWhoMoves);
       _board.OneWhoMoves = _board.Black;
       Assert.AreEqual(PieceColor.Black, _board.CurrentSnapshot.OneWhoMoves);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void PlayerIndexer()
     {
       Assert.AreSame(_board.White, _board[PieceColor.White]);
       Assert.AreSame(_board.Black, _board[PieceColor.Black]);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestEnumerable()
     {
       Assert.AreEqual(81, _board.Cells.Count());
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestMoveOrder()
     {
       Shogi.InititBoard(_board);
@@ -159,7 +159,7 @@ namespace UnitTests
       Assert.AreEqual("It's Black's move now",
         _board.GetUsualMove("3d", "3e", false).ErrorMessage);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestIgnoreMoveOrder()
     {
       Shogi.InititBoard(_board);
@@ -167,7 +167,7 @@ namespace UnitTests
       _board.MakeMove(_board.GetUsualMove("3c", "3d", false));
       _board.MakeMove(_board.GetUsualMove("3d", "3e", false));
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void IsMovesOrderMaintainedNotificationTest()
     {
       int counter = 0;
@@ -182,7 +182,7 @@ namespace UnitTests
       Assert.IsFalse(_board.IsMovesOrderMaintained);
     }
    
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestGetAvailableUsualMoves()
     {
       Shogi.InititBoard(_board);
@@ -190,7 +190,7 @@ namespace UnitTests
               select m.To).ToList();
       CollectionAssert.AreEquivalent(new Position[]{"5b", "4b", "3b"}, a);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestGetAvailableDropMoves()
     {
       var piece = new Piece(_board.White, "馬");
@@ -199,7 +199,7 @@ namespace UnitTests
       var a = (from m in _board.GetAvailableMoves(piece) select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), a);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void HistoryTest()
     {
       _board["1a"] = new Piece(_board.White, "歩");

@@ -3,10 +3,10 @@ using Yasc.ShogiCore;
 
 namespace UnitTests
 {
-  [TestClass]
+  [TestClass, NUnit.Framework.TestFixture]
   public class PieceTest
   {
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestPromote()
     {
       var b = new Board();
@@ -16,7 +16,7 @@ namespace UnitTests
       p.IsPromoted = false;
       Assert.AreEqual("歩", (string)p.Type);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void CellTest()
     {
       var b = new Board();

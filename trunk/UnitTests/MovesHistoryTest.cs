@@ -5,10 +5,10 @@ using Yasc.ShogiCore.Moves;
 
 namespace UnitTests
 {
-  [TestClass]
+  [TestClass, NUnit.Framework.TestFixture]
   public class MovesHistoryTest
   {
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void DefaultTestCase()
     {
       var history = new MovesHistory();
@@ -26,7 +26,7 @@ namespace UnitTests
       Assert.AreSame(m2, history.CurrentMove);
     }
 
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void ChangeCurrentTest()
     {
       var history = new MovesHistory();
@@ -79,7 +79,7 @@ namespace UnitTests
       history.Do(CreateDummyMove());
       history.CurrentMove = CreateDummyMove();
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestDerivativeProps()
     {
       var history = new MovesHistory();
