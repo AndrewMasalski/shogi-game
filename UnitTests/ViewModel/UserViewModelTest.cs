@@ -5,10 +5,10 @@ using Yasc.Networking;
 
 namespace UnitTests.ViewModel
 {
-  [TestClass]
+  [TestClass, NUnit.Framework.TestFixture]
   public class UserViewModelTest
   {
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestEvents()
     {
       var server = new Server();

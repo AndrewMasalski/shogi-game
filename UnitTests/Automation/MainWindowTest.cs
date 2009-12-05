@@ -3,20 +3,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Automation
 {
-  [TestClass]
+  [TestClass, NUnit.Framework.TestFixture]
   public class MainWindowTest
   {
     private ApplicationHost _app;
     private AutomationElement _windowElement;
 
-    [TestInitialize]
+    [TestInitialize, NUnit.Framework.SetUp]
     public void SetUp()
     {
       _app = new ApplicationHost();
       _windowElement = _app.Open();
     }
 
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void Check()
     {
       var pattern = (WindowPattern)_windowElement.
@@ -31,7 +31,7 @@ namespace UnitTests.Automation
       Assert.IsNotNull(piece);
     }
 
-    [TestCleanup]
+    [TestCleanup, NUnit.Framework.TearDown]
     public void TearDown()
     {
       _app.Close();

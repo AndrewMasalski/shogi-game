@@ -5,10 +5,10 @@ using Yasc.Utils;
 
 namespace UnitTests
 {
-  [TestClass]
+  [TestClass, NUnit.Framework.TestFixture]
   public class PositionTest
   {
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void Strings()
     {
       Assert.AreEqual(new Position(0, 0), new Position("1a"));
@@ -75,7 +75,7 @@ namespace UnitTests
     {
       new Position(0, -1);
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestEquals()
     {
       Assert.IsFalse(new Position("1i").Equals(new object()));
@@ -86,7 +86,7 @@ namespace UnitTests
     {
       Assert.IsFalse(new Position("1i").Equals(null));
     }
-    [TestMethod]
+    [TestMethod, NUnit.Framework.Test]
     public void TestMath()
     {
       Assert.AreEqual(new Vector(), new Position("1i") - new Position("1i"));
