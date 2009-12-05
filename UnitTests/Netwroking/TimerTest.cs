@@ -5,10 +5,10 @@ using Yasc.Networking;
 
 namespace UnitTests
 {
-  [TestClass, NUnit.Framework.TestFixture]
+  [TestClass]
   public class TimerTest
   {
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void Test1()
     {
       IPlayerGameController player1;
