@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Windows.Automation;
+﻿using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Automation
