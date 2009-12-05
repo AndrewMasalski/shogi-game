@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestList name="In Progress" id="08e7e1d3-5dcb-45ec-a9ee-16b7c82747bf" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="24546e63-7ce9-efe4-8246-e6c7add366e8" name="Check" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
   <TestList name="All" id="0d1b1507-436d-4e6c-a43e-e85d117e42d6" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <TestLinks>
       <TestLink id="40df0e25-d827-70d7-2982-93eac65bf0c7" name="WhiteHandCollectionIsReadonly" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
@@ -76,7 +81,6 @@
       <TestLink id="04d3f2d8-6eef-1e50-cde4-6fa27e76fe2e" name="SetInvalidCurrentMove1" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="2de6bc98-45ed-777d-4845-c7ae492d47a8" name="ValidMoveWithoutTakingPieceTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="95640d08-04c0-479c-e014-0bb42f8deda4" name="CanDropPieceToFreeCellOnly" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
-      <TestLink id="24546e63-7ce9-efe4-8246-e6c7add366e8" name="Check" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="00d499b4-1f4f-1d4f-225f-fb613f0c3bb4" name="TryDropPieceWhichIsOnTheBoard" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
   </TestList>
