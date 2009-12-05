@@ -11,10 +11,10 @@ using Yasc.Utils;
 
 namespace UnitTests.UsualMoves
 {
-  [TestClass, NUnit.Framework.TestFixture]
+  [TestClass]
   public class GetAvailableMovesTest
   {
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void RunDiagrams()
     {
       var assembly = typeof(PieceTest).Assembly;

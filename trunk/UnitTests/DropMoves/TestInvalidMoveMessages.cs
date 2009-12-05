@@ -3,18 +3,18 @@ using Yasc.ShogiCore;
 
 namespace UnitTests.DropMoves
 {
-  [TestClass, NUnit.Framework.TestFixture]
+  [TestClass]
   public class TestInvalidMoveMessages
   {
     private Board _board;
 
-    [TestInitialize, NUnit.Framework.SetUp]
+    [TestInitialize]
     public void Init()
     {
       _board = new Board();
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void CantDropTwoPawnsToTheSameColumn()
     {
       _board["1c"] = new Piece(_board.White, "歩");
@@ -24,7 +24,7 @@ namespace UnitTests.DropMoves
                       "because it already has one 歩", move.ErrorMessage);
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void CanDropPieceToFreeCellOnly() 
     {
       _board["1c"] = new Piece(_board.White, "歩");
@@ -33,7 +33,7 @@ namespace UnitTests.DropMoves
       Assert.AreEqual("Can drop piece to free cell only", move.ErrorMessage);
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void CantDropPawnToTheLastLine() 
     {
       _board.White.Hand.Add(new Piece(_board.White, "歩"));
@@ -41,7 +41,7 @@ namespace UnitTests.DropMoves
       Assert.AreEqual("Can't drop 歩 to the last line", move.ErrorMessage);
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void CantDropLanceToTheLastLine() 
     {
       _board.White.Hand.Add(new Piece(_board.White, "香"));
@@ -49,7 +49,7 @@ namespace UnitTests.DropMoves
       Assert.AreEqual("Can't drop 香 to the last line", move.ErrorMessage);
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void CantDropKnightToTheLastLines()
     {
       _board.White.Hand.Add(new Piece(_board.White, "桂"));
@@ -57,7 +57,7 @@ namespace UnitTests.DropMoves
       Assert.AreEqual("Can't drop 桂 to the last two lines", move.ErrorMessage);
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void CantDropPawnToMateTheOpponent()
     {
       _board["1i"] = new Piece(_board.Black, "玉");

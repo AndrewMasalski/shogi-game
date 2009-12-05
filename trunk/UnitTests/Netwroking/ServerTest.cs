@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace UnitTests.Netwroking
 {
-  [TestClass, NUnit.Framework.TestFixture]
+  [TestClass]
   public class ServerTest
   {
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void TestUsersList()
     {
       var server = new Server();
@@ -22,7 +22,7 @@ namespace UnitTests.Netwroking
         (from u in jackSession.Users select u.Name).ToList());
     }
 
-    [TestMethod, NUnit.Framework.Test]
+    [TestMethod]
     public void TestInvitation()
     {
       var server = new Server();
