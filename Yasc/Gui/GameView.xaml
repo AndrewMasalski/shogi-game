@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves"
     xmlns:controls="clr-namespace:Yasc.Controls"
-    xmlns:gui="clr-namespace:Yasc.Gui">
+    xmlns:gui="clr-namespace:Yasc.Gui"
+             Loaded="UserControl_Loaded">
   
   <DockPanel LastChildFill="True">
     <Menu DockPanel.Dock="Top">
@@ -43,7 +44,8 @@
               <RowDefinition Height="4*"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox ItemsSource="{Binding Board.History}" SelectedIndex="{Binding Board.History.CurrentMoveIndex}" >
+            <ListBox x:Name="_listBox" ItemsSource="{Binding Board.History}" 
+                     SelectedIndex="{Binding Board.History.CurrentMoveIndex}" >
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type Moves:MoveBase}">
                   <StackPanel Orientation="Horizontal" Margin="5,2">
