@@ -212,7 +212,6 @@
     <Compile Include="ShogiCore\SnapShots\PieceSnapshot.cs" />
     <Compile Include="Utils\ListUtils.cs" />
     <Compile Include="ShogiCore\Position.cs" />
-    <Compile Include="Controls\ColorToAngleConverter.cs" />
     <Compile Include="ShogiCore\Moves\DropMove.cs" />
     <Compile Include="ShogiCore\Moves\UsualMove.cs" />
     <Compile Include="Utils\Flag.cs" />
