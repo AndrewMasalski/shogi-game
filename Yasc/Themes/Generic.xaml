@@ -6,8 +6,6 @@
 
   <!--  Converters  -->
   <Common:DebugConverter x:Key="DebugConverter"/>
-  <local:ColorToAngleConverter x:Key="ColorToAngleConverter"/>
-  <local:IsFlippedToAngleConverter x:Key="IsFlippedToAngleConverter"/>
   <Common:ToStirngConverter x:Key="ToStirngConverter"/>
 
   <!--  IsFlipped ButtonStyle  -->
@@ -159,22 +157,9 @@
             </Grid.ToolTip>
             <Viewbox>
               <Grid Height="13" Width="13">
-                <Grid Height="10" Width="10">
-                  <Grid.RenderTransform>
-                    <TransformGroup>
-                      <RotateTransform CenterX="5" CenterY="5" 
-                                       Angle="{Binding PieceColor, Mode=OneWay,      
-                                       Converter={StaticResource ColorToAngleConverter},                    
-                                       RelativeSource={RelativeSource TemplatedParent}}"/>
-                      <RotateTransform CenterX="5" CenterY="5"               
-                                       Angle="{Binding IsFlipped,      
-                                       Converter={StaticResource IsFlippedToAngleConverter},                    
-                                       RelativeSource={RelativeSource TemplatedParent}}"/>
-                    </TransformGroup>
-                  </Grid.RenderTransform>
-
+                <Grid Height="10" Width="10" RenderTransformOrigin=".5, .5" Name="_piece">
                   <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3" StrokeLineJoin="Round"
-                        Data="M0.1,0.1 L2,9 5,9.9 8,9 9.9,0.1 z" x:Name="transform" Fill="yellow">
+                        Data="M0.1,0.1 L2,9 5,9.9 8,9 9.9,0.1 z" Fill="yellow">
                     <Path.RenderTransform>
                       <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
                     </Path.RenderTransform>
@@ -192,6 +177,13 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsPromoted" Value="True">
               <Setter TargetName="symbol" Property="Foreground" Value="Red"/>
+            </Trigger>
+            <Trigger Property="EffectiveDirection" Value="Downwards">
+              <Setter TargetName="_piece" Property="RenderTransform">
+                <Setter.Value>
+                   <RotateTransform Angle="180"/>
+                </Setter.Value>
+              </Setter>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using System.Linq;
+using Yasc.GenericDragDrop;
 
 namespace Yasc.Controls
 {
@@ -81,13 +81,8 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty CellsProperty =
       DependencyProperty.Register("Cells", typeof(IEnumerable<Cell>),
-        typeof (ShogiBoardCore), 
-        new UIPropertyMetadata(null, OnCellsPropertyChanged));
+        typeof (ShogiBoardCore), new UIPropertyMetadata(null));
 
-    private static void OnCellsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-      ((ShogiBoardCore) d)._shogiCells = null;
-    }
 
     public IEnumerable<Cell> Cells
     {
@@ -108,29 +103,24 @@ namespace Yasc.Controls
 
     public override void OnApplyTemplate()
     {
-      _shogiCells = null;
+      var board = TemplatedParent.FindAncestor<ShogiBoard>();
+      if (board != null) board.SetupShogiBoardCore(this);
       base.OnApplyTemplate();
     }
     public ShogiCell GetCell(Position position)
     {
       return ShogiCells[position.X, position.Y];
     }
-    private ShogiCell[,] _shogiCells;
+    private readonly ShogiCell[,] _shogiCells = new ShogiCell[9, 9];
     public ShogiCell[,] ShogiCells
     {
-      get
-      {
-        if (_shogiCells == null)
-        {
-          _shogiCells = new ShogiCell[9, 9];
-          foreach (var cell in this.FindChildren<ShogiCell>())
-          {
-            var position = cell.Cell.Position;
-            _shogiCells[position.X, position.Y] = cell;
-          }
-        }
-        return _shogiCells;
-      }
+      get { return _shogiCells; }
+    }
+
+    internal void SetupCell(ShogiCell cell)
+    {
+      var p = cell.Cell.Position;
+      _shogiCells[p.X, p.Y] = cell;
     }
   }
 }

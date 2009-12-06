@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Yasc.ShogiCore;
+using Yasc.GenericDragDrop;
 
 namespace Yasc.Controls
 {
@@ -121,7 +122,7 @@ namespace Yasc.Controls
     {
       _synchStrategy.Dispose();
       _synchStrategy = value ? new GroupSynch(this, Hand) : 
-                                                            (SynchStrategy) new PlainSynch(this, Hand);
+         (SynchStrategy) new PlainSynch(this, Hand);
     }
 
     public bool IsGrouping
@@ -264,5 +265,12 @@ namespace Yasc.Controls
     }
 
     #endregion
+
+    public override void OnApplyTemplate()
+    {
+      var board = TemplatedParent.FindAncestor<ShogiBoard>();
+      if (board != null) board.SetupShohiHand(this);
+      base.OnApplyTemplate();
+    }
   }
 }
