@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using MvvmFoundation.Wpf;
+using Yasc.Controls.Automation;
 using Yasc.ShogiCore;
 
 namespace Yasc.Controls
@@ -178,6 +180,11 @@ namespace Yasc.Controls
     public override string ToString()
     {
       return Piece.ToLatinString();
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      return new ShogiPieceAutomationPeer(this);
     }
   }
 }

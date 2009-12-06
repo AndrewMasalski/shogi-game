@@ -5,7 +5,9 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
+using Yasc.Controls.Automation;
 using Yasc.ShogiCore;
 using Yasc.GenericDragDrop;
 
@@ -271,6 +273,10 @@ namespace Yasc.Controls
       var board = TemplatedParent.FindAncestor<ShogiBoard>();
       if (board != null) board.SetupShohiHand(this);
       base.OnApplyTemplate();
+    }
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      return new ShogiHandAutomationPeer(this);
     }
   }
 }
