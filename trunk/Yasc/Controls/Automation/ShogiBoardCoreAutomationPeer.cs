@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using Yasc.ShogiCore;
 
 namespace Yasc.Controls.Automation
 {
-  public class ShogiBoardCoreAutomationPeer : FrameworkElementAutomationPeer, IGridProvider
+  public class ShogiBoardCoreAutomationPeer : ControlAutomationPeer<ShogiBoardCore>, IGridProvider
   {
-    public ShogiBoardCoreAutomationPeer(FrameworkElement owner) 
+    public ShogiBoardCoreAutomationPeer(ShogiBoardCore owner) 
       : base(owner)
     {
     }
@@ -25,16 +24,10 @@ namespace Yasc.Controls.Automation
 
       }
     }
-
-    public new ShogiBoardCore Owner
+    protected override string GetItemTypeCore()
     {
-      get { return (ShogiBoardCore)base.Owner; }
+      return typeof(ShogiCell).Name;
     }
-    protected override string GetClassNameCore()
-    {
-      return Owner.GetType().Name;
-    }
-
     protected override List<AutomationPeer> GetChildrenCore()
     {
       return (from p in Position.OnBoard select CreatePeerForElement(Owner.GetCell(p))).ToList();

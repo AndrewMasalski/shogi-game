@@ -3,18 +3,13 @@ using System.Windows.Automation.Peers;
 
 namespace Yasc.Controls.Automation
 {
-  public class ShogiCellAutomationPeer : FrameworkElementAutomationPeer
+  public class ShogiCellAutomationPeer : ControlAutomationPeer<ShogiCell>
   {
     public ShogiCellAutomationPeer(ShogiCell owner)
       : base(owner)
     {
     }
 
-
-    public new ShogiCell Owner
-    {
-      get { return (ShogiCell)base.Owner; }
-    }
 
     protected override List<AutomationPeer> GetChildrenCore()
     {
@@ -23,11 +18,6 @@ namespace Yasc.Controls.Automation
       if (piece != null)
         peers.Add(CreatePeerForElement(piece));
       return peers;
-    }
-
-    protected override string GetClassNameCore()
-    {
-      return Owner.GetType().Name;
     }
 
     protected override AutomationControlType GetAutomationControlTypeCore()
