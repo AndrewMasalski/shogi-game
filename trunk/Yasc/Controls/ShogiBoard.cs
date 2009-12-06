@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -23,7 +22,6 @@ namespace Yasc.Controls
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiBoard),
         new FrameworkPropertyMetadata(typeof(ShogiBoard)));
     }
-
     public ShogiBoard()
     {
       _dnd = new Dnd(this);
@@ -34,6 +32,10 @@ namespace Yasc.Controls
       _dnd.DragCancelled += OnDragCancelled;
     }
 
+    public ShogiBoardCore Core { get; private set; }
+    public ShogiHand WhiteHand { get; private set; }
+    public ShogiHand BlackHand { get; private set; }
+
     #endregion
 
     #region ' Moves Animation '
@@ -43,7 +45,6 @@ namespace Yasc.Controls
       if (_dragMove) return;
       AnimateMove(args.Move);
     }
-
     private void AnimateMove(MoveBase move)
     {
       if (_adornerLayer == null) return;
@@ -59,7 +60,6 @@ namespace Yasc.Controls
         AnimateMove(GetNest(d.PieceType, d.Who.Color), GetCell(d.To));
       }
     }
-
     private void AnimateInvertedMove(MoveBase move)
     {
       if (_adornerLayer == null) return;
@@ -75,7 +75,6 @@ namespace Yasc.Controls
         AnimateMove(GetCell(d.To), GetNest(d.PieceType, d.Who.Color));
       }
     }
-
     private void AnimateMove(PieceHolderBase fromControl, UIElement toCtrl)
     {
       var pieceControl = fromControl.ShogiPiece;
@@ -134,14 +133,12 @@ namespace Yasc.Controls
 
       MoveSource = args.FromPosition;
     }
-
     private void OnDragFromHand(object sender, DragFromHandEventArgs args)
     {
       var moves = Board.GetAvailableMoves(args.PieceType, args.PieceColor);
       foreach (var p in from m in moves select m.To)
         GetCell(p).IsPossibleMoveTarget = true;
     }
-
     private void OnDropToBoard(object sender, DropToBoardEventArgs e)
     {
       ReleaseDragSource();
@@ -465,18 +462,6 @@ namespace Yasc.Controls
 
     #region ' Helpers '
 
-    private ShogiBoardCore Core
-    {
-      get
-      {
-        if (_core == null)
-        {
-          _core = this.FindChild<ShogiBoardCore>();
-        }
-        return _core;
-      }
-    }
-
     public HandNest GetNest(PieceType type, PieceColor color)
     {
       var hand = this.FindChild<ShogiHand>(h => h.Color == color);
@@ -489,35 +474,38 @@ namespace Yasc.Controls
 
     #endregion
 
+    #region ' Fields '
+
     private WeakReference<Shield> _shieldControl;
     private readonly Dnd _dnd;
-    private ShogiBoardCore _core;
     private readonly Flag _dragMove = new Flag();
+    /// <summary>Holds the reference to prevent GC from collecting</summary>
+// ReSharper disable UnaccessedField.Local
     private PropertyObserver<MovesHistory> _movesHistoryObserver;
-  }
+// ReSharper restore UnaccessedField.Local
 
-  public class WeakReference<T> : WeakReference
-    where T : class 
-  {
-    public WeakReference(T target) 
-      : base(target)
+    #endregion
+
+    #region ' Internal Interface '
+
+    /// <summary>This method is called by ShogiBoardCore itself</summary>
+    internal void SetupShogiBoardCore(ShogiBoardCore core)
     {
+      Core = core;
+    }
+    /// <summary>This method is called by ShogiHand itself</summary>
+    internal void SetupShohiHand(ShogiHand hand)
+    {
+      if (hand.Color == PieceColor.White)
+      {
+        WhiteHand = hand;
+      }
+      else
+      {
+        BlackHand = hand;
+      }
     }
 
-    public WeakReference(T target, bool trackResurrection) 
-      : base(target, trackResurrection)
-    {
-    }
-
-    protected WeakReference(SerializationInfo info, StreamingContext context) 
-      : base(info, context)
-    {
-    }
-
-    public new T Target
-    {
-      get { return (T) base.Target; }
-      set { base.Target = value; }
-    }
+    #endregion
   }
 }

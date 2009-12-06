@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using MvvmFoundation.Wpf;
 using Yasc.ShogiCore;
+using Yasc.GenericDragDrop;
 
 namespace Yasc.Controls
 {
@@ -30,7 +31,6 @@ namespace Yasc.Controls
       _cellObserver = new PropertyObserver<Cell>(cell).
         RegisterHandler(c => c.Piece, UpdateCp);
     }
-
 
     private void UpdateCp(Cell cell)
     {
@@ -73,6 +73,12 @@ namespace Yasc.Controls
     protected override void UpdateCp()
     {
       UpdateCp(Cell);
+    }
+    public override void OnApplyTemplate()
+    {
+      var core = TemplatedParent.FindAncestor<ShogiBoardCore>();
+      if (core != null) core.SetupCell(this);
+      base.OnApplyTemplate();
     }
     
 // ReSharper disable UnaccessedField.Local

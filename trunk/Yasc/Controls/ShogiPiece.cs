@@ -13,16 +13,24 @@ namespace Yasc.Controls
       DefaultStyleKeyProperty.OverrideMetadata(typeof(ShogiPiece),
         new FrameworkPropertyMetadata(typeof(ShogiPiece)));
     }
+    public ShogiPiece()
+    {
+    }
+    public ShogiPiece(Piece piece)
+    {
+      if (piece == null) throw new ArgumentNullException("piece");
+      Piece = piece;
+    }
 
-    #region PieceProperty
+    #region ' Piece Property '
 
     public static readonly DependencyProperty PieceProperty =
-      DependencyProperty.Register("Piece", typeof (Piece),
-        typeof (ShogiPiece), new UIPropertyMetadata(default(Piece), OnPieceChanged));
+      DependencyProperty.Register("Piece", typeof(Piece),
+        typeof(ShogiPiece), new UIPropertyMetadata(default(Piece), OnPieceChanged));
 
     private static void OnPieceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      ((ShogiPiece) d).OnPieceChanged((Piece) e.NewValue);
+      ((ShogiPiece)d).OnPieceChanged((Piece)e.NewValue);
     }
 
     private void OnPieceChanged(Piece piece)
@@ -39,26 +47,27 @@ namespace Yasc.Controls
 
     public Piece Piece
     {
-      get { return (Piece) GetValue(PieceProperty); }
+      get { return (Piece)GetValue(PieceProperty); }
       set { SetValue(PieceProperty, value); }
     }
 
     #endregion
 
-    public ShogiPiece()
+    #region ' IsFlipped Property '
+
+    public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.
+      IsFlippedProperty.AddOwner(typeof(ShogiPiece), new FrameworkPropertyMetadata(
+        false, FrameworkPropertyMetadataOptions.Inherits, OnIsFlippedChanged));
+
+    private static void OnIsFlippedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
+      ((ShogiPiece)d).OnIsFlippedChanged((bool)e.NewValue);
     }
 
-    public ShogiPiece(Piece piece)
+    private void OnIsFlippedChanged(bool value)
     {
-      if (piece == null) throw new ArgumentNullException("piece");
-      Piece = piece;
+      EffectiveDirection = GetEffectiveDirection(value, PieceColor);
     }
-
-    #region IsFlippedProperty
-
-    public static readonly DependencyProperty IsFlippedProperty = ShogiBoard.IsFlippedProperty.AddOwner(
-      typeof(ShogiPiece), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits));
 
     public bool IsFlipped
     {
@@ -68,13 +77,10 @@ namespace Yasc.Controls
 
     #endregion
 
-    public override string ToString()
-    {
-      return Piece.ToLatinString();
-    }
+    #region ' PieceType Property '
 
     public static readonly DependencyProperty PieceTypeProperty =
-        DependencyProperty.Register("PieceType", typeof(PieceType),
+      DependencyProperty.Register("PieceType", typeof(PieceType),
         typeof(ShogiPiece), new UIPropertyMetadata(default(PieceType)));
 
     public PieceType PieceType
@@ -83,9 +89,14 @@ namespace Yasc.Controls
       set { SetValue(PieceTypeProperty, value); }
     }
 
+    #endregion
+
+    #region ' PieceColor Property '
+
     public static readonly DependencyProperty PieceColorProperty =
       DependencyProperty.Register("PieceColor", typeof(PieceColor),
-      typeof(ShogiPiece), new UIPropertyMetadata(PieceColor.White));
+      typeof(ShogiPiece), new UIPropertyMetadata(PieceColor.White, OnPieceColorChanged));
+
 
     public PieceColor PieceColor
     {
@@ -93,9 +104,22 @@ namespace Yasc.Controls
       set { SetValue(PieceColorProperty, value); }
     }
 
+    private static void OnPieceColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+      ((ShogiPiece)d).OnPieceColorChanged((PieceColor)e.NewValue);
+    }
+
+    protected virtual void OnPieceColorChanged(PieceColor pieceColor)
+    {
+      EffectiveDirection = GetEffectiveDirection(IsFlipped, pieceColor);
+    }
+    #endregion
+
+    #region ' IsPromoted Property '
+
     public static readonly DependencyProperty IsPromotedProperty =
       DependencyProperty.Register("IsPromoted", typeof(bool),
-        typeof(ShogiPiece), new UIPropertyMetadata(false, OnIsPromotedChanged));
+                                  typeof(ShogiPiece), new UIPropertyMetadata(false, OnIsPromotedChanged));
 
     private static void OnIsPromotedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
@@ -108,15 +132,52 @@ namespace Yasc.Controls
       Piece.IsPromoted = value;
     }
 
-// ReSharper disable UnaccessedField.Local
-    // Need to prevent GC collect observer
-    private PropertyObserver<Piece> _pieceObserver;
-// ReSharper restore UnaccessedField.Local
-
     public bool IsPromoted
     {
       get { return (bool)GetValue(IsPromotedProperty); }
       set { SetValue(IsPromotedProperty, value); }
+    }
+
+    #endregion
+
+    #region ' EffectiveDirection Property '
+
+    public static readonly DependencyProperty EffectiveDirectionProperty =
+      DependencyProperty.Register("EffectiveDirection", typeof(PieceDirection),
+        typeof(ShogiPiece), new UIPropertyMetadata(PieceDirection.Downwards));
+
+    public PieceDirection EffectiveDirection
+    {
+      get { return (PieceDirection)GetValue(EffectiveDirectionProperty); }
+      set { SetValue(EffectiveDirectionProperty, value); }
+    }
+
+    protected static PieceDirection GetEffectiveDirection(bool isFlipped, PieceColor color)
+    {
+      switch (color)
+      {
+        case PieceColor.White:
+          return isFlipped ? PieceDirection.Upwards : PieceDirection.Downwards;
+        case PieceColor.Black:
+          return isFlipped ? PieceDirection.Downwards : PieceDirection.Upwards;
+      }
+      throw new ArgumentOutOfRangeException("color");
+    }
+
+    #endregion
+
+    #region ' Root Fields '
+
+// ReSharper disable UnaccessedField.Local
+    /// <summary>Holds the reference to prevent GC from collecting</summary>
+    private PropertyObserver<Piece> _pieceObserver;
+// ReSharper restore UnaccessedField.Local
+
+    #endregion
+
+    public override string ToString()
+    {
+      return Piece.ToLatinString();
     }
   }
 }
