@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using Yasc.Controls.Automation;
 using Yasc.ShogiCore;
 
 namespace Yasc.Controls
@@ -111,5 +113,9 @@ namespace Yasc.Controls
 
     #endregion
 
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      return new HandNestAutomationPeer(this);
+    }
   }
 }

@@ -1,0 +1,69 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+using Yasc.ShogiCore;
+
+namespace Yasc.Controls.Automation
+{
+  public class ShogiBoardCoreAutomationPeer : FrameworkElementAutomationPeer, IGridProvider
+  {
+    public ShogiBoardCoreAutomationPeer(FrameworkElement owner) 
+      : base(owner)
+    {
+    }
+
+    public override object GetPattern(PatternInterface patternInterface)
+    {
+      switch (patternInterface)
+      {
+        case PatternInterface.Grid:
+          return this;
+        default:
+          return null;
+
+      }
+    }
+
+    public new ShogiBoardCore Owner
+    {
+      get { return (ShogiBoardCore)base.Owner; }
+    }
+    protected override string GetClassNameCore()
+    {
+      return Owner.GetType().Name;
+    }
+
+    protected override List<AutomationPeer> GetChildrenCore()
+    {
+      return (from p in Position.OnBoard select CreatePeerForElement(Owner.GetCell(p))).ToList();
+    }
+    protected override bool IsContentElementCore()
+    {
+      return true;
+    }
+    protected override bool IsControlElementCore()
+    {
+      return true;
+    }
+    #region ' IGridProvider '
+
+
+    IRawElementProviderSimple IGridProvider.GetItem(int row, int column)
+    {
+      return ProviderFromPeer(CreatePeerForElement(Owner.GetCell(new Position(row, column))));
+    }
+    int IGridProvider.RowCount
+    {
+      get { return 9; }
+    }
+    int IGridProvider.ColumnCount
+    {
+      get { return 9; }
+    }
+
+    #endregion
+
+  }
+}

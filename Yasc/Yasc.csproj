@@ -123,10 +123,16 @@
     <Compile Include="Common\TimerDirection.cs" />
     <Compile Include="Controls\BoardBorder.cs" />
     <Compile Include="Controls\HandNest.cs" />
+    <Compile Include="Controls\Automation\HandNestAutomationPeer.cs" />
     <Compile Include="Controls\PieceDirection.cs" />
     <Compile Include="Controls\PieceHolderBase.cs" />
     <Compile Include="Controls\Shield.cs" />
+    <Compile Include="Controls\Automation\ShogiBoardAutomationPeer.cs" />
     <Compile Include="Controls\ShogiBoardCore.cs" />
+    <Compile Include="Controls\Automation\ShogiBoardCoreAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
     <Compile Include="Utils\WeakReference.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />

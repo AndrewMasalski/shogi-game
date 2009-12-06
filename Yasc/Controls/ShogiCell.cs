@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Automation.Peers;
 using MvvmFoundation.Wpf;
+using Yasc.Controls.Automation;
 using Yasc.ShogiCore;
 using Yasc.GenericDragDrop;
 
@@ -85,5 +87,10 @@ namespace Yasc.Controls
     // We need it for GC not to collect it
     private PropertyObserver<Cell> _cellObserver;
 // ReSharper restore UnaccessedField.Local
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      return new ShogiCellAutomationPeer(this);
+    }
   }
 }

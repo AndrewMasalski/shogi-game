@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using MvvmFoundation.Wpf;
+using Yasc.Controls.Automation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
@@ -399,7 +401,7 @@ namespace Yasc.Controls
     #region ' IsCurrentMoveLast Property '
 
     public static readonly DependencyProperty IsCurrentMoveLastProperty =
-      DependencyProperty.Register("IsCurrentMoveLast", typeof (bool),
+      DependencyProperty.Register("IsCurrentMoveLast", typeof(bool),
         typeof(ShogiBoard), new UIPropertyMetadata(false, OnIsCurrentMoveLastPropertyChanged));
 
     private static void OnIsCurrentMoveLastPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -411,7 +413,7 @@ namespace Yasc.Controls
     {
       if (!value)
       {
-        Shield shieldControl; 
+        Shield shieldControl;
         if (_shieldControl == null)
         {
           _shieldControl = new WeakReference<Shield>(shieldControl = CreateShield());
@@ -440,10 +442,10 @@ namespace Yasc.Controls
 
     public bool IsCurrentMoveLast
     {
-      get { return (bool) GetValue(IsCurrentMoveLastProperty); }
+      get { return (bool)GetValue(IsCurrentMoveLastProperty); }
       set { SetValue(IsCurrentMoveLastProperty, value); }
     }
-    
+
     #endregion
 
     #region ' Parts '
@@ -480,9 +482,9 @@ namespace Yasc.Controls
     private readonly Dnd _dnd;
     private readonly Flag _dragMove = new Flag();
     /// <summary>Holds the reference to prevent GC from collecting</summary>
-// ReSharper disable UnaccessedField.Local
+    // ReSharper disable UnaccessedField.Local
     private PropertyObserver<MovesHistory> _movesHistoryObserver;
-// ReSharper restore UnaccessedField.Local
+    // ReSharper restore UnaccessedField.Local
 
     #endregion
 
@@ -507,5 +509,10 @@ namespace Yasc.Controls
     }
 
     #endregion
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      return new ShogiBoardAutomationPeer(this);
+    }
   }
 }

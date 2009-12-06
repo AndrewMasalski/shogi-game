@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using System.Windows.Controls;
+using Yasc.Controls.Automation;
 using Yasc.ShogiCore;
 using System.Linq;
 using Yasc.GenericDragDrop;
@@ -121,6 +123,11 @@ namespace Yasc.Controls
     {
       var p = cell.Cell.Position;
       _shogiCells[p.X, p.Y] = cell;
+    }
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      return new ShogiBoardCoreAutomationPeer(this);
     }
   }
 }
