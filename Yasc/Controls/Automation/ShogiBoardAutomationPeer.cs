@@ -3,19 +3,11 @@ using System.Windows.Automation.Peers;
 
 namespace Yasc.Controls.Automation
 {
-  public class ShogiBoardAutomationPeer : FrameworkElementAutomationPeer
+  public class ShogiBoardAutomationPeer : ControlAutomationPeer<ShogiBoard>
   {
     public ShogiBoardAutomationPeer(ShogiBoard owner)
       : base(owner)
     {
-    }
-    public new ShogiBoard Owner
-    {
-      get { return (ShogiBoard)base.Owner; }
-    }
-    protected override string GetClassNameCore()
-    {
-      return Owner.GetType().Name;
     }
 
     protected override List<AutomationPeer> GetChildrenCore()
@@ -31,11 +23,6 @@ namespace Yasc.Controls.Automation
     protected override AutomationControlType GetAutomationControlTypeCore()
     {
       return AutomationControlType.Pane;
-    }
-
-    protected override string GetItemTypeCore()
-    {
-      return typeof(ShogiPiece).Name;
     }
 
     protected override bool IsContentElementCore()

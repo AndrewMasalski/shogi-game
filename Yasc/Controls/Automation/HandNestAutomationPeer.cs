@@ -3,17 +3,11 @@ using System.Windows.Automation.Peers;
 
 namespace Yasc.Controls.Automation
 {
-  public class HandNestAutomationPeer : FrameworkElementAutomationPeer
+  public class HandNestAutomationPeer : ControlAutomationPeer<HandNest>
   {
     public HandNestAutomationPeer(HandNest owner) 
       : base(owner)
     {
-    }
-
-
-    public new HandNest Owner
-    {
-      get { return (HandNest)base.Owner; }
     }
 
     protected override List<AutomationPeer> GetChildrenCore()
@@ -22,11 +16,6 @@ namespace Yasc.Controls.Automation
                {
                  CreatePeerForElement(Owner.ShogiPiece)
                };
-    }
-
-    protected override string GetClassNameCore()
-    {
-      return Owner.GetType().Name;
     }
 
     protected override AutomationControlType GetAutomationControlTypeCore()

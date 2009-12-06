@@ -4,27 +4,17 @@ using System.Windows.Automation.Peers;
 
 namespace Yasc.Controls.Automation
 {
-  public class ShogiHandAutomationPeer : FrameworkElementAutomationPeer
+  public class ShogiHandAutomationPeer : ControlAutomationPeer<ShogiHand>
   {
     public ShogiHandAutomationPeer(ShogiHand hand) 
       : base(hand)
     {
     }
 
-    public new ShogiHand Owner
-    {
-      get { return (ShogiHand)base.Owner; }
-    }
-
     protected override List<AutomationPeer> GetChildrenCore()
     {
       return new List<AutomationPeer>(
         from i in Owner.Items select CreatePeerForElement(i));
-    }
-
-    protected override string GetClassNameCore()
-    {
-      return Owner.GetType().Name;
     }
 
     protected override AutomationControlType GetAutomationControlTypeCore()
@@ -34,7 +24,7 @@ namespace Yasc.Controls.Automation
 
     protected override string GetItemTypeCore()
     {
-      return typeof(ShogiPiece).Name;
+      return typeof(HandNest).Name;
     }
     protected override bool IsContentElementCore()
     {
