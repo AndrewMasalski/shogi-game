@@ -23,5 +23,10 @@ namespace Yasc.Controls.Automation
     {
       return typeof(ShogiPiece).Name;
     }
+
+    protected override string GetNameCore()
+    {
+      return Owner.Cell.Position.ToString();
+    }
   }
 }
