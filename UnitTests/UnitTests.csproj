@@ -66,9 +66,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\A.cs" />
+    <Compile Include="Automation\AutomationElementExtensions.cs" />
+    <Compile Include="Automation\KeyboardDeviceExtensions.cs" />
+    <Compile Include="Automation\MouseDeviceExtensions.cs" />
+    <Compile Include="Automation\RectExtensions.cs" />
+    <Compile Include="Automation\SendInputInterop.cs" />
     <Compile Include="Automation\ApplicationHost.cs" />
     <Compile Include="Automation\MainWindowTest.cs" />
+    <Compile Include="Automation\ToggleMode.cs" />
+    <Compile Include="Automation\WheelType.cs" />
     <Compile Include="BoardSnapshotTest.cs">
       <SubType>Code</SubType>
     </Compile>
