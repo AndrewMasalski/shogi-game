@@ -20,8 +20,7 @@ namespace Yasc.Controls.Automation
         case PatternInterface.Grid:
           return this;
         default:
-          return null;
-
+          return base.GetPattern(patternInterface);
       }
     }
     protected override string GetItemTypeCore()
@@ -30,16 +29,10 @@ namespace Yasc.Controls.Automation
     }
     protected override List<AutomationPeer> GetChildrenCore()
     {
-      return (from p in Position.OnBoard select CreatePeerForElement(Owner.GetCell(p))).ToList();
+      return (from p in Position.OnBoard 
+              select CreatePeerForElement(Owner.GetCell(p))).ToList();
     }
-    protected override bool IsContentElementCore()
-    {
-      return true;
-    }
-    protected override bool IsControlElementCore()
-    {
-      return true;
-    }
+
     #region ' IGridProvider '
 
 
@@ -57,6 +50,5 @@ namespace Yasc.Controls.Automation
     }
 
     #endregion
-
   }
 }

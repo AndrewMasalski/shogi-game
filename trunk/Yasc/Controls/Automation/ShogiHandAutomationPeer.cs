@@ -17,23 +17,9 @@ namespace Yasc.Controls.Automation
         from i in Owner.Items select CreatePeerForElement(i));
     }
 
-    protected override AutomationControlType GetAutomationControlTypeCore()
-    {
-      return AutomationControlType.Pane;
-    }
-
     protected override string GetItemTypeCore()
     {
       return typeof(HandNest).Name;
-    }
-    protected override bool IsContentElementCore()
-    {
-      return true;
-    }
-
-    protected override bool IsControlElementCore()
-    {
-      return true;
     }
   }
 }

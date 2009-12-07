@@ -1,5 +1,6 @@
 ﻿using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.Controls;
 
 namespace UnitTests.Automation
 {
@@ -27,8 +28,11 @@ namespace UnitTests.Automation
       var button = (InvokePattern)element.GetCurrentPattern(InvokePattern.Pattern);
       button.Invoke();
       var piece = _windowElement.FindFirst(TreeScope.Descendants,
-        new PropertyCondition(AutomationElement.NameProperty, "歩"));
+        new PropertyCondition(AutomationElement.NameProperty, "White P"));
       Assert.IsNotNull(piece);
+      var pieces = _windowElement.FindAll(TreeScope.Descendants,
+        new PropertyCondition(AutomationElement.ClassNameProperty, typeof(ShogiPiece).Name));
+      Assert.AreEqual(40, pieces.Count);
     }
 
     [TestCleanup]

@@ -18,23 +18,9 @@ namespace Yasc.Controls.Automation
                };
     }
 
-    protected override AutomationControlType GetAutomationControlTypeCore()
-    {
-      return AutomationControlType.Pane;
-    }
-
     protected override string GetItemTypeCore()
     {
       return typeof(ShogiPiece).Name;
-    }
-    protected override bool IsContentElementCore()
-    {
-      return true;
-    }
-
-    protected override bool IsControlElementCore()
-    {
-      return true;
     }
   }
 }

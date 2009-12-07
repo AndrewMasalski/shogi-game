@@ -10,7 +10,6 @@ namespace Yasc.Controls.Automation
     {
     }
 
-
     protected override List<AutomationPeer> GetChildrenCore()
     {
       var peers = new List<AutomationPeer>();
@@ -20,23 +19,9 @@ namespace Yasc.Controls.Automation
       return peers;
     }
 
-    protected override AutomationControlType GetAutomationControlTypeCore()
-    {
-      return AutomationControlType.Pane;
-    }
-
     protected override string GetItemTypeCore()
     {
       return typeof(ShogiPiece).Name;
-    }
-    protected override bool IsContentElementCore()
-    {
-      return true;
-    }
-
-    protected override bool IsControlElementCore()
-    {
-      return true;
     }
   }
 }
