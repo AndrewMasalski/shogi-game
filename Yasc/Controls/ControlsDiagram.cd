@@ -18,10 +18,15 @@
     <Position X="9.5" Y="3" Width="1.5" />
     <Members>
       <Field Name="_pieceObserver" Hidden="true" />
+      <Field Name="EffectiveDirectionProperty" Hidden="true" />
+      <Method Name="GetEffectiveDirection" Hidden="true" />
       <Field Name="IsFlippedProperty" Hidden="true" />
       <Field Name="IsPromotedProperty" Hidden="true" />
+      <Method Name="OnCreateAutomationPeer" Hidden="true" />
+      <Method Name="OnIsFlippedChanged" Hidden="true" />
       <Method Name="OnIsPromotedChanged" Hidden="true" />
       <Method Name="OnPieceChanged" Hidden="true" />
+      <Method Name="OnPieceColorChanged" Hidden="true" />
       <Field Name="PieceColorProperty" Hidden="true" />
       <Field Name="PieceProperty" Hidden="true" />
       <Field Name="PieceTypeProperty" Hidden="true" />
@@ -29,7 +34,7 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAIAAABABCAABCAEAAgAAAAAEJEAgBAQAAAAOCAAAAA=</HashCode>
+      <HashCode>AAIAAABABCAABCAEAAgAAAAAEJEAgBAQAAAAOCAAACA=</HashCode>
       <FileName>Controls\ShogiPiece.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -40,6 +45,7 @@
       <Method Name="DeattachPiece" Hidden="true" />
       <Method Name="HandNest" Hidden="true" />
       <Field Name="HandProperty" Hidden="true" />
+      <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="OnHandChanged" Hidden="true" />
       <Method Name="OnHandCollectionChanged" Hidden="true" />
       <Method Name="OnPieceColorChanged" Hidden="true" />
@@ -48,7 +54,7 @@
       <Method Name="UpdateCp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAJAAAQgAACQAAAAQAAAQAAAAAIAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAJAAAQgAACQAAAAQAAAQAAAAAIAAACA=</HashCode>
       <FileName>Controls\HandNest.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -84,8 +90,8 @@
       <FileName>Controls\PieceHolderBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="ShogiPiece" />
       <Property Name="EffectiveDirection" />
+      <Property Name="ShogiPiece" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.Controls.ShogiBoard">
@@ -113,6 +119,7 @@
       <Field Name="MoveAttemptEvent" Hidden="true" />
       <Method Name="MoveToAdornerLayer" Hidden="true" />
       <Method Name="OnApplyTemplate" Hidden="true" />
+      <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="OnDragCancelled" Hidden="true" />
       <Method Name="OnDragFromBoard" Hidden="true" />
       <Method Name="OnDragFromHand" Hidden="true" />
@@ -130,7 +137,7 @@
       <Method Name="ShogiBoard" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>cFABxEZAgFRRCIAMABAgAAgAEAEEGRoAQAAIAGCAIAI=</HashCode>
+      <HashCode>cFABxEZAgFRRCIAMABAgAAgAEAEEGRoAQAAIAGCAICI=</HashCode>
       <FileName>Controls\ShogiBoard.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -149,12 +156,13 @@
       <Field Name="IsFlippedProperty" Hidden="true" />
       <Method Name="OnApplyTemplate" Hidden="true" />
       <Method Name="OnBoardChanged" Hidden="true" />
+      <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="OnIsFlippedChanged" Hidden="true" />
       <Method Name="SetupCell" Hidden="true" />
       <Method Name="ShogiBoardCore" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QAAEAABQQABAAAAEAAoAAAEAAAEIAAAAAAAAACCAAAA=</HashCode>
+      <HashCode>QAAEAABQQABAAAAEAAoAAAEAAAEIAAAAAAAAACCAACA=</HashCode>
       <FileName>Controls\ShogiBoardCore.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -170,16 +178,17 @@
       <Field Name="IsPromotionRecommendedProperty" Hidden="true" />
       <Method Name="OnApplyTemplate" Hidden="true" />
       <Method Name="OnCellChanged" Hidden="true" />
+      <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="ShogiCell" Hidden="true" />
       <Method Name="UpdateCp" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AEAAACAAAABAAAAAAADAAAAAgAAAAAAIAEAAAIIAAAA=</HashCode>
+      <HashCode>AEAAACAAAABAAAAAAADAAAAAgAAAAAAIAEAAAIIAACA=</HashCode>
       <FileName>Controls\ShogiCell.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.Controls.ShogiHand">
-    <Position X="3.25" Y="4" Width="1.5" />
+    <Position X="3" Y="3.75" Width="1.5" />
     <Members>
       <Field Name="_synchStrategy" Hidden="true" />
       <Field Name="BoardProperty" Hidden="true" />
@@ -190,6 +199,7 @@
       <Method Name="OnApplyTemplate" Hidden="true" />
       <Method Name="OnBoardChanged" Hidden="true" />
       <Method Name="OnColorChanged" Hidden="true" />
+      <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="OnHandChanged" Hidden="true" />
       <Method Name="OnIsGroupingChanged" Hidden="true" />
       <Method Name="ShogiHand" Hidden="true" />
@@ -213,7 +223,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQQCBASBAFAAAAAAAAAACRAAAAgAAAgCAAAAA=</HashCode>
+      <HashCode>AAAAAAAQQCBASBAFAAAAAAAAAACRAAAAgAAAgCAAACA=</HashCode>
       <FileName>Controls\ShogiHand.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>

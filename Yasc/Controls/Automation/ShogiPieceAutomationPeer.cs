@@ -1,5 +1,3 @@
-using System.Windows.Automation.Peers;
-
 namespace Yasc.Controls.Automation
 {
   public class ShogiPieceAutomationPeer : ControlAutomationPeer<ShogiPiece>
@@ -9,17 +7,13 @@ namespace Yasc.Controls.Automation
     {
     }
 
-    protected override AutomationControlType GetAutomationControlTypeCore()
+    protected override string GetNameCore()
     {
-      return AutomationControlType.Pane;
+      return Owner.Piece.ToLatinString();
     }
     protected override bool IsContentElementCore()
     {
       return false;
-    }
-    protected override bool IsControlElementCore()
-    {
-      return true;
     }
   }
 }
