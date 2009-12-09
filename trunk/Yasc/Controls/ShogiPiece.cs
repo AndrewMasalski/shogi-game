@@ -37,6 +37,13 @@ namespace Yasc.Controls
 
     private void OnPieceChanged(Piece piece)
     {
+      if (_pieceObserver != null || piece == null)
+      {
+        throw new InvalidOperationException(
+          "You can set ShogiPiece.Piece property just "+
+          "once and with not null value only");
+      }
+
       PieceType = piece.Type;
       PieceColor = piece.Color;
       IsPromoted = piece.IsPromoted;
@@ -170,10 +177,8 @@ namespace Yasc.Controls
 
     #region ' Root Fields '
 
-// ReSharper disable UnaccessedField.Local
     /// <summary>Holds the reference to prevent GC from collecting</summary>
     private PropertyObserver<Piece> _pieceObserver;
-// ReSharper restore UnaccessedField.Local
 
     #endregion
 
