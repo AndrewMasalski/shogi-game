@@ -63,12 +63,21 @@ namespace Yasc.ShogiCore
 
     private void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
-      if (args.Action == NotifyCollectionChangedAction.Add)
-        foreach (Piece p in args.NewItems)
-        {
-          p.Owner = this;
-          p.IsPromoted = false;
-        }
+      switch (args.Action)
+      {
+        case NotifyCollectionChangedAction.Add:
+          foreach (Piece p in args.NewItems)
+          {
+            Board.PiecesSet.Take(p);
+            p.Owner = this;
+            p.IsPromoted = false;
+          }
+          break;
+        case NotifyCollectionChangedAction.Remove:
+          foreach (Piece p in args.OldItems)
+            Board.PiecesSet.Return(p);
+          break;
+      }
     }
 
     #endregion

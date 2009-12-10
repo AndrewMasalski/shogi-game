@@ -60,8 +60,8 @@ namespace UnitTests.DropMoves
     [TestMethod]
     public void CantDropPawnToMateTheOpponent()
     {
-      _board.SetPiece("1i", _board.White, "玉");
-      _board.SetPiece("1g", _board.White, "歩");
+      _board.SetPiece("1i", _board.Black, "玉");
+      _board.SetPiece("1g", _board.Black, "歩");
       _board.SetPiece("2h", _board.White, "飛");
       _board.SetPiece("3g", _board.White, "金");
       _board.White.Hand.Add(_board.GetSparePiece("歩"));
