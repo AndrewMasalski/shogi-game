@@ -10,7 +10,7 @@ namespace UnitTests
     public void TestPromote()
     {
       var b = new Board();
-      var p = b.GetSparePiece("歩");
+      var p = b.PieceSet["歩"];
       p.IsPromoted = true;
       Assert.AreEqual("と", (string)p.Type);
       p.IsPromoted = false;
@@ -24,7 +24,7 @@ namespace UnitTests
       Assert.IsNull(c.Piece);
       c.ResetPiece();
       Assert.IsNull(c.Piece);
-      var piece = b.GetSparePiece("馬");
+      var piece = b.PieceSet["馬"];
       c.SetPiece(piece, b.White);
       Assert.AreSame(c.Piece, piece);
       c.SetPiece(piece, b.White);

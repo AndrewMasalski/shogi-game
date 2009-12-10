@@ -17,7 +17,7 @@ namespace Yasc.ShogiCore
       piece.Owner = owner;
 
       if (Piece == piece) return;
-      Board.PiecesSet.Take(piece);
+      Board.PieceSet.Take(piece);
       Piece = piece;
       RaisePropertyChanged("Piece");
     }
@@ -30,7 +30,7 @@ namespace Yasc.ShogiCore
       if (Piece == null) return null;
       var old = Piece;
       Piece = null;
-      Board.PiecesSet.Return(old);
+      Board.PieceSet.Return(old);
       RaisePropertyChanged("Piece");
       return old;
     }
