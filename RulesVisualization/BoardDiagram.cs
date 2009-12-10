@@ -116,14 +116,14 @@ namespace Yasc.RulesVisualization
       Board.White.Hand.Clear();
 
       foreach (var pieceType in ParseA(pcs))
-        Board.White.Hand.Add(Board.GetSparePiece(pieceType));
+        Board.White.AddToHand(pieceType);
     }
     private void OnBlackHandChanged(string pcs)
     {
       Board.Black.Hand.Clear();
 
       foreach (var pieceType in ParseA(pcs))
-        Board.Black.Hand.Add(Board.GetSparePiece(pieceType));
+        Board.Black.AddToHand(pieceType);
     }
 
     #endregion

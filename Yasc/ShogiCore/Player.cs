@@ -34,12 +34,19 @@ namespace Yasc.ShogiCore
           return piece;
       return null;
     }
+    public Piece AddToHand(PieceType type)
+    {
+      Piece piece = Board.PieceSet[type];
+      Hand.Add(piece);
+      return piece;
+    }
+
     public void LoadSnapshot(IEnumerable<PieceSnapshot> collection)
     {
 #warning Implement cool update. See ListUtils.Update
       ResetAllPiecesFromHand();
       foreach (var snapshot in collection)
-        Hand.Add(Board.GetSparePiece(snapshot.Type));
+        AddToHand(snapshot.Type);
     }
 
     public void ResetAllPiecesFromHand()
@@ -50,7 +57,7 @@ namespace Yasc.ShogiCore
       {
         var piece = Hand[Hand.Count - 1];
         Hand.RemoveAt(Hand.Count - 1);
-        Board.PiecesSet.Return(piece);
+        Board.PieceSet.Return(piece);
       }
     }
 
@@ -68,14 +75,14 @@ namespace Yasc.ShogiCore
         case NotifyCollectionChangedAction.Add:
           foreach (Piece p in args.NewItems)
           {
-            Board.PiecesSet.Take(p);
+            Board.PieceSet.Take(p);
             p.Owner = this;
             p.IsPromoted = false;
           }
           break;
         case NotifyCollectionChangedAction.Remove:
           foreach (Piece p in args.OldItems)
-            Board.PiecesSet.Return(p);
+            Board.PieceSet.Return(p);
           break;
       }
     }

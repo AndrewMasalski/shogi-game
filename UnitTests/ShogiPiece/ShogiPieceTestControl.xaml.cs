@@ -13,7 +13,7 @@ namespace UnitTests
       InitializeComponent();
       DataContext = this;
       var b = new Board();
-      Pieces = new[] { b.GetSparePiece("と"), b.GetSparePiece("玉") };
+      Pieces = new[] { b.PieceSet["と"], b.PieceSet["玉"] };
       PossibleDirections = (PieceDirection[])Enum.GetValues(typeof(PieceDirection));
       PossibleColors = (PieceColor[])Enum.GetValues(typeof(PieceColor));
       PossibleTypes = PieceType.GetValues().ToArray();

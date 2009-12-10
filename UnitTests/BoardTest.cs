@@ -193,9 +193,9 @@ namespace UnitTests
     [TestMethod]
     public void TestGetAvailableDropMoves()
     {
-      _board.White.Hand.Add(_board.GetSparePiece("馬"));
-
-      var a = (from m in _board.GetAvailableMoves(_board.GetSparePiece("馬")) select m.To).ToList();
+      _board.White.AddToHand("馬");
+#warning that must be an error! check!
+      var a = (from m in _board.GetAvailableMoves(_board.PieceSet["馬"]) select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), a);
     }
     [TestMethod]
