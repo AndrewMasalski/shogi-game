@@ -8,6 +8,7 @@ namespace Yasc.ShogiCore
   ///   which dramatically simplifies GUI binding</remarks>
   public class Cell : ObservableObject
   {
+    public Board Board { get; set; }
     public Position Position { get; private set; }
     public Piece Piece { get; private set; }
 
@@ -16,6 +17,7 @@ namespace Yasc.ShogiCore
       piece.Owner = owner;
 
       if (Piece == piece) return;
+      Board.PiecesSet.Take(piece);
       Piece = piece;
       RaisePropertyChanged("Piece");
     }
@@ -23,15 +25,19 @@ namespace Yasc.ShogiCore
     {
       SetPiece(piece, piece.Owner);
     }
-    public void ResetPiece()
+    public Piece ResetPiece()
     {
-      if (Piece == null) return;
+      if (Piece == null) return null;
+      var old = Piece;
       Piece = null;
+      Board.PiecesSet.Return(old);
       RaisePropertyChanged("Piece");
+      return old;
     }
 
-    internal Cell(Position position)
+    internal Cell(Board board, Position position)
     {
+      Board = board;
       Position = position;
     }
   }
