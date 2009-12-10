@@ -98,7 +98,7 @@ namespace Yasc.RulesVisualization
       foreach (var pair in ParseB(pcs))
       {
         var p = pair.Key;
-        Board[p.X, p.Y].SetPiece(Board.GetSparePiece(pair.Value), Board.White);
+        Board.SetPiece(p, Board.White, pair.Value);
       }
     }
     private void OnBlackChanged(string pcs)
@@ -108,7 +108,7 @@ namespace Yasc.RulesVisualization
       foreach (var pair in ParseB(pcs))
       {
         var p = pair.Key;
-        Board[p.X, p.Y].SetPiece(Board.GetSparePiece(pair.Value), Board.Black);
+        Board.SetPiece(p, Board.Black, pair.Value);
       }   
     }
     private void OnWhiteHandChanged(string pcs)

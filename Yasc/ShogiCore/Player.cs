@@ -36,19 +36,22 @@ namespace Yasc.ShogiCore
     }
     public void LoadSnapshot(IEnumerable<PieceSnapshot> collection)
     {
-
-      ClearHand();
+#warning Implement cool update. See ListUtils.Update
+      ResetAllPiecesFromHand();
       foreach (var snapshot in collection)
         Hand.Add(Board.GetSparePiece(snapshot.Type));
     }
 
-    internal void ClearHand()
+    public void ResetAllPiecesFromHand()
     {
-#warning some synchronizer doesn't support clear. Implement cool update. See ListUtils.Update
-      //      Hand.Clear();
+#warning some synchronizer doesn't support clear.
 
       while (Hand.Count > 0)
+      {
+        var piece = Hand[Hand.Count - 1];
         Hand.RemoveAt(Hand.Count - 1);
+        Board.PiecesSet.Return(piece);
+      }
     }
 
     public override string ToString()
@@ -67,7 +70,6 @@ namespace Yasc.ShogiCore
           p.IsPromoted = false;
         }
     }
-
 
     #endregion
   }

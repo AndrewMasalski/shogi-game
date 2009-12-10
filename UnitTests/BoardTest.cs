@@ -59,7 +59,7 @@ namespace UnitTests
     [TestMethod]
     public void PutPieceTest()
     {
-      _board.SetPiece("5g", _board.GetSparePiece("馬"), PieceColor.White);
+      _board.SetPiece("5g", PieceColor.White, "馬");
       Assert.IsNotNull(_board["5g"]);
     }
     [TestMethod]
@@ -201,7 +201,7 @@ namespace UnitTests
     [TestMethod]
     public void HistoryTest()
     {
-      _board.SetPiece("1a",  _board.GetSparePiece("歩"), _board.White);
+      _board.SetPiece("1a", _board.White, "歩");
       var move = _board.GetMove("1a-1b");
       var s1 = _board.CurrentSnapshot;
       _board.MakeMove(move);

@@ -30,7 +30,7 @@ namespace Yasc.ShogiCore.Moves
     {
       Piece piece = Who.GetPieceFromHandByType(PieceType);
       Who.Hand.Remove(piece);
-      Board[To.X, To.Y].SetPiece(piece);
+      Board.SetPiece(To, piece);
     }
 
     protected override string GetErrorMessage()
