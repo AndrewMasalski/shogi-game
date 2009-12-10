@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Automation.Peers;
 using MvvmFoundation.Wpf;
 using Yasc.Controls.Automation;
@@ -29,6 +30,13 @@ namespace Yasc.Controls
 
     private void OnCellChanged(Cell cell)
     {
+      if (cell == null || _cellObserver != null)
+      {
+        throw new InvalidOperationException(
+          "You can set ShogiCell.Cell property just " +
+          "once and with not null value only");
+      }
+
       UpdateCp(cell);
       _cellObserver = new PropertyObserver<Cell>(cell).
         RegisterHandler(c => c.Piece, UpdateCp);
@@ -37,7 +45,8 @@ namespace Yasc.Controls
     private void UpdateCp(Cell cell)
     {
       if (Cp == null) return;
-      Cp.Content = cell == null || cell.Piece == null ? null : new ShogiPiece(cell.Piece);
+      var piece = cell == null ? null : cell.Piece;
+      Cp.Content = piece == null ? null : new ShogiPiece(cell.Piece);
     }
 
     public Cell Cell
@@ -82,11 +91,9 @@ namespace Yasc.Controls
       if (core != null) core.SetupCell(this);
       base.OnApplyTemplate();
     }
-    
-// ReSharper disable UnaccessedField.Local
-    // We need it for GC not to collect it
+
+    /// <summary>Holds the reference to prevent GC from collecting</summary>
     private PropertyObserver<Cell> _cellObserver;
-// ReSharper restore UnaccessedField.Local
 
     protected override AutomationPeer OnCreateAutomationPeer()
     {

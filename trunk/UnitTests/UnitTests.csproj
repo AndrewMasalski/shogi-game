@@ -96,6 +96,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Netwroking\TimerTest.cs" />
+    <Compile Include="ShogiCellTest.xaml.cs">
+      <DependentUpon>ShogiCellTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShogiPiece\ShogiPieceTestControl.xaml.cs">
       <DependentUpon>ShogiPieceTestControl.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
     <Page Include="Positions\GoldMoves.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShogiCellTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShogiPiece\ShogiPieceTestControl.xaml">
       <SubType>Designer</SubType>
