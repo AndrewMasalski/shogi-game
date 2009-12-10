@@ -38,7 +38,7 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty IsPossibleMoveTargetProperty =
       DependencyProperty.Register("IsPossibleMoveTarget", typeof(bool),
-                                  typeof(PieceHolderBase), new UIPropertyMetadata(false));
+        typeof(PieceHolderBase), new UIPropertyMetadata(false));
 
     public bool IsPossibleMoveTarget
     {
@@ -107,7 +107,7 @@ namespace Yasc.Controls
       Cp.Content = null;
       return piece;
     }
-    public ContentPresenter Cp { get; private set; }
+    protected ContentPresenter Cp { get; set; }
     public ShogiPiece ShogiPiece
     {
       get { return Cp != null ? (ShogiPiece)Cp.Content : null; }
