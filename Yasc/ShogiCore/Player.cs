@@ -36,14 +36,21 @@ namespace Yasc.ShogiCore
     }
     public void LoadSnapshot(IEnumerable<PieceSnapshot> collection)
     {
+
+      ClearHand();
+      foreach (var snapshot in collection)
+        Hand.Add(Board.GetSparePiece(snapshot.Type));
+    }
+
+    internal void ClearHand()
+    {
 #warning some synchronizer doesn't support clear. Implement cool update. See ListUtils.Update
+      //      Hand.Clear();
 
       while (Hand.Count > 0)
         Hand.RemoveAt(Hand.Count - 1);
-//      Hand.Clear();
-      foreach (var snapshot in collection)
-        Hand.Add(new Piece(this, snapshot.Type));
     }
+
     public override string ToString()
     {
       return Name ?? Color.ToString();

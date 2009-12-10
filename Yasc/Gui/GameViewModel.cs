@@ -49,7 +49,7 @@ namespace Yasc.Gui
         if (cell.Piece != null)
         {
           cell.Piece.Owner.Hand.Add(cell.Piece);
-          cell.Piece = null;
+          cell.ResetPiece();
         }
       }
     }

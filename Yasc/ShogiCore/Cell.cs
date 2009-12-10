@@ -8,18 +8,26 @@ namespace Yasc.ShogiCore
   ///   which dramatically simplifies GUI binding</remarks>
   public class Cell : ObservableObject
   {
-    private Piece _piece;
-
     public Position Position { get; private set; }
-    public Piece Piece
+    public Piece Piece { get; private set; }
+
+    public void SetPiece(Piece piece, Player owner)
     {
-      get { return _piece; }
-      set
-      {
-        if (_piece == value) return;
-        _piece = value;
-        RaisePropertyChanged("Piece");
-      }
+      piece.Owner = owner;
+
+      if (Piece == piece) return;
+      Piece = piece;
+      RaisePropertyChanged("Piece");
+    }
+    public void SetPiece(Piece piece)
+    {
+      SetPiece(piece, piece.Owner);
+    }
+    public void ResetPiece()
+    {
+      if (Piece == null) return;
+      Piece = null;
+      RaisePropertyChanged("Piece");
     }
 
     internal Cell(Position position)

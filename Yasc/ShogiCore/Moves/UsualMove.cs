@@ -54,15 +54,15 @@ namespace Yasc.ShogiCore.Moves
     protected internal override void Make()
     {
       var piece = Board[From];
-      Board[From] = null;
+      Board[From.X, From.Y].ResetPiece();
       if (IsPromoting) piece.IsPromoted = true;
       var targetPiece = Board[To];
       if (targetPiece != null)
       {
-        Board[To] = null;
+        Board[To.X, To.Y].ResetPiece();
         Who.Hand.Add(targetPiece);
       }
-      Board[To] = piece;
+      Board[To.X, To.Y].SetPiece(piece);
     }
   }
 }
