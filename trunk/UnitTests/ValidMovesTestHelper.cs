@@ -18,7 +18,7 @@ namespace UnitTests
     {
       _startPosition = startPosition;
       _piece = piece;
-      Board[_startPosition] = _piece;
+      Board.SetPiece(_startPosition, _piece);
       Board.OneWhoMoves = _piece.Owner;
     }
     public void TestMoves(HashSet<Position> validMoves)

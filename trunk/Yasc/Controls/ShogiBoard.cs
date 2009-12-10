@@ -217,7 +217,7 @@ namespace Yasc.Controls
     private static void ArbitraryMove(Cell cell, ShogiHand hand)
     {
       var piece = cell.Piece;
-      cell.Piece = null;
+      cell.ResetPiece();
       hand.Hand.Add(piece);
     }
     private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
@@ -226,18 +226,18 @@ namespace Yasc.Controls
       if (promotionRequest) piece.IsPromoted = true;
       piece.Owner.Hand.Remove(piece);
       var m = cell.Piece;
-      cell.Piece = null;
-      cell.Piece = piece;
+      cell.ResetPiece();
+      cell.SetPiece(piece, piece.Owner);
       if (m != null) piece.Owner.Hand.Add(m);
     }
     private static void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
     {
       var piece = from.Piece;
       if (promotionRequest) piece.IsPromoted = true;
-      from.Piece = null;
+      from.ResetPiece();
       var m = to.Piece;
-      to.Piece = null;
-      to.Piece = piece;
+      to.ResetPiece();
+      to.SetPiece(piece, piece.Owner);
       if (m != null) piece.Owner.Hand.Add(m);
     }
 

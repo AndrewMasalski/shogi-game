@@ -22,7 +22,7 @@ namespace Yasc.ShogiCore
       }
     }
 
-    public Piece(Player owner, PieceType type)
+    internal Piece(Player owner, PieceType type)
     {
       Owner = owner;
       Type = type;

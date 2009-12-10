@@ -59,7 +59,7 @@ namespace UnitTests
     [TestMethod]
     public void PutPieceTest()
     {
-      _board["5g"] = new Piece(_board.White, "馬");
+      _board.SetPiece("5g", _board.GetSparePiece("馬"), PieceColor.White);
       Assert.IsNotNull(_board["5g"]);
     }
     [TestMethod]
@@ -193,16 +193,15 @@ namespace UnitTests
     [TestMethod]
     public void TestGetAvailableDropMoves()
     {
-      var piece = new Piece(_board.White, "馬");
-      _board.White.Hand.Add(piece);
+      _board.White.Hand.Add(_board.GetSparePiece("馬"));
 
-      var a = (from m in _board.GetAvailableMoves(piece) select m.To).ToList();
+      var a = (from m in _board.GetAvailableMoves(_board.GetSparePiece("馬")) select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), a);
     }
     [TestMethod]
     public void HistoryTest()
     {
-      _board["1a"] = new Piece(_board.White, "歩");
+      _board.SetPiece("1a",  _board.GetSparePiece("歩"), _board.White);
       var move = _board.GetMove("1a-1b");
       var s1 = _board.CurrentSnapshot;
       _board.MakeMove(move);

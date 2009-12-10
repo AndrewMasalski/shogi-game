@@ -96,28 +96,34 @@ namespace Yasc.RulesVisualization
       ClearBoard(PieceColor.White);
 
       foreach (var pair in ParseB(pcs))
-        Board[pair.Key] = new Piece(Board.White, pair.Value);
+      {
+        var p = pair.Key;
+        Board[p.X, p.Y].SetPiece(Board.GetSparePiece(pair.Value), Board.White);
+      }
     }
     private void OnBlackChanged(string pcs)
     {
       ClearBoard(PieceColor.Black);
 
       foreach (var pair in ParseB(pcs))
-        Board[pair.Key] = new Piece(Board.Black, pair.Value);
+      {
+        var p = pair.Key;
+        Board[p.X, p.Y].SetPiece(Board.GetSparePiece(pair.Value), Board.Black);
+      }   
     }
     private void OnWhiteHandChanged(string pcs)
     {
       Board.White.Hand.Clear();
 
       foreach (var pieceType in ParseA(pcs))
-        Board.White.Hand.Add(new Piece(Board.White, pieceType));
+        Board.White.Hand.Add(Board.GetSparePiece(pieceType));
     }
     private void OnBlackHandChanged(string pcs)
     {
       Board.Black.Hand.Clear();
 
       foreach (var pieceType in ParseA(pcs))
-        Board.Black.Hand.Add(new Piece(Board.Black, pieceType));
+        Board.Black.Hand.Add(Board.GetSparePiece(pieceType));
     }
 
     #endregion
@@ -126,8 +132,9 @@ namespace Yasc.RulesVisualization
     {
       foreach (var p in Position.OnBoard)
       {
-        if (Board[p] != null && Board[p].Color == color)
-          Board[p] = null;
+        var cell = Board[p.X, p.Y];
+        if (cell != null && cell.Piece.Color == color)
+          cell.ResetPiece();
       }
     }
     private static IEnumerable<PieceType> ParseA(string pcs)
