@@ -411,6 +411,7 @@ namespace Yasc.Controls
     }
     private void OnIsCurrentMoveLastPropertyChanged(bool value)
     {
+      if (_shieldContainer == null) return;
       if (!value)
       {
         Shield shieldControl;

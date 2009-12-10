@@ -132,9 +132,9 @@ namespace Yasc.RulesVisualization
     {
       foreach (var p in Position.OnBoard)
       {
-        var cell = Board[p.X, p.Y];
-        if (cell != null && cell.Piece.Color == color)
-          cell.ResetPiece();
+        var piece = Board[p];
+        if (piece != null && piece.Color == color)
+          Board.ResetPiece(p);
       }
     }
     private static IEnumerable<PieceType> ParseA(string pcs)

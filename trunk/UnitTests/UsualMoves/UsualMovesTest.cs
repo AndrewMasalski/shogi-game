@@ -17,9 +17,9 @@ namespace UnitTests.UsualMoves
       var assembly = typeof(PieceTest).Assembly;
       foreach (var uri in assembly.GetBamlUris("Positions"))
       {
-        var page = (Page) Application.LoadComponent(uri);
+        Console.WriteLine("start: " + uri);
+        var page = (Page)Application.LoadComponent(uri);
         var diagram = (BoardDiagram)page.Content;
-        Console.WriteLine(uri);
         var board = diagram.Board;
         ValidateDiagram(diagram, board);
       }
