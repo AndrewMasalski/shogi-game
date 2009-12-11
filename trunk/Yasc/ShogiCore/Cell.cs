@@ -1,3 +1,4 @@
+using System;
 using MvvmFoundation.Wpf;
 
 namespace Yasc.ShogiCore
@@ -14,16 +15,22 @@ namespace Yasc.ShogiCore
 
     public void SetPiece(Piece piece, Player owner)
     {
+      if (piece.Owner != null) throw new Exception();
+
       piece.Owner = owner;
 
-      if (Piece == piece) return;
       Board.PieceSet.Take(piece);
       Piece = piece;
       RaisePropertyChanged("Piece");
     }
     public void SetPiece(Piece piece)
     {
-      SetPiece(piece, piece.Owner);
+      if (Piece == piece) return;
+
+      var player = piece.Owner;
+      if (player == null) throw new Exception();
+      player.Board.PieceSet.Return(piece);
+      SetPiece(piece, player);
     }
     public Piece ResetPiece()
     {

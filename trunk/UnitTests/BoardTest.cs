@@ -190,12 +190,22 @@ namespace UnitTests
               select m.To).ToList();
       CollectionAssert.AreEquivalent(new Position[]{"5b", "4b", "3b"}, a);
     }
+    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
+    public void TestCantUseOwnerlessPieceInGetAvailableMoves()
+    {
+      _board.GetAvailableMoves(_board.PieceSet["馬"]);
+    }
+    
+    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
+    public void TestCantUseOwnerlessPieceInGetDropMove()
+    {
+      _board.GetDropMove(_board.PieceSet["馬"], "1a");
+    }
     [TestMethod]
     public void TestGetAvailableDropMoves()
     {
-      _board.White.AddToHand("馬");
-#warning that must be an error! check!
-      var a = (from m in _board.GetAvailableMoves(_board.PieceSet["馬"]) select m.To).ToList();
+      var piece = _board.White.AddToHand("馬");
+      var a = (from m in _board.GetAvailableMoves(piece) select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), a);
     }
     [TestMethod]
@@ -210,6 +220,31 @@ namespace UnitTests
       Assert.AreEqual(s1, _board.CurrentSnapshot);
       _board.History.CurrentMoveIndex = 0;
       Assert.AreEqual(s2, _board.CurrentSnapshot);
+    }
+  }
+
+  [TestClass]
+  public class PieceSetTest
+  {
+    [TestMethod]
+    public void TestResetOwnerOnReturn()
+    {
+      var board = new Board();
+      var piece = board.PieceSet["馬"];
+      board.PieceSet.Take(piece);
+      piece.Owner = board.White;
+      board.PieceSet.Return(piece);
+      Assert.IsNull(piece.Owner);
+    }
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void Test()
+    {
+      var board = new Board();
+      var piece = board.PieceSet["馬"];
+      board.PieceSet.Take(piece);
+      piece.Owner = board.White;
+      board.PieceSet.Return(piece);
+      Assert.IsNull(piece.Owner);
     }
   }
 }
