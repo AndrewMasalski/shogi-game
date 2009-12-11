@@ -75,6 +75,7 @@ namespace Yasc.ShogiCore
         case NotifyCollectionChangedAction.Add:
           foreach (Piece p in args.NewItems)
           {
+            if (p.Owner == null) 
             Board.PieceSet.Take(p);
             p.Owner = this;
             p.IsPromoted = false;

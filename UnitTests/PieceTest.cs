@@ -27,7 +27,7 @@ namespace UnitTests
       var piece = b.PieceSet["馬"];
       c.SetPiece(piece, b.White);
       Assert.AreSame(c.Piece, piece);
-      c.SetPiece(piece, b.White);
+      c.SetPiece(piece);
       Assert.AreSame(c.Piece, piece);
     }
   }

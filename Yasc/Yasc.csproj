@@ -134,6 +134,8 @@
     <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
+    <Compile Include="ShogiCore\IPieceSet.cs" />
+    <Compile Include="ShogiCore\DefaultPieceSet.cs" />
     <Compile Include="Utils\WeakReference.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
