@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="DropMoves\TestInvalidMoveMessages.cs" />
     <Compile Include="MovesHistoryTest.cs" />
+    <Compile Include="PieceSetTest.cs" />
     <Compile Include="PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,9 +108,6 @@
     </Compile>
     <Compile Include="UsualMoves\GetAvailableMovesTest.cs" />
     <Compile Include="UsualMoves\UsualMovesTest.cs" />
-    <Compile Include="ValidMovesTestHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>

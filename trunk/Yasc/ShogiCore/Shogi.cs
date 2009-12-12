@@ -40,7 +40,7 @@ namespace Yasc.ShogiCore
       return result;
     }
 
-    public static void InititBoard(Board board)
+    public static void InitBoard(Board board)
     {
       foreach (var pair in InitialPosition)
       {

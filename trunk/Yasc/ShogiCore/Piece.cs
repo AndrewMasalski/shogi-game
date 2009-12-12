@@ -22,19 +22,20 @@ namespace Yasc.ShogiCore
       }
     }
 
-    internal Piece(Player owner, PieceType type)
+    internal Piece(PieceType type)
     {
-      Owner = owner;
       Type = type;
     }
 
     public override string ToString()
     {
-      return Owner.Color + (IsPromoted ? " promoted " : " ") + Type;
+      return (Owner == null ? "Ownerless" : Owner.Color.ToString()) + 
+        (IsPromoted ? " promoted " : " ") + Type;
     }
     public string ToLatinString()
     {
-      return Owner.Color + (IsPromoted ? " promoted " : " ") + Type.Latin;
+      return (Owner == null ? "Ownerless" : Owner.Color.ToString()) + 
+        (IsPromoted ? " promoted " : " ") + Type.Latin;
     }
   }
 }

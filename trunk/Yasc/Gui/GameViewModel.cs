@@ -103,7 +103,7 @@ namespace Yasc.Gui
     {
       Board = new Board();
       Board.Moved += BoardOnMoved;
-      Shogi.InititBoard(Board);
+      Shogi.InitBoard(Board);
     }
     
     private void GetBack()

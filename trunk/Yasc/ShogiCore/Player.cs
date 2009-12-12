@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -75,7 +76,12 @@ namespace Yasc.ShogiCore
         case NotifyCollectionChangedAction.Add:
           foreach (Piece p in args.NewItems)
           {
-            if (p.Owner == null) 
+            if (p.Owner != null) 
+            {
+              throw new InvalidOperationException(
+                "Piece can't be in two places at the same time. " +
+                "First return it to the PieceSet, then try to add to the hand");
+            }
             Board.PieceSet.Take(p);
             p.Owner = this;
             p.IsPromoted = false;

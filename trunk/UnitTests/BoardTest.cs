@@ -21,7 +21,7 @@ namespace UnitTests
     {
       //    ______________
       //___/ Create board \__________________________________________________
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
       //    _________________________________
       //___/ Check pieces which must present \_______________________________
       foreach (var pair in Shogi.InitialPosition)
@@ -53,7 +53,7 @@ namespace UnitTests
             (s, e) => handler(new Position(x, y), (Cell)s);
         }
 
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
       Assert.AreEqual(counter, Shogi.InitialPosition.Count());
     }
     [TestMethod]
@@ -65,7 +65,7 @@ namespace UnitTests
     [TestMethod]
     public void ValidMoveWithoutTakingPieceTest()
     {
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
       var move = _board.GetUsualMove("9c", "9d", false);
       Assert.IsNotNull(move);
       _board.MakeMove(move);
@@ -75,7 +75,7 @@ namespace UnitTests
     [TestMethod]
     public void ValidMoveWithTakingPieceTest()
     {
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
 
       _board.MakeMove(_board.GetUsualMove("9c", "9d", false)); _board.OneWhoMoves = _board.White;
       _board.MakeMove(_board.GetUsualMove("9d", "9e", false)); _board.OneWhoMoves = _board.White;
@@ -115,7 +115,7 @@ namespace UnitTests
     public void MakeMoveFromAnotherBoard()
     {
       var board = new Board();
-      Shogi.InititBoard(board);
+      Shogi.InitBoard(board);
       var move = board.GetUsualMove("3c", "3d", false);
       _board.MakeMove(move);
     }
@@ -154,7 +154,7 @@ namespace UnitTests
     [TestMethod]
     public void TestMoveOrder()
     {
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
       _board.MakeMove(_board.GetUsualMove("3c", "3d", false));
       Assert.AreEqual("It's Black's move now",
         _board.GetUsualMove("3d", "3e", false).ErrorMessage);
@@ -162,7 +162,7 @@ namespace UnitTests
     [TestMethod]
     public void TestIgnoreMoveOrder()
     {
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
       _board.IsMovesOrderMaintained = false;
       _board.MakeMove(_board.GetUsualMove("3c", "3d", false));
       _board.MakeMove(_board.GetUsualMove("3d", "3e", false));
@@ -185,7 +185,7 @@ namespace UnitTests
     [TestMethod]
     public void TestGetAvailableUsualMoves()
     {
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
       var a = (from UsualMove m in _board.GetAvailableMoves("4a") 
               select m.To).ToList();
       CollectionAssert.AreEquivalent(new Position[]{"5b", "4b", "3b"}, a);
@@ -220,31 +220,6 @@ namespace UnitTests
       Assert.AreEqual(s1, _board.CurrentSnapshot);
       _board.History.CurrentMoveIndex = 0;
       Assert.AreEqual(s2, _board.CurrentSnapshot);
-    }
-  }
-
-  [TestClass]
-  public class PieceSetTest
-  {
-    [TestMethod]
-    public void TestResetOwnerOnReturn()
-    {
-      var board = new Board();
-      var piece = board.PieceSet["馬"];
-      board.PieceSet.Take(piece);
-      piece.Owner = board.White;
-      board.PieceSet.Return(piece);
-      Assert.IsNull(piece.Owner);
-    }
-    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
-    public void Test()
-    {
-      var board = new Board();
-      var piece = board.PieceSet["馬"];
-      board.PieceSet.Take(piece);
-      piece.Owner = board.White;
-      board.PieceSet.Return(piece);
-      Assert.IsNull(piece.Owner);
     }
   }
 }
