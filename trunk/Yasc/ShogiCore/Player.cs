@@ -38,6 +38,12 @@ namespace Yasc.ShogiCore
     public Piece AddToHand(PieceType type)
     {
       Piece piece = Board.PieceSet[type];
+      if (piece == null)
+      {
+        throw new NotEnoughtPiecesInSetException(
+          "Cannot add piece because there's no more pieces of type " +
+          type + " in the set. Consider using Infinite PieceSet");
+      }
       Hand.Add(piece);
       return piece;
     }
@@ -80,7 +86,7 @@ namespace Yasc.ShogiCore
             {
               throw new InvalidOperationException(
                 "Piece can't be in two places at the same time. " +
-                "First return it to the PieceSet, then try to add to the hand");
+                "First return it to the PieceSet, then try to add it to the hand");
             }
             Board.PieceSet.Take(p);
             p.Owner = this;

@@ -31,6 +31,7 @@ namespace Yasc.ShogiCore
     }
     public void Take(Piece piece)
     {
+      if (piece == null) throw new ArgumentNullException("piece");
       var list = _set[piece.Type.Id];
       if (!list.Remove(piece))
       {
@@ -40,6 +41,7 @@ namespace Yasc.ShogiCore
     }
     public void Return(Piece piece)
     {
+      if (piece == null) throw new ArgumentNullException("piece");
       piece.Owner = null;
       var list = _set[piece.Type.Id];
       list.Add(piece);

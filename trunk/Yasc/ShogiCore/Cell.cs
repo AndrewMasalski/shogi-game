@@ -15,7 +15,12 @@ namespace Yasc.ShogiCore
 
     public void SetPiece(Piece piece, Player owner)
     {
-      if (piece.Owner != null) throw new Exception();
+      if (piece.Owner != null)
+      {
+        throw new InvalidOperationException(
+          "Piece can't be in two places at the same time. " +
+          "First return it to the PieceSet, then try to add it to the hand");
+      }
 
       piece.Owner = owner;
 
