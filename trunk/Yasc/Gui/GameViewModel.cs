@@ -46,10 +46,12 @@ namespace Yasc.Gui
     {
       foreach (var cell in Board.Cells)
       {
-        if (cell.Piece != null)
+        var piece = cell.Piece;
+        if (piece != null)
         {
-          cell.Piece.Owner.Hand.Add(cell.Piece);
+          var player = piece.Owner;
           cell.ResetPiece();
+          player.Hand.Add(piece);
         }
       }
     }

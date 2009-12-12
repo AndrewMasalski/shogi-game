@@ -84,6 +84,7 @@
     <Compile Include="DropMoves\TestInvalidMoveMessages.cs" />
     <Compile Include="MovesHistoryTest.cs" />
     <Compile Include="PieceSetTest.cs" />
+    <Compile Include="PlayerTest.cs" />
     <Compile Include="PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -61,11 +61,7 @@ namespace Yasc.ShogiCore
 #warning some synchronizer doesn't support clear.
 
       while (Hand.Count > 0)
-      {
-        var piece = Hand[Hand.Count - 1];
         Hand.RemoveAt(Hand.Count - 1);
-        Board.PieceSet.Return(piece);
-      }
     }
 
     public override string ToString()
@@ -97,6 +93,10 @@ namespace Yasc.ShogiCore
           foreach (Piece p in args.OldItems)
             Board.PieceSet.Return(p);
           break;
+        default:
+          throw new NotSupportedException(
+            "Player.Hand collection supports just Remove and Add. "+
+            "If you want clear try Player.ResetAllPiecesFromHand");
       }
     }
 

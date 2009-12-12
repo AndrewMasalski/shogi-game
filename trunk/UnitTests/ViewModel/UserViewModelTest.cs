@@ -1,7 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTests.Netwroking;
 using Yasc.Gui;
 using Yasc.Networking;
+using Yasc.ShogiCore;
 
 namespace UnitTests.ViewModel
 {
@@ -23,6 +25,22 @@ namespace UnitTests.ViewModel
       jack.InvitePlay(jack.Users[0], controller => counter[0]++);
 
       Assert.AreEqual(2, counter[0]);
+    }
+  }
+  [TestClass]
+  public class GameViewModelClass
+  {
+    [TestMethod]
+    public void ClearBoard()
+    {
+      var model = new GameViewModel(WelcomeChoice.Autoplay);
+      model.CleanBoardCommand.Execute(null);
+      Assert.AreEqual(0, (from p in Position.OnBoard
+                          where model.Board[p] != null 
+                          select model.Board[p]).Count());
+      Assert.AreEqual(40,
+        model.Board.White.Hand.Concat(
+        model.Board.Black.Hand).Count());
     }
   }
 }
