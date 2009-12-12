@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
+using System.Linq;
 
 namespace UnitTests
 {
@@ -40,6 +42,20 @@ namespace UnitTests
       Assert.AreEqual("馬", (string)piece.Type);
       Assert.IsNull(piece.Owner);
     }
+    [TestMethod]
+    public void TestDuplicates()
+    {
+      var board = new Board();
+      var set = new HashSet<Piece>();
+      while (true)
+      {
+        var p = board.PieceSet["馬"];
+        if (p == null) break;
+        board.PieceSet.Take(p);
+        Assert.IsTrue(set.Add(p), "Not all pieces are different objects");
+      }
+      Assert.IsFalse(ReferenceEquals(set.First(), set.Last()));
+    }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void TwoPlaces()
     {
@@ -47,6 +63,16 @@ namespace UnitTests
       var piece = board.PieceSet["馬"];
       board.SetPiece("1i", piece, PieceColor.White);
       board.White.Hand.Add(piece);
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void TakeNullPiece()
+    {
+      new Board().PieceSet.Take(null);
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void ReturnNullPiece()
+    {
+      new Board().PieceSet.Return(null);
     }
   }
 }
