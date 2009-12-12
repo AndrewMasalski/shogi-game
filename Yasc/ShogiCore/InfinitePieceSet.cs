@@ -3,21 +3,15 @@ using System.Collections.Generic;
 
 namespace Yasc.ShogiCore
 {
-  internal class DefaultPieceSet : IPieceSet
+  internal class InfinitePieceSet : IPieceSet
   {
     private readonly List<Piece>[] _set;
 
-    internal DefaultPieceSet()
+    internal InfinitePieceSet()
     {
       _set = new List<Piece>[8];
       for (int i = 0; i < _set.Length; i++)
         _set[i] = new List<Piece>();
-
-      foreach (var position in Shogi.InitialPosition)
-      {
-        PieceType pieceType = position.Value;
-        _set[pieceType.Id].Add(new Piece(pieceType));
-      }
     }
 
     public Piece this[PieceType type]
@@ -27,8 +21,7 @@ namespace Yasc.ShogiCore
         var list = _set[type.Id];
         if (list.Count == 0)
         {
-          throw new InvalidOperationException(
-            "There's no more spare pieces of type " + type);
+          list.Add(new Piece(type));
         }
 
         var last = list[list.Count - 1];

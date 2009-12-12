@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
 
 namespace UnitTests.UsualMoves

@@ -13,7 +13,7 @@ namespace Yasc.AI
     public RandomAiController()
     {
       _board = new Board();
-      Shogi.InititBoard(_board);
+      Shogi.InitBoard(_board);
     }
 
     protected override void OnHumanMoved(string hisMove)

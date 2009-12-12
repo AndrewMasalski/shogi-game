@@ -62,7 +62,7 @@ namespace Yasc.ShogiCore.Moves
         Board.ResetPiece(To);
         Who.Hand.Add(targetPiece);
       }
-      Board.SetPiece(To, piece);
+      Board.SetPiece(To, piece, Who);
     }
   }
 }

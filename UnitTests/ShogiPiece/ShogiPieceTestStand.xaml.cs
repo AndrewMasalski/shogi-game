@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
- 
   public partial class ShogiPieceTestStand 
   {
     public ShogiPieceTestStand()
