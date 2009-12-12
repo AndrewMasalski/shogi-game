@@ -21,15 +21,12 @@ namespace UnitTests.Automation
     }
 
     [TestMethod]
-    public void Check()
+    public void CheckDragAndDrop()
     {
       var pattern = (WindowPattern)_windowElement.
         GetCurrentPattern(WindowPattern.Pattern);
       pattern.SetWindowVisualState(WindowVisualState.Maximized);
-      var element = _windowElement.FindFirst(TreeScope.Descendants,
-        new PropertyCondition(AutomationElement.NameProperty, "Play with comp."));
-      var button = (InvokePattern)element.GetCurrentPattern(InvokePattern.Pattern);
-      button.Invoke();
+      InvokeByName("Play with comp.");
       var piece = _windowElement.FindFirst(TreeScope.Descendants,
         new PropertyCondition(AutomationElement.NameProperty, "White P"));
       Assert.IsNotNull(piece);
@@ -38,12 +35,25 @@ namespace UnitTests.Automation
       Assert.AreEqual(40, pieces.Count);
 
       Mouse.PrimaryDevice.PressAt(FindCell("1c").Center(), MouseButton.Left);
-      Thread.Sleep(3000);
       Mouse.PrimaryDevice.Release(MouseButton.Left);
-      Thread.Sleep(100);
       Mouse.PrimaryDevice.DragAndDrop(FindCell("1c").Center(), FindCell("1d").Center(), MouseButton.Left);
-      Thread.Sleep(1000);
     }
+    [TestMethod]
+    public void CheckMovesHistory()
+    {
+      InvokeByName("Play with comp.");
+      Assert.Fail("Make move and then try rool history back");
+    }
+
+    private void InvokeByName(string name)
+    {
+      var element = _windowElement.FindFirst(TreeScope.Descendants,
+             new PropertyCondition(AutomationElement.NameProperty, name));
+      var button = (InvokePattern)element.
+        GetCurrentPattern(InvokePattern.Pattern);
+      button.Invoke();
+    }
+
     private AutomationElement FindCell(Position position)
     {
       return _windowElement.FindFirst(TreeScope.Descendants,
