@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 
 namespace UnitTests
@@ -30,5 +31,18 @@ namespace UnitTests
       c.SetPiece(piece);
       Assert.AreSame(c.Piece, piece);
     }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void SetNullOwnerCellTest()
+    {
+      var b = new Board();
+      b[0, 0].SetPiece(b.PieceSet["馬"], null);
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void SetNullPieceCellTest()
+    {
+      var b = new Board();
+      b[0, 0].SetPiece(null, b.White);
+    }
+
   }
 }

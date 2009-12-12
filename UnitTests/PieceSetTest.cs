@@ -74,5 +74,12 @@ namespace UnitTests
     {
       new Board().PieceSet.Return(null);
     }
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void ReturnPieceTwice()
+    {
+      var board = new Board();
+      board.PieceSet.Return(board.PieceSet["馬"]);
+      
+    }
   }
 }

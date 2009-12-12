@@ -44,6 +44,11 @@ namespace Yasc.ShogiCore
       if (piece == null) throw new ArgumentNullException("piece");
       piece.Owner = null;
       var list = _set[piece.Type.Id];
+      if (list.Contains(piece))
+      {
+        throw new InvalidOperationException(
+          "Cannot return piece which is already in the set");
+      }
       list.Add(piece);
     }
   }

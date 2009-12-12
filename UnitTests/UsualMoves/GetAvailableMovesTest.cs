@@ -23,8 +23,7 @@ namespace UnitTests.UsualMoves
         Console.WriteLine("start: " + uri);
         var page = (Page)Application.LoadComponent(uri);
         var diagram = (BoardDiagram)page.Content;
-        var board = diagram.Board;
-        ValidateDiagram(diagram, board);
+        ValidateDiagram(diagram, diagram.Board);
       }
     }
 

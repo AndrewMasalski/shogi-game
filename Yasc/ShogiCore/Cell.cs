@@ -15,6 +15,8 @@ namespace Yasc.ShogiCore
 
     public void SetPiece(Piece piece, Player owner)
     {
+      if (piece == null) throw new ArgumentNullException("piece");
+      if (owner == null) throw new ArgumentNullException("owner");
       if (piece.Owner != null)
       {
         throw new InvalidOperationException(
