@@ -40,7 +40,7 @@ namespace Yasc.Controls
       if (_pieceObserver != null || piece == null)
       {
         throw new InvalidOperationException(
-          "You can set ShogiPiece.Piece property just "+
+          "You can set ShogiPiece.Piece property just " +
           "once and with not null value only");
       }
 
@@ -132,7 +132,7 @@ namespace Yasc.Controls
 
     private static void OnIsPromotedChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
     {
-      ((ShogiPiece) o).OnIsPromotedChanged((bool)args.NewValue);
+      ((ShogiPiece)o).OnIsPromotedChanged((bool)args.NewValue);
     }
 
     private void OnIsPromotedChanged(bool value)
@@ -184,7 +184,18 @@ namespace Yasc.Controls
 
     public override string ToString()
     {
-      return Piece.ToLatinString();
+      if (Piece != null)
+        return Piece.ToString();
+
+      return PieceColor + (IsPromoted ? " promoted " : " ") + PieceType;
+
+    }
+    public string ToLatinString()
+    {
+      if (Piece != null)
+        return Piece.ToLatinString();
+
+      return PieceColor + (IsPromoted ? " promoted " : " ") + PieceType.Latin;
     }
 
     protected override AutomationPeer OnCreateAutomationPeer()

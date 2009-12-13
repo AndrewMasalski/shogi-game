@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>../Marhoily.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,11 +80,11 @@
     <Compile Include="BoardSnapshotTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BoardTest.cs">
+    <Compile Include="ShogiCore\BoardTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DropMoves\TestInvalidMoveMessages.cs" />
-    <Compile Include="MovesHistoryTest.cs" />
+    <Compile Include="ShogiCore\Moves\MovesHistoryTest.cs" />
     <Compile Include="PieceSetTest.cs" />
     <Compile Include="PlayerTest.cs" />
     <Compile Include="PositionTest.cs">
@@ -101,6 +103,7 @@
     <Compile Include="ShogiCellTest.xaml.cs">
       <DependentUpon>ShogiCellTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShogiCore\PropertyObserverAssertion.cs" />
     <Compile Include="ShogiPiece\ShogiPieceTestControl.xaml.cs">
       <DependentUpon>ShogiPieceTestControl.xaml</DependentUpon>
     </Compile>
@@ -108,7 +111,7 @@
       <DependentUpon>ShogiPieceTestStand.xaml</DependentUpon>
     </Compile>
     <Compile Include="UsualMoves\GetAvailableMovesTest.cs" />
-    <Compile Include="UsualMoves\UsualMovesTest.cs" />
+    <Compile Include="ShogiCore\Moves\UsualMoveTest.cs" />
     <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
