@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -56,3 +55,4 @@ using System.Windows;
 [assembly: AssemblyFileVersion("0.6.5.0")]
 
 [assembly: AllowPartiallyTrustedCallers]
+[assembly: InternalsVisibleTo("UnitTests")]

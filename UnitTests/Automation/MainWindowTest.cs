@@ -45,6 +45,16 @@ namespace UnitTests.Automation
       Assert.Fail("Make move and then try rool history back");
     }
 
+    [TestMethod]
+    public void CheckNoRulesDnD()
+    {
+      InvokeByName("Play with comp.");
+      InvokeByName("Enforce rules");
+      Mouse.PrimaryDevice.PressAt(FindCell("1c").Center(), MouseButton.Left);
+      Mouse.PrimaryDevice.Release(MouseButton.Left);
+      Mouse.PrimaryDevice.DragAndDrop(FindCell("1c").Center(), FindCell("1d").Center(), MouseButton.Left);
+    }
+
     private void InvokeByName(string name)
     {
       var element = _windowElement.FindFirst(TreeScope.Descendants,

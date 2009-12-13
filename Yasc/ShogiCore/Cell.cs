@@ -13,6 +13,12 @@ namespace Yasc.ShogiCore
     public Position Position { get; private set; }
     public Piece Piece { get; private set; }
 
+    internal Cell(Board board, Position position)
+    {
+      Board = board;
+      Position = position;
+    }
+
     public void SetPiece(Piece piece, Player owner)
     {
       if (piece == null) throw new ArgumentNullException("piece");
@@ -47,12 +53,6 @@ namespace Yasc.ShogiCore
       Board.PieceSet.Return(old);
       RaisePropertyChanged("Piece");
       return old;
-    }
-
-    internal Cell(Board board, Position position)
-    {
-      Board = board;
-      Position = position;
     }
   }
 }

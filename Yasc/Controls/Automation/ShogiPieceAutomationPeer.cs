@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Yasc.Controls.Automation
 {
   public class ShogiPieceAutomationPeer : ControlAutomationPeer<ShogiPiece>
@@ -5,11 +7,12 @@ namespace Yasc.Controls.Automation
     public ShogiPieceAutomationPeer(ShogiPiece owner)
       : base(owner)
     {
+      Debug.Assert(owner.Piece != null);
     }
 
     protected override string GetNameCore()
     {
-      return Owner.Piece.ToLatinString();
+      return Owner.ToLatinString();
     }
     protected override bool IsContentElementCore()
     {

@@ -39,7 +39,7 @@
       <Method Name="Pairs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAAAAgQAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAgQAAAAAEAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>ShogiCore\Shogi.cs</FileName>
     </TypeIdentifier>
   </Class>

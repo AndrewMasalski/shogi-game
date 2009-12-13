@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Windows.Threading;
 
 namespace Yasc.Utils
@@ -12,6 +13,7 @@ namespace Yasc.Utils
     ///<summary>Occurs when an item is added, removed, changed, moved, or the entire list is refreshed.</summary>
     public override event NotifyCollectionChangedEventHandler CollectionChanged;
 
+    [DebuggerStepThrough]
     protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
       // Be nice - use BlockReentrancy like MSDN said
