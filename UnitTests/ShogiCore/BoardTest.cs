@@ -103,7 +103,7 @@ namespace UnitTests.ShogiCore
       var snapshot1 = _board.CurrentSnapshot;
       _board.OneWhoMoves = _board.Black;
       var snapshot2 = _board.CurrentSnapshot;
-      
+
       Assert.AreEqual(PieceColor.White, snapshot1.OneWhoMoves);
       Assert.AreEqual(PieceColor.Black, snapshot2.OneWhoMoves);
       Assert.AreNotSame(snapshot1, snapshot2);
@@ -140,7 +140,20 @@ namespace UnitTests.ShogiCore
     [TestMethod]
     public void CurrentsSnapshotHasMeaningfullDataTest()
     {
-      Assert.Inconclusive();
+      Shogi.InitBoard(_board);
+      var s = _board.CurrentSnapshot;
+      var board = new Board();
+      board.LoadSnapshot(s);
+
+      foreach (var p in Position.OnBoard)
+        if (board[p] != null)
+        {
+          Assert.AreEqual((string)board[p].Type, Shogi.InitialPosition[p]);
+        }
+        else
+        {
+          Assert.IsFalse(Shogi.InitialPosition.ContainsKey(p));
+        }
     }
 
     #endregion
@@ -207,7 +220,7 @@ namespace UnitTests.ShogiCore
     [TestMethod]
     public void InvalidPieceSetTypeCtorTest()
     {
-      var board = new Board((PieceSetType) 4);
+      var board = new Board((PieceSetType)4);
       Assert.IsTrue(board.PieceSet is DefaultPieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
@@ -238,7 +251,7 @@ namespace UnitTests.ShogiCore
       Shogi.InitBoard(_board);
       var availableMoves = _board.GetAvailableMoves("4a");
       var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
-      CollectionAssert.AreEquivalent(new Position[]{"5b", "4b", "3b"}, toPositions);
+      CollectionAssert.AreEquivalent(new Position[] { "5b", "4b", "3b" }, toPositions);
     }
 
     [TestMethod]

@@ -223,21 +223,23 @@ namespace Yasc.Controls
     private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
     {
       var piece = Board[color].GetPieceFromHandByType(pieceType);
+      var owner = piece.Owner;
       if (promotionRequest) piece.IsPromoted = true;
       piece.Owner.Hand.Remove(piece);
       var m = cell.Piece;
       cell.ResetPiece();
-      cell.SetPiece(piece, piece.Owner);
+      cell.SetPiece(piece, owner);
       if (m != null) piece.Owner.Hand.Add(m);
     }
     private static void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
     {
       var piece = from.Piece;
+      var owner = piece.Owner;
       if (promotionRequest) piece.IsPromoted = true;
       from.ResetPiece();
       var m = to.Piece;
       to.ResetPiece();
-      to.SetPiece(piece, piece.Owner);
+      to.SetPiece(piece, owner);
       if (m != null) piece.Owner.Hand.Add(m);
     }
 

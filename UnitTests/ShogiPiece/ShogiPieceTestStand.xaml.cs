@@ -21,7 +21,7 @@ namespace UnitTests
   [TestClass]
   public class A
   {
-    [TestMethod]
+    [TestMethod, Ignore]
     public void Run()
     {
       Exception ex = null;
