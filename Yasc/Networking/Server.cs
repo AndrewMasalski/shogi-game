@@ -87,7 +87,7 @@ namespace Yasc.Networking
     private readonly Dictionary<ServerUser, ServerSession> _users = new Dictionary<ServerUser, ServerSession>();
     private readonly List<ServerGame> _games = new List<ServerGame>();
 
-    public IServerSession Login(string name)
+    public IServerSession LogOn(string name)
     {
       var user = new ServerUser(name);
       var session = new ServerSession(this, user);

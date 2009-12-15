@@ -2,7 +2,7 @@ using System;
 
 namespace Yasc.Utils
 {
-  public class Flag
+  internal class Flag
   {
     private uint _counter;
     public IDisposable Set()

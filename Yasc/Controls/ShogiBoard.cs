@@ -109,7 +109,7 @@ namespace Yasc.Controls
       Canvas.SetTop(piece, point.Y);
       piece.Width = piece.ActualWidth;
       piece.Height = piece.ActualHeight;
-      _adornerLayer.Children.Add(cell.DeattachPiece());
+      _adornerLayer.Children.Add(cell.DetachPiece());
     }
 
     #endregion

@@ -40,7 +40,7 @@ namespace Yasc.ShogiCore
       Piece piece = Board.PieceSet[type];
       if (piece == null)
       {
-        throw new NotEnoughtPiecesInSetException(
+        throw new NotEnoughPiecesInSetException(
           "Cannot add piece because there's no more pieces of type " +
           type + " in the set. Consider using Infinite PieceSet");
       }

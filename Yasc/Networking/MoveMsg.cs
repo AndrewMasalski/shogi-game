@@ -6,17 +6,17 @@ namespace Yasc.Networking
   public class MoveMsg
   {
     public string Move { get; private set; }
-    public DateTime TimeStamp { get; private set; }
+    public DateTime Timestamp { get; private set; }
 
-    public MoveMsg(string move, DateTime timeStamp)
+    public MoveMsg(string move, DateTime timestamp)
     {
       Move = move;
-      TimeStamp = timeStamp;
+      Timestamp = timestamp;
     }
     public MoveMsg(string move)
     {
       Move = move;
-      TimeStamp = DateTime.Now;
+      Timestamp = DateTime.Now;
     }
   }
 }

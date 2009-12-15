@@ -14,8 +14,8 @@ namespace UnitTests.ViewModel
     public void TestEvents()
     {
       var server = new Server();
-      var john = server.Login("john");
-      var jack = server.Login("jack");
+      var john = server.LogOn("john");
+      var jack = server.LogOn("jack");
       var model = new ServerViewModel("", john);
       model.Users[0].Invite();
       

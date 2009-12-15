@@ -95,12 +95,12 @@ namespace Yasc.Controls
     public override void OnApplyTemplate()
     {
       HolderControl = GetTemplateChild("PART_Piece") as ContentPresenter;
-      UpdateCp();
+      UpdateHolderControl();
       base.OnApplyTemplate();
     }
-    protected abstract void UpdateCp();
+    protected abstract void UpdateHolderControl();
 
-    public virtual ShogiPiece DeattachPiece()
+    public virtual ShogiPiece DetachPiece()
     {
       if (HolderControl == null) return null;
       var piece = ShogiPiece;

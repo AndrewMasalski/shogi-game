@@ -109,7 +109,7 @@ namespace Yasc.AI
 
     #endregion
 
-    protected abstract void OnHumanMoved(string move);
+    protected abstract void OnHumanMoved(string hisMove);
     protected void Move(string move)
     {
       if (_synch == null)

@@ -10,7 +10,7 @@
       <Field Name="_hashCode" Hidden="true" />
       <Field Name="_whiteHand" Hidden="true" />
       <Field Name="_whiteHandRo" Hidden="true" />
-      <Method Name="CalculateHashcode" Hidden="true" />
+      <Method Name="CalculateHashCode" Hidden="true" />
       <Method Name="DoesntHaveValidMoves" Hidden="true" />
       <Method Name="Down" Hidden="true" />
       <Method Name="DownLeft" Hidden="true" />

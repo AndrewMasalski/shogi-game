@@ -8,7 +8,7 @@ using Yasc.Controls;
 
 namespace Yasc.GenericDragDrop
 {
-  public class Dnd : IDisposable
+  internal class Dnd
   {
     public Dnd(ShogiBoard board)
     {
@@ -149,15 +149,6 @@ namespace Yasc.GenericDragDrop
       Release();
     }
     #endregion
-
-    public void Dispose()
-    {
-      _board.PreviewMouseLeftButtonDown -= MouseLeftDown;
-      _board.PreviewMouseRightButtonDown -= MouseRightDown;
-      _board = null;
-
-      _adornerLayer = null;
-    }
 
     #region ' Fields '
 

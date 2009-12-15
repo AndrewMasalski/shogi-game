@@ -12,8 +12,8 @@ namespace UnitTests.Netwroking
     public void TestUsersList()
     {
       var server = new Server();
-      var johnSession = server.Login("John");
-      var jackSession = server.Login("Jack");
+      var johnSession = server.LogOn("John");
+      var jackSession = server.LogOn("Jack");
 
       CollectionAssert.AreEqual(new[] { "Jack" },
         (from u in johnSession.Users select u.Name).ToList());
@@ -27,8 +27,8 @@ namespace UnitTests.Netwroking
     {
       var server = new Server();
 
-      var johnSession = server.Login("John");
-      var jackSession = server.Login("Jack");
+      var johnSession = server.LogOn("John");
+      var jackSession = server.LogOn("Jack");
 
       IPlayerGameController jackController = null;
       jackSession.InvitationReceived += i => jackController = i.Accept();

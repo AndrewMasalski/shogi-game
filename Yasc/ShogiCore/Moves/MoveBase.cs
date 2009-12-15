@@ -6,7 +6,7 @@ namespace Yasc.ShogiCore.Moves
   public abstract class MoveBase
   {
     public Board Board { get; private set; }
-    public DateTime TimeStamp { get; private set; }
+    public DateTime Timestamp { get; private set; }
     public Player Who { get; private set; }
     public int Number { get; private set; }
     public BoardSnapshot BoardSnapshot { get; private set; }
@@ -20,7 +20,7 @@ namespace Yasc.ShogiCore.Moves
       board.EnsurePlayerBelongs(who);
       
       Board = board;
-      TimeStamp = DateTime.Now;
+      Timestamp = DateTime.Now;
       Who = who;
       Number = Board.History.Count + 1;
       BoardSnapshot = Board.CurrentSnapshot;
@@ -35,9 +35,9 @@ namespace Yasc.ShogiCore.Moves
 
     protected abstract string GetErrorMessage();
 
-    public void CorrectTimeStamp(DateTime timeStamp)
+    public void CorrectTimeStamp(DateTime timestamp)
     {
-      TimeStamp = timeStamp; 
+      Timestamp = timestamp; 
     }
 
     public abstract MoveSnapshotBase Shanpshot();
