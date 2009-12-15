@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Yasc.ShogiCore.SnapShots;
+using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore

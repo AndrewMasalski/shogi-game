@@ -134,6 +134,7 @@
     <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ShogiCore\InfinitePieceSet.cs" />
     <Compile Include="ShogiCore\IPieceSet.cs" />
     <Compile Include="ShogiCore\DefaultPieceSet.cs" />
@@ -255,6 +256,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Controls\ControlsDiagram.cd" />

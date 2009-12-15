@@ -286,16 +286,9 @@ namespace MvvmFoundation.Wpf
             /// <param name="parameterType">The type of parameter to be passed to the action. Pass null if there is no parameter.</param>
             internal WeakAction(object target, MethodInfo method, Type parameterType)
             {
-                if (target == null)
-                {
-                    _targetRef = null;
-                }
-                else
-                {
-                    _targetRef = new WeakReference(target);
-                }
+              if (target != null) _targetRef = new WeakReference(target);
 
-                _method = method;
+              _method = method;
 
                 this.ParameterType = parameterType;
 
@@ -323,20 +316,18 @@ namespace MvvmFoundation.Wpf
                 {
                     return Delegate.CreateDelegate(_delegateType, _method);
                 }
-                else
-                {
-                    try
-                    {
-                        object target = _targetRef.Target;
-                        if (target != null)
-                            return Delegate.CreateDelegate(_delegateType, target, _method);
-                    }
-                    catch
-                    {
-                    }
-                }
+              try
+              {
+                object target = _targetRef.Target;
+                if (target != null)
+                  return Delegate.CreateDelegate(_delegateType, target, _method);
+              }
+              catch (Exception x)
+              {
+                Trace.Write(GetType().FullName + ": Couldn't create delegate: " + x);
+              }
 
-                return null;
+              return null;
             }
 
             #endregion // CreateAction

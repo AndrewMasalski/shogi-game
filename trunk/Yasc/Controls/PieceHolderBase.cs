@@ -94,7 +94,7 @@ namespace Yasc.Controls
     }
     public override void OnApplyTemplate()
     {
-      Cp = GetTemplateChild("PART_Piece") as ContentPresenter;
+      HolderControl = GetTemplateChild("PART_Piece") as ContentPresenter;
       UpdateCp();
       base.OnApplyTemplate();
     }
@@ -102,15 +102,15 @@ namespace Yasc.Controls
 
     public virtual ShogiPiece DeattachPiece()
     {
-      if (Cp == null) return null;
+      if (HolderControl == null) return null;
       var piece = ShogiPiece;
-      Cp.Content = null;
+      HolderControl.Content = null;
       return piece;
     }
-    protected ContentPresenter Cp { get; set; }
+    protected ContentPresenter HolderControl { get; set; }
     public ShogiPiece ShogiPiece
     {
-      get { return Cp != null ? (ShogiPiece)Cp.Content : null; }
+      get { return HolderControl != null ? (ShogiPiece)HolderControl.Content : null; }
     }
 
     #region ' PieceType Property '

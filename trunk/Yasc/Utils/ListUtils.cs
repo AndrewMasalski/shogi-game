@@ -6,7 +6,7 @@ namespace Yasc.Utils
 {
   public static class ListUtils
   {
-    public static int GetHashcode(this IEnumerable list)
+    public static int CalcHashcode(this IEnumerable list)
     {
       unchecked
       {
@@ -26,9 +26,9 @@ namespace Yasc.Utils
         return result;
       }
     }
-    public static int GetHashcode(params int[] list)
+    public static int CalcHashcode(params int[] list)
     {
-      return list.GetHashcode();
+      return list.CalcHashcode();
     }
     public static int GetSeqHashcode(params int[] list)
     {

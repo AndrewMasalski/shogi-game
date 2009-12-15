@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Yasc.ShogiCore.SnapShots;
+using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Moves

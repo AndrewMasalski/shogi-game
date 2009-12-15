@@ -13,19 +13,22 @@ namespace Yasc.AI
 
     #region Implementation of IPlayerGameController
 
-    IServerGame IPlayerGameController.Game
+    public IServerGame Game
     {
       get { return new AiGame(); }
     }
-    PieceColor IPlayerGameController.MyColor
+
+    public PieceColor MyColor
     {
       get { return PieceColor.White; }
     }
-    TimeSpan IPlayerGameController.TimeLeft
+
+    public TimeSpan TimeLeft
     {
       get { return TimeSpan.FromHours(1); }
     }
-    void IPlayerGameController.Move(MoveMsg move)
+
+    public void Move(MoveMsg move)
     {
       // Human moved
       OnHumanMoved(move.Move);
