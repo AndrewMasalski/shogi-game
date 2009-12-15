@@ -21,7 +21,7 @@ namespace Yasc.Networking
         _game.Move(this, move);
         if (_gotLastOpponentMoveAt != null)
         {
-          TimeLeft -= move.TimeStamp - (DateTime)_gotLastOpponentMoveAt;
+          TimeLeft -= move.Timestamp - (DateTime)_gotLastOpponentMoveAt;
         }
       }
       public void Say(string text)

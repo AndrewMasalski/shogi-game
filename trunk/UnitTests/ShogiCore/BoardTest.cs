@@ -26,7 +26,7 @@ namespace UnitTests.ShogiCore
       _board.SetPiece("5g", PieceColor.White, "馬");
       Assert.IsNotNull(_board["5g"]);
     }
-    [TestMethod, ExpectedException(typeof(NotEnoughtPiecesInSetException))]
+    [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantSetPieceBecauseNotEnoughPiecesTest()
     {
       _board.SetPiece("1i", PieceColor.Black, "馬");
@@ -203,7 +203,7 @@ namespace UnitTests.ShogiCore
       foreach (var p in Position.OnBoard)
         Assert.IsNotNull(board[p.X, p.Y]);
     }
-    [TestMethod, ExpectedException(typeof(NotEnoughtPiecesInSetException))]
+    [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
     {
       var board = new Board(PieceSetType.Inifinite);

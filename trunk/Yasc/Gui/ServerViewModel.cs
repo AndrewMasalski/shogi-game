@@ -24,7 +24,7 @@ namespace Yasc.Gui
       {
         if (_logoutCommand == null)
         {
-          _logoutCommand = new RelayCommand(Logout);
+          _logoutCommand = new RelayCommand(LogOff);
         }
         return _logoutCommand;
       }
@@ -71,7 +71,7 @@ namespace Yasc.Gui
     {
       IsServer = true;
       Server = Server.Start();
-      Session = Server.Login(userName);
+      Session = Server.LogOn(userName);
       Init();
     }
 
@@ -102,7 +102,7 @@ namespace Yasc.Gui
       if (game != null) game(this, e);
     }
 
-    private void Logout()
+    private void LogOff()
     {
       OnDisconnected(EventArgs.Empty);
     }

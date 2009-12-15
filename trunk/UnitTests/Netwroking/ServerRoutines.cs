@@ -9,8 +9,8 @@ namespace UnitTests.Netwroking
     {
       var server = new Server();
       
-      var johnSession = server.Login("John");
-      var jackSession = server.Login("Jack");
+      var johnSession = server.LogOn("John");
+      var jackSession = server.LogOn("Jack");
 
       IPlayerGameController jackController = null;
       jackSession.InvitationReceived += i => jackController = i.Accept();

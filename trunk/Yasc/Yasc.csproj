@@ -79,7 +79,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gui\LoginView.xaml">
+    <Page Include="Gui\LogOnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,8 +164,8 @@
       <DependentUpon>GameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\GameViewModel.cs" />
-    <Compile Include="Gui\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
+    <Compile Include="Gui\LogOnView.xaml.cs">
+      <DependentUpon>LogOnView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\LoginViewModel.cs" />
     <Compile Include="Gui\LvsSettingsExtension.cs" />

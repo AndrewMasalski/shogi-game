@@ -4,6 +4,7 @@ using System.Windows.Media;
 
 namespace Yasc.GenericDragDrop
 {
+  /// <summary>Dnd = Drag and Drop</summary>
   public class DndAdorner : Adorner
   {
     private readonly VisualBrush _brush;

@@ -76,7 +76,7 @@ namespace Yasc.Controls
       if (HolderControl == null) return;
       HolderControl.Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
     }
-    protected override void UpdateCp()
+    protected override void UpdateHolderControl()
     {
       UpdateCp(PieceType, PieceColor);
     }
@@ -92,9 +92,9 @@ namespace Yasc.Controls
       UpdateCp(PieceType, pieceColor);
       base.OnPieceColorChanged(pieceColor);
     }
-    public override ShogiPiece DeattachPiece()
+    public override ShogiPiece DetachPiece()
     {
-      var res = base.DeattachPiece();
+      var res = base.DetachPiece();
       if (PiecesCount > 1) UpdateCp(PieceType, PieceColor);
       return res;
     }

@@ -81,7 +81,7 @@ namespace Yasc.Gui
       {
         if (_session == null)
         {
-          _session = Server.Login(_userName);
+          _session = Server.LogOn(_userName);
         }
         return _session;
       }

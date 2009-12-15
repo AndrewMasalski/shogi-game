@@ -81,7 +81,7 @@ namespace Yasc.Controls
 
     #endregion
 
-    protected override void UpdateCp()
+    protected override void UpdateHolderControl()
     {
       UpdateCp(Cell);
     }
