@@ -1,4 +1,4 @@
-using Yasc.ShogiCore.SnapShots;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.Moves
 {

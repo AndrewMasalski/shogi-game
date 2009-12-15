@@ -73,8 +73,8 @@ namespace Yasc.Controls
 
     private void UpdateCp(PieceType pieceType, PieceColor pieceColor)
     {
-      if (Cp == null) return;
-      Cp.Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
+      if (HolderControl == null) return;
+      HolderControl.Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
     }
     protected override void UpdateCp()
     {

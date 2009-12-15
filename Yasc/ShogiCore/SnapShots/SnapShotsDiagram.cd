@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Yasc.ShogiCore.SnapShots.BoardSnapshot">
+  <Class Name="Yasc.ShogiCore.Snapshots.BoardSnapshot">
     <Position X="4.75" Y="0.5" Width="2.25" />
     <Members>
       <Field Name="_blackHand" Hidden="true" />
@@ -49,7 +49,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>QCARCgMAQKAEAAiZigNJJIAIEEAhApAACAShJAABAiM=</HashCode>
-      <FileName>ShogiCore\SnapShots\BoardSnapshot.cs</FileName>
+      <FileName>ShogiCore\Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
@@ -57,37 +57,37 @@
       <Property Name="WhiteHand" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Yasc.ShogiCore.SnapShots.UsualMoveSnapshot">
+  <Class Name="Yasc.ShogiCore.Snapshots.UsualMoveSnapshot">
     <Position X="2.75" Y="6.25" Width="2.5" />
     <Members>
       <Method Name="AsRealMoveCore" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAEAIAAAAAAAAAIgACAAAAAgAAAAAA=</HashCode>
-      <FileName>ShogiCore\SnapShots\UsualMoveSnapshot.cs</FileName>
+      <FileName>ShogiCore\Snapshots\UsualMoveSnapshot.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.SnapShots.DropMoveSnapshot">
+  <Class Name="Yasc.ShogiCore.Snapshots.DropMoveSnapshot">
     <Position X="5.5" Y="6.25" Width="2.5" />
     <Members>
       <Method Name="AsRealMoveCore" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIgACAAAAAoAAAAAA=</HashCode>
-      <FileName>ShogiCore\SnapShots\DropMoveSnapshot.cs</FileName>
+      <FileName>ShogiCore\Snapshots\DropMoveSnapshot.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.SnapShots.MoveSnapshotBase">
+  <Class Name="Yasc.ShogiCore.Snapshots.MoveSnapshotBase">
     <Position X="4.25" Y="4.25" Width="2.25" />
     <Members>
       <Method Name="AsRealMoveCore" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgACAAAAAgAAAAAA=</HashCode>
-      <FileName>ShogiCore\SnapShots\MoveSnapshotBase.cs</FileName>
+      <FileName>ShogiCore\Snapshots\MoveSnapshotBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.SnapShots.PieceSnapshot">
+  <Class Name="Yasc.ShogiCore.Snapshots.PieceSnapshot">
     <Position X="8.5" Y="0.5" Width="2.25" />
     <Members>
       <Method Name="Equals" Hidden="true" />
@@ -96,7 +96,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAhAAAgACAABAAAAAAAIAAAQAAgAAAAiQ=</HashCode>
-      <FileName>ShogiCore\SnapShots\PieceSnapshot.cs</FileName>
+      <FileName>ShogiCore\Snapshots\PieceSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Type" />

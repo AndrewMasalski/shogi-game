@@ -104,6 +104,7 @@
       <DependentUpon>ShogiCellTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShogiCore\PropertyObserverAssertion.cs" />
+    <Compile Include="ShogiCore\ShogiTest.cs" />
     <Compile Include="ShogiPiece\ShogiPieceTestControl.xaml.cs">
       <DependentUpon>ShogiPieceTestControl.xaml</DependentUpon>
     </Compile>

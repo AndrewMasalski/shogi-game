@@ -27,13 +27,6 @@ namespace UnitTests
       board.PieceSet.Take(piece);
       board.PieceSet.Take(piece);
     }
-    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
-    public void TestSetPieceWithoutSettingOwner()
-    {
-      var board = new Board();
-      var piece = board.PieceSet["馬"];
-      board.SetPiece("1i", piece);
-    }
     [TestMethod]
     public void TestPromoted()
     {

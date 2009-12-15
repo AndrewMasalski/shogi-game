@@ -3,62 +3,10 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Snapshots;
 
 namespace UnitTests.ShogiCore
 {
-  [TestClass]
-  public class ShogiTest
-  {
-    private Board _board;
-
-    [TestInitialize]
-    public void Init()
-    {
-      _board = new Board();
-    }
-
-
-    [TestMethod]
-    public void InitialPositionTest()
-    {
-      //    ______________
-      //___/ Create board \__________________________________________________
-      Shogi.InitBoard(_board);
-      //    _________________________________
-      //___/ Check pieces which must present \_______________________________
-      foreach (var pair in Shogi.InitialPosition)
-        Assert.AreEqual(pair.Value, (string)_board[pair.Key].Type);
-      //    _________________________________
-      //___/ Check cells which must be empty \_______________________________
-      for (int i = 0; i < 9; i++)
-        for (int j = 0; j < 9; j++)
-          if (!Shogi.InitialPosition.ContainsKey(new Position(i, j)))
-            Assert.IsNull(_board[i, j].Piece);
-    }
-    [TestMethod]
-    public void CellBindabilityTest()
-    {
-      int counter = 0;
-      var handler = new Action<Position, Cell>(
-        (cell, placeHolder) =>
-        {
-          counter++;
-          Assert.AreEqual(Shogi.InitialPosition[cell], (string)placeHolder.Piece.Type);
-        });
-
-      for (int i = 0; i < 9; i++)
-        for (int j = 0; j < 9; j++)
-        {
-          int x = i;
-          int y = j;
-          _board[i, j].PropertyChanged +=
-            (s, e) => handler(new Position(x, y), (Cell)s);
-        }
-
-      Shogi.InitBoard(_board);
-      Assert.AreEqual(counter, Shogi.InitialPosition.Count());
-    }
-  }
   [TestClass]
   public class BoardTest
   {
@@ -70,12 +18,29 @@ namespace UnitTests.ShogiCore
       _board = new Board();
     }
 
+    #region ' Set / Reset piece '
+
     [TestMethod]
     public void SetPieceTest()
     {
       _board.SetPiece("5g", PieceColor.White, "馬");
       Assert.IsNotNull(_board["5g"]);
     }
+    [TestMethod, ExpectedException(typeof(NotEnoughtPiecesInSetException))]
+    public void CantSetPieceBecauseNotEnoughPiecesTest()
+    {
+      _board.SetPiece("1i", PieceColor.Black, "馬");
+      _board.SetPiece("2i", PieceColor.Black, "馬");
+      _board.SetPiece("3i", PieceColor.Black, "馬");
+    }
+    [TestMethod]
+    public void SetWhitePiece()
+    {
+      _board.SetPiece("1i", PieceColor.Black, "馬");
+
+    }
+    #endregion
+
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void MakeNullMoveTest()
     {
@@ -161,13 +126,23 @@ namespace UnitTests.ShogiCore
     #region ' IsMovesOrderMaintained Property '
 
     [TestMethod]
-    public void IsMovesOrderMaintainedPropertyTest()
+    public void IsMovesOrderMaintainedForUsualMovesTest()
     {
       Shogi.InitBoard(_board);
       _board.IsMovesOrderMaintained = false;
       // Make move for black twice and check there's no exception
       _board.MakeMove(_board.GetUsualMove("3c", "3d", false));
       _board.MakeMove(_board.GetUsualMove("3d", "3e", false));
+    }
+    [TestMethod]
+    public void IsMovesOrderMaintainedForDropMovesTest()
+    {
+      var piece1 = _board.Black.AddToHand("馬");
+      _board.Black.AddToHand("馬");
+      _board.IsMovesOrderMaintained = false;
+      // Make move for black twice and check there's no exception
+      _board.MakeMove(_board.GetDropMove(piece1, "1i"));
+      _board.MakeMove(_board.GetDropMove("角", "2i", _board.Black));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedKeepsValueTest()
@@ -193,7 +168,7 @@ namespace UnitTests.ShogiCore
 
     #endregion
 
-    #region ' Ctors '
+    #region ' Ctors / Snapshot loading '
 
     [TestMethod]
     public void NoArgsCtorTest()
@@ -227,6 +202,16 @@ namespace UnitTests.ShogiCore
       Assert.IsNotNull(board.OneWhoMoves);
       foreach (var p in Position.OnBoard)
         Assert.IsNotNull(board[p.X, p.Y]);
+    }
+    [TestMethod, ExpectedException(typeof(NotEnoughtPiecesInSetException))]
+    public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
+    {
+      var board = new Board(PieceSetType.Inifinite);
+      board.SetPiece("1i", PieceColor.Black, "馬");
+      board.SetPiece("2i", PieceColor.Black, "馬");
+      board.SetPiece("3i", PieceColor.Black, "馬");
+
+      _board.LoadSnapshot(board.CurrentSnapshot);
     }
 
     #endregion
@@ -284,6 +269,16 @@ namespace UnitTests.ShogiCore
     public void CantUseOwnerlessPieceInGetDropMoveTest()
     {
       _board.GetDropMove(_board.PieceSet["馬"], "1a");
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void GetDropMoveNullPieceArgTest()
+    {
+      _board.GetDropMove(null, "1i");
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetDropMoveAlienPieceArgTest()
+    {
+      _board.GetDropMove(new Board().White.AddToHand("歩"), "1i");
     }
   }
 }
