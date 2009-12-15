@@ -13,7 +13,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void TestEvents()
     {
-      var server = new Server();
+      var server = new ShogiServer();
       var john = server.LogOn("john");
       var jack = server.LogOn("jack");
       var model = new ServerViewModel("", john);

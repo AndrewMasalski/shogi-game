@@ -12,21 +12,21 @@ namespace Yasc.Gui
 {
   public class ServerViewModel : ObservableObject
   {
-    private RelayCommand _logoutCommand;
+    private RelayCommand _logOffCommand;
     private RelayCommand _usersRefreshCommand;
     private RelayCommand _refreshGamesCommand;
 
     private readonly List<IDisposable> _handlers = new List<IDisposable>();
 
-    public ICommand LogoutCommand
+    public ICommand LogOffCommand
     {
       get
       {
-        if (_logoutCommand == null)
+        if (_logOffCommand == null)
         {
-          _logoutCommand = new RelayCommand(LogOff);
+          _logOffCommand = new RelayCommand(LogOff);
         }
-        return _logoutCommand;
+        return _logOffCommand;
       }
     }
     public ICommand RefreshGamesCommand
@@ -55,7 +55,7 @@ namespace Yasc.Gui
     public bool IsServer { get; private set; }
     public string ServerAddress { get; private set; }
     public IServerSession Session { get; internal set; }
-    public Server Server { get; private set; }
+    public ShogiServer Server { get; private set; }
     public IPlayerGameController GameTicket { get; set; }
     public ObservableCollection<GameViewModel> Games { get; private set; }
     public ObservableCollection<UserViewModel> Users { get; private set; }
@@ -70,7 +70,7 @@ namespace Yasc.Gui
     public ServerViewModel(string userName)
     {
       IsServer = true;
-      Server = Server.Start();
+      Server = ShogiServer.Start();
       Session = Server.LogOn(userName);
       Init();
     }

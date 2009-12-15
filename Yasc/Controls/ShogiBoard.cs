@@ -129,7 +129,7 @@ namespace Yasc.Controls
       foreach (var p in promoting)
         GetCell(p).IsPromotionAllowed = true;
 
-      if (args.Piece.Type != "銀")
+      if (args.Piece.PieceType != "銀")
         foreach (var p in promoting)
           GetCell(p).IsPromotionRecommended = true;
 

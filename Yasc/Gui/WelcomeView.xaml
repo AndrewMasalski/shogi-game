@@ -64,7 +64,7 @@
         <Label Target="{Binding ElementName=_serverCombo}" Content="Enter server address:" 
              VerticalAlignment="Center" Grid.Row="2"/>
         <ComboBox Margin="5,0,5,5" IsEditable="True" Name="_serverCombo" 
-                SelectedIndex="0" Grid.Row="3" ItemsSource="{Binding LastVsistedServers}">
+                SelectedIndex="0" Grid.Row="3" ItemsSource="{Binding LastVisitedServers}">
           <ComboBox.Text>
             <Binding Path="Address" UpdateSourceTrigger="PropertyChanged">
               <Binding.ValidationRules>

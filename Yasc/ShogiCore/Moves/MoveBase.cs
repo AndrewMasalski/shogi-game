@@ -35,11 +35,11 @@ namespace Yasc.ShogiCore.Moves
 
     protected abstract string GetErrorMessage();
 
-    public void CorrectTimeStamp(DateTime timestamp)
+    public void CorrectTimestamp(DateTime timestamp)
     {
       Timestamp = timestamp; 
     }
 
-    public abstract MoveSnapshotBase Shanpshot();
+    public abstract MoveSnapshotBase Snapshot();
   }
 }

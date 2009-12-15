@@ -3,7 +3,7 @@ using Yasc.ShogiCore;
 
 namespace Yasc.Networking
 {
-  public partial class Server
+  public partial class ShogiServer
   {
     private class SpectatorController : MarshalByRefObject, ISpectatorController
     {

@@ -14,9 +14,9 @@ namespace UnitTests
     {
       var board = new Board();
       var piece = board.PieceSet["馬"];
-      board.PieceSet.Take(piece);
+      board.PieceSet.Pop(piece);
       piece.Owner = board.White;
-      board.PieceSet.Return(piece);
+      board.PieceSet.Push(piece);
       Assert.IsNull(piece.Owner);
     }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
@@ -24,15 +24,15 @@ namespace UnitTests
     {
       var board = new Board();
       var piece = board.PieceSet["馬"];
-      board.PieceSet.Take(piece);
-      board.PieceSet.Take(piece);
+      board.PieceSet.Pop(piece);
+      board.PieceSet.Pop(piece);
     }
     [TestMethod]
     public void TestPromoted()
     {
       var board = new Board();
       var piece = board.PieceSet["馬"];
-      Assert.AreEqual("馬", (string)piece.Type);
+      Assert.AreEqual("馬", (string)piece.PieceType);
       Assert.IsNull(piece.Owner);
     }
     [TestMethod]
@@ -44,7 +44,7 @@ namespace UnitTests
       {
         var p = board.PieceSet["馬"];
         if (p == null) break;
-        board.PieceSet.Take(p);
+        board.PieceSet.Pop(p);
         Assert.IsTrue(set.Add(p), "Not all pieces are different objects");
       }
       Assert.IsFalse(ReferenceEquals(set.First(), set.Last()));
@@ -60,18 +60,18 @@ namespace UnitTests
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void TakeNullPiece()
     {
-      new Board().PieceSet.Take(null);
+      new Board().PieceSet.Pop(null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void ReturnNullPiece()
     {
-      new Board().PieceSet.Return(null);
+      new Board().PieceSet.Push(null);
     }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void ReturnPieceTwice()
     {
       var board = new Board();
-      board.PieceSet.Return(board.PieceSet["馬"]);
+      board.PieceSet.Push(board.PieceSet["馬"]);
       
     }
   }

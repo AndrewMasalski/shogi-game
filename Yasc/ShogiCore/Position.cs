@@ -75,13 +75,13 @@ namespace Yasc.ShogiCore
 
     #region ' Operators & Statics '
 
-    public static implicit operator Position(string s)
+    public static implicit operator Position(string text)
     {
-      return new Position(s);
+      return new Position(text);
     }
-    public static Vector operator -(Position a, Position b)
+    public static Vector operator -(Position first, Position second)
     {
-      return new Vector(b.X - a.X, b.Y - a.Y);
+      return new Vector(second.X - first.X, second.Y - first.Y);
     }
     public static IEnumerable<Position> OnBoard
     {

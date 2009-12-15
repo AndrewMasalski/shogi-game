@@ -5,7 +5,7 @@ using Yasc.ShogiCore;
 
 namespace Yasc.Common
 {
-  public class ToStirngConverter : IValueConverter
+  public class ToStringConverter : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

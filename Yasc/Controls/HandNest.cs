@@ -45,7 +45,7 @@ namespace Yasc.Controls
     {
       int counter = 0;
       foreach (Piece piece in collection)
-        if (piece.Type == pieceType)
+        if (piece.PieceType == pieceType)
           counter++;
       return counter;
     }

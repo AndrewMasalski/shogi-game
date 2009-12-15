@@ -11,7 +11,7 @@ namespace Yasc.ShogiCore.Moves
     public Piece TakenPiece { get; private set; }
     public bool IsPromoting { get; private set; }
 
-    public override MoveSnapshotBase Shanpshot()
+    public override MoveSnapshotBase Snapshot()
     {
       return new UsualMoveSnapshot(this);
     }

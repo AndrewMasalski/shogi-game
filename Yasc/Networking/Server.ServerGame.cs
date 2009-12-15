@@ -5,7 +5,7 @@ using Yasc.ShogiCore;
 
 namespace Yasc.Networking
 {
-  public partial class Server
+  public partial class ShogiServer
   {
     private class ServerGame : MarshalByRefObject, IServerGame
     {
@@ -14,7 +14,7 @@ namespace Yasc.Networking
       private readonly ServerUser _invitee;
       private readonly List<SpectatorController> _spectators = new List<SpectatorController>();
 
-      private Server _server;
+      private ShogiServer _server;
 
       public PlayerGameController WhitePlayer { get; private set; }
       public PlayerGameController BlackPlayer { get; private set; }
@@ -33,7 +33,7 @@ namespace Yasc.Networking
       }
 
 
-      public ServerGame(Server server, ServerUser invitor, ServerUser invitee)
+      public ServerGame(ShogiServer server, ServerUser invitor, ServerUser invitee)
       {
         if (server == null) throw new ArgumentNullException("server");
         if (invitor == null) throw new ArgumentNullException("invitor");

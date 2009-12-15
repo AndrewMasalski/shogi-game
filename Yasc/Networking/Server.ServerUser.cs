@@ -2,7 +2,7 @@ using System;
 
 namespace Yasc.Networking
 {
-  public partial class Server
+  public partial class ShogiServer
   {
     private class ServerUser : MarshalByRefObject, IServerUser
     {

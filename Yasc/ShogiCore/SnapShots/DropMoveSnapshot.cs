@@ -25,7 +25,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
     public new DropMove AsRealMove(Board board)
     {
-      return board.GetDropMove(Piece.Type, To, board[Piece.Color]);
+      return board.GetDropMove(Piece.PieceType, To, board[Piece.Color]);
     }
     
     protected override MoveBase AsRealMoveCore(Board board)

@@ -152,7 +152,7 @@
     <Compile Include="Controls\ShogiCell.cs" />
     <Compile Include="Common\StopwatchControl.cs" />
     <Compile Include="Common\SwitchControl.cs" />
-    <Compile Include="Common\ToStirngConverter.cs" />
+    <Compile Include="Common\ToStringConverter.cs" />
     <Compile Include="Controls\MoveAttemptEventArgs.cs" />
     <Compile Include="Controls\ShogiPiece.cs" />
     <Compile Include="AI\RandomAiController.cs" />
@@ -190,7 +190,7 @@
     <Compile Include="Networking\MoveMsg.cs" />
     <Compile Include="Networking\PortUtils.cs" />
     <Compile Include="Networking\Interfaces.cs" />
-    <Compile Include="Networking\Server.cs" />
+    <Compile Include="Networking\ShogiServer.cs" />
     <Compile Include="Controls\ShogiBoard.cs" />
     <Compile Include="Networking\Server.InviteeTicket.cs" />
     <Compile Include="Networking\Server.InvitorTicket.cs" />

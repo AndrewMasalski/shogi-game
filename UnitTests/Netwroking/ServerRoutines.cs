@@ -7,7 +7,7 @@ namespace UnitTests.Netwroking
   {
     public static void CrateGame(out IPlayerGameController c1, out IPlayerGameController c2)
     {
-      var server = new Server();
+      var server = new ShogiServer();
       
       var johnSession = server.LogOn("John");
       var jackSession = server.LogOn("Jack");

@@ -6,7 +6,7 @@ namespace Yasc.Networking
 {
   public interface IServerSession
   {
-    Server Server { get; }
+    ShogiServer Server { get; }
 
     IServerUser[] Users { get; }
     IServerGame[] Games { get; }

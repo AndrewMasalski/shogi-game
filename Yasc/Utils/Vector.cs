@@ -19,29 +19,55 @@ namespace Yasc.Utils
       Y = y;
     }
 
-    public static Vector operator +(Vector a, Position b)
+    public static Vector operator +(Vector vector, Position position)
     {
-      return new Vector(b.X + a.X, b.Y + a.Y);
+      return new Vector(position.X + vector.X, position.Y + vector.Y);
     }
-    public static Vector operator +(Position a, Vector b)
+    public static Vector operator +(Position position, Vector vector)
     {
-      return new Vector(a.X + b.X, a.Y + b.Y);
+      return new Vector(position.X + vector.X, position.Y + vector.Y);
     }
-    public static Vector operator +(Vector a, Vector b)
+    public static Vector operator +(Vector first, Vector second)
     {
-      return new Vector(a.X + b.X, a.Y + b.Y);
+      return new Vector(first.X + second.X, first.Y + second.Y);
     }
-    public static Vector operator *(Vector a, Vector b)
+    public static Vector operator *(Vector first, Vector second)
     {
-      return new Vector(a.X*b.X, a.Y*b.Y);
+      return new Vector(first.X*second.X, first.Y*second.Y);
     }
-    public static implicit operator Vector(Position p)
+    public static implicit operator Vector(Position position)
     {
-      return new Vector(p.X, p.Y);
+      return new Vector(position.X, position.Y);
     }
-    public static implicit operator Position(Vector p)
+    public static implicit operator Position(Vector vector)
     {
-      return new Position(p.X, p.Y);
+      return new Position(vector.X, vector.Y);
+    }
+
+    public bool Equals(Vector other)
+    {
+      return other.X == X && other.Y == Y;
+    }
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (obj.GetType() != typeof (Vector)) return false;
+      return Equals((Vector) obj);
+    }
+    public override int GetHashCode()
+    {
+      unchecked
+      {
+        return (X*397) ^ Y;
+      }
+    }
+    public static bool operator ==(Vector left, Vector right)
+    {
+      return left.Equals(right);
+    }
+    public static bool operator !=(Vector left, Vector right)
+    {
+      return !left.Equals(right);
     }
   }
 }

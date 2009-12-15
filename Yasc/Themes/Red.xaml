@@ -4,7 +4,7 @@
                     xmlns:Common="clr-namespace:Yasc.Common">
   
   <Common:DebugConverter x:Key="DebugConverter"/>
-  <Common:ToStirngConverter x:Key="ToStirngConverter"/>
+  <Common:ToStringConverter x:Key="ToStirngConverter"/>
 
   <!--  ShogiPiece  -->
   <Style TargetType="{x:Type local:ShogiPiece}">

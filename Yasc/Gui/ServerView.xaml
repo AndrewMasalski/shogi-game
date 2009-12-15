@@ -14,7 +14,7 @@
   </UserControl.Resources>
   <DockPanel LastChildFill="True">
     <Menu DockPanel.Dock="Top">
-      <MenuItem Header="Leave" Command="{Binding LogoutCommand}" />
+      <MenuItem Header="Leave" Command="{Binding LogOffCommand}" />
     </Menu>
     <Controls:SwitchControl Content="{Binding}" Switcher="{Binding IsServer}"
                             DockPanel.Dock="Top" HorizontalAlignment="Right"

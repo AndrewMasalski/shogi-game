@@ -23,9 +23,9 @@ namespace Yasc.Networking
       else
         _synch.Send(p => _action(obj), null);
     }
-    public static implicit operator Action<T>(ActionListener<T> l)
+    public static implicit operator Action<T>(ActionListener<T> actionListener)
     {
-      return l.Act;
+      return actionListener.Act;
     }
   }
   /// <summary>This class is needed because delegate target object must be 
@@ -48,9 +48,9 @@ namespace Yasc.Networking
       return res;
     }
 
-    public static implicit operator Func<T, TResult>(FuncListener<T, TResult> l)
+    public static implicit operator Func<T, TResult>(FuncListener<T, TResult> funcListener)
     {
-      return l.Act;
+      return funcListener.Act;
     }
   }
 }

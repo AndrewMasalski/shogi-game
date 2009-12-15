@@ -43,7 +43,7 @@ namespace Yasc.RulesVisualization
     public static readonly DependencyProperty BoardProperty =
       DependencyProperty.Register("Board", typeof(Board),
         typeof(BoardDiagram), new UIPropertyMetadata(
-          new Board(PieceSetType.Inifinite)));
+          new Board(PieceSetType.Infinite)));
 
     private static void OnWhiteChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {

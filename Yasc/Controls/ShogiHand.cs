@@ -178,7 +178,7 @@ namespace Yasc.Controls
         if (collection == null) return null;
         return new ObservableCollection<HandNest>(
           from p in collection
-          select new HandNest { PieceColor = _owner.Color, PieceType = p.Type, PiecesCount = 1 });
+          select new HandNest { PieceColor = _owner.Color, PieceType = p.PieceType, PiecesCount = 1 });
       }
 
       protected override void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -191,7 +191,7 @@ namespace Yasc.Controls
               _owner.Items.Insert(args.NewStartingIndex + i++, new HandNest
               {
                 PieceColor = _owner.Color,
-                PieceType = piece.Type,
+                PieceType = piece.PieceType,
                 PiecesCount = 1
               });
             break;
@@ -216,7 +216,7 @@ namespace Yasc.Controls
       protected override ObservableCollection<HandNest> GetItems(IEnumerable<Piece> collection)
       {
         if (collection == null) return null;
-        var r = from p in collection group p by p.Type into g select 
+        var r = from p in collection group p by p.PieceType into g select 
                   new HandNest {PieceColor = _owner.Color, PieceType = g.Key, PiecesCount = g.Count()};
         return new ObservableCollection<HandNest>(r);
       }
@@ -227,12 +227,12 @@ namespace Yasc.Controls
         {
           case NotifyCollectionChangedAction.Add:
             foreach (Piece piece in args.NewItems)
-              FindOrCreateNest(piece.Type).PiecesCount++;
+              FindOrCreateNest(piece.PieceType).PiecesCount++;
             break;
           case NotifyCollectionChangedAction.Remove:
             foreach (Piece piece in args.OldItems)
             {
-              var nest = FindOrCreateNest(piece.Type);
+              var nest = FindOrCreateNest(piece.PieceType);
               if (nest.PiecesCount == 1)
               {
                 _owner.Items.Remove(nest);

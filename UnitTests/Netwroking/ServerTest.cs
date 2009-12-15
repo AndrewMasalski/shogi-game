@@ -11,7 +11,7 @@ namespace UnitTests.Netwroking
     [TestMethod]
     public void TestUsersList()
     {
-      var server = new Server();
+      var server = new ShogiServer();
       var johnSession = server.LogOn("John");
       var jackSession = server.LogOn("Jack");
 
@@ -25,7 +25,7 @@ namespace UnitTests.Netwroking
     [TestMethod]
     public void TestInvitation()
     {
-      var server = new Server();
+      var server = new ShogiServer();
 
       var johnSession = server.LogOn("John");
       var jackSession = server.LogOn("Jack");

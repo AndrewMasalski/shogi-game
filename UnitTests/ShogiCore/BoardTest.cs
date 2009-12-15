@@ -84,7 +84,7 @@ namespace UnitTests.ShogiCore
       // Here we never read _board.CurrentSnapshot property 
       // so there's nothing to change
       _board.SetPiece("1i", PieceColor.Black, "馬");
-      _board.OneWhoMoves = _board.OneWhoMoves.Oppenent;
+      _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
 
       assertion1.Check();
 
@@ -98,7 +98,7 @@ namespace UnitTests.ShogiCore
       Assert.IsNotNull(_board.CurrentSnapshot);
       _board.SetPiece("1i", PieceColor.Black, "馬");
       Assert.IsNotNull(_board.CurrentSnapshot);
-      _board.OneWhoMoves = _board.OneWhoMoves.Oppenent;
+      _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
 
       assertion2.Check();
     }
@@ -113,7 +113,7 @@ namespace UnitTests.ShogiCore
       foreach (var p in Position.OnBoard)
         if (board[p] != null)
         {
-          Assert.AreEqual((string)board[p].Type, Shogi.InitialPosition[p]);
+          Assert.AreEqual((string)board[p].PieceType, Shogi.InitialPosition[p]);
         }
         else
         {
@@ -184,7 +184,7 @@ namespace UnitTests.ShogiCore
     [TestMethod]
     public void PieceSetTypeCtorTest()
     {
-      var board = new Board(PieceSetType.Inifinite);
+      var board = new Board(PieceSetType.Infinite);
       Assert.IsTrue(board.PieceSet is InfinitePieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
@@ -206,7 +206,7 @@ namespace UnitTests.ShogiCore
     [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
     {
-      var board = new Board(PieceSetType.Inifinite);
+      var board = new Board(PieceSetType.Infinite);
       board.SetPiece("1i", PieceColor.Black, "馬");
       board.SetPiece("2i", PieceColor.Black, "馬");
       board.SetPiece("3i", PieceColor.Black, "馬");

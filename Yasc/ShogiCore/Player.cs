@@ -20,7 +20,7 @@ namespace Yasc.ShogiCore
       Hand.CollectionChanged += OnHandCollectionChanged;
     }
 
-    public Player Oppenent
+    public Player Opponent
     {
       get { return Board.Black == this ? Board.White : Board.Black; }
     }
@@ -31,7 +31,7 @@ namespace Yasc.ShogiCore
     public Piece GetPieceFromHandByType(PieceType pieceType)
     {
       foreach (var piece in Hand)
-        if (piece.Type == pieceType)
+        if (piece.PieceType == pieceType)
           return piece;
       return null;
     }
@@ -53,7 +53,7 @@ namespace Yasc.ShogiCore
 #warning Implement cool update. See ListUtils.Update
       ResetAllPiecesFromHand();
       foreach (var snapshot in collection)
-        AddToHand(snapshot.Type);
+        AddToHand(snapshot.PieceType);
     }
 
     public void ResetAllPiecesFromHand()
@@ -84,14 +84,14 @@ namespace Yasc.ShogiCore
                 "Piece can't be in two places at the same time. " +
                 "First return it to the PieceSet, then try to add it to the hand");
             }
-            Board.PieceSet.Take(p);
+            Board.PieceSet.Pop(p);
             p.Owner = this;
             p.IsPromoted = false;
           }
           break;
         case NotifyCollectionChangedAction.Remove:
           foreach (Piece p in args.OldItems)
-            Board.PieceSet.Return(p);
+            Board.PieceSet.Push(p);
           break;
         default:
           throw new NotSupportedException(

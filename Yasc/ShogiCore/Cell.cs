@@ -32,7 +32,7 @@ namespace Yasc.ShogiCore
 
       piece.Owner = owner;
 
-      Board.PieceSet.Take(piece);
+      Board.PieceSet.Pop(piece);
       Piece = piece;
       RaisePropertyChanged("Piece");
     }
@@ -42,7 +42,7 @@ namespace Yasc.ShogiCore
 
       var player = piece.Owner;
       if (player == null) throw new Exception();
-      player.Board.PieceSet.Return(piece);
+      player.Board.PieceSet.Push(piece);
       SetPiece(piece, player);
     }
     public Piece ResetPiece()
@@ -50,7 +50,7 @@ namespace Yasc.ShogiCore
       if (Piece == null) return null;
       var old = Piece;
       Piece = null;
-      Board.PieceSet.Return(old);
+      Board.PieceSet.Push(old);
       RaisePropertyChanged("Piece");
       return old;
     }

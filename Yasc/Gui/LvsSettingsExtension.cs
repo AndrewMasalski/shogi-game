@@ -6,8 +6,10 @@ using System.Linq;
 
 namespace Yasc.Gui
 {
+  /// <summary>Lvs = LastVisitedServer</summary>
   public static class LvsSettingsExtension
   {
+    /// <summary>Lvs = LastVisitedServer</summary>
     public static IEnumerable<string> LoadLvs(this SettingsBase settings)
     {
       if (settings == null) throw new ArgumentNullException("settings");
@@ -22,25 +24,15 @@ namespace Yasc.Gui
         if (!string.IsNullOrEmpty(lvs)) yield return lvs;
       }
     }
-    private static void SaveLvs(SettingsBase settings, IList<string> data)
+
+    /// <summary>Saves Last Visited Servers list to the settings</summary>
+    /// <param name="settings">Settings to save to</param>
+    /// <param name="data">Last visited servers list</param>
+    public static void SaveLvs(this SettingsBase settings, IList<string> data)
     {
       int lim = Math.Min(10, data.Count);
       for (int i = 0; i < lim; i++)
         settings["LastVisitedServer" + (i + 1)] = data[i];
     }
-
-    public static void SaveLvs(this SettingsBase settings, ObservableCollection<string> lvs, string address)
-    {
-      int idx = lvs.IndexOf(address);
-      if (idx != -1)
-      {
-        lvs.Move(idx, 0);
-      }
-      else
-      {
-        lvs.Insert(0, address);
-      }
-      SaveLvs(settings, lvs);
-    }    
   }
 }

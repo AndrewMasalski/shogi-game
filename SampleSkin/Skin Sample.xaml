@@ -6,7 +6,7 @@
 
   <!--  Converters  -->
   <Common:DebugConverter x:Key="DebugConverter"/>
-  <Common:ToStirngConverter x:Key="ToStirngConverter"/>
+  <Common:ToStringConverter x:Key="ToStirngConverter"/>
 
   <!--  IsFlipped ButtonStyle  -->
   <Style x:Key="IsFlippedButtonStyle" TargetType="{x:Type CheckBox}">

@@ -29,21 +29,21 @@ namespace Yasc.ShogiCore
         return last;
       }
     }
-    public void Take(Piece piece)
+    public void Pop(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
-      var list = _set[piece.Type.Id];
+      var list = _set[piece.PieceType.Id];
       if (!list.Remove(piece))
       {
         throw new InvalidOperationException(
           "Cannont take the piece because it has already been taken");
       }
     }
-    public void Return(Piece piece)
+    public void Push(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
       piece.Owner = null;
-      var list = _set[piece.Type.Id];
+      var list = _set[piece.PieceType.Id];
       if (list.Contains(piece))
       {
         throw new InvalidOperationException(
