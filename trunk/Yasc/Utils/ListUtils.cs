@@ -35,10 +35,10 @@ namespace Yasc.Utils
       return list.GetSeqHashCode();
     }
 
-    public static bool Equal(IEnumerable a, IEnumerable b)
+    public static bool Equal(IEnumerable first, IEnumerable second)
     {
-      IEnumerator ae = a.GetEnumerator();
-      IEnumerator be = b.GetEnumerator();
+      IEnumerator ae = first.GetEnumerator();
+      IEnumerator be = second.GetEnumerator();
       while (true)
       {
         bool an = ae.MoveNext();
@@ -52,7 +52,11 @@ namespace Yasc.Utils
       }
     }
 
-    public static void Update<T, U>(this IList<T> list, IEnumerable<U> src, Comparer<T, U> comparer, Converter<U, T> converter)
+    public static void Update<TDestination, TSource>(
+      this IList<TDestination> list, 
+      IEnumerable<TSource> src, 
+      Comparer<TDestination, TSource> comparer, 
+      Converter<TSource, TDestination> converter)
     {
       list.Clear();
       foreach (var item in src)

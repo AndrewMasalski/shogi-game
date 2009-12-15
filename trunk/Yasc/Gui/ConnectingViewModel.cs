@@ -10,7 +10,7 @@ namespace Yasc.Gui
   public class ConnectingViewModel : ObservableObject
   {
     private readonly string _userName;
-    private Server _server;
+    private ShogiServer _server;
     private bool _isConnecting;
     private Exception _lastError;
     private readonly Dispatcher _dispatcher;
@@ -53,7 +53,7 @@ namespace Yasc.Gui
         RaisePropertyChanged("IsConnecting");
       }
     }
-    public Server Server
+    public ShogiServer Server
     {
       get { return _server; }
       private set
@@ -122,7 +122,7 @@ namespace Yasc.Gui
       try
       {
         AsynchConnectionStarted();
-        var server = Server.Connect(Address);
+        var server = ShogiServer.Connect(Address);
         server.Ping();
         AsynchConnectionSucceed(server);
       }
@@ -141,7 +141,7 @@ namespace Yasc.Gui
                                 LastError = null;
                               }));
     }
-    private void AsynchConnectionSucceed(Server server)
+    private void AsynchConnectionSucceed(ShogiServer server)
     {
       _dispatcher.BeginInvoke(DispatcherPriority.Normal,
                               new Action(() =>

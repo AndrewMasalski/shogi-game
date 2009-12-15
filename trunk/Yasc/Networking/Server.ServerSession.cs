@@ -4,15 +4,15 @@ using System.Windows.Threading;
 
 namespace Yasc.Networking
 {
-  public partial class Server
+  public partial class ShogiServer
   {
     private class ServerSession : MarshalByRefObject, IServerSession
     {
       private readonly ServerUser _user;
 
-      public Server Server { get; private set; }
+      public ShogiServer Server { get; private set; }
 
-      public ServerSession(Server server, ServerUser user)
+      public ServerSession(ShogiServer server, ServerUser user)
       {
         Server = server;
         _user = user;

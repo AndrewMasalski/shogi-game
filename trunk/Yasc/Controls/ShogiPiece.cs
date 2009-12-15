@@ -44,12 +44,12 @@ namespace Yasc.Controls
           "once and with not null value only");
       }
 
-      PieceType = piece.Type;
+      PieceType = piece.PieceType;
       PieceColor = piece.Color;
       IsPromoted = piece.IsPromoted;
 
       _pieceObserver = new PropertyObserver<Piece>(piece).
-        RegisterHandler(p => p.Type, p => PieceType = p.Type).
+        RegisterHandler(p => p.PieceType, p => PieceType = p.PieceType).
         RegisterHandler(p => p.Color, p => PieceColor = p.Color).
         RegisterHandler(p => p.IsPromoted, p => IsPromoted = p.IsPromoted);
     }

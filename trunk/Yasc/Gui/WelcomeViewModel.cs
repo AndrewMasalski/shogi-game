@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
 using Yasc.Networking;
@@ -108,17 +109,17 @@ namespace Yasc.Gui
         RaisePropertyChanged("SaveAndSkip");
       }
     }
-    public ObservableCollection<string> LastVsistedServers { get; private set; }
+    public ObservableCollection<string> LastVisitedServers { get; private set; }
     public bool IsServerStartedOnThisComputer
     {
-      get { return Server.IsServerStartedOnThisComputer; }
+      get { return ShogiServer.IsServerStartedOnThisComputer; }
     }
     public WelcomeViewModel()
     {
       Address = Settings.Default.Address;
       UserName = Settings.Default.UserName;
       SaveAndSkip = Settings.Default.SkipWelcomePage;
-      LastVsistedServers = new ObservableCollection<string>(Settings.Default.LoadLvs());
+      LastVisitedServers = new ObservableCollection<string>(Settings.Default.LoadLvs());
 
       if (string.IsNullOrEmpty(Address)) Address = "localhost";
       if (string.IsNullOrEmpty(UserName)) UserName = "John Doe";
@@ -135,7 +136,7 @@ namespace Yasc.Gui
       s.SkipWelcomePage = SaveAndSkip;
       s.DefaultStartMode = Mode;
       s.Address = Address;
-      s.SaveLvs(LastVsistedServers, Address);
+      SaveLvs(s, LastVisitedServers, Address);
 
       s.Save();
       OnChoiceDone(EventArgs.Empty);
@@ -145,5 +146,19 @@ namespace Yasc.Gui
       var handler = ChoiceDone;
       if (handler != null) handler(this, e);
     }
+
+    private static void SaveLvs(SettingsBase settings, ObservableCollection<string> lvs, string address)
+    {
+      int idx = lvs.IndexOf(address);
+      if (idx != -1)
+      {
+        lvs.Move(idx, 0);
+      }
+      else
+      {
+        lvs.Insert(0, address);
+      }
+      settings.SaveLvs(lvs);
+    }    
   }
 }

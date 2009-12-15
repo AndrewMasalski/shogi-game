@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Yasc.Networking
 {
-  public partial class Server : MarshalByRefObject
+  public partial class ShogiServer : MarshalByRefObject
   {
     #region ' Static Stuff '
 
@@ -41,22 +41,21 @@ namespace Yasc.Networking
     public IServerUser[] Users
     {
       get { return _users.Keys.Cast<IServerUser>().ToArray(); }
-      set { throw new NotImplementedException(); }
     }
 
-    public static Server Start()
+    public static ShogiServer Start()
     {
       _disp = Dispatcher.CurrentDispatcher;
       RegisterChannel(Port);
 
       RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
-      var server = new Server();
-      RemotingServices.Marshal(server, typeof(Server).FullName);
+      var server = new ShogiServer();
+      RemotingServices.Marshal(server, typeof(ShogiServer).FullName);
 
       IsThisDomainServerHost = true;
       return server;
     }
-    public static Server Connect(string url)
+    public static ShogiServer Connect(string url)
     {
       if (!_backwardChannelIsRegistred && !IsThisDomainServerHost)
       {
@@ -66,8 +65,8 @@ namespace Yasc.Networking
         _backwardChannelIsRegistred = true;
       }
 
-      url = string.Format("tcp://{0}:{1}/{2}", url, Port, typeof(Server).FullName);
-      return (Server)Activator.GetObject(typeof(Server), url);
+      url = string.Format("tcp://{0}:{1}/{2}", url, Port, typeof(ShogiServer).FullName);
+      return (ShogiServer)Activator.GetObject(typeof(ShogiServer), url);
     }
 
     private static void RegisterChannel(int port)

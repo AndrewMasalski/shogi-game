@@ -21,7 +21,7 @@ namespace Yasc.ShogiCore.Moves
     }
     public static DropMove Create(Board board, DropMoveSnapshot snapshot)
     {
-      var res = new DropMove(board, snapshot.Piece.Type,
+      var res = new DropMove(board, snapshot.Piece.PieceType,
         snapshot.To, board[snapshot.Piece.Color]);
       res.Validate();
       return res;
@@ -38,7 +38,7 @@ namespace Yasc.ShogiCore.Moves
       return BoardSnapshot.ValidateDropMove(new DropMoveSnapshot(this));
     }
 
-    public override MoveSnapshotBase Shanpshot()
+    public override MoveSnapshotBase Snapshot()
     {
       return new DropMoveSnapshot(this);
     }

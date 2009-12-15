@@ -13,9 +13,9 @@ namespace UnitTests
       var b = new Board();
       var p = b.PieceSet["歩"];
       p.IsPromoted = true;
-      Assert.AreEqual("と", (string)p.Type);
+      Assert.AreEqual("と", (string)p.PieceType);
       p.IsPromoted = false;
-      Assert.AreEqual("歩", (string)p.Type);
+      Assert.AreEqual("歩", (string)p.PieceType);
     }
     [TestMethod]
     public void CellTest()

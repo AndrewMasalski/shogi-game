@@ -26,7 +26,7 @@ namespace UnitTests.ShogiCore
       //    _________________________________
       //___/ Check pieces which must present \_______________________________
       foreach (var pair in Shogi.InitialPosition)
-        Assert.AreEqual(pair.Value, (string)_board[pair.Key].Type);
+        Assert.AreEqual(pair.Value, (string)_board[pair.Key].PieceType);
       //    _________________________________
       //___/ Check cells which must be empty \_______________________________
       for (int i = 0; i < 9; i++)
@@ -42,7 +42,7 @@ namespace UnitTests.ShogiCore
         (cell, placeHolder) =>
           {
             counter++;
-            Assert.AreEqual(Shogi.InitialPosition[cell], (string)placeHolder.Piece.Type);
+            Assert.AreEqual(Shogi.InitialPosition[cell], (string)placeHolder.Piece.PieceType);
           });
 
       for (int i = 0; i < 9; i++)
