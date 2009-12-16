@@ -113,7 +113,7 @@ namespace Yasc.Controls
 
     public static readonly DependencyProperty IsGroupingProperty =
       DependencyProperty.Register("IsGrouping", typeof (bool),
-                                  typeof(ShogiHand), new UIPropertyMetadata(false, OnIsGroupingChanged));
+          typeof(ShogiHand), new UIPropertyMetadata(false, OnIsGroupingChanged));
 
     private static void OnIsGroupingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -122,7 +122,7 @@ namespace Yasc.Controls
 
     private void OnIsGroupingChanged(bool value)
     {
-      _synchStrategy.Dispose();
+      _synchStrategy.Close();
       _synchStrategy = value ? new GroupSynch(this, Hand) : 
          (SynchStrategy) new PlainSynch(this, Hand);
     }
@@ -137,7 +137,7 @@ namespace Yasc.Controls
 
     #region ' Synch Strategies '
 
-    private abstract class SynchStrategy : IDisposable
+    private abstract class SynchStrategy : IWeakEventListener
     {
       protected ShogiHand _owner;
       private INotifyCollectionChanged _src;
@@ -146,22 +146,28 @@ namespace Yasc.Controls
       {
         if (_src != null)
         {
-          _src.CollectionChanged -= OnHandCollectionChanged;
+          CollectionChangedEventManager.RemoveListener(_src, this);
         }
         _src = collection;
         if (_src != null)
         {
-          _src.CollectionChanged += OnHandCollectionChanged;
+          CollectionChangedEventManager.AddListener(_src, this);
         }
         _owner.Items = GetItems(collection);
       }
 
       protected abstract ObservableCollection<HandNest> GetItems(IEnumerable<Piece> collection);
-      protected abstract void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args);
+      protected abstract void OnHandCollectionChanged(NotifyCollectionChangedEventArgs args);
 
-      public void Dispose()
+      public void Close()
       {
-        if (_src != null) _src.CollectionChanged -= OnHandCollectionChanged;
+        if (_src != null) CollectionChangedEventManager.RemoveListener(_src, this);
+      }
+
+      public bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
+      {
+        OnHandCollectionChanged((NotifyCollectionChangedEventArgs) e);
+        return true;
       }
     }
 
@@ -181,7 +187,7 @@ namespace Yasc.Controls
           select new HandNest { PieceColor = _owner.Color, PieceType = p.PieceType, PiecesCount = 1 });
       }
 
-      protected override void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+      protected override void OnHandCollectionChanged(NotifyCollectionChangedEventArgs args)
       {
         switch (args.Action)
         {
@@ -221,7 +227,7 @@ namespace Yasc.Controls
         return new ObservableCollection<HandNest>(r);
       }
 
-      protected override void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+      protected override void OnHandCollectionChanged(NotifyCollectionChangedEventArgs args)
       {
         switch (args.Action)
         {
