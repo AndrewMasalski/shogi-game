@@ -80,6 +80,8 @@
     <Compile Include="BoardSnapshotTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MemoryLeaksTest.cs" />
     <Compile Include="ShogiCore\BoardTest.cs">
       <SubType>Code</SubType>
     </Compile>
