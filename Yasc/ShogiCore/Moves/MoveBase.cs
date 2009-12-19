@@ -17,7 +17,7 @@ namespace Yasc.ShogiCore.Moves
     {
       if (board == null) throw new ArgumentNullException("board");
       if (who == null) throw new ArgumentNullException("who");
-      board.EnsurePlayerBelongs(who);
+      board.VerifyPlayerBelongs(who);
       
       Board = board;
       Timestamp = DateTime.Now;

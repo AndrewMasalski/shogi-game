@@ -45,7 +45,7 @@ namespace Yasc.ShogiCore
       foreach (var pair in InitialPosition)
       {
         var party = pair.Key.Y < 5 ? board.White : board.Black;
-        board.SetPiece(pair.Key, party, pair.Value);
+        board.SetPiece(pair.Value, party, pair.Key);
       }
     }
   }

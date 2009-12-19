@@ -3,7 +3,6 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
-using Yasc.ShogiCore.Snapshots;
 
 namespace UnitTests.ShogiCore
 {
@@ -23,20 +22,20 @@ namespace UnitTests.ShogiCore
     [TestMethod]
     public void SetPieceTest()
     {
-      _board.SetPiece("5g", PieceColor.White, "馬");
+      _board.SetPiece("馬", PieceColor.White, "5g");
       Assert.IsNotNull(_board["5g"]);
     }
     [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantSetPieceBecauseNotEnoughPiecesTest()
     {
-      _board.SetPiece("1i", PieceColor.Black, "馬");
-      _board.SetPiece("2i", PieceColor.Black, "馬");
-      _board.SetPiece("3i", PieceColor.Black, "馬");
+      _board.SetPiece("馬", PieceColor.Black, "1i");
+      _board.SetPiece("馬", PieceColor.Black, "2i");
+      _board.SetPiece("馬", PieceColor.Black, "3i");
     }
     [TestMethod]
     public void SetWhitePiece()
     {
-      _board.SetPiece("1i", PieceColor.Black, "馬");
+      _board.SetPiece("馬", PieceColor.Black, "1i");
 
     }
     #endregion
@@ -83,7 +82,7 @@ namespace UnitTests.ShogiCore
 
       // Here we never read _board.CurrentSnapshot property 
       // so there's nothing to change
-      _board.SetPiece("1i", PieceColor.Black, "馬");
+      _board.SetPiece("馬", PieceColor.Black, "1i");
       _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
 
       assertion1.Check();
@@ -96,7 +95,7 @@ namespace UnitTests.ShogiCore
       // Here we read _board.CurrentSnapshot property every time 
       // so every time snapshot changes we get notification
       Assert.IsNotNull(_board.CurrentSnapshot);
-      _board.SetPiece("1i", PieceColor.Black, "馬");
+      _board.SetPiece("馬", PieceColor.Black, "1i");
       Assert.IsNotNull(_board.CurrentSnapshot);
       _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
 
@@ -207,9 +206,9 @@ namespace UnitTests.ShogiCore
     public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
     {
       var board = new Board(PieceSetType.Infinite);
-      board.SetPiece("1i", PieceColor.Black, "馬");
-      board.SetPiece("2i", PieceColor.Black, "馬");
-      board.SetPiece("3i", PieceColor.Black, "馬");
+      board.SetPiece("馬", PieceColor.Black, "1i");
+      board.SetPiece("馬", PieceColor.Black, "2i");
+      board.SetPiece("馬", PieceColor.Black, "3i");
 
       _board.LoadSnapshot(board.CurrentSnapshot);
     }
@@ -279,6 +278,22 @@ namespace UnitTests.ShogiCore
     public void GetDropMoveAlienPieceArgTest()
     {
       _board.GetDropMove(new Board().White.AddToHand("歩"), "1i");
+    }
+    
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void PassWrongPlayerToGetDropMoveTest()
+    {
+      _board.GetDropMove("馬", "1i", new Board().White);
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void PassWrongPlayerToSetPieceA()
+    {
+      _board.SetPiece(_board.PieceSet["馬"], new Board().White, "1i");
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void PassWrongPlayerToSetPieceB()
+    {
+      _board.SetPiece("馬", new Board().White, "1i");
     }
   }
 }

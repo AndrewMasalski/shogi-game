@@ -128,13 +128,14 @@ namespace UnitTests.Automation
   public static class AutomationExtensions
   {
     private const int WiatCyclesCount = 30;
+    private const int WaitCycleLength = 40;
 
     public static AutomationElement FindFirstByName(this AutomationElement element, string name)
     {
       var result = element.FindFirstByNameNoWait(name);
       for (int i = 0; i < WiatCyclesCount && result == null; i++)
       {
-        Thread.Sleep(200);
+        Thread.Sleep(WaitCycleLength);
         result = element.FindFirstByNameNoWait(name);
       }
       return result;
@@ -144,7 +145,7 @@ namespace UnitTests.Automation
       var result = element.FindFirstByNameNoWait(type, name);
       for (int i = 0; i < WiatCyclesCount && result == null; i++)
       {
-        Thread.Sleep(200);
+        Thread.Sleep(WaitCycleLength);
         result = element.FindFirstByNameNoWait(type, name);
       }
       return result;
@@ -166,7 +167,7 @@ namespace UnitTests.Automation
       var result = element.FindFirstNoWait(type);
       for (int i = 0; i < WiatCyclesCount && result == null; i++)
       {
-        Thread.Sleep(200);
+        Thread.Sleep(WaitCycleLength);
         result = element.FindFirstNoWait(type);
       }
       return result;
@@ -182,7 +183,7 @@ namespace UnitTests.Automation
       var result = element.FindAllNoWait(type);
       for (int i = 0; i < WiatCyclesCount && result.Count < expectedCount; i++)
       {
-        Thread.Sleep(200);
+        Thread.Sleep(WaitCycleLength);
         result = element.FindAllNoWait(type);
       }
       return result;
