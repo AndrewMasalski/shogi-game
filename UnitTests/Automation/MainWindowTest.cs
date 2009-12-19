@@ -1,4 +1,5 @@
-﻿using System.Windows.Automation;
+﻿using System.Threading;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,15 +25,11 @@ namespace UnitTests.Automation
     [TestMethod]
     public void CheckDragAndDrop()
     {
-      var pattern = (WindowPattern)_windowElement.
-        GetCurrentPattern(WindowPattern.Pattern);
-      pattern.SetWindowVisualState(WindowVisualState.Maximized);
+      _windowElement.Pattern<WindowPattern>().SetWindowVisualState(WindowVisualState.Maximized);
       _windowElement.InvokeByName("Play with comp.");
-      var piece = _windowElement.FindFirst(TreeScope.Descendants,
-        new PropertyCondition(AutomationElement.NameProperty, "White P"));
+      var piece = _windowElement.FindFirstByName("White P");
       Assert.IsNotNull(piece);
-      var pieces = _windowElement.FindAll(TreeScope.Descendants,
-        new PropertyCondition(AutomationElement.ClassNameProperty, typeof(ShogiPiece).Name));
+      var pieces = _windowElement.FindAll(typeof (ShogiPiece), 40);
       Assert.AreEqual(40, pieces.Count);
 
       var board = new ShogiBoardAutomation(_windowElement);
@@ -58,7 +55,7 @@ namespace UnitTests.Automation
       var moveListBoxItems = _windowElement.
         FindFirstByName(typeof(TabItem), "Moves").
         FindFirst(typeof(ListBox)).
-        FindAll(typeof(ListBoxItem));
+        FindAll(typeof(ListBoxItem), 8);
 
       foreach (AutomationElement item in moveListBoxItems)
         item.Pattern<SelectionItemPattern>().Select();
@@ -72,10 +69,6 @@ namespace UnitTests.Automation
       new ShogiBoardAutomation(_windowElement).Move("1c", "1d");
 
     }
-
-
-
-
     [TestCleanup]
     public void TearDown()
     {
@@ -134,23 +127,67 @@ namespace UnitTests.Automation
 
   public static class AutomationExtensions
   {
+    private const int WiatCyclesCount = 3;
+
     public static AutomationElement FindFirstByName(this AutomationElement element, string name)
+    {
+      var result = element.FindFirstByNameNoWait(name);
+      for (int i = 0; i < WiatCyclesCount && result == null; i++)
+      {
+        Thread.Sleep(0);
+        result = element.FindFirstByNameNoWait(name);
+      }
+      return result;
+    }
+    public static AutomationElement FindFirstByName(this AutomationElement element, Type type, string name)
+    {
+      var result = element.FindFirstByNameNoWait(type, name);
+      for (int i = 0; i < WiatCyclesCount && result == null; i++)
+      {
+        Thread.Sleep(0);
+        result = element.FindFirstByNameNoWait(type, name);
+      }
+      return result;
+    }
+    public static AutomationElement FindFirstByNameNoWait(this AutomationElement element, string name)
     {
       return element.FindFirst(TreeScope.Descendants,
          new PropertyCondition(AutomationElement.NameProperty, name));
     }
-    public static AutomationElement FindFirstByName(this AutomationElement element, Type type, string name)
+    public static AutomationElement FindFirstByNameNoWait(this AutomationElement element, Type type, string name)
     {
       return element.FindFirst(TreeScope.Descendants, new AndCondition(
         new PropertyCondition(AutomationElement.ClassNameProperty, type.Name),
         new PropertyCondition(AutomationElement.NameProperty, name)));
     }
+
     public static AutomationElement FindFirst(this AutomationElement element, Type type)
+    {
+      var result = element.FindFirstNoWait(type);
+      for (int i = 0; i < WiatCyclesCount && result == null; i++)
+      {
+        Thread.Sleep(0);
+        result = element.FindFirstNoWait(type);
+      }
+      return result;
+    }
+    public static AutomationElement FindFirstNoWait(this AutomationElement element, Type type)
     {
       return element.FindFirst(TreeScope.Descendants,
         new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
     }
-    public static AutomationElementCollection FindAll(this AutomationElement element, Type type)
+
+    public static AutomationElementCollection FindAll(this AutomationElement element, Type type, int expectedCount)
+    {
+      var result = element.FindAllNoWait(type);
+      for (int i = 0; i < WiatCyclesCount && result.Count < expectedCount; i++)
+      {
+        Thread.Sleep(0);
+        result = element.FindAllNoWait(type);
+      }
+      return result;
+    }
+    public static AutomationElementCollection FindAllNoWait(this AutomationElement element, Type type)
     {
       return element.FindAll(TreeScope.Descendants,
         new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
