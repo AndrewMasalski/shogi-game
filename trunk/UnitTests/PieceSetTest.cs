@@ -54,7 +54,7 @@ namespace UnitTests
     {
       var board = new Board();
       var piece = board.PieceSet["馬"];
-      board.SetPiece("1i", piece, PieceColor.White);
+      board.SetPiece(piece, PieceColor.White, "1i");
       board.White.Hand.Add(piece);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]

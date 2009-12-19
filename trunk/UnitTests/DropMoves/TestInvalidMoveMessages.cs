@@ -17,7 +17,7 @@ namespace UnitTests.DropMoves
     [TestMethod]
     public void CantDropTwoPawnsToTheSameColumn()
     {
-      _board.SetPiece("1c", _board.White, "歩");
+      _board.SetPiece("歩", _board.White, "1c");
       _board.White.AddToHand("歩");
       var move = _board.GetDropMove("歩", "1d", _board.OneWhoMoves);
       Assert.AreEqual("Can't drop 歩 to the column 1 " +
@@ -27,7 +27,7 @@ namespace UnitTests.DropMoves
     [TestMethod]
     public void CanDropPieceToFreeCellOnly()
     {
-      _board.SetPiece("1c", _board.White, "歩");
+      _board.SetPiece("歩", _board.White, "1c");
       _board.White.AddToHand("歩");
       var move = _board.GetDropMove("歩", "1c", _board.OneWhoMoves);
       Assert.AreEqual("Can drop piece to free cell only", move.ErrorMessage);
@@ -60,10 +60,10 @@ namespace UnitTests.DropMoves
     [TestMethod]
     public void CantDropPawnToMateTheOpponent()
     {
-      _board.SetPiece("1i", _board.Black, "玉");
-      _board.SetPiece("1g", _board.Black, "歩");
-      _board.SetPiece("2h", _board.White, "飛");
-      _board.SetPiece("3g", _board.White, "金");
+      _board.SetPiece("玉", _board.Black, "1i");
+      _board.SetPiece("歩", _board.Black, "1g");
+      _board.SetPiece("飛", _board.White, "2h");
+      _board.SetPiece("金", _board.White, "3g");
       _board.White.AddToHand("歩");
 
       var move = _board.GetDropMove("歩", "1h", _board.White);
