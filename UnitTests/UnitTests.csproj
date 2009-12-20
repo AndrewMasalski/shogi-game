@@ -88,7 +88,7 @@
     <Compile Include="DropMoves\TestInvalidMoveMessages.cs" />
     <Compile Include="ShogiCore\Moves\MovesHistoryTest.cs" />
     <Compile Include="PieceSetTest.cs" />
-    <Compile Include="PlayerTest.cs" />
+    <Compile Include="ShogiCore\PlayerTest.cs" />
     <Compile Include="PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>

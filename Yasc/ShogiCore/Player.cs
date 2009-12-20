@@ -48,11 +48,12 @@ namespace Yasc.ShogiCore
       return piece;
     }
 
-    public void LoadSnapshot(IEnumerable<PieceSnapshot> collection)
+    public void LoadHandSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
     {
+      if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
 #warning Implement cool update. See ListUtils.Update
       ResetAllPiecesFromHand();
-      foreach (var snapshot in collection)
+      foreach (var snapshot in handSnapshot)
         AddToHand(snapshot.PieceType);
     }
 
