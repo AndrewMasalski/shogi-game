@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UnitTests.Netwroking;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Snapshots;
 
 namespace UnitTests.ShogiCore
 {
@@ -44,6 +46,11 @@ namespace UnitTests.ShogiCore
     public void MakeNullMoveTest()
     {
       _board.MakeMove(null);
+    }
+    [TestMethod, ExpectedException(typeof(InvalidMoveException))]
+    public void MakeInvalidMoveTest()
+    {
+      _board.MakeMove(_board.GetMove("1i-1i"));
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void MakeMoveFromAnotherBoard()
@@ -229,6 +236,11 @@ namespace UnitTests.ShogiCore
 
     #region ' GetAvailableMoves Method '
 
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void PassNullGetAvailableUsualMovesTest()
+    {
+      _board.GetAvailableMoves((Piece)null);
+    }
     [TestMethod]
     public void GetAvailableUsualMovesTest()
     {
@@ -236,6 +248,16 @@ namespace UnitTests.ShogiCore
       var availableMoves = _board.GetAvailableMoves("4a");
       var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(new Position[] { "5b", "4b", "3b" }, toPositions);
+    }
+    [TestMethod]
+    public void GetAvailableMovesOrderTest()
+    {
+      _board.IsMovesOrderMaintained = false;
+      Shogi.InitBoard(_board);
+      var availableMoves = _board.GetAvailableMoves("7g");
+      var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
+      CollectionAssert.AreEquivalent(new Position[] { "7f" }, toPositions);
+      Assert.AreEqual(_board.Black, _board.OneWhoMoves);
     }
 
     [TestMethod]
@@ -295,5 +317,66 @@ namespace UnitTests.ShogiCore
     {
       _board.SetPiece("馬", new Board().White, "1i");
     }
+
+    #region ' OnMoving/OnMoved Events '
+
+    [TestMethod]
+    public void OnMoveEventTest()
+    {
+      var log = new TestLog();
+      _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
+      _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
+      Shogi.InitBoard(_board);
+      _board.MakeMove(_board.GetMove("1c-1d"));
+      Assert.AreEqual("Moving(1c-1d) Moved(1c-1d)", log.ToString());
+    }
+
+    #endregion
+
+    #region ' Hostory Navigation '
+    
+    [TestMethod]
+    public void HistoryNavigationEventsTest()
+    {
+      var log = new TestLog();
+      _board.HistoryNavigating += (s, e) =>
+        log.Write(string.Format("HistoryNavigating({0})", e.Step));
+      _board.HistoryNavigated += (s, e) => 
+        log.Write(string.Format("HistoryNavigated({0})", e.Step));
+      Shogi.InitBoard(_board);
+      _board.MakeMove(_board.GetMove("1c-1d"));
+      _board.MakeMove(_board.GetMove("1g-1f"));
+      _board.MakeMove(_board.GetMove("2c-2d"));
+      _board.History.CurrentMoveIndex = 0;
+      Assert.AreEqual("HistoryNavigating(-2) HistoryNavigated(-2)", 
+        log.ToString());
+    }
+
+    [TestMethod]
+    public void HistoryNavigationSnapshotsTest()
+    {
+      Shogi.InitBoard(_board);
+      var snapshot = new BoardSnapshot[1];
+
+      _board.HistoryNavigating += (s, e) =>
+                                    {
+                                      Assert.AreNotEqual(snapshot[0], _board.CurrentSnapshot);
+                                      Assert.AreEqual(snapshot[0], e.Snapshot);
+                                    };
+      _board.HistoryNavigated += (s, e) =>
+                                   {
+                                     Assert.AreEqual(snapshot[0], _board.CurrentSnapshot);
+                                     Assert.AreEqual(snapshot[0], e.Snapshot);
+                                   };
+
+      _board.MakeMove(_board.GetMove("1c-1d"));
+      snapshot[0] = _board.CurrentSnapshot;
+      _board.MakeMove(_board.GetMove("1g-1f"));
+      _board.MakeMove(_board.GetMove("2c-2d"));
+      _board.History.CurrentMoveIndex = 0;
+    }
+
+    #endregion
+
   }
 }
