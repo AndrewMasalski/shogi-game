@@ -2,7 +2,7 @@
       xmlns:rv="clr-namespace:Yasc.RulesVisualization;assembly=Yasc.RulesVisualization"
       Width="490" Height="371">
   
-  <rv:BoardDiagram White="P3c, R2h, G3g" WhiteHand="P" Black="K1i" BlackHand="L, N" MovesToShow="2">
+  <rv:BoardDiagram White="P3c, R2h, G3g" WhiteHand="P" Black="Kr1i" BlackHand="L, N" MovesToShow="2">
     <rv:ForbiddenDropMoves Piece="P" For="White" To="3a, 3b, 3c, 3d, 3e, 3f, 3g, 3h, 3i, 1i, 2i, 4i, 5i, 6i, 7i, 8i, 9i, 1h, 3g, 2h" Mode="AndNoMore"/>
     <rv:ForbiddenDropMoves Piece="L" For="Black" To="1a, 2a, 3a, 4a, 5a, 6a, 7a, 8a, 9a, 3c, 3g, 2h, 1i" Mode="AndNoMore"/>
     <rv:ForbiddenDropMoves Piece="N" For="Black" To="1a, 2a, 3a, 4a, 5a, 6a, 7a, 8a, 9a, 3c, 1b, 2b, 3b, 4b, 5b, 6b, 7b, 8b, 9b, 3g, 2h, 1i" Mode="AndNoMore"/>

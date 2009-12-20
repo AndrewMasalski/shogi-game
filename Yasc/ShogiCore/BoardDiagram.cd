@@ -68,6 +68,7 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Color" />
+      <Property Name="PieceType" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Player">
@@ -77,7 +78,7 @@
       <Method Name="Player" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQACAAAAAEAABAACQAAAgAAAAAAAAAwCAAAgA=</HashCode>
+      <HashCode>AAAAAAAQICAAAAAEAABAACQAAAgAAAAAAAAAgCAAAgA=</HashCode>
       <FileName>ShogiCore\Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
