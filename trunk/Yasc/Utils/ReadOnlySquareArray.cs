@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Yasc.Utils
 {
+  [Serializable]
   public class ReadOnlySquareArray<T> : IList<T>, IList, ICloneable 
   {
     private readonly T[,] _array;

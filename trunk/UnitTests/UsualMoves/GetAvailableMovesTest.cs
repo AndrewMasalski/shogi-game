@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UnitTests.ShogiCore;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore;
 using Yasc.Utils;
