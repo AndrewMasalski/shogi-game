@@ -2,7 +2,7 @@
       xmlns:rv="clr-namespace:Yasc.RulesVisualization;assembly=Yasc.RulesVisualization"
       Width="718" Height="523">
   
-  <rv:BoardDiagram Black="K7f, P8f, +P7e, S3e" White="K3d, P6d" MovesToShow="1">
+  <rv:BoardDiagram Black="Kc7f, P8f, +P7e, S3e" White="Kr3d, P6d" MovesToShow="1">
     <rv:AvailableUsualMoves From="7f" To="8g, 7g, 6g, 6f, 8e" Mode="AndNoMore"/>
     <rv:AvailableUsualMoves From="3d" To="4c, 3c, 2c, 4e, 2e, 3e" Mode="AndNoMore"/>
     <rv:AvailableUsualMoves From="6d" To="" Mode="AndNoMore"/>

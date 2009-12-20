@@ -217,7 +217,7 @@ namespace Yasc.RulesVisualization
       }
 
       foreach (var color in new[] { PieceColor.White, PieceColor.Black })
-        foreach (var type in new PieceType[] { "玉", "飛", "角", "金", "銀", "桂", "香", "歩", })
+        foreach (var type in new PieceType[] { "王", "玉", "飛", "角", "金", "銀", "桂", "香", "歩", })
         {
           var nest = board.GetNest(type, color);
           if (nest != null) nest.IsMoveSource = false;

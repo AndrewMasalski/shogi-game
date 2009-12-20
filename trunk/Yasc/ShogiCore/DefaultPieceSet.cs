@@ -9,7 +9,7 @@ namespace Yasc.ShogiCore
 
     internal DefaultPieceSet()
     {
-      _set = new List<Piece>[8];
+      _set = new List<Piece>[9];
       for (int i = 0; i < _set.Length; i++)
         _set[i] = new List<Piece>();
 
