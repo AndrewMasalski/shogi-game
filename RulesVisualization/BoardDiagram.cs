@@ -26,19 +26,19 @@ namespace Yasc.RulesVisualization
 
     public static readonly DependencyProperty WhiteProperty =
       DependencyProperty.Register("White", typeof(string),
-                                  typeof(BoardDiagram), new UIPropertyMetadata(null, OnWhiteChanged));
+        typeof(BoardDiagram), new UIPropertyMetadata(null, OnWhiteChanged));
 
     public static readonly DependencyProperty BlackProperty =
       DependencyProperty.Register("Black", typeof(string),
-                                  typeof(BoardDiagram), new UIPropertyMetadata(null, OnBlackChanged));
+        typeof(BoardDiagram), new UIPropertyMetadata(null, OnBlackChanged));
 
     public static readonly DependencyProperty WhiteHandProperty =
       DependencyProperty.Register("WhiteHand", typeof(string),
-                                  typeof(BoardDiagram), new UIPropertyMetadata(null, OnWhiteHandChanged));
+        typeof(BoardDiagram), new UIPropertyMetadata(null, OnWhiteHandChanged));
 
     public static readonly DependencyProperty BlackHandProperty =
       DependencyProperty.Register("BlackHand", typeof(string),
-      typeof(BoardDiagram), new UIPropertyMetadata(null, OnBlackHandChanged));
+        typeof(BoardDiagram), new UIPropertyMetadata(null, OnBlackHandChanged));
 
     public static readonly DependencyProperty BoardProperty =
       DependencyProperty.Register("Board", typeof(Board),
