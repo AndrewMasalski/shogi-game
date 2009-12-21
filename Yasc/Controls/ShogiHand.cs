@@ -184,7 +184,12 @@ namespace Yasc.Controls
         if (collection == null) return null;
         return new ObservableCollection<HandNest>(
           from p in collection
-          select new HandNest { PieceColor = _owner.Color, PieceType = p.PieceType, PiecesCount = 1 });
+          select new HandNest
+                   {
+                     PieceColor = _owner.Color,
+                     PieceType = p.PieceType, 
+                     PiecesCount = 1
+                   });
       }
 
       protected override void OnHandCollectionChanged(NotifyCollectionChangedEventArgs args)
@@ -222,8 +227,14 @@ namespace Yasc.Controls
       protected override ObservableCollection<HandNest> GetItems(IEnumerable<Piece> collection)
       {
         if (collection == null) return null;
-        var r = from p in collection group p by p.PieceType into g select 
-                  new HandNest {PieceColor = _owner.Color, PieceType = g.Key, PiecesCount = g.Count()};
+        var r = from p in collection
+                group p by p.PieceType into g
+                select new HandNest
+                  {
+                    PieceColor = _owner.Color,
+                    PieceType = g.Key,
+                    PiecesCount = g.Count()
+                  };
         return new ObservableCollection<HandNest>(r);
       }
 

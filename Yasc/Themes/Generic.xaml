@@ -198,7 +198,7 @@
         <ControlTemplate TargetType="{x:Type local:ShogiCell}">
           <Grid Background="Transparent" >
             <Rectangle Name="border" Stretch="Fill" SnapsToDevicePixels="True"/>
-            <ContentPresenter Name="PART_Piece"/>
+            <ContentPresenter/>
             <Rectangle Name="border1" Stretch="Fill" SnapsToDevicePixels="True"/>
           </Grid>
           <ControlTemplate.Triggers>
@@ -220,7 +220,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:HandNest}">
           <Grid>
-            <ContentPresenter Name="PART_Piece"/>
+            <ContentPresenter/>
             <TextBlock Name="Index" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                        Text="{Binding PiecesCount, RelativeSource={RelativeSource TemplatedParent}}"/>
           </Grid>
