@@ -5,8 +5,7 @@ using Yasc.ShogiCore;
 
 namespace Yasc.Controls
 {
-  [TemplatePart(Name = "PART_Piece", Type = typeof(ContentPresenter))]
-  public abstract class PieceHolderBase : Control
+  public abstract class PieceHolderBase : ContentControl
   {
     #region ' EffectiveDirectionProperty '
 
@@ -92,25 +91,17 @@ namespace Yasc.Controls
       DefaultStyleKeyProperty.OverrideMetadata(typeof(PieceHolderBase),
          new FrameworkPropertyMetadata(typeof(PieceHolderBase)));
     }
-    public override void OnApplyTemplate()
-    {
-      HolderControl = GetTemplateChild("PART_Piece") as ContentPresenter;
-      UpdateHolderControl();
-      base.OnApplyTemplate();
-    }
     protected abstract void UpdateHolderControl();
 
     public virtual ShogiPiece DetachPiece()
     {
-      if (HolderControl == null) return null;
       var piece = ShogiPiece;
-      HolderControl.Content = null;
+      Content = null;
       return piece;
     }
-    protected ContentPresenter HolderControl { get; set; }
     public ShogiPiece ShogiPiece
     {
-      get { return HolderControl != null ? (ShogiPiece)HolderControl.Content : null; }
+      get { return (ShogiPiece)Content; }
     }
 
     #region ' PieceType Property '
@@ -126,6 +117,7 @@ namespace Yasc.Controls
 
     protected virtual void OnPieceTypeChanged(PieceType pieceType)
     {
+      UpdateHolderControl();
     }
 
     public PieceType PieceType

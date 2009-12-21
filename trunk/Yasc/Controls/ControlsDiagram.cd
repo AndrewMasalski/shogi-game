@@ -34,27 +34,22 @@
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAIAAABABCAABCAEAAgAAAAAEJEAgBAQAAAAOCAAACA=</HashCode>
+      <HashCode>AAIAAABABCACBCAEAAgAAAAAEJEAgBAQAAAAOCAAACA=</HashCode>
       <FileName>Controls\ShogiPiece.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.Controls.HandNest">
     <Position X="5.75" Y="4.25" Width="1.5" />
     <Members>
-      <Method Name="Count" Hidden="true" />
-      <Method Name="DeattachPiece" Hidden="true" />
       <Method Name="HandNest" Hidden="true" />
-      <Field Name="HandProperty" Hidden="true" />
       <Method Name="OnCreateAutomationPeer" Hidden="true" />
-      <Method Name="OnHandChanged" Hidden="true" />
-      <Method Name="OnHandCollectionChanged" Hidden="true" />
       <Method Name="OnPieceColorChanged" Hidden="true" />
-      <Method Name="OnPieceTypeChanged" Hidden="true" />
       <Field Name="PiecesCountProperty" Hidden="true" />
-      <Method Name="UpdateCp" Hidden="true" />
+      <Method Name="UpdateHolderControl" Hidden="true" />
+      <Method Name="UpdateHolderControl" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAJAAAQgAACQAAAAQAAAQAAAAAIAAACA=</HashCode>
+      <HashCode>BAAAAAAAAAAAEAAAAQgAAAAAAAAAAAAQAAAAAAAAACA=</HashCode>
       <FileName>Controls\HandNest.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -71,23 +66,21 @@
   <Class Name="Yasc.Controls.PieceHolderBase">
     <Position X="6.75" Y="0.5" Width="2.25" />
     <Members>
-      <Property Name="Cp" Hidden="true" />
       <Field Name="EffectiveDirectionProperty" Hidden="true" />
       <Method Name="GetEffectiveDirection" Hidden="true" />
       <Field Name="IsFlippedProperty" Hidden="true" />
       <Field Name="IsMoveSourceProperty" Hidden="true" />
       <Field Name="IsPossibleMoveTargetProperty" Hidden="true" />
-      <Method Name="OnApplyTemplate" Hidden="true" />
       <Method Name="OnIsFlippedChanged" Hidden="true" />
       <Method Name="OnPieceColorChanged" Hidden="true" />
       <Method Name="OnPieceTypeChanged" Hidden="true" />
       <Field Name="PieceColorProperty" Hidden="true" />
       <Method Name="PieceHolderBase" Hidden="true" />
       <Field Name="PieceTypeProperty" Hidden="true" />
-      <Method Name="UpdateCp" Hidden="true" />
+      <Method Name="UpdateHolderControl" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AACAAABABGBAAKAAAQgAAAAEAIEAgBAQAAAAEIGAAEA=</HashCode>
+      <HashCode>BACAAABABGAAECAAAQgAAAAEAIEAgBAQAAAAEAEAAEA=</HashCode>
       <FileName>Controls\PieceHolderBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -182,9 +175,10 @@
       <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="ShogiCell" Hidden="true" />
       <Method Name="UpdateCp" Hidden="true" />
+      <Method Name="UpdateHolderControl" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AEAAACAAAABAAAAAAADAAAAAgAAAAAAIAEAAAIIAACA=</HashCode>
+      <HashCode>AEAAACAAAABAEAAAAADAAAAAgAAAAAAIAEAAAIIAACA=</HashCode>
       <FileName>Controls\ShogiCell.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -44,9 +44,8 @@ namespace Yasc.Controls
 
     private void UpdateCp(Cell cell)
     {
-      if (HolderControl == null) return;
       var piece = cell == null ? null : cell.Piece;
-      HolderControl.Content = piece == null ? null : new ShogiPiece(cell.Piece);
+      Content = piece == null ? null : new ShogiPiece(cell.Piece);
     }
 
     public Cell Cell
