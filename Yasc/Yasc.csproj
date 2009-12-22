@@ -123,6 +123,7 @@
     <Compile Include="Common\TimerDirection.cs" />
     <Compile Include="Controls\Automation\ControlAutomationPeer.cs" />
     <Compile Include="Controls\BoardBorder.cs" />
+    <Compile Include="Controls\HandGroupingMode.cs" />
     <Compile Include="Controls\HandNest.cs" />
     <Compile Include="Controls\Automation\HandNestAutomationPeer.cs" />
     <Compile Include="Controls\PieceDirection.cs" />

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Controls;
 using Yasc.ShogiCore;
 

@@ -186,6 +186,7 @@
       <Field Name="_synchStrategy" Hidden="true" />
       <Field Name="BoardProperty" Hidden="true" />
       <Field Name="ColorProperty" Hidden="true" />
+      <Method Name="GetStrategy" Hidden="true" />
       <Field Name="HandProperty" Hidden="true" />
       <Field Name="IsGroupingProperty" Hidden="true" />
       <Field Name="ItemsProperty" Hidden="true" />
@@ -209,14 +210,19 @@
           <NewMemberFileName>Controls\ShogiHand.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="Yasc.Controls.ShogiHand.GroupSynch" Collapsed="true">
+      <Class Name="Yasc.Controls.ShogiHand.GroupsSynch" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\ShogiHand.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Yasc.Controls.ShogiHand.OrderedGroupsSynch" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Controls\ShogiHand.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQQCBASBAFAAAAAAAAAACRAAAAgAAAgCAAACA=</HashCode>
+      <HashCode>AAAAAAAQQCBASBAFAAAAAAAAAACRAAAAAAQAgCAQACA=</HashCode>
       <FileName>Controls\ShogiHand.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
