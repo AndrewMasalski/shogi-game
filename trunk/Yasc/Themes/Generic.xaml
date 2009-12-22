@@ -125,7 +125,7 @@
 
   <!--  ShogiHand  -->
   <Style TargetType="{x:Type local:ShogiHand}">
-    <Setter Property="GroupingMode" Value="OrderedGroups"/>
+    <Setter Property="GroupingMode" Value="Groups"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:ShogiHand}">
