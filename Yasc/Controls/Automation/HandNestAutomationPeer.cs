@@ -18,6 +18,11 @@ namespace Yasc.Controls.Automation
                };
     }
 
+    protected override string GetNameCore()
+    {
+      return Owner.PieceType.ToString();
+    }
+
     protected override string GetItemTypeCore()
     {
       return typeof(ShogiPiece).Name;

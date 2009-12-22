@@ -16,17 +16,17 @@ namespace UnitTests.Automation
     {
       get { return new ShogiCellAutomation(Element.FindFirstByName(position.ToString())); }
     }
-    public ShogiHandAutomation WhiteHand
+    public ShogiHandAutomation TopHand
     {
-      get { return new ShogiHandAutomation(Element.FindFirstByName("White Hand")); }
+      get { return new ShogiHandAutomation(Element.FindFirstByName("TopHand")); }
     }
-    public ShogiHandAutomation BlackHand
+    public ShogiHandAutomation BottomHand
     {
-      get { return new ShogiHandAutomation(Element.FindFirstByName("Black Hand")); }
+      get { return new ShogiHandAutomation(Element.FindFirstByName("BottomHand")); }
     }
     public ShogiHandAutomation Hand(PieceColor handColor)
     {
-      return handColor == PieceColor.Black ? BlackHand : WhiteHand;
+      return handColor == PieceColor.Black ? BottomHand : TopHand;
     }
     public void UsusalMove(Position from, Position to)
     {

@@ -90,8 +90,9 @@
               <ColumnDefinition Width="5*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <local:ShogiHand x:Name="WhiteHand" Color="White" Grid.Column="0" 
+            <local:ShogiHand x:Name="TopHand" Color="White" Grid.Column="0" 
                              Board="{TemplateBinding Board}"
+                             AutomationProperties.Name="TopHand"
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
             <Common:UniformPanel Grid.Column="1">
               <local:BoardBorder>
@@ -104,19 +105,17 @@
               </local:BoardBorder>
             </Common:UniformPanel>
 
-            <local:ShogiHand x:Name="BlackHand" Color="Black" Grid.Column="2" 
-                             AutomationProperties.AutomationId="{Binding ElementName=BlackHand,
-                                       Path=Color, StringFormat=\{0\} Hand,
-                                       Converter={StaticResource ToStirngConverter}}"
+            <local:ShogiHand x:Name="BottomHand" Color="Black" Grid.Column="2" 
                              Board="{TemplateBinding Board}"
+                             AutomationProperties.Name="BottomHand"
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Canvas Name="PART_AdornerLayer"/>
             <ContentControl Name="PART_Shield" Grid.ColumnSpan="3"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsFlipped" Value="True">
-              <Setter TargetName="WhiteHand" Property="Color" Value="Black"/>
-              <Setter TargetName="BlackHand" Property="Color" Value="White"/>
+              <Setter TargetName="TopHand" Property="Color" Value="Black"/>
+              <Setter TargetName="BottomHand" Property="Color" Value="White"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
