@@ -15,26 +15,26 @@ namespace Yasc.Controls
 
     public HandNest()
     {
-      UpdateHolderControl();
+      UpdateContent();
     }
 
-    private void UpdateHolderControl(PieceType pieceType, PieceColor pieceColor)
+    private void UpdateContent(PieceType pieceType, PieceColor pieceColor)
     {
       Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
     }
-    protected override void UpdateHolderControl()
+    protected override void UpdateContent()
     {
-      UpdateHolderControl(PieceType, PieceColor);
+      UpdateContent(PieceType, PieceColor);
     }
     protected override void OnPieceColorChanged(PieceColor pieceColor)
     {
-      UpdateHolderControl(PieceType, pieceColor);
+      UpdateContent(PieceType, pieceColor);
       base.OnPieceColorChanged(pieceColor);
     }
     public override ShogiPiece DetachPiece()
     {
       var res = base.DetachPiece();
-      if (PiecesCount > 1) UpdateHolderControl(PieceType, PieceColor);
+      if (PiecesCount > 1) UpdateContent(PieceType, PieceColor);
       return res;
     }
 

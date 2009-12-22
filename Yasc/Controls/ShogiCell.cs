@@ -37,12 +37,12 @@ namespace Yasc.Controls
           "once and with not null value only");
       }
 
-      UpdateCp(cell);
+      UpdateContent(cell);
       _cellObserver = new PropertyObserver<Cell>(cell).
-        RegisterHandler(c => c.Piece, UpdateCp);
+        RegisterHandler(c => c.Piece, UpdateContent);
     }
 
-    private void UpdateCp(Cell cell)
+    private void UpdateContent(Cell cell)
     {
       var piece = cell == null ? null : cell.Piece;
       Content = piece == null ? null : new ShogiPiece(cell.Piece);
@@ -80,9 +80,9 @@ namespace Yasc.Controls
 
     #endregion
 
-    protected override void UpdateHolderControl()
+    protected override void UpdateContent()
     {
-      UpdateCp(Cell);
+      UpdateContent(Cell);
     }
     public override void OnApplyTemplate()
     {

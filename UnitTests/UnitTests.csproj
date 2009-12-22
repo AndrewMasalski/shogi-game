@@ -81,6 +81,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\HandNestTest.cs" />
+    <Compile Include="Controls\ShogiHandTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MemoryLeaksTest.cs" />
     <Compile Include="ShogiCore\BoardTest.cs">

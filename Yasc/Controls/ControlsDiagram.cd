@@ -45,11 +45,10 @@
       <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="OnPieceColorChanged" Hidden="true" />
       <Field Name="PiecesCountProperty" Hidden="true" />
-      <Method Name="UpdateHolderControl" Hidden="true" />
-      <Method Name="UpdateHolderControl" Hidden="true" />
+      <Method Name="UpdateContent" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAEAAAAQgAAAAAAAAAAAAQAAAAAAAAACA=</HashCode>
+      <HashCode>BAAAAAAAAAAAAIAAAQgAAAAAAAAAAAAQAAAAAAAAACA=</HashCode>
       <FileName>Controls\HandNest.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -77,10 +76,10 @@
       <Field Name="PieceColorProperty" Hidden="true" />
       <Method Name="PieceHolderBase" Hidden="true" />
       <Field Name="PieceTypeProperty" Hidden="true" />
-      <Method Name="UpdateHolderControl" Hidden="true" />
+      <Method Name="UpdateContent" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BACAAABABGAAECAAAQgAAAAEAIEAgBAQAAAAEAEAAEA=</HashCode>
+      <HashCode>BACAAABABGAAAKAAAQgAAAAEAIEAgBAQAAAAEAEAAEA=</HashCode>
       <FileName>Controls\PieceHolderBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -174,11 +173,10 @@
       <Method Name="OnCellChanged" Hidden="true" />
       <Method Name="OnCreateAutomationPeer" Hidden="true" />
       <Method Name="ShogiCell" Hidden="true" />
-      <Method Name="UpdateCp" Hidden="true" />
-      <Method Name="UpdateHolderControl" Hidden="true" />
+      <Method Name="UpdateContent" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AEAAACAAAABAEAAAAADAAAAAgAAAAAAIAEAAAIIAACA=</HashCode>
+      <HashCode>AEAAACAAAABAAIAAAADAAAAAgAAAAAAIAEAAAAIAACA=</HashCode>
       <FileName>Controls\ShogiCell.cs</FileName>
     </TypeIdentifier>
   </Class>
