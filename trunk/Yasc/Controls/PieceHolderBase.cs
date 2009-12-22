@@ -91,7 +91,7 @@ namespace Yasc.Controls
       DefaultStyleKeyProperty.OverrideMetadata(typeof(PieceHolderBase),
          new FrameworkPropertyMetadata(typeof(PieceHolderBase)));
     }
-    protected abstract void UpdateHolderControl();
+    protected abstract void UpdateContent();
 
     public virtual ShogiPiece DetachPiece()
     {
@@ -117,7 +117,7 @@ namespace Yasc.Controls
 
     protected virtual void OnPieceTypeChanged(PieceType pieceType)
     {
-      UpdateHolderControl();
+      UpdateContent();
     }
 
     public PieceType PieceType

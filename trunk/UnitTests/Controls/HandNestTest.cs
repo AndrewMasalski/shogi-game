@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.ObjectModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Controls;
 using Yasc.ShogiCore;
 
 namespace UnitTests.Controls
 {
-
   /*  _________________________________
    * 
    *  That's what we're gonna test:
