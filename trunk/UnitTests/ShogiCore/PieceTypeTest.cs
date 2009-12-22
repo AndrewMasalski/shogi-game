@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
@@ -213,6 +212,11 @@ namespace UnitTests.ShogiCore
       Assert.AreEqual(8, PieceType.と.Id);
     }
     [TestMethod]
+    public void GetIdsMethodTest()
+    {
+      CollectionAssert.AreEqual(new []{0, 1, 2, 3, 4, 5, 6, 7, 8}, PieceType.GetIds().ToList());
+    }
+    [TestMethod]
     public void GetValuesStaticMethodTest()
     {
       var expected = new PieceType[] { "王", "玉", "金", 
@@ -220,6 +224,13 @@ namespace UnitTests.ShogiCore
           "飛", "角", "銀", "桂", "香", "歩"
         };
       CollectionAssert.AreEquivalent(expected, PieceType.GetValues().ToList());
+    }
+    [TestMethod]
+    public void GetPieceMethodTest()
+    {
+      var expected = new PieceType[] { "王", "玉", "金", "飛", "角", "銀", "桂", "香", "歩", };
+      var actual = from id in PieceType.GetIds() select PieceType.GetPieceType(id);
+      CollectionAssert.AreEquivalent(expected, actual.ToList());
     }
 
     #region ' Equality '

@@ -67,8 +67,8 @@
       <FileName>ShogiCore\Piece.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Color" />
       <Property Name="PieceType" />
+      <Property Name="Color" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Player">
@@ -86,7 +86,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Struct Name="Yasc.ShogiCore.PieceType" BaseTypeListCollapsed="true">
-    <Position X="10" Y="1.75" Width="2" />
+    <Position X="10" Y="0.5" Width="2" />
     <Members>
       <Field Name="_value" Hidden="true" />
       <Method Name="PieceType" Hidden="true" />
@@ -99,7 +99,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BFACYCAAIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAEAAiA=</HashCode>
+      <HashCode>BFACYKAQIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAMAAiA=</HashCode>
       <FileName>ShogiCore\PieceType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -119,7 +119,7 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="Yasc.ShogiCore.PieceColor">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ShogiCore\PieceColor.cs</FileName>

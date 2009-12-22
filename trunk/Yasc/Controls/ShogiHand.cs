@@ -109,27 +109,40 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region ' IsGrouping Property '
+    #region ' GroupingMode Property '
 
     public static readonly DependencyProperty IsGroupingProperty =
-      DependencyProperty.Register("IsGrouping", typeof (bool),
-          typeof(ShogiHand), new UIPropertyMetadata(false, OnIsGroupingChanged));
+      DependencyProperty.Register(
+      "GroupingMode", typeof (HandGroupingMode), typeof(ShogiHand), 
+      new UIPropertyMetadata(HandGroupingMode.Plain, OnIsGroupingChanged));
 
     private static void OnIsGroupingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      ((ShogiHand) d).OnIsGroupingChanged((bool) e.NewValue);
+      ((ShogiHand)d).OnIsGroupingChanged((HandGroupingMode)e.NewValue);
     }
 
-    private void OnIsGroupingChanged(bool value)
+    private void OnIsGroupingChanged(HandGroupingMode value)
     {
       _synchStrategy.Close();
-      _synchStrategy = value ? new GroupSynch(this, Hand) : 
-         (SynchStrategy) new PlainSynch(this, Hand);
+      _synchStrategy = GetStrategy(value);
     }
 
-    public bool IsGrouping
+    private SynchStrategy GetStrategy(HandGroupingMode value)
     {
-      get { return (bool) GetValue(IsGroupingProperty); }
+      switch (value)
+      {
+        case HandGroupingMode.OrderedGroups:
+          return new OrderedGroupsSynch(this, Hand);
+        case HandGroupingMode.Groups:
+          return new GroupsSynch(this, Hand);
+        default:
+          return new PlainSynch(this, Hand);
+      }
+    }
+
+    public HandGroupingMode GroupingMode
+    {
+      get { return (HandGroupingMode)GetValue(IsGroupingProperty); }
       set { SetValue(IsGroupingProperty, value); }
     }
 
@@ -216,9 +229,9 @@ namespace Yasc.Controls
       }
     }
 
-    private sealed class GroupSynch : SynchStrategy
+    private sealed class GroupsSynch : SynchStrategy
     {
-      public GroupSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+      public GroupsSynch(ShogiHand owner, ObservableCollection<Piece> collection)
       {
         _owner = owner;
         OnHandChanged(collection);
@@ -280,6 +293,48 @@ namespace Yasc.Controls
                     };
         _owner.Items.Add(res);
         return res;
+      }
+    }
+
+    private sealed class OrderedGroupsSynch : SynchStrategy
+    {
+      public OrderedGroupsSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+      {
+        _owner = owner;
+        OnHandChanged(collection);
+      }
+
+      protected override ObservableCollection<HandNest> GetItems(IEnumerable<Piece> collection)
+      {
+        if (collection == null) return null;
+        return new ObservableCollection<HandNest>(
+          from id in PieceType.GetIds()
+          let pieceType = PieceType.GetPieceType(id)
+          select new HandNest
+                   {
+                     PieceColor = _owner.Color,
+                     PieceType = pieceType,
+                     PiecesCount = (from p in collection
+                                    where p.PieceType == pieceType
+                                    select p).Count()
+                   });
+      }
+
+      protected override void OnHandCollectionChanged(NotifyCollectionChangedEventArgs args)
+      {
+        switch (args.Action)
+        {
+          case NotifyCollectionChangedAction.Add:
+            foreach (Piece piece in args.NewItems)
+              _owner.Items[piece.PieceType.Id].PiecesCount++;
+            break;
+          case NotifyCollectionChangedAction.Remove:
+            foreach (Piece piece in args.OldItems)
+              _owner.Items[piece.PieceType.Id].PiecesCount--;
+            break;
+          default:
+            throw new NotSupportedException();
+        }
       }
     }
 
