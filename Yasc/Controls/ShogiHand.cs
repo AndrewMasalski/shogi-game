@@ -111,7 +111,7 @@ namespace Yasc.Controls
 
     #region ' GroupingMode Property '
 
-    public static readonly DependencyProperty IsGroupingProperty =
+    public static readonly DependencyProperty GroupingModeProperty =
       DependencyProperty.Register(
       "GroupingMode", typeof (HandGroupingMode), typeof(ShogiHand), 
       new UIPropertyMetadata(HandGroupingMode.Plain, OnIsGroupingChanged));
@@ -142,8 +142,8 @@ namespace Yasc.Controls
 
     public HandGroupingMode GroupingMode
     {
-      get { return (HandGroupingMode)GetValue(IsGroupingProperty); }
-      set { SetValue(IsGroupingProperty, value); }
+      get { return (HandGroupingMode)GetValue(GroupingModeProperty); }
+      set { SetValue(GroupingModeProperty, value); }
     }
 
     #endregion
@@ -152,7 +152,13 @@ namespace Yasc.Controls
 
     private abstract class SynchStrategy : IWeakEventListener
     {
-      protected ShogiHand _owner;
+      protected ShogiHand Owner { get; private set; }
+
+      protected SynchStrategy(ShogiHand owner)
+      {
+        Owner = owner;
+      }
+
       private INotifyCollectionChanged _src;
 
       public void OnHandChanged(ObservableCollection<Piece> collection)
@@ -166,7 +172,7 @@ namespace Yasc.Controls
         {
           CollectionChangedEventManager.AddListener(_src, this);
         }
-        _owner.Items = GetItems(collection);
+        Owner.Items = GetItems(collection);
       }
 
       protected abstract ObservableCollection<HandNest> GetItems(IEnumerable<Piece> collection);
@@ -187,8 +193,8 @@ namespace Yasc.Controls
     private sealed class PlainSynch : SynchStrategy
     {
       public PlainSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+        : base(owner)
       {
-        _owner = owner;
         OnHandChanged(collection);
       }
 
@@ -199,7 +205,7 @@ namespace Yasc.Controls
           from p in collection
           select new HandNest
                    {
-                     PieceColor = _owner.Color,
+                     PieceColor = Owner.Color,
                      PieceType = p.PieceType, 
                      PiecesCount = 1
                    });
@@ -212,16 +218,16 @@ namespace Yasc.Controls
           case NotifyCollectionChangedAction.Add:
             int i = 0;
             foreach (Piece piece in args.NewItems)
-              _owner.Items.Insert(args.NewStartingIndex + i++, new HandNest
+              Owner.Items.Insert(args.NewStartingIndex + i++, new HandNest
               {
-                PieceColor = _owner.Color,
+                PieceColor = Owner.Color,
                 PieceType = piece.PieceType,
                 PiecesCount = 1
               });
             break;
           case NotifyCollectionChangedAction.Remove:
             for (int j = 0; j < args.OldItems.Count; j++)
-              _owner.Items.RemoveAt(args.OldStartingIndex);
+              Owner.Items.RemoveAt(args.OldStartingIndex);
             break;
           default:
             throw new NotSupportedException();
@@ -232,8 +238,8 @@ namespace Yasc.Controls
     private sealed class GroupsSynch : SynchStrategy
     {
       public GroupsSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+        : base(owner)
       {
-        _owner = owner;
         OnHandChanged(collection);
       }
 
@@ -244,7 +250,7 @@ namespace Yasc.Controls
                 group p by p.PieceType into g
                 select new HandNest
                   {
-                    PieceColor = _owner.Color,
+                    PieceColor = Owner.Color,
                     PieceType = g.Key,
                     PiecesCount = g.Count()
                   };
@@ -265,7 +271,7 @@ namespace Yasc.Controls
               var nest = FindOrCreateNest(piece.PieceType);
               if (nest.PiecesCount == 1)
               {
-                _owner.Items.Remove(nest);
+                Owner.Items.Remove(nest);
               }
               else if (nest.PiecesCount > 1)
               {
@@ -281,17 +287,17 @@ namespace Yasc.Controls
 
       private HandNest FindOrCreateNest(PieceType type)
       {
-        foreach (var nest in _owner.Items)
+        foreach (var nest in Owner.Items)
           if (nest.PieceType == type)
             return nest;
 
         var res = new HandNest
                     {
-                      PieceColor = _owner.Color,
+                      PieceColor = Owner.Color,
                       PieceType = type,
                       PiecesCount = 0
                     };
-        _owner.Items.Add(res);
+        Owner.Items.Add(res);
         return res;
       }
     }
@@ -299,8 +305,8 @@ namespace Yasc.Controls
     private sealed class OrderedGroupsSynch : SynchStrategy
     {
       public OrderedGroupsSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+        : base(owner)
       {
-        _owner = owner;
         OnHandChanged(collection);
       }
 
@@ -312,7 +318,7 @@ namespace Yasc.Controls
           let pieceType = PieceType.GetPieceType(id)
           select new HandNest
                    {
-                     PieceColor = _owner.Color,
+                     PieceColor = Owner.Color,
                      PieceType = pieceType,
                      PiecesCount = (from p in collection
                                     where p.PieceType == pieceType
@@ -326,11 +332,11 @@ namespace Yasc.Controls
         {
           case NotifyCollectionChangedAction.Add:
             foreach (Piece piece in args.NewItems)
-              _owner.Items[piece.PieceType.Id].PiecesCount++;
+              Owner.Items[piece.PieceType.Id].PiecesCount++;
             break;
           case NotifyCollectionChangedAction.Remove:
             foreach (Piece piece in args.OldItems)
-              _owner.Items[piece.PieceType.Id].PiecesCount--;
+              Owner.Items[piece.PieceType.Id].PiecesCount--;
             break;
           default:
             throw new NotSupportedException();

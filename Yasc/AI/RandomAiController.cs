@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Yasc.AI
   public class RandomAiController : AiControllerBase
   {
     private readonly Board _board;
-    private readonly static Random _rnd = new Random();
+    private readonly static Random Rnd = new Random();
 
     public RandomAiController()
     {
@@ -18,6 +19,7 @@ namespace Yasc.AI
 
     protected override void OnHumanMoved(string hisMove)
     {
+      Thread.Sleep(1000);
       _board.MakeMove(_board.GetMove(hisMove));
       var myMove = ChooseAbsolutelyRandomMove();
       if (myMove == null) return; // mate
@@ -31,7 +33,7 @@ namespace Yasc.AI
         GetAllAvailableMoves(PieceColor.Black).ToList();
 
       if (moves.Count == 0) return null; // mate
-      var m = moves[_rnd.Next(moves.Count)];
+      var m = moves[Rnd.Next(moves.Count)];
       return m.AsRealMove(_board);
     }
   }

@@ -31,7 +31,7 @@ namespace Yasc.AI
     public void Move(MoveMsg move)
     {
       // Human moved
-      OnHumanMoved(move.Move);
+      ThreadPool.QueueUserWorkItem(s => OnHumanMoved(move.Move));
     }
     void IPlayerGameController.Say(string move)
     {
