@@ -27,10 +27,11 @@ namespace UnitTests.Automation
       _windowElement.InvokeByName("Play with comp.");
       var piece = _windowElement.FindFirstByName("White P");
       Assert.IsNotNull(piece);
-      var board = new ShogiBoardAutomation(_windowElement);
-      var pieces = board.Element.FindAll(typeof(ShogiPiece), 40);
+      var core = new ShogiBoardCoreAutomation(_windowElement);
+      var pieces = core.Element.FindAll(typeof(ShogiPiece), 40);
       Assert.AreEqual(40, pieces.Count);
 
+      var board = new ShogiBoardAutomation(_windowElement);
       Mouse.PrimaryDevice.PressAt(board["1c"].Element.Center(), MouseButton.Left);
       Mouse.PrimaryDevice.Release(MouseButton.Left);
       board.UsusalMove("1c", "1d");

@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automation\Peers\ShogiBoardCoreAutomation.cs" />
     <Compile Include="Automation\Utils\AutomationElementExtensions.cs" />
     <Compile Include="Automation\Utils\AutomationExtensions.cs" />
     <Compile Include="Automation\Peers\ConcreteAutomation.cs" />
