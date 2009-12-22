@@ -68,15 +68,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\AutomationElementExtensions.cs" />
-    <Compile Include="Automation\KeyboardDeviceExtensions.cs" />
-    <Compile Include="Automation\MouseDeviceExtensions.cs" />
-    <Compile Include="Automation\RectExtensions.cs" />
-    <Compile Include="Automation\SendInputInterop.cs" />
-    <Compile Include="Automation\ApplicationHost.cs" />
+    <Compile Include="Automation\Utils\AutomationElementExtensions.cs" />
+    <Compile Include="Automation\Utils\AutomationExtensions.cs" />
+    <Compile Include="Automation\Peers\ConcreteAutomation.cs" />
+    <Compile Include="Automation\Peers\HandNestAutomation.cs" />
+    <Compile Include="Automation\Utils\KeyboardDeviceExtensions.cs" />
+    <Compile Include="Automation\Utils\MouseDeviceExtensions.cs" />
+    <Compile Include="Automation\Utils\RectExtensions.cs" />
+    <Compile Include="Automation\Utils\SendInputInterop.cs" />
+    <Compile Include="Automation\Utils\ApplicationHost.cs" />
     <Compile Include="Automation\MainWindowTest.cs" />
-    <Compile Include="Automation\ToggleMode.cs" />
-    <Compile Include="Automation\WheelType.cs" />
+    <Compile Include="Automation\Peers\ShogiBoardAutomation.cs" />
+    <Compile Include="Automation\Peers\ShogiCellAutomation.cs" />
+    <Compile Include="Automation\Peers\ShogiHandAutomation.cs" />
+    <Compile Include="Automation\Utils\ToggleMode.cs" />
+    <Compile Include="Automation\Utils\WheelType.cs" />
     <Compile Include="BoardSnapshotTest.cs">
       <SubType>Code</SubType>
     </Compile>

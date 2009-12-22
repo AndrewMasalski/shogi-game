@@ -7,7 +7,7 @@ namespace Yasc.Controls.Automation
     public ShogiPieceAutomationPeer(ShogiPiece owner)
       : base(owner)
     {
-      Debug.Assert(owner.Piece != null);
+//      Debug.Assert(owner.Piece != null);
     }
 
     protected override string GetNameCore()
