@@ -105,6 +105,9 @@
             </Common:UniformPanel>
 
             <local:ShogiHand x:Name="BlackHand" Color="Black" Grid.Column="2" 
+                             AutomationProperties.AutomationId="{Binding ElementName=BlackHand,
+                                       Path=Color, StringFormat=\{0\} Hand,
+                                       Converter={StaticResource ToStirngConverter}}"
                              Board="{TemplateBinding Board}"
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Canvas Name="PART_AdornerLayer"/>
