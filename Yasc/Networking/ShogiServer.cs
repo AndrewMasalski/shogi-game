@@ -7,6 +7,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using System.Windows.Threading;
 using System.Linq;
+using Yasc.ShogiCore;
 
 namespace Yasc.Networking
 {
@@ -104,7 +105,7 @@ namespace Yasc.Networking
     }
     private IPlayerGameController InviteAccepted(ServerUser from, Action<IPlayerGameController> invitationAccepted, ServerUser invitee)
     {
-      var game = new ServerGame(this, from, invitee);
+      var game = new ServerGame(this, from, invitee, PieceColor.White);
       _games.Add(game);
       invitationAccepted(game.WhitePlayer);
       return game.BlackPlayer;

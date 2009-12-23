@@ -18,7 +18,7 @@ namespace Yasc.Networking
 
       public PlayerGameController WhitePlayer { get; private set; }
       public PlayerGameController BlackPlayer { get; private set; }
-      
+
       public IEnumerable<ISpectatorController> Spectators
       {
         get { return from s in _spectators select (ISpectatorController) s; }
@@ -31,9 +31,9 @@ namespace Yasc.Networking
       {
         get { return _invitor; }
       }
+      public PieceColor InviteeColor { get; private set; }
 
-
-      public ServerGame(ShogiServer server, ServerUser invitor, ServerUser invitee)
+      public ServerGame(ShogiServer server, ServerUser invitor, ServerUser invitee, PieceColor inviteeColor)
       {
         if (server == null) throw new ArgumentNullException("server");
         if (invitor == null) throw new ArgumentNullException("invitor");
@@ -41,6 +41,7 @@ namespace Yasc.Networking
         _server = server;
         _invitor = invitor;
         _invitee = invitee;
+        InviteeColor = inviteeColor;
 
         WhitePlayer = new PlayerGameController(this, PieceColor.White);
         BlackPlayer = new PlayerGameController(this, PieceColor.Black);

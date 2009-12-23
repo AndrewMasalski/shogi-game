@@ -63,6 +63,11 @@ namespace Yasc.AI
         get { return new Comp(this); }
       }
 
+      public PieceColor InviteeColor
+      {
+        get { return PieceColor.Black; }
+      }
+
       public IEnumerable<ISpectatorController> Spectators
       {
         get { return new ISpectatorController[0]; }
