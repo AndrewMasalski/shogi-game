@@ -1,4 +1,4 @@
-
+// Test
   internal class FocusCheater
   {
     private readonly ListBox _listBox;
