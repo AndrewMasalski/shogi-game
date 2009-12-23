@@ -30,8 +30,8 @@ namespace Yasc.Networking
     ISpectatorController Watch();
     IServerUser Invitor { get; }
     IServerUser Invitee { get; }
+    PieceColor InviteeColor { get; }
     IEnumerable<ISpectatorController> Spectators { get; }
-
   }
   public interface IPlayerGameController
   {

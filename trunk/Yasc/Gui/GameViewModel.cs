@@ -12,13 +12,50 @@ namespace Yasc.Gui
 {
   public class GameViewModel : ObservableObject
   {
-    private readonly IServerGame _game;
-    private RelayCommand _getBackCommand;
-    private IPlayerGameController _ticket;
-    private readonly Flag _opponentMoveReaction = new Flag();
-    private bool _isFlipped;
+    #region ' Fields '
 
-    public Board Board { get; private set; }
+    private TimeSpan _opponentTime = TimeSpan.FromSeconds(5);
+    private TimeSpan _ourTime = TimeSpan.FromSeconds(5);
+    private bool _isFlipped;
+    private readonly IServerGame _game;
+    private RelayCommand _cleanBoardCommand;
+    private RelayCommand _getBackCommand;
+    private readonly Flag _opponentMoveReaction = new Flag();
+    private bool _isItOpponentMove;
+    private bool _isItMyMove;
+
+    #endregion
+
+    #region ' Public Interface '
+
+    /// <summary> </summary>
+    public bool IsItMyMove
+    {
+      get { return _isItMyMove; }
+      set
+      {
+        if (_isItMyMove == value) return;
+        _isItMyMove = value;
+        RaisePropertyChanged("IsItMyMove");
+        if (!value && MyTime == TimeSpan.Zero) return;
+        IsItOpponentMove = !value;
+      }
+    }
+    /// <summary> </summary>
+    public bool IsItOpponentMove
+    {
+      get { return _isItOpponentMove; }
+      set
+      {
+        if (_isItOpponentMove == value) return;
+        _isItOpponentMove = value;
+        RaisePropertyChanged("IsItOpponentMove");
+        if (!value && OpponentTime == TimeSpan.Zero) return;
+        IsItMyMove = !value;
+      }
+    }
+
+    public GameTicket Ticket { get; private set; }
     public bool IsFlipped
     {
       get { return _isFlipped; }
@@ -29,7 +66,29 @@ namespace Yasc.Gui
         RaisePropertyChanged("IsFlipped");
       }
     }
-
+    /// <summary>Time application user has left</summary>
+    public TimeSpan MyTime
+    {
+      get { return _ourTime; }
+      set
+      {
+        if (_ourTime == value) return;
+        _ourTime = value;
+        RaisePropertyChanged("MyTime");
+      }
+    }
+    /// <summary>Time user's opponent has left</summary>
+    public TimeSpan OpponentTime
+    {
+      get { return _opponentTime; }
+      set
+      {
+        if (_opponentTime == value) return;
+        _opponentTime = value;
+        RaisePropertyChanged("OpponentTime");
+      }
+    }
+    public Board Board { get; private set; }
     public ICommand CleanBoardCommand
     {
       get
@@ -41,23 +100,6 @@ namespace Yasc.Gui
         return _cleanBoardCommand;
       }
     }
-
-    private void CleanBoard()
-    {
-      foreach (var cell in Board.Cells)
-      {
-        var piece = cell.Piece;
-        if (piece != null)
-        {
-          var player = piece.Owner;
-          cell.ResetPiece();
-          player.Hand.Add(piece);
-        }
-      }
-    }
-
-    private RelayCommand _cleanBoardCommand;
-
     public ICommand GetBackCommand
     {
       get
@@ -93,12 +135,15 @@ namespace Yasc.Gui
 
     public event EventHandler GameOver;
 
+    #endregion
+
+    #region ' Implementation '
+
     private void Init(IPlayerGameController ticket)
     {
-      _ticket = ticket;
-      _ticket.OpponentMadeMove = new FuncListener<MoveMsg, DateTime>(OnOpponentMadeMove);
+      Ticket = new GameTicket(ticket, OnOpponentMadeMove);
 
-      IsFlipped = _ticket.MyColor == PieceColor.White;
+      IsFlipped = Ticket.MyColor == PieceColor.White;
       InitBoard();
     }
     private void InitBoard()
@@ -107,7 +152,6 @@ namespace Yasc.Gui
       Board.Moved += BoardOnMoved;
       Shogi.InitBoard(Board);
     }
-    
     private void GetBack()
     {
       OnGameOver(EventArgs.Empty);
@@ -117,29 +161,77 @@ namespace Yasc.Gui
       var handler = GameOver;
       if (handler != null) handler(this, e);
     }
-
+    private void CleanBoard()
+    {
+      foreach (var cell in Board.Cells)
+      {
+        var piece = cell.Piece;
+        if (piece != null)
+        {
+          var player = piece.Owner;
+          cell.ResetPiece();
+          player.Hand.Add(piece);
+        }
+      }
+    }
     private void BoardOnMoved(object sender, MoveEventArgs args)
     {
       // If it's not opponent than it must be me
-      if (!_opponentMoveReaction && _ticket != null)
+      if (!_opponentMoveReaction && Ticket != null)
       {
-        _ticket.Move(new MoveMsg(args.Move.ToString()));
-        if (Board.CurrentSnapshot.IsMateFor(Opponent(_ticket.MyColor)))
+        Ticket.Move(new MoveMsg(args.Move.ToString()));
+        if (Board.CurrentSnapshot.IsMateFor(Opponent(Ticket.MyColor)))
         {
           MessageBox.Show("You won!");
         }
       }
+      IsItMyMove = !IsItMyMove;
     }
     private static PieceColor Opponent(PieceColor color)
     {
       return color == PieceColor.White ? PieceColor.Black : PieceColor.White;
     }
-
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
         Board.MakeMove(Board.GetMove(move.Move));
       return DateTime.Now;
+    }
+
+    #endregion
+
+  }
+
+  public class GameTicket
+  {
+    private readonly IPlayerGameController _ticket;
+
+    public PieceColor MyColor
+    {
+      get { return _ticket.MyColor; }
+    }
+
+    public IServerUser Me
+    {
+      get { return _ticket.Game.InviteeColor == MyColor ? _ticket.Game.Invitee : _ticket.Game.Invitor; }
+    }
+    public IServerUser Opponent
+    {
+      get { return _ticket.Game.InviteeColor != MyColor ? _ticket.Game.Invitee : _ticket.Game.Invitor; }
+    }
+
+    public GameTicket(IPlayerGameController ticket, Func<MoveMsg, DateTime> opponentMadeMoveCallback)
+    {
+      if (opponentMadeMoveCallback == null)
+        throw new ArgumentNullException("opponentMadeMoveCallback");
+
+      _ticket = ticket;
+      _ticket.OpponentMadeMove = new FuncListener<MoveMsg, DateTime>(opponentMadeMoveCallback);
+    }
+
+    public void Move(MoveMsg msg)
+    {
+      _ticket.Move(msg);
     }
   }
 }

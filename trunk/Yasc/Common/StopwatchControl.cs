@@ -234,8 +234,8 @@ namespace Yasc.Common
       }
       else
       {
-        IsLaunched = false;
         Value = StopValue;
+        IsLaunched = false;
       }
     }
   }
