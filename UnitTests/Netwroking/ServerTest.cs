@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.AI;
 using Yasc.Gui;
 using Yasc.Networking;
 using System.Linq;
@@ -107,6 +108,17 @@ namespace UnitTests.Netwroking
 
       Assert.AreEqual("Jack", jackTicket.Me.Name);
       Assert.AreEqual("John", johnTicket.Me.Name);
+    }
+  }
+  [TestClass]
+  public class AiControllerTest
+  {
+    [TestMethod]
+    public void Test()
+    {
+//      var controller = new CleverAiController();
+      var ticket = new GameTicket(new CleverAiController(), m => DateTime.Now);
+      Assert.AreEqual("You", ticket.Me.Name);
     }
   }
 }
