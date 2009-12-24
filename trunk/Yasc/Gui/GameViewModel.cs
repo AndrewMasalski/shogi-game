@@ -213,11 +213,11 @@ namespace Yasc.Gui
 
     public IServerUser Me
     {
-      get { return _ticket.Game.InviteeColor == MyColor ? _ticket.Game.Invitee : _ticket.Game.Invitor; }
+      get { return _ticket.Game.InviteeColor == MyColor ? _ticket.Game.Invitor : _ticket.Game.Invitee; }
     }
     public IServerUser Opponent
     {
-      get { return _ticket.Game.InviteeColor != MyColor ? _ticket.Game.Invitee : _ticket.Game.Invitor; }
+      get { return _ticket.Game.InviteeColor != MyColor ? _ticket.Game.Invitor : _ticket.Game.Invitee; }
     }
 
     public GameTicket(IPlayerGameController ticket, Func<MoveMsg, DateTime> opponentMadeMoveCallback)
