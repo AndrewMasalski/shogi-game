@@ -86,7 +86,7 @@ namespace Yasc.Controls
 
       AnimatePosition(pieceControl, to, (sender, args) =>
       {
-        // NOTE: Is that possible that we start animation twice on the same piece and one "remove" don't come?
+        // NOTE: Could it be that we start animation twice on the same piece and one "remove" don't come?
         toCtrl.Visibility = Visibility.Visible;
         _adornerLayer.Children.Remove(pieceControl);
       });

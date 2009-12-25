@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Gui;
@@ -30,6 +31,44 @@ namespace UnitTests.ViewModel
       Assert.IsFalse(model.IsItOpponentMove);
       model.Board.MakeMove(model.Board.GetMove("1c-1d"));
       Assert.IsFalse(model.IsItMyMove);
+      Assert.IsTrue(model.IsItOpponentMove);
+    }
+    [TestMethod]
+    public void TimerTest()
+    {
+      var model = new GameViewModel(WelcomeChoice.ArtificialIntelligence)
+                    {
+                      MyTime = TimeSpan.FromMinutes(1),
+                      OpponentTime = TimeSpan.FromMinutes(1)
+                    };
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
+      Assert.IsFalse(model.IsMyTimerLaunched);
+      Assert.IsTrue(model.IsItMyMove);
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
+      Assert.IsFalse(model.IsOpponentTimerLaunched);
+      Assert.IsFalse(model.IsItOpponentMove);
+
+      model.Board.MakeMove(model.Board.GetMove("1c-1d"));
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
+      Assert.IsFalse(model.IsMyTimerLaunched);
+      Assert.IsFalse(model.IsItMyMove);
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
+      Assert.IsTrue(model.IsOpponentTimerLaunched);
+      Assert.IsTrue(model.IsItOpponentMove);
+
+      // Opponent is going to make move immediately on the other thread
+      //model.Board.MakeMove(model.Board.GetMove("1g-1f"));
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
+      Assert.IsFalse(model.IsMyTimerLaunched);
+      Assert.IsFalse(model.IsItMyMove);
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
+      Assert.IsTrue(model.IsOpponentTimerLaunched);
       Assert.IsTrue(model.IsItOpponentMove);
     }
   }
