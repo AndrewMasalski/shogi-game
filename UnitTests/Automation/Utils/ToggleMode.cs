@@ -1,4 +1,4 @@
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Utils
 {
   public enum ToggleMode
   {

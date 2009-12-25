@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Windows.Automation;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Utils
 {
   public static class AutomationExtensions
   {
@@ -42,18 +42,18 @@ namespace UnitTests.Automation
     public static AutomationElement FindFirstByAutomaionIdNoWait(this AutomationElement element, string name)
     {
       return element.FindFirst(TreeScope.Descendants,
-                               new PropertyCondition(AutomationElement.AutomationIdProperty, name));
+        new PropertyCondition(AutomationElement.AutomationIdProperty, name));
     }
     public static AutomationElement FindFirstByNameNoWait(this AutomationElement element, string name)
     {
       return element.FindFirst(TreeScope.Descendants,
-                               new PropertyCondition(AutomationElement.NameProperty, name));
+        new PropertyCondition(AutomationElement.NameProperty, name));
     }
     public static AutomationElement FindFirstByNameNoWait(this AutomationElement element, Type type, string name)
     {
       return element.FindFirst(TreeScope.Descendants, new AndCondition(
-                                                        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name),
-                                                        new PropertyCondition(AutomationElement.NameProperty, name)));
+        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name),
+        new PropertyCondition(AutomationElement.NameProperty, name)));
     }
 
     public static AutomationElement FindFirst(this AutomationElement element, Type type)
@@ -69,7 +69,7 @@ namespace UnitTests.Automation
     public static AutomationElement FindFirstNoWait(this AutomationElement element, Type type)
     {
       return element.FindFirst(TreeScope.Descendants,
-                               new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
+        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
     }
 
     public static AutomationElementCollection FindAll(this AutomationElement element, Type type, int expectedCount)
@@ -85,13 +85,13 @@ namespace UnitTests.Automation
     public static AutomationElementCollection FindAllNoWait(this AutomationElement element, Type type)
     {
       return element.FindAll(TreeScope.Descendants,
-                             new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
+        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
     }
 
     public static void InvokeByName(this AutomationElement element, string name)
     {
       ((InvokePattern)element.FindFirstByName(name).
-                        GetCurrentPattern(InvokePattern.Pattern)).Invoke();
+         GetCurrentPattern(InvokePattern.Pattern)).Invoke();
     }
     public static T Pattern<T>(this AutomationElement element)
       where T : BasePattern

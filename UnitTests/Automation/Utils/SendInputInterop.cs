@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Utils
 {
   public class SendInputInterop
   {
@@ -12,7 +12,7 @@ namespace UnitTests.Automation
     {
       var input = new Input { Type = InputType.Mouse };
       input.InputUnion.Mouse.Flags = wheelType == WheelType.Vertical ? 
-        MouseFlags.Wheel : MouseFlags.HorizontalWheel;
+                                                                       MouseFlags.Wheel : MouseFlags.HorizontalWheel;
       input.InputUnion.Mouse.MouseData = (uint)distance*WheelDelta;
       SendInput(1, ref input, Marshal.SizeOf(input));
     }

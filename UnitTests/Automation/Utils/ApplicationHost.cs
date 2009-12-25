@@ -5,7 +5,7 @@ using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Utils
 {
   public class ApplicationHost
   {

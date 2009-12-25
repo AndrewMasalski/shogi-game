@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -87,8 +86,7 @@ namespace Yasc.Controls
 
       AnimatePosition(pieceControl, to, (sender, args) =>
       {
-        // NOTE: Is that possible that we start animation 
-        // twice on the same piece and one "remove" don't come?
+        // NOTE: Is that possible that we start animation twice on the same piece and one "remove" don't come?
         toCtrl.Visibility = Visibility.Visible;
         _adornerLayer.Children.Remove(pieceControl);
       });

@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UnitTests.Automation.Peers;
+using UnitTests.Automation.Utils;
 using Yasc.Controls;
 using Yasc.ShogiCore;
 

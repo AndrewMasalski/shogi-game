@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Utils
 {
   public static class MouseDeviceExtensions
   {

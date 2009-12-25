@@ -43,8 +43,22 @@ namespace Yasc.Networking
 
     public TResult Act(T obj)
     {
+      if (_synch == null)  return _action(obj);
+      
       var res = default(TResult);
-      _synch.Send(p => res = _action(obj), null);
+      Exception ex = null;
+      _synch.Send(delegate
+                    {
+                      try
+                      {
+                        res = _action(obj);
+                      }
+                      catch (Exception x)
+                      {
+                        ex = x;
+                      }
+                    }, null);
+      if (ex != null) throw ex;
       return res;
     }
 
