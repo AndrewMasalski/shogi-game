@@ -1,7 +1,8 @@
 using System;
 using System.Windows.Automation;
+using UnitTests.Automation.Utils;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Peers
 {
   public abstract class ConcreteAutomation<T>
   {

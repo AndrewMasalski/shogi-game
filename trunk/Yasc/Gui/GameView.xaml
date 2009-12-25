@@ -21,9 +21,11 @@
         <TextBlock Name="MyName" Text="{Binding Ticket.Me.Name}" Grid.Column="0" Grid.Row="0"/>
         <TextBlock Name="OpponentName" Text="{Binding Ticket.Opponent.Name}" Grid.Column="1" Grid.Row="0"/>
         <Common:StopwatchControl Value="{Binding MyTime, Mode=TwoWay}" 
+                                 RefreshInterval="00:00:00.9"
                                  IsLaunched="{Binding IsItMyMove, Mode=TwoWay}" 
                                  Direction="Backward" Grid.Column="0" Grid.Row="1"/>
         <Common:StopwatchControl Value="{Binding OpponentTime, Mode=TwoWay}" 
+                                 RefreshInterval="00:00:00.9"
                                  IsLaunched="{Binding IsItOpponentMove, Mode=TwoWay}"
                                  Direction="Backward" Grid.Column="1" Grid.Row="1"/>
       </Grid>

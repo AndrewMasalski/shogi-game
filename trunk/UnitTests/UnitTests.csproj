@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="UsualMoves\GetAvailableMovesTest.cs" />
     <Compile Include="ShogiCore\Moves\UsualMoveTest.cs" />
+    <Compile Include="ViewModel\GameViewModelTest.cs" />
     <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>

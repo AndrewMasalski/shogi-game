@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Utils
 {
   public static class RectExtensions
   {

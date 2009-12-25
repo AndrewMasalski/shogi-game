@@ -1,9 +1,10 @@
 using System.Windows.Automation;
 using System.Windows.Input;
+using UnitTests.Automation.Utils;
 using Yasc.Controls;
 using Yasc.ShogiCore;
 
-namespace UnitTests.Automation
+namespace UnitTests.Automation.Peers
 {
   public class ShogiBoardAutomation : ConcreteAutomation<ShogiBoard>
   {

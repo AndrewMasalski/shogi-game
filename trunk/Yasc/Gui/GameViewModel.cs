@@ -14,8 +14,8 @@ namespace Yasc.Gui
   {
     #region ' Fields '
 
-    private TimeSpan _opponentTime = TimeSpan.FromSeconds(5);
-    private TimeSpan _ourTime = TimeSpan.FromSeconds(5);
+    private TimeSpan _opponentTime = TimeSpan.FromSeconds(300);
+    private TimeSpan _ourTime = TimeSpan.FromSeconds(300);
     private bool _isFlipped;
     private readonly IServerGame _game;
     private RelayCommand _cleanBoardCommand;
@@ -144,6 +144,8 @@ namespace Yasc.Gui
       Ticket = new GameTicket(ticket, OnOpponentMadeMove);
 
       IsFlipped = Ticket.MyColor == PieceColor.White;
+      IsItMyMove = Ticket.MyColor == PieceColor.White;
+      IsItOpponentMove = Ticket.MyColor != PieceColor.White;
       InitBoard();
     }
     private void InitBoard()

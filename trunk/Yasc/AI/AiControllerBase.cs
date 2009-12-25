@@ -65,7 +65,7 @@ namespace Yasc.AI
 
       public PieceColor InviteeColor
       {
-        get { return PieceColor.Black; }
+        get { return PieceColor.White; }
       }
 
       public IEnumerable<ISpectatorController> Spectators

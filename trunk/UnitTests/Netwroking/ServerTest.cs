@@ -116,7 +116,6 @@ namespace UnitTests.Netwroking
     [TestMethod]
     public void Test()
     {
-//      var controller = new CleverAiController();
       var ticket = new GameTicket(new CleverAiController(), m => DateTime.Now);
       Assert.AreEqual("You", ticket.Me.Name);
     }
