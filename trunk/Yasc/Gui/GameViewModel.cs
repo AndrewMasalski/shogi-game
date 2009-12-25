@@ -23,6 +23,8 @@ namespace Yasc.Gui
     private readonly Flag _opponentMoveReaction = new Flag();
     private bool _isItOpponentMove;
     private bool _isItMyMove;
+    private bool _isMyTimerLaunched;
+    private bool _isOpponentTimerLaunched;
 
     #endregion
 
@@ -37,7 +39,6 @@ namespace Yasc.Gui
         if (_isItMyMove == value) return;
         _isItMyMove = value;
         RaisePropertyChanged("IsItMyMove");
-        if (!value && MyTime == TimeSpan.Zero) return;
         IsItOpponentMove = !value;
       }
     }
@@ -52,6 +53,27 @@ namespace Yasc.Gui
         RaisePropertyChanged("IsItOpponentMove");
         if (!value && OpponentTime == TimeSpan.Zero) return;
         IsItMyMove = !value;
+      }
+    }
+
+    public bool IsOpponentTimerLaunched
+    {
+      get { return _isOpponentTimerLaunched; }
+      set
+      {
+        if (_isOpponentTimerLaunched == value) return;
+        _isOpponentTimerLaunched = value;
+        RaisePropertyChanged("IsOpponentTimerLaunched");
+      }
+    }
+    public bool IsMyTimerLaunched
+    {
+      get { return _isMyTimerLaunched; }
+      set
+      {
+        if (_isMyTimerLaunched == value) return;
+        _isMyTimerLaunched = value;
+        RaisePropertyChanged("IsMyTimerLaunched");
       }
     }
 
@@ -74,6 +96,11 @@ namespace Yasc.Gui
       {
         if (_ourTime == value) return;
         _ourTime = value;
+        if (value == TimeSpan.Zero)
+        {
+          IsMyTimerLaunched = false;
+          IsItMyMove = false;
+        }
         RaisePropertyChanged("MyTime");
       }
     }
@@ -188,6 +215,8 @@ namespace Yasc.Gui
         }
       }
       IsItMyMove = !IsItMyMove;
+      IsMyTimerLaunched = IsItMyMove;
+      IsOpponentTimerLaunched = IsItOpponentMove;
     }
     private static PieceColor Opponent(PieceColor color)
     {
