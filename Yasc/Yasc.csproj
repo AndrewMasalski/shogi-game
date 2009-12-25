@@ -120,6 +120,7 @@
       <DependentUpon>ProgressCircle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\DirectionToBoolConverter.cs" />
+    <Compile Include="Common\ProgressClock.cs" />
     <Compile Include="Common\TimerDirection.cs" />
     <Compile Include="Controls\Automation\ControlAutomationPeer.cs" />
     <Compile Include="Controls\BoardBorder.cs" />

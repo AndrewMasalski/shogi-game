@@ -14,29 +14,54 @@
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Name="MyName" Text="{Binding Ticket.Me.Name, Mode=OneTime}" Grid.Column="0" Grid.Row="0"/>
-        <TextBlock Name="OpponentName" Text="{Binding Ticket.Opponent.Name, Mode=OneTime}" Grid.Column="1" Grid.Row="0"/>
-        <Common:StopwatchControl Value="{Binding MyTime, Mode=TwoWay}" 
+        <Line Stretch="Fill" StrokeThickness="1" Stroke="Black" 
+                    VerticalAlignment="Stretch" Y1="1" HorizontalAlignment="Right" SnapsToDevicePixels="True"/>
+
+        <UniformGrid Margin="0, 3" Columns="2" Grid.ColumnSpan="2">
+          <Grid Margin="3, 0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="5"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Common:ProgressClock IsEnabled="{Binding IsMyTimerLaunched, Mode=OneWay}" 
+                                Width="32" Height="32" Grid.RowSpan="2"/>
+
+            <TextBlock Name="MyName" Text="{Binding Ticket.Me.Name, Mode=OneTime}" Grid.Column="2"/>
+            <Common:StopwatchControl Value="{Binding MyTime, Mode=TwoWay}" 
                                  RefreshInterval="00:00:00.9"
                                  IsLaunched="{Binding IsMyTimerLaunched, Mode=OneWay}" 
-                                 Direction="Backward" Grid.Column="0" Grid.Row="1"/>
-        <Common:StopwatchControl Value="{Binding OpponentTime, Mode=TwoWay}" 
-                                 RefreshInterval="00:00:00.9"
+                                 Direction="Backward" Grid.Column="2" Grid.Row="1"/>
+          </Grid>
+          <Grid HorizontalAlignment="Right" Margin="3, 0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="10"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="5"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Common:ProgressClock IsEnabled="{Binding IsOpponentTimerLaunched, Mode=OneWay}" 
+                                Width="32" Height="32" Grid.RowSpan="2" Grid.Column="3" />
+
+            <TextBlock Name="OpponentName" Text="{Binding Ticket.Opponent.Name, Mode=OneTime}" 
+                       Grid.Column="1" HorizontalAlignment="Right" />
+            
+            <Common:StopwatchControl Value="{Binding OpponentTime, Mode=TwoWay}" 
+                                 RefreshInterval="00:00:00.9" HorizontalAlignment="Right"
                                  IsLaunched="{Binding IsOpponentTimerLaunched, Mode=OneWay}"
                                  Direction="Backward" Grid.Column="1" Grid.Row="1"/>
+          </Grid>
+        </UniformGrid>
       </Grid>
-      <DataTemplate.Triggers>
-        <DataTrigger Binding="{Binding IsItMyMove}" Value="True">
-          <Setter TargetName="MyName" Property="Background" Value="Red"/>
-        </DataTrigger>
-        <DataTrigger Binding="{Binding IsItOpponentMove}" Value="True">
-          <Setter TargetName="OpponentName" Property="Background" Value="Red"/>
-        </DataTrigger>
-      </DataTemplate.Triggers>
     </DataTemplate>
   </UserControl.Resources>
   <DockPanel LastChildFill="True">
@@ -59,7 +84,7 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="200"/>
+        <ColumnDefinition Width="Auto" MinWidth="100" MaxWidth="300"/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
