@@ -4,11 +4,16 @@
 
 If you see something like this:
 
+
+
 [http://shogi-game.googlecode.com/svn/site/AsianFontsTrouble.png]
 
-Then you should set this setting up:
+you should install East Asian Language support. I.e. tick this box:
 
 [http://shogi-game.googlecode.com/svn/site/InstalAsianFonts.png]
+
+[http://www.wikihow.com/Install-East-Asian-Language-Support-for-Windows-XP Here] is manual for Windows XP.
+
 
 = Framework =
 
@@ -16,6 +21,6 @@ This message on start
 
 [http://shogi-game.googlecode.com/svn/site/UpdateForFramework.png]
 
-Is known to appear not only when you've no appropriate .NET Framework version but when you lost config file (yasc.exe.config) from the installation archive. 
+Is known to appear not only when you've no appropriate .NET Framework version but when you lost config file (yasc.exe.config) from the installation archive too. 
 
-Though you've must just have forgotten to setup .NET Framework ([http://tinyurl.com/9bd8he client profile] is OK). Or [http://tinyurl.com/akd869 this] if you want an offline installer instead of internet bootstraper 
+Though you've must just have forgotten to setup .NET Framework ([http://tinyurl.com/9bd8he client profile] is OK). Or [http://tinyurl.com/akd869 this] if you want an offline installer instead of internet bootstraper, althogh offline insteller is approximately 10 tines bigger then what bootstraper is going to download.
