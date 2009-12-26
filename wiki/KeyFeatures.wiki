@@ -2,16 +2,18 @@
 
 = Introduction =
 
-As you can see now I don't even know what can be done in many areas, so direct me in comments to this page.
+As you can see I don't even know now  what can be done in many areas, so direct me in comments to this page.
 
-= THE =
-
-|| *Feature* || *Explanation, Estimate* ||
-|| Make the application fully skinnable || Shouldn't take more than a day per view. For now the hardest piece is finished: the board itself is fully skinnable. I think it's enough for v.1. ||
-|| Make it easy and natural to play by LAN || 80% is done. The last 20% should take 5 more time :) For the first release I've decided to restrict LAN with just one-to-one game. That reqieres 2-3 days of restricting ||
-|| Localize everything (e.g. in russian) || Didn't started yet. Might take a month ||
-|| Make a skin with non-japanese symbols || You can find an example [http://www.chessvariants.org/shogi.html here] (look at the right edge of the screen) This might be useful for "the rest world" to simplify studying shogi. I didn't started yet. It might take a week. Althogh I've already made a skin ("red") which colors black and white pieces differen. ||
-|| Game should give very clear messages for invalid moves || Practically done. Although some skinning is still requiered. ||
-|| App should support "analyse a game" scenario || That means it should be easy and natural to load game transcript, relpay it, comment it, run AI to analyse some branches, whatsoever. *Need a clarification: what exactly soever?* ||
-|| Handicaps || 2-3 days ||
-|| Plug professional engines || [http://www.geocities.jp/shogidokoro/enginelink.html Here] can be found the list of engines japanese app Shogidokoro supports. It seems that's the best I (or anyone else) can get today. I think in a week I can plug one engine with the narrowest bunch of options. ||
+||*#*|| *Feature* || *Explanation, Estimate* ||
+||1.|| Make the application fully skinnable || Shouldn't take more than a day per view. For now the hardest piece is finished: the board itself is fully skinnable. I think it's enough for v.1. ||
+||2.|| Make it easy and natural to play by LAN || 80% is done. The last 20% should take 5 more time :) For the first release I've decided to restrict LAN with just one-to-one game. That reqieres 2-3 days of restricting ||
+||3.|| Localize everything (e.g. in russian) || Didn't started yet. Might take a month. It won't probably be a part of release 1. ||
+||4.|| Make a skin with non-japanese symbols || You can find an example [http://www.chessvariants.org/shogi.html here] (look at the right edge of the screen). This might be useful for "the rest world" to simplify studying shogi. I didn't started yet. It might take a week. Althogh I've already made a skin ("red") which colors black and white pieces differen. ||
+||5.|| Game should give very clear messages for invalid moves || Practically done. Although some skinning is still requiered. ||
+||6.|| App should support "analyse a game" scenario || That means it should be easy and natural to load game transcript, relpay it, comment it, run AI to analyse some branches, whatsoever. *Need a clarification: what exactly soever?* ||
+||7.|| Handicaps || 2-3 days ||
+||8.|| Plug professional engines || [http://www.geocities.jp/shogidokoro/enginelink.html Here] can be found the list of engines japanese app Shogidokoro supports. It seems that's the best I (or anyone else) can get today. I think in a week I can plug one engine with the narrowest bunch of options. ||
+||9.|| Add bright and meaty hints for pieces || I've infrastructure but I feel like I need a designer here. Simplest example can be added in a few hours.|| 
+||10.|| Peer-to-peer game support || For current implementation it's not very different from LAN, still feature may require more asynchronous GUI. 2 weeks - 1 month ||
+||11.|| Make a silverlight port || 2-3 moths at least. I've no hosting so it's far beyond my interests now. ||
+||12.|| Full-featured server || E.g. server which supports most of features [http://www.chesscube.com this] one has. || 2-3 month ||
