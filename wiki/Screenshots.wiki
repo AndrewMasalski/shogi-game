@@ -6,5 +6,5 @@
 [http://shogi-game.googlecode.com/svn/site/Connecting.PNG]
 = And got refused =
 [http://shogi-game.googlecode.com/svn/site/ConnectionFailed.png]
-= So you start playing with dumm computer =
+= So you start playing with dummy computer =
 [http://shogi-game.googlecode.com/svn/site/Game.PNG]
