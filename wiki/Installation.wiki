@@ -2,4 +2,10 @@
 
 = Asian fonts =
 
-WARNING If you're running Windows XP you have to install asian fonts! If you didn't do it you'd find squares instead of hieroglyphs. I forewarned you! :)
+If you see something like this:
+
+[http://shogi-game.googlecode.com/svn/site/AsianFontsTrouble.png]
+
+Then you should set this setting up:
+
+[http://shogi-game.googlecode.com/svn/site/InstalAsianFonts.png]
