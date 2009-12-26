@@ -1,0 +1,5 @@
+#summary List of obscales one might challange installing the game
+
+= Asian fonts =
+
+WARNING If you're running Windows XP you have to install asian fonts! If you didn't do it you'd find squares instead of hieroglyphs. I forewarned you! :)
