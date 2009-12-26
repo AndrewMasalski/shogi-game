@@ -77,6 +77,7 @@ namespace Yasc.Persistence
       {
         _board.Black.Name = ReadAttribute("[Black ", line);
       }
+      else throw new NotSupportedException();
     }
 
     private static string ReadAttribute(string name, string line)
@@ -86,6 +87,13 @@ namespace Yasc.Persistence
     }
   }
 
+  /// <summary>Loads given <see cref="MoveNotation.Cute"/> move sequence to the 
+  ///   <see cref="Board"/>.<see cref="Board.History"/> resolving ambiguities 
+  ///   from the conext.</summary>
+  /// <remarks><see cref="MoveNotation.Cute"/> moves are not completely definitive
+  ///   so we might need to solve ambiguities from conext. To be more precise
+  ///   after ambiguity found, we go on for all variants of transcription until
+  ///   some furhter moves don't cross invalid options out.</remarks>
   internal class MovesB
   {
     private readonly Board _board;
