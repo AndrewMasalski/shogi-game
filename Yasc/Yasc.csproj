@@ -137,6 +137,8 @@
     <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Persistence\PsnLoader.cs" />
+    <Compile Include="ShogiCore\CuteMoveParser.cs" />
     <Compile Include="ShogiCore\InfinitePieceSet.cs" />
     <Compile Include="ShogiCore\IPieceSet.cs" />
     <Compile Include="ShogiCore\DefaultPieceSet.cs" />
