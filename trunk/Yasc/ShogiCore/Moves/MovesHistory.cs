@@ -43,7 +43,7 @@ namespace Yasc.ShogiCore.Moves
         }
 
         int index = Items.IndexOf(value);
-        if (index == -1) throw new ArgumentOutOfRangeException("value", 
+        if (index == -1) throw new ArgumentOutOfRangeException("value",
           "You can only assign to MovesHistory.CurrentMove move from MovesHistory");
 
         CurrentMoveIndex = index;
@@ -56,8 +56,8 @@ namespace Yasc.ShogiCore.Moves
       set
       {
         if (_currentMoveIndex == value) return;
-        if (value < -1 || value >= Count) 
-          throw new ArgumentOutOfRangeException("value", 
+        if (value < -1 || value >= Count)
+          throw new ArgumentOutOfRangeException("value",
             "Index must be grater or equal -1 and less than elements count");
 
         _currentMoveIndex = value;
