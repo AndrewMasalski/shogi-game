@@ -20,7 +20,7 @@ namespace Yasc.ShogiCore
     {
       _moveText = moveText;
       IEnumerable<MoveBase> choice;
-      if (_moveText.EndsWith("x") || _moveText.EndsWith("x+")) 
+      if (_moveText.EndsWith("x") || _moveText.EndsWith("x+") || _moveText.EndsWith("x=")) 
         choice = ParseTake();
       else 
         choice = ParseMove();
@@ -61,6 +61,7 @@ namespace Yasc.ShogiCore
     {
       var isPromoting = _moveText.EndsWith("+");
       _moveText = _moveText.TrimEnd('+');
+      _moveText = _moveText.TrimEnd('=');
       return isPromoting;
     }
 

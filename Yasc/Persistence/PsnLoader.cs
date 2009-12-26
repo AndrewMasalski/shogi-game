@@ -10,7 +10,6 @@ namespace Yasc.Persistence
   public class PsnLoader
   {
     private readonly Board _board;
-    private readonly List<string> _moves = new List<string>();
 
     public PsnLoader()
     {
@@ -20,71 +19,15 @@ namespace Yasc.Persistence
       _board.OneWhoMoves = _board.Black;
     }
 
-    public Board Load(string content)
+    public Board Load(GameTrascription trascription)
     {
-      Load(new StringReader(content));
+      var movesB = new MovesB(_board, trascription.Moves);
+      movesB.Start();
+      _board.White.Name = trascription.Attributes["White"].Value;
+      _board.Black.Name = trascription.Attributes["Black"].Value;
       return _board;
     }
-    public void Load(TextReader content)
-    {
-      foreach (var line in content.Lines())
-      {
-        if (line.StartsWith("["))
-        {
-          ReadHeader(line);
-        }
-        else if (line.StartsWith("{"))
-        {
-          ReadFooter(line);
-        }
-        else
-        {
-          ReadBody(line);
-        }
-      }
-    }
 
-    private void ReadBody(string line)
-    {
-      var split = line.Split(new[] {' ', '\t'}, 
-        StringSplitOptions.RemoveEmptyEntries);
-
-      foreach (var move in split)
-        ReadMove(move);
-    }
-
-    private void ReadMove(string move)
-    {
-      var split = move.Split('.');
-      var number = int.Parse(split[0]);
-      if (number != _moves.Count + 1) throw new Exception("Wrong move number");
-      _moves.Add(split[1]);
-    }
-
-    private void ReadFooter(string line)
-    {
-      var movesB = new MovesB(_board, _moves);
-      movesB.Start();
-    }
-
-    private void ReadHeader(string line)
-    {
-      if (line.StartsWith("[White "))
-      {
-        _board.White.Name = ReadAttribute("[White ", line);
-      }
-      else if (line.StartsWith("[Black "))
-      {
-        _board.Black.Name = ReadAttribute("[Black ", line);
-      }
-      else throw new NotSupportedException();
-    }
-
-    private static string ReadAttribute(string name, string line)
-    {
-      return line.Substring(name.Length  +1,
-        line.Length - name.Length - "\"]".Length-1);
-    }
   }
 
   /// <summary>Loads given <see cref="MoveNotation.Cute"/> move sequence to the 
@@ -124,7 +67,7 @@ namespace Yasc.Persistence
         _board.MakeMove(choice[0]);
         if (++index == _moves.Count) return true;
       }
-      
+
       // We've 0 or >1 choices
       foreach (var option in choice)
       {
@@ -157,6 +100,102 @@ namespace Yasc.Persistence
         if (line == null) break;
         yield return line;
       }
+    }
+  }
+
+  public class GameTrascription
+  {
+    public Dictionary<string, TrascriptionAttibute> Attributes { get; private set; }
+
+    public bool IsFull
+    {
+      get { return Attributes.Count > 0 && Moves.Count > 0; }
+    }
+
+    public List<string> Moves { get; private set; }
+
+    public GameTrascription()
+    {
+      Attributes = new Dictionary<string, TrascriptionAttibute>();
+      Moves = new List<string>();
+    }
+
+    public void AddAttribute(TrascriptionAttibute attibute)
+    {
+      Attributes[attibute.Name] = attibute;
+    }
+  }
+  public class TrascriptionAttibute
+  {
+    public string Name { get; set; }
+    public string Value { get; set; }
+  }
+  public class PsnTranscriber
+  {
+    private GameTrascription _currentTranscription;
+
+    public IEnumerable<GameTrascription> Load(TextReader psn)
+    {
+      _currentTranscription = new GameTrascription();
+      foreach (var line in psn.Lines())
+      {
+        if (line.Trim().Length == 0)
+        {
+          if (_currentTranscription.IsFull)
+          {
+            yield return _currentTranscription;
+            _currentTranscription = new GameTrascription();
+          }
+        }
+        else if (line.StartsWith("["))
+        {
+          _currentTranscription.AddAttribute(ParseHeader(line));
+        }
+        else if (line.StartsWith("{"))
+        {
+          _currentTranscription.AddAttribute(ParseFooter(line));
+        }
+        else 
+        {
+          ReadBody(line);
+        }
+      }
+    }
+
+    private static TrascriptionAttibute ParseFooter(string line)
+    {
+      return new TrascriptionAttibute
+               {
+                 Name = "_Footer", 
+                 Value = line.TrimStart('{').TrimEnd('}')
+               };
+    }
+
+    private static TrascriptionAttibute ParseHeader(string line)
+    {
+      var res = new TrascriptionAttibute();
+      int qi = line.IndexOf('"');
+      res.Name = line.Substring(1, qi - 2);
+      res.Value = line.Substring(qi+1, line.Length - qi - 3);
+      return res;
+    }
+
+    private void ReadBody(string line)
+    {
+      var split = line.Split(new[] { ' ', '\t' },
+        StringSplitOptions.RemoveEmptyEntries);
+
+      foreach (var move in split)
+        ReadMove(move);
+    }
+
+    private void ReadMove(string move)
+    {
+      var split = move.Split('.');
+      var number = int.Parse(split[0]);
+      if (number != _currentTranscription.Moves.Count + 1) 
+        throw new Exception("Wrong move number");
+      _currentTranscription.Moves.Add(split[1]);
     }
   }
 }
