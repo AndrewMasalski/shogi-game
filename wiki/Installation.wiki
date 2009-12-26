@@ -9,3 +9,13 @@ If you see something like this:
 Then you should set this setting up:
 
 [http://shogi-game.googlecode.com/svn/site/InstalAsianFonts.png]
+
+= Framework =
+
+This message on start 
+
+[http://shogi-game.googlecode.com/svn/site/UpdateForFramework.png]
+
+Is known to appear not only when you've no appropriate .NET Framework version but when you lost config file (yasc.exe.config) from the installation archive. 
+
+Though you've must just have forgotten to setup .NET Framework ([http://tinyurl.com/9bd8he client profile] is OK). Or [http://tinyurl.com/akd869 this] if you want an offline installer instead of internet bootstraper 
