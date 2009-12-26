@@ -1,0 +1,10 @@
+#summary Contains all available screenshots
+
+= Here what you start with =
+[http://shogi-game.googlecode.com/svn/site/Welcome.PNG]
+= Then you obviously trying to connect to unexistent server =
+[http://shogi-game.googlecode.com/svn/site/Connecting.PNG]
+= And got refused =
+[http://shogi-game.googlecode.com/svn/site/ConnectionFailed.png]
+= So you start playing with dumm computer =
+[http://shogi-game.googlecode.com/svn/site/Game.PNG]
