@@ -148,6 +148,7 @@ namespace Yasc.Gui
           break;
         case WelcomeChoice.Autoplay:
           InitBoard();
+          IsItMyMove = true;
           break;
       }
     }
