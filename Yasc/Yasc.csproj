@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -65,10 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Page Include="Common\ProgressCircle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,6 +138,7 @@
     <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
     <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Persistence\PsnLoader.cs" />
     <Compile Include="ShogiCore\CuteMoveParser.cs" />
@@ -290,10 +291,8 @@
     <Version>$(BUILD_NUMBER)</Version>
   </PropertyGroup>
   <Target Name="BeforeBuild" Condition=" '$(Version)' != '' ">
-    <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs"
-                Regex="\[\s*assembly\s*:\s*AssemblyVersion\s*\(\s*&quot;[\d\.\*]+&quot;\s*\)\s*\]"
-                ReplacementText="[assembly: AssemblyVersion(&quot;$(Version)&quot;)]"/>
-    <Message Text="Varsion altered: $(Version)"/>
+    <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" Regex="\[\s*assembly\s*:\s*AssemblyVersion\s*\(\s*&quot;[\d\.\*]+&quot;\s*\)\s*\]" ReplacementText="[assembly: AssemblyVersion(&quot;$(Version)&quot;)]" />
+    <Message Text="Varsion altered: $(Version)" />
   </Target>
   <Target Name="AfterBuild">
   </Target>
