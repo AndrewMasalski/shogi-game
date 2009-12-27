@@ -44,30 +44,30 @@ namespace UnitTests.ViewModel
                     };
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
-      Assert.IsFalse(model.IsMyTimerLaunched);
+      Assert.IsFalse(model.IsMyTimerLaunched, "#1");
       Assert.IsTrue(model.IsItMyMove);
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
-      Assert.IsFalse(model.IsOpponentTimerLaunched);
-      Assert.IsFalse(model.IsItOpponentMove);
+      Assert.IsFalse(model.IsOpponentTimerLaunched, "#2");
+      Assert.IsFalse(model.IsItOpponentMove, "#3");
 
       model.Board.MakeMove(model.Board.GetMove("1c-1d"));
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
-      Assert.IsFalse(model.IsMyTimerLaunched);
-      Assert.IsFalse(model.IsItMyMove);
+      Assert.IsFalse(model.IsMyTimerLaunched, "#4");
+      Assert.IsFalse(model.IsItMyMove, "#5");
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
       Assert.IsTrue(model.IsOpponentTimerLaunched);
       Assert.IsTrue(model.IsItOpponentMove);
 
-      Thread.Sleep(200);
+//      Thread.Sleep(200);
       // Opponent is going to make move immediately on the other thread
       //model.Board.MakeMove(model.Board.GetMove("1g-1f"));
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
-      Assert.IsFalse(model.IsMyTimerLaunched);
-      Assert.IsFalse(model.IsItMyMove);
+      Assert.IsFalse(model.IsMyTimerLaunched, "#6");
+      Assert.IsFalse(model.IsItMyMove, "#7");
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
       Assert.IsTrue(model.IsOpponentTimerLaunched);
