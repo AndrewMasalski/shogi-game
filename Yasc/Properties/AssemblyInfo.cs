@@ -13,7 +13,7 @@ using System.Windows;
 [assembly: AssemblyDescription("Yet another shogi")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Марголин Илья inc.")]
-[assembly: AssemblyProduct("Yasc")]
+[assembly: AssemblyProduct("Yet another shogi")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

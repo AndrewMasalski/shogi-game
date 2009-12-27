@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Gui;
 using Yasc.ShogiCore;
@@ -60,6 +61,7 @@ namespace UnitTests.ViewModel
       Assert.IsTrue(model.IsOpponentTimerLaunched);
       Assert.IsTrue(model.IsItOpponentMove);
 
+      Thread.Sleep(200);
       // Opponent is going to make move immediately on the other thread
       //model.Board.MakeMove(model.Board.GetMove("1g-1f"));
 
