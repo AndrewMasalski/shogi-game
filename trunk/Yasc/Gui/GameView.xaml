@@ -15,7 +15,7 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Line Stretch="Fill" StrokeThickness="1" Stroke="Black" 
-                    VerticalAlignment="Stretch" Y1="1" HorizontalAlignment="Right" SnapsToDevicePixels="True"/>
+              VerticalAlignment="Stretch" Y1="1" HorizontalAlignment="Right" SnapsToDevicePixels="True"/>
 
         <UniformGrid Margin="0, 3" Columns="2" Grid.ColumnSpan="2">
           <Grid Margin="3, 0">
@@ -84,7 +84,7 @@
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto" MinWidth="100" MaxWidth="300"/>
+        <ColumnDefinition Width="Auto" MinWidth="100"/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
@@ -102,7 +102,7 @@
         </Grid.RowDefinitions>
         <ContentControl Content="{Binding}" ContentTemplate="{StaticResource Timers}"/>
 
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" MaxWidth="300">
           <TabItem Header="Moves">
             <Grid>
               <Grid.RowDefinitions>

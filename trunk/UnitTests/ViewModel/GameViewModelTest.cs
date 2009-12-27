@@ -37,7 +37,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void TimerTest()
     {
-      var model = new GameViewModel(WelcomeChoice.ArtificialIntelligence)
+      var model = new GameViewModel(WelcomeChoice.Autoplay)
                     {
                       MyTime = TimeSpan.FromMinutes(1),
                       OpponentTime = TimeSpan.FromMinutes(1)
@@ -61,17 +61,29 @@ namespace UnitTests.ViewModel
       Assert.IsTrue(model.IsOpponentTimerLaunched);
       Assert.IsTrue(model.IsItOpponentMove);
 
-//      Thread.Sleep(200);
-      // Opponent is going to make move immediately on the other thread
-      //model.Board.MakeMove(model.Board.GetMove("1g-1f"));
+      model.Board.MakeMove(model.Board.GetMove("1g-1f"));
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
-      Assert.IsFalse(model.IsMyTimerLaunched, "#6");
-      Assert.IsFalse(model.IsItMyMove, "#7");
+      Assert.IsTrue(model.IsMyTimerLaunched, "#6");
+      Assert.IsTrue(model.IsItMyMove, "#7");
+    }
+
+    [TestMethod]
+    public void AiTimerTest()
+    {
+      var model = new GameViewModel(WelcomeChoice.ArtificialIntelligence)
+      {
+        MyTime = TimeSpan.FromMinutes(1),
+        OpponentTime = TimeSpan.FromMinutes(1)
+      };
+
+      Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
+      Assert.IsFalse(model.IsMyTimerLaunched, "#1");
+      Assert.IsTrue(model.IsItMyMove);
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.OpponentTime);
-      Assert.IsTrue(model.IsOpponentTimerLaunched);
-      Assert.IsTrue(model.IsItOpponentMove);
+      Assert.IsFalse(model.IsOpponentTimerLaunched, "#2");
+      Assert.IsFalse(model.IsItOpponentMove, "#3");
     }
   }
 }
