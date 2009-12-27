@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Gui;
 using Yasc.ShogiCore;
