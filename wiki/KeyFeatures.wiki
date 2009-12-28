@@ -8,7 +8,7 @@ As you can see I don't even know now  what can be done in many areas, so direct 
 ||1.|| Make the application fully skinnable || Shouldn't take more than a day per view. For now the hardest piece is finished: the board itself is fully skinnable. I think it's enough for v.1. ||
 ||2.|| Make it easy and natural to play by LAN || 80% is done. The last 20% should take 5 more time :) For the first release I've decided to restrict LAN with just one-to-one game. That reqieres 2-3 days of restricting ||
 ||3.|| Localize everything (e.g. in russian) || Didn't started yet. Might take a month. It won't probably be a part of release 1. ||
-||4.|| Make a skin with non-japanese symbols || You can find an example [http://www.chessvariants.org/shogi.html here] (look at the right edge of the screen). This might be useful for "the rest world" to simplify studying shogi. I didn't started yet. It might take a week. Althogh I've already made a skin ("red") which colors black and white pieces differen. ||
+||4.|| Make a skin with non-japanese symbols || You can find an example [http://www.chessvariants.org/shogi.html here] (look at the right edge of the screen). This might be useful for "the rest of the world" to simplify studying shogi. Isn't started yet. It might take a week. Althogh I've already made a skin ("red") which colors black and white pieces differen. ||
 ||5.|| Game should give very clear messages for invalid moves || Practically done. Although some skinning is still requiered. ||
 ||6.|| App should support "analyse a game" scenario || That means it should be easy and natural to load game transcript, relpay it, comment it, run AI to analyse some branches, whatsoever. *Need a clarification: what exactly soever?* ||
 ||7.|| Handicaps || 2-3 days ||
