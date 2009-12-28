@@ -1,12 +1,16 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using MvvmFoundation.Wpf;
 using Yasc.AI;
 using Yasc.Networking;
+using Yasc.Persistence;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
+using System.Linq;
 
 namespace Yasc.Gui
 {
@@ -25,6 +29,8 @@ namespace Yasc.Gui
     private bool _isItMyMove;
     private bool _isMyTimerLaunched;
     private bool _isOpponentTimerLaunched;
+    private RelayCommand _loadTranscriptCommand;
+    private Board _board;
 
     #endregion
 
@@ -115,7 +121,26 @@ namespace Yasc.Gui
         RaisePropertyChanged("OpponentTime");
       }
     }
-    public Board Board { get; private set; }
+
+    public Board Board
+    {
+      get { return _board; }
+      private set
+      {
+        if (_board == value) return;
+        if (_board != null)
+        {
+          Board.Moved -= BoardOnMoved;
+        }
+        _board = value;
+        if (_board != null)
+        {
+          Board.Moved += BoardOnMoved;
+        }
+        RaisePropertyChanged("Board");
+      }
+    }
+
     public ICommand CleanBoardCommand
     {
       get
@@ -136,6 +161,17 @@ namespace Yasc.Gui
           _getBackCommand = new RelayCommand(GetBack);
         }
         return _getBackCommand;
+      }
+    }
+    public ICommand LoadTranscriptCommand
+    {
+      get
+      {
+        if (_loadTranscriptCommand == null)
+        {
+          _loadTranscriptCommand = new RelayCommand(LoadTranscript);
+        }
+        return _loadTranscriptCommand;
       }
     }
 
@@ -179,7 +215,6 @@ namespace Yasc.Gui
     private void InitBoard()
     {
       Board = new Board();
-      Board.Moved += BoardOnMoved;
       Shogi.InitBoard(Board);
     }
     private void GetBack()
@@ -229,7 +264,20 @@ namespace Yasc.Gui
         Board.MakeMove(Board.GetMove(move.Move));
       return DateTime.Now;
     }
-
+    private void LoadTranscript()
+    {
+      var dlg = new OpenFileDialog
+                  {
+                    CheckFileExists = true,
+                    DefaultExt = ".psn",
+                    DereferenceLinks = true,
+                    Title = "Choose PSN transcript file to open"
+                  };
+      if (dlg.ShowDialog() == true)
+      {
+        Board = new PsnLoader().Load(new PsnTranscriber().Load(File.OpenText(dlg.FileName)).First());
+      }
+    }
     #endregion
 
   }

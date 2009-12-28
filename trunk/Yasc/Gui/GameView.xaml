@@ -66,10 +66,15 @@
   </UserControl.Resources>
   <DockPanel LastChildFill="True">
     <Menu DockPanel.Dock="Top">
-      <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
-      <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
-      <MenuItem Header="Enforce rules" IsCheckable="True"
-                IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
+      <MenuItem Header="File">
+        <MenuItem Header="Load Transcript"  Command="{Binding LoadTranscriptCommand}" />
+      </MenuItem>
+      <MenuItem Header="Board">
+        <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
+        <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
+        <MenuItem Header="Enforce rules" IsCheckable="True"
+                  IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
+      </MenuItem>
       <MenuItem Header="Skins" ItemsSource="{Binding AvailableSkins}"
                 DataContext="{x:Static gui:SkinningViewModel.Instance}" >
         <MenuItem.ItemContainerStyle>
