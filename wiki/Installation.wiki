@@ -19,8 +19,6 @@ you should install East Asian Language support. I.e. tick this box:
 
 == The application requires .NET Framework 3.5 SP1 or greater ==
 
-The application failed to initialize properly (0xc0000135). Click on OK to terminate the application.
-
 This message on start is known to appear not only when you've no appropriate .NET Framework version but when you lost config file (Yasc.exe.config) from the installation archive too. 
 
 [http://shogi-game.googlecode.com/svn/site/UpdateForFramework.png]
@@ -30,3 +28,7 @@ Though you've must just have forgotten to setup .NET Framework. If you don't kno
 If you know what you're doing, here are few more links:
   * [http://tinyurl.com/akd869 Microsoft .NET Framework Client Profile Offline Installer]. Althogh it's approximately 10 tines bigger then what bootstraper is going to download you'll have installer on your drive.
   * [http://tinyurl.com/5m4j75 Microsoft .NET Framework 3.5 Service Pack 1] It's the same product with the same service pack but within a larger "profile for developers".
+
+== 0xc0000135 ==
+
+Message box with the message "The application failed to initialize properly (0xc0000135). Click on OK to terminate the application" is also result of absence of .NET Framework. Follow instructions from the previous section.
