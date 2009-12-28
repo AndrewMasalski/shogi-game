@@ -198,7 +198,7 @@ namespace Yasc.RulesVisualization
       var dropMoves = moves as IDropMoves;
       if (dropMoves != null)
       {
-        board.GetNest(dropMoves.Piece, dropMoves.For).IsMoveSource = true;
+        board[dropMoves.For][dropMoves.Piece].IsMoveSource = true;
 
         foreach (var p in dropMoves.To)
           board.GetCell(p).IsPossibleMoveTarget = true;
@@ -219,7 +219,7 @@ namespace Yasc.RulesVisualization
       foreach (var color in new[] { PieceColor.White, PieceColor.Black })
         foreach (var type in new PieceType[] { "王", "玉", "飛", "角", "金", "銀", "桂", "香", "歩", })
         {
-          var nest = board.GetNest(type, color);
+          var nest = board[color][type];
           if (nest != null) nest.IsMoveSource = false;
         }
     }

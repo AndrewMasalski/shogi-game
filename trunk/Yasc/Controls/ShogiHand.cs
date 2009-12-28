@@ -349,12 +349,17 @@ namespace Yasc.Controls
     public override void OnApplyTemplate()
     {
       var board = TemplatedParent.FindAncestor<ShogiBoard>();
-      if (board != null) board.SetupShohiHand(this);
+      if (board != null) board.SetupShogiHand(this);
       base.OnApplyTemplate();
     }
     protected override AutomationPeer OnCreateAutomationPeer()
     {
       return new ShogiHandAutomationPeer(this);
+    }
+
+    public HandNest this [PieceType pieceType]
+    {
+      get { return Items.LastOrDefault(n => n.PieceType == pieceType); }
     }
   }
 }
