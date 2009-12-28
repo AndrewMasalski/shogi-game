@@ -130,7 +130,7 @@
       <Method Name="ShogiBoard" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>cFABxEZAgFRRCIAMABAgAAgAEAEEGRoAQAAIAGCAICI=</HashCode>
+      <HashCode>cFABxEZAgFRRCIAMCBAgAAgAEAEEGRgAQAAIAGCAICI=</HashCode>
       <FileName>Controls\ShogiBoard.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -187,8 +187,8 @@
       <Field Name="BoardProperty" Hidden="true" />
       <Field Name="ColorProperty" Hidden="true" />
       <Method Name="GetStrategy" Hidden="true" />
+      <Field Name="GroupingModeProperty" Hidden="true" />
       <Field Name="HandProperty" Hidden="true" />
-      <Field Name="IsGroupingProperty" Hidden="true" />
       <Field Name="ItemsProperty" Hidden="true" />
       <Method Name="OnApplyTemplate" Hidden="true" />
       <Method Name="OnBoardChanged" Hidden="true" />
@@ -222,7 +222,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQQCBASBAFAAAAAAAAAACRAAAAAAQAgCAQACA=</HashCode>
+      <HashCode>AAAAAAAQQCBASBAECBAAAAAAAACRAAAAAAQAgCAQACA=</HashCode>
       <FileName>Controls\ShogiHand.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>

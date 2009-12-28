@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Automation.Peers;
@@ -35,8 +37,15 @@ namespace Yasc.Controls
     }
 
     public ShogiBoardCore Core { get; private set; }
-    public ShogiHand WhiteHand { get; private set; }
-    public ShogiHand BlackHand { get; private set; }
+    private readonly List<ShogiHand> _hands = new List<ShogiHand>(2);
+    public ShogiHand WhiteHand
+    {
+      get { return _hands[0].Color == PieceColor.White ? _hands[0] : _hands[1]; }
+    }
+    public ShogiHand BlackHand
+    {
+      get { return _hands[0].Color == PieceColor.Black ? _hands[0] : _hands[1]; }
+    }
 
     #endregion
 
@@ -59,7 +68,7 @@ namespace Yasc.Controls
       var d = move as DropMove;
       if (d != null)
       {
-        AnimateMove(GetNest(d.PieceType, d.Who.Color), GetCell(d.To));
+        AnimateMove(this[d.Who.Color][d.PieceType], GetCell(d.To));
       }
     }
     private void AnimateInvertedMove(MoveBase move)
@@ -74,7 +83,8 @@ namespace Yasc.Controls
       var d = move as DropMove;
       if (d != null)
       {
-        AnimateMove(GetCell(d.To), GetNest(d.PieceType, d.Who.Color));
+        var hand = this[d.Who.Color];
+        AnimateMove(GetCell(d.To), hand[d.PieceType] ?? (UIElement)hand);
       }
     }
     private void AnimateMove(PieceHolderBase fromControl, UIElement toCtrl)
@@ -468,10 +478,9 @@ namespace Yasc.Controls
 
     #region ' Helpers '
 
-    public HandNest GetNest(PieceType type, PieceColor color)
+    public ShogiHand this [PieceColor index]
     {
-      var hand = this.FindChild<ShogiHand>(h => h.Color == color);
-      return hand.FindLastChild<HandNest>(n => n.PieceType == type);
+      get { return index == PieceColor.White ? WhiteHand : BlackHand; }
     }
     public ShogiCell GetCell(Position position)
     {
@@ -500,16 +509,10 @@ namespace Yasc.Controls
       Core = core;
     }
     /// <summary>This method is called by ShogiHand itself</summary>
-    internal void SetupShohiHand(ShogiHand hand)
+    internal void SetupShogiHand(ShogiHand hand)
     {
-      if (hand.Color == PieceColor.White)
-      {
-        WhiteHand = hand;
-      }
-      else
-      {
-        BlackHand = hand;
-      }
+      _hands.Add(hand);
+      Debug.Assert(_hands.Count < 3);
     }
 
     #endregion

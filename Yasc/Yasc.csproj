@@ -118,6 +118,8 @@
     <Compile Include="AI\AiControllerBase.cs" />
     <Compile Include="AI\CleverAiController.cs" />
     <Compile Include="Common\AndConverter.cs" />
+    <Compile Include="Common\ListBoxFocusBehaviour.cs" />
+    <Compile Include="Common\MovesAndCommentsGrid.cs" />
     <Compile Include="Common\ProgressCircle.xaml.cs">
       <DependentUpon>ProgressCircle.xaml</DependentUpon>
     </Compile>
