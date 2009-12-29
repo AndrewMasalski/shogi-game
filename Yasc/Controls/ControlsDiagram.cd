@@ -93,6 +93,7 @@
       <Field Name="_adornerLayer" Hidden="true" />
       <Field Name="_dnd" Hidden="true" />
       <Field Name="_dragMove" Hidden="true" />
+      <Field Name="_hands" Hidden="true" />
       <Field Name="_movesHistoryObserver" Hidden="true" />
       <Field Name="_moveSource" Hidden="true" />
       <Field Name="_shieldContainer" Hidden="true" />
@@ -126,11 +127,11 @@
       <Method Name="ReleaseDragSource" Hidden="true" />
       <Method Name="SetIsFlipped" Hidden="true" />
       <Method Name="SetupShogiBoardCore" Hidden="true" />
-      <Method Name="SetupShohiHand" Hidden="true" />
+      <Method Name="SetupShogiHand" Hidden="true" />
       <Method Name="ShogiBoard" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>cFABxEZAgFRRCIAMCBAgAAgAEAEEGRgAQAAIAGCAICI=</HashCode>
+      <HashCode>cFABxEZAgFRRCIAMCBAgAAgAEAEEGRgAQAAIAGKAICI=</HashCode>
       <FileName>Controls\ShogiBoard.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

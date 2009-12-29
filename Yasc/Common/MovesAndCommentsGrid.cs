@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Yasc.ShogiCore.Moves;
 
 namespace Yasc.Common
 {
@@ -88,9 +89,7 @@ namespace Yasc.Common
 
     private static bool IsMove(ContentControl visualAdded)
     {
-      int res;
-      object content = visualAdded.Content;
-      return content != null && int.TryParse(content.ToString(), out res);
+      return visualAdded.Content is MoveBase;
     }
   }
 }

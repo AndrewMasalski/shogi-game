@@ -5,6 +5,7 @@
              xmlns:controls="clr-namespace:Yasc.Controls"
              xmlns:gui="clr-namespace:Yasc.Gui"
              xmlns:Common="clr-namespace:Yasc.Common"
+             xmlns:Yasc="clr-namespace:Yasc"
              Loaded="UserControl_Loaded">
 
   <UserControl.Resources>
@@ -50,15 +51,15 @@
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Common:ProgressClock IsEnabled="{Binding IsOpponentTimerLaunched, Mode=OneWay}" 
-                                Width="32" Height="32" Grid.RowSpan="2" Grid.Column="3" />
+                                  Width="32" Height="32" Grid.RowSpan="2" Grid.Column="3" />
 
             <TextBlock Name="OpponentName" Text="{Binding Ticket.Opponent.Name, Mode=OneTime}" 
                        Grid.Column="1" HorizontalAlignment="Right" />
             
             <Common:StopwatchControl Value="{Binding OpponentTime, Mode=TwoWay}" 
-                                 RefreshInterval="00:00:00.9" HorizontalAlignment="Right"
-                                 IsLaunched="{Binding IsOpponentTimerLaunched, Mode=OneWay}"
-                                 Direction="Backward" Grid.Column="1" Grid.Row="1"/>
+                                     RefreshInterval="00:00:00.9" HorizontalAlignment="Right"
+                                     IsLaunched="{Binding IsOpponentTimerLaunched, Mode=OneWay}"
+                                     Direction="Backward" Grid.Column="1" Grid.Row="1"/>
           </Grid>
         </UniformGrid>
       </Grid>
@@ -114,9 +115,9 @@
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
-              <ListBox x:Name="_listBox" ItemsSource="{Binding Board.History}" 
-                     SelectedIndex="{Binding Board.History.CurrentMoveIndex}" >
-                <ItemsControl.ItemTemplate>
+              <ListBox x:Name="_listBox" ItemsSource="{Binding MovesAndComments}"
+                       SelectedItem="{Binding Board.History.CurrentMove}">
+                <ItemsControl.Resources>
                   <DataTemplate DataType="{x:Type Moves:MoveBase}">
                     <StackPanel Orientation="Horizontal" Margin="5,2">
                       <TextBlock Text="{Binding Number}"/>
@@ -124,14 +125,33 @@
                       <TextBlock Text="{Binding}"/>
                     </StackPanel>
                   </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                  <DataTemplate DataType="{x:Type gui:ChatMessage}">
+                    <StackPanel Orientation="Horizontal" Margin="5,5" TextElement.Foreground="Green" >
+                      <TextBlock Text="{Binding Timestamp, StringFormat=HH:mm:ss}" />
+                      <TextBlock Text=" "/>
+                      <TextBlock Text="{Binding Owner}" FontWeight="Bold"/>
+                      <TextBlock Text=": "/>
+                      <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Foreground="Blue"/>
+                    </StackPanel>
+                  </DataTemplate>
+                </ItemsControl.Resources>
                 <ItemsControl.ItemsPanel>
                   <ItemsPanelTemplate>
-                    <UniformGrid Columns="2" VerticalAlignment="Top"/>
+                    <Common:MovesAndCommentsGrid/>
                   </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
               </ListBox>
-              <TextBox Grid.Row="1" Margin="0,3,0,0"/>
+              <TextBox Grid.Row="1" Margin="0,3,0,0" TextWrapping="Wrap"
+                       Text="{Binding CurrentMessage, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.CommandBindings>
+                  <CommandBinding Command="{x:Static Yasc:ChatCommands.SendMessage}"
+                                  Executed="CommandBinding_Executed"/>
+                </TextBox.CommandBindings>
+                <TextBox.InputBindings>
+                  <KeyBinding Key="Return" Command="{x:Static Yasc:ChatCommands.SendMessage}" />
+                </TextBox.InputBindings>
+
+              </TextBox>
             </Grid>
 
           </TabItem>
