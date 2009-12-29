@@ -24,5 +24,12 @@ namespace Yasc.Gui
     {
       new ListBoxFocusBehaviour(_listBox);
     }
+
+    private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+    {
+      ((GameViewModel)DataContext).SendMessageCommand.Execute(null);
+    }
+
+
   }
 }

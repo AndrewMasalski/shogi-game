@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -31,11 +32,25 @@ namespace Yasc.Gui
     private bool _isOpponentTimerLaunched;
     private RelayCommand _loadTranscriptCommand;
     private Board _board;
+    private RelayCommand _sendMessageCommand;
 
     #endregion
 
     #region ' Public Interface '
 
+    /// <summary> </summary>
+    public string CurrentMessage
+    {
+      get { return _currentMessage; }
+      set
+      {
+        if (_currentMessage == value) return;
+        _currentMessage = value;
+        RaisePropertyChanged("CurrentMessage");
+      }
+    }
+
+    private string _currentMessage;
     /// <summary> </summary>
     public bool IsItMyMove
     {
@@ -122,6 +137,8 @@ namespace Yasc.Gui
       }
     }
 
+    public ObservableCollection<object> MovesAndComments { get; private set; }
+
     public Board Board
     {
       get { return _board; }
@@ -161,6 +178,17 @@ namespace Yasc.Gui
           _getBackCommand = new RelayCommand(GetBack);
         }
         return _getBackCommand;
+      }
+    }
+    public ICommand SendMessageCommand
+    {
+      get
+      {
+        if (_sendMessageCommand == null)
+        {
+          _sendMessageCommand = new RelayCommand(SendMessage);
+        }
+        return _sendMessageCommand;
       }
     }
     public ICommand LoadTranscriptCommand
@@ -211,6 +239,7 @@ namespace Yasc.Gui
       IsItMyMove = Ticket.MyColor == PieceColor.White;
       IsItOpponentMove = Ticket.MyColor != PieceColor.White;
       InitBoard();
+      MovesAndComments = new ObservableCollection<object>();
     }
     private void InitBoard()
     {
@@ -253,6 +282,7 @@ namespace Yasc.Gui
       IsItMyMove = !IsItMyMove;
       IsMyTimerLaunched = IsItMyMove;
       IsOpponentTimerLaunched = IsItOpponentMove;
+      MovesAndComments.Add(Board.History.CurrentMove);
     }
     private static PieceColor Opponent(PieceColor color)
     {
@@ -275,9 +305,17 @@ namespace Yasc.Gui
                   };
       if (dlg.ShowDialog() == true)
       {
-        Board = new PsnLoader().Load(new PsnTranscriber().Load(File.OpenText(dlg.FileName)).First());
+        Board = new PsnLoader().Load(
+          new PsnTranscriber().Load(File.OpenText(dlg.FileName)).
+          First());
       }
     }
+    private void SendMessage()
+    {
+      MovesAndComments.Add(new ChatMessage(DateTime.Now, CurrentMessage, Ticket.Me.Name));
+      CurrentMessage = "";
+
+    }    
     #endregion
 
   }
@@ -314,4 +352,19 @@ namespace Yasc.Gui
       _ticket.Move(msg);
     }
   }
+
+    public class ChatMessage
+    {
+      public DateTime Timestamp { get; set; }
+      public string Message { get; set; }
+      public string Owner { get; set; }
+
+      public ChatMessage(DateTime timestamp, string message, string owner)
+      {
+        Timestamp = timestamp;
+        Message = message;
+        Owner = owner;
+      }
+    }
+
 }
