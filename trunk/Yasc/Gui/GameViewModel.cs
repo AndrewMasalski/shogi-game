@@ -239,12 +239,12 @@ namespace Yasc.Gui
       IsItMyMove = Ticket.MyColor == PieceColor.White;
       IsItOpponentMove = Ticket.MyColor != PieceColor.White;
       InitBoard();
-      MovesAndComments = new ObservableCollection<object>();
     }
     private void InitBoard()
     {
       Board = new Board();
       Shogi.InitBoard(Board);
+      MovesAndComments = new ObservableCollection<object>();
     }
     private void GetBack()
     {
