@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DotUsi.UsiEngine">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="_debugMode" Hidden="true" />
+      <Field Name="_options" Hidden="true" />
+      <Field Name="_process" Hidden="true" />
+      <Field Name="_state" Hidden="true" />
+      <Method Name="IsReady" Hidden="true" />
+      <Method Name="OnBestMove" Hidden="true" />
+      <Method Name="OnOutputDataReceived" Hidden="true" />
+      <Method Name="ParseBestMove" Hidden="true" />
+      <Method Name="ParseId" Hidden="true" />
+      <Method Name="ParseInfo" Hidden="true" />
+      <Method Name="ParseOption" Hidden="true" />
+      <Method Name="VerifyIsReady" Hidden="true" />
+      <Method Name="VerifyNotPing" Hidden="true" />
+      <Method Name="VerifySearchState" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAMCaIABIAgCAgICFAAFIAEAkAwKQAAAABQAAA=</HashCode>
+      <FileName>UsiEngine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mode" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Options" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotUsi.UsiOption">
+    <Position X="4.25" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="ToString" Hidden="true" />
+      <Method Name="UpdateCurrentValue" Hidden="true" />
+      <Method Name="UsiOption" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIABAAAAAEEAAAgAQAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>UsiOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DotUsi.EngineMode">
+    <Position X="4.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAEAAAAAIAACAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EngineMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

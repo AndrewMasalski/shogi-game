@@ -94,7 +94,7 @@ namespace DotUsi
     {
       VerifyIsReady();
       var command = new StringBuilder("position startpos");
-      if (moves != null && moves.Length > 0)
+      if (moves.Length > 0)
       {
         command.Append(" moves ");
         command.Append(string.Join(" ", moves));
@@ -114,7 +114,7 @@ namespace DotUsi
 
       var command = new StringBuilder("position sfen ");
       command.Append(sfen);
-      if (moves != null && moves.Length > 0)
+      if (moves.Length > 0)
       {
         command.Append(" moves ");
         command.Append(string.Join(" ", moves));
@@ -404,3 +404,35 @@ namespace DotUsi
     }
   }
 }
+/*
+>1:usinewgame
+>1:position startpos moves 7g7f
+>1:go btime 0 wtime 60000 byoyomi 30000
+<1:bestmove 4a3b ponder 6i7h
+>1:position startpos moves 7g7f 4a3b 6i7h
+>1:go ponder btime 0 wtime 59000 byoyomi 30000
+>1:stop
+<1:bestmove 1c1d ponder 5i6h
+>1:position startpos moves 7g7f 4a3b 6g6f
+>1:go btime 0 wtime 59000 byoyomi 30000
+<1:info time 30 nodes 19098 score cp 1 pv 6a5b 6i7h 5a4b 5i6h
+<1:bestmove 6a5b ponder 6i7h
+>1:position startpos moves 7g7f 4a3b 6g6f 6a5b 6i7h
+>1:go ponder btime 0 wtime 58000 byoyomi 30000
+>1:ponderhit
+<1:bestmove 1c1d ponder 5i6h
+>1:position startpos moves 7g7f 4a3b 6g6f 6a5b 6i7h 1c1d 5i6h
+>1:go ponder btime 0 wtime 57000 byoyomi 30000
+<1:info currmove 5a4b
+<1:info time 0 depth 1 nodes 3 score cp 2 pv 5a4b
+<1:info currmove 5a4b
+<1:info time 1 depth 2 nodes 127 score cp -1 pv 5a4b 4i5h
+<1:info currmove 5a4b
+<1:info currmove 5a4b
+<1:info time 2 depth 3 nodes 1072 score cp 1 pv 5a4b 4i5h 1d1e
+<1:info currmove 5a4b
+<1:info currmove 5a4b
+<1:info time 11 depth 4 nodes 5186 score cp -2 pv 5a4b 4i5h 1d1e 5h6g
+<1:info currmove 5a4b
+<1:info time 31 nodes 17660 score cp -2 pv 5a4b 4i5h 1d1e 5h6g 
+ */

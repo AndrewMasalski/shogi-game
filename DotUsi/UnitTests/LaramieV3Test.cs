@@ -14,18 +14,12 @@ namespace UnitTests
       foreach (var p in Process.GetProcessesByName("LaramieV3"))
         p.Kill();
 
-      using (var readyEvent = new AutoResetEvent(false))
       using (var bestMoveEvent = new AutoResetEvent(false))
       using (var engine = new UsiEngine(new UsiWindowsProcess("")))
       {
-//        engine.Ready += (s, a) => readyEvent.Set();
         engine.BestMove += (s, a) => bestMoveEvent.Set();
         engine.Usi();
-//        engine.IsReady();
-        readyEvent.WaitOne();
         engine.NewGame();
-//        engine.IsReady();
-        readyEvent.WaitOne();
         engine.Position(
           "7g7f", "3c3d", "7f7e", "8b3b", "2h7h", "5a6b", "5i4h", "6b7b", "4h3h", "7b8b", "3h2h",
           "7a7b", "8h2b+", "3a2b", "3i3h", "3d3e", "7i6h", "3e3f", "7e7d", "7c7d", "7h7d", "3f3g+",
@@ -36,7 +30,7 @@ namespace UnitTests
           "4h3g", "2e3g+", "6i5h", "G*4h", "5h4h", "3g4h", "5i6i", "G*8h", "G*5g", "4g5g", "B*7a",
           "8b7a", "B*6b", "7a6b", "7f7c+", "7b7c"
           );
-        engine.Go(new TimeConstraint {Infinite = true}, new DepthConstraint());
+        engine.Go();
         bestMoveEvent.WaitOne();
       }
     }

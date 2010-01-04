@@ -127,6 +127,13 @@ namespace UnitTests
       _engine.Position("1g1i");
       Assert.AreEqual("position startpos moves 1g1i", _process.InputData.Dequeue());
     }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void TestSfenPositionWithNullSfen()
+    {
+      _engine.Usi();
+      _process.SendOutput("readyok");
+      _engine.Position((SfenString)null);
+    }
     [TestMethod]
     public void TestSfenPosition()
     {
@@ -142,8 +149,8 @@ namespace UnitTests
       _engine.Usi();
       _process.InputData.Clear();
       _process.SendOutput("readyok");
-      _engine.Position(new SfenString("1"));
-      Assert.AreEqual("position sfen 1", _process.InputData.Dequeue());
+      _engine.Position(new SfenString("1"), "1i1a", "1a1i");
+      Assert.AreEqual("position sfen 1 moves 1i1a 1a1i", _process.InputData.Dequeue());
     }
     [TestMethod]
     public void TestDebugOnDifferentModes()

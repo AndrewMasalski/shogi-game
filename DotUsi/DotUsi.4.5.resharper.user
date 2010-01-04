@@ -29,7 +29,6 @@
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TestLog.cs" caret="61" fromTop="4" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineAsynchOperationsTest.cs" caret="496" fromTop="19" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:SfenString.cs" caret="36" fromTop="2" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:LaramieV3Test.cs" caret="834" fromTop="18" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TimeConstraintTest.cs" caret="109" fromTop="5" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="544" fromTop="19" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2217" fromTop="14" />
@@ -38,41 +37,42 @@
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiSearchModifier.cs" caret="45" fromTop="2" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:SearchMovesModifier.cs" caret="36" fromTop="2" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:SearchMateModifier.cs" caret="36" fromTop="2" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="9329" fromTop="238" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6655" fromTop="27" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineMode.cs" caret="183" fromTop="5" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:LaramieV3Test.cs" caret="629" fromTop="14" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3969" fromTop="23" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14441" fromTop="17" />
     </RecentFiles>
     <RecentEdits>
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6002" fromTop="79" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3346" fromTop="26" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3087" fromTop="10" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3293" fromTop="17" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6232" fromTop="22" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6135" fromTop="17" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6302" fromTop="23" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7274" fromTop="16" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6596" fromTop="73" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7604" fromTop="92" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="184" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="181" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="180" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="141" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="143" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="48" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="33" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14470" fromTop="33" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6182" fromTop="66" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5041" fromTop="48" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5339" fromTop="54" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5286" fromTop="58" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5275" fromTop="56" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5733" fromTop="70" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5691" fromTop="22" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="4957" fromTop="84" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6711" fromTop="30" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="7559" fromTop="62" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="98" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="9329" fromTop="65" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14439" fromTop="180" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14439" fromTop="141" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14439" fromTop="143" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14439" fromTop="48" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14439" fromTop="33" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6148" fromTop="66" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5007" fromTop="48" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5305" fromTop="54" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5252" fromTop="58" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5241" fromTop="56" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5699" fromTop="70" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5657" fromTop="22" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="4923" fromTop="84" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6977" fromTop="30" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="7525" fromTop="62" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="9295" fromTop="65" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="3863" fromTop="11" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="4705" fromTop="30" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="4140" fromTop="20" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="4423" fromTop="29" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="4138" fromTop="17" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3969" fromTop="11" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="4692" fromTop="22" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:LaramieV3Test.cs" caret="1418" fromTop="30" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:LaramieV3Test.cs" caret="383" fromTop="8" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:LaramieV3Test.cs" caret="629" fromTop="14" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="15593" fromTop="34" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14653" fromTop="9" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14776" fromTop="13" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14970" fromTop="17" />
     </RecentEdits>
   </RecentFiles>
   <UnitTestRunner>
@@ -281,13 +281,13 @@
       <Item value="Queue" priority="0" />
       <Item value="TestInitialize" priority="0" />
       <Item value="_engine" priority="20" />
-      <Item value="ExpectedException" priority="3" />
-      <Item value="typeof" priority="3" />
+      <Item value="ExpectedException" priority="4" />
+      <Item value="typeof" priority="4" />
       <Item value="UsiOptionType" priority="0" />
       <Item value="struct" priority="0" />
       <Item value="implicit" priority="1" />
       <Item value="operator" priority="1" />
-      <Item value="SfenString" priority="3" />
+      <Item value="SfenString" priority="4" />
       <Item value="s" priority="0" />
       <Item value="re" priority="0" />
       <Item value="Go" priority="0" />
@@ -297,6 +297,7 @@
       <Item value="UsiSearchModifier" priority="0" />
       <Item value="N" priority="0" />
       <Item value="searchModifier" priority="0" />
+      <Item value="ArgumentNullException" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Diagnostics.Process">
       <Item value="Start" priority="0" />
