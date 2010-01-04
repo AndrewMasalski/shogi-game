@@ -12,8 +12,6 @@
   </NAntValidationSettings>
   <RecentFiles>
     <RecentFiles>
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:AuthoringTests.txt" caret="0" fromTop="0" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:NoProcessStartedException.cs" caret="53" fromTop="4" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiOptionType.cs" caret="35" fromTop="2" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineState.cs" caret="92" fromTop="5" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:BestMoveEventArgs.cs" caret="53" fromTop="4" />
@@ -26,7 +24,6 @@
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TestProcess.cs" caret="325" fromTop="16" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiOption.cs" caret="164" fromTop="7" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiParserError.cs" caret="0" fromTop="0" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineMode.cs" caret="0" fromTop="0" />
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:LineReceivedEventArgs.cs" caret="219" fromTop="11" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiWindowsProcessTest.cs" caret="199" fromTop="8" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TestLog.cs" caret="61" fromTop="4" />
@@ -38,30 +35,14 @@
       <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2217" fromTop="14" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:OptionTest.cs" caret="109" fromTop="5" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:DepthConstraintTest.cs" caret="230" fromTop="12" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7241" fromTop="16" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6220" fromTop="23" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiSearchModifier.cs" caret="45" fromTop="2" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:SearchMovesModifier.cs" caret="36" fromTop="2" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:SearchMateModifier.cs" caret="36" fromTop="2" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="9329" fromTop="238" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6655" fromTop="27" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineMode.cs" caret="183" fromTop="5" />
     </RecentFiles>
     <RecentEdits>
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7722" fromTop="22" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7193" fromTop="21" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="1809" fromTop="14" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6863" fromTop="14" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2679" fromTop="29" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="584" fromTop="31" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="317" fromTop="10" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="194" fromTop="6" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="544" fromTop="19" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2511" fromTop="19" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7042" fromTop="10" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:DepthConstraintTest.cs" caret="230" fromTop="14" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:DepthConstraintTest.cs" caret="233" fromTop="14" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:OptionTest.cs" caret="109" fromTop="5" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5825" fromTop="12" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6186" fromTop="19" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6311" fromTop="23" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="3989" fromTop="58" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="4835" fromTop="27" />
-      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="89" fromTop="3" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6002" fromTop="79" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3346" fromTop="26" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3087" fromTop="10" />
@@ -69,9 +50,29 @@
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6232" fromTop="22" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6135" fromTop="17" />
       <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6302" fromTop="23" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6493" fromTop="24" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7570" fromTop="25" />
-      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7240" fromTop="16" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7274" fromTop="16" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6596" fromTop="73" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7604" fromTop="92" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="184" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="181" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="180" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="141" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="143" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="48" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="33" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14470" fromTop="33" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6182" fromTop="66" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5041" fromTop="48" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5339" fromTop="54" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5286" fromTop="58" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5275" fromTop="56" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5733" fromTop="70" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5691" fromTop="22" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="4957" fromTop="84" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6711" fromTop="30" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="7559" fromTop="62" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="14473" fromTop="98" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="9329" fromTop="65" />
     </RecentEdits>
   </RecentFiles>
   <UnitTestRunner>
@@ -93,19 +94,19 @@
       <Item value="RedirectStandardInput" priority="0" />
       <Item value="RedirectStandardOutput" priority="0" />
       <Item value="process" priority="15" />
-      <Item value="if" priority="52" />
-      <Item value="null" priority="22" />
+      <Item value="if" priority="53" />
+      <Item value="null" priority="24" />
       <Item value="return" priority="12" />
       <Item value="UseShellExecute" priority="0" />
       <Item value="thr" priority="9" />
       <Item value="_process" priority="33" />
-      <Item value="public" priority="60" />
+      <Item value="public" priority="62" />
       <Item value="void" priority="29" />
       <Item value="foreach" priority="3" />
       <Item value="static" priority="7" />
-      <Item value="class" priority="9" />
+      <Item value="class" priority="10" />
       <Item value="IEnumerable" priority="5" />
-      <Item value="string" priority="30" />
+      <Item value="string" priority="31" />
       <Item value="this" priority="1" />
       <Item value="TextStreamExtensions" priority="0" />
       <Item value="TextReader" priority="0" />
@@ -159,7 +160,7 @@
       <Item value="EventHandler" priority="5" />
       <Item value="TimeConstraint" priority="4" />
       <Item value="constraint" priority="1" />
-      <Item value="override" priority="1" />
+      <Item value="override" priority="3" />
       <Item value="StringBuilder" priority="2" />
       <Item value="sb" priority="2" />
       <Item value="IFormatProvider" priority="2" />
@@ -194,7 +195,7 @@
       <Item value="ThreadPool" priority="1" />
       <Item value="ParserOutput" priority="0" />
       <Item value="_isPondering" priority="1" />
-      <Item value="enum" priority="1" />
+      <Item value="enum" priority="2" />
       <Item value="Flags" priority="0" />
       <Item value="_isPing" priority="4" />
       <Item value="Exception" priority="0" />
@@ -293,6 +294,9 @@
       <Item value="TimeSpan.FromMilliseconds" priority="0" />
       <Item value="Depth" priority="0" />
       <Item value="PrepareEngine" priority="0" />
+      <Item value="UsiSearchModifier" priority="0" />
+      <Item value="N" priority="0" />
+      <Item value="searchModifier" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Diagnostics.Process">
       <Item value="Start" priority="0" />
@@ -485,4 +489,7 @@
       <Item value="ToString" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
+  <UnitTestRunnerMSTest>
+    <UseTestRunConfigFromMetadataFile>False</UseTestRunConfigFromMetadataFile>
+  </UnitTestRunnerMSTest>
 </Configuration>

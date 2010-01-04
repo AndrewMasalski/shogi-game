@@ -123,17 +123,33 @@ namespace DotUsi
     }
     public void Go()
     {
-      Go(null, null);
+      Go(null, null, null);
     }
     public void Go(TimeConstraint timeConstraint)
     {
-      Go(timeConstraint, null);
+      Go(null, timeConstraint, null);
     }
     public void Go(DepthConstraint depthConstraint)
     {
-      Go(null, depthConstraint);
+      Go(null, null, depthConstraint);
+    }
+    public void Go(UsiSearchModifier searchModifier)
+    {
+      Go(searchModifier, null, null);
+    }
+    public void Go(UsiSearchModifier searchModifier, TimeConstraint timeConstraint)
+    {
+      Go(searchModifier, timeConstraint, null);
+    }
+    public void Go(UsiSearchModifier searchModifier, DepthConstraint depthConstraint)
+    {
+      Go(searchModifier, null, depthConstraint);
     }
     public void Go(TimeConstraint timeConstraint, DepthConstraint depthConstraint)
+    {
+      Go(null, timeConstraint, depthConstraint);
+    }
+    public void Go(UsiSearchModifier searchModifier, TimeConstraint timeConstraint, DepthConstraint depthConstraint)
     {
       VerifyIsReady();
 
@@ -142,6 +158,11 @@ namespace DotUsi
         timeConstraint = TimeConstraint.InfiniteConstraint;
       }
       var command = new StringBuilder("go");
+      if (searchModifier != null)
+      {
+        command.Append(" ");
+        command.Append(searchModifier.ToString());
+      }
       if (timeConstraint != null)
       {
         command.Append(" ");
@@ -155,19 +176,7 @@ namespace DotUsi
       _process.WriteLine(command.ToString());
       Mode = EngineMode.Searching;
     }
-    /// <summary>Restrict search to <paramref name="moves"/> only.</summary>
-    /// <example>After <code>
-    ///   Position(new string[0]);
-    ///   GoSearchMoves(new []{"7g7f", "2g2f"});</code>
-    /// The engine will only search (choose between) P-7f and P-2f 
-    /// moves in the initial position. </example>
-    public void GoSearchMoves(params string[] moves)
-    {
-      VerifyIsReady();
-      _process.WriteLine(
-        "go searchmoves " + string.Join(" ", moves));
-      Mode = EngineMode.Searching;
-    }
+  
     /// <summary><para>Start searching in pondering mode.</para> 
     ///   <para>This means that the last move X sent in the current position is the move to ponder on. 
     ///   The engine can do what it wants to do, but after a <see cref="PonderHit"/> command 
@@ -185,13 +194,7 @@ namespace DotUsi
       _process.WriteLine("go ponder");
       Mode = EngineMode.Pondering;
     }
-    /// <summary>Search for a mate in <paramref name="n"/> moves</summary>
-    public void GoSearchMate(int n)
-    {
-      VerifyIsReady();
-      _process.WriteLine("go mate " + n);
-      Mode = EngineMode.Searching;
-    }
+
     /// <summary>Stop calculating as soon as possible.</summary>
     public void Stop()
     {
@@ -238,14 +241,6 @@ namespace DotUsi
     }
     
     public event EventHandler<BestMoveEventArgs> BestMove;
-
-//    public event EventHandler Ready;
-
-//    private void OnReady(EventArgs e)
-//    {
-//      var handler = Ready;
-//      if (handler != null) handler(this, e);
-//    }
 
     private void OnOutputDataReceived(object sender, LineReceivedEventArgs e)
     {

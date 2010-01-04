@@ -54,6 +54,8 @@
     <Compile Include="LineReceivedEventArgs.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="NoProcessStartedException.cs" />
+    <Compile Include="SearchMateModifier.cs" />
+    <Compile Include="SearchMovesModifier.cs" />
     <Compile Include="SfenString.cs" />
     <Compile Include="TextReaderExtensions.cs" />
     <Compile Include="TimeConstraint.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="UsiOption.cs" />
     <Compile Include="UsiOptionType.cs" />
     <Compile Include="UsiParserError.cs" />
+    <Compile Include="UsiSearchModifier.cs" />
     <Compile Include="UsiWindowsProcess.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

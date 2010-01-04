@@ -209,12 +209,12 @@ namespace UnitTests
       _engine.Go();
       _engine.Go();
     }
-    // I assume Go overloads don't require testing
+    // I assume Go overloads don't require testing because of their simplicity
     [TestMethod]
     public void GoWithNullArgsTest()
     {
       PrepareEngine();
-      _engine.Go(null, null);
+      _engine.Go(null, null, null);
       Assert.AreEqual("go infinite", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
     }
@@ -238,6 +238,7 @@ namespace UnitTests
       Assert.AreEqual("go byoyomi 1000 depth 10", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
     }
+
     private void PrepareEngine()
     {
       _engine.Usi();
