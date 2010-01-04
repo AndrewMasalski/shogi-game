@@ -1,0 +1,488 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:AuthoringTests.txt" caret="0" fromTop="0" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:NoProcessStartedException.cs" caret="53" fromTop="4" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiOptionType.cs" caret="35" fromTop="2" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineState.cs" caret="92" fromTop="5" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:BestMoveEventArgs.cs" caret="53" fromTop="4" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TextReaderExtensions.cs" caret="144" fromTop="5" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:ListExtensions.cs" caret="80" fromTop="4" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineOutputParseException.cs" caret="53" fromTop="4" />
+      <File id="EDEB9080-678C-48DA-9EA5-8E0644AED5A4/f:Program.cs" caret="62" fromTop="2" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:IUsiProcess.cs" caret="15" fromTop="1" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiWindowsProcess.cs" caret="340" fromTop="10" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TestProcess.cs" caret="325" fromTop="16" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiOption.cs" caret="164" fromTop="7" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiParserError.cs" caret="0" fromTop="0" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:EngineMode.cs" caret="0" fromTop="0" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:LineReceivedEventArgs.cs" caret="219" fromTop="11" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiWindowsProcessTest.cs" caret="199" fromTop="8" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TestLog.cs" caret="61" fromTop="4" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineAsynchOperationsTest.cs" caret="496" fromTop="19" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:SfenString.cs" caret="36" fromTop="2" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:LaramieV3Test.cs" caret="834" fromTop="18" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:TimeConstraintTest.cs" caret="109" fromTop="5" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="544" fromTop="19" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2217" fromTop="14" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:OptionTest.cs" caret="109" fromTop="5" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:DepthConstraintTest.cs" caret="230" fromTop="12" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7241" fromTop="16" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6220" fromTop="23" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7722" fromTop="22" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7193" fromTop="21" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="1809" fromTop="14" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6863" fromTop="14" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2679" fromTop="29" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="584" fromTop="31" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="317" fromTop="10" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="194" fromTop="6" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:DepthConstraint.cs" caret="544" fromTop="19" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:TimeConstraint.cs" caret="2511" fromTop="19" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7042" fromTop="10" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:DepthConstraintTest.cs" caret="230" fromTop="14" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:DepthConstraintTest.cs" caret="233" fromTop="14" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:OptionTest.cs" caret="109" fromTop="5" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="5825" fromTop="12" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6186" fromTop="19" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="6311" fromTop="23" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="3989" fromTop="58" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="4835" fromTop="27" />
+      <File id="70532AD0-F1D5-4787-9E62-E06377C04CC4/f:UsiEngine.cs" caret="89" fromTop="3" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6002" fromTop="79" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3346" fromTop="26" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3087" fromTop="10" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="3293" fromTop="17" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6232" fromTop="22" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6135" fromTop="17" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6302" fromTop="23" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="6493" fromTop="24" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7570" fromTop="25" />
+      <File id="114925DB-6084-4A5A-9623-A79178085DBC/f:UsiEngineTest.cs" caret="7240" fromTop="16" />
+    </RecentEdits>
+  </RecentFiles>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="IDisposable" priority="1" />
+      <Item value="Process" priority="4" />
+      <Item value="ProcessStartInfo" priority="0" />
+      <Item value="var" priority="7" />
+      <Item value="p" priority="1" />
+      <Item value="true" priority="17" />
+      <Item value="FileName" priority="0" />
+      <Item value="Domain" priority="0" />
+      <Item value="ErrorDialog" priority="0" />
+      <Item value="false" priority="8" />
+      <Item value="RedirectStandardError" priority="0" />
+      <Item value="RedirectStandardInput" priority="0" />
+      <Item value="RedirectStandardOutput" priority="0" />
+      <Item value="process" priority="15" />
+      <Item value="if" priority="52" />
+      <Item value="null" priority="22" />
+      <Item value="return" priority="12" />
+      <Item value="UseShellExecute" priority="0" />
+      <Item value="thr" priority="9" />
+      <Item value="_process" priority="33" />
+      <Item value="public" priority="60" />
+      <Item value="void" priority="29" />
+      <Item value="foreach" priority="3" />
+      <Item value="static" priority="7" />
+      <Item value="class" priority="9" />
+      <Item value="IEnumerable" priority="5" />
+      <Item value="string" priority="30" />
+      <Item value="this" priority="1" />
+      <Item value="TextStreamExtensions" priority="0" />
+      <Item value="TextReader" priority="0" />
+      <Item value="LinkedList" priority="0" />
+      <Item value="LinesUntil" priority="0" />
+      <Item value="reader" priority="1" />
+      <Item value="stopLine" priority="1" />
+      <Item value="while" priority="3" />
+      <Item value="line" priority="19" />
+      <Item value="break" priority="2" />
+      <Item value="yield return" priority="1" />
+      <Item value="else" priority="8" />
+      <Item value="EngineName" priority="0" />
+      <Item value="AuthorName" priority="0" />
+      <Item value="NotSupportedException" priority="0" />
+      <Item value="target" priority="7" />
+      <Item value="private" priority="19" />
+      <Item value="new" priority="32" />
+      <Item value="List&lt;UsiOption&gt;" priority="0" />
+      <Item value="_options" priority="0" />
+      <Item value="UsiOption" priority="3" />
+      <Item value="char" priority="0" />
+      <Item value="StringSplitOptions.RemoveEmptyEntries" priority="1" />
+      <Item value="split" priority="17" />
+      <Item value="for" priority="2" />
+      <Item value="Length" priority="4" />
+      <Item value="switch" priority="0" />
+      <Item value="i" priority="1" />
+      <Item value="case" priority="2" />
+      <Item value="OptionType" priority="1" />
+      <Item value="UsiOptionType.Check" priority="0" />
+      <Item value="DefaultValue" priority="1" />
+      <Item value="Min" priority="1" />
+      <Item value="List" priority="0" />
+      <Item value="ReadOnlyCollection" priority="1" />
+      <Item value="ReadOnlyCollection&lt;UsiOption&gt;" priority="0" />
+      <Item value="List&lt;string&gt;" priority="0" />
+      <Item value="Name" priority="1" />
+      <Item value="Max" priority="0" />
+      <Item value="ReadOnlyCollection&lt;string&gt;" priority="0" />
+      <Item value="PossibleValues" priority="0" />
+      <Item value="name" priority="0" />
+      <Item value="optionType" priority="0" />
+      <Item value="readonly" priority="2" />
+      <Item value="moves" priority="1" />
+      <Item value="TimeSpan" priority="5" />
+      <Item value="bool" priority="6" />
+      <Item value="OutOfMemoryException" priority="0" />
+      <Item value="int" priority="2" />
+      <Item value="event" priority="3" />
+      <Item value="EventHandler" priority="5" />
+      <Item value="TimeConstraint" priority="4" />
+      <Item value="constraint" priority="1" />
+      <Item value="override" priority="1" />
+      <Item value="StringBuilder" priority="2" />
+      <Item value="sb" priority="2" />
+      <Item value="IFormatProvider" priority="2" />
+      <Item value="WhiteTime" priority="1" />
+      <Item value="TimeSpan.Zero" priority="0" />
+      <Item value="BlackTime" priority="0" />
+      <Item value="WhiteIncrement" priority="0" />
+      <Item value="BlackIncrement" priority="0" />
+      <Item value="Byoyomi" priority="2" />
+      <Item value="Infinite" priority="2" />
+      <Item value="MovesToGo" priority="1" />
+      <Item value="MoveTime" priority="1" />
+      <Item value="WidthConstraint" priority="0" />
+      <Item value="timeConstraint" priority="5" />
+      <Item value="depthConstraint" priority="4" />
+      <Item value="Ponderhit" priority="0" />
+      <Item value="ThreadStaticAttribute" priority="0" />
+      <Item value="sfen" priority="0" />
+      <Item value="Position" priority="3" />
+      <Item value="IsReady" priority="3" />
+      <Item value="NewGame" priority="0" />
+      <Item value="internal" priority="2" />
+      <Item value="CurrentValue" priority="1" />
+      <Item value="value" priority="1" />
+      <Item value="_debugMode" priority="0" />
+      <Item value="option" priority="0" />
+      <Item value="Options" priority="0" />
+      <Item value="_isUsiSent" priority="2" />
+      <Item value="InvalidOperationException" priority="6" />
+      <Item value="_isSearching" priority="3" />
+      <Item value="_state" priority="4" />
+      <Item value="ThreadPool" priority="1" />
+      <Item value="ParserOutput" priority="0" />
+      <Item value="_isPondering" priority="1" />
+      <Item value="enum" priority="1" />
+      <Item value="Flags" priority="0" />
+      <Item value="_isPing" priority="4" />
+      <Item value="Exception" priority="0" />
+      <Item value="VerifyIdleState" priority="0" />
+      <Item value="BestMove" priority="0" />
+      <Item value="BestMoveEventArgs" priority="0" />
+      <Item value="OnBestMove" priority="0" />
+      <Item value="base" priority="0" />
+      <Item value="message" priority="0" />
+      <Item value="Dictionary" priority="0" />
+      <Item value="Dictionary&lt;string,string&gt;" priority="0" />
+      <Item value="_infos" priority="1" />
+      <Item value="KeyValuePair" priority="0" />
+      <Item value="list" priority="3" />
+      <Item value="T" priority="0" />
+      <Item value="key" priority="1" />
+      <Item value="KeyValuePair&lt;T,T&gt;" priority="0" />
+      <Item value="decimal" priority="0" />
+      <Item value="default" priority="0" />
+      <Item value="pair" priority="2" />
+      <Item value="object" priority="0" />
+      <Item value="DepthConstraint" priority="2" />
+      <Item value="SeekOrigin.End" priority="0" />
+      <Item value="WorkingDirectory" priority="0" />
+      <Item value="AutoResetEvent" priority="1" />
+      <Item value="OnReady" priority="0" />
+      <Item value="EventArgs.Empty" priority="0" />
+      <Item value="engine" priority="5" />
+      <Item value="e" priority="6" />
+      <Item value="ManualResetEvent" priority="0" />
+      <Item value="bestMoveEvent" priority="1" />
+      <Item value="File" priority="0" />
+      <Item value="EngineState" priority="1" />
+      <Item value="CreateDelegate" priority="3" />
+      <Item value="Timer" priority="1" />
+      <Item value="state" priority="0" />
+      <Item value="Dispose" priority="3" />
+      <Item value="lock" priority="1" />
+      <Item value="IsDisposed" priority="0" />
+      <Item value="args" priority="5" />
+      <Item value="WaitForReady" priority="0" />
+      <Item value="EngineMode" priority="3" />
+      <Item value="_mode" priority="8" />
+      <Item value="EngineMode.Processing" priority="2" />
+      <Item value="_timer" priority="2" />
+      <Item value="EngineMode.Initialized" priority="1" />
+      <Item value="EngineMode.Searching" priority="2" />
+      <Item value="EngineMode.Ready" priority="1" />
+      <Item value="UsiEngine" priority="2" />
+      <Item value="EngineMode.Pondering" priority="1" />
+      <Item value="movesStr" priority="0" />
+      <Item value="command" priority="3" />
+      <Item value="params" priority="0" />
+      <Item value="EngineMode.Started" priority="0" />
+      <Item value="ProcessOnExited" priority="0" />
+      <Item value="text" priority="3" />
+      <Item value="interface" priority="0" />
+      <Item value="DataReceivedEventHandler" priority="0" />
+      <Item value="IUsiProcess" priority="3" />
+      <Item value="OutputDataReceived" priority="3" />
+      <Item value="handle" priority="1" />
+      <Item value="Console" priority="1" />
+      <Item value="UsiWindowsProcess" priority="2" />
+      <Item value="Path" priority="0" />
+      <Item value="TestClass" priority="1" />
+      <Item value="Ignore" priority="1" />
+      <Item value="TestMethod" priority="19" />
+      <Item value="Environment" priority="0" />
+      <Item value="TestLog" priority="2" />
+      <Item value="log" priority="3" />
+      <Item value="Assert" priority="15" />
+      <Item value="ListExtensions" priority="1" />
+      <Item value="Thread" priority="2" />
+      <Item value="EventArgs" priority="0" />
+      <Item value="LineReceivedEventArgs" priority="3" />
+      <Item value="_isDisposed" priority="1" />
+      <Item value="OnOutputDataReceived" priority="0" />
+      <Item value="Action" priority="0" />
+      <Item value="TestProcess" priority="0" />
+      <Item value="StackOverflowException" priority="0" />
+      <Item value="OutputData" priority="1" />
+      <Item value="Stack&lt;string&gt;" priority="0" />
+      <Item value="Queue" priority="0" />
+      <Item value="TestInitialize" priority="0" />
+      <Item value="_engine" priority="20" />
+      <Item value="ExpectedException" priority="3" />
+      <Item value="typeof" priority="3" />
+      <Item value="UsiOptionType" priority="0" />
+      <Item value="struct" priority="0" />
+      <Item value="implicit" priority="1" />
+      <Item value="operator" priority="1" />
+      <Item value="SfenString" priority="3" />
+      <Item value="s" priority="0" />
+      <Item value="re" priority="0" />
+      <Item value="Go" priority="0" />
+      <Item value="TimeSpan.FromMilliseconds" priority="0" />
+      <Item value="Depth" priority="0" />
+      <Item value="PrepareEngine" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Diagnostics.Process">
+      <Item value="Start" priority="0" />
+      <Item value="GetProcessById" priority="0" />
+      <Item value="GetProcessesByName" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Diagnostics.ProcessStartInfo">
+      <Item value="CreateNoWindow" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Diagnostics.Process">
+      <Item value="StandardInput" priority="6" />
+      <Item value="StandardOutput" priority="9" />
+      <Item value="WaitForExit" priority="0" />
+      <Item value="Kill" priority="2" />
+      <Item value="Dispose" priority="0" />
+      <Item value="Close" priority="0" />
+      <Item value="Exited" priority="0" />
+      <Item value="OutputDataReceived" priority="2" />
+      <Item value="Id" priority="0" />
+      <Item value="Refresh" priority="0" />
+      <Item value="HasExited" priority="1" />
+      <Item value="BeginOutputReadLine" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.StreamWriter">
+      <Item value="WriteLine" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.StreamReader">
+      <Item value="ReadLine" priority="2" />
+      <Item value="Lines" priority="0" />
+      <Item value="ReadToEnd" priority="0" />
+      <Item value="BaseStream" priority="0" />
+      <Item value="Peek" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.TextReader">
+      <Item value="ReadLine" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="StartsWith" priority="5" />
+      <Item value="Substring" priority="1" />
+      <Item value="Length" priority="1" />
+      <Item value="Split" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.UsiEngine">
+      <Item value="Usi" priority="8" />
+      <Item value="IsReady" priority="2" />
+      <Item value="Position" priority="1" />
+      <Item value="NewGame" priority="1" />
+      <Item value="Ready" priority="1" />
+      <Item value="BestMove" priority="0" />
+      <Item value="Options" priority="1" />
+      <Item value="AuthorName" priority="0" />
+      <Item value="EngineName" priority="0" />
+      <Item value="Mode" priority="2" />
+      <Item value="Dispose" priority="0" />
+      <Item value="DebugMode" priority="3" />
+      <Item value="Go" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@DotUsi.UsiOptionType">
+      <Item value="Spin" priority="0" />
+      <Item value="Combo" priority="0" />
+      <Item value="Button" priority="0" />
+      <Item value="String" priority="1" />
+      <Item value="FileName" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="ToArray" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Join" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Text.StringBuilder">
+      <Item value="Append" priority="4" />
+      <Item value="ToString" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.TimeSpan">
+      <Item value="Milliseconds" priority="0" />
+      <Item value="TotalMilliseconds" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.UsiOption">
+      <Item value="Name" priority="1" />
+      <Item value="OptionType" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Threading.ThreadPool">
+      <Item value="QueueUserWorkItem" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IList`1">
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair`2">
+      <Item value="Key" priority="0" />
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.Stream">
+      <Item value="Seek" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Threading.AutoResetEvent">
+      <Item value="Set" priority="0" />
+      <Item value="WaitOne" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Threading.ManualResetEvent">
+      <Item value="Reset" priority="0" />
+      <Item value="WaitOne" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.File">
+      <Item value="AppendAllText" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.EngineState">
+      <Item value="Depth" priority="0" />
+      <Item value="SelectiveDepth" priority="0" />
+      <Item value="Nodes" priority="0" />
+      <Item value="Time" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.TimeSpan">
+      <Item value="FromMilliseconds" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Threading.Timer">
+      <Item value="Dispose" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Diagnostics.DataReceivedEventArgs">
+      <Item value="Data" priority="7" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@DotUsi.EngineMode">
+      <Item value="Initialized" priority="3" />
+      <Item value="Searching" priority="1" />
+      <Item value="Started" priority="0" />
+      <Item value="Processing" priority="1" />
+      <Item value="Ready" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="ReadLine" priority="0" />
+      <Item value="WriteLine" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.Path">
+      <Item value="GetDirectoryName" priority="0" />
+      <Item value="Combine" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Environment">
+      <Item value="CurrentDirectory" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.UsiWindowsProcess">
+      <Item value="OutputDataReceived" priority="0" />
+      <Item value="WriteLine" priority="2" />
+      <Item value="Dispose" priority="0" />
+      <Item value="IsDisposed" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:UnitTests.TestLog">
+      <Item value="Write" priority="1" />
+      <Item value="ToString" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Microsoft.VisualStudio.TestTools.UnitTesting.Assert">
+      <Item value="AreEqual" priority="12" />
+      <Item value="IsTrue" priority="0" />
+      <Item value="IsNull" priority="0" />
+      <Item value="IsFalse" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Threading.Thread">
+      <Item value="Sleep" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.LineReceivedEventArgs">
+      <Item value="Line" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:UnitTests.TestProcess">
+      <Item value="LogInput" priority="0" />
+      <Item value="InputData" priority="8" />
+      <Item value="SendOutput" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Stack`1">
+      <Item value="Push" priority="0" />
+      <Item value="Pop" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Queue`1">
+      <Item value="Enqueue" priority="0" />
+      <Item value="Dequeue" priority="4" />
+      <Item value="Clear" priority="1" />
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.ObjectModel.ReadOnlyCollection`1">
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.SfenString">
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:DotUsi.TimeConstraint">
+      <Item value="ToString" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>
