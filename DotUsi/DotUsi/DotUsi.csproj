@@ -62,7 +62,7 @@
     <Compile Include="TimeConstraint.cs" />
     <Compile Include="UsiEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsiOption.cs" />
+    <Compile Include="UsiOptionBase.cs" />
     <Compile Include="UsiOptionType.cs" />
     <Compile Include="UsiParserError.cs" />
     <Compile Include="UsiSearchModifier.cs" />

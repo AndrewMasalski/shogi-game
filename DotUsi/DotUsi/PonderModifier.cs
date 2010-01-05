@@ -2,7 +2,7 @@ namespace DotUsi
 {
   /// <summary><para>Start searching in pondering mode.</para> 
   ///   <para>This means that the last move X sent in the current position is the move to ponder on. 
-  ///   The engine can do what it wants to do, but after a <see cref="PonderHit"/> command 
+  ///   The engine can do what it wants to do, but after a <see cref="UsiEngine.PonderHit"/> command 
   ///   it should continue with move X. </para>
   /// 
   /// </summary>

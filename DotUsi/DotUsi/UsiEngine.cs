@@ -9,12 +9,14 @@ namespace DotUsi
   {
     private bool _debugMode;
     private readonly IUsiProcess _process;
-    private readonly List<UsiOption> _options = new List<UsiOption>();
+    private readonly List<UsiOptionBase> _options = new List<UsiOptionBase>();
     private readonly EngineState _state = new EngineState();
 
-    public ReadOnlyCollection<UsiOption> Options
+    #region ' Public Properties '
+
+    public ReadOnlyCollection<UsiOptionBase> Options
     {
-      get { return new ReadOnlyCollection<UsiOption>(_options); }
+      get { return new ReadOnlyCollection<UsiOptionBase>(_options); }
     }
     public string EngineName { get; private set; }
     public string AuthorName { get; private set; }
@@ -40,19 +42,31 @@ namespace DotUsi
       }
     }
 
+    #endregion
+
     public UsiEngine(IUsiProcess process)
     {
       _process = process;
-      process.OutputDataReceived += OnOutputDataReceived;
+      process.OutputDataReceived += ReceiveOutputData;
     }
 
+    #region ' Public Methods '
+
+    /// <summary>
+    /// Tell engine to use the USI (universal shogi interface). 
+    /// This will be sent once as a first command after program boot to 
+    /// tell the engine to switch to USI mode. After receiving the usi 
+    /// command the engine must identify itself with the id command and 
+    /// send the option commands to tell the GUI which engine settings the engine supports. 
+    /// After that, the engine should send usiok to acknowledge the USI mode. 
+    /// If no usiok is sent within a certain time period, the engine task will be killed by the GUI.
+    /// </summary>
     public void Usi()
     {
       VerifyStarted();
+      Mode = EngineMode.Usi;
       _process.WriteLine("usi");
-      IsReady();
     }
-
     /// <summary>This is used to synchronize the engine with the GUI.</summary>
     /// <remarks>
     /// <para>When the GUI has sent a command or multiple commands that 
@@ -65,12 +79,13 @@ namespace DotUsi
     ///   in which case the engine should also immediately answer with 
     ///   readyok without stopping the search.</para>
     /// </remarks>
-    private void IsReady()
+    public void IsReady()
     {
-      VerifyNotPing();
-      Mode = EngineMode.Processing;
+      VerifyCorrupted();
+      Mode = EngineMode.Waiting;
       _process.WriteLine("isready");
     }
+
     /// <summary>Call this if the next <see cref="Position(string[])"/> 
     ///   is going to belong to a different game.</summary>
     /// <remarks>
@@ -82,8 +97,8 @@ namespace DotUsi
     public void NewGame()
     {
       VerifyIsReady();
+      Mode = EngineMode.Corrupted;
       _process.WriteLine("usinewgame");
-      IsReady();
     }
     /// <summary>Set up the default start position on
     ///   the internal board and play the <paramref name="moves"/></summary>
@@ -153,10 +168,6 @@ namespace DotUsi
     {
       VerifyIsReady();
 
-      if (timeConstraint == null && depthConstraint == null)
-      {
-        timeConstraint = TimeConstraint.InfiniteConstraint;
-      }
       var command = new StringBuilder("go");
       if (searchModifier != null)
       {
@@ -182,8 +193,9 @@ namespace DotUsi
     /// <summary>Stop calculating as soon as possible.</summary>
     public void Stop()
     {
-      VerifySearchState();
+      VerifySearchOrPondering();
       _process.WriteLine("stop");
+      Mode = EngineMode.Ready;
     }
     /// <summary>The user has played the expected move. 
     ///   This will be sent if the engine was told to ponder on the same move the user has played.
@@ -196,19 +208,6 @@ namespace DotUsi
       Mode = EngineMode.Searching;
     }
 
-    /// <summary>This is sent to the engine to change its internal parameters.</summary>
-    /// <param name="option">One from <see cref="Options"/> collection</param>
-    /// <param name="value">Not case sensitive, cannot contain spaces</param>
-    /// <remarks>
-    /// <para>For the button type no value is needed (pass null). </para>
-    /// <para>Can only set options when the engine is waiting. </para>
-    /// <para>Can group setting options within on setoption command</para>
-    /// </remarks>
-    public void SetOption(UsiOption option, string value)
-    {
-      VerifyIsReady();
-      _process.WriteLine("setoption " + option.Name + " " + value);
-    }
     public void Dispose()
     {
       lock (this)
@@ -223,44 +222,11 @@ namespace DotUsi
       }
     }
 
+    #endregion
+
     public event EventHandler<BestMoveEventArgs> BestMove;
 
-    private void OnOutputDataReceived(object sender, LineReceivedEventArgs e)
-    {
-      if (e.Line == null)
-      {
-        // Process exited unexpectedly?
-        Dispose();
-        return;
-      }
-
-      switch (Mode)
-      {
-        case EngineMode.Processing:
-          if (e.Line.StartsWith("id "))
-          {
-            ParseId(e.Line.Substring("id ".Length));
-          }
-          else if (e.Line.StartsWith("option "))
-          {
-            _options.Add(ParseOption(e.Line.Substring("option ".Length)));
-          }
-          else if (e.Line == "readyok")
-          {
-            Mode = EngineMode.Ready;
-          }
-          break;
-        case EngineMode.Searching:
-          const string bestMove = "bestmove ";
-          const string info = "info ";
-
-          if (e.Line.StartsWith(bestMove))
-            OnBestMove(ParseBestMove(e.Line.Substring(info.Length)));
-          if (e.Line.StartsWith(info))
-            ParseInfo(e.Line.Substring(info.Length));
-          break;
-      }
-    }
+    #region ' VerifyMode methods '
 
     private void VerifyPondering()
     {
@@ -286,14 +252,24 @@ namespace DotUsi
         throw new InvalidOperationException(
           "You cannot call this command when engine is not ready.");
     }
-    private void VerifyNotPing()
+    private void VerifyIsReadyOrCorrupted()
     {
-      if (Mode == EngineMode.Processing)
-        throw new InvalidOperationException(
-          "You cannot call this command when waiting for IsReady to respond. " +
-          "If engine doesn't respond you can terminate it calling Dispose.");
-
       VerifyNotDisposed();
+
+      if (Mode != EngineMode.Ready && Mode != EngineMode.Corrupted)
+        throw new InvalidOperationException(
+          "You cannot call this command when engine is not ready.");
+    }
+    private void VerifyCorrupted()
+    {
+      VerifyNotDisposed();
+
+      if (Mode == EngineMode.Waiting)
+        throw new InvalidOperationException("You must not call IsReady method twice");
+
+      if (Mode != EngineMode.Corrupted)
+        throw new InvalidOperationException(
+          "You've no reason to call IsReady method: you didn't set options nor started new game");
     }
     private void VerifyNotDisposed()
     {
@@ -301,25 +277,72 @@ namespace DotUsi
         throw new InvalidOperationException(
           "You cannot call any command when engine is disposed.");
     }
-    private void VerifySearchState()
+    private void VerifySearchOrPondering()
     {
       VerifyNotDisposed();
 
-      if (Mode != EngineMode.Searching)
+      if (Mode != EngineMode.Searching && Mode != EngineMode.Pondering)
         throw new InvalidOperationException(
-          "This operation cannot be performed when engine is idle.");
+          "This operation cannot be performed when engine is not searching or pondering.");
     }
+
+    #endregion
+
+    private void ReceiveOutputData(object sender, LineReceivedEventArgs e)
+    {
+      if (e.Line == null)
+      {
+        // Process exited unexpectedly?
+        Dispose();
+        return;
+      }
+
+      switch (Mode)
+      {
+        case EngineMode.Usi:
+          if (e.Line.StartsWith("id "))
+          {
+            ParseId(e.Line.Substring("id ".Length));
+          }
+          else if (e.Line.StartsWith("option "))
+          {
+            _options.Add(ParseOption(e.Line.Substring("option ".Length)));
+          }
+          else if (e.Line == "usiok")
+          {
+            Mode = EngineMode.Ready;
+          }
+          break;
+        case EngineMode.Waiting:
+          if (e.Line == "readyok")
+          {
+            Mode = EngineMode.Ready;
+          }
+          break;
+        case EngineMode.Searching:
+          const string bestMove = "bestmove ";
+          const string info = "info ";
+
+          if (e.Line.StartsWith(bestMove))
+            OnBestMove(ParseBestMove(e.Line.Substring(info.Length)));
+          if (e.Line.StartsWith(info))
+            ParseInfo(e.Line.Substring(info.Length));
+          break;
+      }
+    }
+
+    #region ' Implementation '
 
     private void OnBestMove(BestMoveEventArgs e)
     {
       var handler = BestMove;
       if (handler != null) handler(this, e);
     }
-    private static UsiOption ParseOption(string line)
+    private UsiOptionBase ParseOption(string line)
     {
       var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       string name = null;
-      UsiOptionType? optionType = null;
+      string optionType = null;
       string defaultValue = null;
       string min = null;
       string max = null;
@@ -332,27 +355,7 @@ namespace DotUsi
         }
         else if (split[i] == "type")
         {
-          switch (split[++i])
-          {
-            case "check":
-              optionType = UsiOptionType.Check;
-              break;
-            case "spin":
-              optionType = UsiOptionType.Spin;
-              break;
-            case "combo":
-              optionType = UsiOptionType.Combo;
-              break;
-            case "button":
-              optionType = UsiOptionType.Button;
-              break;
-            case "string":
-              optionType = UsiOptionType.String;
-              break;
-            case "filename":
-              optionType = UsiOptionType.FileName;
-              break;
-          }
+          optionType = split[++i];
         }
         else if (split[i] == "default")
         {
@@ -371,10 +374,33 @@ namespace DotUsi
           possibleValues.Add(split[++i]);
         }
       }
+      return CreateOptionObject(name, optionType, defaultValue, min, max, possibleValues);
+    }
+
+    private UsiOptionBase CreateOptionObject(string name, string optionType, string defaultValue, string min, string max, IList<string> possibleValues)
+    {
       if (name == null) throw new UsiParserError("Option can't have no name");
       if (optionType == null) throw new UsiParserError("Option can't have no type");
-      return new UsiOption(name, (UsiOptionType)optionType, defaultValue, min, max, new ReadOnlyCollection<string>(possibleValues));
+
+      switch (optionType)
+      {
+        case "check":
+          return new CheckOption(this, name, defaultValue);
+        case "spin":
+          return new SpinOption(this, name, defaultValue, min, max);
+        case "combo":
+          return new ComboOption(this, name, defaultValue, new ReadOnlyCollection<string>(possibleValues));
+        case "button":
+          return new ButtonOption(this, name);
+        case "string":
+          return new StringOption(this, name, defaultValue);
+        case "filename":
+          return new FileNameOption(this, name, defaultValue);
+        default:
+          throw new EngineOutputParseException("Unrecognized option type: " + optionType);
+      }
     }
+
     private void ParseInfo(string line)
     {
       var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -410,6 +436,24 @@ namespace DotUsi
     {
       var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       return new BestMoveEventArgs(split[0], (split.Length == 3 ? split[2] : null));
+    }
+
+
+    #endregion
+
+    /// <summary>This is sent to the engine to change its internal parameters.</summary>
+    /// <param name="option">One from <see cref="Options"/> collection</param>
+    /// <param name="needValue">true if command needs "value xxx" part</param>
+    /// <remarks>
+    /// <para>For the button type no value is needed (pass null). </para>
+    /// <para>Can only set options when the engine is waiting. </para>
+    /// <para>Can group setting options within on setoption command</para>
+    /// </remarks>
+    internal void SetOption(UsiOptionBase option, bool needValue)
+    {
+      VerifyIsReadyOrCorrupted();
+      Mode = EngineMode.Corrupted;
+      _process.WriteLine(option.CommitCommand);
     }
   }
 }

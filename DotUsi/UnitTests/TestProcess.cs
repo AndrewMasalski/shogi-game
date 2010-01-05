@@ -8,7 +8,7 @@ namespace UnitTests
   {
     void IDisposable.Dispose()
     {
-      // Do nothing
+      InputData.Enqueue("<TestProcess: Dispose()>");
     }
 
     public void SendOutput(string text)
@@ -16,14 +16,9 @@ namespace UnitTests
       var received = OutputDataReceived;
       if (received != null) received(this, new LineReceivedEventArgs(text));
     }
-
-//    public event Action<string> ProcessInput;
-
     void IUsiProcess.WriteLine(string text)
     {
       InputData.Enqueue(text);
-//      var action = ProcessInput;
-//      if (action != null) action(text);
     }
 
     private event EventHandler<LineReceivedEventArgs> OutputDataReceived;

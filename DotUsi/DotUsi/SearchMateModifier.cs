@@ -12,7 +12,7 @@ namespace DotUsi
 
     public override string ToString()
     {
-      return "go mate " + N;
+      return "mate " + N;
     }
   }
 }

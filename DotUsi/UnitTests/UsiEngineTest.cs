@@ -4,6 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
+  /// <remarks>
+  /// <para>I assume Go overloads don't require testing because of their simplicity </para>
+  /// <para>All modifiers, constraints, etc. must be tested further</para>
+  /// </remarks>
   [TestClass]
   public class UsiEngineTest
   {
@@ -17,17 +21,19 @@ namespace UnitTests
       _engine = new UsiEngine(_process);
     }
 
+    #region ' Usi method and ID response '
+
     [TestMethod]
-    public void UsiEngineConstructorTest()
+    public void UsiMethodTest()
     {
       _engine.Usi();
       _engine.Dispose();
       Assert.AreEqual("usi", _process.InputData.Dequeue());
-      Assert.AreEqual("isready", _process.InputData.Dequeue());
+      //      Assert.AreEqual("isready", _process.InputData.Dequeue());
       Assert.AreEqual("quit", _process.InputData.Dequeue());
     }
     [TestMethod]
-    public void TestId()
+    public void UsiResponseTest()
     {
       _engine.Usi();
       _process.SendOutput("id name 1");
@@ -36,36 +42,41 @@ namespace UnitTests
       Assert.AreEqual("2", _engine.AuthorName);
     }
     [TestMethod]
-    public void TestMode()
+    public void UsiModeTest()
     {
       Assert.AreEqual(EngineMode.Started, _engine.Mode);
       _engine.Usi();
-      Assert.AreEqual(EngineMode.Processing, _engine.Mode);
-      _process.SendOutput("readyok");
+      Assert.AreEqual(EngineMode.Usi, _engine.Mode);
+      _process.SendOutput("usiok");
       Assert.AreEqual(EngineMode.Ready, _engine.Mode);
     }
     [TestMethod]
-    public void TestInapropriateId()
+    public void UsiInapropriateResponseTest()
     {
       _process.SendOutput("id name 1");
       _process.SendOutput("id author 2");
       Assert.IsNull(_engine.EngineName);
       Assert.IsNull(_engine.AuthorName);
     }
+
+    #endregion
+
+    #region ' Parse Options '
+
     [TestMethod, ExpectedException(typeof(UsiParserError))]
-    public void OptionWithoutTypeTest()
+    public void ParseOptionWithoutTypeTest()
     {
       _engine.Usi();
-      _process.SendOutput("option name 1"); 
+      _process.SendOutput("option name 1");
     }
     [TestMethod, ExpectedException(typeof(UsiParserError))]
-    public void OptionWithoutNameTest()
+    public void ParseOptionWithoutNameTest()
     {
       _engine.Usi();
-      _process.SendOutput("option type string"); 
+      _process.SendOutput("option type string");
     }
     [TestMethod]
-    public void TestSimplestOption()
+    public void ParseSimplestValidOptionTest()
     {
       _engine.Usi();
       _process.SendOutput("option name 1 type string");
@@ -73,6 +84,11 @@ namespace UnitTests
       Assert.AreEqual("1", _engine.Options[0].Name);
       Assert.AreEqual(UsiOptionType.String, _engine.Options[0].OptionType);
     }
+
+    #endregion
+
+    #region ' Position + 1 method '
+
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void CallStartPositionInStartMode()
     {
@@ -112,18 +128,15 @@ namespace UnitTests
     [TestMethod]
     public void TestStartPosition()
     {
-      _engine.Usi();
-      _process.InputData.Clear();
-      _process.SendOutput("readyok");
+      PrepareEngine();
+
       _engine.Position();
       Assert.AreEqual("position startpos", _process.InputData.Dequeue());
     }
     [TestMethod]
     public void TestStartPositionWithMoves()
     {
-      _engine.Usi();
-      _process.InputData.Clear();
-      _process.SendOutput("readyok");
+      PrepareEngine();
       _engine.Position("1g1i");
       Assert.AreEqual("position startpos moves 1g1i", _process.InputData.Dequeue());
     }
@@ -137,23 +150,24 @@ namespace UnitTests
     [TestMethod]
     public void TestSfenPosition()
     {
-      _engine.Usi();
-      _process.InputData.Clear();
-      _process.SendOutput("readyok");
+      PrepareEngine();
       _engine.Position(new SfenString("1"));
       Assert.AreEqual("position sfen 1", _process.InputData.Dequeue());
     }
     [TestMethod]
     public void TestSfenPositionWithMoves()
     {
-      _engine.Usi();
-      _process.InputData.Clear();
-      _process.SendOutput("readyok");
+      PrepareEngine();
       _engine.Position(new SfenString("1"), "1i1a", "1a1i");
       Assert.AreEqual("position sfen 1 moves 1i1a 1a1i", _process.InputData.Dequeue());
     }
+
+    #endregion
+
+    #region ' Debug property '
+
     [TestMethod]
-    public void TestDebugOnDifferentModes()
+    public void TestDebugPropertyInDifferentModes()
     {
       Assert.IsFalse(_engine.DebugMode);
       _engine.DebugMode = true;
@@ -168,14 +182,20 @@ namespace UnitTests
       _engine.DebugMode = true;
       Assert.AreEqual("debug on", _process.InputData.Dequeue());
     }
+
+    #endregion
+
+    #region ' NewGame method '
+
     [TestMethod]
     public void NewGame()
     {
       PrepareEngine();
       _engine.NewGame();
       Assert.AreEqual("usinewgame", _process.InputData.Dequeue());
+      Assert.AreEqual(EngineMode.Corrupted, _engine.Mode);
+      _engine.IsReady();
       Assert.AreEqual("isready", _process.InputData.Dequeue());
-      Assert.AreEqual(EngineMode.Processing, _engine.Mode);
       _process.SendOutput("readyok");
       Assert.AreEqual(EngineMode.Ready, _engine.Mode);
     }
@@ -197,6 +217,11 @@ namespace UnitTests
       _engine.Go();
       _engine.NewGame();
     }
+
+    #endregion
+
+    #region ' Go + 7 method '
+
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void GoInStartMode()
     {
@@ -216,40 +241,169 @@ namespace UnitTests
       _engine.Go();
       _engine.Go();
     }
-    // I assume Go overloads don't require testing because of their simplicity
     [TestMethod]
     public void GoWithNullArgsTest()
     {
       PrepareEngine();
       _engine.Go(null, null, null);
-      Assert.AreEqual("go infinite", _process.InputData.Dequeue());
+      Assert.AreEqual("go", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
     }
     [TestMethod]
-    public void GoTest()
+    public void GoWithAllArgsTest()
     {
       PrepareEngine();
-      _engine.Go(new TimeConstraint { Byoyomi = TimeSpan.FromMilliseconds(1000) }, 
+      _engine.Go(new SearchMateModifier("4"),
+                 new TimeConstraint { Byoyomi = TimeSpan.FromMilliseconds(1000) },
                  new DepthConstraint { Depth = 10 });
 
-      Assert.AreEqual("go byoyomi 1000 depth 10", _process.InputData.Dequeue());
+      Assert.AreEqual("go mate 4 byoyomi 1000 depth 10", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
     }
+
+    #endregion
+
+    #region ' Dispose method '
+
     [TestMethod]
-    public void GoSearchMovesTest()
+    public void CallDisposeInStartedModeTest()
+    {
+      Assert.AreEqual(EngineMode.Started, _engine.Mode);
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      Assert.AreEqual("quit", _process.InputData.Dequeue());
+      Assert.AreEqual("<TestProcess: Dispose()>", _process.InputData.Dequeue());
+    }
+
+    [TestMethod]
+    public void CallDisposeInProcessingModeTest()
+    {
+      _engine.Usi();
+      _process.InputData.Clear();
+      Assert.AreEqual(EngineMode.Usi, _engine.Mode);
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      Assert.AreEqual("quit", _process.InputData.Dequeue());
+      Assert.AreEqual("<TestProcess: Dispose()>", _process.InputData.Dequeue());
+    }
+
+    [TestMethod]
+    public void CallDisposeInReadyModeTest()
     {
       PrepareEngine();
-      _engine.Go(new TimeConstraint { Byoyomi = TimeSpan.FromMilliseconds(1000) }, 
-                 new DepthConstraint { Depth = 10 });
-
-      Assert.AreEqual("go byoyomi 1000 depth 10", _process.InputData.Dequeue());
-      Assert.AreEqual(EngineMode.Searching, _engine.Mode);
+      Assert.AreEqual(EngineMode.Ready, _engine.Mode);
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      Assert.AreEqual("quit", _process.InputData.Dequeue());
+      Assert.AreEqual("<TestProcess: Dispose()>", _process.InputData.Dequeue());
     }
+
+    [TestMethod]
+    public void CallDisposeInSearchingModeTest()
+    {
+      PrepareEngine();
+      _engine.Go();
+      _process.InputData.Clear();
+      Assert.AreEqual(EngineMode.Searching, _engine.Mode);
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      Assert.AreEqual("quit", _process.InputData.Dequeue());
+      Assert.AreEqual("<TestProcess: Dispose()>", _process.InputData.Dequeue());
+    }
+
+    [TestMethod]
+    public void CallDisposeInPonderingModeTest()
+    {
+      PrepareEngine();
+      _engine.Go(new PonderModifier());
+      _process.InputData.Clear();
+      Assert.AreEqual(EngineMode.Pondering, _engine.Mode);
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      Assert.AreEqual("quit", _process.InputData.Dequeue());
+      Assert.AreEqual("<TestProcess: Dispose()>", _process.InputData.Dequeue());
+    }
+
+    [TestMethod]
+    public void CallDisposeInDisposedModeTest()
+    {
+      _engine.Dispose();
+      _process.InputData.Clear();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      Assert.AreEqual(0, _process.InputData.Count);
+    }
+
+    #endregion
+
+    #region ' Stop method '
+
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void CallStopInStartedModeTest()
+    {
+      Assert.AreEqual(EngineMode.Started, _engine.Mode);
+      _engine.Stop();
+    }
+
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void CallStopInProcessingModeTest()
+    {
+      _engine.Usi();
+      Assert.AreEqual(EngineMode.Usi, _engine.Mode);
+      _engine.Stop();
+    }
+
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void CallStopInReadyModeTest()
+    {
+      PrepareEngine();
+      Assert.AreEqual(EngineMode.Ready, _engine.Mode);
+      _engine.Stop();
+    }
+
+    [TestMethod]
+    public void CallStopInSearchingModeTest()
+    {
+      PrepareEngine();
+      _engine.Go();
+      _process.InputData.Clear();
+      Assert.AreEqual(EngineMode.Searching, _engine.Mode);
+      _engine.Stop();
+      Assert.AreEqual(EngineMode.Ready, _engine.Mode);
+      Assert.AreEqual("stop", _process.InputData.Dequeue());
+    }
+
+    [TestMethod]
+    public void CallStopInPonderingModeTest()
+    {
+      PrepareEngine();
+      _engine.Go(new PonderModifier());
+      _process.InputData.Clear();
+      Assert.AreEqual(EngineMode.Pondering, _engine.Mode);
+      _engine.Stop();
+      Assert.AreEqual(EngineMode.Ready, _engine.Mode);
+      Assert.AreEqual("stop", _process.InputData.Dequeue());
+    }
+
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void CallStopInDisposedModeTest()
+    {
+      _engine.Dispose();
+      Assert.AreEqual(EngineMode.Disposed, _engine.Mode);
+      _engine.Stop();
+    }
+
+    #endregion
+
+    #region ' PonderHit method '
+
+    #endregion
 
     private void PrepareEngine()
     {
       _engine.Usi();
-      _process.SendOutput("readyok");
+      _process.SendOutput("usiok");
       _process.InputData.Clear();
     }
   }
