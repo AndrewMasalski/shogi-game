@@ -54,6 +54,7 @@
     <Compile Include="LineReceivedEventArgs.cs" />
     <Compile Include="ListExtensions.cs" />
     <Compile Include="NoProcessStartedException.cs" />
+    <Compile Include="PonderModifier.cs" />
     <Compile Include="SearchMateModifier.cs" />
     <Compile Include="SearchMovesModifier.cs" />
     <Compile Include="SfenString.cs" />

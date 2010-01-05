@@ -18,7 +18,6 @@ namespace DotUsi
     }
     public string EngineName { get; private set; }
     public string AuthorName { get; private set; }
-    public bool IsDisposed { get; private set; }
     public EngineMode Mode { get; private set; }
     /// <summary>Switch the debug mode of the engine on and off</summary>
     /// <remarks>
@@ -33,6 +32,7 @@ namespace DotUsi
       get { return _debugMode; }
       set
       {
+        VerifyNotDisposed();
         if (_debugMode == value) return;
         _debugMode = value;
         var mode = _debugMode ? "on" : "off";
@@ -48,11 +48,11 @@ namespace DotUsi
 
     public void Usi()
     {
-      if (Mode == EngineMode.Ready)
-        throw new InvalidOperationException("You can't call Usi command twice");
+      VerifyStarted();
       _process.WriteLine("usi");
       IsReady();
     }
+
     /// <summary>This is used to synchronize the engine with the GUI.</summary>
     /// <remarks>
     /// <para>When the GUI has sent a command or multiple commands that 
@@ -174,25 +174,9 @@ namespace DotUsi
         command.Append(depthConstraint.ToString());
       }
       _process.WriteLine(command.ToString());
-      Mode = EngineMode.Searching;
-    }
-  
-    /// <summary><para>Start searching in pondering mode.</para> 
-    ///   <para>This means that the last move X sent in the current position is the move to ponder on. 
-    ///   The engine can do what it wants to do, but after a <see cref="PonderHit"/> command 
-    ///   it should continue with move X. </para>
-    /// 
-    /// </summary>
-    /// <remarks>
-    /// <para>This means that the ponder move sent by the GUI can be interpreted as a recommendation about which move to ponder on.
-    /// However, if the engine decides to ponder on a different move, it should not display any mainlines as they are likely 
-    /// to be misinterpreted by the GUI because the GUI expects the engine to ponder on the suggested move.</para>
-    /// <para>Engine won't exit the search in ponder mode, even if it's mate!</para></remarks>
-    public void GoPonder()
-    {
-      VerifyIsReady();
-      _process.WriteLine("go ponder");
-      Mode = EngineMode.Pondering;
+
+      Mode = searchModifier is PonderModifier ?
+        EngineMode.Pondering : EngineMode.Searching;
     }
 
     /// <summary>Stop calculating as soon as possible.</summary>
@@ -207,12 +191,11 @@ namespace DotUsi
     /// </summary>
     public void PonderHit()
     {
-      if (Mode != EngineMode.Pondering)
-        throw new InvalidOperationException(
-          "PonderHit opetarion can only be performed after GoPonder.");
+      VerifyPondering();
       _process.WriteLine("ponderhit");
-      Mode = EngineMode.Ready;
+      Mode = EngineMode.Searching;
     }
+
     /// <summary>This is sent to the engine to change its internal parameters.</summary>
     /// <param name="option">One from <see cref="Options"/> collection</param>
     /// <param name="value">Not case sensitive, cannot contain spaces</param>
@@ -230,16 +213,16 @@ namespace DotUsi
     {
       lock (this)
       {
-        if (IsDisposed) return;
+        if (Mode == EngineMode.Disposed) return;
         // Don't want any asynch event to be fired after dispose is called
         BestMove = null;
-        
+
         _process.WriteLine("quit");
         _process.Dispose();
-        IsDisposed = true;
+        Mode = EngineMode.Disposed;
       }
     }
-    
+
     public event EventHandler<BestMoveEventArgs> BestMove;
 
     private void OnOutputDataReceived(object sender, LineReceivedEventArgs e)
@@ -265,24 +248,40 @@ namespace DotUsi
           else if (e.Line == "readyok")
           {
             Mode = EngineMode.Ready;
-            //            OnReady(EventArgs.Empty);
           }
           break;
         case EngineMode.Searching:
-          {
-            const string bestMove = "bestmove ";
-            const string info = "info ";
+          const string bestMove = "bestmove ";
+          const string info = "info ";
 
-            if (e.Line.StartsWith(bestMove))
-              OnBestMove(ParseBestMove(e.Line.Substring(info.Length)));
-            if (e.Line.StartsWith(info))
-              ParseInfo(e.Line.Substring(info.Length));
-          }
+          if (e.Line.StartsWith(bestMove))
+            OnBestMove(ParseBestMove(e.Line.Substring(info.Length)));
+          if (e.Line.StartsWith(info))
+            ParseInfo(e.Line.Substring(info.Length));
           break;
       }
     }
+
+    private void VerifyPondering()
+    {
+      VerifyNotDisposed();
+
+      if (Mode != EngineMode.Pondering)
+        throw new InvalidOperationException(
+          "PonderHit opetarion can only be performed after GoPonder.");
+    }
+    private void VerifyStarted()
+    {
+      VerifyNotDisposed();
+
+      if (Mode != EngineMode.Started)
+        throw new InvalidOperationException(
+          "You can't call Usi command twice");
+    }
     private void VerifyIsReady()
     {
+      VerifyNotDisposed();
+
       if (Mode != EngineMode.Ready)
         throw new InvalidOperationException(
           "You cannot call this command when engine is not ready.");
@@ -293,9 +292,19 @@ namespace DotUsi
         throw new InvalidOperationException(
           "You cannot call this command when waiting for IsReady to respond. " +
           "If engine doesn't respond you can terminate it calling Dispose.");
+
+      VerifyNotDisposed();
+    }
+    private void VerifyNotDisposed()
+    {
+      if (Mode == EngineMode.Disposed)
+        throw new InvalidOperationException(
+          "You cannot call any command when engine is disposed.");
     }
     private void VerifySearchState()
     {
+      VerifyNotDisposed();
+
       if (Mode != EngineMode.Searching)
         throw new InvalidOperationException(
           "This operation cannot be performed when engine is idle.");

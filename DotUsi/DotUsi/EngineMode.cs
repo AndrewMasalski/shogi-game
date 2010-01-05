@@ -12,6 +12,7 @@ namespace DotUsi
     /// </summary>
     Ready, 
     /// <summary>IsReady is called and no confirmation has been received yet</summary>
-    Processing, Searching, Pondering
+    Processing, Searching, Pondering,
+    Disposed
   }
 }

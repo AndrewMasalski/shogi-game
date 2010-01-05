@@ -15,11 +15,14 @@
       <Method Name="ParseInfo" Hidden="true" />
       <Method Name="ParseOption" Hidden="true" />
       <Method Name="VerifyIsReady" Hidden="true" />
+      <Method Name="VerifyNotDisposed" Hidden="true" />
       <Method Name="VerifyNotPing" Hidden="true" />
+      <Method Name="VerifyPondering" Hidden="true" />
       <Method Name="VerifySearchState" Hidden="true" />
+      <Method Name="VerifyStarted" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AIAAAAAMCaIABIAgCAgICFAAFIAEAkAwKQAAAABQAAA=</HashCode>
+      <HashCode>CIAAEAAMCaIABIAgCAgICEAAFoAEAgAwKQAAAABQAAA=</HashCode>
       <FileName>UsiEngine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -45,7 +48,7 @@
   <Enum Name="DotUsi.EngineMode">
     <Position X="4.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAEAAAAAIAACAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAABAAAAAAAEAAAAAIAACAAIAAAAAAAAAAAACAAA=</HashCode>
       <FileName>EngineMode.cs</FileName>
     </TypeIdentifier>
   </Enum>
