@@ -1,3 +1,4 @@
+using DotUsi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
@@ -8,7 +9,8 @@ namespace UnitTests
     [TestMethod]
     public void Test()
     {
-      //TODO: Test DepthConstraint
+      Assert.Inconclusive();
+      new DepthConstraint();
     }
   }
 }

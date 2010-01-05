@@ -1,28 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="DotUsi.UsiEngine">
-    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Position X="0.75" Y="0.5" Width="2.25" />
     <Members>
       <Field Name="_debugMode" Hidden="true" />
       <Field Name="_options" Hidden="true" />
       <Field Name="_process" Hidden="true" />
       <Field Name="_state" Hidden="true" />
+      <Method Name="CreateOptionObject" Hidden="true" />
       <Method Name="IsReady" Hidden="true" />
       <Method Name="OnBestMove" Hidden="true" />
-      <Method Name="OnOutputDataReceived" Hidden="true" />
       <Method Name="ParseBestMove" Hidden="true" />
       <Method Name="ParseId" Hidden="true" />
       <Method Name="ParseInfo" Hidden="true" />
       <Method Name="ParseOption" Hidden="true" />
+      <Method Name="ReceiveOutputData" Hidden="true" />
+      <Method Name="SetOption" Hidden="true" />
+      <Method Name="VerifyCorrupted" Hidden="true" />
       <Method Name="VerifyIsReady" Hidden="true" />
+      <Method Name="VerifyIsReadyOrCorrupted" Hidden="true" />
       <Method Name="VerifyNotDisposed" Hidden="true" />
-      <Method Name="VerifyNotPing" Hidden="true" />
       <Method Name="VerifyPondering" Hidden="true" />
-      <Method Name="VerifySearchState" Hidden="true" />
+      <Method Name="VerifySearchOrPondering" Hidden="true" />
       <Method Name="VerifyStarted" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>CIAAEAAMCaIABIAgCAgICEAAFoAEAgAwKQAAAABQAAA=</HashCode>
+      <HashCode>CAAAUAgMCaIQBIAgCAgICEQAFoAEAgAQKQAAAABAABA=</HashCode>
       <FileName>UsiEngine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -33,22 +36,89 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DotUsi.UsiOption">
-    <Position X="4.25" Y="0.5" Width="1.75" />
+  <Class Name="DotUsi.UsiOptionBase">
+    <Position X="8" Y="0.5" Width="1.5" />
     <Members>
-      <Method Name="ToString" Hidden="true" />
-      <Method Name="UpdateCurrentValue" Hidden="true" />
-      <Method Name="UsiOption" Hidden="true" />
+      <Property Name="CommitCommand" Hidden="true" />
+      <Method Name="UsiOptionBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QAAAAAAIABAAAAAEEAAAgAQAAAAAAAAAAAAAAAAABAA=</HashCode>
-      <FileName>UsiOption.cs</FileName>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAgAQAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.ValueOptionBase&lt;T&gt;">
+    <Position X="6.25" Y="2.75" Width="2" />
+    <Members>
+      <Field Name="_value" Hidden="true" />
+      <Property Name="CommitCommand" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+      <Method Name="ValueOptionBase" Hidden="true" />
+      <Method Name="ValueToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ABAAAAQAAAAAAAAkAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.CheckOption" Collapsed="true">
+    <Position X="7" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.ButtonOption">
+    <Position X="9.5" Y="2.75" Width="1.5" />
+    <Members>
+      <Method Name="ButtonOption" Hidden="true" />
+      <Property Name="CommitCommand" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAEAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.SpinOption">
+    <Position X="2.75" Y="5.25" Width="1.75" />
+    <Members>
+      <Method Name="SpinOption" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.ComboOption">
+    <Position X="9.25" Y="5.25" Width="2.5" />
+    <Members>
+      <Method Name="ComboOption" Hidden="true" />
+      <Property Name="Value" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.StringOption" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.FileNameOption" Collapsed="true">
+    <Position X="4.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UsiOptionBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="DotUsi.EngineMode">
-    <Position X="4.25" Y="3" Width="1.5" />
+    <Position X="4" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAEAAAAAIAACAAIAAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>AAAAAABAAAAAAAEAAAAAIAAAAAIEAAAAAAAAQAACAEA=</HashCode>
       <FileName>EngineMode.cs</FileName>
     </TypeIdentifier>
   </Enum>

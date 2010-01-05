@@ -6,11 +6,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests
 {
   [TestClass]
-  public class ButtonOptionTest : OptionTest<ButtonOption>
+  public class ButtonOptionTest : OptionTestBase<ButtonOption>
   {
     [TestMethod]
     public void TestButtonOption()
     {
+      Assert.AreEqual(UsiOptionType.Button, Option.OptionType);
       Option.Press();
       Assert.AreEqual("setoption SomeName", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
@@ -23,11 +24,12 @@ namespace UnitTests
   }
   
   [TestClass]
-  public class CheckOptionTest : OptionTest<CheckOption>
+  public class CheckOptionTest : OptionTestBase<CheckOption>
   {
     [TestMethod]
     public void TestCheckOption()
     {
+      Assert.AreEqual(UsiOptionType.Check, Option.OptionType);
       Assert.IsTrue(Option.Value);
       
       Option.Value = false;
@@ -54,11 +56,12 @@ namespace UnitTests
   }
   
   [TestClass]
-  public class SimplestSpinOptionTest : OptionTest<SpinOption>
+  public class SimplestSpinOptionTest : OptionTestBase<SpinOption>
   {
     [TestMethod]
     public void TestSimplestSpinOption()
     {
+      Assert.AreEqual(UsiOptionType.Spin, Option.OptionType);
       Assert.AreEqual(300, Option.Value);
       
       Option.Value = 200;
@@ -85,7 +88,78 @@ namespace UnitTests
   }
   
   [TestClass]
-  public class RangeSpinOptionTest : OptionTest<SpinOption>
+  public class ComboOptionTest : OptionTestBase<ComboOption>
+  {
+    [TestMethod]
+    public void TestComboOption()
+    {
+      Assert.AreEqual(UsiOptionType.Combo, Option.OptionType);
+      Assert.AreEqual("300", Option.Value);
+      CollectionAssert.AreEqual(new []{"100", "200", "300", "400"}, Option.PossibleValues);
+      
+      Option.Value = "200";
+      Assert.AreEqual("setoption SomeName value 200", InputData.Dequeue());
+      Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
+
+      Option.Value = "200";
+      Assert.AreEqual(0, InputData.Count);
+      Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
+
+      Assert.AreEqual("200", Option.Value);
+
+      Option.Value = "400";
+      Assert.AreEqual("setoption SomeName value 400", InputData.Dequeue());
+      Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
+
+      Assert.AreEqual("400", Option.Value);
+    }
+
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void TestInvalidOption()
+    {
+      Option.Value = "201";
+    }
+
+    protected override string GetOptionDefinition()
+    {
+      return "option name SomeName type combo default 300 var 100 var 200 var 300 var 400";
+    }
+  }
+
+
+  [TestClass]
+  public class StringOptionTest : OptionTestBase<StringOption>
+  {
+    [TestMethod]
+    public void TestStringOption()
+    {
+      Assert.AreEqual(UsiOptionType.String, Option.OptionType);
+      Assert.AreEqual("300", Option.Value);
+
+      Option.Value = "200";
+      Assert.AreEqual("setoption SomeName value 200", InputData.Dequeue());
+      Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
+
+      Option.Value = "200";
+      Assert.AreEqual(0, InputData.Count);
+      Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
+
+      Assert.AreEqual("200", Option.Value);
+
+      Option.Value = "400";
+      Assert.AreEqual("setoption SomeName value 400", InputData.Dequeue());
+      Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
+
+      Assert.AreEqual("400", Option.Value);
+    }
+
+    protected override string GetOptionDefinition()
+    {
+      return "option name SomeName type string default 300";
+    }
+  }
+  [TestClass]
+  public class RangeSpinOptionTest : OptionTestBase<SpinOption>
   {
     [TestMethod]
     public void TestRangeSpinOption()
@@ -112,7 +186,7 @@ namespace UnitTests
   }
   
   [TestClass]
-  public abstract class OptionTest<T>
+  public abstract class OptionTestBase<T>
     where T : UsiOptionBase
   {
     [TestInitialize]
