@@ -63,13 +63,13 @@ namespace UnitTests
 
     #region ' Parse Options '
 
-    [TestMethod, ExpectedException(typeof(UsiParserError))]
+    [TestMethod, ExpectedException(typeof(UsiParserException))]
     public void ParseOptionWithoutTypeTest()
     {
       _engine.Usi();
       _process.SendOutput("option name 1");
     }
-    [TestMethod, ExpectedException(typeof(UsiParserError))]
+    [TestMethod, ExpectedException(typeof(UsiParserException))]
     public void ParseOptionWithoutNameTest()
     {
       _engine.Usi();
@@ -242,10 +242,10 @@ namespace UnitTests
       _engine.Go();
     }
     [TestMethod]
-    public void GoWithNullArgsTest()
+    public void GoWithNoArgsTest()
     {
       PrepareEngine();
-      _engine.Go(null, null, null);
+      _engine.Go();
       Assert.AreEqual("go", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
     }
@@ -253,11 +253,11 @@ namespace UnitTests
     public void GoWithAllArgsTest()
     {
       PrepareEngine();
-      _engine.Go(new SearchMateModifier("4"),
-                 new TimeConstraint { Byoyomi = TimeSpan.FromMilliseconds(1000) },
-                 new DepthConstraint { Depth = 10 });
+      _engine.Go(new SearchMateModifier(4),
+                 new ByoyomiModifier(TimeSpan.FromSeconds(15)),
+                 new DepthConstraint(10));
 
-      Assert.AreEqual("go mate 4 byoyomi 1000 depth 10", _process.InputData.Dequeue());
+      Assert.AreEqual("go mate 4 byoyomi 15000 depth 10", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
     }
 

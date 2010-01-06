@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DepthConstraintTest.cs" />
+    <Compile Include="ModifiersTest.cs" />
     <Compile Include="LaramieV3Test.cs" />
     <Compile Include="OptionTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,9 +56,6 @@
     <Compile Include="UsiEngineAsynchOperationsTest.cs" />
     <Compile Include="UsiEngineTest.cs" />
     <Compile Include="UsiWindowsProcessTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AuthoringTests.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotUsi\DotUsi.csproj">

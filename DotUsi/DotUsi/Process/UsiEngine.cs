@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Linq;
 
 namespace DotUsi
 {
@@ -136,57 +137,19 @@ namespace DotUsi
       }
       _process.WriteLine(command.ToString());
     }
-    public void Go()
-    {
-      Go(null, null, null);
-    }
-    public void Go(TimeConstraint timeConstraint)
-    {
-      Go(null, timeConstraint, null);
-    }
-    public void Go(DepthConstraint depthConstraint)
-    {
-      Go(null, null, depthConstraint);
-    }
-    public void Go(UsiSearchModifier searchModifier)
-    {
-      Go(searchModifier, null, null);
-    }
-    public void Go(UsiSearchModifier searchModifier, TimeConstraint timeConstraint)
-    {
-      Go(searchModifier, timeConstraint, null);
-    }
-    public void Go(UsiSearchModifier searchModifier, DepthConstraint depthConstraint)
-    {
-      Go(searchModifier, null, depthConstraint);
-    }
-    public void Go(TimeConstraint timeConstraint, DepthConstraint depthConstraint)
-    {
-      Go(null, timeConstraint, depthConstraint);
-    }
-    public void Go(UsiSearchModifier searchModifier, TimeConstraint timeConstraint, DepthConstraint depthConstraint)
+    public void Go(params UsiSearchModifier[] modifiers)
     {
       VerifyIsReady();
 
       var command = new StringBuilder("go");
-      if (searchModifier != null)
+      foreach (var modifier in modifiers)
       {
         command.Append(" ");
-        command.Append(searchModifier.ToString());
-      }
-      if (timeConstraint != null)
-      {
-        command.Append(" ");
-        command.Append(timeConstraint.ToString());
-      }
-      if (depthConstraint != null)
-      {
-        command.Append(" ");
-        command.Append(depthConstraint.ToString());
+        command.Append(modifier.Command);
       }
       _process.WriteLine(command.ToString());
 
-      Mode = searchModifier is PonderModifier ?
+      Mode = modifiers.OfType<PonderModifier>().Count() > 0 ?
         EngineMode.Pondering : EngineMode.Searching;
     }
 
@@ -379,8 +342,8 @@ namespace DotUsi
 
     private UsiOptionBase CreateOptionObject(string name, string optionType, string defaultValue, string min, string max, IList<string> possibleValues)
     {
-      if (name == null) throw new UsiParserError("Option can't have no name");
-      if (optionType == null) throw new UsiParserError("Option can't have no type");
+      if (name == null) throw new UsiParserException("Option can't have no name");
+      if (optionType == null) throw new UsiParserException("Option can't have no type");
 
       switch (optionType)
       {
@@ -397,7 +360,7 @@ namespace DotUsi
         case "filename":
           return new FileNameOption(this, name, defaultValue);
         default:
-          throw new EngineOutputParseException("Unrecognized option type: " + optionType);
+          throw new UsiParserException("Unrecognized option type: " + optionType);
       }
     }
 

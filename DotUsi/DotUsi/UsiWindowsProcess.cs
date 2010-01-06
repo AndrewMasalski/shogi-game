@@ -34,7 +34,7 @@ namespace DotUsi
                                    RedirectStandardOutput = true,
                                    UseShellExecute = false,
                                  });
-      if (_process == null) throw new NoProcessStartedException();
+      if (_process == null) throw new CouldntStartProcessException();
       _process.OutputDataReceived += OnOutputDataReceived;
       _process.BeginOutputReadLine();
       _timer = new Timer(OnTimerTick, null, 1000, 1000);

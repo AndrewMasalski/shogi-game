@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DotUsi.UsiEngine">
+    <Position X="0.75" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="_debugMode" Hidden="true" />
+      <Field Name="_options" Hidden="true" />
+      <Field Name="_process" Hidden="true" />
+      <Field Name="_state" Hidden="true" />
+      <Method Name="CreateOptionObject" Hidden="true" />
+      <Method Name="IsReady" Hidden="true" />
+      <Method Name="OnBestMove" Hidden="true" />
+      <Method Name="ParseBestMove" Hidden="true" />
+      <Method Name="ParseId" Hidden="true" />
+      <Method Name="ParseInfo" Hidden="true" />
+      <Method Name="ParseOption" Hidden="true" />
+      <Method Name="ReceiveOutputData" Hidden="true" />
+      <Method Name="SetOption" Hidden="true" />
+      <Method Name="VerifyCorrupted" Hidden="true" />
+      <Method Name="VerifyIsReady" Hidden="true" />
+      <Method Name="VerifyIsReadyOrCorrupted" Hidden="true" />
+      <Method Name="VerifyNotDisposed" Hidden="true" />
+      <Method Name="VerifyPondering" Hidden="true" />
+      <Method Name="VerifySearchOrPondering" Hidden="true" />
+      <Method Name="VerifyStarted" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAAAUAgMCaIQBIAgCAgICEQAFoAEAgAQKQAAAABAABA=</HashCode>
+      <FileName>Process\UsiEngine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mode" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Options" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotUsi.UsiOptionBase">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Property Name="CommitCommand" Hidden="true" />
+      <Property Name="Engine" Hidden="true" />
+      <Method Name="UsiOptionBase" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAgAQAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Options\Base\UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OptionType" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="DotUsi.EngineMode">
+    <Position X="4.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAEAAAAAIAAAAAIEAAAAAAAAQAACAEA=</HashCode>
+      <FileName>EngineMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DotUsi.UsiOptionType">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAgAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAJAAAA=</HashCode>
+      <FileName>Options\Base\UsiOptionType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

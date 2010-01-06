@@ -1,3 +1,5 @@
+using System;
+
 namespace DotUsi
 {
   /// <summary><para>Start searching in pondering mode.</para> 
@@ -13,7 +15,7 @@ namespace DotUsi
   /// <para>Engine won't exit the search in ponder mode, even if it's mate!</para></remarks>
   public class PonderModifier : UsiSearchModifier
   {
-    public override string ToString()
+    protected override string GetCommand()
     {
       return "ponder";
     }

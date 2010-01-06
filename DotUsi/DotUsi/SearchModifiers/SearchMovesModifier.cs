@@ -1,6 +1,6 @@
 namespace DotUsi
 {
-  public class SearchMovesModifier : UsiSearchModifier
+  public class SearchMovesModifier : ScalarModifier<string[]>
   {
     public string[] Moves { get; set; }
 
@@ -11,13 +11,16 @@ namespace DotUsi
     /// The engine will only search (choose between) P-7f and P-2f 
     /// moves in the initial position. </example>
     public SearchMovesModifier(params string[] moves)
+      : base(moves)
     {
-      Moves = moves;
     }
-
-    public override string ToString()
+    protected override string ValueToString()
     {
-      return "searchmoves " + string.Join(" ", Moves);
+      return string.Join(" ", Moves);
+    }
+    protected override string GetCommandName()
+    {
+      return "searchmoves";
     }
   }
 }

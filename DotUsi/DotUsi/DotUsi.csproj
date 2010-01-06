@@ -45,31 +45,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BestMoveEventArgs.cs" />
-    <Compile Include="DepthConstraint.cs" />
+    <Compile Include="EventArgs\BestMoveEventArgs.cs" />
+    <Compile Include="Options\ButtonOption.cs" />
+    <Compile Include="Options\CheckOption.cs" />
+    <Compile Include="Options\ComboOption.cs" />
+    <Compile Include="Options\FileNameOption.cs" />
+    <Compile Include="Options\SpinOption.cs" />
+    <Compile Include="Options\StringOption.cs" />
+    <Compile Include="Options\Base\ValueOptionBase.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\BlackIncrementModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\BlackTimeModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\ByoyomiModifier.cs" />
+    <Compile Include="SearchModifiers\DepthConstraints\DepthConstraint.cs" />
     <Compile Include="EngineMode.cs" />
-    <Compile Include="EngineOutputParseException.cs" />
     <Compile Include="EngineState.cs" />
-    <Compile Include="IUsiProcess.cs" />
-    <Compile Include="LineReceivedEventArgs.cs" />
-    <Compile Include="ListExtensions.cs" />
-    <Compile Include="NoProcessStartedException.cs" />
-    <Compile Include="PonderModifier.cs" />
-    <Compile Include="SearchMateModifier.cs" />
-    <Compile Include="SearchMovesModifier.cs" />
+    <Compile Include="Process\IUsiProcess.cs" />
+    <Compile Include="EventArgs\LineReceivedEventArgs.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\InfiniteModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\MoveTimeModifier.cs" />
+    <Compile Include="SearchModifiers\DepthConstraints\NodesConstraint.cs" />
+    <Compile Include="SearchModifiers\Base\ScalarModifier.cs" />
+    <Compile Include="SearchModifiers\Base\TimeSpanModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\WhiteIncrementModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\WhiteTimeModifier.cs" />
+    <Compile Include="Utils\ListExtensions.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\MovesToGoModifier.cs" />
+    <Compile Include="Exceptions\CouldntStartProcessException.cs" />
+    <Compile Include="SearchModifiers\PonderModifier.cs" />
+    <Compile Include="SearchModifiers\SearchMateModifier.cs" />
+    <Compile Include="SearchModifiers\SearchMovesModifier.cs" />
     <Compile Include="SfenString.cs" />
-    <Compile Include="TextReaderExtensions.cs" />
-    <Compile Include="TimeConstraint.cs" />
-    <Compile Include="UsiEngine.cs" />
+    <Compile Include="Utils\TextReaderExtensions.cs" />
+    <Compile Include="Process\UsiEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsiOptionBase.cs" />
-    <Compile Include="UsiOptionType.cs" />
-    <Compile Include="UsiParserError.cs" />
-    <Compile Include="UsiSearchModifier.cs" />
+    <Compile Include="Options\Base\UsiOptionBase.cs" />
+    <Compile Include="Options\Base\UsiOptionType.cs" />
+    <Compile Include="Exceptions\UsiParserException.cs" />
+    <Compile Include="SearchModifiers\Base\UsiSearchModifier.cs" />
     <Compile Include="UsiWindowsProcess.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="Options\Options.cd" />
+    <None Include="Engine.cd" />
+    <None Include="SearchModifiers\SearchModifiers.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
