@@ -6,6 +6,7 @@ namespace DotUsi
   public class DepthConstraint : ScalarModifier<int>
   {
     /// <summary>Search <param name="depth"/> moves only.</summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="depth"/> &lt;= 0</exception>
     public DepthConstraint(int depth)
       : base(depth)
     {

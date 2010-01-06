@@ -76,13 +76,13 @@
     <Compile Include="SearchModifiers\SearchMovesModifier.cs" />
     <Compile Include="SfenString.cs" />
     <Compile Include="Utils\TextReaderExtensions.cs" />
-    <Compile Include="Process\UsiEngine.cs" />
+    <Compile Include="UsiEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Options\Base\UsiOptionBase.cs" />
     <Compile Include="Options\Base\UsiOptionType.cs" />
     <Compile Include="Exceptions\UsiParserException.cs" />
     <Compile Include="SearchModifiers\Base\UsiSearchModifier.cs" />
-    <Compile Include="UsiWindowsProcess.cs" />
+    <Compile Include="Process\UsiWindowsProcess.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Options\Options.cd" />

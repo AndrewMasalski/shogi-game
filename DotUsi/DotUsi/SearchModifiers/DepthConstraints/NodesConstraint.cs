@@ -6,6 +6,7 @@ namespace DotUsi
   public class NodesConstraint : ScalarModifier<int>
   {
     /// <summary>Search <param name="count"/> nodes only.</summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="count"/> &lt;= 0</exception>
     public NodesConstraint(int count) 
       : base(count)
     {
