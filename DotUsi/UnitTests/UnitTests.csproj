@@ -54,7 +54,8 @@
     <Compile Include="TestProcess.cs" />
     <Compile Include="TimeConstraintTest.cs" />
     <Compile Include="UsiEngineAsynchOperationsTest.cs" />
-    <Compile Include="UsiEngineTest.cs" />
+    <Compile Include="UsiEngineOutputTest.cs" />
+    <Compile Include="UsiEngineInputTest.cs" />
     <Compile Include="UsiWindowsProcessTest.cs" />
   </ItemGroup>
   <ItemGroup>

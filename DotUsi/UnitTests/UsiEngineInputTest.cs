@@ -6,10 +6,10 @@ namespace UnitTests
 {
   /// <remarks>
   /// <para>I assume Go overloads don't require testing because of their simplicity </para>
-  /// <para>All modifiers, constraints, etc. must be tested further</para>
+  /// <para>All modifiers, constraints, etc. are be tested further</para>
   /// </remarks>
   [TestClass]
-  public class UsiEngineTest
+  public class UsiEngineInputTest
   {
     private TestProcess _process;
     private UsiEngine _engine;
@@ -29,7 +29,6 @@ namespace UnitTests
       _engine.Usi();
       _engine.Dispose();
       Assert.AreEqual("usi", _process.InputData.Dequeue());
-      //      Assert.AreEqual("isready", _process.InputData.Dequeue());
       Assert.AreEqual("quit", _process.InputData.Dequeue());
     }
     [TestMethod]

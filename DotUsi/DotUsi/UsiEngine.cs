@@ -188,6 +188,8 @@ namespace DotUsi
     #endregion
 
     public event EventHandler<BestMoveEventArgs> BestMove;
+    public event EventHandler UsiOK;
+    public event EventHandler ReadyOK;
 
     #region ' VerifyMode methods '
 
@@ -274,12 +276,14 @@ namespace DotUsi
           else if (e.Line == "usiok")
           {
             Mode = EngineMode.Ready;
+            OnUsiOK(EventArgs.Empty);
           }
           break;
         case EngineMode.Waiting:
           if (e.Line == "readyok")
           {
             Mode = EngineMode.Ready;
+            OnReadyOK(EventArgs.Empty);
           }
           break;
         case EngineMode.Searching:
@@ -287,7 +291,7 @@ namespace DotUsi
           const string info = "info ";
 
           if (e.Line.StartsWith(bestMove))
-            OnBestMove(ParseBestMove(e.Line.Substring(info.Length)));
+            OnBestMove(ParseBestMove(e.Line.Substring(bestMove.Length)));
           if (e.Line.StartsWith(info))
             ParseInfo(e.Line.Substring(info.Length));
           break;
@@ -301,6 +305,17 @@ namespace DotUsi
       var handler = BestMove;
       if (handler != null) handler(this, e);
     }
+    private void OnUsiOK(EventArgs e)
+    {
+      var handler = UsiOK;
+      if (handler != null) handler(this, e);
+    }
+    private void OnReadyOK(EventArgs e)
+    {
+      var handler = ReadyOK;
+      if (handler != null) handler(this, e);
+    }
+    
     private UsiOptionBase ParseOption(string line)
     {
       var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
@@ -339,7 +354,6 @@ namespace DotUsi
       }
       return CreateOptionObject(name, optionType, defaultValue, min, max, possibleValues);
     }
-
     private UsiOptionBase CreateOptionObject(string name, string optionType, string defaultValue, string min, string max, IList<string> possibleValues)
     {
       if (name == null) throw new UsiParserException("Option can't have no name");
