@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drivers\SpearCsa2009V15Driver.cs" />
     <Compile Include="EventArgs\BestMoveEventArgs.cs" />
     <Compile Include="Info\InfoParserUtils.cs" />
     <Compile Include="Options\ButtonOption.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Options\StringOption.cs" />
     <Compile Include="Options\Base\ValueOptionBase.cs" />
     <Compile Include="Info\ScoreInfo.cs" />
+    <Compile Include="Drivers\UsiDriverBase.cs" />
     <Compile Include="SearchModifiers\TimeConstraints\BlackIncrementModifier.cs" />
     <Compile Include="SearchModifiers\TimeConstraints\BlackTimeModifier.cs" />
     <Compile Include="SearchModifiers\TimeConstraints\ByoyomiModifier.cs" />

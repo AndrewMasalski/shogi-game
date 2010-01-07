@@ -74,7 +74,7 @@ namespace DotUsi
       return new Dictionary<string, Action<string>>
                {
                  {"cp", v => CentiPawns = int.Parse(v)},
-                 {"mate", v => Mate = int.Parse(v)},
+                 {"mate", v => Mate = v == "-" ? 0 : int.Parse(v)},
                  {"lowerbound", v => IsLowerBound = true },
                  {"upperbound", v => IsUpperBound = true },
                };

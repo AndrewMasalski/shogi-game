@@ -49,9 +49,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concrete Engines\Lesserkai133Test.cs" />
+    <Compile Include="Concrete Engines\SpearCsa2009V15Test.cs" />
+    <Compile Include="Concrete Engines\Utils.cs" />
     <Compile Include="EngineExtension.cs" />
     <Compile Include="ModifiersTest.cs" />
-    <Compile Include="LaramieV3Test.cs" />
+    <Compile Include="Concrete Engines\LaramieV3Test.cs" />
     <Compile Include="OptionTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLog.cs" />
