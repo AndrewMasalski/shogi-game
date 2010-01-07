@@ -8,6 +8,7 @@
       <Field Name="_cells" Hidden="true" />
       <Field Name="_cellsRo" Hidden="true" />
       <Field Name="_hashCode" Hidden="true" />
+      <Field Name="_isHashCodeCalculated" Hidden="true" />
       <Field Name="_whiteHand" Hidden="true" />
       <Field Name="_whiteHandRo" Hidden="true" />
       <Method Name="CalculateHashCode" Hidden="true" />
@@ -19,13 +20,14 @@
       <Method Name="Equals" Hidden="true" />
       <Method Name="EstimateUsualMoveTargets" Hidden="true" />
       <Method Name="FindTheKing" Hidden="true" />
+      <Method Name="GetAllAvailableUsualMoves" Hidden="true" />
       <Method Name="GetAllValidDropMoves" Hidden="true" />
       <Method Name="GetAllValidUsualMovesWithoutCheck3" Hidden="true" />
       <Method Name="GetAvailableDropMoves" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="GetMovesFor桂" Hidden="true" />
       <Method Name="GetMovesFor歩" Hidden="true" />
-      <Method Name="GetMovesFor玉" Hidden="true" />
+      <Method Name="GetMovesFor王" Hidden="true" />
       <Method Name="GetMovesFor竜" Hidden="true" />
       <Method Name="GetMovesFor角" Hidden="true" />
       <Method Name="GetMovesFor金" Hidden="true" />
@@ -35,6 +37,7 @@
       <Method Name="GetMovesFor馬" Hidden="true" />
       <Method Name="Go" Hidden="true" />
       <Method Name="HandInternal" Hidden="true" />
+      <Property Name="HashCode" Hidden="true" />
       <Method Name="IsTherePawnOnThisColumn" Hidden="true" />
       <Method Name="Join" Hidden="true" />
       <Method Name="Left" Hidden="true" />
@@ -47,9 +50,12 @@
       <Method Name="UpLeft" Hidden="true" />
       <Method Name="UpRight" Hidden="true" />
     </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>QCARCgMAQKAEAAiZigNJJIAIEEAhApAACAShJAABAiM=</HashCode>
-      <FileName>ShogiCore\Snapshots\BoardSnapshot.cs</FileName>
+      <HashCode>QCARCgMMAKAEAAiZmgNJJIAIEEAhApAACAShJAABAiM=</HashCode>
+      <FileName>SnapShots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
@@ -64,7 +70,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAEAIAAAAAAAAAIgACAAAAAgAAAAAA=</HashCode>
-      <FileName>ShogiCore\Snapshots\UsualMoveSnapshot.cs</FileName>
+      <FileName>SnapShots\UsualMoveSnapshot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.DropMoveSnapshot">
@@ -74,7 +80,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIgACAAAAAoAAAAAA=</HashCode>
-      <FileName>ShogiCore\Snapshots\DropMoveSnapshot.cs</FileName>
+      <FileName>SnapShots\DropMoveSnapshot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.MoveSnapshotBase">
@@ -84,7 +90,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgACAAAAAgAAAAAA=</HashCode>
-      <FileName>ShogiCore\Snapshots\MoveSnapshotBase.cs</FileName>
+      <FileName>SnapShots\MoveSnapshotBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.PieceSnapshot">
@@ -95,11 +101,10 @@
       <Method Name="IsThatPromitionZoneFor" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAhAAAgACAABAAAAAAAIAAAQAAgAAAAiQ=</HashCode>
-      <FileName>ShogiCore\Snapshots\PieceSnapshot.cs</FileName>
+      <HashCode>AAAAAAAAEAAAhAAAgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
+      <FileName>SnapShots\PieceSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Type" />
       <Property Name="Color" />
     </ShowAsAssociation>
   </Class>
@@ -112,7 +117,6 @@
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
       <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
-      <Method Name="EnsurePlayerBelongs" Hidden="true" />
       <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
       <Method Name="OnHistoryNavigated" Hidden="true" />
       <Method Name="OnHistoryNavigating" Hidden="true" />
@@ -120,10 +124,11 @@
       <Method Name="OnMoved" Hidden="true" />
       <Method Name="OnMoving" Hidden="true" />
       <Method Name="ResetCurrentSnapshot" Hidden="true" />
+      <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhACAIQQAoIAhCAKAAAAQBAAAAgQAAEACSFCAIAA=</HashCode>
-      <FileName>ShogiCore\Board.cs</FileName>
+      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgQAAEACSFCAIAA=</HashCode>
+      <FileName>Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="CurrentSnapshot" />
@@ -156,8 +161,8 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BFAAYCAAIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAEAAiA=</HashCode>
-      <FileName>ShogiCore\PieceType.cs</FileName>
+      <HashCode>BFACYKAQIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAMAAiA=</HashCode>
+      <FileName>PieceType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
@@ -165,7 +170,7 @@
     <Position X="11.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ShogiCore\PieceColor.cs</FileName>
+      <FileName>PieceColor.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Tahoma" Size="8.25" />

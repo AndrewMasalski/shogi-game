@@ -83,6 +83,23 @@ namespace Yasc.ShogiCore
     {
       return new Vector(second.X - first.X, second.Y - first.Y);
     }
+    public static Vector operator +(Vector vector, Position position)
+    {
+      return new Vector(position.X + vector.X, position.Y + vector.Y);
+    }
+    public static Vector operator +(Position position, Vector vector)
+    {
+      return new Vector(position.X + vector.X, position.Y + vector.Y);
+    }
+    public static explicit operator Vector(Position position)
+    {
+      return new Vector(position.X, position.Y);
+    }
+    public static implicit operator Position(Vector vector)
+    {
+      return new Position(vector.X, vector.Y);
+    }
+
     public static IEnumerable<Position> OnBoard
     {
       get
