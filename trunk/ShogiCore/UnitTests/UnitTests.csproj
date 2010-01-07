@@ -158,9 +158,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Jan-Jun1992.psn" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Yasc.ShogiCore\Yasc.ShogiCore.csproj">
       <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
       <Name>Yasc.ShogiCore</Name>
