@@ -1,14 +1,18 @@
 namespace DotUsi
 {
+  ///<summary>Driver for Spear CSA 2009 v.1.5 </summary>
   public class SpearCsa2009V15Driver : UsiDriverBase
   {
     private bool _gameMode;
-
+    
+    /// <summary>ctor</summary>
+    /// <param name="process">Raw process to decorate</param>
     public SpearCsa2009V15Driver(IUsiProcess process) 
       : base(process)
     {
     }
 
+    /// <summary>Override to change behaviour</summary>
     public override void WriteLine(string text)
     {
       if (text == "usinewgame")

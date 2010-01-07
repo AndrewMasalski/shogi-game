@@ -4,9 +4,8 @@ using System.IO;
 
 namespace DotUsi
 {
-  public static class TextReaderExtensions
+  internal static class TextReaderExtensions
   {
-    
     public static IEnumerable<string> LinesUntil(this TextReader reader, string stopLine)
     {
       if (reader == null) throw new ArgumentNullException("reader");

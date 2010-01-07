@@ -21,6 +21,8 @@ namespace DotUsi
     private readonly Process _process;
     private readonly Timer _timer;
 
+    /// <summary>ctor</summary>
+    /// <param name="path">Path to the executable file</param>
     public UsiWindowsProcess(string path)
     {
      _process = Process.Start(new ProcessStartInfo
@@ -64,14 +66,18 @@ namespace DotUsi
       if (handle != null) handle(this, e);
     }
 
+    /// <summary>Send some input to the process</summary>
     public void WriteLine(string text)
     {
       File.AppendAllText(@"log.input.txt", text + "\r\n");
       _process.StandardInput.WriteLine(text);
     }
 
+    /// <summary>Raised asynchronously when windows process sends something to its output</summary>
     public event EventHandler<LineReceivedEventArgs> OutputDataReceived;
+    /// <summary>Indicates whether the engine is disposed</summary>
     public bool IsDisposed { get; private set;}
+    /// <summary>Closes the windows process. Kills it if it has to.</summary>
     public void Dispose()
     {
       // This method could be called simultaneously from 3 threads:

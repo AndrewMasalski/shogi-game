@@ -5,6 +5,7 @@ namespace DotUsi
   /// </summary>
   public class InfiniteModifier : UsiSearchModifier
   {
+    /// <summary>Override to define what to pass to engine as a part of the 'setoption' command</summary>
     protected override string GetCommand()
     {
       return "infinite";

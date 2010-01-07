@@ -4,6 +4,7 @@ using System.ComponentModel;
 
 namespace DotUsi
 {
+  /// <summary>Keeps information about score engine sends</summary>
   public class ScoreInfo : INotifyPropertyChanged
   {
     private int _centiPawns;
@@ -21,6 +22,7 @@ namespace DotUsi
       InfoParserUtils.ParseLine(_parserTable, line);
     }
 
+    /// <summary>The score from the engine's point of view, in centipawns.</summary>
     public int CentiPawns
     {
       get { return _centiPawns; }
@@ -31,6 +33,7 @@ namespace DotUsi
         RaisePropertyChanged("CentiPawns");
       }
     }
+    /// <summary>Mate in y plies. If the engine is getting mated, use negative values for y.</summary>
     public int Mate
     {
       get { return _mate; }
@@ -41,6 +44,7 @@ namespace DotUsi
         RaisePropertyChanged("Mate");
       }
     }
+    /// <summary>The score is just a lower bound.</summary>
     public bool IsLowerBound
     {
       get { return _isLowerBound; }
@@ -51,6 +55,7 @@ namespace DotUsi
         RaisePropertyChanged("IsLowerBound");
       }
     }
+    /// <summary>The score is just an upper bound.</summary>
     public bool IsUpperBound
     {
       get { return _isUpperBound; }
@@ -61,12 +66,8 @@ namespace DotUsi
         RaisePropertyChanged("IsUpperBound");
       }
     }
-    private void RaisePropertyChanged(string propertyName)
-    {
-      var handler = PropertyChanged;
-      if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-    }
-
+    
+    /// <summary>Occurs when a property value changes</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
     private Dictionary<string, Action<string>> InitInfoParserTable()
@@ -78,6 +79,11 @@ namespace DotUsi
                  {"lowerbound", v => IsLowerBound = true },
                  {"upperbound", v => IsUpperBound = true },
                };
+    }
+    private void RaisePropertyChanged(string propertyName)
+    {
+      var handler = PropertyChanged;
+      if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }

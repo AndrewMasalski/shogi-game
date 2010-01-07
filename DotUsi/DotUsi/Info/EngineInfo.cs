@@ -5,6 +5,7 @@ using System.ComponentModel;
 
 namespace DotUsi
 {
+  /// <summary>Holds all information fields engine can notify about</summary>
   public class EngineInfo : INotifyPropertyChanged
   {
     private string _currentMove;
@@ -146,6 +147,7 @@ namespace DotUsi
     /// The engine should only send this if the option USI_ShowRefutations is set to true.
     /// </summary>
     public ReadOnlyObservableCollection<string> Refutation { get; private set; }
+    /// <summary>Score related info</summary>
     public ScoreInfo Score { get; private set; }
 
     internal EngineInfo()
@@ -166,6 +168,7 @@ namespace DotUsi
       InfoParserUtils.ParseLine(_parserTable, line);
     }
 
+    /// <summary>Occurs when a property value changes.</summary>
     public event PropertyChangedEventHandler PropertyChanged;
 
     private Dictionary<string, Action<string>> InitInfoParserTable()

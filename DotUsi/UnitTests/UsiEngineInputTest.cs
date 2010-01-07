@@ -219,7 +219,7 @@ namespace UnitTests
 
     #endregion
 
-    #region ' Go + 7 method '
+    #region ' Go method '
 
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void GoInStartMode()
@@ -258,6 +258,13 @@ namespace UnitTests
 
       Assert.AreEqual("go mate 4 byoyomi 15000 depth 10", _process.InputData.Dequeue());
       Assert.AreEqual(EngineMode.Searching, _engine.Mode);
+    }
+
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void GoWithNullModifierTest()
+    {
+      PrepareEngine();
+      _engine.Go(null);
     }
 
     #endregion

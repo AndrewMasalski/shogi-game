@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace DotUsi
 {
+  /// <summary>Represents USI compatible engine as described 
+  ///   <a href="http://www.glaurungchess.com/shogi/usi.html">here</a></summary>
   public class UsiEngine : IDisposable
   {
     private bool _debugMode;
@@ -15,13 +17,18 @@ namespace DotUsi
 
     #region ' Public Properties '
 
+    /// <summary>List of options the engine supports</summary>
     public ReadOnlyCollection<UsiOptionBase> Options
     {
       get { return new ReadOnlyCollection<UsiOptionBase>(_options); }
     }
+    /// <summary>Identifies the engine, e.g. Shredder X.Y</summary>
     public string EngineName { get; private set; }
+    /// <summary>Identifies the engine author, e.g. Stefan MK</summary>
     public string AuthorName { get; private set; }
+    /// <summary>Current engine state</summary>
     public EngineMode Mode { get; private set; }
+    /// <summary>Aggregates info engine sends to user</summary>
     public EngineInfo Info { get; private set; }
     /// <summary>Switch the debug mode of the engine on and off</summary>
     /// <remarks>
@@ -46,6 +53,8 @@ namespace DotUsi
 
     #endregion
 
+    /// <summary>ctor</summary>
+    /// <param name="process">engine process</param>
     public UsiEngine(IUsiProcess process)
     {
       Info = new EngineInfo();
@@ -64,6 +73,7 @@ namespace DotUsi
     /// After that, the engine should send usiok to acknowledge the USI mode. 
     /// If no usiok is sent within a certain time period, the engine task will be killed by the GUI.
     /// </summary>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void Usi()
     {
       VerifyStarted();
@@ -82,6 +92,7 @@ namespace DotUsi
     ///   in which case the engine should also immediately answer with 
     ///   readyok without stopping the search.</para>
     /// </remarks>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void IsReady()
     {
       VerifyCorrupted();
@@ -97,6 +108,7 @@ namespace DotUsi
     ///   <para>As the engine's reaction to this command can take some time the GUI should always 
     ///   send use <see cref="IsReady"/> to wait for the engine to finish this operation.</para>
     /// </remarks>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void NewGame()
     {
       VerifyIsReady();
@@ -108,6 +120,7 @@ namespace DotUsi
     /// <remarks>If this position is from a different game 
     ///   than the last position sent to the engine, 
     ///   the GUI should have sent a <see cref="NewGame"/> inbetween.</remarks>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void Position(params string[] moves)
     {
       VerifyIsReady();
@@ -125,6 +138,7 @@ namespace DotUsi
     /// <remarks>If this position is from a different game 
     ///   than the last position sent to the engine, 
     ///   the GUI should have sent a <see cref="NewGame"/> inbetween.</remarks>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void Position(SfenString sfen, params string[] moves)
     {
       if (sfen == null) throw new ArgumentNullException("sfen");
@@ -139,8 +153,15 @@ namespace DotUsi
       }
       _process.WriteLine(command.ToString());
     }
+    /// <summary>Start calculating on the position set up with the position command.</summary>
+    /// <param name="modifiers">List of search process modifiers</param>
+    /// <exception cref="ArgumentNullException">One of arguments is null</exception>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void Go(params UsiSearchModifier[] modifiers)
     {
+      if (modifiers.Where(m => m == null).Count() > 0)
+        throw new ArgumentNullException("modifiers");
+
       VerifyIsReady();
 
       var command = new StringBuilder("go");
@@ -156,6 +177,7 @@ namespace DotUsi
     }
 
     /// <summary>Stop calculating as soon as possible.</summary>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void Stop()
     {
       VerifySearchOrPondering();
@@ -166,6 +188,7 @@ namespace DotUsi
     ///   This will be sent if the engine was told to ponder on the same move the user has played.
     ///   The engine should continue searching but switch from pondering to normal search.
     /// </summary>
+    /// <exception cref="InvalidOperationException">Method is called within wrong <see cref="Mode"/></exception>
     public void PonderHit()
     {
       VerifyPondering();
@@ -173,6 +196,7 @@ namespace DotUsi
       Mode = EngineMode.Searching;
     }
 
+    /// <summary>Closes the engine process and releases all resources</summary>
     public void Dispose()
     {
       lock (this)
@@ -192,8 +216,11 @@ namespace DotUsi
 
     #endregion
 
+    /// <summary>Raised when the best move is found by the engine</summary>
     public event EventHandler<BestMoveEventArgs> BestMove;
+    /// <summary>Raised when engine said all it wanted to say after <see cref="Usi"/> command</summary>
     public event EventHandler UsiOK;
+    /// <summary>Raised when engine confirms that it's ready after <see cref="IsReady"/> command</summary>
     public event EventHandler ReadyOK;
 
     #region ' VerifyMode methods '

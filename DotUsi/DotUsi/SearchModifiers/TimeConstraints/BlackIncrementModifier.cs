@@ -14,6 +14,7 @@ namespace DotUsi
         throw new ArgumentOutOfRangeException("value", "must not be negative");
     }
 
+    /// <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
     protected override string GetCommandName()
     {
       return "binc";

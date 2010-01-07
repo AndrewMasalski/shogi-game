@@ -2,13 +2,16 @@ using System;
 
 namespace DotUsi
 {
+  /// <summary>Represents error that occurs during parse of engine's output</summary>
   public class UsiParserException : Exception
   {
-    public UsiParserException()
+    /// <summary>ctor</summary>
+    internal UsiParserException()
     {
     }
 
-    public UsiParserException(string message)
+    /// <summary>ctor</summary>
+    internal UsiParserException(string message)
       : base(message)
     {
     }

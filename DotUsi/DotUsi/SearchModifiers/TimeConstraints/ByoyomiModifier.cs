@@ -9,8 +9,8 @@ namespace DotUsi
   ///   during his first 60 minutes of thinking time, but after the hour is exhausted, 
   ///   he must make each move in thirty seconds or less</para>
   /// </summary>
-  /// <seealso cref="http://en.wikipedia.org/wiki/Byoyomi"/>
-  /// <remarks>It's not from USI specification. Seen in Shogidokoro</remarks>
+  /// <remarks><para>Look here for details: http://en.wikipedia.org/wiki/Byoyomi</para>
+  /// <para>It's not from USI specification. Seen in Shogidokoro</para></remarks>
   public class ByoyomiModifier : TimeSpanModifier
   {
     /// <summary>Creates modifier for byo-yomi set for the game</summary>
@@ -22,6 +22,7 @@ namespace DotUsi
         throw new ArgumentOutOfRangeException("value", "must not be negative");
     }
 
+    /// <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
     protected override string GetCommandName()
     {
       return "byoyomi";

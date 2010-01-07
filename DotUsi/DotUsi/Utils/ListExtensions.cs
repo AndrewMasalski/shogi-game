@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace DotUsi
 {
-  public static class ListExtensions
+  internal static class ListExtensions
   {
     public static IEnumerable<KeyValuePair<T, T>> Pairs<T>(this IList<T> list)
     {
