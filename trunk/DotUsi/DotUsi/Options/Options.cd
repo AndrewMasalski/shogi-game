@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DotUsi.UsiOptionBase">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Property Name="CommitCommand" Hidden="true" />
+      <Method Name="UsiOptionBase" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAgAQAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Options\Base\UsiOptionBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OptionType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DotUsi.StringOption" Collapsed="true">
+    <Position X="0.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Options\StringOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.ValueOptionBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAQAAAAAAAAkAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Options\Base\ValueOptionBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.ButtonOption" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAEAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Options\ButtonOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.CheckOption" Collapsed="true">
+    <Position X="5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Options\CheckOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.ComboOption">
+    <Position X="1.75" Y="5" Width="1.5" />
+    <Members>
+      <Method Name="ComboOption" Hidden="true" />
+      <Property Name="Value" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Options\ComboOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.FileNameOption" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Options\FileNameOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotUsi.SpinOption">
+    <Position X="4" Y="5" Width="1.5" />
+    <Members>
+      <Method Name="SpinOption" Hidden="true" />
+      <Property Name="Value" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Options\SpinOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="DotUsi.UsiOptionType">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAgAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAJAAAA=</HashCode>
+      <FileName>Options\Base\UsiOptionType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
