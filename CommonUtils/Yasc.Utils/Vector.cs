@@ -1,4 +1,3 @@
-using Yasc.ShogiCore;
 
 namespace Yasc.Utils
 {
@@ -19,14 +18,6 @@ namespace Yasc.Utils
       Y = y;
     }
 
-    public static Vector operator +(Vector vector, Position position)
-    {
-      return new Vector(position.X + vector.X, position.Y + vector.Y);
-    }
-    public static Vector operator +(Position position, Vector vector)
-    {
-      return new Vector(position.X + vector.X, position.Y + vector.Y);
-    }
     public static Vector operator +(Vector first, Vector second)
     {
       return new Vector(first.X + second.X, first.Y + second.Y);
@@ -34,14 +25,6 @@ namespace Yasc.Utils
     public static Vector operator *(Vector first, Vector second)
     {
       return new Vector(first.X*second.X, first.Y*second.Y);
-    }
-    public static implicit operator Vector(Position position)
-    {
-      return new Vector(position.X, position.Y);
-    }
-    public static implicit operator Position(Vector vector)
-    {
-      return new Position(vector.X, vector.Y);
     }
 
     public bool Equals(Vector other)

@@ -1,55 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Yasc.ShogiCore.Moves.DropMove">
-    <Position X="6" Y="3.25" Width="2" />
+    <Position X="6" Y="3.75" Width="2" />
     <Members>
       <Method Name="DropMove" Hidden="true" />
       <Method Name="GetErrorMessage" Hidden="true" />
       <Method Name="Make" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAABAAAAAAAAIAFAAAAAAAAIAAQA=</HashCode>
-      <FileName>ShogiCore\Moves\DropMove.cs</FileName>
+      <HashCode>AAAAAAAAAAAgAAAEAAAAAAAAAAAIAFAAAAAAAAIAAQA=</HashCode>
+      <FileName>Moves\DropMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.UsualMove">
-    <Position X="8.5" Y="3.25" Width="2" />
+    <Position X="8.5" Y="3.75" Width="2" />
     <Members>
+      <Field Name="_cuteNotation" Hidden="true" />
+      <Method Name="GetCuteNotation" Hidden="true" />
       <Method Name="GetErrorMessage" Hidden="true" />
+      <Method Name="GetHint" Hidden="true" />
       <Method Name="Make" Hidden="true" />
       <Method Name="UsualMove" Hidden="true" />
+      <Method Name="WhoElseCouldMoveThere" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AgAAAEAAAAAIAAAEAIBAAAAAAAAIAEAAAAAAAAIAAQA=</HashCode>
-      <FileName>ShogiCore\Moves\UsualMove.cs</FileName>
+      <HashCode>AgAAAEAAAAAoIAAEAIAgAABAAEAIAEIAAAAAAAIAAQA=</HashCode>
+      <FileName>Moves\UsualMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.InvalidMoveException" Collapsed="true">
-    <Position X="4.75" Y="5.75" Width="2.25" />
+    <Position X="4.75" Y="6.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ShogiCore\Moves\InvalidMoveException.cs</FileName>
+      <FileName>Moves\InvalidMoveException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.MoveBase">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <Members>
-      <Method Name="CorrectTimeStamp" Hidden="true" />
       <Method Name="GetErrorMessage" Hidden="true" />
       <Method Name="Make" Hidden="true" />
       <Method Name="MoveBase" Hidden="true" />
       <Method Name="Validate" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AQAAABCAAACAAAAAAkhAAAAAAAAAAAAAAAAIACIAAQA=</HashCode>
-      <FileName>ShogiCore\Moves\MoveBase.cs</FileName>
+      <HashCode>AQAAABAAAACgAAAAAkgCAAAAAAAAAAAAAAAIACIAAQA=</HashCode>
+      <FileName>Moves\MoveBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.MoveEventArgs">
-    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Position X="0.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ShogiCore\Moves\MoveEventArgs.cs</FileName>
+      <FileName>Moves\MoveEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Moves.MovesHistory">
@@ -58,8 +61,8 @@
       <Field Name="_currentMoveIndex" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAACACAAQAgQAAACAAAAAA=</HashCode>
-      <FileName>ShogiCore\Moves\MovesHistory.cs</FileName>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAACACAAQAiQAAACAAAAAA=</HashCode>
+      <FileName>Moves\MovesHistory.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="CurrentMove" />
@@ -74,7 +77,6 @@
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
       <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
-      <Method Name="EnsurePlayerBelongs" Hidden="true" />
       <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
       <Method Name="OnHistoryNavigated" Hidden="true" />
       <Method Name="OnHistoryNavigating" Hidden="true" />
@@ -82,20 +84,21 @@
       <Method Name="OnMoved" Hidden="true" />
       <Method Name="OnMoving" Hidden="true" />
       <Method Name="ResetCurrentSnapshot" Hidden="true" />
+      <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhACAIQQAoIAhCAKAAAAQBAAAAgQAAEACSFCAIAA=</HashCode>
-      <FileName>ShogiCore\Board.cs</FileName>
+      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgQAAEACSFCAIAA=</HashCode>
+      <FileName>Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="History" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.HistoryNavigateEventArgs">
-    <Position X="2.25" Y="5.25" Width="2.25" />
+    <Position X="2.25" Y="5.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>ShogiCore\HistoryNavigateEventArgs.cs</FileName>
+      <FileName>HistoryNavigateEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />

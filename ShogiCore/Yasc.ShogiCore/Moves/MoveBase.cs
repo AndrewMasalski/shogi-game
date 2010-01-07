@@ -26,20 +26,23 @@ namespace Yasc.ShogiCore.Moves
       BoardSnapshot = Board.CurrentSnapshot;
     }
 
+    /// <summary>Override to apply move to the <see cref="MoveBase.Board"/></summary>
     protected internal abstract void Make();
     
     protected void Validate()
     {
-      ErrorMessage = GetErrorMessage();
+      ErrorMessage = GetValidationErrorMessage();
     }
 
-    protected abstract string GetErrorMessage();
+    /// <summary>Override to get validation error message or null if move is valid</summary>
+    protected abstract string GetValidationErrorMessage();
 
     public void CorrectTimestamp(DateTime timestamp)
     {
       Timestamp = timestamp; 
     }
 
+    /// <summary>Gets snapshot of the move</summary>
     public abstract MoveSnapshotBase Snapshot();
   }
 }

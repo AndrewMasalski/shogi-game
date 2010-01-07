@@ -1,20 +1,24 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.Moves
 {
-  public class UsualMove : MoveBase
+  /// <summary>Represents usual move (as opposing to the <see cref="DropMove"/>)</summary>
+  public sealed class UsualMove : MoveBase
   {
     private string _cuteNotation;
 
+    /// <summary>Move origin</summary>
     public Position From { get; private set; }
+    /// <summary>Move target</summary>
     public Position To { get; private set; }
+    /// <summary>Piece being moved</summary>
     public Piece MovingPiece { get; private set; }
+    /// <summary>Piece being taken by the move</summary>
     public Piece TakenPiece { get; private set; }
+    /// <summary>Indicates whether move is promoting</summary>
     public bool IsPromoting { get; private set; }
 
     public override MoveSnapshotBase Snapshot()
@@ -27,7 +31,8 @@ namespace Yasc.ShogiCore.Moves
     }
 
     #region ' CuteNotation '
-
+    
+    /// <summary>Move transcript in "cute" notation</summary>
     public string CuteNotation
     {
       get
@@ -104,12 +109,16 @@ namespace Yasc.ShogiCore.Moves
       TakenPiece = board[to];
     }
 
+    /// <summary>Creates an instance of <see cref="UsualMove"/> 
+    ///   from origin and target positions and validates it immediately</summary>
     public static UsualMove Create(Board board, Position from, Position to, bool isPromoting)
     {
       var res = new UsualMove(board, from, to, isPromoting);
       res.Validate();
       return res;
     }
+    /// <summary>Creates an instance of <see cref="UsualMove"/> 
+    ///   from snapshot and validates it immediately</summary>
     public static UsualMove Create(Board board, UsualMoveSnapshot snapshot)
     {
       var res = new UsualMove(board, snapshot.From, snapshot.To, snapshot.IsPromoting);
@@ -119,7 +128,7 @@ namespace Yasc.ShogiCore.Moves
 
     #endregion
 
-    protected override string GetErrorMessage()
+    protected override string GetValidationErrorMessage()
     {
       return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
     }
