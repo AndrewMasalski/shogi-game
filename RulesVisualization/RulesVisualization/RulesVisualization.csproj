@@ -50,9 +50,13 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Yasc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MainModule\Release\Yasc.exe</HintPath>
+    </Reference>
     <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
+      <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -96,12 +100,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Yasc\Yasc.csproj">
-      <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
-      <Name>Yasc</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
