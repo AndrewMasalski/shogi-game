@@ -48,6 +48,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Yasc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MainModule\Release\Yasc.exe</HintPath>
+    </Reference>
     <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
@@ -82,12 +86,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Yasc\Yasc.csproj">
-      <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
-      <Name>Yasc</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Rotate.png" />
