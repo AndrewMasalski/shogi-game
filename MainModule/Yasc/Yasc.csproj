@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E8497624-9F29-411B-A917-C2DE3A87661D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yasc</RootNamespace>
+    <AssemblyName>Yasc</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>Resources\App.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>../Marhoily.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkSubset>Client</TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Common\ProgressCircle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\ConnectingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\LogOnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\ServerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\WelcomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI\AiControllerBase.cs" />
+    <Compile Include="AI\CleverAiController.cs" />
+    <Compile Include="ChatCommands.cs" />
+    <Compile Include="Common\AndConverter.cs" />
+    <Compile Include="Common\ListBoxFocusBehaviour.cs" />
+    <Compile Include="Common\MovesAndCommentsGrid.cs" />
+    <Compile Include="Common\ProgressCircle.xaml.cs">
+      <DependentUpon>ProgressCircle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DirectionToBoolConverter.cs" />
+    <Compile Include="Common\ProgressClock.cs" />
+    <Compile Include="Common\TimerDirection.cs" />
+    <Compile Include="Controls\Automation\ControlAutomationPeer.cs" />
+    <Compile Include="Controls\BoardBorder.cs" />
+    <Compile Include="Controls\HandGroupingMode.cs" />
+    <Compile Include="Controls\HandNest.cs" />
+    <Compile Include="Controls\Automation\HandNestAutomationPeer.cs" />
+    <Compile Include="Controls\PieceDirection.cs" />
+    <Compile Include="Controls\PieceHolderBase.cs" />
+    <Compile Include="Controls\Shield.cs" />
+    <Compile Include="Controls\Automation\ShogiBoardAutomationPeer.cs" />
+    <Compile Include="Controls\ShogiBoardCore.cs" />
+    <Compile Include="Controls\Automation\ShogiBoardCoreAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
+    <Compile Include="EntryPoint.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Persistence\PsnLoader.cs" />
+    <Compile Include="GenericDragDrop\Dnd.cs" />
+    <Compile Include="GenericDragDrop\DndAdorner.cs" />
+    <Compile Include="GenericDragDrop\DragFromBoardEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DragFromEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DragFromHandEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DropToBoardEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DropToHandEventArgs.cs" />
+    <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
+    <Compile Include="Common\DebugConverter.cs" />
+    <Compile Include="Controls\ShogiCell.cs" />
+    <Compile Include="Common\StopwatchControl.cs" />
+    <Compile Include="Common\SwitchControl.cs" />
+    <Compile Include="Common\ToStringConverter.cs" />
+    <Compile Include="Controls\MoveAttemptEventArgs.cs" />
+    <Compile Include="Controls\ShogiPiece.cs" />
+    <Compile Include="AI\RandomAiController.cs" />
+    <Compile Include="Gui\ConnectingView.xaml.cs">
+      <DependentUpon>ConnectingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ConnectingViewModel.cs" />
+    <Compile Include="Gui\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\GameViewModel.cs" />
+    <Compile Include="Gui\LogOnView.xaml.cs">
+      <DependentUpon>LogOnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\LoginViewModel.cs" />
+    <Compile Include="Gui\LvsSettingsExtension.cs" />
+    <Compile Include="Gui\ServerView.xaml.cs">
+      <DependentUpon>ServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ServerViewModel.cs" />
+    <Compile Include="Gui\SkinViewModel.cs" />
+    <Compile Include="Gui\StringRangeValidationRule.cs" />
+    <Compile Include="Gui\UserViewModel.cs" />
+    <Compile Include="Gui\WelcomeChoice.cs" />
+    <Compile Include="Gui\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\WelcomeViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Networking\ActionListener.cs" />
+    <Compile Include="Networking\MoveMsg.cs" />
+    <Compile Include="Networking\PortUtils.cs" />
+    <Compile Include="Networking\Interfaces.cs" />
+    <Compile Include="Networking\ShogiServer.cs" />
+    <Compile Include="Controls\ShogiBoard.cs" />
+    <Compile Include="Networking\Server.InviteeTicket.cs" />
+    <Compile Include="Networking\Server.InvitorTicket.cs" />
+    <Compile Include="Networking\Server.PlayerGameController.cs" />
+    <Compile Include="Networking\Server.ServerGame.cs" />
+    <Compile Include="Networking\Server.ServerSession.cs" />
+    <Compile Include="Networking\Server.ServerUser.cs" />
+    <Compile Include="Networking\Server.SpectatorController.cs" />
+    <Compile Include="Common\ScalarConverter.cs" />
+    <Compile Include="Controls\ShogiHand.cs" />
+    <Compile Include="Common\UniformPanel.cs" />
+    <Compile Include="Gui\SkinningViewModel.cs" />
+    <Compile Include="Skins\AppDomainAssemblySkin.cs" />
+    <Compile Include="Skins\BamlHelper.cs" />
+    <Compile Include="Skins\DirectAssemblySkin.cs" />
+    <Compile Include="Skins\ISkinBamlResolver.cs" />
+    <Compile Include="Skins\LooseXamlSkin.cs" />
+    <Compile Include="Skins\ReferencedAssemblySkin.cs" />
+    <Compile Include="Skins\Skin.cs" />
+    <Compile Include="Skins\SkinBamlResolver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Controls\ControlsDiagram.cd" />
+    <None Include="Networking\NetworkingDiagram.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Rotate.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <Version>$(BUILD_NUMBER)</Version>
+  </PropertyGroup>
+  <Target Name="BeforeBuild" Condition=" '$(Version)' != '' ">
+    <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" Regex="\[\s*assembly\s*:\s*AssemblyVersion\s*\(\s*&quot;[\d\.\*]+&quot;\s*\)\s*\]" ReplacementText="[assembly: AssemblyVersion(&quot;$(Version)&quot;)]" />
+    <Message Text="Varsion altered: $(Version)" />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

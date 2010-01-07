@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{70532AD0-F1D5-4787-9E62-E06377C04CC4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DotUsi</RootNamespace>
+    <AssemblyName>DotUsi</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DotUsi.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DotUsi.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drivers\Lesserkai133Driver.cs" />
+    <Compile Include="Drivers\SpearCsa2009V15Driver.cs" />
+    <Compile Include="EventArgs\BestMoveEventArgs.cs" />
+    <Compile Include="Info\InfoParserUtils.cs" />
+    <Compile Include="Options\ButtonOption.cs" />
+    <Compile Include="Options\CheckOption.cs" />
+    <Compile Include="Options\ComboOption.cs" />
+    <Compile Include="Options\FileNameOption.cs" />
+    <Compile Include="Options\SpinOption.cs" />
+    <Compile Include="Options\StringOption.cs" />
+    <Compile Include="Options\Base\ValueOptionBase.cs" />
+    <Compile Include="Info\ScoreInfo.cs" />
+    <Compile Include="Drivers\UsiDriverBase.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\BlackIncrementModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\BlackTimeModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\ByoyomiModifier.cs" />
+    <Compile Include="SearchModifiers\DepthConstraints\DepthConstraint.cs" />
+    <Compile Include="EngineMode.cs" />
+    <Compile Include="Info\EngineInfo.cs" />
+    <Compile Include="Process\IUsiProcess.cs" />
+    <Compile Include="EventArgs\LineReceivedEventArgs.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\InfiniteModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\MoveTimeModifier.cs" />
+    <Compile Include="SearchModifiers\DepthConstraints\NodesConstraint.cs" />
+    <Compile Include="SearchModifiers\Base\ScalarModifier.cs" />
+    <Compile Include="SearchModifiers\Base\TimeSpanModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\WhiteIncrementModifier.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\WhiteTimeModifier.cs" />
+    <Compile Include="Utils\ListExtensions.cs" />
+    <Compile Include="SearchModifiers\TimeConstraints\MovesToGoModifier.cs" />
+    <Compile Include="Exceptions\CouldntStartProcessException.cs" />
+    <Compile Include="SearchModifiers\PonderModifier.cs" />
+    <Compile Include="SearchModifiers\SearchMateModifier.cs" />
+    <Compile Include="SearchModifiers\SearchMovesModifier.cs" />
+    <Compile Include="SfenString.cs" />
+    <Compile Include="Utils\TextReaderExtensions.cs" />
+    <Compile Include="UsiEngine.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Options\Base\UsiOptionBase.cs" />
+    <Compile Include="Options\Base\UsiOptionType.cs" />
+    <Compile Include="Exceptions\UsiParserException.cs" />
+    <Compile Include="SearchModifiers\Base\UsiSearchModifier.cs" />
+    <Compile Include="Process\UsiWindowsProcess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Options\Options.cd" />
+    <None Include="Engine.cd" />
+    <None Include="SearchModifiers\SearchModifiers.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
