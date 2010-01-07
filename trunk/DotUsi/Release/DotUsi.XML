@@ -1,0 +1,674 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotUsi</name>
+    </assembly>
+    <members>
+        <member name="T:DotUsi.UsiOptionBase">
+            <summary>Base class for all USI options</summary>
+        </member>
+        <member name="M:DotUsi.UsiOptionBase.#ctor(DotUsi.UsiEngine,System.String,DotUsi.UsiOptionType)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:DotUsi.UsiOptionBase.Engine">
+            <summary>Owner engine reference</summary>
+        </member>
+        <member name="P:DotUsi.UsiOptionBase.Name">
+            <summary>Option name</summary>
+        </member>
+        <member name="P:DotUsi.UsiOptionBase.OptionType">
+            <summary>Option type</summary>
+        </member>
+        <member name="T:DotUsi.TimeSpanModifier">
+            <summary>Base class for all search modifiers with scalar value of type <see cref="T:System.TimeSpan"/></summary>
+        </member>
+        <member name="T:DotUsi.ScalarModifier`1">
+            <summary>Base class for all search modifiers with scalar value</summary>
+            <typeparam name="T">value type</typeparam>
+        </member>
+        <member name="T:DotUsi.UsiSearchModifier">
+            <summary>Base class for all modifiers USI 'go' command can have</summary>
+        </member>
+        <member name="M:DotUsi.UsiSearchModifier.GetCommand">
+            <summary>Override to define what to pass to engine as a part of the 'setoption' command</summary>
+        </member>
+        <member name="M:DotUsi.UsiSearchModifier.ToString">
+            <summary>Gets the command text as it's passed to the engine</summary>
+        </member>
+        <member name="P:DotUsi.UsiSearchModifier.Command">
+            <summary>Gets the command text as it's passed to the engine</summary>
+        </member>
+        <member name="M:DotUsi.ScalarModifier`1.#ctor(`0)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:DotUsi.ScalarModifier`1.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="M:DotUsi.ScalarModifier`1.GetCommand">
+            <summary>Override to define what to pass to engine as a part of the 'setoption' command</summary>
+        </member>
+        <member name="M:DotUsi.ScalarModifier`1.ValueToString">
+            <summary>Override to define how to convert <see cref="P:DotUsi.ScalarModifier`1.Value"/> to string</summary>
+        </member>
+        <member name="P:DotUsi.ScalarModifier`1.Value">
+            <summary>Modifier parameter</summary>
+        </member>
+        <member name="M:DotUsi.TimeSpanModifier.#ctor(System.TimeSpan)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:DotUsi.TimeSpanModifier.ValueToString">
+            <summary>Override to define how to convert <see cref="P:DotUsi.ScalarModifier`1.Value"/> to string</summary>
+        </member>
+        <member name="T:DotUsi.UsiWindowsProcess">
+            <summary>Default <see cref="T:DotUsi.IUsiProcess"/> implementation 
+              with real windows process in backgroud.</summary>
+            <remarks><para><see cref="T:DotUsi.UsiWindowsProcess"/> guarantees 
+              that you'll be notified with null line event if 
+              process dies because it's been killed, or exited normally,
+              or you've called <see cref="M:DotUsi.UsiWindowsProcess.Dispose"/></para>
+            <para><see cref="M:DotUsi.UsiWindowsProcess.Dispose"/> guarantees that background 
+              process will be dead in a matter of seconds. First it's
+              trying to send the process "close" signal, then, if that
+              doesn't help, asks system to kill the process.</para>
+            </remarks>
+        </member>
+        <member name="T:DotUsi.IUsiProcess">
+            <summary>Abstraction for an engine process</summary>
+        </member>
+        <member name="M:DotUsi.IUsiProcess.WriteLine(System.String)">
+            <summary>Send some input to the process</summary>
+        </member>
+        <member name="E:DotUsi.IUsiProcess.OutputDataReceived">
+            <summary>Raised when some output is received from process</summary>
+        </member>
+        <member name="M:DotUsi.UsiWindowsProcess.#ctor(System.String)">
+            <summary>ctor</summary>
+            <param name="path">Path to the executable file</param>
+        </member>
+        <member name="M:DotUsi.UsiWindowsProcess.WriteLine(System.String)">
+            <summary>Send some input to the process</summary>
+        </member>
+        <member name="M:DotUsi.UsiWindowsProcess.Dispose">
+            <summary>Closes the windows process. Kills it if it has to.</summary>
+        </member>
+        <member name="E:DotUsi.UsiWindowsProcess.OutputDataReceived">
+            <summary>Raised asynchronously when windows process sends something to its output</summary>
+        </member>
+        <member name="P:DotUsi.UsiWindowsProcess.IsDisposed">
+            <summary>Indicates whether the engine is disposed</summary>
+        </member>
+        <member name="T:DotUsi.SearchMateModifier">
+            <summary>Search for a mate</summary>
+        </member>
+        <member name="M:DotUsi.SearchMateModifier.#ctor(System.Int32)">
+            <summary>Search for a mate in <paramref name="value"/> moves</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt;= 0</exception>
+        </member>
+        <member name="M:DotUsi.SearchMateModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.ComboOption">
+            <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.Combo"/></summary>
+        </member>
+        <member name="T:DotUsi.ValueOptionBase`1">
+            <summary>Base class for options with scalar value</summary>
+            <typeparam name="T">value type</typeparam>
+        </member>
+        <member name="M:DotUsi.ValueOptionBase`1.#ctor(DotUsi.UsiEngine,System.String,DotUsi.UsiOptionType,`0)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:DotUsi.ValueOptionBase`1.ToString">
+            <summary>Get's user friendly representation of option</summary>
+        </member>
+        <member name="M:DotUsi.ValueOptionBase`1.ValueToString">
+            <summary>Override to specify how the <see cref="P:DotUsi.ValueOptionBase`1.Value"/> should be represented in USI command</summary>
+        </member>
+        <member name="P:DotUsi.ValueOptionBase`1.Value">
+            <summary>Current option value</summary>
+            <remarks>Not case sensitive, cannot contain spaces</remarks>
+        </member>
+        <member name="P:DotUsi.ComboOption.PossibleValues">
+            <summary>Combo drop-down list values</summary>
+        </member>
+        <member name="P:DotUsi.ComboOption.Value">
+            <summary>Current option value</summary>
+        </member>
+        <member name="T:DotUsi.SfenString">
+            <summary>Represents SFEN string as described in standard</summary>
+        </member>
+        <member name="M:DotUsi.SfenString.#ctor(System.String)">
+            <summary>
+            TODO: Constructor must validate value it's provided with!
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:DotUsi.SfenString.op_Implicit(DotUsi.SfenString)~System.String">
+            <summary>Gets SFEN string</summary>
+        </member>
+        <member name="M:DotUsi.SfenString.op_Implicit(System.String)~DotUsi.SfenString">
+            <summary>Gets SFEN string</summary>
+        </member>
+        <member name="P:DotUsi.SfenString.Value">
+            <summary>SFEN string</summary>
+        </member>
+        <member name="T:DotUsi.NodesConstraint">
+            <summary>Constraints nodes to search.</summary>
+        </member>
+        <member name="M:DotUsi.NodesConstraint.#ctor(System.Int32)">
+            <summary>Search <param name="count"/> nodes only.</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="count"/> &lt;= 0</exception>
+        </member>
+        <member name="M:DotUsi.NodesConstraint.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.BlackIncrementModifier">
+            <summary>Black time increment per move</summary>
+        </member>
+        <member name="M:DotUsi.BlackIncrementModifier.#ctor(System.TimeSpan)">
+            <summary>Creates modifier for black increment per move is <param name="value"/></summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt; 0</exception>
+        </member>
+        <member name="M:DotUsi.BlackIncrementModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.UsiOptionType">
+            <summary>Type of an option USI engine can have</summary>
+        </member>
+        <member name="F:DotUsi.UsiOptionType.Check">
+            <summary>A checkbox that can either be true or false.</summary>
+        </member>
+        <member name="F:DotUsi.UsiOptionType.Spin">
+            <summary>A spin wheel or slider that can be an integer in a certain range.</summary>
+        </member>
+        <member name="F:DotUsi.UsiOptionType.Combo">
+            <summary>A combo box that can have different predefined strings as a value.</summary>
+        </member>
+        <member name="F:DotUsi.UsiOptionType.Button">
+            <summary>A button that can be pressed to send a command to the engine</summary>
+        </member>
+        <member name="F:DotUsi.UsiOptionType.String">
+            <summary>A text field that has a string as a value, an empty string has the value "&lt;empty&gt;".</summary>
+        </member>
+        <member name="F:DotUsi.UsiOptionType.FileName">
+            <summary>Similar to <see cref="F:DotUsi.UsiOptionType.String"/>, but is presented as a file browser instead of a text field in the GUI.</summary>
+        </member>
+        <member name="T:DotUsi.InfiniteModifier">
+            <summary>Search until the stop command is received. 
+              Do not exit the search without being told so in this mode!
+            </summary>
+        </member>
+        <member name="M:DotUsi.InfiniteModifier.GetCommand">
+            <summary>Override to define what to pass to engine as a part of the 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.SpinOption">
+            <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.Spin"/></summary>
+        </member>
+        <member name="P:DotUsi.SpinOption.Value">
+            <summary>Current option value</summary>
+        </member>
+        <member name="P:DotUsi.SpinOption.Min">
+            <summary>Spin value lower bound</summary>
+        </member>
+        <member name="P:DotUsi.SpinOption.Max">
+            <summary>Spin value upper bound</summary>
+        </member>
+        <member name="T:DotUsi.Lesserkai133Driver">
+            <summary>Driver for Lesserkai 1.3.3 engine</summary>
+        </member>
+        <member name="T:DotUsi.UsiDriverBase">
+            <summary>Base class for concrete engine driver</summary>
+        </member>
+        <member name="M:DotUsi.UsiDriverBase.#ctor(DotUsi.IUsiProcess)">
+            <summary>ctor</summary>
+            <param name="process">Raw process to decorate</param>
+        </member>
+        <member name="M:DotUsi.UsiDriverBase.OnOutputDataReceived(System.Object,DotUsi.LineReceivedEventArgs)">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="M:DotUsi.UsiDriverBase.OnOutputDataReceived(DotUsi.LineReceivedEventArgs)">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="M:DotUsi.UsiDriverBase.Dispose">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="M:DotUsi.UsiDriverBase.WriteLine(System.String)">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="P:DotUsi.UsiDriverBase.Process">
+            <summary>Gets raw process</summary>
+        </member>
+        <member name="E:DotUsi.UsiDriverBase.OutputDataReceivedInternal">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="E:DotUsi.UsiDriverBase.OutputDataReceived">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="M:DotUsi.Lesserkai133Driver.#ctor(DotUsi.IUsiProcess)">
+            <summary>ctor</summary>
+            <param name="process">Raw process to decorate</param>
+        </member>
+        <member name="M:DotUsi.Lesserkai133Driver.WriteLine(System.String)">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="T:DotUsi.EngineMode">
+            <summary>Represents modes <see cref="T:DotUsi.UsiEngine"/> can be in</summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Started">
+            <summary>Engine has just started. Most of properties are not initialized yet. </summary>
+            <remarks>Call <see cref="M:DotUsi.UsiEngine.Usi"/> to initialize</remarks>
+        </member>
+        <member name="F:DotUsi.EngineMode.Usi">
+            <summary>'usi' command has been sent to engine. No 'usiok' is received yet.</summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Corrupted">
+            <summary>Option's <see cref="P:DotUsi.ValueOptionBase`1.Value"/> is changed 
+              or <see cref="M:DotUsi.UsiEngine.NewGame"/> method is called and <see cref="M:DotUsi.UsiEngine.IsReady"/> is not.
+            </summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Waiting">
+            <summary>Engine <see cref="M:DotUsi.UsiEngine.IsReady"/> method is called.</summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Ready">
+            <summary>1) Engine has been initialized with <see cref="M:DotUsi.UsiEngine.Usi"/> 
+              method and no operation is processing at the moment.
+            2) Search process started with <see cref="M:DotUsi.UsiEngine.Go(DotUsi.UsiSearchModifier[])"/> method is done</summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Searching">
+            <summary>Engine's <see cref="M:DotUsi.UsiEngine.Go(DotUsi.UsiSearchModifier[])"/> method is called. 
+              When search finishes you will have <see cref="E:DotUsi.UsiEngine.BestMove"/> event raised.</summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Pondering">
+            <summary>Engine's <see cref="M:DotUsi.UsiEngine.Go(DotUsi.UsiSearchModifier[])"/> method is called with <see cref="T:DotUsi.PonderModifier"/>. 
+              You can either stop it with <see cref="M:DotUsi.UsiEngine.Stop"/> if user didn't make "ponder move",
+              or with <see cref="M:DotUsi.UsiEngine.PonderHit"/> otherwise. 
+              Anyway ponder don't fire <see cref="E:DotUsi.UsiEngine.BestMove"/> event</summary>
+        </member>
+        <member name="F:DotUsi.EngineMode.Disposed">
+            <summary>Engine has been disposed</summary>
+        </member>
+        <member name="T:DotUsi.DepthConstraint">
+            <summary>Constraints search depth.</summary>
+        </member>
+        <member name="M:DotUsi.DepthConstraint.#ctor(System.Int32)">
+            <summary>Search <param name="depth"/> moves only.</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="depth"/> &lt;= 0</exception>
+        </member>
+        <member name="M:DotUsi.DepthConstraint.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.WhiteIncrementModifier">
+            <summary>White time increment per move</summary>
+        </member>
+        <member name="M:DotUsi.WhiteIncrementModifier.#ctor(System.TimeSpan)">
+            <summary>Creates modifier for white increment per move is <param name="value"/></summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt; 0</exception>
+        </member>
+        <member name="M:DotUsi.WhiteIncrementModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.BlackTimeModifier">
+            <summary>Lets engine know how much time black have for the rest of the game</summary>
+        </member>
+        <member name="M:DotUsi.BlackTimeModifier.#ctor(System.TimeSpan)">
+            <summary>Creates modifier for black has <paramref name="value"/> left on the clock</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt; 0</exception>
+        </member>
+        <member name="M:DotUsi.BlackTimeModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.PonderModifier">
+            <summary><para>Start searching in pondering mode.</para> 
+              <para>This means that the last move X sent in the current position is the move to ponder on. 
+              The engine can do what it wants to do, but after a <see cref="M:DotUsi.UsiEngine.PonderHit"/> command 
+              it should continue with move X. </para>
+            
+            </summary>
+            <remarks>
+            <para>This means that the ponder move sent by the GUI can be interpreted as a recommendation about which move to ponder on.
+            However, if the engine decides to ponder on a different move, it should not display any mainlines as they are likely 
+            to be misinterpreted by the GUI because the GUI expects the engine to ponder on the suggested move.</para>
+            <para>Engine won't exit the search in ponder mode, even if it's mate!</para></remarks>
+        </member>
+        <member name="M:DotUsi.PonderModifier.GetCommand">
+            <summary>Override to define what to pass to engine as a part of the 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.StringOption">
+            <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.String"/></summary>
+        </member>
+        <member name="T:DotUsi.BestMoveEventArgs">
+            <summary>Holds the data engine sends when the best move is found</summary>
+        </member>
+        <member name="M:DotUsi.BestMoveEventArgs.#ctor(System.String,System.String)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:DotUsi.BestMoveEventArgs.Move">
+            <summary>The best move</summary>
+        </member>
+        <member name="P:DotUsi.BestMoveEventArgs.Ponder">
+            <summary>The move engine would like to ponder on or null if engine is lazy</summary>
+        </member>
+        <member name="T:DotUsi.MovesToGoModifier">
+            <summary>There are n moves to the next time control.</summary>
+            <remarks>If you don't get this and get the <see cref="T:DotUsi.WhiteTimeModifier"/> 
+              and <see cref="T:DotUsi.BlackTimeModifier"/>, it's sudden death. ?
+            </remarks>
+        </member>
+        <member name="M:DotUsi.MovesToGoModifier.#ctor(System.Int32)">
+            <summary>There are <paramref name="value"/> moves to the next time control.</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt;= 0</exception>
+        </member>
+        <member name="M:DotUsi.MovesToGoModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.SearchMovesModifier">
+            <summary>Restricts search to some branches.</summary>
+        </member>
+        <member name="M:DotUsi.SearchMovesModifier.#ctor(System.String[])">
+            <summary>Restrict search to <paramref name="moves"/> only.</summary>
+            <example>After <code>
+              Position(new string[0]);
+              Go(new SearchMovesModifier("7g7f", "2g2f"));</code>
+            The engine will only search (choose between) P-7f and P-2f 
+            moves in the initial position. </example>
+        </member>
+        <member name="M:DotUsi.SearchMovesModifier.ValueToString">
+            <summary>Override to define how to convert <see cref="P:DotUsi.ScalarModifier`1.Value"/> to string</summary>
+        </member>
+        <member name="M:DotUsi.SearchMovesModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.ScoreInfo">
+            <summary>Keeps information about score engine sends</summary>
+        </member>
+        <member name="P:DotUsi.ScoreInfo.CentiPawns">
+            <summary>The score from the engine's point of view, in centipawns.</summary>
+        </member>
+        <member name="P:DotUsi.ScoreInfo.Mate">
+            <summary>Mate in y plies. If the engine is getting mated, use negative values for y.</summary>
+        </member>
+        <member name="P:DotUsi.ScoreInfo.IsLowerBound">
+            <summary>The score is just a lower bound.</summary>
+        </member>
+        <member name="P:DotUsi.ScoreInfo.IsUpperBound">
+            <summary>The score is just an upper bound.</summary>
+        </member>
+        <member name="E:DotUsi.ScoreInfo.PropertyChanged">
+            <summary>Occurs when a property value changes</summary>
+        </member>
+        <member name="T:DotUsi.ButtonOption">
+            <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.Button"/></summary>
+        </member>
+        <member name="M:DotUsi.ButtonOption.Press">
+            <summary>Call to send engine signal that the button is pressed</summary>
+        </member>
+        <member name="M:DotUsi.ButtonOption.ToString">
+            <summary> Gets the user friendly representation of the option</summary>
+        </member>
+        <member name="T:DotUsi.MoveTimeModifier">
+            <summary>Sets exact time fir search</summary>
+        </member>
+        <member name="M:DotUsi.MoveTimeModifier.#ctor(System.TimeSpan)">
+            <summary>Creates modifier to search exactly <paramref name="value"/> time</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt;= 0</exception>
+        </member>
+        <member name="M:DotUsi.MoveTimeModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.FileNameOption">
+            <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.FileName"/></summary>
+        </member>
+        <member name="M:DotUsi.FileNameOption.ValueToString">
+            <summary>Override to specify how the <see cref="P:DotUsi.ValueOptionBase`1.Value"/> should be represented in USI command</summary>
+        </member>
+        <member name="T:DotUsi.EngineInfo">
+            <summary>Holds all information fields engine can notify about</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.Depth">
+            <summary>Search depth</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.SelectiveDepth">
+            <summary>Selective search depth</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.Time">
+            <summary>The search time</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.Nodes">
+            <summary>Nodes searched</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.CurrentMove">
+            <summary>Currently searching this move.</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.CurrentMoveNumber">
+            <summary>Currently searching move number x, for the first move x should be 1, not 0</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.HashFull">
+            <summary>The hash is x permill full. The engine should send this info regularly.</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.NodesPerSecond">
+            <summary>x nodes per second searched. the engine should send this info regularly</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.CpuLoad">
+            <summary>The cpu usage of the engine is x permill.</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.StringInfo">
+            <summary>
+            Any string which will be displayed be the engine. 
+            TODO: If there is a string command the rest of the line will be interpreted as value
+            </summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.PrincipalVariation">
+            <summary>The best moves sequence found</summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.Refutation">
+            <summary>Move 'move_1' is refuted by the line 'move_2' ... 'move_i', 
+            where i can be any number> = 1. 
+            Example: after move 8h2b+ is searched, the engine can send info refutation 8h2b+ 1c2b 
+            if 1c2b is the best answer after 8h2b+ 
+            or if 1c2b refutes the move 8h2b+.
+            If there is no refutation for 8h2b+ found, the engine should just send info refutation 8h2b+. 
+            The engine should only send this if the option USI_ShowRefutations is set to true.
+            </summary>
+        </member>
+        <member name="P:DotUsi.EngineInfo.Score">
+            <summary>Score related info</summary>
+        </member>
+        <member name="E:DotUsi.EngineInfo.PropertyChanged">
+            <summary>Occurs when a property value changes.</summary>
+        </member>
+        <member name="T:DotUsi.WhiteTimeModifier">
+            <summary>Lets engine know how much time white have for the rest of the game</summary>
+        </member>
+        <member name="M:DotUsi.WhiteTimeModifier.#ctor(System.TimeSpan)">
+            <summary>Creates modifier for white has <paramref name="value"/> left on the clock</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt; 0</exception>
+        </member>
+        <member name="M:DotUsi.WhiteTimeModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.LineReceivedEventArgs">
+            <summary>Contains a line of console output</summary>
+        </member>
+        <member name="M:DotUsi.LineReceivedEventArgs.#ctor(System.String)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:DotUsi.LineReceivedEventArgs.Line">
+            <summary>Line of console output</summary>
+        </member>
+        <member name="T:DotUsi.SpearCsa2009V15Driver">
+            <summary>Driver for Spear CSA 2009 v.1.5 </summary>
+        </member>
+        <member name="M:DotUsi.SpearCsa2009V15Driver.#ctor(DotUsi.IUsiProcess)">
+            <summary>ctor</summary>
+            <param name="process">Raw process to decorate</param>
+        </member>
+        <member name="M:DotUsi.SpearCsa2009V15Driver.WriteLine(System.String)">
+            <summary>Override to change behaviour</summary>
+        </member>
+        <member name="T:DotUsi.ByoyomiModifier">
+            <summary><para>Byo-yomi is an extended time control in two-player games, specifically Shogi and Go.
+             The word is borrowed from Japanese, where it additionally means "countdown" in general.</para>
+             <para>A typical time control is "60 minutes + 30 seconds byo-yomi", 
+              which means that each player may make as many or as few moves as he chooses 
+              during his first 60 minutes of thinking time, but after the hour is exhausted, 
+              he must make each move in thirty seconds or less</para>
+            </summary>
+            <remarks><para>Look here for details: http://en.wikipedia.org/wiki/Byoyomi</para>
+            <para>It's not from USI specification. Seen in Shogidokoro</para></remarks>
+        </member>
+        <member name="M:DotUsi.ByoyomiModifier.#ctor(System.TimeSpan)">
+            <summary>Creates modifier for byo-yomi set for the game</summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="value"/> &lt; 0</exception>
+        </member>
+        <member name="M:DotUsi.ByoyomiModifier.GetCommandName">
+            <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.UsiEngine">
+            <summary>Represents USI compatible engine as described 
+              <a href="http://www.glaurungchess.com/shogi/usi.html">here</a></summary>
+        </member>
+        <member name="M:DotUsi.UsiEngine.#ctor(DotUsi.IUsiProcess)">
+            <summary>ctor</summary>
+            <param name="process">engine process</param>
+        </member>
+        <member name="M:DotUsi.UsiEngine.Usi">
+            <summary>
+            Tell engine to use the USI (universal shogi interface). 
+            This will be sent once as a first command after program boot to 
+            tell the engine to switch to USI mode. After receiving the usi 
+            command the engine must identify itself with the id command and 
+            send the option commands to tell the GUI which engine settings the engine supports. 
+            After that, the engine should send usiok to acknowledge the USI mode. 
+            If no usiok is sent within a certain time period, the engine task will be killed by the GUI.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.IsReady">
+            <summary>This is used to synchronize the engine with the GUI.</summary>
+            <remarks>
+            <para>When the GUI has sent a command or multiple commands that 
+              can take some time to complete, this command can be used to 
+              wait for the engine to be ready again or to ping the engine 
+              to find out if it is still alive. </para>
+            <para>This command is also required once before the engine is asked 
+              to do any search to wait for the engine to finish initializing.</para>
+            <para>This command can be sent also when the engine is calculating 
+              in which case the engine should also immediately answer with 
+              readyok without stopping the search.</para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.NewGame">
+            <summary>Call this if the next <see cref="M:DotUsi.UsiEngine.Position(System.String[])"/> 
+              is going to belong to a different game.</summary>
+            <remarks>
+              <para>This can be a new game the engine should play or a new game it should analyse but 
+              also the next position from a testsuite with different positions.</para>
+              <para>As the engine's reaction to this command can take some time the GUI should always 
+              send use <see cref="M:DotUsi.UsiEngine.IsReady"/> to wait for the engine to finish this operation.</para>
+            </remarks>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.Position(System.String[])">
+            <summary>Set up the default start position on
+              the internal board and play the <paramref name="moves"/></summary>
+            <remarks>If this position is from a different game 
+              than the last position sent to the engine, 
+              the GUI should have sent a <see cref="M:DotUsi.UsiEngine.NewGame"/> inbetween.</remarks>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.Position(DotUsi.SfenString,System.String[])">
+            <summary>Set up the position described in <paramref name="sfen"/> on 
+              the internal board and play the <paramref name="moves"/> 
+              on the internal board. </summary>
+            <remarks>If this position is from a different game 
+              than the last position sent to the engine, 
+              the GUI should have sent a <see cref="M:DotUsi.UsiEngine.NewGame"/> inbetween.</remarks>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.Go(DotUsi.UsiSearchModifier[])">
+            <summary>Start calculating on the position set up with the position command.</summary>
+            <param name="modifiers">List of search process modifiers</param>
+            <exception cref="T:System.ArgumentNullException">One of arguments is null</exception>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.Stop">
+            <summary>Stop calculating as soon as possible.</summary>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.PonderHit">
+            <summary>The user has played the expected move. 
+              This will be sent if the engine was told to ponder on the same move the user has played.
+              The engine should continue searching but switch from pondering to normal search.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Method is called within wrong <see cref="P:DotUsi.UsiEngine.Mode"/></exception>
+        </member>
+        <member name="M:DotUsi.UsiEngine.Dispose">
+            <summary>Closes the engine process and releases all resources</summary>
+        </member>
+        <member name="M:DotUsi.UsiEngine.SetOption(DotUsi.UsiOptionBase,System.Boolean)">
+            <summary>This is sent to the engine to change its internal parameters.</summary>
+            <param name="option">One from <see cref="P:DotUsi.UsiEngine.Options"/> collection</param>
+            <param name="needValue">true if command needs "value xxx" part</param>
+            <remarks>
+            <para>For the button type no value is needed (pass null). </para>
+            <para>Can only set options when the engine is waiting. </para>
+            <para>Can group setting options within on setoption command</para>
+            </remarks>
+        </member>
+        <member name="P:DotUsi.UsiEngine.Options">
+            <summary>List of options the engine supports</summary>
+        </member>
+        <member name="P:DotUsi.UsiEngine.EngineName">
+            <summary>Identifies the engine, e.g. Shredder X.Y</summary>
+        </member>
+        <member name="P:DotUsi.UsiEngine.AuthorName">
+            <summary>Identifies the engine author, e.g. Stefan MK</summary>
+        </member>
+        <member name="P:DotUsi.UsiEngine.Mode">
+            <summary>Current engine state</summary>
+        </member>
+        <member name="P:DotUsi.UsiEngine.Info">
+            <summary>Aggregates info engine sends to user</summary>
+        </member>
+        <member name="P:DotUsi.UsiEngine.DebugMode">
+            <summary>Switch the debug mode of the engine on and off</summary>
+            <remarks>
+            <para>In debug mode the engine should send additional infos, 
+              e.g. with the info string command, to help debugging, 
+              e.g. the commands that the engine has received, etc. </para>
+            <para>This mode is switched off by default and you can change it any time, 
+              also when the engine is thinking.</para>
+            </remarks>
+        </member>
+        <member name="E:DotUsi.UsiEngine.BestMove">
+            <summary>Raised when the best move is found by the engine</summary>
+        </member>
+        <member name="E:DotUsi.UsiEngine.UsiOK">
+            <summary>Raised when engine said all it wanted to say after <see cref="M:DotUsi.UsiEngine.Usi"/> command</summary>
+        </member>
+        <member name="E:DotUsi.UsiEngine.ReadyOK">
+            <summary>Raised when engine confirms that it's ready after <see cref="M:DotUsi.UsiEngine.IsReady"/> command</summary>
+        </member>
+        <member name="T:DotUsi.UsiParserException">
+            <summary>Represents error that occurs during parse of engine's output</summary>
+        </member>
+        <member name="M:DotUsi.UsiParserException.#ctor">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:DotUsi.UsiParserException.#ctor(System.String)">
+            <summary>ctor</summary>
+        </member>
+        <member name="T:DotUsi.CouldntStartProcessException">
+            <summary>Represents error that occurs if engine process couldn't start for any reason</summary>
+        </member>
+        <member name="T:DotUsi.CheckOption">
+            <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.Check"/></summary>
+        </member>
+        <member name="M:DotUsi.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.String)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:DotUsi.CheckOption.ValueToString">
+            <summary>Override to specify how the <see cref="P:DotUsi.ValueOptionBase`1.Value"/> should be represented in USI command</summary>
+        </member>
+    </members>
+</doc>

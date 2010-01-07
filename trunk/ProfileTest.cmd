@@ -1,0 +1,2 @@
+"C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\MStest.exe" "/testcontainer:C:\Users\Ilya\Documents\Visual Studio 2008\Projects\shogi-game-c\trunk\UnitTests\bin\Debug\unitTests.dll" /test:UnitTests.Persistence.PsnLoaderTest.CheckWeCanLoadThemAll
+pause
