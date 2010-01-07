@@ -16,5 +16,10 @@ namespace DotUsi
           yield return new KeyValuePair<T, T>(key, list[i]);
       }
     }
+    public static IEnumerable<T> Range<T>(this IList<T> src, int start, int length)
+    {
+      for (int i = 0; i < length; i++)
+        yield return src[start + i];
+    }
   }
 }

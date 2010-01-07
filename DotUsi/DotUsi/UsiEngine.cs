@@ -9,9 +9,9 @@ namespace DotUsi
   public class UsiEngine : IDisposable
   {
     private bool _debugMode;
+    private bool _isDisposing;
     private readonly IUsiProcess _process;
     private readonly List<UsiOptionBase> _options = new List<UsiOptionBase>();
-    private readonly EngineState _state = new EngineState();
 
     #region ' Public Properties '
 
@@ -22,6 +22,7 @@ namespace DotUsi
     public string EngineName { get; private set; }
     public string AuthorName { get; private set; }
     public EngineMode Mode { get; private set; }
+    public EngineInfo Info { get; private set; }
     /// <summary>Switch the debug mode of the engine on and off</summary>
     /// <remarks>
     /// <para>In debug mode the engine should send additional infos, 
@@ -47,6 +48,7 @@ namespace DotUsi
 
     public UsiEngine(IUsiProcess process)
     {
+      Info = new EngineInfo();
       _process = process;
       process.OutputDataReceived += ReceiveOutputData;
     }
@@ -175,6 +177,8 @@ namespace DotUsi
     {
       lock (this)
       {
+        if (_isDisposing) return;
+        _isDisposing = true;
         if (Mode == EngineMode.Disposed) return;
         // Don't want any asynch event to be fired after dispose is called
         BestMove = null;
@@ -182,6 +186,7 @@ namespace DotUsi
         _process.WriteLine("quit");
         _process.Dispose();
         Mode = EngineMode.Disposed;
+        _isDisposing = false;
       }
     }
 
@@ -293,7 +298,7 @@ namespace DotUsi
           if (e.Line.StartsWith(bestMove))
             OnBestMove(ParseBestMove(e.Line.Substring(bestMove.Length)));
           if (e.Line.StartsWith(info))
-            ParseInfo(e.Line.Substring(info.Length));
+            Info.ParseLine(e.Line.Substring(info.Length));
           break;
       }
     }
@@ -377,30 +382,7 @@ namespace DotUsi
           throw new UsiParserException("Unrecognized option type: " + optionType);
       }
     }
-
-    private void ParseInfo(string line)
-    {
-      var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-      for (int i = 0; i < split.Length; i++)
-      {
-        if (split[i] == "depth")
-        {
-          _state.Depth = int.Parse(split[++i]);
-        }
-        else if (split[i] == "seldepth")
-        {
-          _state.SelectiveDepth = int.Parse(split[++i]);
-        }
-        else if (split[i] == "nodes")
-        {
-          _state.Nodes = int.Parse(split[++i]);
-        }
-        else if (split[i] == "time")
-        {
-          _state.Time = TimeSpan.FromMilliseconds(int.Parse(split[++i]));
-        }
-      }
-    }
+ 
     private void ParseId(string line)
     {
       if (line.StartsWith("name "))
@@ -414,7 +396,6 @@ namespace DotUsi
       var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       return new BestMoveEventArgs(split[0], (split.Length == 3 ? split[2] : null));
     }
-
 
     #endregion
 

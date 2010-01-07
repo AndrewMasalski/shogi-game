@@ -9,6 +9,7 @@ namespace UnitTests
     void IDisposable.Dispose()
     {
       InputData.Enqueue("<TestProcess: Dispose()>");
+      SendOutput(null);
     }
 
     public void SendOutput(string text)
