@@ -18,7 +18,7 @@ namespace DotUsi
   /// </remarks>
   public class UsiWindowsProcess : IUsiProcess
   {
-    private readonly Process _process;
+    private Process _process;
     private readonly Timer _timer;
 
     /// <summary>ctor</summary>
@@ -70,13 +70,13 @@ namespace DotUsi
     public void WriteLine(string text)
     {
       File.AppendAllText(@"log.input.txt", text + "\r\n");
-      _process.StandardInput.WriteLine(text);
+      if (_process != null) _process.StandardInput.WriteLine(text);
     }
 
     /// <summary>Raised asynchronously when windows process sends something to its output</summary>
     public event EventHandler<LineReceivedEventArgs> OutputDataReceived;
     /// <summary>Indicates whether the engine is disposed</summary>
-    public bool IsDisposed { get; private set;}
+    public bool IsDisposed { get { return _process == null; } }
     /// <summary>Closes the windows process. Kills it if it has to.</summary>
     public void Dispose()
     {
@@ -86,24 +86,23 @@ namespace DotUsi
       // 3) Console thread <- TODO:
       lock (this)
       {
-        if (IsDisposed) return;
-        
+        if (_process == null) return;
+        var process = _process; _process = null;
+
         _timer.Dispose();
-        _process.OutputDataReceived -= OnOutputDataReceived;
+        process.OutputDataReceived -= OnOutputDataReceived;
         OnOutputDataReceived(new LineReceivedEventArgs(null));
         OutputDataReceived = null;
 
-        if (!_process.WaitForExit(1000))
+        if (!process.WaitForExit(1000))
         {
-          _process.CloseMainWindow();
-          if (!_process.WaitForExit(1000))
+          process.CloseMainWindow();
+          if (!process.WaitForExit(1000))
           {
-            _process.Kill();
+            process.Kill();
           }
         }
-        _process.Dispose();
-
-        IsDisposed = true;
+        process.Dispose();
       }
     }
   }

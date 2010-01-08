@@ -7,77 +7,89 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
 {
-  [TestClass, Ignore]
+  [TestClass]
   public class UsiWindowsProcessTest
   {
+    private UsiWindowsProcess _process;
+    private TestLog _log;
+
+    [TestInitialize]
+    public void Init()
+    {
+      Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
+      _process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
+      _log = new TestLog();
+    }
     [TestMethod]
     public void BasicTest()
     {
-      var process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
-      var log = new TestLog();
-      process.OutputDataReceived += (s, e) => log.Write(e.Line);
-      process.WriteLine("test");
-      process.WriteLine("quit");
-      while (log.ToString() != "test <null>")
+      _process.OutputDataReceived += (s, e) => _log.Write(e.Line);
+      _process.WriteLine("test");
+      _process.WriteLine("quit");
+      while (_log.ToString() != "test <null>")
       {
         Thread.Sleep(100);
       }
-      process.Dispose();
-      Assert.AreEqual("test <null>", log.ToString());
+      _process.Dispose();
+      Assert.AreEqual("test <null>", _log.ToString());
       Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
     }
     [TestMethod]
     public void QuitWithDelayTest()
     {
-      Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
-      var process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
-      process.WriteLine("quit with delay");
-      process.Dispose();
+      _process.WriteLine("quit with delay");
+      _process.Dispose();
       Thread.Sleep(200); // Give the system time to refresh that data
       Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
     }
     [TestMethod]
-    public void DontQuitTest()
+    public void DisposeAndDontQuitTest()
     {
-      var process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
+      Thread.Sleep(200); // Give the system time to refresh that data
       Assert.AreEqual(1, Process.GetProcessesByName("Echo").Length);
-      process.Dispose();
+      _process.Dispose();
       Thread.Sleep(200); // Give the system time to refresh that data
       Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
     }
     [TestMethod]
     public void KillNotificationTest()
     {
-      var process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
-      var log = new TestLog();
-      process.OutputDataReceived += (s, e) => log.Write(e.Line);
+      _process.OutputDataReceived += (s, e) => _log.Write(e.Line);
       Process.GetProcessesByName("Echo")[0].Kill();
       Thread.Sleep(2000); // Give our wrapper time to realize that the process has been killed
-      Assert.AreEqual("<null>", log.ToString());
-      Assert.IsTrue(process.IsDisposed);
+      Assert.AreEqual("<null>", _log.ToString());
+      Assert.IsTrue(_process.IsDisposed);
     }
     [TestMethod]
     public void DisposeNotificationTest()
     {
-      var process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
-      var log = new TestLog();
-      process.OutputDataReceived += (s, e) => log.Write(e.Line);
-      process.Dispose();
-      Assert.AreEqual("<null>", log.ToString());
-      Assert.IsTrue(process.IsDisposed);
+      _process.OutputDataReceived += (s, e) => _log.Write(e.Line);
+      _process.Dispose();
+      Assert.AreEqual("<null>", _log.ToString());
+      Assert.IsTrue(_process.IsDisposed);
     }
     [TestMethod]
     public void QuitNotificationTest()
     {
-      var process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
-      var log = new TestLog();
-      process.OutputDataReceived += (s, e) => log.Write(e.Line);
-      process.WriteLine("quit");
-      while (log.ToString() != "<null>")
+      _process.OutputDataReceived += (s, e) => _log.Write(e.Line);
+      _process.WriteLine("quit");
+      while (_log.ToString() != "<null>")
       {
         Thread.Sleep(100);
       }
-      Assert.IsTrue(process.IsDisposed);
+      Assert.IsTrue(_process.IsDisposed);
+    }
+    [TestMethod]
+    public void CallDisposeTwiceTest()
+    {
+      _process.Dispose();
+      _process.Dispose();
+    }
+    [TestMethod]
+    public void CallDisposeInEvent()
+    {
+      _process.OutputDataReceived += (s, e) => _process.Dispose();
+      _process.Dispose();
     }
   }
 }
