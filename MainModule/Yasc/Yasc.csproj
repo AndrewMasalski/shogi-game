@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotUsi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DotUsi\Release\DotUsi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -121,6 +125,7 @@
   <ItemGroup>
     <Compile Include="AI\AiControllerBase.cs" />
     <Compile Include="AI\CleverAiController.cs" />
+    <Compile Include="AI\UsiAiController.cs" />
     <Compile Include="ChatCommands.cs" />
     <Compile Include="Common\AndConverter.cs" />
     <Compile Include="Common\ListBoxFocusBehaviour.cs" />
