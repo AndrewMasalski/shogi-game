@@ -3,14 +3,22 @@ using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.Moves
 {
+  /// <summary>Base class for the shogi move (usual and drop)</summary>
   public abstract class MoveBase
   {
+    /// <summary>Board move belongs to</summary>
     public Board Board { get; private set; }
+    /// <summary>Moment move is performed</summary>
     public DateTime Timestamp { get; private set; }
+    /// <summary>Player performing the move</summary>
     public Player Who { get; private set; }
+    /// <summary>Move sequential number within the game</summary>
     public int Number { get; private set; }
+    /// <summary>Board snapshot before the move is done</summary>
     public BoardSnapshot BoardSnapshot { get; private set; }
-    public bool IsValid { get { return ErrorMessage == null; }}
+    /// <summary>Indicates whether the move is valid</summary>
+    public bool IsValid { get { return ErrorMessage == null; } }
+    /// <summary>null if move is valid -or- explanation why it's not</summary>
     public string ErrorMessage { get; private set; }
 
     protected MoveBase(Board board, Player who)
@@ -36,11 +44,6 @@ namespace Yasc.ShogiCore.Moves
 
     /// <summary>Override to get validation error message or null if move is valid</summary>
     protected abstract string GetValidationErrorMessage();
-
-    public void CorrectTimestamp(DateTime timestamp)
-    {
-      Timestamp = timestamp; 
-    }
 
     /// <summary>Gets snapshot of the move</summary>
     public abstract MoveSnapshotBase Snapshot();

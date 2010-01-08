@@ -68,14 +68,17 @@
     <Compile Include="HistoryNavigateEventArgs.cs" />
     <Compile Include="InfinitePieceSet.cs" />
     <Compile Include="IPieceSet.cs" />
+    <Compile Include="MoveNotation.cs" />
     <Compile Include="Moves\DropMove.cs" />
     <Compile Include="Moves\InvalidMoveException.cs" />
     <Compile Include="Moves\MoveBase.cs" />
     <Compile Include="Moves\MoveEventArgs.cs" />
     <Compile Include="Moves\MovesHistory.cs" />
     <Compile Include="Moves\UsualMove.cs" />
+    <Compile Include="NotEnoughPiecesInSetException.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="PieceColor.cs" />
+    <Compile Include="PieceHasNoOwnerException.cs" />
     <Compile Include="PieceSetType.cs" />
     <Compile Include="PieceType.cs" />
     <Compile Include="Player.cs" />
