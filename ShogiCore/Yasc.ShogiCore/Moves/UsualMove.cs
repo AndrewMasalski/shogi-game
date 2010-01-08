@@ -21,10 +21,12 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Indicates whether move is promoting</summary>
     public bool IsPromoting { get; private set; }
 
+    /// <summary>Returns snapshot of the move</summary>
     public override MoveSnapshotBase Snapshot()
     {
       return new UsualMoveSnapshot(this);
     }
+    /// <summary>Gets user friendly move transcription (latin)</summary>
     public override string ToString()
     {
       return From + "-" + To + (IsPromoting ? "+" : "");
@@ -128,10 +130,12 @@ namespace Yasc.ShogiCore.Moves
 
     #endregion
 
+    /// <summary>Override to get validation error message or null if move is valid</summary>
     protected override string GetValidationErrorMessage()
     {
       return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
     }
+    /// <summary>Apply the move to the board</summary>
     protected internal override void Make()
     {
       var piece = Board[From];

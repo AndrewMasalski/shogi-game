@@ -46,6 +46,7 @@ namespace Yasc.ShogiCore
     {
       get { return X + 1; }
     }
+    /// <summary>Gets user friendly transcription of the position ("1a")</summary>
     public override string ToString()
     {
       return Column + Line;
@@ -53,15 +54,18 @@ namespace Yasc.ShogiCore
 
     #region  ' Equality '
 
+    /// <summary>Indicates whether this instance and a specified object are equal.</summary>
     public bool Equals(Position other)
     {
       return other.X == X && other.Y == Y;
     }
+    /// <summary>Indicates whether this instance and a specified object are equal.</summary>
     public override bool Equals(object obj)
     {
       if (obj.GetType() != typeof(Position)) return false;
       return Equals((Position)obj);
     }
+    /// <summary>Returns the hash code for this instance.</summary>
     public override int GetHashCode()
     {
       unchecked
@@ -69,10 +73,12 @@ namespace Yasc.ShogiCore
         return (X * 397) ^ Y;
       }
     }
+    /// <summary>Indicates whether two instances are equal.</summary>
     public static bool operator ==(Position left, Position right)
     {
       return left.Equals(right);
     }
+    /// <summary>Indicates whether two instances are not equal.</summary>
     public static bool operator !=(Position left, Position right)
     {
       return !left.Equals(right);
@@ -82,31 +88,38 @@ namespace Yasc.ShogiCore
 
     #region ' Operators & Statics '
 
+    /// <summary>Converts strings like "1a"</summary>
     public static implicit operator Position(string text)
     {
       return new Position(text);
     }
+    /// <summary>Termwise subtraction</summary>
     public static Vector operator -(Position first, Position second)
     {
       return new Vector(second.X - first.X, second.Y - first.Y);
     }
+    /// <summary>Termwise addtition</summary>
     public static Vector operator +(Vector vector, Position position)
     {
       return new Vector(position.X + vector.X, position.Y + vector.Y);
     }
+    /// <summary>Termwise addtition</summary>
     public static Vector operator +(Position position, Vector vector)
     {
       return new Vector(position.X + vector.X, position.Y + vector.Y);
     }
+    /// <summary>Position->Vector</summary>
     public static explicit operator Vector(Position position)
     {
       return new Vector(position.X, position.Y);
     }
+    /// <summary>Vector->Position</summary>
     public static implicit operator Position(Vector vector)
     {
       return new Position(vector.X, vector.Y);
     }
 
+    /// <summary>Gets all 81 position on board</summary>
     public static IEnumerable<Position> OnBoard
     {
       get

@@ -75,6 +75,7 @@ namespace Yasc.ShogiCore
         Hand.RemoveAt(Hand.Count - 1);
     }
 
+    /// <summary>Get human readable representation of the player</summary>
     public override string ToString()
     {
       return Name ?? Color.ToString();
