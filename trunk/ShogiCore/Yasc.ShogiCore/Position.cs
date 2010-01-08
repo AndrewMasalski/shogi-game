@@ -8,9 +8,13 @@ namespace Yasc.ShogiCore
   [Serializable]
   public struct Position
   {
+    /// <summary>X coordinate of the position</summary>
     public int X { get; private set; }
+    /// <summary>Y coordinate of the position</summary>
     public int Y { get; private set; }
     
+    /// <summary>ctor</summary>
+    /// <param name="position">"1a"</param>
     public Position(string position)
       : this()
     {
@@ -22,6 +26,7 @@ namespace Yasc.ShogiCore
       if (Y < 0 || Y > 8) throw new ArgumentOutOfRangeException("position");
     }
 
+    /// <summary>ctor</summary>
     public Position(int x, int y)
       : this()
     {
@@ -31,10 +36,12 @@ namespace Yasc.ShogiCore
       if (Y < 0 || Y > 8) throw new ArgumentOutOfRangeException("y");
     }
 
+    /// <summary>The position line ("a".."i")</summary>
     public string Line
     {
       get { return ((char)(Y + 'a')).ToString(); }
     }
+    /// <summary>The position column (1..9)</summary>
     public int Column
     {
       get { return X + 1; }

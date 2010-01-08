@@ -2,10 +2,12 @@ using System;
 
 namespace Yasc.ShogiCore.Moves
 {
+  /// <summary>This exception is thrown when you'tr trying 
+  ///   to make invalid move (<see cref="Board.MakeMove"/>)</summary>
   [Serializable]
   public class InvalidMoveException : Exception
   {
-    public InvalidMoveException(string message)
+    internal InvalidMoveException(string message)
       : base(message)
     {
     }

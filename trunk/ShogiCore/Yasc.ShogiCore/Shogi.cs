@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace Yasc.ShogiCore
 {
+  /// <summary>Contains very common knowledge about shogi game</summary>
   public static class Shogi
   {
+    /// <summary>Contains position-pieceType pairs of initial position</summary>
     public static readonly Dictionary<Position, string> InitialPosition = Dic(Pairs(new[]
           {
             "1a", "香", "9a", "香", "1i", "香", "9i", "香",
@@ -40,6 +42,7 @@ namespace Yasc.ShogiCore
       return result;
     }
 
+    /// <summary>Sets start position on the board</summary>
     public static void InitBoard(Board board)
     {
       foreach (var pair in InitialPosition)

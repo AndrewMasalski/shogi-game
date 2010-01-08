@@ -7,10 +7,14 @@ using Yasc.Utils;
 
 namespace Yasc.ShogiCore
 {
+  /// <summary>Game participiant</summary>
   public class Player
   {
+    /// <summary>Board game is going on</summary>
     public Board Board { get; private set; }
+    /// <summary>The player name</summary>
     public string Name { get; set; }
+    /// <summary>The pieces player has in hand</summary>
     public ObservableCollection<Piece> Hand { get; set; }
     
     internal Player(Board board)
@@ -20,14 +24,17 @@ namespace Yasc.ShogiCore
       Hand.CollectionChanged += OnHandCollectionChanged;
     }
 
+    /// <summary>The player opponent</summary>
     public Player Opponent
     {
       get { return Board.Black == this ? Board.White : Board.Black; }
     }
+    /// <summary>The player color</summary>
     public PieceColor Color
     {
       get { return Board.White == this ? PieceColor.White : PieceColor.Black; }
     }
+    /// <summary>Gets the piece from player hand by type</summary>
     public Piece GetPieceFromHandByType(PieceType pieceType)
     {
       foreach (var piece in Hand)
@@ -35,6 +42,7 @@ namespace Yasc.ShogiCore
           return piece;
       return null;
     }
+    /// <summary>Adds the piece to player hand</summary>
     public Piece AddToHand(PieceType type)
     {
       Piece piece = Board.PieceSet[type];
@@ -48,6 +56,7 @@ namespace Yasc.ShogiCore
       return piece;
     }
 
+    /// <summary>Load pieces to the hand from snapshot</summary>
     public void LoadHandSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
     {
       if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
@@ -57,6 +66,7 @@ namespace Yasc.ShogiCore
         AddToHand(snapshot.PieceType);
     }
 
+    /// <summary>Returns all pieces from hand to the set</summary>
     public void ResetAllPiecesFromHand()
     {
 #warning some synchronizer doesn't support clear.
