@@ -6,15 +6,18 @@ using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Moves
 {
+  /// <summary>Represents history of moves of the game</summary>
   public class MovesHistory : ReadOnlyObservableCollection<MoveBase>
   {
     private int _currentMoveIndex = -1;
 
+    /// <summary>ctor</summary>
     public MovesHistory()
       : base(new ThreadSafeObservableCollection<MoveBase>())
     {
     }
 
+    /// <summary>Adds the move to the history</summary>
     public void Do(MoveBase move)
     {
       if (move == null) throw new ArgumentNullException("move");
@@ -29,6 +32,7 @@ namespace Yasc.ShogiCore.Moves
         OnPropertyChanged(new PropertyChangedEventArgs("IsEmpty"));
     }
 
+    /// <summary>Gets or sets currebt move reference</summary>
     public MoveBase CurrentMove
     {
       get { return _currentMoveIndex < 0 ? null : Items[_currentMoveIndex]; }
@@ -50,6 +54,7 @@ namespace Yasc.ShogiCore.Moves
       }
     }
 
+    /// <summary>Gets or sets currebt move index</summary>
     public int CurrentMoveIndex
     {
       get { return _currentMoveIndex; }
@@ -67,16 +72,19 @@ namespace Yasc.ShogiCore.Moves
       }
     }
 
+    /// <summary>Indicates whether the history is empty</summary>
     public bool IsEmpty
     {
       get { return Items.Count == 0; }
     }
-
+    
+    /// <summary>Indicates whether the current move is last</summary>
     public bool IsCurrentMoveLast
     {
       get { return _currentMoveIndex == Count - 1; }
     }
 
+    /// <summary>Gets the snapshot ot the move chosen as the current</summary>
     public BoardSnapshot GetCurrentSnapshot()
     {
       if (CurrentMoveIndex == -1)
@@ -91,6 +99,7 @@ namespace Yasc.ShogiCore.Moves
         CurrentMove.BoardSnapshot, CurrentMove.Snapshot());
     }
 
+    /// <summary>Changes the current move to the last one</summary>
     public void GoToTheLast()
     {
       CurrentMoveIndex = Count - 1;
