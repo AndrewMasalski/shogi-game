@@ -5,7 +5,7 @@ using Yasc.ShogiCore.Moves;
 
 namespace Yasc.ShogiCore
 {
-  public class CuteMoveParser
+  internal class CuteMoveParser
   {
     private readonly Board _board;
     private string _moveText;
