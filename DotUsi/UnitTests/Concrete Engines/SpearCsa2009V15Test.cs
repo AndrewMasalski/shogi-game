@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 using DotUsi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,6 +20,8 @@ namespace UnitTests
       {
         engine.DebugMode = true;
         engine.SynchUsi();
+        engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 1;
+        engine.SynchIsReady();
         engine.SynchNewGame();
         engine.Position(
           "7g7f", "3c3d", "7f7e", "8b3b", "2h7h", "5a6b", "5i4h", "6b7b", "4h3h", "7b8b", "3h2h",

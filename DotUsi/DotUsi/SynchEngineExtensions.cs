@@ -1,21 +1,31 @@
 using System;
 using System.Threading;
-using DotUsi;
 
-namespace UnitTests
+namespace DotUsi
 {
-  public static class EngineExtension
+  ///<summary>Contains <see cref="UsiEngine"/> extensions 
+  ///   related with synchronous excexution of methods</summary>
+  public static class SynchEngineExtensions
   {
+    /// <summary>Synch version of <see cref="UsiEngine.Usi"/></summary>
     public static void SynchUsi(this UsiEngine engine)
     {
       using (var s = new UsiSychronizer(engine))
         s.Run();
     }
+    /// <summary>Synch version of <see cref="UsiEngine.NewGame"/></summary>
     public static void SynchNewGame(this UsiEngine engine)
     {
-      using (var s = new NewGameSychronizer(engine))
+      engine.NewGame();
+      engine.SynchIsReady();
+    }
+    /// <summary>Synch version of <see cref="UsiEngine.NewGame"/></summary>
+    public static void SynchIsReady(this UsiEngine engine)
+    {
+      using (var s = new IsReadySychronizer(engine))
         s.Run();
     }
+    /// <summary>Synch version of <see cref="UsiEngine.Go"/></summary>
     public static BestMoveEventArgs SynchGo(this UsiEngine engine, params UsiSearchModifier[] modifiers)
     {
       using (var s = new GoSychronizerBase(engine))
@@ -54,11 +64,11 @@ namespace UnitTests
 
     #endregion
 
-    #region ' NewGameSychronizer '
+    #region ' IsReadySychronizer '
 
-    private class NewGameSychronizer : EngineSychronizerBase
+    private class IsReadySychronizer : EngineSychronizerBase
     {
-      public NewGameSychronizer(UsiEngine engine) 
+      public IsReadySychronizer(UsiEngine engine) 
         : base(engine)
       {
       }
@@ -73,7 +83,6 @@ namespace UnitTests
       }
       protected override void RunCore()
       {
-        Engine.NewGame();
         Engine.IsReady();
       }
       private void EngineOnReadyOK(object sender, EventArgs args)

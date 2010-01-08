@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Drivers\Lesserkai133Driver.cs" />
     <Compile Include="Drivers\SpearCsa2009V15Driver.cs" />
+    <Compile Include="SynchEngineExtensions.cs" />
     <Compile Include="EventArgs\BestMoveEventArgs.cs" />
     <Compile Include="Info\InfoParserUtils.cs" />
     <Compile Include="Options\ButtonOption.cs" />

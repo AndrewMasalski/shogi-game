@@ -17,9 +17,9 @@ namespace DotUsi
       get { return base.Value; }
       set
       {
-        if (Max != null || value > Max) 
+        if (Max != null && value > Max) 
           throw new ArgumentOutOfRangeException("value");
-        if (Min != null || value < Min) 
+        if (Min != null && value < Min) 
           throw new ArgumentOutOfRangeException("value");
 
         base.Value = value;

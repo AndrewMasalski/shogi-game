@@ -178,6 +178,11 @@ namespace UnitTests
     {
       Option.Value = -400;
     }
+    [TestMethod]
+    public void TestValidValue()
+    {
+      Option.Value = 0;
+    }
 
     protected override string GetOptionDefinition()
     {
