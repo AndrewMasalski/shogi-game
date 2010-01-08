@@ -5,6 +5,7 @@ using Yasc.ShogiCore.Moves;
 
 namespace Yasc.ShogiCore
 {
+  /// <summary>Can parse one cute move</summary>
   internal class CuteMoveParser
   {
     private readonly Board _board;
@@ -15,7 +16,6 @@ namespace Yasc.ShogiCore
       if (board == null) throw new ArgumentNullException("board");
       _board = board;
     }
-
     public IEnumerable<MoveBase> Parse(string moveText)
     {
       _moveText = moveText;
@@ -36,7 +36,6 @@ namespace Yasc.ShogiCore
       var fromPosition = FindFromPosition(_moveText, pieceType, toPosition, isPromoting);
       return CreateMoves(pieceType, toPosition, isPromoting, fromPosition);
     }
-
     private IEnumerable<MoveBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, Position[] fromPosition)
     {
       if (fromPosition.Length == 0)
@@ -49,14 +48,12 @@ namespace Yasc.ShogiCore
           yield return _board.GetUsualMove(option, toPosition, isPromoting);
       }
     }
-
     private string GetToPosition()
     {
       var toPosition = _moveText.Substring(_moveText.Length - 2, 2);
       _moveText = _moveText.Substring(0, _moveText.Length - 2);
       return toPosition;
     }
-
     private bool GetIsPromoting()
     {
       var isPromoting = _moveText.EndsWith("+");
@@ -64,7 +61,6 @@ namespace Yasc.ShogiCore
       _moveText = _moveText.TrimEnd('=');
       return isPromoting;
     }
-
     private PieceType GetPieceType()
     {
       int pieceTypeLength = _moveText.StartsWith("+") ? 2 : 1;
@@ -73,7 +69,6 @@ namespace Yasc.ShogiCore
       _moveText = _moveText.Substring(pieceTypeLength, _moveText.Length - pieceTypeLength);
       return pieceType;
     }
-
     private IEnumerable<MoveBase> ParseTake()
     {
       var isPromoting = _moveText.EndsWith("+");
@@ -86,13 +81,11 @@ namespace Yasc.ShogiCore
              where m.IsPromoting == isPromoting && m.TakenPiece != null
              select (MoveBase)m;
     }
-
     protected string CurrentKing
     {
       // NOTE: Strictly speaking king type doesnt depend on color...
       get { return _board.OneWhoMoves.Color == PieceColor.White ? "Kr" : "Kc"; }
     }
-
     private Position[] FindFromPosition(string hint, PieceType pieceType, Position toPosition, bool isPromoting)
     {
       var candidates = (from p in Position.OnBoard

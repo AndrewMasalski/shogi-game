@@ -20,7 +20,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgQAAEACSFCAIAA=</HashCode>
-      <FileName>ShogiCore\Board.cs</FileName>
+      <FileName>Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="White" />
@@ -40,7 +40,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgQAAAAAEAAAAAAAAAAAAAAABAAAA=</HashCode>
-      <FileName>ShogiCore\Shogi.cs</FileName>
+      <FileName>Shogi.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Cell">
@@ -50,7 +50,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAAAAACAACAAAAAAAAICAAAAA=</HashCode>
-      <FileName>ShogiCore\Cell.cs</FileName>
+      <FileName>Cell.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Position" />
@@ -64,7 +64,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAACAAAACBAAEAAAAAAAAAAAAABAAAAAAgAAAAAA=</HashCode>
-      <FileName>ShogiCore\Piece.cs</FileName>
+      <FileName>Piece.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PieceType" />
@@ -76,10 +76,11 @@
     <Members>
       <Method Name="OnHandCollectionChanged" Hidden="true" />
       <Method Name="Player" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAQICAAAAAEAABAACQAAAgAAAAAAAAAgCAAAgA=</HashCode>
-      <FileName>ShogiCore\Player.cs</FileName>
+      <FileName>Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Hand" />
@@ -100,29 +101,29 @@
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>BFACYKAQIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAMAAiA=</HashCode>
-      <FileName>ShogiCore\PieceType.cs</FileName>
+      <FileName>PieceType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Struct Name="Yasc.ShogiCore.Position">
     <Position X="7.5" Y="4.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAIAAEgAFAAAAAABAAAIAAAAAAAAABYiA=</HashCode>
-      <FileName>ShogiCore\Position.cs</FileName>
+      <HashCode>BAAAAAAAAAAAIAAEwAFAAAAAABAAAIAAAAAAAAABYiA=</HashCode>
+      <FileName>Position.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="Yasc.ShogiCore.IPieceSet">
     <Position X="0.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAAAAAACAA=</HashCode>
-      <FileName>ShogiCore\IPieceSet.cs</FileName>
+      <FileName>IPieceSet.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Yasc.ShogiCore.PieceColor">
     <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ShogiCore\PieceColor.cs</FileName>
+      <FileName>PieceColor.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Tahoma" Size="8.25" />

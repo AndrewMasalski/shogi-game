@@ -71,11 +71,11 @@ namespace UnitTests.ShogiCore
     public void ResetSnapshotOnPlayerChangeTest()
     {
       var snapshot1 = _board.CurrentSnapshot;
-      _board.OneWhoMoves = _board.Black;
+      _board.OneWhoMoves = _board.White;
       var snapshot2 = _board.CurrentSnapshot;
 
-      Assert.AreEqual(PieceColor.White, snapshot1.OneWhoMoves);
-      Assert.AreEqual(PieceColor.Black, snapshot2.OneWhoMoves);
+      Assert.AreEqual(PieceColor.Black, snapshot1.OneWhoMoves);
+      Assert.AreEqual(PieceColor.White, snapshot2.OneWhoMoves);
       Assert.AreNotSame(snapshot1, snapshot2);
     }
     [TestMethod]
@@ -262,7 +262,7 @@ namespace UnitTests.ShogiCore
     [TestMethod]
     public void TestGetAvailableDropMovesByPiece()
     {
-      var piece = _board.White.AddToHand("馬");
+      var piece = _board.Black.AddToHand("馬");
       var availableMoves = _board.GetAvailableMoves(piece);
       var toPositions = (from m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), toPositions);
@@ -271,9 +271,9 @@ namespace UnitTests.ShogiCore
     [TestMethod]
     public void TestGetAvailableDropMovesByPieceType()
     {
-      _board.White.Hand.Add(_board.PieceSet["馬"]);
-      // When get in hand 馬 turns into 角
-      var availableMoves = _board.GetAvailableMoves("角", PieceColor.White);
+      _board.Black.Hand.Add(_board.PieceSet["馬"]);
+      // When got in hand 馬 turns into 角
+      var availableMoves = _board.GetAvailableMoves("角", PieceColor.Black);
       var toPositions = (from m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), toPositions);
     }
@@ -326,8 +326,8 @@ namespace UnitTests.ShogiCore
       _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
       _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
       Shogi.InitBoard(_board);
-      _board.MakeMove(_board.GetMove("1c-1d"));
-      Assert.AreEqual("Moving(1c-1d) Moved(1c-1d)", log.ToString());
+      _board.MakeMove(_board.GetMove("1g-1f"));
+      Assert.AreEqual("Moving(1g-1f) Moved(1g-1f)", log.ToString());
     }
 
     #endregion
@@ -343,9 +343,9 @@ namespace UnitTests.ShogiCore
       _board.HistoryNavigated += (s, e) => 
         log.Write(string.Format("HistoryNavigated({0})", e.Step));
       Shogi.InitBoard(_board);
-      _board.MakeMove(_board.GetMove("1c-1d"));
       _board.MakeMove(_board.GetMove("1g-1f"));
-      _board.MakeMove(_board.GetMove("2c-2d"));
+      _board.MakeMove(_board.GetMove("1c-1d"));
+      _board.MakeMove(_board.GetMove("2g-2f"));
       _board.History.CurrentMoveIndex = 0;
       Assert.AreEqual("HistoryNavigating(-2) HistoryNavigated(-2)", 
         log.ToString());
@@ -368,14 +368,32 @@ namespace UnitTests.ShogiCore
                                      Assert.AreEqual(snapshot[0], e.Snapshot);
                                    };
 
-      _board.MakeMove(_board.GetMove("1c-1d"));
-      snapshot[0] = _board.CurrentSnapshot;
       _board.MakeMove(_board.GetMove("1g-1f"));
-      _board.MakeMove(_board.GetMove("2c-2d"));
+      snapshot[0] = _board.CurrentSnapshot;
+      _board.MakeMove(_board.GetMove("1c-1d"));
+      _board.MakeMove(_board.GetMove("2g-2f"));
       _board.History.CurrentMoveIndex = 0;
     }
 
     #endregion
 
+    [TestMethod]
+    public void ParseCuteMoveTest()
+    {
+      Shogi.InitBoard(_board);
+      var move = _board.GetMove("P2f", MoveNotation.Cute).Cast<UsualMove>().First();
+      Assert.AreEqual("2g", move.From.ToString());
+      Assert.AreEqual("2f", move.To.ToString());
+      Assert.IsFalse(move.IsPromoting);
+    }
+    [TestMethod]
+    public void ParseFormalMoveTest()
+    {
+      Shogi.InitBoard(_board);
+      var move = _board.GetMove("2g-2f", MoveNotation.Formal).Cast<UsualMove>().First();
+      Assert.AreEqual("2g", move.From.ToString());
+      Assert.AreEqual("2f", move.To.ToString());
+      Assert.IsFalse(move.IsPromoting);
+    }
   }
 }
