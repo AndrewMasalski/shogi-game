@@ -33,15 +33,17 @@ namespace Yasc.ShogiCore.Snapshots
     {
       return board.GetUsualMove(From, To, IsPromoting);
     }
+    /// <summary>Override to determine color of the player the move belongs to</summary>
     public override PieceColor GetColor(BoardSnapshot snapshot)
     {
       return snapshot[From].Color;
     }
+    /// <summary>Override to convert snapshot to observable move</summary>
     protected override MoveBase AsRealMoveCore(Board board)
     {
       return AsRealMove(board);
     }
-
+    /// <summary>Gets user friendly transcription of the move (latin)</summary>
     public override string ToString()
     {
       return From + "-" + To + (IsPromoting ? "+" : "");
