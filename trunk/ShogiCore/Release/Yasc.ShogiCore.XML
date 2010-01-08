@@ -1,0 +1,659 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yasc.ShogiCore</name>
+    </assembly>
+    <members>
+        <member name="T:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot">
+            <summary>Lightweight representation of the usual move (as opposing to <see cref="T:Yasc.ShogiCore.Snapshots.DropMoveSnapshot"/></summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Snapshots.MoveSnapshotBase">
+            <summary>Base class for lightweight moves</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.MoveSnapshotBase.AsRealMove(Yasc.ShogiCore.Board)">
+            <summary>Gets observable version of the move</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.MoveSnapshotBase.GetColor(Yasc.ShogiCore.Snapshots.BoardSnapshot)">
+            <summary>Override to determine color of the player the move belongs to</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.MoveSnapshotBase.AsRealMoveCore(Yasc.ShogiCore.Board)">
+            <summary>Override to convert snapshot to observable move</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot.#ctor(Yasc.ShogiCore.Moves.UsualMove)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot.#ctor(Yasc.ShogiCore.Position,Yasc.ShogiCore.Position,System.Boolean)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot.AsRealMove(Yasc.ShogiCore.Board)">
+            <summary>Creates observable move on the base of the snapshot</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot.From">
+            <summary>Position on the board move originates from</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot.To">
+            <summary>Position on the board piece is moving to</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot.IsPromoting">
+            <summary>Indicates whether the move is promoting</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Snapshots.PieceSnapshot">
+            <summary>Lightweight store for piece</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.#ctor(Yasc.ShogiCore.Piece)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.#ctor(Yasc.ShogiCore.PieceType,Yasc.ShogiCore.PieceColor)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.ClonePromoted">
+            <summary>Makes a promoted clon of this piece</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.HowFarFromTheLastLine(Yasc.ShogiCore.Position)">
+            <summary>Returns distance for from the last line for the piece (of the color)</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.IsPromotionMandatory(Yasc.ShogiCore.Position)">
+            <summary>Returns null it the piece can move to the 
+              <paramref name="position"/> without promotion -or- 
+              text with explanation why he's not allowed to do that</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.IsPromotionAllowed(Yasc.ShogiCore.Position,Yasc.ShogiCore.Position)">
+            <summary>Returns null it the piece can promote moving
+              from position <paramref name="from"/> to position <paramref name="to"/> -or- 
+              text with explanation why it's impossible</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.Equals(Yasc.ShogiCore.Snapshots.PieceSnapshot)">
+            <summary>Determines whether the specified PieceSnapshot is equal to the current PieceSnapshot</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.Equals(System.Object)">
+            <summary>Determines whether the specified PieceSnapshot is equal to the current PieceSnapshot</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.GetHashCode">
+            <summary>Serves as a hash function for a PieceSnapshot</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.op_Equality(Yasc.ShogiCore.Snapshots.PieceSnapshot,Yasc.ShogiCore.Snapshots.PieceSnapshot)">
+            <summary>Determines whether two pieces are equal</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.PieceSnapshot.op_Inequality(Yasc.ShogiCore.Snapshots.PieceSnapshot,Yasc.ShogiCore.Snapshots.PieceSnapshot)">
+            <summary>Determines whether two pieces are not equal</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.PieceSnapshot.IsPromoted">
+            <summary>Indicates whether the piece is primoted</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.PieceSnapshot.PieceType">
+            <summary>The piece type</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.PieceSnapshot.Color">
+            <summary>The piece color</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Piece">
+            <summary>Represents observable piece with owner, type, color, etc.</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Piece.ToString">
+            <summary>Gets user friendly piece name with japanese type for debug purposes</summary>
+            <returns>e.g. Ownerless 飛</returns>
+        </member>
+        <member name="M:Yasc.ShogiCore.Piece.ToLatinString">
+            <summary>Gets user friendly piece name with latin type for debug purposes</summary>
+            <returns>e.g. White promoted R</returns>
+        </member>
+        <member name="P:Yasc.ShogiCore.Piece.Owner">
+            <summary>The piece owner</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Piece.PieceType">
+            <summary>The piece type</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Piece.Color">
+            <summary>Current piece color</summary>
+            <remarks>Makes no sense if there's no <see cref="P:Yasc.ShogiCore.Piece.Owner"/></remarks>
+        </member>
+        <member name="P:Yasc.ShogiCore.Piece.IsPromoted">
+            <summary>Indicates whether the piece is promoted</summary>
+            <remarks>When you set it <see cref="P:Yasc.ShogiCore.Piece.PieceType"/> changes accordingly</remarks>
+        </member>
+        <member name="T:Yasc.ShogiCore.Player">
+            <summary>Game participiant</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Player.GetPieceFromHandByType(Yasc.ShogiCore.PieceType)">
+            <summary>Gets the piece from player hand by type</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Player.AddToHand(Yasc.ShogiCore.PieceType)">
+            <summary>Adds the piece to player hand</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Player.LoadHandSnapshot(System.Collections.Generic.IEnumerable{Yasc.ShogiCore.Snapshots.PieceSnapshot})">
+            <summary>Load pieces to the hand from snapshot</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Player.ResetAllPiecesFromHand">
+            <summary>Returns all pieces from hand to the set</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Player.Board">
+            <summary>Board game is going on</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Player.Name">
+            <summary>The player name</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Player.Hand">
+            <summary>The pieces player has in hand</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Player.Opponent">
+            <summary>The player opponent</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Player.Color">
+            <summary>The player color</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Snapshots.BoardSnapshot">
+            <summary>Represents lightweigth snapshot of the <see cref="T:Yasc.ShogiCore.Board"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.#ctor(Yasc.ShogiCore.Board)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.#ctor(Yasc.ShogiCore.Snapshots.BoardSnapshot,Yasc.ShogiCore.Snapshots.MoveSnapshotBase)">
+            <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.Hand(Yasc.ShogiCore.PieceColor)">
+            <summary>Gets the hand collection by color</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.ValidateDropMove(Yasc.ShogiCore.Snapshots.DropMoveSnapshot)">
+            <summary>Validates drop move</summary>
+            <returns>null if the move is valid -or- the reason why it's not</returns>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.ValidateUsualMove(Yasc.ShogiCore.Snapshots.UsualMoveSnapshot)">
+            <summary>Validates usual move</summary>
+            <returns>null if the move is valid -or- the reason why it's not</returns>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.IsMateFor(Yasc.ShogiCore.PieceColor)">
+            <summary>Checks wheter it's mate for <paramref name="color"/> king </summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.IsCheckFor(Yasc.ShogiCore.PieceColor)">
+            <summary>Checks wheter it's check for <paramref name="color"/> king </summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.GetAvailableUsualMoves(Yasc.ShogiCore.Position)">
+            <summary>Gets all valid usual moves from the position</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.GetAvailableDropMoves(Yasc.ShogiCore.Snapshots.PieceSnapshot)">
+            <summary>Gets all valid drop moves for the piece</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.BoardSnapshot.GetAllAvailableMoves(Yasc.ShogiCore.PieceColor)">
+            <summary>Gets all valid usual and drop moves for the player</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.BoardSnapshot.OneWhoMoves">
+            <summary>The player who moves next</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.BoardSnapshot.Cells">
+            <summary>9x9 array of the cells with pieces</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.BoardSnapshot.BlackHand">
+            <summary>List of the pieces in black hand</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.BoardSnapshot.WhiteHand">
+            <summary>List of the pieces in white hand</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.BoardSnapshot.Item(Yasc.ShogiCore.Position)">
+            <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.BoardSnapshot.Item(System.Int32,System.Int32)">
+            <summary>Gets the piece snapshot at the coordinates</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Moves.MovesHistory">
+            <summary>Represents history of moves of the game</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MovesHistory.#ctor">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MovesHistory.Do(Yasc.ShogiCore.Moves.MoveBase)">
+            <summary>Adds the move to the history</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MovesHistory.GetCurrentSnapshot">
+            <summary>Gets the snapshot ot the move chosen as the current</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MovesHistory.GoToTheLast">
+            <summary>Changes the current move to the last one</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MovesHistory.CurrentMove">
+            <summary>Gets or sets currebt move reference</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MovesHistory.CurrentMoveIndex">
+            <summary>Gets or sets currebt move index</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MovesHistory.IsEmpty">
+            <summary>Indicates whether the history is empty</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MovesHistory.IsCurrentMoveLast">
+            <summary>Indicates whether the current move is last</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.IPieceSet">
+            <summary>Represents piece set</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.IPieceSet.Pop(Yasc.ShogiCore.Piece)">
+            <summary>Marks given <paramref name="piece"/> as occupied</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.IPieceSet.Push(Yasc.ShogiCore.Piece)">
+            <summary>Returns given <paramref name="piece"/> to the set</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.IPieceSet.Item(Yasc.ShogiCore.PieceType)">
+            <summary>Gets reference to the piece from the set by type</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Cell">
+            <summary>Cell is a place on a board where piece may appear. 
+              Shogi board is consist of 9x9 cells.</summary>
+            <remarks>This class allows the board to be collection of cells,
+              which dramatically simplifies GUI binding</remarks>
+        </member>
+        <member name="M:Yasc.ShogiCore.Cell.SetPiece(Yasc.ShogiCore.Piece,Yasc.ShogiCore.Player)">
+            <summary>Places the piece into the cell</summary>
+            <remarks>Method takes ownerless piece and places it into the cell</remarks>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="piece"/> or <paramref name="owner"/> is null
+            </exception>
+            <exception cref="T:System.InvalidOperationException">The piece is not ownerless</exception>
+        </member>
+        <member name="M:Yasc.ShogiCore.Cell.SetPiece(Yasc.ShogiCore.Piece)">
+            <summary>Places the piece into the cell</summary>
+            <remarks>Method takes piece and places it into the cell</remarks>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="piece"/> is null
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">the piece has no owner</exception>
+        </member>
+        <member name="M:Yasc.ShogiCore.Cell.ResetPiece">
+            <summary>Removes the piece from the cell to the piece set</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Cell.Board">
+            <summary>Board the cell belongs to</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Cell.Position">
+            <summary>Position of the cell on the board</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Cell.Piece">
+            <summary>Piece in the cell</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Shogi">
+            <summary>Contains very common knowledge about shogi game</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.Shogi.InitialPosition">
+            <summary>Contains position-pieceType pairs of initial position</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Shogi.InitBoard(Yasc.ShogiCore.Board)">
+            <summary>Sets start position on the board</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Position">
+            <summary>Identifies shogi board cell coordinates in a user-friendly manner</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Position.#ctor(System.String)">
+            <summary>ctor</summary>
+            <param name="position">"1a"</param>
+        </member>
+        <member name="M:Yasc.ShogiCore.Position.#ctor(System.Int32,System.Int32)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Position.X">
+            <summary>X coordinate of the position</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Position.Y">
+            <summary>Y coordinate of the position</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Position.Line">
+            <summary>The position line ("a".."i")</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Position.Column">
+            <summary>The position column (1..9)</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Moves.MoveEventArgs">
+            <summary>Holds move related data</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MoveEventArgs.#ctor(Yasc.ShogiCore.Moves.MoveBase)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveEventArgs.Move">
+            <summary>Move</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Board">
+            <summary>Represents observable and mutable shogi board with moves tracking, analysis, etc.</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.#ctor">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.#ctor(Yasc.ShogiCore.PieceSetType)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.LoadSnapshot(Yasc.ShogiCore.Snapshots.BoardSnapshot)">
+            <summary>Loads the snapshot</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.SetPiece(Yasc.ShogiCore.Piece,Yasc.ShogiCore.Player,Yasc.ShogiCore.Position)">
+            <summary>Set piece to the board cell</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.SetPiece(Yasc.ShogiCore.Piece,Yasc.ShogiCore.PieceColor,Yasc.ShogiCore.Position)">
+            <summary>Set piece to the board cell</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.SetPiece(Yasc.ShogiCore.PieceType,Yasc.ShogiCore.Player,Yasc.ShogiCore.Position)">
+            <summary>Set piece to the board cell</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.SetPiece(Yasc.ShogiCore.PieceType,Yasc.ShogiCore.PieceColor,Yasc.ShogiCore.Position)">
+            <summary>Set piece to the board cell</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.ResetPiece(Yasc.ShogiCore.Position)">
+            <summary>Remove piece from the board cell</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetUsualMove(Yasc.ShogiCore.Position,Yasc.ShogiCore.Position,System.Boolean)">
+            <summary>Gets usual move on the board</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetDropMove(Yasc.ShogiCore.PieceType,Yasc.ShogiCore.Position,Yasc.ShogiCore.Player)">
+            <summary>Gets drop move on the board</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetDropMove(Yasc.ShogiCore.Piece,Yasc.ShogiCore.Position)">
+            <summary>Gets drop move on the board</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetMove(System.String,Yasc.ShogiCore.MoveNotation)">
+            <summary>Gets move on the board parsing it from transcript</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetMove(System.String)">
+            <summary>Gets move on the board parsing it from transcript</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.MakeMove(Yasc.ShogiCore.Moves.MoveBase)">
+            <summary>Makes the move on the board</summary>
+            <remarks>The method adds the move to the history and sends events</remarks>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetAvailableMoves(Yasc.ShogiCore.Position)">
+            <summary>Gets all valid ususal moves available from the given position</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetAvailableMoves(Yasc.ShogiCore.PieceType,Yasc.ShogiCore.PieceColor)">
+            <summary>Gets all valid drop moves available for the player for the given piece type</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.GetAvailableMoves(Yasc.ShogiCore.Piece)">
+            <summary>Gets all valid drop moves available for for the given piece in hand</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Board.ResetAll">
+            <summary>Returns all pieces from the board and
+            both hands to <see cref="P:Yasc.ShogiCore.Board.PieceSet"/> </summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.CurrentSnapshot">
+            <summary>Snapshot of the board's current state</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.White">
+            <summary>The one who plays white pieces</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.Black">
+            <summary>The one who plays black pieces</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.OneWhoMoves">
+            <summary>The player who moves next</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.IsMovesOrderMaintained">
+            <summary>Whether the board tracks moves order</summary>
+            <remarks>If board tracks moves order some moves are going to be invalid with message 
+              "its white's (black's) move now.</remarks>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.History">
+            <summary>Moves history</summary>
+            <remarks>Only contains moves made through <see cref="M:Yasc.ShogiCore.Board.MakeMove(Yasc.ShogiCore.Moves.MoveBase)"/>. 
+              All other changes made to the board are not counted here.</remarks>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.Cells">
+            <summary>81 cells of the board in stable order</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.Item(Yasc.ShogiCore.Position)">
+            <summary>Gets the piece in the cell in the position -or- null if the cell is empty</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.Item(System.Int32,System.Int32)">
+            <summary>Gets the cell in the position</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.Item(Yasc.ShogiCore.PieceColor)">
+            <summary>Gets the player of the given color</summary>
+        </member>
+        <member name="E:Yasc.ShogiCore.Board.Moving">
+            <summary>Raised before move is done</summary>
+        </member>
+        <member name="E:Yasc.ShogiCore.Board.Moved">
+            <summary>Raised after move is done</summary>
+        </member>
+        <member name="E:Yasc.ShogiCore.Board.HistoryNavigating">
+            <summary>Raised before user navigates in history</summary>
+        </member>
+        <member name="E:Yasc.ShogiCore.Board.HistoryNavigated">
+            <summary>Raised after user navigated in history</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Board.PieceSet">
+            <summary>The set of pieces user has</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.PieceColor">
+            <summary>Represents piece color</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceColor.Black">
+            <summary>Sente</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceColor.White">
+            <summary>Gote</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Moves.UsualMove">
+            <summary>Represents usual move (as opposing to the <see cref="T:Yasc.ShogiCore.Moves.DropMove"/>)</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Moves.MoveBase">
+            <summary>Base class for the shogi move (usual and drop)</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MoveBase.Make">
+            <summary>Override to apply move to the <see cref="P:Yasc.ShogiCore.Moves.MoveBase.Board"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MoveBase.GetValidationErrorMessage">
+            <summary>Override to get validation error message or null if move is valid</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.MoveBase.Snapshot">
+            <summary>Gets snapshot of the move</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.Board">
+            <summary>Board move belongs to</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.Timestamp">
+            <summary>Moment move is performed</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.Who">
+            <summary>Player performing the move</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.Number">
+            <summary>Move sequential number within the game</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.BoardSnapshot">
+            <summary>Board snapshot before the move is done</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.IsValid">
+            <summary>Indicates whether the move is valid</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.MoveBase.ErrorMessage">
+            <summary>null if move is valid -or- explanation why it's not</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.UsualMove.Create(Yasc.ShogiCore.Board,Yasc.ShogiCore.Position,Yasc.ShogiCore.Position,System.Boolean)">
+            <summary>Creates an instance of <see cref="T:Yasc.ShogiCore.Moves.UsualMove"/> 
+              from origin and target positions and validates it immediately</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.UsualMove.Create(Yasc.ShogiCore.Board,Yasc.ShogiCore.Snapshots.UsualMoveSnapshot)">
+            <summary>Creates an instance of <see cref="T:Yasc.ShogiCore.Moves.UsualMove"/> 
+              from snapshot and validates it immediately</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.UsualMove.From">
+            <summary>Move origin</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.UsualMove.To">
+            <summary>Move target</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.UsualMove.MovingPiece">
+            <summary>Piece being moved</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.UsualMove.TakenPiece">
+            <summary>Piece being taken by the move</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.UsualMove.IsPromoting">
+            <summary>Indicates whether move is promoting</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.UsualMove.CuteNotation">
+            <summary>Move transcript in "cute" notation</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Moves.DropMove">
+            <summary>Represents drop move (as opposing to <see cref="T:Yasc.ShogiCore.Moves.UsualMove"/>)</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.DropMove.Create(Yasc.ShogiCore.Board,Yasc.ShogiCore.PieceType,Yasc.ShogiCore.Position,Yasc.ShogiCore.Player)">
+            <summary>Creates an instance of <see cref="T:Yasc.ShogiCore.Moves.DropMove"/> 
+              from type and position and validates it immediately</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.DropMove.Create(Yasc.ShogiCore.Board,Yasc.ShogiCore.Snapshots.DropMoveSnapshot)">
+            <summary>Creates an instance of <see cref="T:Yasc.ShogiCore.Moves.DropMove"/> 
+              from snapshot and validates it immediately</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.DropMove.Make">
+            <summary>Applies move to the <see cref="P:Yasc.ShogiCore.Moves.MoveBase.Board"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.DropMove.GetValidationErrorMessage">
+            <summary>Override to get validation error message or null if move is valid</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.DropMove.Snapshot">
+            <summary>Gets snapshot of the <see cref="T:Yasc.ShogiCore.Moves.DropMove"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.DropMove.ToString">
+            <summary>Returns user friendly move representation (latin)</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.DropMove.PieceType">
+            <summary>Droping piece type</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Moves.DropMove.To">
+            <summary>Position to drop piece to</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.PieceSetType">
+            <summary>Defines piece set</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceSetType.Default">
+            <summary>40 pieces</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceSetType.Infinite">
+            <summary>Infinite number of pieces of all types</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Snapshots.DropMoveSnapshot">
+            <summary>Lightweight representation of drop move (as opposing to <see cref="T:Yasc.ShogiCore.Snapshots.UsualMoveSnapshot"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.DropMoveSnapshot.#ctor(Yasc.ShogiCore.Moves.DropMove)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.DropMoveSnapshot.#ctor(Yasc.ShogiCore.Snapshots.PieceSnapshot,Yasc.ShogiCore.Position)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.DropMoveSnapshot.Piece">
+            <summary>Piece with type and color being dropped</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.Snapshots.DropMoveSnapshot.To">
+            <summary>Position on the board to drop piece to</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.Moves.InvalidMoveException">
+            <summary>This exception is thrown when you'tr trying 
+              to make invalid move (<see cref="M:Yasc.ShogiCore.Board.MakeMove(Yasc.ShogiCore.Moves.MoveBase)"/>)</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.PieceType">
+            <summary>Represents piece type</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceType.GetValues">
+            <summary>Gets all known piece types</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceType.Promote">
+            <summary>Returns promoted version of the piece type</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceType.Unpromote">
+            <summary>Returns unpromoted version of the piece type</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.王">
+            <summary>King (reigning)</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.玉">
+            <summary>King (challenging)</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.飛">
+            <summary>Rook</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.角">
+            <summary>Bishop</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.金">
+            <summary>Gold general</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.銀">
+            <summary>Silver general</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.桂">
+            <summary>Knight</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.香">
+            <summary>Lance</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.歩">
+            <summary>Pawn</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.竜">
+            <summary>Promoted Rook</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.馬">
+            <summary>Promoted Bishop</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.全">
+            <summary>Promoted Silver</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.と">
+            <summary>Promoted Pawn</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.今">
+            <summary>Promoted Knight</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.PieceType.仝">
+            <summary>Promoted Lance</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceType.op_Implicit(Yasc.ShogiCore.PieceType)~System.String">
+            <summary>Implicit type conversion operator. Uses japanese hieroglyphs</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceType.op_Implicit(System.String)~Yasc.ShogiCore.PieceType">
+            <summary>Implicit type conversion operator. 
+              Recognizes japanese hieroglyphs as well as latin symbols</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.PieceType.IsPromoted">
+            <summary>Indicates wheter the piece type is promoted</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.PieceType.CanPromote">
+            <summary>Indicates whether the piece type can be promoted</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.PieceType.Latin">
+            <summary>Gets the latin version of piece type</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.PieceType.Id">
+            <summary>Gets the id of the piece type which is the same for 
+              promoted and unpromoted versions of the piece</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.HistoryNavigateEventArgs">
+            <summary>Contains info about navigation in the moves history</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.HistoryNavigateEventArgs.Step">
+            <summary>Indicates how many moves forward user navigates.
+              Positive or negative depending on direction of navigation.</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.HistoryNavigateEventArgs.Snapshot">
+            <summary>Snapshot of the state in histiry user is being navigating to</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.MoveNotation">
+            <summary>Describes the ways moves can be transcribed</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.MoveNotation.Formal">
+            <summary>1a-1i, R'1a</summary>
+        </member>
+        <member name="F:Yasc.ShogiCore.MoveNotation.Cute">
+            <summary>+Rx1a</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.PieceHasNoOwnerException">
+            <summary>The exception is fired when piece has no ownt but must have</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceHasNoOwnerException.#ctor">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceHasNoOwnerException.#ctor(System.String)">
+            <summary>ctor</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.NotEnoughPiecesInSetException">
+            <summary>Exception if fired when user is trying to use  
+              piece when all pieces from set have been already used</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.NotEnoughPiecesInSetException.#ctor(System.String)">
+            <summary>ctor</summary>
+        </member>
+    </members>
+</doc>
