@@ -3,7 +3,7 @@ using Yasc.ShogiCore.Moves;
 
 namespace Yasc.ShogiCore.Snapshots
 {
-  /// <summary>Base class for lightweight moves</summary>
+  /// <summary>Base class for lightweight snapshots of usual and drop moves</summary>
   [Serializable]
   public abstract class MoveSnapshotBase
   {

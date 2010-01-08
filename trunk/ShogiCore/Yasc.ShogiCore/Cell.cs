@@ -50,7 +50,7 @@ namespace Yasc.ShogiCore
     /// <exception cref="ArgumentNullException">
     ///   <paramref name="piece"/> is null
     /// </exception>
-    /// <exception cref="ArgumentOutOfRangeException">the piece has no owner</exception>
+    /// <exception cref="PieceHasNoOwnerException">the piece has no owner</exception>
     public void SetPiece(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
@@ -58,7 +58,7 @@ namespace Yasc.ShogiCore
 
       var player = piece.Owner;
       if (player == null) 
-        throw new ArgumentOutOfRangeException("piece", "must have owner");
+        throw new PieceHasNoOwnerException();
       player.Board.PieceSet.Push(piece);
       SetPiece(piece, player);
     }
