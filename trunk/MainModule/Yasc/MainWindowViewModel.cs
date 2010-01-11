@@ -6,7 +6,7 @@ using Yasc.Properties;
 
 namespace Yasc
 {
-  public class MainWindowViewModel : ObservableObject
+  public class MainWindowViewModel : ObservableObject, IDisposable
   {
     private ObservableObject _currentView;
 
@@ -56,6 +56,13 @@ namespace Yasc
             break;
         }
       }
+    }
+    
+    public void Dispose()
+    {
+      var currentView = CurrentView as IDisposable;
+      if (currentView != null)
+        currentView.Dispose();
     }
 
     private void WelcomeOnChoiceDone(object sender, EventArgs args)
@@ -173,6 +180,7 @@ namespace Yasc
     {
       var gameViewModel = (GameViewModel)sender;
       gameViewModel.GameOver -= OnGameOver;
+      gameViewModel.Dispose();
     }
   }
 }

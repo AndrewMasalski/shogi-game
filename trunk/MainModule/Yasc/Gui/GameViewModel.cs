@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Yasc.Gui
 {
-  public class GameViewModel : ObservableObject
+  public class GameViewModel : ObservableObject, IDisposable
   {
     #region ' Fields '
 
@@ -224,6 +224,10 @@ namespace Yasc.Gui
     {
       _game = game;
     }
+    public void Dispose()
+    {
+      Ticket.Dispose();
+    }
 
     public event EventHandler GameOver;
 
@@ -315,56 +319,8 @@ namespace Yasc.Gui
       MovesAndComments.Add(new ChatMessage(DateTime.Now, CurrentMessage, Ticket.Me.Name));
       CurrentMessage = "";
 
-    }    
+    }
+    
     #endregion
-
   }
-
-  public class GameTicket
-  {
-    private readonly IPlayerGameController _ticket;
-
-    public PieceColor MyColor
-    {
-      get { return _ticket.MyColor; }
-    }
-
-    public IServerUser Me
-    {
-      get { return _ticket.Game.InviteeColor == MyColor ? _ticket.Game.Invitor : _ticket.Game.Invitee; }
-    }
-    public IServerUser Opponent
-    {
-      get { return _ticket.Game.InviteeColor != MyColor ? _ticket.Game.Invitor : _ticket.Game.Invitee; }
-    }
-
-    public GameTicket(IPlayerGameController ticket, Func<MoveMsg, DateTime> opponentMadeMoveCallback)
-    {
-      if (opponentMadeMoveCallback == null)
-        throw new ArgumentNullException("opponentMadeMoveCallback");
-
-      _ticket = ticket;
-      _ticket.OpponentMadeMove = new FuncListener<MoveMsg, DateTime>(opponentMadeMoveCallback);
-    }
-
-    public void Move(MoveMsg msg)
-    {
-      _ticket.Move(msg);
-    }
-  }
-
-    public class ChatMessage
-    {
-      public DateTime Timestamp { get; set; }
-      public string Message { get; set; }
-      public string Owner { get; set; }
-
-      public ChatMessage(DateTime timestamp, string message, string owner)
-      {
-        Timestamp = timestamp;
-        Message = message;
-        Owner = owner;
-      }
-    }
-
 }
