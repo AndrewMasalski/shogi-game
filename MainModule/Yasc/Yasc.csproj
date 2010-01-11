@@ -156,6 +156,8 @@
     <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Gui\ChatMessage.cs" />
+    <Compile Include="Gui\GameTicket.cs" />
     <Compile Include="Persistence\PsnLoader.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
