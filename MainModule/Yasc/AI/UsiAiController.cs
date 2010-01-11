@@ -27,7 +27,7 @@ namespace Yasc.AI
 
       _engine = new UsiEngine(process);
       _engine.SynchUsi();
-      _engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 1;
+      _engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 3;
       _engine.SynchIsReady();
       _engine.SynchNewGame();
       _engine.BestMove += EngineOnBestMove;
@@ -35,9 +35,16 @@ namespace Yasc.AI
 
     private void EngineOnBestMove(object sender, BestMoveEventArgs args)
     {
-      var engineMove = ParseUsiMove(_board, args.Move);
-      _board.MakeMove(engineMove);
-      Move(engineMove.ToString());
+      if (args.Resign)
+      {
+        Move("resign");
+      }
+      else
+      {
+        var engineMove = ParseUsiMove(_board, args.Move);
+        _board.MakeMove(engineMove);
+        Move(engineMove.ToString());
+      }
     }
 
     protected override void OnHumanMoved(string hisMove)

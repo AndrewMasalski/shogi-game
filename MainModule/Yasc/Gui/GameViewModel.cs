@@ -208,7 +208,7 @@ namespace Yasc.Gui
       switch (choice)
       {
         case WelcomeChoice.ArtificialIntelligence:
-          Init(new CleverAiController());
+          Init(new UsiAiController());
           break;
         case WelcomeChoice.Autoplay:
           InitBoard();
@@ -235,7 +235,7 @@ namespace Yasc.Gui
     {
       Ticket = new GameTicket(ticket, OnOpponentMadeMove);
 
-      IsFlipped = Ticket.MyColor == PieceColor.White;
+      IsFlipped = Ticket.MyColor == PieceColor.Black;
       IsItMyMove = Ticket.MyColor == PieceColor.White;
       IsItOpponentMove = Ticket.MyColor != PieceColor.White;
       InitBoard();

@@ -334,6 +334,7 @@ namespace DotUsi
 
     private void OnBestMove(BestMoveEventArgs e)
     {
+      Mode = EngineMode.Ready;
       var handler = BestMove;
       if (handler != null) handler(this, e);
     }
@@ -420,6 +421,7 @@ namespace DotUsi
     }
     private static BestMoveEventArgs ParseBestMove(string line)
     {
+      if (line == "resign") return new BestMoveEventArgs();
       var split = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       return new BestMoveEventArgs(split[0], (split.Length == 3 ? split[2] : null));
     }

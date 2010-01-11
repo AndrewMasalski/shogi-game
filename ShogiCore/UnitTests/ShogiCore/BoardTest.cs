@@ -395,5 +395,22 @@ namespace UnitTests.ShogiCore
       Assert.AreEqual("2f", move.To.ToString());
       Assert.IsFalse(move.IsPromoting);
     }
+
+    [TestMethod]
+    public void TestBlackResignMove()
+    {
+      Assert.AreEqual(ShogiGameResult.None, _board.GameResult);
+      _board.MakeMove(_board.GetResignMove());
+      Assert.AreEqual(ShogiGameResult.WhiteWin, _board.GameResult);
+    }
+
+    [TestMethod]
+    public void TestWhiteResignMove()
+    {
+      _board.OneWhoMoves = _board[PieceColor.White];
+      Assert.AreEqual(ShogiGameResult.None, _board.GameResult);
+      _board.MakeMove(_board.GetResignMove());
+      Assert.AreEqual(ShogiGameResult.BlackWin, _board.GameResult);
+    }
   }
 }
