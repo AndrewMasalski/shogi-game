@@ -47,6 +47,19 @@ namespace UnitTests
       _engine.BestMove += (s, e) => log.Write("bestmove " + e.Move + " ponder " + e.Ponder);
       _process.SendOutput("bestmove m1 ponder m2");
       Assert.AreEqual("bestmove m1 ponder m2", log.ToString());
+      Assert.AreEqual(EngineMode.Ready, _engine.Mode);
+    }
+    [TestMethod]
+    public void TestBestMoveResign()
+    {
+      var log = new TestLog();
+      PrepareEngine();
+      _engine.Go();
+      _engine.BestMove += (s, e) => log.Write("bestmove " + 
+        e.Move + " ponder " + e.Ponder + " resign: " + e.Resign);
+
+      _process.SendOutput("bestmove resign");
+      Assert.AreEqual("bestmove  ponder  resign: True", log.ToString());
     }
     [TestMethod]
     public void TestInfoUpdated()
