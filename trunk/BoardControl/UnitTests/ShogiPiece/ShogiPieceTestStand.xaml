@@ -1,0 +1,12 @@
+﻿<Window x:Class="UnitTests.ShogiPieceTestStand"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UnitTests="clr-namespace:UnitTests"
+    Height="446" Width="600">
+  <DockPanel LastChildFill="True">
+    <Button Content="Recreate Control" Click="Button_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
+    <ContentControl x:Name="_contentControl" >
+      <UnitTests:ShogiPieceTestControl/>
+    </ContentControl>
+  </DockPanel>
+</Window>

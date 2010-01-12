@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E8497624-9F29-411B-A917-C2DE3A87661D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yasc.BoardControl</RootNamespace>
+    <AssemblyName>Yasc.BoardControl</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-311F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>../Marhoily.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkSubset>Client</TargetFrameworkSubset>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotUsi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DotUsi\Release\DotUsi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Yasc.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Networking\Release\Yasc.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Common\ProgressCircle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AndConverter.cs" />
+    <Compile Include="Common\ListBoxFocusBehaviour.cs" />
+    <Compile Include="Common\MovesAndCommentsGrid.cs" />
+    <Compile Include="Common\ProgressCircle.xaml.cs">
+      <DependentUpon>ProgressCircle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DirectionToBoolConverter.cs" />
+    <Compile Include="Common\ProgressClock.cs" />
+    <Compile Include="Common\TimerDirection.cs" />
+    <Compile Include="Controls\Automation\ControlAutomationPeer.cs" />
+    <Compile Include="Controls\BoardBorder.cs" />
+    <Compile Include="Controls\HandGroupingMode.cs" />
+    <Compile Include="Controls\HandNest.cs" />
+    <Compile Include="Controls\Automation\HandNestAutomationPeer.cs" />
+    <Compile Include="Controls\PieceDirection.cs" />
+    <Compile Include="Controls\PieceHolderBase.cs" />
+    <Compile Include="Controls\Shield.cs" />
+    <Compile Include="Controls\Automation\ShogiBoardAutomationPeer.cs" />
+    <Compile Include="Controls\ShogiBoardCore.cs" />
+    <Compile Include="Controls\Automation\ShogiBoardCoreAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
+    <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GenericDragDrop\Dnd.cs" />
+    <Compile Include="GenericDragDrop\DndAdorner.cs" />
+    <Compile Include="GenericDragDrop\DragFromBoardEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DragFromEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DragFromHandEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DropToBoardEventArgs.cs" />
+    <Compile Include="GenericDragDrop\DropToHandEventArgs.cs" />
+    <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
+    <Compile Include="Common\DebugConverter.cs" />
+    <Compile Include="Controls\ShogiCell.cs" />
+    <Compile Include="Common\StopwatchControl.cs" />
+    <Compile Include="Common\SwitchControl.cs" />
+    <Compile Include="Common\ToStringConverter.cs" />
+    <Compile Include="Controls\MoveAttemptEventArgs.cs" />
+    <Compile Include="Controls\ShogiPiece.cs" />
+    <Compile Include="Controls\ShogiBoard.cs" />
+    <Compile Include="Common\ScalarConverter.cs" />
+    <Compile Include="Controls\ShogiHand.cs" />
+    <Compile Include="Common\UniformPanel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="Controls\ControlsDiagram.cd" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Rotate.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <Version>$(BUILD_NUMBER)</Version>
+  </PropertyGroup>
+  <Target Name="BeforeBuild" Condition=" '$(Version)' != '' ">
+    <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" Regex="\[\s*assembly\s*:\s*AssemblyVersion\s*\(\s*&quot;[\d\.\*]+&quot;\s*\)\s*\]" ReplacementText="[assembly: AssemblyVersion(&quot;$(Version)&quot;)]" />
+    <Message Text="Varsion altered: $(Version)" />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
