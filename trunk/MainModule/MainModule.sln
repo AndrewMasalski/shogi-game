@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yasc", "Yasc\Yasc.csproj", "{E8497624-9F29-411B-A917-C2DE3A87661D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainModule", "Yasc\MainModule.csproj", "{E8497624-9F29-411B-A917-C2DE3A87661D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{94F07960-A013-46AF-BCC3-6E55DD48989E}"
 EndProject

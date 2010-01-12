@@ -23,35 +23,47 @@ namespace Yasc.Common
       e.Handled = true;
     }
 
+    #region ' FocusTheNearestFocusableItem '
+
     private void FocusTheNearestFocusableItem(int startIndex, int searchStep)
     {
       Debug.Assert(searchStep != 0);
       startIndex += searchStep;
       if (searchStep < 0)
       {
-        for (int i = startIndex; i >= 0; i += searchStep)
-        {
-          var item = (ListBoxItem)_listBox.ItemContainerGenerator.ContainerFromIndex(i);
-          if (item.Focusable)
-          {
-            item.Focus();
-            return;
-          }
-        }
+        SearchForward(searchStep, startIndex);
       }
       else
       {
-        int count = _listBox.Items.Count;
-        for (int i = startIndex; i < count; i += searchStep)
+        SearchBackwards(searchStep, startIndex);
+      }
+    }
+    private void SearchBackwards(int searchStep, int startIndex)
+    {
+      int count = _listBox.Items.Count;
+      for (int i = startIndex; i < count; i += searchStep)
+      {
+        var item = (ListBoxItem)_listBox.ItemContainerGenerator.ContainerFromIndex(i);
+        if (item.Focusable)
         {
-          var item = (ListBoxItem)_listBox.ItemContainerGenerator.ContainerFromIndex(i);
-          if (item.Focusable)
-          {
-            item.Focus();
-            return;
-          }
+          item.Focus();
+          return;
         }
       }
     }
+    private void SearchForward(int searchStep, int startIndex)
+    {
+      for (int i = startIndex; i >= 0; i += searchStep)
+      {
+        var item = (ListBoxItem)_listBox.ItemContainerGenerator.ContainerFromIndex(i);
+        if (item.Focusable)
+        {
+          item.Focus();
+          return;
+        }
+      }
+    }
+
+    #endregion
   }
 }

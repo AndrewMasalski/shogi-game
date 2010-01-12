@@ -67,6 +67,10 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Yasc.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Networking\Release\Yasc.Networking.dll</HintPath>
+    </Reference>
     <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
@@ -158,6 +162,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Gui\ChatMessage.cs" />
     <Compile Include="Gui\GameTicket.cs" />
+    <Compile Include="Persistence\AmbiguousMovesSequencesLoader.cs" />
+    <Compile Include="Persistence\GameTrascription.cs" />
     <Compile Include="Persistence\PsnLoader.cs" />
     <Compile Include="GenericDragDrop\Dnd.cs" />
     <Compile Include="GenericDragDrop\DndAdorner.cs" />
@@ -201,23 +207,14 @@
     </Compile>
     <Compile Include="Gui\WelcomeViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="Networking\ActionListener.cs" />
-    <Compile Include="Networking\MoveMsg.cs" />
-    <Compile Include="Networking\PortUtils.cs" />
-    <Compile Include="Networking\Interfaces.cs" />
-    <Compile Include="Networking\ShogiServer.cs" />
     <Compile Include="Controls\ShogiBoard.cs" />
-    <Compile Include="Networking\Server.InviteeTicket.cs" />
-    <Compile Include="Networking\Server.InvitorTicket.cs" />
-    <Compile Include="Networking\Server.PlayerGameController.cs" />
-    <Compile Include="Networking\Server.ServerGame.cs" />
-    <Compile Include="Networking\Server.ServerSession.cs" />
-    <Compile Include="Networking\Server.ServerUser.cs" />
-    <Compile Include="Networking\Server.SpectatorController.cs" />
     <Compile Include="Common\ScalarConverter.cs" />
     <Compile Include="Controls\ShogiHand.cs" />
     <Compile Include="Common\UniformPanel.cs" />
     <Compile Include="Gui\SkinningViewModel.cs" />
+    <Compile Include="Persistence\PsnTranscriber.cs" />
+    <Compile Include="Persistence\TextReaderExtensions.cs" />
+    <Compile Include="Persistence\TrascriptionProperty.cs" />
     <Compile Include="Skins\AppDomainAssemblySkin.cs" />
     <Compile Include="Skins\BamlHelper.cs" />
     <Compile Include="Skins\DirectAssemblySkin.cs" />
@@ -246,7 +243,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Controls\ControlsDiagram.cd" />
-    <None Include="Networking\NetworkingDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
