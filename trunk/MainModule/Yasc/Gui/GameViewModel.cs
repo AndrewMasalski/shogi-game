@@ -226,7 +226,10 @@ namespace Yasc.Gui
     }
     public void Dispose()
     {
-      Ticket.Dispose();
+      if (Ticket != null)
+      {
+        Ticket.Dispose();
+      }
     }
 
     public event EventHandler GameOver;
