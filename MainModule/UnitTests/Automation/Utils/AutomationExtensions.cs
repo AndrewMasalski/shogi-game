@@ -90,9 +90,15 @@ namespace UnitTests.Automation.Utils
 
     public static void InvokeByName(this AutomationElement element, string name)
     {
-      ((InvokePattern)element.FindFirstByName(name).
+      var automationElement = element.FindFirstByName(name);
+      if (automationElement == null)
+        throw new ApplicationException(string.Format(
+          "Couldn't have found element with name '{0}'", name));
+
+      ((InvokePattern)automationElement.
          GetCurrentPattern(InvokePattern.Pattern)).Invoke();
     }
+
     public static T Pattern<T>(this AutomationElement element)
       where T : BasePattern
     {

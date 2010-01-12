@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Yasc.Skins
 {
-  internal class DirectAssemblySkin : Skin
+  public class DirectAssemblySkin : Skin
   {
     private readonly AssemblyName _fullName;
     private string _resourceName;

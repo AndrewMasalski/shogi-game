@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Yasc.Skins
 {
-  internal sealed class LooseXamlSkin : Skin
+  public sealed class LooseXamlSkin : Skin
   {
     private readonly List<Uri> _sources;
 
