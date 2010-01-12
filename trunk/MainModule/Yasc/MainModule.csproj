@@ -67,6 +67,10 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Yasc.BoardControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BoardControl\Release\Yasc.BoardControl.dll</HintPath>
+    </Reference>
     <Reference Include="Yasc.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Networking\Release\Yasc.Networking.dll</HintPath>
@@ -82,10 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Common\ProgressCircle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -113,10 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Red.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,29 +131,6 @@
     <Compile Include="AI\CleverAiController.cs" />
     <Compile Include="AI\UsiAiController.cs" />
     <Compile Include="ChatCommands.cs" />
-    <Compile Include="Common\AndConverter.cs" />
-    <Compile Include="Common\ListBoxFocusBehaviour.cs" />
-    <Compile Include="Common\MovesAndCommentsGrid.cs" />
-    <Compile Include="Common\ProgressCircle.xaml.cs">
-      <DependentUpon>ProgressCircle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\DirectionToBoolConverter.cs" />
-    <Compile Include="Common\ProgressClock.cs" />
-    <Compile Include="Common\TimerDirection.cs" />
-    <Compile Include="Controls\Automation\ControlAutomationPeer.cs" />
-    <Compile Include="Controls\BoardBorder.cs" />
-    <Compile Include="Controls\HandGroupingMode.cs" />
-    <Compile Include="Controls\HandNest.cs" />
-    <Compile Include="Controls\Automation\HandNestAutomationPeer.cs" />
-    <Compile Include="Controls\PieceDirection.cs" />
-    <Compile Include="Controls\PieceHolderBase.cs" />
-    <Compile Include="Controls\Shield.cs" />
-    <Compile Include="Controls\Automation\ShogiBoardAutomationPeer.cs" />
-    <Compile Include="Controls\ShogiBoardCore.cs" />
-    <Compile Include="Controls\Automation\ShogiBoardCoreAutomationPeer.cs" />
-    <Compile Include="Controls\Automation\ShogiCellAutomationPeer.cs" />
-    <Compile Include="Controls\Automation\ShogiHandAutomationPeer.cs" />
-    <Compile Include="Controls\Automation\ShogiPieceAutomationPeer.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Gui\ChatMessage.cs" />
@@ -165,21 +138,6 @@
     <Compile Include="Persistence\AmbiguousMovesSequencesLoader.cs" />
     <Compile Include="Persistence\GameTrascription.cs" />
     <Compile Include="Persistence\PsnLoader.cs" />
-    <Compile Include="GenericDragDrop\Dnd.cs" />
-    <Compile Include="GenericDragDrop\DndAdorner.cs" />
-    <Compile Include="GenericDragDrop\DragFromBoardEventArgs.cs" />
-    <Compile Include="GenericDragDrop\DragFromEventArgs.cs" />
-    <Compile Include="GenericDragDrop\DragFromHandEventArgs.cs" />
-    <Compile Include="GenericDragDrop\DropToBoardEventArgs.cs" />
-    <Compile Include="GenericDragDrop\DropToHandEventArgs.cs" />
-    <Compile Include="GenericDragDrop\VisualTreeUtils.cs" />
-    <Compile Include="Common\DebugConverter.cs" />
-    <Compile Include="Controls\ShogiCell.cs" />
-    <Compile Include="Common\StopwatchControl.cs" />
-    <Compile Include="Common\SwitchControl.cs" />
-    <Compile Include="Common\ToStringConverter.cs" />
-    <Compile Include="Controls\MoveAttemptEventArgs.cs" />
-    <Compile Include="Controls\ShogiPiece.cs" />
     <Compile Include="AI\RandomAiController.cs" />
     <Compile Include="Gui\ConnectingView.xaml.cs">
       <DependentUpon>ConnectingView.xaml</DependentUpon>
@@ -207,10 +165,6 @@
     </Compile>
     <Compile Include="Gui\WelcomeViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="Controls\ShogiBoard.cs" />
-    <Compile Include="Common\ScalarConverter.cs" />
-    <Compile Include="Controls\ShogiHand.cs" />
-    <Compile Include="Common\UniformPanel.cs" />
     <Compile Include="Gui\SkinningViewModel.cs" />
     <Compile Include="Persistence\PsnTranscriber.cs" />
     <Compile Include="Persistence\TextReaderExtensions.cs" />
@@ -242,7 +196,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Controls\ControlsDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -254,9 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Error.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Rotate.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
