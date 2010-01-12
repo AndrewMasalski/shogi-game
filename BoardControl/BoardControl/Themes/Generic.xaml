@@ -16,7 +16,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CheckBox}">
           <Border Name="Border" CornerRadius="6" Background="Transparent">
-            <Image Name="Image" Source="..\Resources\Rotate.png" Width="22"
+            <Image Name="Image" Source="/Yasc.BoardControl;component/Resources/Rotate.png" Width="22"
                    RenderOptions.BitmapScalingMode="NearestNeighbor">
               <Image.RenderTransform>
                 <RotateTransform x:Name="Rotate" CenterX="11" CenterY="11"/>
