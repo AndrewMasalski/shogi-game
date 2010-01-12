@@ -7,7 +7,7 @@ using System.Resources;
 
 namespace Yasc.Skins
 {
-  internal class SkinBamlResolver : MarshalByRefObject, ISkinBamlResolver
+  public class SkinBamlResolver : MarshalByRefObject, ISkinBamlResolver
   {
     public List<Stream> GetSkinBamlStreams(AssemblyName skinAssemblyName)
     {

@@ -26,7 +26,7 @@ namespace UnitTests.Automation
     public void CheckDragAndDrop()
     {
       _windowElement.Pattern<WindowPattern>().SetWindowVisualState(WindowVisualState.Maximized);
-      _windowElement.InvokeByName("Play with comp.");
+      _windowElement.InvokeByName("Play with myself");
       var piece = _windowElement.FindFirstByName("White P");
       Assert.IsNotNull(piece);
       var core = new ShogiBoardCoreAutomation(_windowElement);
@@ -41,7 +41,7 @@ namespace UnitTests.Automation
     [TestMethod]
     public void CheckMovesHistory()
     {
-      _windowElement.InvokeByName("Play with comp.");
+      _windowElement.InvokeByName("Play with myself");
 
       var board = new ShogiBoardAutomation(_windowElement);
       board.UsusalMove("1c", "1d");
@@ -65,7 +65,7 @@ namespace UnitTests.Automation
     [TestMethod]
     public void CheckNoRulesDnD()
     {
-      _windowElement.InvokeByName("Play with comp.");
+      _windowElement.InvokeByName("Play with myself");
       _windowElement.InvokeByName("Enforce rules");
       var board = new ShogiBoardAutomation(_windowElement);
       board.UsusalMove("1c", "1d");

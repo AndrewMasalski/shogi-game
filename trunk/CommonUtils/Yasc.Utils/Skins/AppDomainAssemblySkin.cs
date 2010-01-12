@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Yasc.Skins
 {
-  internal sealed class AppDomainAssemblySkin : DirectAssemblySkin
+  public sealed class AppDomainAssemblySkin : DirectAssemblySkin
   {
     private AppDomain _assemblySkinDomain;
 

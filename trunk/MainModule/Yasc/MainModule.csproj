@@ -169,14 +169,6 @@
     <Compile Include="Persistence\PsnTranscriber.cs" />
     <Compile Include="Persistence\TextReaderExtensions.cs" />
     <Compile Include="Persistence\TrascriptionProperty.cs" />
-    <Compile Include="Skins\AppDomainAssemblySkin.cs" />
-    <Compile Include="Skins\BamlHelper.cs" />
-    <Compile Include="Skins\DirectAssemblySkin.cs" />
-    <Compile Include="Skins\ISkinBamlResolver.cs" />
-    <Compile Include="Skins\LooseXamlSkin.cs" />
-    <Compile Include="Skins\ReferencedAssemblySkin.cs" />
-    <Compile Include="Skins\Skin.cs" />
-    <Compile Include="Skins\SkinBamlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
