@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="UnitTests.ShogiPieceTestControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:Yasc.Controls;assembly=Yasc.BoardControl"
+    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore;assembly=Yasc.ShogiCore">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Controls:ShogiPiece Name="_piece" />
+    <StackPanel Grid.Column="1">
+      <CheckBox Content="IsFlipped" IsChecked="{Binding ElementName=_piece, Path=IsFlipped}" Margin="5, 2"/>
+      <CheckBox Content="IsPromoted" IsChecked="{Binding ElementName=_piece, Path=IsPromoted}" Margin="5, 2"/>
+      <StackPanel Orientation="Horizontal" Margin="5, 2">
+        <TextBlock Text="EffectiveDirection: " VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding PossibleDirections}" SelectedValue="{Binding ElementName=_piece, Path=EffectiveDirection}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="5, 2">
+        <TextBlock Text="PieceColor: " VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding PossibleColors}" SelectedValue="{Binding ElementName=_piece, Path=PieceColor}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="5, 2">
+        <TextBlock Text="PieceType: " VerticalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding PossibleTypes}" SelectedValue="{Binding ElementName=_piece, Path=PieceType}"/>
+      </StackPanel>
+      <GroupBox Margin="5, 2" Header="Piece">
+        <StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5,2">
+            <TextBlock Text="Current value: "/>
+            <ContentControl Content="{Binding ElementName=_piece, Path=Piece}">
+              <ContentControl.ContentTemplate>
+                <DataTemplate>
+                  <DataTemplate.Resources>
+                    <DataTemplate x:Key="PieceTemplate" DataType="{x:Type ShogiCore:Piece}">
+                      <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="[Color="/>
+                        <TextBlock Text="{Binding Color}"/>
+                        <TextBlock Text=", Promoted="/>
+                        <TextBlock Text="{Binding IsPromoted}"/>
+                        <TextBlock Text=", Type="/>
+                        <TextBlock Text="{Binding Type}"/>
+                        <TextBlock Text="]"/>
+                      </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate x:Key="NullTemplate">
+                      <TextBlock Text="Null"/>
+                    </DataTemplate>
+                  </DataTemplate.Resources>
+                  <ContentControl Name="holder" Content="{Binding}" ContentTemplate="{StaticResource PieceTemplate}"/>
+                  <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                      <Setter TargetName="holder" Property="ContentTemplate" Value="{StaticResource NullTemplate}"/>
+                    </DataTrigger>
+                  </DataTemplate.Triggers>
+                </DataTemplate>
+              </ContentControl.ContentTemplate>
+            </ContentControl>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Change value:" Margin="5,2" VerticalAlignment="Center" />
+            <ComboBox Name="_piecesCombo" ItemsSource="{Binding Pieces}" 
+                      IsSynchronizedWithCurrentItem="True"  Margin="5,2"/>
+            <Button Content="Set" Click="Button_Click"  Margin="5,2"/>
+          </StackPanel>
+          <Button Content="Reset value" Click="OnResetClick"  Margin="5,2" HorizontalAlignment="Left"/>
+        </StackPanel>
+      </GroupBox>
+    </StackPanel>
+
+  </Grid>
+</UserControl>

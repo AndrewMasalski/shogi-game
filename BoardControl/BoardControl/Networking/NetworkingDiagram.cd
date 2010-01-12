@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Yasc.Networking.Server" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBAACAAABgEAEAAQIEASAAAAIAAAAAQBAAAAAQ=</HashCode>
+      <FileName>Networking\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Networking.MoveMsg">
+    <Position X="0.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Networking\MoveMsg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Yasc.Networking.IServerSession">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAAAAAAAAAAAAAAAAAEAACAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Networking\Interfaces.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Server" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Games" />
+      <Property Name="Users" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="Yasc.Networking.IInviteeTicket">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Networking\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Yasc.Networking.IServerUser">
+    <Position X="3.25" Y="3.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Networking\Interfaces.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentGame" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Yasc.Networking.IServerGame">
+    <Position X="3.25" Y="1.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAQAAAIAAAAAABAAA=</HashCode>
+      <FileName>Networking\Interfaces.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Invitor" />
+      <Property Name="Invitee" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Spectators" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="Yasc.Networking.IPlayerGameController">
+    <Position X="7.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IABAAAAAAIAABAAAAAAAAAAAAAgABAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Networking\Interfaces.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Game" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Yasc.Networking.ISpectatorController">
+    <Position X="7.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Networking\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
