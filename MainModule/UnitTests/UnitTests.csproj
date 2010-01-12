@@ -66,6 +66,10 @@
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Yasc.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Networking\Release\Yasc.Networking.dll</HintPath>
+    </Reference>
     <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
@@ -96,17 +100,14 @@
     <Compile Include="Controls\ShogiHandTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MemoryLeaksTest.cs" />
+    <Compile Include="Netwroking\ServerTest.cs" />
     <Compile Include="Persistence\PsnLoaderTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Netwroking\ServerRoutines.cs" />
-    <Compile Include="Netwroking\TestLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Netwroking\ServerTest.cs" />
-    <Compile Include="Netwroking\TimerTest.cs" />
     <Compile Include="ShogiCellTest.xaml.cs">
       <DependentUpon>ShogiCellTest.xaml</DependentUpon>
     </Compile>
@@ -121,9 +122,9 @@
     <Compile Include="ViewModel\UserViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yasc\Yasc.csproj">
+    <ProjectReference Include="..\Yasc\MainModule.csproj">
       <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
-      <Name>Yasc</Name>
+      <Name>MainModule</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

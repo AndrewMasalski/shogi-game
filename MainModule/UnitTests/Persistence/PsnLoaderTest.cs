@@ -48,13 +48,13 @@ namespace UnitTests.Persistence
       using (var s = new MemoryStream(Resources.Jan_Jun1992))
       {
         var trascription = new PsnTranscriber().Load(new StreamReader(s)).First();
-        Assert.AreEqual(6, trascription.Attributes.Count);
-        Assert.AreEqual("1992/01/16", trascription.Attributes["Date"].Value);
-        Assert.AreEqual("Osho-sen", trascription.Attributes["Event"].Value);
-        Assert.AreEqual("Shikenbisha", trascription.Attributes["Opening"].Value);
-        Assert.AreEqual("Minami Yoshikazu", trascription.Attributes["Black"].Value);
-        Assert.AreEqual("Tanigawa Koji", trascription.Attributes["White"].Value);
-        Assert.AreEqual("1-0", trascription.Attributes["_Footer"].Value);
+        Assert.AreEqual(6, trascription.Properties.Count);
+        Assert.AreEqual("1992/01/16", trascription.Properties["Date"].Value);
+        Assert.AreEqual("Osho-sen", trascription.Properties["Event"].Value);
+        Assert.AreEqual("Shikenbisha", trascription.Properties["Opening"].Value);
+        Assert.AreEqual("Minami Yoshikazu", trascription.Properties["Black"].Value);
+        Assert.AreEqual("Tanigawa Koji", trascription.Properties["White"].Value);
+        Assert.AreEqual("1-0", trascription.Properties["_Footer"].Value);
       }      
     }
   }
