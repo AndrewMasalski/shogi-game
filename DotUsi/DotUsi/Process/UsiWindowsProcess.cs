@@ -44,7 +44,8 @@ namespace DotUsi
 
     private void OnTimerTick(object state)
     {
-      if (_process.HasExited)
+      // TODO: Test for (_process != null) thing?
+      if (_process != null && _process.HasExited)
       {
         Dispose();
       }
