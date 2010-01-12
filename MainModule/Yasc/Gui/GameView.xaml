@@ -2,9 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves;assembly=Yasc.ShogiCore"
-             xmlns:controls="clr-namespace:Yasc.Controls"
+             xmlns:controls="clr-namespace:Yasc.Controls;assembly=Yasc.BoardControl"
              xmlns:gui="clr-namespace:Yasc.Gui"
-             xmlns:Common="clr-namespace:Yasc.Common"
+             xmlns:Common="clr-namespace:Yasc.Common;assembly=Yasc.BoardControl"
              xmlns:Yasc="clr-namespace:Yasc"
              Loaded="UserControl_Loaded">
 
