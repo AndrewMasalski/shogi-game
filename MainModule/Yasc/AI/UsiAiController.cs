@@ -16,21 +16,28 @@ namespace Yasc.AI
     {
       _board = new Board();
       Shogi.InitBoard(_board);
+      _engine = CreateEngine(CreateEngineProcess());
+    }
 
+    private static SpearCsa2009V15Driver CreateEngineProcess()
+    {
       var enginePath = Path.Combine(
         Environment.CurrentDirectory,
         @"Engines\Spear\SpearShogidokoro.exe");
 
-      var process =
-          new SpearCsa2009V15Driver(
-          new UsiWindowsProcess(enginePath));
+      return new SpearCsa2009V15Driver(
+        new UsiWindowsProcess(enginePath));
+    }
 
-      _engine = new UsiEngine(process);
-      _engine.SynchUsi();
-      _engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 3;
-      _engine.SynchIsReady();
-      _engine.SynchNewGame();
-      _engine.BestMove += EngineOnBestMove;
+    private UsiEngine CreateEngine(IUsiProcess process)
+    {
+      var engine = new UsiEngine(process);
+      engine.SynchUsi();
+      engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 3;
+      engine.SynchIsReady();
+      engine.SynchNewGame();
+      engine.BestMove += EngineOnBestMove;
+      return engine;
     }
 
     private void EngineOnBestMove(object sender, BestMoveEventArgs args)

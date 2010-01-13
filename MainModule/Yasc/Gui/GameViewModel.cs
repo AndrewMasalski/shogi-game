@@ -277,20 +277,31 @@ namespace Yasc.Gui
     }
     private void BoardOnMoved(object sender, MoveEventArgs args)
     {
-      // If it's not opponent than it must be me
-      if (!_opponentMoveReaction && Ticket != null)
+      if (!_opponentMoveReaction)
       {
-        Ticket.Move(new MoveMsg(args.Move.ToString()));
-        if (Board.CurrentSnapshot.IsMateFor(Opponent(Ticket.MyColor)))
-        {
-          MessageBox.Show("You won!");
-        }
+        OnMyMove(args);
       }
+      OnAnyMove();
+    }
+
+    private void OnAnyMove()
+    {
       IsItMyMove = !IsItMyMove;
       IsMyTimerLaunched = IsItMyMove;
       IsOpponentTimerLaunched = IsItOpponentMove;
       MovesAndComments.Add(Board.History.CurrentMove);
     }
+
+    private void OnMyMove(MoveEventArgs args)
+    {
+      if (Ticket == null) return;
+      Ticket.Move(new MoveMsg(args.Move.ToString()));
+      if (Board.CurrentSnapshot.IsMateFor(Opponent(Ticket.MyColor)))
+      {
+        MessageBox.Show("You won!");
+      }
+    }
+
     private static PieceColor Opponent(PieceColor color)
     {
       return color == PieceColor.White ? PieceColor.Black : PieceColor.White;
