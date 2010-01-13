@@ -1,3 +1,5 @@
+using Yasc.Controls;
+
 namespace Yasc.RulesVisualization
 {
   public abstract class MovesBase
@@ -10,5 +12,7 @@ namespace Yasc.RulesVisualization
     {
       get { return Mode == MovesValidatorMode.AndNoMore; }
     }
+
+    public abstract void ShowMoves(ShogiBoard board);
   }
 }
