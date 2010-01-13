@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E8497624-9F29-411B-A917-C2DE3A87661D}</ProjectGuid>
+    <ProjectGuid>{96247E76-8563-43B1-BD14-4CDD83EED508}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Yasc</RootNamespace>
