@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Yasc.Controls;
 using Yasc.ShogiCore;
 
 namespace Yasc.RulesVisualization
@@ -37,6 +38,16 @@ namespace Yasc.RulesVisualization
         default:
           return new Position[0];
       }
+    }
+
+    public override void ShowMoves(ShogiBoard board)
+    {
+      var dropMoves = (IDropMoves)this;
+
+      board[dropMoves.For][dropMoves.Piece].IsMoveSource = true;
+
+      foreach (var p in dropMoves.To)
+        board.GetCell(p).IsPossibleMoveTarget = true;
     }
   }
 }

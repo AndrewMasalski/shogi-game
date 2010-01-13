@@ -184,24 +184,9 @@ namespace Yasc.RulesVisualization
     private void ShowMoves(MovesBase moves)
     {
       var board = this.FindChild<ShogiBoard>();
-      if (board == null) return;
-
-      var usualMoves = moves as IUsualMoves;
-      if (usualMoves != null)
+      if (board != null)
       {
-        board.GetCell(usualMoves.From).IsMoveSource = true;
-
-        foreach (var p in usualMoves.To)
-          board.GetCell(p.Position).IsPossibleMoveTarget = true;
-      }
-
-      var dropMoves = moves as IDropMoves;
-      if (dropMoves != null)
-      {
-        board[dropMoves.For][dropMoves.Piece].IsMoveSource = true;
-
-        foreach (var p in dropMoves.To)
-          board.GetCell(p).IsPossibleMoveTarget = true;
+        moves.ShowMoves(board);
       }
     }
     private void HideMoves()
@@ -209,19 +194,28 @@ namespace Yasc.RulesVisualization
       var board = this.FindChild<ShogiBoard>();
       if (board == null) return;
 
-      foreach (var p in Position.OnBoard)
-      {
-        var cell = board.GetCell(p);
-        cell.IsMoveSource = false;
-        cell.IsPossibleMoveTarget = false;
-      }
+      ResetFlagsOnBoard(board);
+      ResetFlagsInHands(board);
+    }
 
+    private static void ResetFlagsInHands(ShogiBoard board)
+    {
       foreach (var color in new[] { PieceColor.White, PieceColor.Black })
         foreach (var type in new PieceType[] { "王", "玉", "飛", "角", "金", "銀", "桂", "香", "歩", })
         {
           var nest = board[color][type];
           if (nest != null) nest.IsMoveSource = false;
         }
+    }
+
+    private static void ResetFlagsOnBoard(ShogiBoard board)
+    {
+      foreach (var p in Position.OnBoard)
+      {
+        var cell = board.GetCell(p);
+        cell.IsMoveSource = false;
+        cell.IsPossibleMoveTarget = false;
+      }
     }
 
     #endregion
