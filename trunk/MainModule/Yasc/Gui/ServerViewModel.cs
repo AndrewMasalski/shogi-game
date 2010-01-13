@@ -83,12 +83,17 @@ namespace Yasc.Gui
     {
       Session.InvitationReceived += new ActionListener<IInviteeTicket>(OnInvitationReceived);
 
-      Users = new ObservableCollection<UserViewModel>();
-      Users.CollectionChanged += OnUsersCollectionChanged;
-      Users.Update(Session.Users, null, u => new UserViewModel(Session, u));
+      InitUsersCollection();
 
       Games = new ObservableCollection<GameViewModel>(
         from g in Session.Games select new GameViewModel(g));
+    }
+
+    private void InitUsersCollection()
+    {
+      Users = new ObservableCollection<UserViewModel>();
+      Users.CollectionChanged += OnUsersCollectionChanged;
+      Users.Update(Session.Users, null, u => new UserViewModel(Session, u));
     }
 
     private void OnDisconnected(EventArgs e)
@@ -128,18 +133,29 @@ namespace Yasc.Gui
       switch (args.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (UserViewModel user in args.NewItems)
-            _handlers.Add(new UserHandler(this, user));
+          OnUserAdded(args);
           break;
-
         case NotifyCollectionChangedAction.Reset:
-          foreach (var handler in _handlers)
-            handler.Dispose();
-          _handlers.Clear();
-          foreach (var user in Users)
-            _handlers.Add(new UserHandler(this, user));
+          OnUsersCollectionReset();
           break;
       }
+    }
+
+    private void OnUsersCollectionReset()
+    {
+      foreach (var handler in _handlers)
+        handler.Dispose();
+
+      _handlers.Clear();
+      
+      foreach (var user in Users)
+        _handlers.Add(new UserHandler(this, user));
+    }
+
+    private void OnUserAdded(NotifyCollectionChangedEventArgs args)
+    {
+      foreach (UserViewModel user in args.NewItems)
+        _handlers.Add(new UserHandler(this, user));
     }
 
     private struct UserHandler : IDisposable
