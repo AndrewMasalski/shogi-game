@@ -75,6 +75,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Networking\Release\Yasc.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="Yasc.Persistence, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Persistence\Release\Yasc.Persistence.dll</HintPath>
+    </Reference>
     <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
@@ -135,9 +139,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Gui\ChatMessage.cs" />
     <Compile Include="Gui\GameTicket.cs" />
-    <Compile Include="Persistence\AmbiguousMovesSequencesLoader.cs" />
-    <Compile Include="Persistence\GameTrascription.cs" />
-    <Compile Include="Persistence\PsnLoader.cs" />
     <Compile Include="AI\RandomAiController.cs" />
     <Compile Include="Gui\ConnectingView.xaml.cs">
       <DependentUpon>ConnectingView.xaml</DependentUpon>
@@ -166,9 +167,6 @@
     <Compile Include="Gui\WelcomeViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Gui\SkinningViewModel.cs" />
-    <Compile Include="Persistence\PsnTranscriber.cs" />
-    <Compile Include="Persistence\TextReaderExtensions.cs" />
-    <Compile Include="Persistence\TrascriptionProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
