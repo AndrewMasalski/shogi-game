@@ -15,7 +15,7 @@ namespace UnitTests
     [TestInitialize]
     public void Init()
     {
-      _process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
+      _process = new UsiWindowsProcess("Echo");
       _engine = new UsiEngine(_process);
     }
     [TestCleanup]
