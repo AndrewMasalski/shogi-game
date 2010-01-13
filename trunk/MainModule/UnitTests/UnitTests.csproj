@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Yasc\MainModule.csproj">
-      <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
+      <Project>{96247E76-8563-43B1-BD14-4CDD83EED508}</Project>
       <Name>MainModule</Name>
     </ProjectReference>
   </ItemGroup>
