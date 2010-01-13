@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Concrete Engines\Lesserkai133Test.cs" />
     <Compile Include="Concrete Engines\SpearCsa2009V15Test.cs" />
-    <Compile Include="Utils\Utils.cs" />
     <Compile Include="ModifiersTest.cs" />
     <Compile Include="Concrete Engines\LaramieV3Test.cs" />
     <Compile Include="OptionsTest.cs" />
@@ -67,10 +66,6 @@
     <ProjectReference Include="..\DotUsi\DotUsi.csproj">
       <Project>{70532AD0-F1D5-4787-9E62-E06377C04CC4}</Project>
       <Name>DotUsi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Echo\Echo.csproj">
-      <Project>{EDEB9080-678C-48DA-9EA5-8E0644AED5A4}</Project>
-      <Name>Echo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

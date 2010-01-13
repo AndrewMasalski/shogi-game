@@ -14,7 +14,7 @@ namespace UnitTests
       foreach (var p in Process.GetProcessesByName("Lesserkai"))
         p.Kill();
 
-      IUsiProcess process = new UsiWindowsProcess(Utils.Relative(@"Lesserkai\Lesserkai.exe"));
+      IUsiProcess process = new UsiWindowsProcess(@"Lesserkai\Lesserkai.exe");
       process = new Lesserkai133Driver(process);
       using (var engine = new UsiEngine(process))
       {

@@ -13,7 +13,7 @@ namespace UnitTests
       foreach (var p in Process.GetProcessesByName("LaramieV3"))
         p.Kill();
 
-      var process = new UsiWindowsProcess(Utils.Relative(@"LaramieV3\LaramieV3.exe"));
+      var process = new UsiWindowsProcess(@"LaramieV3\LaramieV3.exe");
       using (var engine = new UsiEngine(process))
       {
         engine.DebugMode = true;

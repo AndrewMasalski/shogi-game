@@ -14,7 +14,7 @@ namespace UnitTests
       foreach (var p in Process.GetProcessesByName("SpearShogidokoro"))
         p.Kill();
 
-      IUsiProcess process = new UsiWindowsProcess(Utils.Relative(@"Spear\SpearShogidokoro.exe"));
+      IUsiProcess process = new UsiWindowsProcess(@"Spear\SpearShogidokoro.exe");
       process = new SpearCsa2009V15Driver(process);
       using (var engine = new UsiEngine(process))
       {
