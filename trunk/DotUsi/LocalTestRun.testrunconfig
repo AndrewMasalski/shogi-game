@@ -6,6 +6,10 @@
       <CodeCoverageItem binaryFile="DotUsi\bin\Debug\DotUsi.dll" pdbFile="DotUsi\bin\Debug\DotUsi.pdb" />
     </Regular>
   </CodeCoverage>
+  <Deployment>
+    <DeploymentItem filename="Engines\" />
+    <DeploymentItem filename="Echo\bin\Debug\Echo.exe" />
+  </Deployment>
   <TestTypeSpecific>
     <WebTestRunConfiguration testTypeId="4e7599fa-5ecb-43e9-a887-cd63cf72d207">
       <Browser name="Internet Explorer 7.0">
