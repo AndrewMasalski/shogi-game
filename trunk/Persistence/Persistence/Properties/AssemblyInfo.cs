@@ -9,8 +9,8 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Yasc")]
-[assembly: AssemblyDescription("Yet another shogi")]
+[assembly: AssemblyTitle("Yasc.Persistence")]
+[assembly: AssemblyDescription(@"Import\export games into different transcription formats")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ilya inc.")]
 [assembly: AssemblyProduct("Yet another shogi")]
