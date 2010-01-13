@@ -118,7 +118,7 @@ namespace Yasc.Gui
     {
       Address = Settings.Default.Address;
       UserName = Settings.Default.UserName;
-      SaveAndSkip = Settings.Default.SkipWelcomePage;
+      SaveAndSkip = Settings.Default.DefaultStartMode != WelcomeChoice.None;
       LastVisitedServers = new ObservableCollection<string>(Settings.Default.LoadLvs());
 
       if (string.IsNullOrEmpty(Address)) Address = "localhost";
@@ -129,11 +129,10 @@ namespace Yasc.Gui
 
     private void Done(WelcomeChoice mode)
     {
-      Mode = mode;
+      Mode = SaveAndSkip ? mode : WelcomeChoice.None;
 
       var s = Settings.Default;
       s.UserName = UserName;
-      s.SkipWelcomePage = SaveAndSkip;
       s.DefaultStartMode = Mode;
       s.Address = Address;
       SaveLvs(s, LastVisitedServers, Address);

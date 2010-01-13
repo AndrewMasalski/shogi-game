@@ -2,9 +2,9 @@ using System.Windows.Input;
 
 namespace Yasc
 {
-  public class ChatCommands
+  public static class ChatCommands
   {
-    public static RoutedUICommand SendMessage
+    public static readonly RoutedUICommand SendMessage
          = new RoutedUICommand("SendMessage", "SendMessage", typeof(ChatCommands));
   }
 }

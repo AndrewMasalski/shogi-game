@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
 using Yasc.Common;
 using Yasc.Controls;
@@ -29,7 +26,5 @@ namespace Yasc.Gui
     {
       ((GameViewModel)DataContext).SendMessageCommand.Execute(null);
     }
-
-
   }
 }

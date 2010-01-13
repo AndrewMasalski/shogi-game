@@ -33,15 +33,18 @@ namespace Yasc.AI
       // Human moved
       ThreadPool.QueueUserWorkItem(s => OnHumanMoved(move.Move));
     }
-    void IPlayerGameController.Say(string move)
+
+    public void Say(string move)
     {
       // Comp will ignore it
     }
-    Func<MoveMsg, DateTime> IPlayerGameController.OpponentMadeMove
+
+    public Func<MoveMsg, DateTime> OpponentMadeMove
     {
       set { _compMadeMove = value;  }
     }
-    event Action<string> IPlayerGameController.OpponentSaidSomething
+
+    public event Action<string> OpponentSaidSomething
     {
       add { }
       remove { }
@@ -115,15 +118,15 @@ namespace Yasc.AI
     #endregion
 
     protected abstract void OnHumanMoved(string hisMove);
-    protected void Move(string move)
+    protected void Move(string transcript)
     {
       if (_synch == null)
       {
-        _compMadeMove(new MoveMsg(move, DateTime.Now));
+        _compMadeMove(new MoveMsg(transcript, DateTime.Now));
       }
       else
       {
-        _synch.Post(state => _compMadeMove(new MoveMsg(move, DateTime.Now)), null);
+        _synch.Post(state => _compMadeMove(new MoveMsg(transcript, DateTime.Now)), null);
       }
     }
   }

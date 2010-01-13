@@ -5,11 +5,8 @@
     <Setting Name="UserName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="SkipWelcomePage" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="DefaultStartMode" Type="Yasc.Gui.WelcomeChoice" Scope="User">
-      <Value Profile="(Default)">Autoplay</Value>
+      <Value Profile="(Default)">None</Value>
     </Setting>
     <Setting Name="Address" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
