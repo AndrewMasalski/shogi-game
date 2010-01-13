@@ -132,13 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AiControllerBase.cs" />
-    <Compile Include="AI\CleverAiController.cs" />
     <Compile Include="AI\UsiAiController.cs" />
     <Compile Include="ChatCommands.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Gui\ChatMessage.cs" />
-    <Compile Include="Gui\GameTicket.cs" />
+    <Compile Include="Model\ChatMessage.cs" />
+    <Compile Include="Utils\GameTicket.cs" />
     <Compile Include="AI\RandomAiController.cs" />
     <Compile Include="Gui\ConnectingView.xaml.cs">
       <DependentUpon>ConnectingView.xaml</DependentUpon>
@@ -151,22 +150,22 @@
     <Compile Include="Gui\LogOnView.xaml.cs">
       <DependentUpon>LogOnView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gui\LoginViewModel.cs" />
-    <Compile Include="Gui\LvsSettingsExtension.cs" />
+    <Compile Include="Gui\LogOnViewModel.cs" />
+    <Compile Include="Utils\LvsSettingsExtension.cs" />
     <Compile Include="Gui\ServerView.xaml.cs">
       <DependentUpon>ServerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\ServerViewModel.cs" />
-    <Compile Include="Gui\SkinViewModel.cs" />
-    <Compile Include="Gui\StringRangeValidationRule.cs" />
-    <Compile Include="Gui\UserViewModel.cs" />
-    <Compile Include="Gui\WelcomeChoice.cs" />
+    <Compile Include="ViewModel\SkinViewModel.cs" />
+    <Compile Include="Utils\StringRangeValidationRule.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
+    <Compile Include="Utils\WelcomeChoice.cs" />
     <Compile Include="Gui\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\WelcomeViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="Gui\SkinningViewModel.cs" />
+    <Compile Include="ViewModel\SkinningViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

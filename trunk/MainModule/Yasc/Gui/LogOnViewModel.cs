@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Yasc.Gui
 {
-  class LoginViewModel
+  class LogOnViewModel
   {
   }
 }

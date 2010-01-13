@@ -101,7 +101,7 @@
     <Compile Include="Automation\Utils\ToggleMode.cs" />
     <Compile Include="Automation\Utils\WheelType.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Netwroking\ServerTest.cs" />
+    <Compile Include="GameTicketTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\GameViewModelTest.cs" />
     <Compile Include="ViewModel\UserViewModelTest.cs" />

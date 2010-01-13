@@ -6,7 +6,7 @@ using Yasc.Properties;
 
 namespace Yasc
 {
-  public class MainWindowViewModel : ObservableObject, IDisposable
+  public sealed class MainWindowViewModel : ObservableObject, IDisposable
   {
     private ObservableObject _currentView;
 
@@ -23,41 +23,51 @@ namespace Yasc
 
     public MainWindowViewModel()
     {
-      if (!Settings.Default.SkipWelcomePage)
+      switch (Settings.Default.DefaultStartMode)
+      {
+        case WelcomeChoice.None:
+          GoWelcome();
+          break;
+        case WelcomeChoice.ArtificialIntelligence:
+        case WelcomeChoice.Autoplay:
+          GoGame(Settings.Default.DefaultStartMode);
+          break;
+        case WelcomeChoice.BecomeServer:
+          AutoBecomeServer();
+          break;
+        case WelcomeChoice.ConnectToServer:
+          AutoConnectToServer();
+          break;
+      }
+    }
+
+    private void AutoConnectToServer()
+    {
+      string userName = Settings.Default.UserName;
+      string address = Settings.Default.Address;
+      if (string.IsNullOrEmpty(address) || string.IsNullOrEmpty(userName))
       {
         GoWelcome();
       }
       else
       {
-        string userName = Settings.Default.UserName;
-        var mode = Settings.Default.DefaultStartMode;
-        switch (mode)
-        {
-          case WelcomeChoice.ArtificialIntelligence:
-          case WelcomeChoice.Autoplay:
-              GoGame(mode);
-            break;
-          case WelcomeChoice.BecomeServer:
-            if (string.IsNullOrEmpty(userName) || ShogiServer.IsServerStartedOnThisComputer)
-            {
-              GoWelcome();
-              return;
-            }
-            GoServer(userName);
-            break;
-          case WelcomeChoice.ConnectToServer:
-            string address = Settings.Default.Address;
-            if (string.IsNullOrEmpty(address) || string.IsNullOrEmpty(userName))
-            {
-              GoWelcome();
-              return;
-            }
-            GoConnecting(new ConnectingViewModel(address, userName));
-            break;
-        }
+        GoConnecting(new ConnectingViewModel(address, userName));
       }
     }
-    
+
+    private void AutoBecomeServer()
+    {
+      string userName = Settings.Default.UserName;
+      if (string.IsNullOrEmpty(userName) || ShogiServer.IsServerStartedOnThisComputer)
+      {
+        GoWelcome();
+      }
+      else
+      {
+        GoServer(userName);
+      }
+    }
+
     public void Dispose()
     {
       var currentView = CurrentView as IDisposable;
