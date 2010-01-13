@@ -17,7 +17,7 @@ namespace UnitTests
     public void Init()
     {
       Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
-      _process = new UsiWindowsProcess(Path.Combine(Environment.CurrentDirectory, "Echo"));
+      _process = new UsiWindowsProcess("Echo");
       _log = new TestLog();
     }
     [TestMethod]
