@@ -1,11 +1,25 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestList name="All" id="3132d213-9f24-4e04-aede-9a588e8c7469" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="2af8e494-e24c-afc0-a485-a00099e009af" name="DetachTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="cf24d561-4394-4be7-8269-659f8a5d4ba7" name="ChangeGroupingModeTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="a343682d-9dda-743f-2cb6-281901f21118" name="GroupTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="e91d0fe4-3a0a-ebfd-7f7c-bf8fe20d3466" name="TestOrderedGroupsModeInAction" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="b7168045-a469-2a3f-2099-f2f0e3eee66d" name="FlatTestNestDetails" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="352ae09a-e152-5864-9cf0-571eddf931c8" name="TestOrderedGroupsMode" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="7cdfe84b-9b2a-9a36-c4b1-05c1ab3ecc13" name="SimplePropertiesTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="b76ed934-a7f5-b653-c4a3-a873979d7b04" name="FlatTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="11ac4e7b-8ba0-8425-ef9d-7ffe525387fb" name="ConstructionTest" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="f2b69b99-6c6d-499c-c5fd-cf9ba585a5a3" name="Test" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
   <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <RunConfiguration id="39b30a43-3d4c-4c52-a3c7-fb777e3a8376" name="Local Test Run" storage="localtestrun.testrunconfig" type="Microsoft.VisualStudio.TestTools.Common.TestRunConfiguration, Microsoft.VisualStudio.QualityTools.Common,   PublicKeyToken=b03f5f7f11d50a3a" />
   </TestList>
-  <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+  <TestList name="Tests Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d">
     <TestLinks>
-      <TestLink id="fa464bea-6dd5-b2b7-7393-5c6e76aafc0e" name="Run" storage="unittests\bin\debug\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="fa464bea-6dd5-b2b7-7393-5c6e76aafc0e" name="Run" storage="unittests\bin\release\unittests.dll" enabled="false" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
   </TestList>
 </TestLists>
