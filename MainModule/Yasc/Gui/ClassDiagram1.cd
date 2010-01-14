@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Yasc.Gui.WelcomeViewModel">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_address" Hidden="true" />
+      <Field Name="_autoplayCommand" Hidden="true" />
+      <Field Name="_becomeServerCommand" Hidden="true" />
+      <Field Name="_connectCommand" Hidden="true" />
+      <Field Name="_mode" Hidden="true" />
+      <Field Name="_playWithCompCommand" Hidden="true" />
+      <Field Name="_saveAndSkip" Hidden="true" />
+      <Field Name="_userName" Hidden="true" />
+      <Method Name="Done" Hidden="true" />
+      <Method Name="OnChoiceDone" Hidden="true" />
+      <Method Name="SaveLvs" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAFAAABAAIQAIAAAAiEAEgAAABAAAAAGBRYAAEAAAAA=</HashCode>
+      <FileName>Gui\WelcomeViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mode" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="Yasc.Gui.WelcomeChoice">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAEAAAAAACAAAAAgAAAAAEAAAA=</HashCode>
+      <FileName>Utils\WelcomeChoice.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

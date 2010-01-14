@@ -129,11 +129,11 @@ namespace Yasc.Gui
 
     private void Done(WelcomeChoice mode)
     {
-      Mode = SaveAndSkip ? mode : WelcomeChoice.None;
+      Mode = mode;
 
       var s = Settings.Default;
       s.UserName = UserName;
-      s.DefaultStartMode = Mode;
+      s.DefaultStartMode = SaveAndSkip ? mode : WelcomeChoice.None;
       s.Address = Address;
       SaveLvs(s, LastVisitedServers, Address);
 

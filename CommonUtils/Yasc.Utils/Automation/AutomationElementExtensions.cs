@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Automation;
 
-namespace UnitTests.Automation.Utils
+namespace Yasc.Utils.Automation
 {
   public static class AutomationElementExtensions
   {

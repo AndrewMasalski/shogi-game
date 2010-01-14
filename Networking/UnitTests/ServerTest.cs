@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Networking;
 using System.Linq;
+using Yasc.Utils;
 
 namespace UnitTests.Netwroking
 {

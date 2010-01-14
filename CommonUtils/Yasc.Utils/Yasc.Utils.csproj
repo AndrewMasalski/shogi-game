@@ -41,6 +41,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -49,11 +51,26 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationTypes">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automation\ApplicationHost.cs" />
+    <Compile Include="Automation\AutomationElementExtensions.cs" />
+    <Compile Include="Automation\AutomationExtensions.cs" />
+    <Compile Include="Automation\KeyboardDeviceExtensions.cs" />
+    <Compile Include="Automation\MouseDeviceExtensions.cs" />
+    <Compile Include="Automation\RectExtensions.cs" />
+    <Compile Include="Automation\SendInputInterop.cs" />
+    <Compile Include="Automation\ToggleMode.cs" />
+    <Compile Include="Automation\WheelType.cs" />
     <Compile Include="BamlEnumerator.cs" />
     <Compile Include="Flag.cs" />
     <Compile Include="ListUtils.cs" />
@@ -72,6 +89,7 @@
     <Compile Include="Skins\ReferencedAssemblySkin.cs" />
     <Compile Include="Skins\Skin.cs" />
     <Compile Include="Skins\SkinBamlResolver.cs" />
+    <Compile Include="TestLog.cs" />
     <Compile Include="ThreadSafeObservableCollection.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="WeakReference.cs" />

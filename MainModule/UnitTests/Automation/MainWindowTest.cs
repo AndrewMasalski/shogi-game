@@ -3,9 +3,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTests.Automation.Peers;
-using UnitTests.Automation.Utils;
+using Yasc;
 using Yasc.Controls;
 using Yasc.ShogiCore;
+using Yasc.Utils.Automation;
 
 namespace UnitTests.Automation
 {
@@ -19,7 +20,7 @@ namespace UnitTests.Automation
     public void SetUp()
     {
       _app = new ApplicationHost();
-      _windowElement = _app.Open();
+      _windowElement = _app.Open(typeof(MainWindow).Assembly.Location);
     }
 
     [TestMethod]

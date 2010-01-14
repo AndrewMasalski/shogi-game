@@ -1,4 +1,4 @@
-namespace UnitTests.Automation.Utils
+namespace Yasc.Utils.Automation
 {
   public enum WheelType
   {
