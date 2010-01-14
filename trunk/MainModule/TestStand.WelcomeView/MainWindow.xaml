@@ -1,0 +1,60 @@
+﻿<Window x:Class="TestStand.WelcomeView.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Gui="clr-namespace:Yasc.Gui;assembly=Yasc"
+    xmlns:WelcomeView="clr-namespace:TestStand.WelcomeView"
+    Title="MainWindow" Height="600" Width="800">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Border BorderThickness="1" BorderBrush="Red" Padding="5">
+      <Gui:WelcomeView DataContext="{Binding WelcomeViewModel}"/>
+    </Border>
+    <StackPanel Grid.Column="1" >
+      <GroupBox Header="WelcomeViewModel" DataContext="{Binding WelcomeViewModel}" Margin="5" Padding="0,3">
+        <StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="Address: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding Address}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="UserName: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding UserName}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="Mode: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding Mode}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="SaveAndSkip: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding SaveAndSkip}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="IsServerStartedOnThisComputer: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding IsServerStartedOnThisComputer}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="LastVisitedServers: " VerticalAlignment="Top" FontWeight="Bold"/>
+            <ListBox ItemsSource="{Binding LastVisitedServers}" MinHeight="30" />
+          </StackPanel>
+        </StackPanel>
+      </GroupBox>
+      <GroupBox Header="Settings.Default">
+        
+      </GroupBox>
+      <ListBox ItemsSource="{Binding EventsLog}" Margin="5">
+        <ListBox.Resources>
+          <DataTemplate DataType="{x:Type WelcomeView:StandEvent}">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Timestamp, StringFormat=T}" FontWeight="Bold"/>
+              <TextBlock Text=" "/>
+              <TextBlock Text="{Binding Message}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.Resources>
+      </ListBox>
+    </StackPanel>
+  </Grid>
+</Window>
