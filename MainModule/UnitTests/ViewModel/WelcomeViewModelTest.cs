@@ -229,5 +229,47 @@ namespace UnitTests.ViewModel
       CollectionAssert.AreEqual(
         new[] { "Address", "a", "b" }, Settings.Default.LoadLvs().ToList());
     }
+
+    [TestMethod]
+    public void SetUserNameAndMode()
+    {
+      _model.UserName = "new";
+      _model.Mode = _model.Mode;
+      Assert.AreEqual("new", _model.UserName);
+      Assert.AreEqual("PropertyChanged(UserName)", _log.ToString());
+      _model.ConnectCommand.Execute(null);
+      Assert.AreEqual("new", Settings.Default.UserName);
+    }
+    [TestMethod]
+    public void SetNewAddressTest()
+    {
+      _model.Address = "new";
+      Assert.AreEqual("new", _model.Address);
+      CollectionAssert.AreEqual(
+        new[] {"a", "b" }, _model.LastVisitedServers);
+      Assert.AreEqual("PropertyChanged(Address)", _log.ToString());
+      _model.ConnectCommand.Execute(null);
+      Assert.AreEqual("new", Settings.Default.Address);
+      CollectionAssert.AreEqual(
+        new[] { "new", "a", "b" }, _model.LastVisitedServers);
+      CollectionAssert.AreEqual(
+        new[] { "new", "a", "b" }, Settings.Default.LoadLvs().ToList());
+    }
+    [TestMethod]
+    public void SetExistingAddressTest()
+    {
+      _model.Address = "b";
+      Assert.AreEqual("b", _model.Address);
+      CollectionAssert.AreEqual(
+        new[] { "a", "b" }, _model.LastVisitedServers);
+      Assert.AreEqual("PropertyChanged(Address)", _log.ToString());
+      _model.ConnectCommand.Execute(null);
+      Assert.AreEqual("b", Settings.Default.Address);
+      CollectionAssert.AreEqual(
+        new[] { "b", "a" }, _model.LastVisitedServers);
+      CollectionAssert.AreEqual(
+        new[] { "b", "a" }, Settings.Default.LoadLvs().ToList());
+    }
+
   }
 }
