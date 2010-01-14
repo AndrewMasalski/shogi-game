@@ -85,26 +85,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automation\Peers\ShogiBoardCoreAutomation.cs" />
-    <Compile Include="Automation\Utils\AutomationElementExtensions.cs" />
-    <Compile Include="Automation\Utils\AutomationExtensions.cs" />
     <Compile Include="Automation\Peers\ConcreteAutomation.cs" />
     <Compile Include="Automation\Peers\HandNestAutomation.cs" />
-    <Compile Include="Automation\Utils\KeyboardDeviceExtensions.cs" />
-    <Compile Include="Automation\Utils\MouseDeviceExtensions.cs" />
-    <Compile Include="Automation\Utils\RectExtensions.cs" />
-    <Compile Include="Automation\Utils\SendInputInterop.cs" />
-    <Compile Include="Automation\Utils\ApplicationHost.cs" />
     <Compile Include="Automation\MainWindowTest.cs" />
     <Compile Include="Automation\Peers\ShogiBoardAutomation.cs" />
     <Compile Include="Automation\Peers\ShogiCellAutomation.cs" />
     <Compile Include="Automation\Peers\ShogiHandAutomation.cs" />
-    <Compile Include="Automation\Utils\ToggleMode.cs" />
-    <Compile Include="Automation\Utils\WheelType.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GameTicketTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\GameViewModelTest.cs" />
+    <Compile Include="ViewModel\LvsSettingsExtensionTest.cs" />
     <Compile Include="ViewModel\UserViewModelTest.cs" />
+    <Compile Include="ViewModel\WelcomeViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Yasc\MainModule.csproj">

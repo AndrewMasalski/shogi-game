@@ -108,7 +108,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShogiCore\PropertyObserverAssertion.cs" />
     <Compile Include="ShogiCore\ShogiTest.cs" />
-    <Compile Include="TestLog.cs" />
     <Compile Include="UsualMoves\GetAvailableMovesTest.cs" />
     <Compile Include="ShogiCore\Moves\UsualMoveTest.cs" />
   </ItemGroup>

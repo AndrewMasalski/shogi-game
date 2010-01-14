@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 
 namespace Yasc.Gui
 {
   /// <summary>Lvs = LastVisitedServer</summary>
-  public static class LvsSettingsExtension
+  internal static class LvsSettingsExtension
   {
     /// <summary>Lvs = LastVisitedServer</summary>
     public static IEnumerable<string> LoadLvs(this SettingsBase settings)
@@ -33,6 +32,9 @@ namespace Yasc.Gui
       int lim = Math.Min(10, data.Count);
       for (int i = 0; i < lim; i++)
         settings["LastVisitedServer" + (i + 1)] = data[i];
+
+      for (int i = lim; i < 10; i++)
+        settings["LastVisitedServer" + (i + 1)] = null;
     }
   }
 }

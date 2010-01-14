@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Automation;
-using UnitTests.Automation.Utils;
+using Yasc.Utils.Automation;
 
 namespace UnitTests.Automation.Peers
 {

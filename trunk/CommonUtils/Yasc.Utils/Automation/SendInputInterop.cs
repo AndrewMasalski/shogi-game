@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace UnitTests.Automation.Utils
+namespace Yasc.Utils.Automation
 {
   public class SendInputInterop
   {

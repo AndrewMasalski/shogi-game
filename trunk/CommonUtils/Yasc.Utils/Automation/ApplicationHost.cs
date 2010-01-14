@@ -2,18 +2,16 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Automation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc;
 
-namespace UnitTests.Automation.Utils
+namespace Yasc.Utils.Automation
 {
   public class ApplicationHost
   {
     private Process _process;
 
-    public AutomationElement Open()
+    public AutomationElement Open(string path)
     {
-      _process = Process.Start(typeof(MainWindow).Assembly.Location);
+      _process = Process.Start(path);
       if (_process == null) throw new Exception("Coudn't have started app");
       int counter = 0;
       while (_process.MainWindowHandle == IntPtr.Zero)
@@ -21,7 +19,8 @@ namespace UnitTests.Automation.Utils
         if (++counter == 600)
         {
           _process.Kill();
-          Assert.Fail("Process didn't start in 1 min");
+
+          throw new Exception("Process didn't start in 1 min");
         }
         Thread.Sleep(100);
         _process.Refresh();
@@ -36,7 +35,7 @@ namespace UnitTests.Automation.Utils
         _process.Kill();
         Console.WriteLine("We had to kill process on exit");
       }
-      Assert.Fail("Process didn't quit in 1 min");
+      throw new Exception("Process didn't quit in 1 min");
     }
   }
 }

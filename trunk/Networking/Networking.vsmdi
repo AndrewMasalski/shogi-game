@@ -2,9 +2,9 @@
 <TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
   <TestList name="All" id="2b8d731f-1bef-4d9d-b6d3-db738152ee09" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <TestLinks>
+      <TestLink id="c362e087-f4ee-6e7a-d6c9-122d21432246" name="TestInvitation" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="594daf92-ffb7-4c1d-f1cb-8b1d2f81bbdc" name="TestUsersList" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
       <TestLink id="1bfd549f-a001-0c16-ae42-040168835c21" name="Test1" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
-      <TestLink id="c362e087-f4ee-6e7a-d6c9-122d21432246" name="TestInvitation" storage="unittests\bin\release\unittests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
     </TestLinks>
   </TestList>
   <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">

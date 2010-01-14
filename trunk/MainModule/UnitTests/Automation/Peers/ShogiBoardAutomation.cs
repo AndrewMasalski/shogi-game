@@ -1,8 +1,8 @@
 using System.Windows.Automation;
 using System.Windows.Input;
-using UnitTests.Automation.Utils;
 using Yasc.Controls;
 using Yasc.ShogiCore;
+using Yasc.Utils.Automation;
 
 namespace UnitTests.Automation.Peers
 {
