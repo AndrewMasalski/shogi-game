@@ -3,17 +3,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Gui="clr-namespace:Yasc.Gui;assembly=Yasc"
     xmlns:WelcomeView="clr-namespace:TestStand.WelcomeView"
+    xmlns:Properties="clr-namespace:Yasc.Properties;assembly=Yasc"
     Title="MainWindow" Height="600" Width="800">
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <Border BorderThickness="1" BorderBrush="Red" Padding="5">
+    <Border BorderThickness="1" BorderBrush="LightGray" Margin="5" SnapsToDevicePixels="True">
       <Gui:WelcomeView DataContext="{Binding WelcomeViewModel}"/>
     </Border>
-    <StackPanel Grid.Column="1" >
-      <GroupBox Header="WelcomeViewModel" DataContext="{Binding WelcomeViewModel}" Margin="5" Padding="0,3">
+    <DockPanel Grid.Column="1" LastChildFill="True"  >
+      <GroupBox Header="WelcomeViewModel" DataContext="{Binding WelcomeViewModel}" Margin="5" Padding="0,3"
+                DockPanel.Dock="Top">
         <StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="Address: " FontWeight="Bold"/>
@@ -41,8 +43,32 @@
           </StackPanel>
         </StackPanel>
       </GroupBox>
-      <GroupBox Header="Settings.Default">
-        
+      <GroupBox Header="Settings.Default" Margin="5" DockPanel.Dock="Top" 
+                DataContext="{x:Static Properties:Settings.Default}">
+        <StackPanel HorizontalAlignment="Stretch">
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="Address: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding Address}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="UserName: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding UserName}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 2">
+            <TextBlock Text="DefaultStartMode: " FontWeight="Bold"/>
+            <TextBlock Text="{Binding DefaultStartMode}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer1: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer1}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer2: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer2}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer3: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer3}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer4: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer4}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer5: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer5}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer6: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer6}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer7: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer7}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer8: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer8}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer9: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer9}" /></StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="5, 1"><TextBlock Text="LastVisitedServer10: " FontWeight="Bold"/><TextBlock Text="{Binding LastVisitedServer10}" /></StackPanel>
+        </StackPanel>
       </GroupBox>
       <ListBox ItemsSource="{Binding EventsLog}" Margin="5">
         <ListBox.Resources>
@@ -55,6 +81,6 @@
           </DataTemplate>
         </ListBox.Resources>
       </ListBox>
-    </StackPanel>
+    </DockPanel>
   </Grid>
 </Window>

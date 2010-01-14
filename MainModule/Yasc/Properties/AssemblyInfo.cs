@@ -48,5 +48,6 @@ using System.Windows;
 
 [assembly: AllowPartiallyTrustedCallers]
 [assembly: InternalsVisibleTo("UnitTests")]
+[assembly: InternalsVisibleTo("TestStand.WelcomeView")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguage("en-US")]
