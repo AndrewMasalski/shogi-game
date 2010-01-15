@@ -1,0 +1,32 @@
+﻿<Window x:Class="AutomationSpy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AutomationSpy"
+        Title="MainWindow" Height="600" Width="800">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <TreeView ItemsSource="{Binding Roots}" Name="_tree">
+      <TreeView.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type local:AutomationElementViewModel}" 
+                                ItemsSource="{Binding Children}">
+          <TextBlock Text="{Binding Caption}"/>
+        </HierarchicalDataTemplate>
+      </TreeView.Resources>
+    </TreeView>
+    <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Properties}"
+             Grid.Column="1">
+      <ListBox.Resources>
+        <DataTemplate DataType="{x:Type local:ElementPropertyViewModel}">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Name}"/>
+            <TextBlock Text=": "/>
+            <TextBlock Text="{Binding Value}"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.Resources>
+    </ListBox>
+  </Grid>
+</Window>

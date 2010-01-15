@@ -178,5 +178,17 @@ namespace Yasc.Properties {
                 this["LastVisitedServer10"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Engines\\Spear\\SpearShogidokoro.exe")]
+        public string CurrentEngine {
+            get {
+                return ((string)(this["CurrentEngine"]));
+            }
+            set {
+                this["CurrentEngine"] = value;
+            }
+        }
     }
 }
