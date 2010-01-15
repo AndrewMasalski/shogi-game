@@ -41,5 +41,8 @@
     <Setting Name="LastVisitedServer10" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="CurrentEngine" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Engines\Spear\SpearShogidokoro.exe</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

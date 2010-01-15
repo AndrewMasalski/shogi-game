@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using DotUsi;
+using Yasc.Properties;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 
@@ -23,7 +24,7 @@ namespace Yasc.AI
     {
       var enginePath = Path.Combine(
         Environment.CurrentDirectory,
-        @"Engines\Spear\SpearShogidokoro.exe");
+        Settings.Default.CurrentEngine);
 
       return new SpearCsa2009V15Driver(
         new UsiWindowsProcess(enginePath));
