@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AutomationSpy.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PinnedPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Shogi/GameView</Value>
+    </Setting>
+    <Setting Name="RefreshRate" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:01</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

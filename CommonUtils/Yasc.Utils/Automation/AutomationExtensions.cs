@@ -85,7 +85,7 @@ namespace Yasc.Utils.Automation
     public static AutomationElementCollection FindAllNoWait(this AutomationElement element, Type type)
     {
       return element.FindAll(TreeScope.Descendants,
-                             new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
+        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
     }
 
     public static void InvokeByName(this AutomationElement element, string name)
@@ -93,10 +93,10 @@ namespace Yasc.Utils.Automation
       var automationElement = element.FindFirstByName(name);
       if (automationElement == null)
         throw new ApplicationException(string.Format(
-                                         "Couldn't have found element with name '{0}'", name));
+         "Couldn't have found element with name '{0}'", name));
 
       ((InvokePattern)automationElement.
-                        GetCurrentPattern(InvokePattern.Pattern)).Invoke();
+         GetCurrentPattern(InvokePattern.Pattern)).Invoke();
     }
 
     public static T Pattern<T>(this AutomationElement element)
