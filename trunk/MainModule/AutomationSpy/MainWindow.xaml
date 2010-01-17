@@ -11,10 +11,16 @@
     <TreeView ItemsSource="{Binding Roots}" Name="_tree">
       <TreeView.Resources>
         <HierarchicalDataTemplate DataType="{x:Type local:AutomationElementViewModel}" 
-                                ItemsSource="{Binding Children}">
+                                  ItemsSource="{Binding Children}">
           <TextBlock Text="{Binding Caption}"/>
         </HierarchicalDataTemplate>
       </TreeView.Resources>
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        </Style>
+      </TreeView.ItemContainerStyle>
     </TreeView>
     <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Properties}"
              Grid.Column="1">
