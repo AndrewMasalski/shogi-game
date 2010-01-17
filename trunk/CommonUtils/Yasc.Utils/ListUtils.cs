@@ -257,27 +257,6 @@ namespace Yasc.Utils
           throw new Exception("Duplicate in src collection");
       return res;
     }
-
-    public static void Update<TDestination, TSource>(
-      this IList<TDestination> list,
-      IEnumerable<TSource> src,
-      Comparer<TDestination, TSource> comparer,
-      Converter<TSource, TDestination> converter)
-    {
-      int i = 0;
-      foreach (var source in src)
-      {
-        if (!comparer(list[i++], source))
-        {
-          list.Insert(i - 1, converter(source));
-          //          i++;
-        }
-      }
-      //      list.Clear();
-      //      foreach (var item in src)
-      //        list.Add(converter(item));
-    }
-
   }
 
   public struct Range<T> : IEnumerable<T>

@@ -93,7 +93,8 @@ namespace Yasc.Gui
     {
       Users = new ObservableCollection<UserViewModel>();
       Users.CollectionChanged += OnUsersCollectionChanged;
-      Users.Update(Session.Users, null, u => new UserViewModel(Session, u));
+      Users.Update(Session.Users, iu => iu.Name, uvm => uvm.Name, 
+        u => new UserViewModel(Session, u));
     }
 
     private void OnDisconnected(EventArgs e)
@@ -113,11 +114,17 @@ namespace Yasc.Gui
     }
     private void RefreshGames()
     {
-      Games.Update(Session.Games, null, g => new GameViewModel(g));
+      throw new NotImplementedException();
+      
+       
+//      Games.Update(Session.Games, gvm => gvm.Ticket, 
+//      ig=> need something here!,
+//      g => new GameViewModel(g));
     }
     private void UsersRefresh()
     {
-      Users.Update(Session.Users, null, g => new UserViewModel(Session, g));
+      Users.Update(Session.Users, iu => iu.Name, uvm => uvm.Name,
+        u => new UserViewModel(Session, u));
     }
 
     private void OnInvitationReceived(IInviteeTicket ticket)
