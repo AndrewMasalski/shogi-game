@@ -67,12 +67,12 @@ namespace UnitTests.Automation
     public void CheckNoRulesDnD()
     {
       _windowElement.InvokeByName("Play with myself");
-      _windowElement.InvokeByName("Enforce rules");
+      _windowElement.InvokeMenu("Board/Enforce rules");
       var board = new ShogiBoardAutomation(_windowElement);
       board.UsusalMove("1c", "1d");
-      _windowElement.InvokeByName("Clean");
+      _windowElement.InvokeMenu("Board/Clean");
       board.DropMove(PieceType.桂, PieceColor.White, "1i");
-    }
+    } 
     [TestCleanup]
     public void TearDown()
     {
