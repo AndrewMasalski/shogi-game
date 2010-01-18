@@ -8,29 +8,17 @@ namespace AutomationSpy
 {
   public class ElementPropertyViewModel : ObservableObject
   {
-    public AutomationElement Element { get; set; }
-    public AutomationProperty Property { get; set; }
-
-    public ElementPropertyViewModel(AutomationElement element, AutomationProperty property)
-    {
-      Element = element;
-      Property = property;
-      Value = GetValue();
-    }
-
-
-    public void Refresh()
-    {
-      Value = GetValue();
-    }
+    private string _value;
 
     public string Name
     {
-      get { return Property.ProgrammaticName.
-        Replace("AutomationElementIdentifiers.", "").
-        Replace("Property", ""); }
+      get
+      {
+        return Property.ProgrammaticName.
+          Replace("AutomationElementIdentifiers.", "").
+          Replace("Property", "");
+      }
     }
-
     public string Value
     {
       get { return _value; }
@@ -41,11 +29,24 @@ namespace AutomationSpy
         RaisePropertyChanged("Value");
       }
     }
+    public AutomationElement Element { get; set; }
+    public AutomationProperty Property { get; set; }
 
-    private string _value;
+    public ElementPropertyViewModel(AutomationElement element, AutomationProperty property)
+    {
+      Element = element;
+      Property = property;
+      Value = GetValue();
+    }
 
+    public void Refresh()
+    {
+      // This is called on timer thread!
+      Value = GetValue();
+    }
     private string GetValue()
     {
+      // This is called on timer thread!
       var value = Element.GetCurrentPropertyValue(Property);
       var str = value as string;
       if (str != null)

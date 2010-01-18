@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Automation;
+using System.Windows.Threading;
 using MvvmFoundation.Wpf;
 using Yasc.Utils;
 
@@ -10,10 +11,15 @@ namespace AutomationSpy
 {
   public class AutomationElementViewModel : ObservableObject
   {
+    #region ' Fields '
+
     private bool _isExpanded;
     private bool _isSelected;
-    private ObservableCollection<ElementPropertyViewModel> _properties;
-    private ObservableCollection<AutomationElementViewModel> _children;
+    private string _caption;
+    private readonly Condition _filterChildrenCondition;
+    private readonly Dispatcher _disp;
+
+    #endregion
 
     public bool IsSelected
     {
@@ -25,8 +31,6 @@ namespace AutomationSpy
         RaisePropertyChanged("IsSelected");
       }
     }
-
-    public AutomationElement Element { get; private set; }
     public bool IsExpanded
     {
       get { return _isExpanded; }
@@ -37,68 +41,104 @@ namespace AutomationSpy
         RaisePropertyChanged("IsExpanded");
       }
     }
-
-    public void ResetChildrenCache()
-    {
-      _children = null;
-    }
-    
     public string Caption
     {
-      get
+      get { return _caption; }
+      private set
       {
-        return !string.IsNullOrEmpty(Element.Current.Name) ?
-          Element.Current.Name : Element.Current.ClassName;
+        if (_caption == value) return;
+        _caption = value;
+        RaisePropertyChanged("Caption");
       }
     }
+    public AutomationElement Element { get; private set; }
+    public ObservableCollection<ElementPropertyViewModel> Properties { get; private set; }
+    public ObservableCollection<AutomationElementViewModel> Children { get; private set; }
 
-    public AutomationElementViewModel(AutomationElement element)
+    public AutomationElementViewModel(AutomationElement element, Condition filterChildrenCondition)
     {
       Element = element;
+      Children = new ObservableCollection<AutomationElementViewModel>();
+      Properties = new ObservableCollection<ElementPropertyViewModel>();
+      _filterChildrenCondition = filterChildrenCondition;
+      _disp = Dispatcher.CurrentDispatcher;
     }
 
-    public ObservableCollection<ElementPropertyViewModel> Properties
+    #region ' Refresh '
+
+    public void Refresh()
     {
-      get
+      // This is called on timer thread!
+      Caption = GetCaption();
+
+      if (IsSelected)
+        RefreshProperties();
+
+      if (!IsExpanded)
+        foreach (var child in Children)
+          child.ResetChildrenCache();
+
+      RefreshChildren();
+    }
+
+    private void RefreshChildren()
+    {
+      // This is called on timer thread!
+      var children = Element.FindAll(
+        TreeScope.Children, _filterChildrenCondition).
+        Cast<AutomationElement>();
+
+      _disp.Invoke(
+        DispatcherPriority.Background,
+        new Action(() => UpdateChildren(children)));
+    }
+    private void UpdateChildren(IEnumerable<AutomationElement> children)
+    {
+      // This is called on timer thread!
+      Children.Update(children, evm => evm.Element, ae => ae,
+        ae => new AutomationElementViewModel(ae, Condition.TrueCondition));
+    }
+    private void RefreshProperties()
+    {
+      // This is called on timer thread!
+      if (Properties.Count == 0)
       {
-        if (_properties == null)
-        {
-          _properties = new ObservableCollection<ElementPropertyViewModel>(
-            from p in Element.GetSupportedProperties()
-            select new ElementPropertyViewModel(Element, p));
-        }
-        return _properties;
+        var properties =
+          (from p in Element.GetSupportedProperties()
+           select new ElementPropertyViewModel(Element, p)).ToList();
+
+        _disp.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+          {
+            foreach (var p in properties)
+              Properties.Add(p);
+          }));
+      }
+      else
+      {
+        foreach (var p in Properties)
+          p.Refresh();
       }
     }
-    public ObservableCollection<AutomationElementViewModel> Children
+    private string GetCaption()
     {
-      get
-      {
-        if (_children == null)
-        {
-          _children = new ObservableCollection<AutomationElementViewModel>(GetChildren());
-        }
-        return _children;
-      }
+      // This is called on timer thread!
+      var name = Element.Current.Name; //(string)Element.GetCurrentPropertyValue(AutomationElement.NameProperty);
+      if (!string.IsNullOrEmpty(name)) return name;
+
+      var className = Element.Current.ClassName; //(string)Element.GetCurrentPropertyValue(AutomationElement.ClassNameProperty);
+      if (!string.IsNullOrEmpty(className)) return className;
+
+      var localizedControlType = Element.Current.LocalizedControlType;
+      if (!string.IsNullOrEmpty(localizedControlType)) return localizedControlType;
+
+      return "???";
+    }
+    private void ResetChildrenCache()
+    {
+      // This is called on timer thread!
+      _disp.BeginInvoke(DispatcherPriority.Background, new Action(() => Children.Clear()));
     }
 
-    private IEnumerable<AutomationElementViewModel> GetChildren()
-    {
-      return from r in Element.FindAll(TreeScope.Children, Condition.TrueCondition).Cast<AutomationElement>()
-             select new AutomationElementViewModel(r);
-    }
-
-    public void RefreshChildren()
-    {
-      _children.Update(GetChildren(), (x, y) => x.Element == y.Element, x => x);
-    }
-  }
-
-  public static class A
-  {
-    public static void Update<TDest, TSrc>(this ObservableCollection<TDest> dest, IEnumerable<TSrc> src, Comparer<TDest, TSrc> comparer, Converter<TSrc, TDest> converter)
-    {
-
-    }
+    #endregion
   }
 }

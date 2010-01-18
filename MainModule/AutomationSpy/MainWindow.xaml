@@ -2,12 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:AutomationSpy"
-        Title="MainWindow" Height="600" Width="800">
-  <Grid>
+        Title="Automation Spy" Height="600" Width="800" Icon="Resources\App.ico">
+  <Grid Margin="3">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="4"/>
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
+    
     <TreeView ItemsSource="{Binding Roots}" Name="_tree">
       <TreeView.Resources>
         <HierarchicalDataTemplate DataType="{x:Type local:AutomationElementViewModel}" 
@@ -22,8 +24,12 @@
         </Style>
       </TreeView.ItemContainerStyle>
     </TreeView>
+    
+    <GridSplitter Grid.Column="1" ResizeDirection="Columns" 
+                  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
     <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Properties}"
-             Grid.Column="1">
+             Grid.Column="2">
       <ListBox.Resources>
         <DataTemplate DataType="{x:Type local:ElementPropertyViewModel}">
           <StackPanel Orientation="Horizontal">
