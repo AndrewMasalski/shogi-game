@@ -1,35 +1,35 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Automation;
-using System.Windows.Threading;
 using AutomationSpy.Properties;
 using MvvmFoundation.Wpf;
 
 namespace AutomationSpy
 {
-  public class MainWindowViewModel : ObservableObject
+  public class MainWindowViewModel : ObservableObject, IDisposable
   {
+    private readonly Timer _timer;
 
-    private void RefreshAll(object sender, EventArgs args)
+    public AutomationElementViewModel[] Roots { get; private set; }
+
+    public MainWindowViewModel()
     {
-      WalkExpandedElements(Roots, RefreshElement);
+      Roots = new[]{ new AutomationElementViewModel(AutomationElement.RootElement, Condition.TrueCondition)};
+      
+      var rr = (int)Settings.Default.RefreshRate.TotalMilliseconds;
+      _timer = new Timer(OnRefreshTimerTick, null, rr, rr);
     }
 
-    private void RefreshElement(AutomationElementViewModel element)
+    #region ' Refresh On Timer '
+
+    private void OnRefreshTimerTick(object state)
     {
-      if (element.IsSelected)
-        foreach (var p in element.Properties)
-          p.Refresh();
-
-      if (!element.IsExpanded)
-        foreach (var child in element.Children)
-          child.ResetChildrenCache();
-
-      element.RefreshChildren();
+      WalkExpandedElements(Roots, element => element.Refresh());
     }
 
     private static void WalkExpandedElements(
-      IEnumerable<AutomationElementViewModel> list, 
+      IEnumerable<AutomationElementViewModel> list,
       Action<AutomationElementViewModel> func)
     {
       foreach (var element in list)
@@ -42,18 +42,11 @@ namespace AutomationSpy
       }
     }
 
-    public IEnumerable<AutomationElementViewModel> Roots { get; private set; }
+    #endregion
 
-    public MainWindowViewModel()
+    public void Dispose()
     {
-      Roots = new AutomationElementViewModel(AutomationElement.RootElement).Children;
-
-      var timer = new DispatcherTimer(DispatcherPriority.Background)
-      {
-        Interval = Settings.Default.RefreshRate,
-        IsEnabled = true
-      };
-      timer.Tick += RefreshAll;
+      _timer.Dispose();
     }
   }
 }
