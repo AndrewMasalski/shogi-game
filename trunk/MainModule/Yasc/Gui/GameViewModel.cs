@@ -19,6 +19,7 @@ namespace Yasc.Gui
   {
     #region ' Fields '
 
+    private string _currentMessage;
     private TimeSpan _opponentTime = TimeSpan.FromSeconds(300);
     private TimeSpan _ourTime = TimeSpan.FromSeconds(300);
     private bool _isFlipped;
@@ -38,7 +39,6 @@ namespace Yasc.Gui
 
     #region ' Public Interface '
 
-    /// <summary> </summary>
     public string CurrentMessage
     {
       get { return _currentMessage; }
@@ -49,9 +49,6 @@ namespace Yasc.Gui
         RaisePropertyChanged("CurrentMessage");
       }
     }
-
-    private string _currentMessage;
-    /// <summary> </summary>
     public bool IsItMyMove
     {
       get { return _isItMyMove; }
@@ -63,7 +60,6 @@ namespace Yasc.Gui
         IsItOpponentMove = !value;
       }
     }
-    /// <summary> </summary>
     public bool IsItOpponentMove
     {
       get { return _isItOpponentMove; }
@@ -76,7 +72,6 @@ namespace Yasc.Gui
         IsItMyMove = !value;
       }
     }
-
     public bool IsOpponentTimerLaunched
     {
       get { return _isOpponentTimerLaunched; }
@@ -98,6 +93,24 @@ namespace Yasc.Gui
       }
     }
 
+    public Board Board
+    {
+      get { return _board; }
+      private set
+      {
+        if (_board == value) return;
+        if (_board != null)
+        {
+          Board.Moved -= BoardOnMoved;
+        }
+        _board = value;
+        if (_board != null)
+        {
+          Board.Moved += BoardOnMoved;
+        }
+        RaisePropertyChanged("Board");
+      }
+    }
     public GameTicket Ticket { get; private set; }
     public bool IsFlipped
     {
@@ -136,27 +149,7 @@ namespace Yasc.Gui
         RaisePropertyChanged("OpponentTime");
       }
     }
-
     public ObservableCollection<object> MovesAndComments { get; private set; }
-
-    public Board Board
-    {
-      get { return _board; }
-      private set
-      {
-        if (_board == value) return;
-        if (_board != null)
-        {
-          Board.Moved -= BoardOnMoved;
-        }
-        _board = value;
-        if (_board != null)
-        {
-          Board.Moved += BoardOnMoved;
-        }
-        RaisePropertyChanged("Board");
-      }
-    }
 
     public ICommand CleanBoardCommand
     {
@@ -283,7 +276,6 @@ namespace Yasc.Gui
       }
       OnAnyMove();
     }
-
     private void OnAnyMove()
     {
       IsItMyMove = !IsItMyMove;
@@ -291,7 +283,6 @@ namespace Yasc.Gui
       IsOpponentTimerLaunched = IsItOpponentMove;
       MovesAndComments.Add(Board.History.CurrentMove);
     }
-
     private void OnMyMove(MoveEventArgs args)
     {
       if (Ticket == null) return;
@@ -301,7 +292,6 @@ namespace Yasc.Gui
         MessageBox.Show("You won!");
       }
     }
-
     private static PieceColor Opponent(PieceColor color)
     {
       return color == PieceColor.White ? PieceColor.Black : PieceColor.White;
