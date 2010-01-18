@@ -2,7 +2,7 @@ using System;
 
 namespace Yasc.ShogiCore
 {
-  /// <summary>The exception is fired when piece has no ownt but must have</summary>
+  /// <summary>The exception is fired when piece has no owner but must have</summary>
   public class PieceHasNoOwnerException : Exception
   {
     private const string DefaultMessage =

@@ -75,6 +75,7 @@
     <Compile Include="Moves\MoveEventArgs.cs" />
     <Compile Include="Moves\MovesHistory.cs" />
     <Compile Include="Moves\ResignMove.cs" />
+    <Compile Include="PieceNotFoundException.cs" />
     <Compile Include="SnapShots\ResignMoveSnapshot.cs" />
     <Compile Include="ShogiGameResult.cs" />
     <Compile Include="Moves\UsualMove.cs" />

@@ -278,6 +278,11 @@ namespace UnitTests.ShogiCore
       var toPositions = (from m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), toPositions);
     }
+    [TestMethod, ExpectedException(typeof(PieceNotFoundException))]
+    public void TestGetAvailableDropMovesByPieceForUnexistingPieceType()
+    {
+      _board.GetAvailableMoves("角", PieceColor.Black);
+    }
 
     #endregion
 
