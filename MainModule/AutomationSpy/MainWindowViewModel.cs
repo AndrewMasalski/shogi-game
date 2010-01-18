@@ -25,21 +25,7 @@ namespace AutomationSpy
 
     private void OnRefreshTimerTick(object state)
     {
-      WalkExpandedElements(Roots, element => element.Refresh());
-    }
-
-    private static void WalkExpandedElements(
-      IEnumerable<AutomationElementViewModel> list,
-      Action<AutomationElementViewModel> func)
-    {
-      foreach (var element in list)
-      {
-        func(element);
-        if (element.IsExpanded)
-        {
-          WalkExpandedElements(element.Children, func);
-        }
-      }
+      Roots[0].WalkExpandedElements(element => element.Refresh());
     }
 
     #endregion

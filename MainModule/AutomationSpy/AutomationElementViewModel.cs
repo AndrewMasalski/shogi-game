@@ -66,6 +66,28 @@ namespace AutomationSpy
       _disp = Dispatcher.CurrentDispatcher;
     }
 
+    public void WalkExpandedElements(Action<AutomationElementViewModel> callback)
+    {
+      callback(this);
+
+      // Getting locked copy of children collection
+      IEnumerable<AutomationElementViewModel> children;
+      lock (Children)
+        children = Children.ToList();
+
+      foreach (var element in children)
+      {
+        if (element.IsExpanded)
+        {
+          element.WalkExpandedElements(callback);
+        }
+        else
+        {
+          callback(element);
+        }
+      }
+    }
+
     #region ' Refresh '
 
     public void Refresh()
@@ -91,7 +113,7 @@ namespace AutomationSpy
       // This is called on timer thread!
       var children = Element.FindAll(
         TreeScope.Children, _filterChildrenCondition).
-        Cast<AutomationElement>();
+        Cast<AutomationElement>().Distinct();
 
       _disp.Invoke(
         DispatcherPriority.Background,
@@ -100,8 +122,9 @@ namespace AutomationSpy
     private void UpdateChildren(IEnumerable<AutomationElement> children)
     {
       // This is called on timer thread!
-      Children.Update(children, evm => evm.Element, ae => ae,
-        ae => new AutomationElementViewModel(ae, Condition.TrueCondition));
+      lock (Children)
+        Children.Update(children, evm => evm.Element, ae => ae,
+          ae => new AutomationElementViewModel(ae, Condition.TrueCondition));
     }
     private void RefreshProperties()
     {
