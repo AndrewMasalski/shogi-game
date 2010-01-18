@@ -1,8 +1,7 @@
 using System;
 using Yasc.ShogiCore.Moves;
-using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.SnapShots
+namespace Yasc.ShogiCore.Snapshots
 {
   /// <summary>Represents lightweight snapshot of resign move</summary>
   [Serializable]
@@ -16,11 +15,13 @@ namespace Yasc.ShogiCore.SnapShots
       _who = who;
     }
 
+    /// <summary>Override to determine color of the player the move belongs to</summary>
     public override PieceColor GetColor(BoardSnapshot snapshot)
     {
       return _who;
     }
 
+    /// <summary>Override to convert snapshot to observable move</summary>
     protected override MoveBase AsRealMoveCore(Board board)
     {
       return new ResignMove(board, board[_who]);

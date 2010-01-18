@@ -16,7 +16,7 @@ namespace Yasc.ShogiCore
     public string Name { get; set; }
     /// <summary>The pieces player has in hand</summary>
     public ObservableCollection<Piece> Hand { get; set; }
-    
+
     internal Player(Board board)
     {
       Board = board;
@@ -60,17 +60,16 @@ namespace Yasc.ShogiCore
     public void LoadHandSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
     {
       if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
-#warning Implement cool update. See ListUtils.Update
-      ResetAllPiecesFromHand();
-      foreach (var snapshot in handSnapshot)
-        AddToHand(snapshot.PieceType);
+      Hand.Update(handSnapshot, 
+        p => new PieceSnapshot(p), 
+        ps => ps, 
+        ps => Board.PieceSet[ps.PieceType]);
     }
 
     /// <summary>Returns all pieces from hand to the set</summary>
     public void ResetAllPiecesFromHand()
     {
 #warning some synchronizer doesn't support clear.
-
       while (Hand.Count > 0)
         Hand.RemoveAt(Hand.Count - 1);
     }
@@ -88,28 +87,45 @@ namespace Yasc.ShogiCore
       switch (args.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          foreach (Piece p in args.NewItems)
-          {
-            if (p.Owner != null) 
-            {
-              throw new InvalidOperationException(
-                "Piece can't be in two places at the same time. " +
-                "First return it to the PieceSet, then try to add it to the hand");
-            }
-            Board.PieceSet.Pop(p);
-            p.Owner = this;
-            p.IsPromoted = false;
-          }
+          OnAddPieceToHand(args);
           break;
         case NotifyCollectionChangedAction.Remove:
-          foreach (Piece p in args.OldItems)
-            Board.PieceSet.Push(p);
+          OnRemovePieceFromHand(args);
+          break;
+        case NotifyCollectionChangedAction.Move:
+          // Piece doesn't come and doesn't leave.
+          break;
+        case NotifyCollectionChangedAction.Replace:
+          OnRemovePieceFromHand(args);
+          OnAddPieceToHand(args);
           break;
         default:
           throw new NotSupportedException(
-            "Player.Hand collection supports just Remove and Add. "+
-            "If you want clear try Player.ResetAllPiecesFromHand");
+            "Player.Hand collection doesn't support Reset change. " +
+            "If you want to clear try Player.ResetAllPiecesFromHand");
       }
+    }
+
+    private void OnAddPieceToHand(NotifyCollectionChangedEventArgs args)
+    {
+      foreach (Piece p in args.NewItems)
+      {
+        if (p.Owner != null)
+        {
+          throw new InvalidOperationException(
+            "Piece can't be in two places at the same time. " +
+            "First return it to the PieceSet, then try to add it to the hand");
+        }
+        Board.PieceSet.Pop(p);
+        p.Owner = this;
+        p.IsPromoted = false;
+      }
+    }
+
+    private void OnRemovePieceFromHand(NotifyCollectionChangedEventArgs args)
+    {
+      foreach (Piece p in args.OldItems)
+        Board.PieceSet.Push(p);
     }
 
     #endregion

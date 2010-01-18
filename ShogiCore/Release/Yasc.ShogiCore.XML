@@ -275,6 +275,15 @@
         <member name="M:Yasc.ShogiCore.Moves.ResignMove.#ctor(Yasc.ShogiCore.Board,Yasc.ShogiCore.Player)">
             <summary>ctor</summary>
         </member>
+        <member name="M:Yasc.ShogiCore.Moves.ResignMove.Make">
+            <summary>Override to apply move to the <see cref="P:Yasc.ShogiCore.Moves.MoveBase.Board"/></summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.ResignMove.GetValidationErrorMessage">
+            <summary>Override to get validation error message or null if move is valid</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Moves.ResignMove.Snapshot">
+            <summary>Gets snapshot of the move</summary>
+        </member>
         <member name="T:Yasc.ShogiCore.Moves.MovesHistory">
             <summary>Represents history of moves of the game</summary>
         </member>
@@ -645,7 +654,7 @@
             <summary>Infinite number of pieces of all types</summary>
         </member>
         <member name="T:Yasc.ShogiCore.PieceHasNoOwnerException">
-            <summary>The exception is fired when piece has no ownt but must have</summary>
+            <summary>The exception is fired when piece has no owner but must have</summary>
         </member>
         <member name="M:Yasc.ShogiCore.PieceHasNoOwnerException.#ctor">
             <summary>ctor</summary>
@@ -660,11 +669,17 @@
         <member name="M:Yasc.ShogiCore.NotEnoughPiecesInSetException.#ctor(System.String)">
             <summary>ctor</summary>
         </member>
-        <member name="T:Yasc.ShogiCore.SnapShots.ResignMoveSnapshot">
+        <member name="T:Yasc.ShogiCore.Snapshots.ResignMoveSnapshot">
             <summary>Represents lightweight snapshot of resign move</summary>
         </member>
-        <member name="M:Yasc.ShogiCore.SnapShots.ResignMoveSnapshot.#ctor(Yasc.ShogiCore.PieceColor)">
+        <member name="M:Yasc.ShogiCore.Snapshots.ResignMoveSnapshot.#ctor(Yasc.ShogiCore.PieceColor)">
             <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.ResignMoveSnapshot.GetColor(Yasc.ShogiCore.Snapshots.BoardSnapshot)">
+            <summary>Override to determine color of the player the move belongs to</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.Snapshots.ResignMoveSnapshot.AsRealMoveCore(Yasc.ShogiCore.Board)">
+            <summary>Override to convert snapshot to observable move</summary>
         </member>
         <member name="T:Yasc.ShogiCore.CuteMoveParser">
             <summary>Can parse one cute move</summary>
@@ -811,6 +826,18 @@
         </member>
         <member name="P:Yasc.ShogiCore.HistoryNavigateEventArgs.Snapshot">
             <summary>Snapshot of the state in histiry user is being navigating to</summary>
+        </member>
+        <member name="T:Yasc.ShogiCore.PieceNotFoundException">
+            <summary>The exception is fired when piece is not found by type</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceNotFoundException.#ctor(Yasc.ShogiCore.PieceType)">
+            <summary>ctor</summary>
+        </member>
+        <member name="M:Yasc.ShogiCore.PieceNotFoundException.#ctor(Yasc.ShogiCore.PieceType,System.String)">
+            <summary>ctor</summary>
+        </member>
+        <member name="P:Yasc.ShogiCore.PieceNotFoundException.PieceType">
+            <summary>The type of piece which couldn't be found</summary>
         </member>
     </members>
 </doc>

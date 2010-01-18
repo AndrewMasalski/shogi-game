@@ -113,12 +113,12 @@ namespace UnitTests.ShogiCore
       board.Black.Hand.Add(piece);
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
-    public void ClearHandTest()
+    public void ClearHandNotSupportedTest()
     {
       new Board().White.Hand.Clear();
     }
-    [TestMethod, ExpectedException(typeof(NotSupportedException))]
-    public void MovePiecesInHandTest()
+    [TestMethod]
+    public void MovePiecesInHandSupportedTest()
     {
       var player = new Board().White;
       player.AddToHand(PieceType.歩);

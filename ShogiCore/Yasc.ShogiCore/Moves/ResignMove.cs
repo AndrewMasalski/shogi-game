@@ -1,5 +1,4 @@
 using Yasc.ShogiCore.Snapshots;
-using Yasc.ShogiCore.SnapShots;
 
 namespace Yasc.ShogiCore.Moves
 {
@@ -12,11 +11,13 @@ namespace Yasc.ShogiCore.Moves
     {
     }
 
+    /// <summary>Override to apply move to the <see cref="MoveBase.Board"/></summary>
     protected internal override void Make()
     {
       Board.GameResult = Who.Color == PieceColor.White ? ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
     }
 
+    /// <summary>Override to get validation error message or null if move is valid</summary>
     protected override string GetValidationErrorMessage()
     {
       if (Who != Board.OneWhoMoves)
@@ -25,6 +26,7 @@ namespace Yasc.ShogiCore.Moves
       return null;
     }
 
+    /// <summary>Gets snapshot of the move</summary>
     public override MoveSnapshotBase Snapshot()
     {
       return new ResignMoveSnapshot(Who.Color);
