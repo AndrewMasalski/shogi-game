@@ -65,7 +65,17 @@ namespace Yasc.Utils
     public static void Update<T>(this ObservableCollection<T> list, IEnumerable<T> src)
     {
       var currentIndexes = GetSet(list);
+      if (currentIndexes == null)
+      {
+        ClearUpdate(list, src);
+        return;
+      }
       var newIndexes = GetDic(src);
+      if (newIndexes == null)
+      {
+        ClearUpdate(list, src);
+        return;
+      }
 
       int i = 0;
       foreach (var item in src)
@@ -138,12 +148,33 @@ namespace Yasc.Utils
       while (i < list.Count)
         list.RemoveAt(list.Count - 1);
     }
+
+    private static void ClearUpdate<T>(ObservableCollection<T> list, IEnumerable<T> enumerable)
+    {
+    }
+    public static void ClearUpdate<T1, T2>(this ObservableCollection<T1> list, IEnumerable<T2> src, 
+      Converter<T1, object> listItemConverter, Converter<T2, object> srcItemConverter, 
+      Converter<T2, T1> directConverter)
+    {
+      
+    }
+
     public static void Update<T1, T2>(this ObservableCollection<T1> list, IEnumerable<T2> src, 
       Converter<T1, object> listItemConverter, Converter<T2, object> srcItemConverter, 
       Converter<T2, T1> directConverter)
     {
       var currentIndexes = GetSet(list, listItemConverter);
+      if (currentIndexes == null)
+      {
+        ClearUpdate(list, src, listItemConverter, srcItemConverter, directConverter);
+        return;
+      }
       var newIndexes = GetDic(src, srcItemConverter);
+      if (newIndexes == null)
+      {
+        ClearUpdate(list, src, listItemConverter, srcItemConverter, directConverter);
+        return;
+      }
 
       int i = 0;
       foreach (var item in src)
@@ -220,7 +251,7 @@ namespace Yasc.Utils
       var res = new HashSet<object>();
       foreach (var item in src)
         if (!res.Add(converter(item)))
-          throw new Exception("Duplicate in src collection");
+          return null;
       return res;
     }
 
@@ -231,7 +262,7 @@ namespace Yasc.Utils
       foreach (var item in src)
       {
         if (res.ContainsKey(item))
-          throw new Exception("Duplicate in src collection");
+          return null;
         res[item] = i++;
       }
       return res;
@@ -244,7 +275,7 @@ namespace Yasc.Utils
       {
         var key = converter(item);
         if (res.ContainsKey(key))
-          throw new Exception("Duplicate in src collection");
+          return null;
         res[key] = i++;
       }
       return res;
@@ -254,7 +285,7 @@ namespace Yasc.Utils
       var res = new HashSet<T>();
       foreach (var item in src)
         if (!res.Add(item))
-          throw new Exception("Duplicate in src collection");
+          return null;
       return res;
     }
   }
