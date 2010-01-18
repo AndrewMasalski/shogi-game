@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Windows.Automation;
+using System.Windows.Controls;
 
 namespace Yasc.Utils.Automation
 {
@@ -39,6 +40,16 @@ namespace Yasc.Utils.Automation
       }
       return result;
     }
+    public static AutomationElement FindFirstByType(this AutomationElement element, Type type)
+    {
+      var result = element.FindFirstByFindFirstByTypeWait(type);
+      for (int i = 0; i < WiatCyclesCount && result == null; i++)
+      {
+        Thread.Sleep(WaitCycleLength);
+        result = element.FindFirstByFindFirstByTypeWait(type);
+      }
+      return result;
+    }
     public static AutomationElement FindFirstByAutomaionIdNoWait(this AutomationElement element, string name)
     {
       return element.FindFirst(TreeScope.Descendants,
@@ -54,6 +65,11 @@ namespace Yasc.Utils.Automation
       return element.FindFirst(TreeScope.Descendants, new AndCondition(
                                                         new PropertyCondition(AutomationElement.ClassNameProperty, type.Name),
                                                         new PropertyCondition(AutomationElement.NameProperty, name)));
+    }
+    public static AutomationElement FindFirstByFindFirstByTypeWait(this AutomationElement element, Type type)
+    {
+      return element.FindFirst(TreeScope.Descendants, 
+        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
     }
 
     public static AutomationElement FindFirst(this AutomationElement element, Type type)
@@ -97,6 +113,27 @@ namespace Yasc.Utils.Automation
 
       ((InvokePattern)automationElement.
          GetCurrentPattern(InvokePattern.Pattern)).Invoke();
+    }
+    public static void InvokeMenu(this AutomationElement element, string path)
+    {
+      var menu = element.FindFirstByType(typeof(Menu));
+      if (menu == null) throw new ApplicationException("Menu not found");
+
+      int counter = 0;
+      var parts = path.Split('/');
+      foreach (var name in parts)
+      {
+        menu = menu.FindFirstByName(name);
+        if (menu == null) throw new ApplicationException("Menu not found");
+        if (++counter < parts.Length)
+        {
+          menu.Pattern<ExpandCollapsePattern>().Expand();
+        }
+        else
+        {
+          menu.Pattern<InvokePattern>().Invoke();
+        }
+      }
     }
 
     public static T Pattern<T>(this AutomationElement element)

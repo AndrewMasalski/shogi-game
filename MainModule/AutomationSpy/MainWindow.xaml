@@ -9,7 +9,7 @@
       <ColumnDefinition Width="4"/>
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
-    
+
     <TreeView ItemsSource="{Binding Roots}" Name="_tree">
       <TreeView.Resources>
         <HierarchicalDataTemplate DataType="{x:Type local:AutomationElementViewModel}" 
@@ -24,21 +24,42 @@
         </Style>
       </TreeView.ItemContainerStyle>
     </TreeView>
-    
+
     <GridSplitter Grid.Column="1" ResizeDirection="Columns" 
                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-    <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Properties}"
-             Grid.Column="2">
-      <ListBox.Resources>
-        <DataTemplate DataType="{x:Type local:ElementPropertyViewModel}">
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Name}"/>
-            <TextBlock Text=": "/>
-            <TextBlock Text="{Binding Value}"/>
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.Resources>
-    </ListBox>
+    <Grid Grid.Column="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="5*"/>
+        <RowDefinition Height="4"/>
+        <RowDefinition Height="1*"/>
+      </Grid.RowDefinitions>
+      
+      <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Properties}">
+        <ListBox.Resources>
+          <DataTemplate DataType="{x:Type local:ElementPropertyViewModel}">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Name}"/>
+              <TextBlock Text=": "/>
+              <TextBlock Text="{Binding Value}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.Resources>
+      </ListBox>
+      
+      <GridSplitter Grid.Row="1" ResizeDirection="Rows" 
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+
+      <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Patterns}"
+               Grid.Row="2">
+        <ListBox.Resources>
+          <DataTemplate DataType="{x:Type local:AutomationPatternViewModel}">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Caption}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.Resources>
+      </ListBox>
+    </Grid>
   </Grid>
 </Window>

@@ -53,6 +53,7 @@ namespace AutomationSpy
     }
     public AutomationElement Element { get; private set; }
     public ObservableCollection<ElementPropertyViewModel> Properties { get; private set; }
+    public ObservableCollection<AutomationPatternViewModel> Patterns { get; private set; }
     public ObservableCollection<AutomationElementViewModel> Children { get; private set; }
 
     public AutomationElementViewModel(AutomationElement element, Condition filterChildrenCondition)
@@ -60,6 +61,7 @@ namespace AutomationSpy
       Element = element;
       Children = new ObservableCollection<AutomationElementViewModel>();
       Properties = new ObservableCollection<ElementPropertyViewModel>();
+      Patterns = new ObservableCollection<AutomationPatternViewModel>();
       _filterChildrenCondition = filterChildrenCondition;
       _disp = Dispatcher.CurrentDispatcher;
     }
@@ -72,7 +74,10 @@ namespace AutomationSpy
       Caption = GetCaption();
 
       if (IsSelected)
+      {
         RefreshProperties();
+        RefreshPatterns();
+      }
 
       if (!IsExpanded)
         foreach (var child in Children)
@@ -117,6 +122,22 @@ namespace AutomationSpy
       {
         foreach (var p in Properties)
           p.Refresh();
+      }
+    }
+    private void RefreshPatterns()
+    {
+      // This is called on timer thread!
+      if (Patterns.Count == 0)
+      {
+        var patterns =
+          (from p in Element.GetSupportedPatterns()
+           select new AutomationPatternViewModel(Element, p)).ToList();
+
+        _disp.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+          {
+            foreach (var p in patterns)
+              Patterns.Add(p);
+          }));
       }
     }
     private string GetCaption()
