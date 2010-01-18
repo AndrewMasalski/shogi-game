@@ -166,10 +166,10 @@ namespace AutomationSpy
     private string GetCaption()
     {
       // This is called on timer thread!
-      var name = Element.Current.Name; //(string)Element.GetCurrentPropertyValue(AutomationElement.NameProperty);
+      var name = Element.Current.Name;
       if (!string.IsNullOrEmpty(name)) return name;
 
-      var className = Element.Current.ClassName; //(string)Element.GetCurrentPropertyValue(AutomationElement.ClassNameProperty);
+      var className = Element.Current.ClassName;
       if (!string.IsNullOrEmpty(className)) return className;
 
       var localizedControlType = Element.Current.LocalizedControlType;
