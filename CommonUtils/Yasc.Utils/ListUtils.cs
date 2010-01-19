@@ -149,14 +149,20 @@ namespace Yasc.Utils
         list.RemoveAt(list.Count - 1);
     }
 
-    private static void ClearUpdate<T>(ObservableCollection<T> list, IEnumerable<T> enumerable)
+    private static void ClearUpdate<T>(IList<T> list, IEnumerable<T> src)
     {
+      while (list.Count > 0)
+        list.RemoveAt(list.Count - 1);
+      foreach (var item in src)
+        list.Add(item);
     }
-    public static void ClearUpdate<T1, T2>(this ObservableCollection<T1> list, IEnumerable<T2> src, 
-      Converter<T1, object> listItemConverter, Converter<T2, object> srcItemConverter, 
-      Converter<T2, T1> directConverter)
+
+    private static void ClearUpdate<T1, T2>(IList<T1> list, IEnumerable<T2> src, Converter<T2, T1> directConverter)
     {
-      
+      while (list.Count > 0)
+        list.RemoveAt(list.Count - 1);
+      foreach (var item in src)
+        list.Add(directConverter(item));
     }
 
     public static void Update<T1, T2>(this ObservableCollection<T1> list, IEnumerable<T2> src, 
@@ -166,13 +172,13 @@ namespace Yasc.Utils
       var currentIndexes = GetSet(list, listItemConverter);
       if (currentIndexes == null)
       {
-        ClearUpdate(list, src, listItemConverter, srcItemConverter, directConverter);
+        ClearUpdate(list, src, directConverter);
         return;
       }
       var newIndexes = GetDic(src, srcItemConverter);
       if (newIndexes == null)
       {
-        ClearUpdate(list, src, listItemConverter, srcItemConverter, directConverter);
+        ClearUpdate(list, src, directConverter);
         return;
       }
 
