@@ -6,7 +6,8 @@ namespace Yasc.Gui.Game
   {
     public GameWithHumanViewModel(IPlayerGameController ticket)
     {
-      Init(ticket);
+      InitTicket(ticket);
+      InitBoard();
     }
   }
 }

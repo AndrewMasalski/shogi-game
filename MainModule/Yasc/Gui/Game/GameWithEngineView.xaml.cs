@@ -3,9 +3,9 @@ using Yasc.Controls;
 
 namespace Yasc.Gui.Game
 {
-  public partial class GameView
+  public partial class GameWithEngineView
   {
-    public GameView()
+    public GameWithEngineView()
     {
       InitializeComponent();
     }
@@ -17,8 +17,7 @@ namespace Yasc.Gui.Game
 
     private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-      var vm = DataContext as GameWithOpponentViewModel;
-      if (vm != null) vm.SendMessageCommand.Execute(null);
+      ((GameWithEngineViewModel)DataContext).SendMessageCommand.Execute(null);
     }
   }
 }

@@ -14,14 +14,13 @@ namespace Yasc.Gui.Game
     private readonly Flag _opponentMoveReaction = new Flag();
     public GameTicket Ticket { get; private set; }
 
-    protected override void Init(IPlayerGameController ticket)
+    protected void InitTicket(IPlayerGameController ticket)
     {
       Ticket = new GameTicket(ticket, OnOpponentMadeMove);
 
       IsFlipped = Ticket.MyColor == PieceColor.Black;
       IsItMyMove = Ticket.MyColor == PieceColor.White;
       IsItOpponentMove = Ticket.MyColor != PieceColor.White;
-      base.Init(ticket);
     }
     protected override void BoardOnMoved(object sender, MoveEventArgs args)
     {

@@ -12,6 +12,9 @@
     <DataTemplate DataType="{x:Type Gui:ConnectingViewModel}">
       <Gui:ConnectingView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type Game:GameWithEngineViewModel}">
+      <Game:GameWithEngineView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type Game:GameViewModel}">
       <Game:GameView/>
     </DataTemplate>
