@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Input;
 using Microsoft.Win32;
 using MvvmFoundation.Wpf;
-using Yasc.Networking;
 using Yasc.Persistence;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
@@ -183,11 +182,6 @@ namespace Yasc.Gui.Game
     #endregion
 
     #region ' Implementation '
-
-    protected virtual void Init(IPlayerGameController ticket)
-    {
-      InitBoard();
-    }
 
     protected void InitBoard()
     {

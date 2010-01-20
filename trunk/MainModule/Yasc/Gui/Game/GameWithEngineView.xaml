@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="Yasc.Gui.Game.GameView"
+﻿<UserControl x:Class="Yasc.Gui.Game.GameWithEngineView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:Yasc.Controls;assembly=Yasc.BoardControl"
              xmlns:gui="clr-namespace:Yasc.Gui"
-             xmlns:Yasc="clr-namespace:Yasc"
              xmlns:Game="clr-namespace:Yasc.Gui.Game">
 
   <DockPanel LastChildFill="True">
@@ -11,11 +10,9 @@
       <MenuItem Header="File">
         <MenuItem Header="Load Transcript"  Command="{Binding LoadTranscriptCommand}" />
       </MenuItem>
-      <MenuItem Header="Board">
-        <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
-        <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
-        <MenuItem Header="Enforce rules" IsCheckable="True"
-                  IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
+      <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
+      <MenuItem Header="Engine">
+        <MenuItem Command="{Binding OpenEngineSettingsCommand}"/>
       </MenuItem>
       <MenuItem Header="Skins" ItemsSource="{Binding AvailableSkins}"
                 DataContext="{x:Static gui:SkinningViewModel.Instance}" >
@@ -51,25 +48,7 @@
 
         <TabControl Grid.Row="1" MaxWidth="300">
           <TabItem Header="Moves">
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="*"/>
-              </Grid.RowDefinitions>
-              <Game:MovesAndCommentsControl/>
-              <TextBox Grid.Row="1" Margin="0,3,0,0" TextWrapping="Wrap"
-                       Text="{Binding CurrentMessage, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.CommandBindings>
-                  <CommandBinding Command="{x:Static Yasc:ChatCommands.SendMessage}"
-                                  Executed="CommandBinding_Executed"/>
-                </TextBox.CommandBindings>
-                <TextBox.InputBindings>
-                  <KeyBinding Key="Return" Command="{x:Static Yasc:ChatCommands.SendMessage}" />
-                </TextBox.InputBindings>
-
-              </TextBox>
-            </Grid>
-
+            <Game:MovesAndCommentsControl/>
           </TabItem>
         </TabControl>
       </Grid>

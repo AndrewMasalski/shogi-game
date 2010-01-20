@@ -1,4 +1,6 @@
 using System;
+using System.Windows.Input;
+using MvvmFoundation.Wpf;
 using Yasc.AI;
 
 namespace Yasc.Gui.Game
@@ -7,7 +9,27 @@ namespace Yasc.Gui.Game
   {
     public GameWithEngineViewModel()
     {
-      Init(new UsiAiController());
+      InitTicket(new UsiAiController());
+      InitBoard();
+    }
+    private RelayCommand _openEngineSettingsCommand;
+
+    public ICommand OpenEngineSettingsCommand
+    {
+      get
+      {
+        if (_openEngineSettingsCommand == null)
+        {
+          _openEngineSettingsCommand = new RelayCommand(OpenEngineSettings);
+        }
+        return _openEngineSettingsCommand;
+      }
+    }
+
+    private void OpenEngineSettings()
+    {
+      
+
     }
 
 
