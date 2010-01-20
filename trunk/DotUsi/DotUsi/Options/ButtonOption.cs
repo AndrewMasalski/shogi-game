@@ -1,3 +1,5 @@
+using System;
+
 namespace DotUsi
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.Button"/></summary>
@@ -21,7 +23,16 @@ namespace DotUsi
 
     internal override string CommitCommand
     {
-      get { return "setoption " + Name; }
+      get { return "setoption name " + Name; }
+    }
+
+    /// <summary>If <see cref="UsiOptionBase.IsImplicit"/> sends default 
+    ///   value of the option to the engine, otherwice raises exception!</summary>
+    /// <exception cref="InvalidOperationException">IsImplicit</exception>
+    public override void SetImplicitValue()
+    {
+      if (!IsImplicit) throw new InvalidOperationException("IsImplicit != true");
+      Press();
     }
   }
 }

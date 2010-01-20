@@ -20,13 +20,13 @@ namespace Yasc.AI
       _engine = CreateEngine(CreateEngineProcess());
     }
 
-    private static SpearCsa2009V15Driver CreateEngineProcess()
+    private static IUsiProcess CreateEngineProcess()
     {
       var enginePath = Path.Combine(
         Environment.CurrentDirectory,
         Settings.Default.CurrentEngine);
 
-      return new SpearCsa2009V15Driver(
+      return new SpearCsa2008V14Driver(
         new UsiWindowsProcess(enginePath));
     }
 
@@ -34,7 +34,8 @@ namespace Yasc.AI
     {
       var engine = new UsiEngine(process);
       engine.SynchUsi();
-      engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 3;
+      engine.SetImplicitOptions();
+      engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 1;
       engine.SynchIsReady();
       engine.SynchNewGame();
       engine.BestMove += EngineOnBestMove;

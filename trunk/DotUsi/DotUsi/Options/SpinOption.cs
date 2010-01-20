@@ -11,6 +11,13 @@ namespace DotUsi
       Min = min == null ? (int?)null : int.Parse(min);
       Max = max == null ? (int?)null : int.Parse(max);
     }
+    /// <summary>Ctor drivers use to create "implicit" options</summary>
+    internal SpinOption(UsiEngine engine, string name, bool alwaysPass, int defaultValue)
+      : base(engine, name, UsiOptionType.Check, defaultValue)
+    {
+      IsImplicit = true;
+      AlwaysPass = alwaysPass;
+    }
     /// <summary>Current option value</summary>
     public override int Value
     {
