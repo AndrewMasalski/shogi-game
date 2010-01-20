@@ -8,7 +8,7 @@ using Yasc.ShogiCore.Moves;
 
 namespace Yasc.AI
 {
-  public class UsiAiController : AiControllerBase
+  public class UsiAiController : AiControllerBase, IDisposable
   {
     private readonly Board _board;
     private readonly UsiEngine _engine;
@@ -87,6 +87,11 @@ namespace Yasc.AI
       return usiMove.Contains("*") ?
         board.GetMove(usiMove.Replace('*', '\'')) :
         board.GetMove(usiMove.Insert(2, "-"));
+    }
+
+    public void Dispose()
+    {
+      _engine.Dispose();
     }
   }
 }
