@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
+using Yasc.Gui.Game;
 using Yasc.Networking;
 using Yasc.Utils;
 
@@ -57,7 +58,7 @@ namespace Yasc.Gui
     public IServerSession Session { get; internal set; }
     public ShogiServer Server { get; private set; }
     public IPlayerGameController GameTicket { get; set; }
-    public ObservableCollection<GameViewModel> Games { get; private set; }
+    public ObservableCollection<GameItemViewModel> Games { get; private set; }
     public ObservableCollection<UserViewModel> Users { get; private set; }
 
     public ServerViewModel(string serverAddress, IServerSession session)
@@ -85,8 +86,8 @@ namespace Yasc.Gui
 
       InitUsersCollection();
 
-      Games = new ObservableCollection<GameViewModel>(
-        from g in Session.Games select new GameViewModel(g));
+      Games = new ObservableCollection<GameItemViewModel>(
+        from g in Session.Games select new GameItemViewModel(g));
     }
 
     private void InitUsersCollection()
@@ -114,12 +115,10 @@ namespace Yasc.Gui
     }
     private void RefreshGames()
     {
-      throw new NotImplementedException();
-      
-       
-//      Games.Update(Session.Games, gvm => gvm.Ticket, 
-//      ig=> need something here!,
-//      g => new GameViewModel(g));
+      Games.Update(Session.Games, 
+        givm => givm.ServerGame, 
+        ig => ig,
+        ig => new GameItemViewModel(ig));
     }
     private void UsersRefresh()
     {
