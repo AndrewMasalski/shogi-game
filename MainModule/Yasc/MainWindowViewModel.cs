@@ -1,6 +1,7 @@
 ﻿using System;
 using MvvmFoundation.Wpf;
 using Yasc.Gui;
+using Yasc.Gui.Game;
 using Yasc.Networking;
 using Yasc.Properties;
 
@@ -29,8 +30,10 @@ namespace Yasc
           GoWelcome();
           break;
         case WelcomeChoice.ArtificialIntelligence:
+          GoGameWithComp();
+          break;
         case WelcomeChoice.Autoplay:
-          GoGame(Settings.Default.DefaultStartMode);
+          GoAutoplay();
           break;
         case WelcomeChoice.BecomeServer:
           AutoBecomeServer();
@@ -82,8 +85,10 @@ namespace Yasc
       switch (welcomeViewModel.Mode)
       {
         case WelcomeChoice.ArtificialIntelligence:
+          GoGameWithComp();
+          break;
         case WelcomeChoice.Autoplay:
-          GoGame(welcomeViewModel.Mode);
+          GoAutoplay();
           break;
         case WelcomeChoice.ConnectToServer:
           GoConnecting(new ConnectingViewModel(
@@ -153,15 +158,21 @@ namespace Yasc
       serverViewModel.GameNegotiation += OnGameNegotiation;
       CurrentView = serverViewModel;
     }
-    private void GoGame(WelcomeChoice choice)
+    private void GoGameWithComp()
     {
-      var gameViewModel = new GameViewModel(choice);
+      var gameViewModel = new GameWithEngineViewModel();
+      gameViewModel.GameOver += OnGameOver;
+      CurrentView = gameViewModel;
+    }
+    private void GoAutoplay()
+    {
+      var gameViewModel = new AutoplayViewModel();
       gameViewModel.GameOver += OnGameOver;
       CurrentView = gameViewModel;
     }
     private void GoGame(IPlayerGameController ticket)
     {
-      var gameViewModel = new GameViewModel(ticket);
+      var gameViewModel = new GameWithHumanViewModel(ticket);
       gameViewModel.GameOver += OnGameOver;
       CurrentView = gameViewModel;
     }
@@ -190,7 +201,9 @@ namespace Yasc
     {
       var gameViewModel = (GameViewModel)sender;
       gameViewModel.GameOver -= OnGameOver;
-      gameViewModel.Dispose();
+      
+      var disp = gameViewModel as IDisposable;
+      if (disp != null) disp.Dispose();
     }
   }
 }

@@ -97,9 +97,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gui\GameView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Gui\Game\GameView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Gui\LogOnView.xaml">
       <SubType>Designer</SubType>
@@ -136,6 +136,15 @@
     <Compile Include="ChatCommands.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Gui\Game\AutoplayViewModel.cs" />
+    <Compile Include="Gui\Game\GameItemViewModel.cs" />
+    <Compile Include="Gui\Game\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Game\GameViewModel.cs" />
+    <Compile Include="Gui\Game\GameWithEngineViewModel.cs" />
+    <Compile Include="Gui\Game\GameWithHumanViewModel.cs" />
+    <Compile Include="Gui\Game\GameWithOpponentViewModel.cs" />
     <Compile Include="Model\ChatMessage.cs" />
     <Compile Include="Utils\GameTicket.cs" />
     <Compile Include="AI\RandomAiController.cs" />
@@ -143,10 +152,6 @@
       <DependentUpon>ConnectingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\ConnectingViewModel.cs" />
-    <Compile Include="Gui\GameView.xaml.cs">
-      <DependentUpon>GameView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\GameViewModel.cs" />
     <Compile Include="Gui\LogOnView.xaml.cs">
       <DependentUpon>LogOnView.xaml</DependentUpon>
     </Compile>

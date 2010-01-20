@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Gui;
+using Yasc.Gui.Game;
 using Yasc.Properties;
 using Yasc.ShogiCore;
 
@@ -19,7 +19,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void ClearBoard()
     {
-      var model = new GameViewModel(WelcomeChoice.Autoplay);
+      var model = new AutoplayViewModel();
       model.CleanBoardCommand.Execute(null);
       Assert.AreEqual(0, (from p in Position.OnBoard
                           where model.Board[p] != null 
@@ -31,7 +31,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void ParticipantsTest()
     {
-      var model = new GameViewModel(WelcomeChoice.ArtificialIntelligence);
+      var model = new GameWithEngineViewModel();
       Assert.AreEqual("You", model.Ticket.Me.Name);
       Assert.AreEqual(PieceColor.White, model.Ticket.MyColor);
       Assert.IsTrue(model.IsItMyMove);
@@ -43,7 +43,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void TimerTest()
     {
-      var model = new GameViewModel(WelcomeChoice.Autoplay)
+      var model = new AutoplayViewModel()
                     {
                       MyTime = TimeSpan.FromMinutes(1),
                       OpponentTime = TimeSpan.FromMinutes(1)
@@ -77,7 +77,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void AiTimerTest()
     {
-      var model = new GameViewModel(WelcomeChoice.ArtificialIntelligence)
+      var model = new GameWithEngineViewModel()
       {
         MyTime = TimeSpan.FromMinutes(1),
         OpponentTime = TimeSpan.FromMinutes(1)

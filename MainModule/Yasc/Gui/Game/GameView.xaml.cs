@@ -3,7 +3,7 @@ using System.Windows.Input;
 using Yasc.Common;
 using Yasc.Controls;
 
-namespace Yasc.Gui
+namespace Yasc.Gui.Game
 {
   public partial class GameView
   {
@@ -24,7 +24,7 @@ namespace Yasc.Gui
 
     private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
     {
-      ((GameViewModel)DataContext).SendMessageCommand.Execute(null);
+      ((GameWithOpponentViewModel)DataContext).SendMessageCommand.Execute(null);
     }
   }
 }
