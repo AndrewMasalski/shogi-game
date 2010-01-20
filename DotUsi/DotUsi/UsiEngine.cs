@@ -59,7 +59,8 @@ namespace DotUsi
     {
       Info = new EngineInfo();
       _process = process;
-      process.OutputDataReceived += ReceiveOutputData;
+      _process.OutputDataReceived += ReceiveOutputData;
+      SetEngine();
     }
 
     #region ' Public Methods '
@@ -307,6 +308,7 @@ namespace DotUsi
           }
           else if (e.Line == "usiok")
           {
+            LoadImplicitOptions();
             Mode = EngineMode.Ready;
             OnUsiOK(EventArgs.Empty);
           }
@@ -427,6 +429,34 @@ namespace DotUsi
     }
 
     #endregion
+
+    #region ' IEngineHook '
+
+    private void SetEngine()
+    {
+      var hook = _process as IEngineHook;
+      if (hook == null) return;
+      hook.SetEngine(this);
+    }
+    private void LoadImplicitOptions()
+    {
+      var hook = _process as IEngineHook;
+      if (hook == null) return;
+      _options.AddRange(hook.GetImplicitOptions());
+    }
+
+    /// <summary>Sets mandatory implicit options if they are</summary>
+    public void SetImplicitOptions()
+    {
+      var hook = _process as IEngineHook;
+      if (hook == null) return;
+      foreach (var option in Options)
+        if (option.IsImplicit)
+          option.SetImplicitValue();
+    }
+
+    #endregion
+
 
     /// <summary>This is sent to the engine to change its internal parameters.</summary>
     /// <param name="option">One from <see cref="Options"/> collection</param>

@@ -56,7 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drivers\IEngineHook.cs" />
     <Compile Include="Drivers\Lesserkai133Driver.cs" />
+    <Compile Include="Drivers\SpearCsa2008V14Driver.cs" />
     <Compile Include="Drivers\SpearCsa2009V15Driver.cs" />
     <Compile Include="SynchEngineExtensions.cs" />
     <Compile Include="EventArgs\BestMoveEventArgs.cs" />

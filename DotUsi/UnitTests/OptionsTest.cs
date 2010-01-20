@@ -13,7 +13,7 @@ namespace UnitTests
     {
       Assert.AreEqual(UsiOptionType.Button, Option.OptionType);
       Option.Press();
-      Assert.AreEqual("setoption SomeName", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
     }
 
@@ -33,7 +33,7 @@ namespace UnitTests
       Assert.IsTrue(Option.Value);
       
       Option.Value = false;
-      Assert.AreEqual("setoption SomeName value false", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value false", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Option.Value = false;
@@ -43,7 +43,7 @@ namespace UnitTests
       Assert.IsFalse(Option.Value);
 
       Option.Value = true;
-      Assert.AreEqual("setoption SomeName value true", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value true", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Assert.IsTrue(Option.Value);
@@ -65,7 +65,7 @@ namespace UnitTests
       Assert.AreEqual(300, Option.Value);
       
       Option.Value = 200;
-      Assert.AreEqual("setoption SomeName value 200", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value 200", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Option.Value = 200;
@@ -75,7 +75,7 @@ namespace UnitTests
       Assert.AreEqual(200, Option.Value);
 
       Option.Value = 350;
-      Assert.AreEqual("setoption SomeName value 350", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value 350", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Assert.AreEqual(350, Option.Value);
@@ -98,7 +98,7 @@ namespace UnitTests
       CollectionAssert.AreEqual(new []{"100", "200", "300", "400"}, Option.PossibleValues);
       
       Option.Value = "200";
-      Assert.AreEqual("setoption SomeName value 200", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value 200", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Option.Value = "200";
@@ -108,7 +108,7 @@ namespace UnitTests
       Assert.AreEqual("200", Option.Value);
 
       Option.Value = "400";
-      Assert.AreEqual("setoption SomeName value 400", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value 400", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Assert.AreEqual("400", Option.Value);
@@ -137,7 +137,7 @@ namespace UnitTests
       Assert.AreEqual("300", Option.Value);
 
       Option.Value = "200";
-      Assert.AreEqual("setoption SomeName value 200", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value 200", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Option.Value = "200";
@@ -147,7 +147,7 @@ namespace UnitTests
       Assert.AreEqual("200", Option.Value);
 
       Option.Value = "400";
-      Assert.AreEqual("setoption SomeName value 400", InputData.Dequeue());
+      Assert.AreEqual("setoption name SomeName value 400", InputData.Dequeue());
       Assert.AreEqual(EngineMode.Corrupted, Engine.Mode);
 
       Assert.AreEqual("400", Option.Value);

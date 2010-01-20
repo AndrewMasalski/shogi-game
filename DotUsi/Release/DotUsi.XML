@@ -73,6 +73,11 @@
         <member name="M:DotUsi.UsiOptionBase.#ctor(DotUsi.UsiEngine,System.String,DotUsi.UsiOptionType)">
             <summary>ctor</summary>
         </member>
+        <member name="M:DotUsi.UsiOptionBase.SetImplicitValue">
+            <summary>If <see cref="P:DotUsi.UsiOptionBase.IsImplicit"/> sends default 
+              value of the option to the engine, otherwice raises exception!</summary>
+            <exception cref="T:System.InvalidOperationException">IsImplicit</exception>
+        </member>
         <member name="P:DotUsi.UsiOptionBase.Engine">
             <summary>Owner engine reference</summary>
         </member>
@@ -81,6 +86,19 @@
         </member>
         <member name="P:DotUsi.UsiOptionBase.OptionType">
             <summary>Option type</summary>
+        </member>
+        <member name="P:DotUsi.UsiOptionBase.IsImplicit">
+            <summary>
+               True, if driver created that option, 
+               false if engine reported about it
+             </summary>
+        </member>
+        <member name="P:DotUsi.UsiOptionBase.AlwaysPass">
+            <summary>
+               True, if engine won't work well if you don't pass that option 
+               (default value is invalid than)
+               false if engine can leave without it
+             </summary>
         </member>
         <member name="M:DotUsi.ValueOptionBase`1.#ctor(DotUsi.UsiEngine,System.String,DotUsi.UsiOptionType,`0)">
             <summary>ctor</summary>
@@ -91,12 +109,20 @@
         <member name="M:DotUsi.ValueOptionBase`1.ValueToString">
             <summary>Override to specify how the <see cref="P:DotUsi.ValueOptionBase`1.Value"/> should be represented in USI command</summary>
         </member>
+        <member name="M:DotUsi.ValueOptionBase`1.SetImplicitValue">
+            <summary>If <see cref="P:DotUsi.UsiOptionBase.IsImplicit"/> sends default 
+              value of the option to the engine, otherwice raises exception!</summary>
+            <exception cref="T:System.InvalidOperationException">IsImplicit</exception>
+        </member>
         <member name="P:DotUsi.ValueOptionBase`1.Value">
             <summary>Current option value</summary>
             <remarks>Not case sensitive, cannot contain spaces</remarks>
         </member>
         <member name="M:DotUsi.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.String)">
-            <summary>ctor</summary>
+            <summary>Ctor engine uses when parse engine response</summary>
+        </member>
+        <member name="M:DotUsi.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.Boolean)">
+            <summary>Ctor drivers use to create "implicit" options</summary>
         </member>
         <member name="M:DotUsi.CheckOption.ValueToString">
             <summary>Override to specify how the <see cref="P:DotUsi.ValueOptionBase`1.Value"/> should be represented in USI command</summary>
@@ -246,6 +272,9 @@
         <member name="T:DotUsi.SpinOption">
             <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.Spin"/></summary>
         </member>
+        <member name="M:DotUsi.SpinOption.#ctor(DotUsi.UsiEngine,System.String,System.Boolean,System.Int32)">
+            <summary>Ctor drivers use to create "implicit" options</summary>
+        </member>
         <member name="P:DotUsi.SpinOption.Value">
             <summary>Current option value</summary>
         </member>
@@ -267,6 +296,18 @@
         </member>
         <member name="M:DotUsi.WhiteIncrementModifier.GetCommandName">
             <summary>Override to define what to pass to engine as a name of option in 'setoption' command</summary>
+        </member>
+        <member name="T:DotUsi.IEngineHook">
+            <summary>If <see cref="T:DotUsi.IUsiProcess"/> supports that interface
+              <see cref="T:DotUsi.UsiEngine"/> will pass additional info to it.
+            </summary>
+            <remarks>To be used with drivers</remarks>
+        </member>
+        <member name="M:DotUsi.IEngineHook.SetEngine(DotUsi.UsiEngine)">
+            <summary>Engine gives reference to itself to the driver</summary>
+        </member>
+        <member name="M:DotUsi.IEngineHook.GetImplicitOptions">
+            <summary>Engine extends its options set with the options this method returns</summary>
         </member>
         <member name="T:DotUsi.SearchMateModifier">
             <summary>Search for a mate</summary>
@@ -365,6 +406,11 @@
         </member>
         <member name="M:DotUsi.ButtonOption.ToString">
             <summary> Gets the user friendly representation of the option</summary>
+        </member>
+        <member name="M:DotUsi.ButtonOption.SetImplicitValue">
+            <summary>If <see cref="P:DotUsi.UsiOptionBase.IsImplicit"/> sends default 
+              value of the option to the engine, otherwice raises exception!</summary>
+            <exception cref="T:System.InvalidOperationException">IsImplicit</exception>
         </member>
         <member name="T:DotUsi.SearchMovesModifier">
             <summary>Restricts search to some branches.</summary>
@@ -536,6 +582,9 @@
         <member name="M:DotUsi.UsiEngine.Dispose">
             <summary>Closes the engine process and releases all resources</summary>
         </member>
+        <member name="M:DotUsi.UsiEngine.SetImplicitOptions">
+            <summary>Sets mandatory implicit options if they are</summary>
+        </member>
         <member name="M:DotUsi.UsiEngine.SetOption(DotUsi.UsiOptionBase,System.Boolean)">
             <summary>This is sent to the engine to change its internal parameters.</summary>
             <param name="option">One from <see cref="P:DotUsi.UsiEngine.Options"/> collection</param>
@@ -579,6 +628,16 @@
         </member>
         <member name="E:DotUsi.UsiEngine.ReadyOK">
             <summary>Raised when engine confirms that it's ready after <see cref="M:DotUsi.UsiEngine.IsReady"/> command</summary>
+        </member>
+        <member name="T:DotUsi.SpearCsa2008V14Driver">
+            <summary>Driver for Spear CSA 2008 v.1.4 </summary>
+        </member>
+        <member name="M:DotUsi.SpearCsa2008V14Driver.#ctor(DotUsi.IUsiProcess)">
+            <summary>ctor</summary>
+            <param name="process">Raw process to decorate</param>
+        </member>
+        <member name="M:DotUsi.SpearCsa2008V14Driver.WriteLine(System.String)">
+            <summary>Override to change behaviour</summary>
         </member>
         <member name="T:DotUsi.MovesToGoModifier">
             <summary>There are n moves to the next time control.</summary>

@@ -1,3 +1,5 @@
+using System;
+
 namespace DotUsi
 {
   ///<summary>Base class for options with scalar value</summary>
@@ -28,7 +30,7 @@ namespace DotUsi
 
     internal override string CommitCommand
     {
-      get { return "setoption " + Name + " value " + ValueToString(); }
+      get { return "setoption name " + Name + " value " + ValueToString(); }
     }
 
     /// <summary>Get's user friendly representation of option</summary>
@@ -40,6 +42,15 @@ namespace DotUsi
     protected virtual string ValueToString()
     {
       return Value.ToString();
+    }
+
+    /// <summary>If <see cref="UsiOptionBase.IsImplicit"/> sends default 
+    ///   value of the option to the engine, otherwice raises exception!</summary>
+    /// <exception cref="InvalidOperationException">IsImplicit</exception>
+    public override void SetImplicitValue()
+    {
+      if (!IsImplicit) throw new InvalidOperationException("IsImplicit != true");
+      Engine.SetOption(this, true);
     }
   }
 }
