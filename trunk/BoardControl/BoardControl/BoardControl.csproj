@@ -106,7 +106,6 @@
     <Compile Include="Controls\Automation\HandNestAutomationPeer.cs" />
     <Compile Include="Controls\PieceDirection.cs" />
     <Compile Include="Controls\PieceHolderBase.cs" />
-    <Compile Include="Controls\Shield.cs" />
     <Compile Include="Controls\Automation\ShogiBoardAutomationPeer.cs" />
     <Compile Include="Controls\ShogiBoardCore.cs" />
     <Compile Include="Controls\Automation\ShogiBoardCoreAutomationPeer.cs" />
