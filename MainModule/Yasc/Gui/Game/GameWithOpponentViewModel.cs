@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using MvvmFoundation.Wpf;
@@ -63,6 +64,42 @@ namespace Yasc.Gui.Game
       MovesAndComments.Add(new ChatMessage(DateTime.Now, CurrentMessage, Ticket.Me.Name));
       CurrentMessage = "";
 
+    }
+
+    public void UndoLastMove()
+    {
+      if (!Board.History.IsCurrentMoveLast) return;
+      if (Board.History.IsEmpty) return;
+      if (Board.History.CurrentMove.Who.Color != Ticket.MyColor) return;
+      
+      Board.History.CurrentMoveIndex -= 2;
+      Ticket.UndoLastMove();
+
+      MovesAndComments.FindLastAndRemove(o => o is MoveBase);
+      MovesAndComments.FindLastAndRemove(o => o is MoveBase);
+    }
+  }
+
+  public static class ListExtensions
+  {
+    public static bool FindLastAndRemove<T>(this IList<T> list, Predicate<T> predicate)
+    {
+      var last = list.FindLast(predicate);
+      if (last != -1)
+      {
+        list.RemoveAt(last);
+        return true;
+      }
+      return false;
+    }
+
+    public static int FindLast<T>(this IList<T> list, Predicate<T> predicate)
+    {
+      for (int i = list.Count - 1; i >= 0; i++)
+        if (predicate(list[i]))
+          return i;
+
+      return -1;
     }
   }
 }

@@ -13,6 +13,8 @@ namespace Yasc.AI
 
     #region Implementation of IPlayerGameController
 
+    public abstract void UndoLastMove();
+
     public IServerGame Game
     {
       get { return new AiGame(); }
@@ -48,6 +50,14 @@ namespace Yasc.AI
     {
       add { }
       remove { }
+    }
+
+    public event EventHandler OpponentTakesBack;
+
+    protected void InvokeOpponentTakesBack(EventArgs e)
+    {
+      var handler = OpponentTakesBack;
+      if (handler != null) handler(this, e);
     }
 
     private class AiGame : IServerGame

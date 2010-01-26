@@ -3,14 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:Yasc.Controls;assembly=Yasc.BoardControl"
              xmlns:gui="clr-namespace:Yasc.Gui"
-             xmlns:Game="clr-namespace:Yasc.Gui.Game">
-
+             xmlns:Game="clr-namespace:Yasc.Gui.Game"
+             xmlns:Yasc="clr-namespace:Yasc">
+  <UserControl.CommandBindings>
+    <CommandBinding Command="{x:Static Yasc:GameCommands.TakeBack}" 
+                    Executed="OnUndo" 
+                    CanExecute="CommandBinding_CanExecute"></CommandBinding>
+  </UserControl.CommandBindings>
+  <UserControl.InputBindings>
+    <KeyBinding Command="{x:Static Yasc:GameCommands.TakeBack}" Gesture="CTRL+Z" />
+  </UserControl.InputBindings>
   <DockPanel LastChildFill="True">
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="File">
         <MenuItem Header="Load Transcript"  Command="{Binding LoadTranscriptCommand}" />
       </MenuItem>
       <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
+      <MenuItem Header="Undo" Command="{x:Static Yasc:GameCommands.TakeBack}" />
       <MenuItem Header="Engine">
         <MenuItem Command="{Binding OpenEngineSettingsCommand}"/>
       </MenuItem>
