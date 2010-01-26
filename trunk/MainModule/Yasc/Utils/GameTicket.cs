@@ -43,5 +43,10 @@ namespace Yasc.Gui
         ((IDisposable) _ticket).Dispose();
       }
     }
+
+    public void UndoLastMove()
+    {
+      _ticket.UndoLastMove();
+    }
   }
 }

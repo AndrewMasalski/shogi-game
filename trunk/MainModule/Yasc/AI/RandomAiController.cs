@@ -17,6 +17,14 @@ namespace Yasc.AI
       Shogi.InitBoard(_board);
     }
 
+    public override void UndoLastMove()
+    {
+      if (_board.History.CurrentMove.Who.Color != MyColor)
+        throw new Exception("Wait until comp stop thinking!");
+      
+      _board.History.CurrentMoveIndex -= 2;
+    }
+
     protected override void OnHumanMoved(string hisMove)
     {
       Thread.Sleep(1000);
