@@ -28,6 +28,12 @@ namespace Yasc.Networking
       {
         _game.Say(this, text);
       }
+
+      public void UndoLastMove()
+      {
+        _game.UndoLastMove(this);
+      }
+
       public Func<MoveMsg, DateTime> OpponentMadeMove { private get; set; }
       public event Action<string> OpponentSaidSomething;
       public PlayerGameController(ServerGame game, PieceColor color)
@@ -48,8 +54,16 @@ namespace Yasc.Networking
       }
       public void InvokeOpponentSaidSomething(string obj)
       {
-        Action<string> something = OpponentSaidSomething;
+        var something = OpponentSaidSomething;
         if (something != null) something(obj);
+      }
+
+      public event EventHandler OpponentTakesBack;
+
+      public void InvokeOpponentTakesBack()
+      {
+        var handler = OpponentTakesBack;
+        if (handler != null) handler(this, EventArgs.Empty);
       }
     }
   }

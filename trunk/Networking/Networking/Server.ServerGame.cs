@@ -74,6 +74,11 @@ namespace Yasc.Networking
         foreach (var spectator in _spectators)
           spectator.InvokeSomeoneSaidSomething(controller.MyColor, text);
       }
+
+      public void UndoLastMove(PlayerGameController controller)
+      {
+        Opponent(controller).InvokeOpponentTakesBack();
+      }
     }
   }
 }
