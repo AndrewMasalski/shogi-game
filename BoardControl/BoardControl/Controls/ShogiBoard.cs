@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using MvvmFoundation.Wpf;
 using Yasc.Controls.Automation;
 using Yasc.GenericDragDrop;
 using Yasc.ShogiCore;
@@ -16,7 +15,6 @@ using Yasc.Utils;
 namespace Yasc.Controls
 {
   [TemplatePart(Name = "PART_AdornerLayer", Type = typeof(Canvas))]
-  [TemplatePart(Name = "PART_Shield", Type = typeof(ContentControl))]
   public class ShogiBoard : Control
   {
     #region ' Ctors '
@@ -87,9 +85,31 @@ namespace Yasc.Controls
         AnimateMove(GetCell(d.To), hand[d.PieceType] ?? (UIElement)hand);
       }
     }
+
+    public void TraceConnectivity()
+    {
+      int counter = 0, disc = 0;
+      foreach (var p in Position.OnBoard)
+      {
+        var cell = GetCell(p);
+        if (cell.ShogiPiece != null)
+        {
+          counter++;
+          if (cell.ShogiPiece.FindCommonVisualAncestor(cell) == null)
+//          if (cell.ShogiPiece.FindCommonVisualAncestor(_adornerLayer) == null)
+          {
+            disc++;
+          }
+        }
+      }
+      Console.WriteLine("{0} bad of {1}", disc, counter);
+    }
+
     private void AnimateMove(PieceHolderBase fromControl, UIElement toCtrl)
     {
       var pieceControl = fromControl.ShogiPiece;
+      // TODO: Find out what's going on here
+      if (pieceControl.FindCommonVisualAncestor(_adornerLayer) == null) return;
       MoveToAdornerLayer(fromControl);
       var to = toCtrl.TransformToVisual(_adornerLayer).Transform(new Point(0, 0));
       toCtrl.Visibility = Visibility.Hidden;
@@ -359,10 +379,6 @@ namespace Yasc.Controls
       {
         newValue.Moving += BoardOnMoving;
         newValue.HistoryNavigating += OnHistoryNavigating;
-
-        IsCurrentMoveLast = newValue.History.IsCurrentMoveLast;
-        _movesHistoryObserver = new PropertyObserver<MovesHistory>(newValue.History).
-          RegisterHandler(h => h.IsCurrentMoveLast, h => IsCurrentMoveLast = h.IsCurrentMoveLast);
       }
     }
 
@@ -411,68 +427,15 @@ namespace Yasc.Controls
 
     #endregion
 
-    #region ' IsCurrentMoveLast Property '
-
-    public static readonly DependencyProperty IsCurrentMoveLastProperty =
-      DependencyProperty.Register("IsCurrentMoveLast", typeof(bool),
-        typeof(ShogiBoard), new UIPropertyMetadata(false, OnIsCurrentMoveLastPropertyChanged));
-
-    private static void OnIsCurrentMoveLastPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-      ((ShogiBoard)d).OnIsCurrentMoveLastPropertyChanged((bool)e.NewValue);
-
-    }
-    private void OnIsCurrentMoveLastPropertyChanged(bool value)
-    {
-      if (_shieldContainer == null) return;
-      if (!value)
-      {
-        Shield shieldControl;
-        if (_shieldControl == null)
-        {
-          _shieldControl = new WeakReference<Shield>(shieldControl = CreateShield());
-        }
-        else
-        {
-          shieldControl = _shieldControl.Target;
-        }
-
-        if (shieldControl == null)
-        {
-          _shieldControl.Target = shieldControl = CreateShield();
-        }
-
-        _shieldContainer.Content = shieldControl;
-      }
-      else _shieldContainer.Content = null;
-    }
-
-    private Shield CreateShield()
-    {
-      var shield = new Shield();
-      shield.MouseUp += (s, e) => Board.History.GoToTheLast();
-      return shield;
-    }
-
-    public bool IsCurrentMoveLast
-    {
-      get { return (bool)GetValue(IsCurrentMoveLastProperty); }
-      set { SetValue(IsCurrentMoveLastProperty, value); }
-    }
-
-    #endregion
-
     #region ' Parts '
 
     public override void OnApplyTemplate()
     {
       _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
-      _shieldContainer = GetTemplateChild("PART_Shield") as ContentControl;
       base.OnApplyTemplate();
     }
 
     private Canvas _adornerLayer;
-    private ContentControl _shieldContainer;
 
     #endregion
 
@@ -491,13 +454,8 @@ namespace Yasc.Controls
 
     #region ' Fields '
 
-    private WeakReference<Shield> _shieldControl;
     private readonly Dnd _dnd;
     private readonly Flag _dragMove = new Flag();
-    /// <summary>Holds the reference to prevent GC from collecting</summary>
-    // ReSharper disable UnaccessedField.Local
-    private PropertyObserver<MovesHistory> _movesHistoryObserver;
-    // ReSharper restore UnaccessedField.Local
 
     #endregion
 
