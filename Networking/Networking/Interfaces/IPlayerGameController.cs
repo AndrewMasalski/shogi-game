@@ -11,8 +11,10 @@ namespace Yasc.Networking
 
     void Move(MoveMsg move);
     void Say(string move);
+    void UndoLastMove();
 
     Func<MoveMsg, DateTime> OpponentMadeMove { set; }
     event Action<string> OpponentSaidSomething;
+    event EventHandler OpponentTakesBack;
   }
 }
