@@ -12,7 +12,32 @@ namespace Yasc.Gui.Game
 {
   public abstract class GameWithOpponentViewModel : GameViewModel
   {
+    private RelayCommand _sendMessageCommand;
+    private RelayCommand _takeBackCommand;
     private readonly Flag _opponentMoveReaction = new Flag();
+
+    public ICommand TakeBackCommand
+    {
+      get
+      {
+        if (_takeBackCommand == null)
+        {
+          _takeBackCommand = new RelayCommand(UndoLastMove);
+        }
+        return _takeBackCommand;
+      }
+    }
+    public ICommand SendMessageCommand
+    {
+      get
+      {
+        if (_sendMessageCommand == null)
+        {
+          _sendMessageCommand = new RelayCommand(SendMessage);
+        }
+        return _sendMessageCommand;
+      }
+    }
     public GameTicket Ticket { get; private set; }
 
     protected void InitTicket(IPlayerGameController ticket)
@@ -40,19 +65,6 @@ namespace Yasc.Gui.Game
         MessageBox.Show("You won!");
       }
     }
-    private RelayCommand _sendMessageCommand;
-
-    public ICommand SendMessageCommand
-    {
-      get
-      {
-        if (_sendMessageCommand == null)
-        {
-          _sendMessageCommand = new RelayCommand(SendMessage);
-        }
-        return _sendMessageCommand;
-      }
-    }
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
@@ -65,10 +77,8 @@ namespace Yasc.Gui.Game
       CurrentMessage = "";
 
     }
-
-    public void UndoLastMove()
+    private void UndoLastMove()
     {
-      if (!Board.History.IsCurrentMoveLast) return;
       if (Board.History.IsEmpty) return;
       if (Board.History.CurrentMove.Who.Color != Ticket.MyColor) return;
       

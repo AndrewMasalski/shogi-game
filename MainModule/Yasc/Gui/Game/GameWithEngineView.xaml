@@ -5,21 +5,21 @@
              xmlns:gui="clr-namespace:Yasc.Gui"
              xmlns:Game="clr-namespace:Yasc.Gui.Game"
              xmlns:Yasc="clr-namespace:Yasc">
-  <UserControl.CommandBindings>
-    <CommandBinding Command="{x:Static Yasc:GameCommands.TakeBack}" 
-                    Executed="OnUndo" 
-                    CanExecute="CommandBinding_CanExecute"></CommandBinding>
-  </UserControl.CommandBindings>
-  <UserControl.InputBindings>
-    <KeyBinding Command="{x:Static Yasc:GameCommands.TakeBack}" Gesture="CTRL+Z" />
-  </UserControl.InputBindings>
+<!--  <UserControl.CommandBindings>-->
+<!--    <CommandBinding Command="{x:Static Yasc:GameCommands.TakeBack}" -->
+<!--                    Executed="OnUndo" -->
+<!--                    CanExecute="CommandBinding_CanExecute"></CommandBinding>-->
+<!--  </UserControl.CommandBindings>-->
+<!--  <UserControl.InputBindings>-->
+<!--    <KeyBinding Command="{x:Static Yasc:GameCommands.TakeBack}" Gesture="CTRL+Z" />-->
+<!--  </UserControl.InputBindings>-->
   <DockPanel LastChildFill="True">
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="File">
         <MenuItem Header="Load Transcript"  Command="{Binding LoadTranscriptCommand}" />
       </MenuItem>
       <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
-      <MenuItem Header="Undo" Command="{x:Static Yasc:GameCommands.TakeBack}" />
+      <MenuItem Header="Undo" Command="{Binding TakeBackCommand}" />
       <MenuItem Header="Engine">
         <MenuItem Command="{Binding OpenEngineSettingsCommand}"/>
       </MenuItem>
@@ -45,7 +45,7 @@
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
       <controls:ShogiBoard x:Name="board" MoveAttempt="OnMoveAttempt" 
-                           Board="{Binding Board}" 
+                           Board="{Binding Board}" Focusable="True"
                            IsFlipped="{Binding IsFlipped}"/>
 
       <Grid Grid.Column="1">

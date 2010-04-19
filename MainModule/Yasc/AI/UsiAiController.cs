@@ -35,7 +35,7 @@ namespace Yasc.AI
       var engine = new UsiEngine(process);
       engine.SynchUsi();
       engine.SetImplicitOptions();
-      engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = 1;
+      engine.Options.Where(o => o.Name == "SpearLevel").Cast<SpinOption>().First().Value = Settings.Default.EngineLevel;
       engine.SynchIsReady();
       engine.SynchNewGame();
       engine.BestMove += EngineOnBestMove;
@@ -58,8 +58,8 @@ namespace Yasc.AI
 
     public override void UndoLastMove()
     {
-      if (_board.History.CurrentMove.Who.Color != MyColor)
-        throw new Exception("Wait until comp stop thinking!");
+//      if (_board.History.CurrentMove.Who.Color != MyColor)
+//        throw new Exception("Wait until comp stop thinking!");
       
       _board.History.CurrentMoveIndex -= 2;
     }

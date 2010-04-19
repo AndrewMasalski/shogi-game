@@ -235,7 +235,8 @@ namespace Yasc.Gui.Game
                     CheckFileExists = true,
                     DefaultExt = ".psn",
                     DereferenceLinks = true,
-                    Title = "Choose PSN transcript file to open"
+                    Title = "Choose PSN transcript file to open",
+                    Filter = "PSN files|*.psn"
                   };
       if (dlg.ShowDialog() == true)
       {
