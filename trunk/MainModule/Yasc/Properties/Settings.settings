@@ -44,5 +44,8 @@
     <Setting Name="CurrentEngine" Type="System.String" Scope="User">
       <Value Profile="(Default)">Engines\Spear\SpearShogidokoro.exe</Value>
     </Setting>
+    <Setting Name="EngineLevel" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
