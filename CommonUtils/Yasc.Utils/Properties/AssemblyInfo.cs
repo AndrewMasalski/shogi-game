@@ -38,7 +38,6 @@ using System.Security;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: AllowPartiallyTrustedCallers]
 [assembly: InternalsVisibleTo("UnitTests")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguage("en-US")]

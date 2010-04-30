@@ -4,11 +4,16 @@ using Yasc.Networking;
 using System.Linq;
 using Yasc.Utils;
 
-namespace UnitTests.Netwroking
+namespace UnitTests
 {
   [TestClass]
   public class ServerTest
   {
+    [TestMethod]
+    public void TestIsServerStartedOnThisComputer()
+    {
+      Assert.IsFalse(ShogiServer.IsServerStartedOnThisComputer);
+    }
     [TestMethod]
     public void TestUsersList()
     {
@@ -74,7 +79,7 @@ namespace UnitTests.Netwroking
       IPlayerGameController johnController = null;
       johnSession.InvitePlay(johnSession.Users.First(), c => johnController = c);
 
-      // John invited jack
+      // John invited Jack
       Assert.AreNotEqual(jackController.MyColor, johnController.MyColor);
       var game = jackController.Game;
       Assert.AreEqual("John", game.Invitor.Name);

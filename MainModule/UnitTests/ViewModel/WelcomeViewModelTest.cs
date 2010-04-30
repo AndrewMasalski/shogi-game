@@ -94,11 +94,8 @@ namespace UnitTests.ViewModel
       settings.DefaultStartMode = WelcomeChoice.None;
       settings.SaveLvs(new string[0]);
     }
-    private void Check(WelcomeChoice expectedMode)
-    {
-      Check(expectedMode, false);
-    }
-    private void Check(WelcomeChoice expectedMode, bool saveAndSkip)
+
+    private void Check(WelcomeChoice expectedMode, bool saveAndSkip = false)
     {
       Assert.AreEqual("localhost", _model.Address);
       Assert.AreEqual("John Doe", _model.UserName);
