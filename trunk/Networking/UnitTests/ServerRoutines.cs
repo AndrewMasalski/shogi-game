@@ -1,7 +1,7 @@
 using System.Linq;
 using Yasc.Networking;
 
-namespace UnitTests.Netwroking
+namespace UnitTests
 {
   public static class ServerRoutines
   {
