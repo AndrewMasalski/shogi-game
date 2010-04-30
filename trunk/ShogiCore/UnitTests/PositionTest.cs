@@ -79,7 +79,9 @@ namespace UnitTests
     public void TestEquals()
     {
       Assert.IsFalse(new Position("1i").Equals(new object()));
+// ReSharper disable EqualExpressionComparison
       Assert.IsFalse(new Position("1i") != new Position("1i"));
+// ReSharper restore EqualExpressionComparison
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void CompareWithNull()

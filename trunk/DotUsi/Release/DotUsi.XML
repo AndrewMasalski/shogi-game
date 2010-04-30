@@ -270,16 +270,16 @@
         <member name="E:DotUsi.ScoreInfo.PropertyChanged">
             <summary>Occurs when a property value changes</summary>
         </member>
-        <member name="T:DotUsi.CheckOption">
+        <member name="T:DotUsi.Options.CheckOption">
             <summary>Represents option of type <see cref="F:DotUsi.UsiOptionType.Check"/></summary>
         </member>
-        <member name="M:DotUsi.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.String)">
+        <member name="M:DotUsi.Options.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.String)">
             <summary>Ctor engine uses when parse engine response</summary>
         </member>
-        <member name="M:DotUsi.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.Boolean)">
+        <member name="M:DotUsi.Options.CheckOption.#ctor(DotUsi.UsiEngine,System.String,System.Boolean)">
             <summary>Ctor drivers use to create "implicit" options</summary>
         </member>
-        <member name="M:DotUsi.CheckOption.ValueToString">
+        <member name="M:DotUsi.Options.CheckOption.ValueToString">
             <summary>Override to specify how the <see cref="P:DotUsi.ValueOptionBase`1.Value"/> should be represented in USI command</summary>
         </member>
         <member name="T:DotUsi.Lesserkai133Driver">

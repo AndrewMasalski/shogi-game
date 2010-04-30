@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
@@ -37,11 +38,9 @@ namespace Yasc.ShogiCore
     /// <summary>Gets the piece from player hand by type</summary>
     public Piece GetPieceFromHandByType(PieceType pieceType)
     {
-      foreach (var piece in Hand)
-        if (piece.PieceType == pieceType)
-          return piece;
-      return null;
+      return Hand.FirstOrDefault(piece => piece.PieceType == pieceType);
     }
+
     /// <summary>Adds the piece to player hand</summary>
     public Piece AddToHand(PieceType type)
     {

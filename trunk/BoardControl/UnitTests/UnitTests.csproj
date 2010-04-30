@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{94F07960-A013-46AF-BCC3-6E55DD48989E}</ProjectGuid>
+    <ProjectGuid>{92CCEAAF-1144-4B4E-A338-2EFEF67C27E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests</RootNamespace>
-    <AssemblyName>UnitTests</AssemblyName>
+    <RootNamespace>BoardControl.UnitTests</RootNamespace>
+    <AssemblyName>BoardControl.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -134,9 +134,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BoardControl\BoardControl.csproj">
+    <ProjectReference Include="..\..\Persistence\Persistence\Persistence.csproj">
       <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
-      <Name>BoardControl</Name>
+      <Name>Persistence %28Persistence\Persistence%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BoardControl\BoardControl.csproj">
+      <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
+      <Name>BoardControl %28BoardControl\BoardControl%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

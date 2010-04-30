@@ -44,7 +44,7 @@ namespace CommonUtils.UnitTests
       CollectionAssert.AreEqual(r, list.Select(i => i.ToString()).ToArray());
     }
 
-    private static void Check(IEnumerable<string> oldList, int[] newList, string expectedLog)
+    private static void Check(IEnumerable<string> oldList, IEnumerable<int> newList, string expectedLog)
     {
       var log = new TestLog();
       var observableColection = new ObservableCollection<string>(oldList);

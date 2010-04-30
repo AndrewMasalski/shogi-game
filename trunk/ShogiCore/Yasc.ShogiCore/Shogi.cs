@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Yasc.ShogiCore
 {
@@ -7,7 +8,7 @@ namespace Yasc.ShogiCore
   public static class Shogi
   {
     /// <summary>Contains position-pieceType pairs of initial position</summary>
-    public static readonly Dictionary<Position, string> InitialPosition = Dic(Pairs(new[]
+    public static readonly Dictionary<Position, string> InitialPosition = Pairs(new[]
           {
             "1a", "香", "9a", "香", "1i", "香", "9i", "香",
             "2a", "桂", "8a", "桂", "2i", "桂", "8i", "桂",
@@ -19,13 +20,13 @@ namespace Yasc.ShogiCore
             "7c", "歩", "8c", "歩", "9c", "歩", "1g", "歩",
             "2g", "歩", "3g", "歩", "4g", "歩", "5g", "歩",
             "6g", "歩", "7g", "歩", "8g", "歩", "9g", "歩",
-          }, 
-        s => (Position) s));
+          },
+        s => (Position)s).ToDictionary(pair => pair.Key, pair => pair.Value);
 
     private static IEnumerable<KeyValuePair<TKey, TValue>> Pairs<TKey, TValue>(IEnumerable<TValue> list, Converter<TValue, TKey> firstConverter)
     {
-      int i = 0;
-      TValue first = default(TValue);
+      var i = 0;
+      var first = default(TValue);
       foreach (var item in list)
       {
         if (++i % 2 == 1)
@@ -33,13 +34,6 @@ namespace Yasc.ShogiCore
         else
           yield return new KeyValuePair<TKey, TValue>(firstConverter(first), item);
       }
-    }
-    private static Dictionary<TKey, TValue> Dic<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> source)
-    {
-      var result = new Dictionary<TKey, TValue>();
-      foreach (var pair in source)
-        result.Add(pair.Key, pair.Value);
-      return result;
     }
 
     /// <summary>Sets start position on the board</summary>
