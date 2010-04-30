@@ -8,8 +8,8 @@
     <ProjectGuid>{94F07960-A013-46AF-BCC3-6E55DD48989E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTests</RootNamespace>
-    <AssemblyName>UnitTests</AssemblyName>
+    <RootNamespace>ShogiCore.UnitTests</RootNamespace>
+    <AssemblyName>ShogiCore.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -184,9 +184,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yasc.ShogiCore\Yasc.ShogiCore.csproj">
+    <ProjectReference Include="..\Yasc.ShogiCore\ShogiCore.csproj">
       <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
-      <Name>Yasc.ShogiCore</Name>
+      <Name>ShogiCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -447,7 +447,7 @@ namespace Yasc.Utils
          string.Join(", ", this.Select(o => o.ToString()).ToArray()) + "}" ;
     }
   }
-  public delegate bool Comparer<T1, T2>(T1 t, T2 u);
+  public delegate bool Comparer<in T1, in T2>(T1 t, T2 u);
 
   public static class RangeExtensions
   {

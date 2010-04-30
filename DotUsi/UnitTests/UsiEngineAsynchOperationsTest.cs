@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Threading;
 using DotUsi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

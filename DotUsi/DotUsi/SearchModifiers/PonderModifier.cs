@@ -1,5 +1,3 @@
-using System;
-
 namespace DotUsi
 {
   /// <summary><para>Start searching in pondering mode.</para> 

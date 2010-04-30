@@ -46,7 +46,7 @@ using System.Windows;
 // No sense to change as this os gonna be altered by builder!
 [assembly: AssemblyVersion("1.0.0.0")]
 
-[assembly: InternalsVisibleTo("UnitTests")]
+[assembly: InternalsVisibleTo("MainModule.UnitTests")]
 [assembly: InternalsVisibleTo("TestStand.WelcomeView")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguage("en-US")]

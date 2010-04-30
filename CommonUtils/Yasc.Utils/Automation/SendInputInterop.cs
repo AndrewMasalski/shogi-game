@@ -147,6 +147,10 @@ namespace Yasc.Utils.Automation
     [DllImport("user32.dll", SetLastError = true)]
     private static extern uint SendInput(uint nInputs, ref Input pInputs, int cbSize);
 
+    // ReSharper disable FieldCanBeMadeReadOnly.Local
+    // ReSharper disable MemberCanBePrivate.Local
+    // ReSharper disable UnusedMember.Local
+
     /// <summary>The MOUSEINPUT structure contains information about a simulated mouse event.</summary>
     /// <remarks>
     /// <para>If the mouse has moved, indicated by <see cref="MouseFlags.Move"/>, 
@@ -267,22 +271,18 @@ namespace Yasc.Utils.Automation
       public IntPtr ExtraInfo;
     }
 
-
     /// <summary>
     /// Goes to the <see cref="MouseInput.MouseData"/> field
     /// </summary>
     [Flags]
     private enum XButtons
     {
-      /// <summary>
-      /// Set if the first X button is pressed or released.</para>
-      /// </summary>
+      /// <summary>Set if the first X button is pressed or released. </summary>
       XButton1 = 0x0001,
-      /// <summary>
-      /// Set if the second X button is pressed or released.</para>
-      /// </summary>
+      /// <summary>Set if the second X button is pressed or released. </summary>
       XButton2 = 0x0002,
     }
+
     [Flags]
     private enum MouseFlags
     {
@@ -425,6 +425,9 @@ namespace Yasc.Utils.Automation
       /// <summary>If specified, Scan identifies the key and <see cref="KeyboardInput.VirtualKeyCode"/> is ignored.</summary>
       ScanCode = 0x0008,
     }
+    // ReSharper restore MemberCanBePrivate.Local
+    // ReSharper restore FieldCanBeMadeReadOnly.Local
+    // ReSharper restore UnusedMember.Local
 
     private const int WheelDelta = 120;
 

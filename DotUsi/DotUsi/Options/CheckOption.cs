@@ -1,4 +1,4 @@
-namespace DotUsi
+namespace DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.Check"/></summary>
   public class CheckOption : ValueOptionBase<bool>

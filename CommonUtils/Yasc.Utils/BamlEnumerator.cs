@@ -60,9 +60,9 @@ namespace Yasc.Utils
     /// <summary>Enumerate baml streams in a resources file</summary>        
     private static IEnumerable<string> EnumerateBamlInResources(ResourceReader resourceReader)
     {
-      foreach (DictionaryEntry resource in resourceReader)
-        if (IsResourceEntryBamlStream(resource))
-          yield return Path.ChangeExtension((string)resource.Key, ".xaml");
+      return from DictionaryEntry resource in resourceReader 
+             where IsResourceEntryBamlStream(resource) 
+             select Path.ChangeExtension((string)resource.Key, ".xaml");
     }
 
     /// <summary>Determines whether a stream name and value pair indicates a baml stream</summary>

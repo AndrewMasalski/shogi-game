@@ -81,20 +81,13 @@ namespace Yasc.ShogiCore.Moves
     }
     private IEnumerable<Position> WhoElseCouldMoveThere()
     {
-      /*  return from p in Position.OnBoard
-               where p != From &&
-                     Board[p] != null &&
-                     Board[p].PieceType == MovingPiece.PieceType &&
-                     Board[p].Color == Who.Color &&
-                     Board.GetAvailableMoves(p).Count(m => m.To == To) > 0
-               select p;*/
-      foreach (var p in Position.OnBoard)
-        if (p != From)
-          if (BoardSnapshot[p] != null)
-            if (BoardSnapshot[p].PieceType == MovingPiece.PieceType)
-              if (BoardSnapshot[p].Color == Who.Color)
-                if (BoardSnapshot.GetAvailableUsualMoves(p).Count(m => m.To == To) > 0)
-                  yield return p;
+      return from p in Position.OnBoard 
+             where p != From 
+             where BoardSnapshot[p] != null
+             where BoardSnapshot[p].PieceType == MovingPiece.PieceType
+             where BoardSnapshot[p].Color == Who.Color 
+             where BoardSnapshot.GetAvailableUsualMoves(p).Count(m => m.To == To) > 0 
+             select p;
     }
 
     #endregion

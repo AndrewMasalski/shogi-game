@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DotUsi;
+using DotUsi.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests

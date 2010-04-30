@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTests.Properties;
+using Persistence.UnitTests.Properties;
 using Yasc.Persistence;
 using System.Linq;
 
