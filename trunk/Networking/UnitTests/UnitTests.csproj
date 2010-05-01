@@ -106,7 +106,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Networking\Networking.csproj">
       <Project>{E8497624-9F29-411B-A917-C2DE3A87661E}</Project>
-      <Name>Networking</Name>
+      <Name>Networking %28Networking\Networking%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

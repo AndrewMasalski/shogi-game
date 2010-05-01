@@ -119,7 +119,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Persistence\Persistence.csproj">
       <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
-      <Name>Persistence</Name>
+      <Name>Persistence %28Persistence\Persistence%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
