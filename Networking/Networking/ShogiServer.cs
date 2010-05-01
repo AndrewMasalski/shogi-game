@@ -7,6 +7,8 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using System.Windows.Threading;
 using System.Linq;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.ShogiCore;
 
 namespace Yasc.Networking

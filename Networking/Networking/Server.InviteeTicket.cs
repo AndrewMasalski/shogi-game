@@ -1,4 +1,5 @@
 using System;
+using Yasc.Networking.Interfaces;
 
 namespace Yasc.Networking
 {

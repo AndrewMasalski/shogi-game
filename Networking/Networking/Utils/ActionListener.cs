@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 
-namespace Yasc.Networking
+namespace Yasc.Networking.Utils
 {
   /// <summary>This class is needed because delegate target object must be 
   /// <see cref="MarshalByRefObject"/> and target method must be public</summary>

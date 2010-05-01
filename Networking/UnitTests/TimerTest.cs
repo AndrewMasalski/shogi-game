@@ -1,8 +1,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 
-namespace UnitTests
+namespace Networking.UnitTests
 {
   [TestClass]
   public class TimerTest

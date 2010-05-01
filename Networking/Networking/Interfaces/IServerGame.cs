@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Yasc.ShogiCore;
 
-namespace Yasc.Networking
+namespace Yasc.Networking.Interfaces
 {
   public interface IServerGame
   {
