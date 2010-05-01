@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
-using MvvmFoundation.Wpf;
 using Yasc.AI;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui.Game
 {
@@ -16,14 +16,7 @@ namespace Yasc.Gui.Game
 
     public ICommand OpenEngineSettingsCommand
     {
-      get
-      {
-        if (_openEngineSettingsCommand == null)
-        {
-          _openEngineSettingsCommand = new RelayCommand(OpenEngineSettings);
-        }
-        return _openEngineSettingsCommand;
-      }
+      get { return _openEngineSettingsCommand ?? (_openEngineSettingsCommand = new RelayCommand(OpenEngineSettings)); }
     }
 
     private void OpenEngineSettings()

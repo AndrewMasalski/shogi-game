@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 
 namespace Yasc.Gui.Game
 {

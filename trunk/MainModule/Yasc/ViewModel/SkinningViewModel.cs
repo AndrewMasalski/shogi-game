@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using MvvmFoundation.Wpf;
-using Yasc.Skins;
-using Yasc.Utils;
 using System.Linq;
+using Yasc.Utils;
+using Yasc.Utils.Mvvm;
+using Yasc.Utils.Skins;
 
-namespace Yasc.Gui
+namespace Yasc.ViewModel
 {
   public class SkinningViewModel : ObservableObject
   {

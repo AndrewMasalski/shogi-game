@@ -1,14 +1,14 @@
 ﻿using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MainModule.UnitTests.Automation.Peers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTests.Automation.Peers;
 using Yasc;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 using Yasc.Utils.Automation;
 
-namespace UnitTests.Automation
+namespace MainModule.UnitTests.Automation
 {
   [TestClass]
   public class MainWindowTest

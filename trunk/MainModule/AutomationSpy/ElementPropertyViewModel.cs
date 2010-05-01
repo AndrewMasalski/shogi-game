@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Windows.Automation;
 using System.Linq;
-using MvvmFoundation.Wpf;
+using Yasc.Utils.Mvvm;
 
 namespace AutomationSpy
 {

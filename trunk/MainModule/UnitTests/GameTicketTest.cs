@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Gui;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Utils;
 
-namespace UnitTests.Netwroking
+namespace MainModule.UnitTests
 {
   [TestClass]
   public class GameTicketTest

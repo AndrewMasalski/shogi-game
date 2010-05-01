@@ -5,7 +5,7 @@ using Yasc.Gui.Game;
 using Yasc.Properties;
 using Yasc.ShogiCore;
 
-namespace UnitTests.ViewModel
+namespace MainModule.UnitTests.ViewModel
 {
   [TestClass]
   public class GameViewModelTest

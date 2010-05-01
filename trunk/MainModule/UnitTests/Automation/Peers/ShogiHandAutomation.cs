@@ -1,9 +1,9 @@
 using System.Windows.Automation;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 using Yasc.Utils.Automation;
 
-namespace UnitTests.Automation.Peers
+namespace MainModule.UnitTests.Automation.Peers
 {
   public class ShogiHandAutomation : ConcreteAutomation<ShogiHand>
   {

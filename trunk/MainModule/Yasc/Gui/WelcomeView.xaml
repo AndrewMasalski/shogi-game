@@ -1,12 +1,10 @@
 ﻿<UserControl x:Class="Yasc.Gui.WelcomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:validators="clr-namespace:Yasc.Gui"
-             xmlns:Common="clr-namespace:Yasc.Common;assembly=Yasc.BoardControl"
-             MinHeight="200" MinWidth="375" >
+             xmlns:validators="clr-namespace:Yasc.Gui" xmlns:Common1="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" xmlns:Utils="clr-namespace:Yasc.Utils" MinHeight="200" MinWidth="375" >
   <UserControl.Resources>
-    <Common:ScalarConverter x:Key="NotConverter" Invert="True"/>
-    <Common:AndConverter x:Key="AndConverter"/>
+    <Common1:ScalarConverter x:Key="NotConverter" Invert="True"/>
+    <Common1:AndConverter x:Key="AndConverter"/>
   </UserControl.Resources>
   <Grid ShowGridLines="False">
     <Grid.RowDefinitions>
@@ -56,7 +54,7 @@
           <TextBox.Text>
             <Binding Path="UserName" UpdateSourceTrigger="PropertyChanged">
               <Binding.ValidationRules>
-                <validators:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
+                <Utils:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
               </Binding.ValidationRules>
             </Binding>
           </TextBox.Text>
@@ -68,7 +66,7 @@
           <ComboBox.Text>
             <Binding Path="Address" UpdateSourceTrigger="PropertyChanged">
               <Binding.ValidationRules>
-                <validators:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
+                <Utils:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
               </Binding.ValidationRules>
             </Binding>
           </ComboBox.Text>

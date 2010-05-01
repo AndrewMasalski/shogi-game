@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Automation;
 using System.Windows.Threading;
-using MvvmFoundation.Wpf;
 using Yasc.Utils;
+using Yasc.Utils.Mvvm;
 
 namespace AutomationSpy
 {

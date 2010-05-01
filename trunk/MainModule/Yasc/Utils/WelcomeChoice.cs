@@ -1,4 +1,4 @@
-namespace Yasc.Gui
+namespace Yasc.Utils
 {
   public enum WelcomeChoice
   {

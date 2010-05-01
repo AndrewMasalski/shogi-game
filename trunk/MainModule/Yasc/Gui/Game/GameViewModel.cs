@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
 using Microsoft.Win32;
-using MvvmFoundation.Wpf;
 using Yasc.Persistence;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using System.Linq;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui.Game
 {
@@ -145,36 +145,15 @@ namespace Yasc.Gui.Game
 
     public ICommand CleanBoardCommand
     {
-      get
-      {
-        if (_cleanBoardCommand == null)
-        {
-          _cleanBoardCommand = new RelayCommand(CleanBoard);
-        }
-        return _cleanBoardCommand;
-      }
+      get { return _cleanBoardCommand ?? (_cleanBoardCommand = new RelayCommand(CleanBoard)); }
     }
     public ICommand GetBackCommand
     {
-      get
-      {
-        if (_getBackCommand == null)
-        {
-          _getBackCommand = new RelayCommand(GetBack);
-        }
-        return _getBackCommand;
-      }
+      get { return _getBackCommand ?? (_getBackCommand = new RelayCommand(GetBack)); }
     }
     public ICommand LoadTranscriptCommand
     {
-      get
-      {
-        if (_loadTranscriptCommand == null)
-        {
-          _loadTranscriptCommand = new RelayCommand(LoadTranscript);
-        }
-        return _loadTranscriptCommand;
-      }
+      get { return _loadTranscriptCommand ?? (_loadTranscriptCommand = new RelayCommand(LoadTranscript)); }
     }
 
     public event EventHandler GameOver;

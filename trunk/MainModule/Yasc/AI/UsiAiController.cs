@@ -2,6 +2,9 @@ using System;
 using System.IO;
 using System.Linq;
 using DotUsi;
+using DotUsi.Drivers;
+using DotUsi.Options;
+using DotUsi.Process;
 using Yasc.Properties;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
@@ -67,8 +70,8 @@ namespace Yasc.AI
     protected override void OnHumanMoved(string hisMove)
     {
       _board.MakeMove(_board.GetMove(hisMove));
-      _engine.Position(string.Join(" ",
-        _board.History.Select(move => MoveToUsiString(move)).ToArray()));
+      _engine.Position(string.Join(" ", 
+        _board.History.Select(MoveToUsiString)));
       _engine.Go();
     }
 

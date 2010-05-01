@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using MvvmFoundation.Wpf;
+using Yasc.Model;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui.Game
 {

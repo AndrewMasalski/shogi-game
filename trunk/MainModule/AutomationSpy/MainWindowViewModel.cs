@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Automation;
 using AutomationSpy.Properties;
-using MvvmFoundation.Wpf;
+using Yasc.Utils.Mvvm;
 
 namespace AutomationSpy
 {

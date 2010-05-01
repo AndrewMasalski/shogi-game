@@ -2,7 +2,7 @@
 using Yasc.Gui;
 using Yasc.Networking;
 
-namespace UnitTests.ViewModel
+namespace MainModule.UnitTests.ViewModel
 {
   [TestClass]
   public class UserViewModelTest

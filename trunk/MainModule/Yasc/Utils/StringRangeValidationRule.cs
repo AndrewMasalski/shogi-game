@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Windows.Controls;
 
-namespace Yasc.Gui
+namespace Yasc.Utils
 {
   public class StringRangeValidationRule : ValidationRule
   {

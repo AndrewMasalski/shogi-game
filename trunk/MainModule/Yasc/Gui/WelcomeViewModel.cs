@@ -2,9 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Windows.Input;
-using MvvmFoundation.Wpf;
 using Yasc.Networking;
 using Yasc.Properties;
+using Yasc.Utils;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui
 {
@@ -24,48 +25,32 @@ namespace Yasc.Gui
     {
       get
       {
-        if (_autoplayCommand == null)
-        {
-          _autoplayCommand = new RelayCommand(
-            () => Done(WelcomeChoice.Autoplay));
-        }
-        return _autoplayCommand;
+        return _autoplayCommand ?? (_autoplayCommand = 
+          new RelayCommand(() => Done(WelcomeChoice.Autoplay)));
       }
     }
     public ICommand ConnectCommand
     {
       get
       {
-        if (_connectCommand == null)
-        {
-          _connectCommand = new RelayCommand(
-            () => Done(WelcomeChoice.ConnectToServer));
-        }
-        return _connectCommand;
+        return _connectCommand ?? (_connectCommand = 
+          new RelayCommand(() => Done(WelcomeChoice.ConnectToServer)));
       }
     }
     public ICommand BecomeServerCommand
     {
       get
       {
-        if (_becomeServerCommand == null)
-        {
-          _becomeServerCommand = new RelayCommand(
-            () => Done(WelcomeChoice.BecomeServer));
-        }
-        return _becomeServerCommand;
+        return _becomeServerCommand ?? (_becomeServerCommand = 
+          new RelayCommand(() => Done(WelcomeChoice.BecomeServer)));
       }
     }
     public ICommand PlayWithCompCommand
     {
       get
       {
-        if (_playWithCompCommand == null)
-        {
-          _playWithCompCommand = new RelayCommand(
-            () => Done(WelcomeChoice.ArtificialIntelligence));
-        }
-        return _playWithCompCommand;
+        return _playWithCompCommand ?? (_playWithCompCommand =
+          new RelayCommand(() => Done(WelcomeChoice.ArtificialIntelligence)));
       }
     }
 
