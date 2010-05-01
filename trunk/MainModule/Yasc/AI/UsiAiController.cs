@@ -1,6 +1,8 @@
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using DotUsi;
 using DotUsi.Drivers;
 using DotUsi.Options;
@@ -16,11 +18,18 @@ namespace Yasc.AI
     private readonly Board _board;
     private readonly UsiEngine _engine;
 
-    public UsiAiController()
+    private UsiAiController(IUsiProcess engine)
     {
       _board = new Board();
       Shogi.InitBoard(_board);
-      _engine = CreateEngine(CreateEngineProcess());
+      _engine = CreateEngine(engine);
+    }
+
+    public static UsiAiController Create()
+    {
+      var engineProcess = CreateEngineProcess();
+      return engineProcess == null ? null : 
+        new UsiAiController(engineProcess);
     }
 
     private static IUsiProcess CreateEngineProcess()
@@ -29,8 +38,23 @@ namespace Yasc.AI
         Environment.CurrentDirectory,
         Settings.Default.CurrentEngine);
 
-      return new SpearCsa2008V14Driver(
-        new UsiWindowsProcess(enginePath));
+      if (!File.Exists(enginePath))
+      {
+        MessageBox.Show("Couldn't find engine file: " + enginePath, 
+          "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        return null;
+      }
+      try
+      {
+        return new SpearCsa2008V14Driver(
+          new UsiWindowsProcess(enginePath));
+      }
+      catch (Win32Exception x)
+      {
+        MessageBox.Show("An error occured while starting engine: " + x.Message,
+          "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        return null;
+      }
     }
 
     private UsiEngine CreateEngine(IUsiProcess process)

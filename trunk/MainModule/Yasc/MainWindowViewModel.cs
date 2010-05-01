@@ -162,7 +162,8 @@ namespace Yasc
     }
     private void GoGameWithComp()
     {
-      var gameViewModel = new GameWithEngineViewModel();
+      var gameViewModel = GameWithEngineViewModel.Create();
+      if (gameViewModel == null) return;
       gameViewModel.GameOver += OnGameOver;
       CurrentView = gameViewModel;
     }

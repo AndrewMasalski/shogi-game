@@ -1,16 +1,24 @@
 using System;
 using System.Windows.Input;
 using Yasc.AI;
+using Yasc.Networking.Interfaces;
 using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui.Game
 {
   public class GameWithEngineViewModel : GameWithOpponentViewModel, IDisposable
   {
-    public GameWithEngineViewModel()
+    private GameWithEngineViewModel(IPlayerGameController controller)
     {
-      InitTicket(new UsiAiController());
+      InitTicket(controller);
       InitBoard();
+    }
+
+    public static GameWithEngineViewModel Create()
+    {
+      var controller = UsiAiController.Create();
+      return controller == null ? null :
+        new GameWithEngineViewModel(controller);
     }
     private RelayCommand _openEngineSettingsCommand;
 
