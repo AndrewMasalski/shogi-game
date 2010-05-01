@@ -2,11 +2,11 @@
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
-using MvvmFoundation.Wpf;
-using Yasc.Controls.Automation;
+using Yasc.BoardControl.Controls.Automation;
 using Yasc.ShogiCore;
+using Yasc.Utils.Mvvm;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public class ShogiPiece : Control
   {

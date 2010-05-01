@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation.Peers;
 
-namespace Yasc.Controls.Automation
+namespace Yasc.BoardControl.Controls.Automation
 {
   public class ShogiHandAutomationPeer : ControlAutomationPeer<ShogiHand>
   {

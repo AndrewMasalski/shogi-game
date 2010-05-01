@@ -1,4 +1,4 @@
-namespace Yasc.Common
+namespace Yasc.BoardControl.Common
 {
   public enum TimerDirection
   {

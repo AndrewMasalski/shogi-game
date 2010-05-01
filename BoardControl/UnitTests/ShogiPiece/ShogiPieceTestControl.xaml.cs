@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 
-namespace UnitTests
+namespace BoardControl.UnitTests.ShogiPiece
 {
   public partial class ShogiPieceTestControl
   {

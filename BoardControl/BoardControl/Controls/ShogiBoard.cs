@@ -6,13 +6,13 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using Yasc.Controls.Automation;
-using Yasc.GenericDragDrop;
+using Yasc.BoardControl.Controls.Automation;
+using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 using Yasc.Utils;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   [TemplatePart(Name = "PART_AdornerLayer", Type = typeof(Canvas))]
   public class ShogiBoard : Control

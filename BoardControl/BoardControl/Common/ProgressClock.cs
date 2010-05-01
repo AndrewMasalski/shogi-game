@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Yasc.Common
+namespace Yasc.BoardControl.Common
 {
   public class ProgressClock : Control
   {

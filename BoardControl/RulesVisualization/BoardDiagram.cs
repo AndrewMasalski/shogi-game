@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
+using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
-using Yasc.GenericDragDrop;
 
 namespace Yasc.RulesVisualization
 {

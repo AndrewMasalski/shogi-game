@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Linq;
 
-namespace Yasc.GenericDragDrop
+namespace Yasc.BoardControl.GenericDragDrop
 {
   public static class VisualTreeUtils
   {

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Linq;
 
-namespace Yasc.Common
+namespace Yasc.BoardControl.Common
 {
   public class AndConverter : IMultiValueConverter
   {

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Yasc.ShogiCore.Moves;
 
-namespace Yasc.Common
+namespace Yasc.BoardControl.Common
 {
   public class MovesAndCommentsGrid : Grid
   {

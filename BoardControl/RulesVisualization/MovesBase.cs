@@ -1,4 +1,4 @@
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 
 namespace Yasc.RulesVisualization
 {

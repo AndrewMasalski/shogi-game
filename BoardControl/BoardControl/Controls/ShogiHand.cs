@@ -7,11 +7,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
-using Yasc.Controls.Automation;
+using Yasc.BoardControl.Controls.Automation;
+using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
-using Yasc.GenericDragDrop;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public class ShogiHand : Control
   {

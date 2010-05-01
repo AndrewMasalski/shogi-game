@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace BoardControl.UnitTests.ShogiPiece
 {
   public partial class ShogiPieceTestStand 
   {

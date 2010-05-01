@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public class BoardBorder : ContentControl
   {

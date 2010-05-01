@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace Yasc.Common
+namespace Yasc.BoardControl.Common
 {
   public class StopwatchControl : Control
   {

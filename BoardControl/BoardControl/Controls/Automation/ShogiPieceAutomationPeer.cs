@@ -1,5 +1,5 @@
 
-namespace Yasc.Controls.Automation
+namespace Yasc.BoardControl.Controls.Automation
 {
   public class ShogiPieceAutomationPeer : ControlAutomationPeer<ShogiPiece>
   {

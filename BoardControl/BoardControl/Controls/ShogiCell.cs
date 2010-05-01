@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Automation.Peers;
-using MvvmFoundation.Wpf;
-using Yasc.Controls.Automation;
+using Yasc.BoardControl.Controls.Automation;
+using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
-using Yasc.GenericDragDrop;
+using Yasc.Utils.Mvvm;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public class ShogiCell : PieceHolderBase
   {

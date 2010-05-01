@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Yasc.Common
+namespace Yasc.BoardControl.Common
 {
   public class DebugConverter : IValueConverter
   {

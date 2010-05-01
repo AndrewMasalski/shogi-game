@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Automation.Peers;
 
-namespace Yasc.Controls.Automation
+namespace Yasc.BoardControl.Controls.Automation
 {
   public class ControlAutomationPeer<T> : FrameworkElementAutomationPeer
     where T : FrameworkElement

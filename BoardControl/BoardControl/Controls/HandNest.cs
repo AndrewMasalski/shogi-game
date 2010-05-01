@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Automation.Peers;
-using Yasc.Controls.Automation;
+using Yasc.BoardControl.Controls.Automation;
 using Yasc.ShogiCore;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public class HandNest : PieceHolderBase
   {
