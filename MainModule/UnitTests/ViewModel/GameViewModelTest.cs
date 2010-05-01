@@ -31,7 +31,7 @@ namespace MainModule.UnitTests.ViewModel
     [TestMethod]
     public void ParticipantsTest()
     {
-      var model = new GameWithEngineViewModel();
+      var model = GameWithEngineViewModel.Create();
       Assert.AreEqual("You", model.Ticket.Me.Name);
       Assert.AreEqual(PieceColor.White, model.Ticket.MyColor);
       Assert.IsTrue(model.IsItMyMove);
@@ -43,7 +43,7 @@ namespace MainModule.UnitTests.ViewModel
     [TestMethod]
     public void TimerTest()
     {
-      var model = new AutoplayViewModel()
+      var model = new AutoplayViewModel
                     {
                       MyTime = TimeSpan.FromMinutes(1),
                       OpponentTime = TimeSpan.FromMinutes(1)
@@ -77,11 +77,9 @@ namespace MainModule.UnitTests.ViewModel
     [TestMethod]
     public void AiTimerTest()
     {
-      var model = new GameWithEngineViewModel()
-      {
-        MyTime = TimeSpan.FromMinutes(1),
-        OpponentTime = TimeSpan.FromMinutes(1)
-      };
+      var model = GameWithEngineViewModel.Create();
+      model.MyTime = TimeSpan.FromMinutes(1);
+      model.OpponentTime = TimeSpan.FromMinutes(1);
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
       Assert.IsFalse(model.IsMyTimerLaunched, "#1");
