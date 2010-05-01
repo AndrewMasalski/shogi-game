@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using System.Linq;
 
-namespace UnitTests
+namespace ShogiCore.UnitTests
 {
   [TestClass]
   public class PieceSetTest

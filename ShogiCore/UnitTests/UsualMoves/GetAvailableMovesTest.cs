@@ -4,12 +4,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnitTests.ShogiCore;
+using ShogiCore.UnitTests.ShogiCore;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore;
 using Yasc.Utils;
 
-namespace UnitTests.UsualMoves
+namespace ShogiCore.UnitTests.UsualMoves
 {
   [TestClass]
   public class GetAvailableMovesTest
@@ -54,12 +54,17 @@ namespace UnitTests.UsualMoves
     }
     private static void AreEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> comparer)
     {
-      var e = expected.ToList();
-      var a = actual.ToList();
+      var expectedList = expected.ToList();
+      var actualList = actual.ToList();
 
-      Assert.AreEqual(e.Count, a.Count);
-      foreach (var x in a)
-        Assert.AreEqual(1, e.RemoveAll(y => comparer(x, y)));
+      Assert.AreEqual(expectedList.Count, actualList.Count);
+      foreach (var actualElement in actualList)
+      {
+        var actualElementCopy = actualElement;
+        Assert.AreEqual(1, 
+          expectedList.RemoveAll(expectedElement => 
+            comparer(actualElementCopy, expectedElement)));
+      }
     }
 
     private static void ValidateUsualMoves(IUsualMoves usualMoves, Board board)

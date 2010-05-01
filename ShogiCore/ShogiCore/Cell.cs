@@ -1,5 +1,5 @@
 using System;
-using MvvmFoundation.Wpf;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.ShogiCore
 {

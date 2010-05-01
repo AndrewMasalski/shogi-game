@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 
-namespace UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.ShogiCore
 {
   [TestClass]
   public class PieceTest

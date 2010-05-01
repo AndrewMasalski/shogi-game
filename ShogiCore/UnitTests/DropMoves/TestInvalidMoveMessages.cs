@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 
-namespace UnitTests.DropMoves
+namespace ShogiCore.UnitTests.DropMoves
 {
   [TestClass]
   public class TestInvalidMoveMessages
