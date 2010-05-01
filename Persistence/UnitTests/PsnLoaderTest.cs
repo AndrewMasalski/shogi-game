@@ -4,7 +4,7 @@ using Persistence.UnitTests.Properties;
 using Yasc.Persistence;
 using System.Linq;
 
-namespace UnitTests.Persistence
+namespace Persistence.UnitTests
 {
   [TestClass]
   public class PsnLoaderTest
