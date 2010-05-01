@@ -6,7 +6,7 @@ using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.ShogiCore
 {
   [TestClass]
   public class BoardTest

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Snapshots;
 
-namespace UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.ShogiCore
 {
   [TestClass]
   public class PlayerTest

@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
 using Yasc.Utils;
 
-namespace UnitTests
+namespace ShogiCore.UnitTests
 {
   [TestClass]
   public class PositionTest

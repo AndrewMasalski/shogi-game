@@ -37,14 +37,7 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Move transcript in "cute" notation</summary>
     public string CuteNotation
     {
-      get
-      {
-        if (_cuteNotation == null)
-        {
-          _cuteNotation = GetCuteNotation();
-        }
-        return _cuteNotation;
-      }
+      get { return _cuteNotation ?? (_cuteNotation = GetCuteNotation()); }
     }
     private string GetCuteNotation()
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvvmFoundation.Wpf;
+using Yasc.Utils.Mvvm;
 
-namespace UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.ShogiCore
 {
   public class PropertyObserverAssertion<T> 
     where T : INotifyPropertyChanged
