@@ -1,7 +1,7 @@
 using System;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 
-namespace Yasc.GenericDragDrop
+namespace Yasc.BoardControl.GenericDragDrop
 {
   public class DropToHandEventArgs : EventArgs
   {

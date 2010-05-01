@@ -1,4 +1,4 @@
-<UserControl x:Class="Yasc.Common.ProgressCircle"
+<UserControl x:Class="Yasc.BoardControl.Common.ProgressCircle"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <UserControl.Resources>

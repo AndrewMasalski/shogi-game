@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 
-namespace UnitTests.Controls
+namespace BoardControl.UnitTests.Controls
 {
   /*  _________________________________
    * 

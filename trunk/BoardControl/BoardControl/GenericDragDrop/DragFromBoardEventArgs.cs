@@ -1,7 +1,7 @@
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 
-namespace Yasc.GenericDragDrop
+namespace Yasc.BoardControl.GenericDragDrop
 {
   public class DragFromBoardEventArgs : DragFromEventArgs
   {

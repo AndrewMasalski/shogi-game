@@ -4,7 +4,7 @@ using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using Yasc.ShogiCore;
 
-namespace Yasc.Controls.Automation
+namespace Yasc.BoardControl.Controls.Automation
 {
   public class ShogiBoardCoreAutomationPeer : ControlAutomationPeer<ShogiBoardCore>, IGridProvider
   {

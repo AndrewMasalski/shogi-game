@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.GenericDragDrop
+namespace Yasc.BoardControl.GenericDragDrop
 {
   public abstract class DragFromEventArgs : EventArgs
   { }

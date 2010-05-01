@@ -1,10 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 
-namespace UnitTests
+namespace BoardControl.UnitTests
 {
   [TestClass]
   public class MemoryLeaksTest

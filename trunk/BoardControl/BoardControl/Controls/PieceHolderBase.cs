@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Yasc.ShogiCore;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public abstract class PieceHolderBase : ContentControl
   {

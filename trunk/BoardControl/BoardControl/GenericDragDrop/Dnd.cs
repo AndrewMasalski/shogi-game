@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 
-namespace Yasc.GenericDragDrop
+namespace Yasc.BoardControl.GenericDragDrop
 {
   internal class Dnd
   {

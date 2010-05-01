@@ -1,7 +1,7 @@
 using System.Windows;
 using Yasc.ShogiCore.Moves;
 
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public class MoveAttemptEventArgs : RoutedEventArgs
   {

@@ -1,12 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Yasc.Controls"
-                    xmlns:Common="clr-namespace:Yasc.Common"
-                    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore;assembly=Yasc.ShogiCore">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore;assembly=Yasc.ShogiCore" xmlns:Common1="clr-namespace:Yasc.BoardControl.Common" xmlns:Controls="clr-namespace:Yasc.BoardControl.Controls" x:Class="Yasc.BoardControl.Themes.c__users_ilya_documents_visual_studio_2010_projects_shogi_game_trunk_boardcontrol_boardcontrol_themes_generic_xaml">
 
   <!--  Converters  -->
-  <Common:DebugConverter x:Key="DebugConverter"/>
-  <Common:ToStringConverter x:Key="ToStirngConverter"/>
+  <Common1:DebugConverter x:Key="DebugConverter"/>
+  <Common1:ToStringConverter x:Key="ToStirngConverter"/>
 
   <!--  IsFlipped ButtonStyle  -->
   <Style x:Key="IsFlippedButtonStyle" TargetType="{x:Type CheckBox}">
@@ -80,32 +77,32 @@
   </Style>
 
   <!--  ShogiBoard  -->
-  <Style TargetType="{x:Type local:ShogiBoard}">
+  <Style TargetType="{x:Type Controls:ShogiBoard}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiBoard}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiBoard}">
           <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="5*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <local:ShogiHand x:Name="TopHand" Color="White" Grid.Column="0" 
+            <Controls:ShogiHand x:Name="TopHand" Color="White" Grid.Column="0" 
                              Board="{TemplateBinding Board}"
                              AutomationProperties.Name="TopHand"
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
-            <Common:UniformPanel Grid.Column="1">
-              <local:BoardBorder>
+            <Common1:UniformPanel Grid.Column="1">
+              <Controls:BoardBorder>
                 <Grid>
-                  <local:ShogiBoardCore Board="{TemplateBinding Board}"/>
+                  <Controls:ShogiBoardCore Board="{TemplateBinding Board}"/>
                   <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-19,-21,0"
                             Style="{StaticResource IsFlippedButtonStyle}"
                             IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
                 </Grid>
-              </local:BoardBorder>
-            </Common:UniformPanel>
+              </Controls:BoardBorder>
+            </Common1:UniformPanel>
 
-            <local:ShogiHand x:Name="BottomHand" Color="Black" Grid.Column="2" 
+            <Controls:ShogiHand x:Name="BottomHand" Color="Black" Grid.Column="2" 
                              Board="{TemplateBinding Board}"
                              AutomationProperties.Name="BottomHand"
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
@@ -127,11 +124,11 @@
   </Style>
 
   <!--  ShogiHand  -->
-  <Style TargetType="{x:Type local:ShogiHand}">
+  <Style TargetType="{x:Type Controls:ShogiHand}">
     <Setter Property="GroupingMode" Value="Groups"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiHand}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiHand}">
           <ItemsControl ItemsSource="{TemplateBinding Items}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
@@ -145,20 +142,20 @@
   </Style>
 
   <!--  ShogiPiece  -->
-  <Style TargetType="{x:Type local:ShogiPiece}">
+  <Style TargetType="{x:Type Controls:ShogiPiece}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiPiece}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiPiece}">
           <Grid  Background="Transparent">
             <Grid.ToolTip>
-              <local:SwitchControl Switcher="{Binding PieceType.Latin, Mode=OneTime, 
+              <Common1:SwitchControl Switcher="{Binding PieceType.Latin, Mode=OneTime, 
                                               RelativeSource={RelativeSource TemplatedParent}}">
-                <local:SwitchControl.Resources>
+                <Common1:SwitchControl.Resources>
                   <DataTemplate x:Key="P">
                     <TextBlock Text="Pawn"/>
                   </DataTemplate>
-                </local:SwitchControl.Resources>
-              </local:SwitchControl>
+                </Common1:SwitchControl.Resources>
+              </Common1:SwitchControl>
             </Grid.ToolTip>
             <Viewbox>
               <Grid Height="13" Width="13">
@@ -197,10 +194,10 @@
   </Style>
 
   <!--  ShogiCell  -->
-  <Style TargetType="{x:Type local:ShogiCell}">
+  <Style TargetType="{x:Type Controls:ShogiCell}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiCell}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiCell}">
           <Grid Background="Transparent" >
             <Rectangle Name="border" Stretch="Fill" SnapsToDevicePixels="True"/>
             <ContentPresenter/>
@@ -220,10 +217,10 @@
   </Style>
 
   <!--  HandNest  -->
-  <Style TargetType="{x:Type local:HandNest}">
+  <Style TargetType="{x:Type Controls:HandNest}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:HandNest}">
+        <ControlTemplate TargetType="{x:Type Controls:HandNest}">
           <Grid>
             <ContentPresenter/>
             <TextBlock Name="Index" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
@@ -240,10 +237,10 @@
   </Style>
 
   <!--  StopwatchControl  -->
-  <Style TargetType="{x:Type Common:StopwatchControl}">
+  <Style TargetType="{x:Type Common1:StopwatchControl}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Common:StopwatchControl}">
+        <ControlTemplate TargetType="{x:Type Common1:StopwatchControl}">
           <Border Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}">
@@ -261,10 +258,10 @@
   </Style>
 
   <!--  ShogiBoardCore  -->
-  <Style TargetType="{x:Type local:ShogiBoardCore}">
+  <Style TargetType="{x:Type Controls:ShogiBoardCore}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiBoardCore}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiBoardCore}">
           <Grid>
             <ItemsControl ItemsSource="{TemplateBinding Cells}" >
               <ItemsControl.ItemsPanel>
@@ -274,7 +271,7 @@
               </ItemsControl.ItemsPanel>
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type ShogiCore:Cell}">
-                  <local:ShogiCell Margin="1,1,0,0" Cell="{Binding}" />
+                  <Controls:ShogiCell Margin="1,1,0,0" Cell="{Binding}" />
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -285,10 +282,10 @@
   </Style>
 
   <!--  BoardBorder  -->
-  <Style TargetType="{x:Type local:BoardBorder}">
+  <Style TargetType="{x:Type Controls:BoardBorder}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:BoardBorder}">
+        <ControlTemplate TargetType="{x:Type Controls:BoardBorder}">
           <ControlTemplate.Resources>
             <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
               <Setter Property="Grid.RowSpan" Value="9"/>
@@ -459,10 +456,10 @@
   </Style>
 
   <!--  ProgressClock  -->
-  <Style TargetType="{x:Type Common:ProgressClock}">
+  <Style TargetType="{x:Type Common1:ProgressClock}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Common:ProgressClock}">
+        <ControlTemplate TargetType="{x:Type Common1:ProgressClock}">
           <ControlTemplate.Resources>
             <Storyboard x:Key="OnLoadedStoryboard" AutoReverse="False" RepeatBehavior="Forever">
               <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="line" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">

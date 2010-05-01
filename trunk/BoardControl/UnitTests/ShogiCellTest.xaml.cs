@@ -1,6 +1,6 @@
 ﻿using Yasc.ShogiCore;
 
-namespace UnitTests
+namespace BoardControl.UnitTests
 {
   public partial class ShogiCellTest
   {

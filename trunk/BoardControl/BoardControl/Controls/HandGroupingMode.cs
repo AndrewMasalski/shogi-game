@@ -1,4 +1,4 @@
-namespace Yasc.Controls
+namespace Yasc.BoardControl.Controls
 {
   public enum HandGroupingMode
   {
