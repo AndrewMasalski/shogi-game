@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
-using System.Linq;
 
 namespace ShogiCore.UnitTests
 {

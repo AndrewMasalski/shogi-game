@@ -1,8 +1,8 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Persistence.UnitTests.Properties;
 using Yasc.Persistence;
-using System.Linq;
 
 namespace Persistence.UnitTests
 {

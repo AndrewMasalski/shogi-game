@@ -1,4 +1,3 @@
-using Yasc.Networking;
 using Yasc.Networking.Interfaces;
 
 namespace Yasc.Gui.Game

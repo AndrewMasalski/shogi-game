@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -24,22 +23,9 @@ namespace Yasc.Gui.Game
     private void OnMoveAttempt(object sender, MoveAttemptEventArgs e)
     {
       Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
-  new Action(CommandManager.InvalidateRequerySuggested));
+        new Action(CommandManager.InvalidateRequerySuggested));
 
       _errorLabel.Text = e.Move.ErrorMessage;
     }
-
-//    private void OnUndo(object sender, ExecutedRoutedEventArgs e)
-//    {
-//      var vm = DataContext as GameWithOpponentViewModel;
-//      if (vm != null) vm.UndoLastMove();
-//    }
-
-    private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = true;
-      e.Handled = true;
-    }
-
   }
 }

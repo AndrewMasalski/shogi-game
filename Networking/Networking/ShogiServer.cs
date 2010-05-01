@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using System.Windows.Threading;
-using System.Linq;
 using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
 using Yasc.ShogiCore;

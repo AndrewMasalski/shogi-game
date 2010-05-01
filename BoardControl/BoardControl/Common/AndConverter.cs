@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
-using System.Windows.Data;
 using System.Linq;
+using System.Windows.Data;
 
 namespace Yasc.BoardControl.Common
 {

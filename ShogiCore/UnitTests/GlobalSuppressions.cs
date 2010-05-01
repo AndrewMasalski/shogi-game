@@ -8,6 +8,8 @@
 // "In Project Suppression File". 
 // You do not need to add suppressions to this file manually. 
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Scope = "member", Target = "UnitTests.Automation.AutomationExtensions.#FindAll(System.Windows.Automation.AutomationElement,System.Type)")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Scope = "member", Target = "UnitTests.Automation.AutomationExtensions.#FindFirst(System.Windows.Automation.AutomationElement,System.Type)")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Scope = "member", Target = "UnitTests.Automation.AutomationExtensions.#FindFirstByName(System.Windows.Automation.AutomationElement,System.Type,System.String)")]
+using System.Diagnostics.CodeAnalysis;
+
+[assembly: SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Scope = "member", Target = "UnitTests.Automation.AutomationExtensions.#FindAll(System.Windows.Automation.AutomationElement,System.Type)")]
+[assembly: SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Scope = "member", Target = "UnitTests.Automation.AutomationExtensions.#FindFirst(System.Windows.Automation.AutomationElement,System.Type)")]
+[assembly: SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Scope = "member", Target = "UnitTests.Automation.AutomationExtensions.#FindFirstByName(System.Windows.Automation.AutomationElement,System.Type,System.String)")]

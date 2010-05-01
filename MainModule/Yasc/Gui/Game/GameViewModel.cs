@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Yasc.Persistence;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
-using System.Linq;
 using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui.Game
