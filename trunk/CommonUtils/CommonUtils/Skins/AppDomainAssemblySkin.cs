@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Yasc.Skins
+namespace Yasc.Utils.Skins
 {
   public sealed class AppDomainAssemblySkin : DirectAssemblySkin
   {

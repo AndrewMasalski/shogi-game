@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Resources;
 
-namespace Yasc.Skins
+namespace Yasc.Utils.Skins
 {
   public class SkinBamlResolver : MarshalByRefObject, ISkinBamlResolver
   {

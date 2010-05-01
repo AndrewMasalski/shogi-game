@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Yasc.Skins
+namespace Yasc.Utils.Skins
 {
   public sealed class LooseXamlSkin : Skin
   {

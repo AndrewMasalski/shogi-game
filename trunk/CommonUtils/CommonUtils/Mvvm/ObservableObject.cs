@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace MvvmFoundation.Wpf
+namespace Yasc.Utils.Mvvm
 {
     /// <summary>
     /// This is the abstract base class for any object that provides property change notifications.  
@@ -72,7 +72,7 @@ namespace MvvmFoundation.Wpf
         /// The default value is false, but subclasses used by unit tests might 
         /// override this property's getter to return true.
         /// </summary>
-        protected virtual bool ThrowOnInvalidPropertyName { get; private set; }
+        protected virtual bool ThrowOnInvalidPropertyName { get { return true; } }
 
         #endregion // Debugging Aides
 

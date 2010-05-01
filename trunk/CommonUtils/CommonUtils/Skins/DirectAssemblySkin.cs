@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows;
 
-namespace Yasc.Skins
+namespace Yasc.Utils.Skins
 {
   public class DirectAssemblySkin : Skin
   {
