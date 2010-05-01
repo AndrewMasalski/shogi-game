@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Yasc.Skins
+namespace Yasc.Utils.Skins
 {
   public interface ISkinBamlResolver
   {

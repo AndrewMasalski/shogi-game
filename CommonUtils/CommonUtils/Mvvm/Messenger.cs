@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace MvvmFoundation.Wpf
+namespace Yasc.Utils.Mvvm
 {
   /// <summary>
   /// Provides loosely-coupled messaging between

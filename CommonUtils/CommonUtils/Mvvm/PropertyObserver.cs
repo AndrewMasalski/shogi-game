@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
 
-namespace MvvmFoundation.Wpf
+namespace Yasc.Utils.Mvvm
 {
     /// <summary>
     /// Monitors the PropertyChanged event of an object that implements INotifyPropertyChanged,
@@ -78,7 +78,7 @@ namespace MvvmFoundation.Wpf
         /// <summary>
         /// Removes the callback associated with the specified property.
         /// </summary>
-        /// <param name="propertyName">A lambda expression like 'n => n.PropertyName'.</param>
+        /// <param name="expression">A lambda expression like 'n => n.PropertyName'.</param>
         /// <returns>The object on which this method was invoked, to allow for multiple invocations chained together.</returns>
         public PropertyObserver<TPropertySource> UnregisterHandler(Expression<Func<TPropertySource, object>> expression)
         {

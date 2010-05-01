@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace MvvmFoundation.Wpf
+namespace Yasc.Utils.Mvvm
 {
     /// <summary>
     /// A command whose sole purpose is to 
