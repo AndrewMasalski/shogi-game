@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{879934e3-471b-471c-8d25-e25f438f93a8}</ProjectGuid>
+    <ArchitectureToolsVersion>1.0.0.0</ArchitectureToolsVersion>
+    <Name>Models</Name>
+    <RootNamespace>ModelingProject1</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
+  <ItemGroup>
+    <Folder Include="ModelDefinition\" />
+    <Content Include="ModelDefinition\Models.uml">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Validate Include="MainDependencies.layerdiagram">
+      <SubType>Content</SubType>
+    </Validate>
+    <Validate Include="MainDependencies.layerdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>MainDependencies.layerdiagram</DependentUpon>
+    </Validate>
+    <Validate Include="MainDependencies.layerdiagram.suppressions">
+      <SubType>Content</SubType>
+      <DependentUpon>MainDependencies.layerdiagram</DependentUpon>
+    </Validate>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BoardControl\BoardControl\BoardControl.csproj">
+      <Name>BoardControl</Name>
+      <Project>{543cd7cd-94c9-4d57-8c99-28e52dd60ca8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Name>CommonUtils</Name>
+      <Project>{20fcadd3-099d-4702-bba1-aeb8c43ea920}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DotUsi\DotUsi\DotUsi.csproj">
+      <Name>DotUsi</Name>
+      <Project>{70532ad0-f1d5-4787-9e62-e06377c04cc4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MainModule\Yasc\MainModule.csproj">
+      <Name>MainModule</Name>
+      <Project>{96247e76-8563-43b1-bd14-4cdd83eed508}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Networking\Networking\Networking.csproj">
+      <Name>Networking</Name>
+      <Project>{e8497624-9f29-411b-a917-c2de3a87661e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistence\Persistence\Persistence.csproj">
+      <Name>Persistence</Name>
+      <Project>{e8497624-9f29-411b-a917-c2de3a87661d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ShogiCore\ShogiCore\ShogiCore.csproj">
+      <Name>ShogiCore</Name>
+      <Project>{fdf88daa-6bed-41a1-a1af-ee259d710c9a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
