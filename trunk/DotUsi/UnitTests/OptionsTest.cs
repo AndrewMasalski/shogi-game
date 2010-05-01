@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using DotUsi;
 using DotUsi.Options;
+using DotUsi.Options.Base;
+using DotUsi.UnitTests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace DotUsi.UnitTests
 {
   [TestClass]
   public class ButtonOptionTest : OptionTestBase<ButtonOption>

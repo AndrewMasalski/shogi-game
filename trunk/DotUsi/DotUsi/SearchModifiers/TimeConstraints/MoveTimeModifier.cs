@@ -1,6 +1,7 @@
 using System;
+using DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>Sets exact time fir search</summary>
   public class MoveTimeModifier : TimeSpanModifier

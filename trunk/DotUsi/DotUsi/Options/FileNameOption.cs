@@ -1,6 +1,7 @@
 using System.IO;
+using DotUsi.Options.Base;
 
-namespace DotUsi
+namespace DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.FileName"/></summary>
   public class FileNameOption : ValueOptionBase<FileInfo>

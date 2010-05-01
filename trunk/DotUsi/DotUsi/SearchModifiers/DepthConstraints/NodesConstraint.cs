@@ -1,6 +1,7 @@
 using System;
+using DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace DotUsi.SearchModifiers.DepthConstraints
 {
   /// <summary>Constraints nodes to search.</summary>
   public class NodesConstraint : ScalarModifier<int>

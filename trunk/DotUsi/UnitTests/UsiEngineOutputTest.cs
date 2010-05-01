@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Specialized;
-using DotUsi;
+using DotUsi.UnitTests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Utils;
 
-namespace UnitTests
+namespace DotUsi.UnitTests
 {
   [TestClass]
   public class UsiEngineOutputTest

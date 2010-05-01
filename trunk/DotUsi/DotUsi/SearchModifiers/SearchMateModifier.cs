@@ -1,6 +1,7 @@
 using System;
+using DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace DotUsi.SearchModifiers
 {
   /// <summary>Search for a mate</summary>
   public class SearchMateModifier : ScalarModifier<int>

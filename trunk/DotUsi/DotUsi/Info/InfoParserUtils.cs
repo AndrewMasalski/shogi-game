@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DotUsi.Utils;
 
-namespace DotUsi
+namespace DotUsi.Info
 {
   internal static class InfoParserUtils
   {

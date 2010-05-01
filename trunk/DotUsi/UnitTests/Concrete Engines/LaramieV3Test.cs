@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using DotUsi;
+using DotUsi.Process;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests

@@ -1,6 +1,7 @@
 using System;
+using DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>There are n moves to the next time control.</summary>
   /// <remarks>If you don't get this and get the <see cref="WhiteTimeModifier"/> 

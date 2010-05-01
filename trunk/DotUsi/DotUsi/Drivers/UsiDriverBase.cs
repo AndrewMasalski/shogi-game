@@ -1,6 +1,7 @@
 using System;
+using DotUsi.Process;
 
-namespace DotUsi
+namespace DotUsi.Drivers
 {
   /// <summary>Base class for concrete engine driver</summary>
   public abstract class UsiDriverBase : IUsiProcess

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DotUsi
+namespace DotUsi.Utils
 {
   internal static class ListExtensions
   {

@@ -1,8 +1,8 @@
 using System.Threading;
-using DotUsi;
+using DotUsi.Process;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace DotUsi.UnitTests
 {
   [TestClass]
   public class UsiEngineAsynchOperationsTest

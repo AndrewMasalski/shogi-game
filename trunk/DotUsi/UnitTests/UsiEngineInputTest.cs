@@ -1,8 +1,13 @@
 ﻿using System;
-using DotUsi;
+using DotUsi.Exceptions;
+using DotUsi.Options.Base;
+using DotUsi.SearchModifiers;
+using DotUsi.SearchModifiers.DepthConstraints;
+using DotUsi.SearchModifiers.TimeConstraints;
+using DotUsi.UnitTests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace DotUsi.UnitTests
 {
   /// <remarks>
   /// <para>I assume Go overloads don't require testing because of their simplicity </para>

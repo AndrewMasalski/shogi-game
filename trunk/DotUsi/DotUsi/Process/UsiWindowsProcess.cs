@@ -2,8 +2,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using DotUsi.Exceptions;
 
-namespace DotUsi
+namespace DotUsi.Process
 {
   /// <summary>Default <see cref="IUsiProcess"/> implementation 
   ///   with real windows process in backgroud.</summary>
@@ -18,14 +19,14 @@ namespace DotUsi
   /// </remarks>
   public class UsiWindowsProcess : IUsiProcess
   {
-    private Process _process;
+    private System.Diagnostics.Process _process;
     private readonly Timer _timer;
 
     /// <summary>ctor</summary>
     /// <param name="path">Path to the executable file</param>
     public UsiWindowsProcess(string path)
     {
-     _process = Process.Start(new ProcessStartInfo
+     _process = System.Diagnostics.Process.Start(new ProcessStartInfo
                                  {
                                    FileName = path,
                                    WorkingDirectory = Path.GetDirectoryName(path),

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using DotUsi.Options;
+using DotUsi.Options.Base;
+using DotUsi.Process;
 
-namespace DotUsi
+namespace DotUsi.Drivers
 {
   ///<summary>Driver for Spear CSA 2008 v.1.4 </summary>
   public class SpearCsa2008V14Driver : UsiDriverBase, IEngineHook

@@ -1,3 +1,5 @@
+using DotUsi.Options.Base;
+
 namespace DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.Check"/></summary>
