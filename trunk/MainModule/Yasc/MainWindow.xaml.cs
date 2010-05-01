@@ -1,4 +1,6 @@
-﻿namespace Yasc
+﻿using System;
+
+namespace Yasc
 {
   public partial class MainWindow 
   {
@@ -8,7 +10,7 @@
       DataContext = new MainWindowViewModel();
     }
 
-    protected override void OnClosed(System.EventArgs e)
+    protected override void OnClosed(EventArgs e)
     {
       ((MainWindowViewModel) DataContext).Dispose();
       base.OnClosed(e);

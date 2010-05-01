@@ -114,11 +114,11 @@ namespace Yasc.Utils.Mvvm
 
             if (managerType == typeof(PropertyChangedEventManager))
             {
-                PropertyChangedEventArgs args = e as PropertyChangedEventArgs;
+                var args = e as PropertyChangedEventArgs;
                 if (args != null && sender is TPropertySource)
                 {
                     string propertyName = args.PropertyName;
-                    TPropertySource propertySource = (TPropertySource)sender;
+                    var propertySource = (TPropertySource)sender;
 
                     if (String.IsNullOrEmpty(propertyName))
                     {

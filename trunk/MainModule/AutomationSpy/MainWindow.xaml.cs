@@ -1,6 +1,4 @@
-﻿using System.Windows.Automation;
-
-namespace AutomationSpy
+﻿namespace AutomationSpy
 {
   public partial class MainWindow
   {

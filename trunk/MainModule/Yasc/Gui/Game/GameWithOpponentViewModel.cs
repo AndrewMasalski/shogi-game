@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using Yasc.Model;
-using Yasc.Networking;
 using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
 using Yasc.ShogiCore;

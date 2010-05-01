@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using Yasc.Networking;
 using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
 using Yasc.Utils.Mvvm;

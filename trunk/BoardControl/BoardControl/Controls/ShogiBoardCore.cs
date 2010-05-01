@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
-using System.Linq;
 
 namespace Yasc.BoardControl.Controls
 {

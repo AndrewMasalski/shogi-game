@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Linq;
+using System.Text;
 using DotUsi.Drivers;
 using DotUsi.Exceptions;
 using DotUsi.Info;

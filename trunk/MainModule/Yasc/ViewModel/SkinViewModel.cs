@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using Yasc.Gui;
 using Yasc.Utils.Mvvm;
 using Yasc.Utils.Skins;
 

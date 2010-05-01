@@ -1,7 +1,7 @@
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Gui;
 using Yasc.Properties;
-using System.Linq;
 using Yasc.Utils;
 
 namespace MainModule.UnitTests.ViewModel

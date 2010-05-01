@@ -1,8 +1,8 @@
 using System;
+using System.Linq;
 using System.Threading;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
-using System.Linq;
 
 namespace Yasc.AI
 {
