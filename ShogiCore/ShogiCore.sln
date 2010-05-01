@@ -1,33 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B0F701A-77D7-4BA0-96E6-0CDDE27B8BE8}"
-	ProjectSection(SolutionItems) = preProject
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
-		Yasc.ShogiCore.vsmdi = Yasc.ShogiCore.vsmdi
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShogiCore", "ShogiCore\ShogiCore.csproj", "{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{94F07960-A013-46AF-BCC3-6E55DD48989E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yasc.ShogiCore", "Yasc.ShogiCore\Yasc.ShogiCore.csproj", "{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}"
-EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Yasc.ShogiCore.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

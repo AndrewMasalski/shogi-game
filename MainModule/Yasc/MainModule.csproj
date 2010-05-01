@@ -52,17 +52,13 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotUsi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DotUsi\Release\DotUsi.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -88,26 +84,6 @@
     </Reference>
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="Yasc.BoardControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BoardControl\Release\Yasc.BoardControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Networking, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Networking\Release\Yasc.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Persistence, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Persistence\Release\Yasc.Persistence.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +223,32 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BoardControl\BoardControl\BoardControl.csproj">
+      <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
+      <Name>BoardControl %28BoardControl\BoardControl%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DotUsi\DotUsi\DotUsi.csproj">
+      <Project>{70532AD0-F1D5-4787-9E62-E06377C04CC4}</Project>
+      <Name>DotUsi %28DotUsi\DotUsi%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Networking\Networking\Networking.csproj">
+      <Project>{E8497624-9F29-411B-A917-C2DE3A87661E}</Project>
+      <Name>Networking %28Networking\Networking%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Persistence\Persistence\Persistence.csproj">
+      <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
+      <Name>Persistence %28Persistence\Persistence%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ShogiCore\ShogiCore\ShogiCore.csproj">
+      <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
+      <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
