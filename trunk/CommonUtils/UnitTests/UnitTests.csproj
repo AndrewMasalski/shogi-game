@@ -93,7 +93,7 @@
     <Compile Include="RangeTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yasc.Utils\CommonUtils.csproj">
+    <ProjectReference Include="..\CommonUtils\CommonUtils.csproj">
       <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
       <Name>CommonUtils</Name>
     </ProjectReference>
