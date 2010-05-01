@@ -1,8 +1,10 @@
 using System;
-using DotUsi;
+using DotUsi.SearchModifiers;
+using DotUsi.SearchModifiers.DepthConstraints;
+using DotUsi.SearchModifiers.TimeConstraints;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace DotUsi.UnitTests
 {
   [TestClass]
   public class ModifiersTest

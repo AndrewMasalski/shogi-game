@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using DotUsi.Options.Base;
+using DotUsi.Process;
 
-namespace DotUsi
+namespace DotUsi.Drivers
 {
   /// <summary>If <see cref="IUsiProcess"/> supports that interface
   ///   <see cref="UsiEngine"/> will pass additional info to it.

@@ -1,4 +1,6 @@
-namespace DotUsi
+using DotUsi.Options.Base;
+
+namespace DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.String"/></summary>
   public class StringOption : ValueOptionBase<string>

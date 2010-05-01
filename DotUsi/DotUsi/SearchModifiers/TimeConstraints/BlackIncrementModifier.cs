@@ -1,6 +1,7 @@
 using System;
+using DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>Black time increment per move</summary>
   public class BlackIncrementModifier : TimeSpanModifier

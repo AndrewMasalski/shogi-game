@@ -83,7 +83,7 @@
     <Compile Include="Drivers\SpearCsa2008V14Driver.cs" />
     <Compile Include="Drivers\SpearCsa2009V15Driver.cs" />
     <Compile Include="SynchEngineExtensions.cs" />
-    <Compile Include="EventArgs\BestMoveEventArgs.cs" />
+    <Compile Include="BestMoveEventArgs.cs" />
     <Compile Include="Info\InfoParserUtils.cs" />
     <Compile Include="Options\ButtonOption.cs" />
     <Compile Include="Options\CheckOption.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="EngineMode.cs" />
     <Compile Include="Info\EngineInfo.cs" />
     <Compile Include="Process\IUsiProcess.cs" />
-    <Compile Include="EventArgs\LineReceivedEventArgs.cs" />
+    <Compile Include="LineReceivedEventArgs.cs" />
     <Compile Include="SearchModifiers\TimeConstraints\InfiniteModifier.cs" />
     <Compile Include="SearchModifiers\TimeConstraints\MoveTimeModifier.cs" />
     <Compile Include="SearchModifiers\DepthConstraints\NodesConstraint.cs" />

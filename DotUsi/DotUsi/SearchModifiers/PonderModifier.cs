@@ -1,4 +1,6 @@
-namespace DotUsi
+using DotUsi.SearchModifiers.Base;
+
+namespace DotUsi.SearchModifiers
 {
   /// <summary><para>Start searching in pondering mode.</para> 
   ///   <para>This means that the last move X sent in the current position is the move to ponder on. 

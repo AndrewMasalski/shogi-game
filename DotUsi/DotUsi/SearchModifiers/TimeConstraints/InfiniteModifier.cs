@@ -1,4 +1,6 @@
-namespace DotUsi
+using DotUsi.SearchModifiers.Base;
+
+namespace DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>Search until the stop command is received. 
   ///   Do not exit the search without being told so in this mode!

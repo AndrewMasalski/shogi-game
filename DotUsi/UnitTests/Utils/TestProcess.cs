@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using DotUsi;
+using DotUsi.Process;
 
-namespace UnitTests
+namespace DotUsi.UnitTests.Utils
 {
   public class TestProcess : IUsiProcess
   {

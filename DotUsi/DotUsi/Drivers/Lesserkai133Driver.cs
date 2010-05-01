@@ -1,4 +1,6 @@
-namespace DotUsi
+using DotUsi.Process;
+
+namespace DotUsi.Drivers
 {
   /// <summary>Driver for Lesserkai 1.3.3 engine</summary>
   public class Lesserkai133Driver : UsiDriverBase

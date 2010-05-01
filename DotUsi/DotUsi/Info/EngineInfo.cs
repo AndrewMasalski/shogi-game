@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace DotUsi
+namespace DotUsi.Info
 {
   /// <summary>Holds all information fields engine can notify about</summary>
   public class EngineInfo : INotifyPropertyChanged

@@ -1,6 +1,9 @@
 using System;
 using System.Diagnostics;
 using DotUsi;
+using DotUsi.Drivers;
+using DotUsi.Process;
+using DotUsi.SearchModifiers.TimeConstraints;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests

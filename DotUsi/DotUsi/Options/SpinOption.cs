@@ -1,6 +1,7 @@
 using System;
+using DotUsi.Options.Base;
 
-namespace DotUsi
+namespace DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.Spin"/></summary>
   public class SpinOption : ValueOptionBase<int>

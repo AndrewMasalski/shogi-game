@@ -1,6 +1,9 @@
 using System.Diagnostics;
 using System.Linq;
 using DotUsi;
+using DotUsi.Drivers;
+using DotUsi.Options;
+using DotUsi.Process;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests

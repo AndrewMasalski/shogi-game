@@ -1,3 +1,6 @@
+using DotUsi.Options.Base;
+using DotUsi.SearchModifiers;
+
 namespace DotUsi
 {
   /// <summary>Represents modes <see cref="UsiEngine"/> can be in</summary>

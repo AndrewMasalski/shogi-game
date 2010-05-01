@@ -1,10 +1,9 @@
-using System.Diagnostics;
 using System.Threading;
-using DotUsi;
+using DotUsi.Process;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Utils;
 
-namespace UnitTests
+namespace DotUsi.UnitTests
 {
   [TestClass]
   public class UsiWindowsProcessTest
@@ -15,7 +14,7 @@ namespace UnitTests
     [TestInitialize]
     public void Init()
     {
-      Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
+      Assert.AreEqual(0, System.Diagnostics.Process.GetProcessesByName("Echo").Length);
       _process = new UsiWindowsProcess("Echo");
       _log = new TestLog();
     }
@@ -31,7 +30,7 @@ namespace UnitTests
       }
       _process.Dispose();
       Assert.AreEqual("test <null>", _log.ToString());
-      Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
+      Assert.AreEqual(0, System.Diagnostics.Process.GetProcessesByName("Echo").Length);
     }
     [TestMethod]
     public void QuitWithDelayTest()
@@ -39,22 +38,22 @@ namespace UnitTests
       _process.WriteLine("quit with delay");
       _process.Dispose();
       Thread.Sleep(200); // Give the system time to refresh that data
-      Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
+      Assert.AreEqual(0, System.Diagnostics.Process.GetProcessesByName("Echo").Length);
     }
     [TestMethod]
     public void DisposeAndDontQuitTest()
     {
       Thread.Sleep(200); // Give the system time to refresh that data
-      Assert.AreEqual(1, Process.GetProcessesByName("Echo").Length);
+      Assert.AreEqual(1, System.Diagnostics.Process.GetProcessesByName("Echo").Length);
       _process.Dispose();
       Thread.Sleep(200); // Give the system time to refresh that data
-      Assert.AreEqual(0, Process.GetProcessesByName("Echo").Length);
+      Assert.AreEqual(0, System.Diagnostics.Process.GetProcessesByName("Echo").Length);
     }
     [TestMethod]
     public void KillNotificationTest()
     {
       _process.OutputDataReceived += (s, e) => _log.Write(e.Line);
-      Process.GetProcessesByName("Echo")[0].Kill();
+      System.Diagnostics.Process.GetProcessesByName("Echo")[0].Kill();
       Thread.Sleep(2000); // Give our wrapper time to realize that the process has been killed
       Assert.AreEqual("<null>", _log.ToString());
       Assert.IsTrue(_process.IsDisposed);

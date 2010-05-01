@@ -1,9 +1,7 @@
-using System;
-
 namespace DotUsi
 {
   /// <summary>Holds the data engine sends when the best move is found</summary>
-  public class BestMoveEventArgs : EventArgs
+  public class BestMoveEventArgs : System.EventArgs
   {
     /// <summary>The best move</summary>
     public string Move { get; private set; }

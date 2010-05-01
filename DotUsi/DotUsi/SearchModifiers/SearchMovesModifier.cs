@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
+using DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace DotUsi.SearchModifiers
 {
   /// <summary>Restricts search to some branches.</summary>
   public class SearchMovesModifier : ScalarModifier<string[]>
