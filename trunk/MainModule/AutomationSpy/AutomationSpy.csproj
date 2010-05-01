@@ -84,10 +84,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -137,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

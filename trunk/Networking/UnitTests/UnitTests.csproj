@@ -88,14 +88,6 @@
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ServerRoutines.cs" />
@@ -104,6 +96,14 @@
     <Compile Include="TimerTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ShogiCore\ShogiCore\ShogiCore.csproj">
+      <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
+      <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Networking\Networking.csproj">
       <Project>{E8497624-9F29-411B-A917-C2DE3A87661E}</Project>
       <Name>Networking</Name>

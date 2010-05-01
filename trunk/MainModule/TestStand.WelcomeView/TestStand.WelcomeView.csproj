@@ -71,10 +71,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -121,6 +117,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yasc\MainModule.csproj">
       <Project>{96247E76-8563-43B1-BD14-4CDD83EED508}</Project>
       <Name>MainModule</Name>

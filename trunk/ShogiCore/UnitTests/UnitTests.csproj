@@ -93,14 +93,6 @@
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Yasc.RulesVisualization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BoardControl\Release\Yasc.RulesVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardSnapshotTest.cs">
@@ -184,6 +176,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BoardControl\RulesVisualization\RulesVisualization.csproj">
+      <Project>{A3972558-F892-47C4-B46D-640DDFB4BAC8}</Project>
+      <Name>RulesVisualization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShogiCore\ShogiCore.csproj">
       <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
       <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>

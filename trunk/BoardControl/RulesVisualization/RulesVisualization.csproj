@@ -50,7 +50,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -73,14 +73,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Yasc.ShogiCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ShogiCore\Release\Yasc.ShogiCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CommonUtils\Release\Yasc.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
@@ -125,6 +117,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ShogiCore\ShogiCore\ShogiCore.csproj">
+      <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
+      <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BoardControl\BoardControl.csproj">
       <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
       <Name>BoardControl</Name>
