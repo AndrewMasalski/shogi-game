@@ -19,6 +19,7 @@ namespace UnitTests.Automation
     [TestInitialize]
     public void SetUp()
     {
+      Assert.Fail();
       _app = new ApplicationHost();
       _windowElement = _app.Open(typeof(MainWindow).Assembly.Location);
     }

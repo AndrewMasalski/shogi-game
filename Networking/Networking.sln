@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Networking.vsmdi = Networking.vsmdi
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{94F07960-A013-46AF-BCC3-6E55DD48989E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{36028E9A-5CF2-4378-A98E-79DA8C5CC426}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Networking", "Networking\Networking.csproj", "{E8497624-9F29-411B-A917-C2DE3A87661E}"
 EndProject
@@ -20,10 +20,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94F07960-A013-46AF-BCC3-6E55DD48989E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36028E9A-5CF2-4378-A98E-79DA8C5CC426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36028E9A-5CF2-4378-A98E-79DA8C5CC426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36028E9A-5CF2-4378-A98E-79DA8C5CC426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36028E9A-5CF2-4378-A98E-79DA8C5CC426}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8497624-9F29-411B-A917-C2DE3A87661E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8497624-9F29-411B-A917-C2DE3A87661E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8497624-9F29-411B-A917-C2DE3A87661E}.Release|Any CPU.ActiveCfg = Release|Any CPU
