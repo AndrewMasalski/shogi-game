@@ -184,9 +184,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yasc.ShogiCore\ShogiCore.csproj">
+    <ProjectReference Include="..\ShogiCore\ShogiCore.csproj">
       <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
-      <Name>ShogiCore</Name>
+      <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
