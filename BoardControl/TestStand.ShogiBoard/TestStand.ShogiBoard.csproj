@@ -125,7 +125,7 @@
     </ProjectReference>
     <ProjectReference Include="..\BoardControl\BoardControl.csproj">
       <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
-      <Name>BoardControl</Name>
+      <Name>BoardControl %28BoardControl\BoardControl%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

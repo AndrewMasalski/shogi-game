@@ -98,7 +98,11 @@
     </ProjectReference>
     <ProjectReference Include="..\DotUsi\DotUsi.csproj">
       <Project>{70532AD0-F1D5-4787-9E62-E06377C04CC4}</Project>
-      <Name>DotUsi</Name>
+      <Name>DotUsi %28DotUsi\DotUsi%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Echo\Echo.csproj">
+      <Project>{EDEB9080-678C-48DA-9EA5-8E0644AED5A4}</Project>
+      <Name>Echo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

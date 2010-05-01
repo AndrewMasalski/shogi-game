@@ -123,7 +123,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Yasc\MainModule.csproj">
       <Project>{96247E76-8563-43B1-BD14-4CDD83EED508}</Project>
-      <Name>MainModule</Name>
+      <Name>MainModule %28MainModule\MainModule%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
