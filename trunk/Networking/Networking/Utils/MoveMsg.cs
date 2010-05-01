@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.Networking
+namespace Yasc.Networking.Utils
 {
   [Serializable]
   public class MoveMsg

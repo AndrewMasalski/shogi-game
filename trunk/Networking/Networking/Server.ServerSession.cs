@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Windows.Threading;
+using Yasc.Networking.Interfaces;
 
 namespace Yasc.Networking
 {

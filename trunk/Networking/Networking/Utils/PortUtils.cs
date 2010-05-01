@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using System.Runtime.Remoting.Channels.Tcp;
 
-namespace Yasc.Networking
+namespace Yasc.Networking.Utils
 {
   public static class PortUtils
   {

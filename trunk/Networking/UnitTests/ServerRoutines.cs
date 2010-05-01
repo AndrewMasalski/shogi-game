@@ -1,7 +1,8 @@
 using System.Linq;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
 
-namespace UnitTests
+namespace Networking.UnitTests
 {
   public static class ServerRoutines
   {

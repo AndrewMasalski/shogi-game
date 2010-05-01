@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.Networking
+namespace Yasc.Networking.Interfaces
 {
   public interface IServerSession
   {

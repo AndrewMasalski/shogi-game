@@ -2,9 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Networking;
 using System.Linq;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.Utils;
 
-namespace UnitTests
+namespace Networking.UnitTests
 {
   [TestClass]
   public class ServerTest

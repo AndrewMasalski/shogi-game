@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.ShogiCore;
 
 namespace Yasc.Networking
@@ -9,7 +11,6 @@ namespace Yasc.Networking
   {
     private class ServerGame : MarshalByRefObject, IServerGame
     {
-      private static readonly Random _rnd = new Random();
       private readonly ServerUser _invitor;
       private readonly ServerUser _invitee;
       private readonly List<SpectatorController> _spectators = new List<SpectatorController>();
