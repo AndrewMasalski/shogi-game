@@ -60,6 +60,7 @@
       <Field Name="_cells" Hidden="true" />
       <Field Name="_currentMoveIndex" Hidden="true" />
       <Field Name="_currentSnapshot" Hidden="true" />
+      <Field Name="_gameResult" Hidden="true" />
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
       <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
@@ -73,7 +74,7 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgQAAEACSFCAIAA=</HashCode>
+      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgRAAEACSFCAIAA=</HashCode>
       <FileName>Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

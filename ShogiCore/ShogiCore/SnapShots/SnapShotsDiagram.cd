@@ -64,7 +64,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.UsualMoveSnapshot">
-    <Position X="2.75" Y="6.25" Width="2.5" />
+    <Position X="3.75" Y="6.25" Width="2.5" />
     <Members>
       <Method Name="AsRealMoveCore" Hidden="true" />
     </Members>
@@ -74,7 +74,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.DropMoveSnapshot">
-    <Position X="5.5" Y="6.25" Width="2.5" />
+    <Position X="6.5" Y="6.25" Width="2.5" />
     <Members>
       <Method Name="AsRealMoveCore" Hidden="true" />
     </Members>
@@ -84,7 +84,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.MoveSnapshotBase">
-    <Position X="4.25" Y="4.25" Width="2.25" />
+    <Position X="5.25" Y="4.25" Width="2.25" />
     <Members>
       <Method Name="AsRealMoveCore" Hidden="true" />
     </Members>
@@ -114,6 +114,7 @@
       <Field Name="_cells" Hidden="true" />
       <Field Name="_currentMoveIndex" Hidden="true" />
       <Field Name="_currentSnapshot" Hidden="true" />
+      <Field Name="_gameResult" Hidden="true" />
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
       <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
@@ -127,7 +128,7 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgQAAEACSFCAIAA=</HashCode>
+      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgRAAEACSFCAIAA=</HashCode>
       <FileName>Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
