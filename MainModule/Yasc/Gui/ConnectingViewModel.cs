@@ -2,8 +2,9 @@
 using System.Threading;
 using System.Windows.Input;
 using System.Windows.Threading;
-using MvvmFoundation.Wpf;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui
 {
@@ -20,25 +21,11 @@ namespace Yasc.Gui
 
     public ICommand CancelCommand
     {
-      get
-      {
-        if (_cancelCommand == null)
-        {
-          _cancelCommand = new RelayCommand(() => OnFail(EventArgs.Empty));
-        }
-        return _cancelCommand;
-      }
+      get { return _cancelCommand ?? (_cancelCommand = new RelayCommand(() => OnFail(EventArgs.Empty))); }
     }
     public ICommand RetryCommand
     {
-      get
-      {
-        if (_retryCommand == null)
-        {
-          _retryCommand = new RelayCommand(Retry);
-        }
-        return _retryCommand;
-      }
+      get { return _retryCommand ?? (_retryCommand = new RelayCommand(Retry)); }
     }
 
     public string Address { get; private set; }
@@ -77,14 +64,7 @@ namespace Yasc.Gui
 
     public IServerSession Session
     {
-      get 
-      {
-        if (_session == null)
-        {
-          _session = Server.LogOn(_userName);
-        }
-        return _session;
-      }
+      get { return _session ?? (_session = Server.LogOn(_userName)); }
     }
 
     public ConnectingViewModel(string address, string userName)

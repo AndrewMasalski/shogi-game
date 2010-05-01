@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.ShogiCore;
 
 namespace Yasc.AI

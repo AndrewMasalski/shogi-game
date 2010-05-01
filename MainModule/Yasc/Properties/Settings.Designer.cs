@@ -38,9 +38,9 @@ namespace Yasc.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("None")]
-        public global::Yasc.Gui.WelcomeChoice DefaultStartMode {
+        public global::Yasc.Utils.WelcomeChoice DefaultStartMode {
             get {
-                return ((global::Yasc.Gui.WelcomeChoice)(this["DefaultStartMode"]));
+                return ((global::Yasc.Utils.WelcomeChoice)(this["DefaultStartMode"]));
             }
             set {
                 this["DefaultStartMode"] = value;

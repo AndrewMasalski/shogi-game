@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.Gui
+namespace Yasc.Model
 {
   public class ChatMessage
   {

@@ -1,9 +1,10 @@
 using System;
 using System.Windows.Input;
-using MvvmFoundation.Wpf;
-using Yasc.Skins;
+using Yasc.Gui;
+using Yasc.Utils.Mvvm;
+using Yasc.Utils.Skins;
 
-namespace Yasc.Gui
+namespace Yasc.ViewModel
 {
   public class SkinViewModel : ObservableObject
   {
@@ -23,14 +24,7 @@ namespace Yasc.Gui
     }
     public ICommand LoadCommand
     {
-      get
-      {
-        if (_loadCommand == null)
-        {
-          _loadCommand = new RelayCommand(() => IsSelected = true);
-        }
-        return _loadCommand;
-      }
+      get { return _loadCommand ?? (_loadCommand = new RelayCommand(() => IsSelected = true)); }
     }
 
     public SkinViewModel(SkinningViewModel owner, Skin skin)

@@ -1,10 +1,9 @@
 ﻿<UserControl x:Class="Yasc.Gui.ServerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Gui="clr-namespace:Yasc.Gui"
-    xmlns:Controls="clr-namespace:Yasc.Controls;assembly=Yasc.BoardControl">
+    xmlns:Gui="clr-namespace:Yasc.Gui" xmlns:ViewModel="clr-namespace:Yasc.ViewModel" xmlns:Common="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl">
   <UserControl.Resources>
-    <DataTemplate DataType="{x:Type Gui:UserViewModel}">
+    <DataTemplate DataType="{x:Type ViewModel:UserViewModel}">
       <TextBlock>
         <Hyperlink Command="{Binding InviteCommand}">
           <TextBlock Text="{Binding Name}"/>
@@ -16,10 +15,10 @@
     <Menu DockPanel.Dock="Top">
       <MenuItem Header="Leave" Command="{Binding LogOffCommand}" />
     </Menu>
-    <Controls:SwitchControl Content="{Binding}" Switcher="{Binding IsServer}"
+    <Common:SwitchControl Content="{Binding}" Switcher="{Binding IsServer}"
                             DockPanel.Dock="Top" HorizontalAlignment="Right"
                             Margin="10,1">
-      <Controls:SwitchControl.Resources>
+      <Common:SwitchControl.Resources>
         <DataTemplate x:Key="True">
           <TextBlock Text="We are server" />
         </DataTemplate>
@@ -28,8 +27,8 @@
             <TextBlock Text="{Binding ServerAddress}" FontWeight="Bold"/>
           </TextBlock>
         </DataTemplate>
-      </Controls:SwitchControl.Resources>
-    </Controls:SwitchControl>
+      </Common:SwitchControl.Resources>
+    </Common:SwitchControl>
     <Grid>
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="1*" />

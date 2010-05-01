@@ -4,10 +4,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Input;
-using MvvmFoundation.Wpf;
 using Yasc.Gui.Game;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.Utils;
+using Yasc.Utils.Mvvm;
+using Yasc.ViewModel;
 
 namespace Yasc.Gui
 {
@@ -21,36 +24,15 @@ namespace Yasc.Gui
 
     public ICommand LogOffCommand
     {
-      get
-      {
-        if (_logOffCommand == null)
-        {
-          _logOffCommand = new RelayCommand(LogOff);
-        }
-        return _logOffCommand;
-      }
+      get { return _logOffCommand ?? (_logOffCommand = new RelayCommand(LogOff)); }
     }
     public ICommand RefreshGamesCommand
     {
-      get
-      {
-        if (_refreshGamesCommand == null)
-        {
-          _refreshGamesCommand = new RelayCommand(RefreshGames);
-        }
-        return _refreshGamesCommand;
-      }
+      get { return _refreshGamesCommand ?? (_refreshGamesCommand = new RelayCommand(RefreshGames)); }
     }
     public ICommand UsersRefreshCommand
     {
-      get
-      {
-        if (_usersRefreshCommand == null)
-        {
-          _usersRefreshCommand = new RelayCommand(UsersRefresh);
-        }
-        return _usersRefreshCommand;
-      }
+      get { return _usersRefreshCommand ?? (_usersRefreshCommand = new RelayCommand(UsersRefresh)); }
     }
 
     public bool IsServer { get; private set; }

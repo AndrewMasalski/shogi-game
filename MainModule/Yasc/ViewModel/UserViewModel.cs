@@ -1,9 +1,11 @@
 using System;
 using System.Windows.Input;
-using MvvmFoundation.Wpf;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
+using Yasc.Utils.Mvvm;
 
-namespace Yasc.Gui
+namespace Yasc.ViewModel
 {
   public class UserViewModel : ObservableObject
   {
@@ -21,14 +23,7 @@ namespace Yasc.Gui
 
     public ICommand InviteCommand
     {
-      get
-      {
-        if (_inviteCommand == null)
-        {
-          _inviteCommand = new RelayCommand(Invite);
-        }
-        return _inviteCommand;
-      }
+      get { return _inviteCommand ?? (_inviteCommand = new RelayCommand(Invite)); }
     }
 
     private RelayCommand _inviteCommand;

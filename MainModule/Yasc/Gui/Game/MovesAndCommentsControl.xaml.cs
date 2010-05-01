@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Yasc.Common;
+using Yasc.BoardControl.Common;
 
 namespace Yasc.Gui.Game
 {

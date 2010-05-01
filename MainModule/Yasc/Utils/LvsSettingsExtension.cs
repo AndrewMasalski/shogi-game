@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-namespace Yasc.Gui
+namespace Yasc.Utils
 {
   /// <summary>Lvs = LastVisitedServer</summary>
   internal static class LvsSettingsExtension

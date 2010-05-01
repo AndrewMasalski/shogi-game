@@ -1,8 +1,10 @@
 using System;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Networking.Utils;
 using Yasc.ShogiCore;
 
-namespace Yasc.Gui
+namespace Yasc.Utils
 {
   public class GameTicket : IDisposable
   {

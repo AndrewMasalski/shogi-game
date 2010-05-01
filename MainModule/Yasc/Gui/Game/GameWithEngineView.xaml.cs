@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 
 namespace Yasc.Gui.Game
 {

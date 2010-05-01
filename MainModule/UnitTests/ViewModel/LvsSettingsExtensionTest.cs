@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Gui;
 using Yasc.Properties;
+using Yasc.Utils;
 
-namespace UnitTests.ViewModel
+namespace MainModule.UnitTests.ViewModel
 {
   [TestClass]
   public class LvsSettingsExtensionTest
@@ -21,7 +21,7 @@ namespace UnitTests.ViewModel
     [TestMethod]
     public void LoadEmptyListTest()
     {
-      var actual = Settings.Default.LoadLvs().ToList();
+      var actual = Enumerable.ToList<string>(Settings.Default.LoadLvs());
       var expected = new string[0];
       CollectionAssert.AreEqual(expected, actual);
     }

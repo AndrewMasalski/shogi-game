@@ -1,7 +1,7 @@
 using System.Windows.Automation;
-using Yasc.Controls;
+using Yasc.BoardControl.Controls;
 
-namespace UnitTests.Automation.Peers
+namespace MainModule.UnitTests.Automation.Peers
 {
   public class ShogiCellAutomation : ConcreteAutomation<ShogiCell>
   {

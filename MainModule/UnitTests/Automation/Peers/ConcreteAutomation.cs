@@ -2,7 +2,7 @@ using System;
 using System.Windows.Automation;
 using Yasc.Utils.Automation;
 
-namespace UnitTests.Automation.Peers
+namespace MainModule.UnitTests.Automation.Peers
 {
   public abstract class ConcreteAutomation<T>
   {

@@ -1,5 +1,6 @@
-using MvvmFoundation.Wpf;
 using Yasc.Networking;
+using Yasc.Networking.Interfaces;
+using Yasc.Utils.Mvvm;
 
 namespace Yasc.Gui.Game
 {

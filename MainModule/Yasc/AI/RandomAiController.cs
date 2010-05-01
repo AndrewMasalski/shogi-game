@@ -9,7 +9,7 @@ namespace Yasc.AI
   public class RandomAiController : AiControllerBase
   {
     private readonly Board _board;
-    private readonly static Random Rnd = new Random();
+    private readonly static Random _rnd = new Random();
 
     public RandomAiController()
     {
@@ -41,7 +41,7 @@ namespace Yasc.AI
         GetAllAvailableMoves(PieceColor.Black).ToList();
 
       if (moves.Count == 0) return null; // mate
-      var m = moves[Rnd.Next(moves.Count)];
+      var m = moves[_rnd.Next(moves.Count)];
       return m.AsRealMove(_board);
     }
   }

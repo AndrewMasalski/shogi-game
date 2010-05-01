@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using MvvmFoundation.Wpf;
 using Yasc.Gui;
+using Yasc.Utils.Mvvm;
 
 namespace TestStand.WelcomeView
 {

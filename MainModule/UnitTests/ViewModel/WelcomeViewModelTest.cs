@@ -4,7 +4,7 @@ using Yasc.Properties;
 using System.Linq;
 using Yasc.Utils;
 
-namespace UnitTests.ViewModel
+namespace MainModule.UnitTests.ViewModel
 {
   [TestClass]
   public class WelcomeViewModelWithNoSettingsTest
