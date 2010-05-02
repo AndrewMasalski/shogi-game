@@ -2,14 +2,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:WelcomeView="clr-namespace:TestStand.WelcomeView"
-    xmlns:Gui1="clr-namespace:MainModule.Gui;assembly=Yasc" xmlns:Properties="clr-namespace:MainModule.Properties;assembly=Yasc" Title="MainWindow" Height="600" Width="800">
+    xmlns:Properties="clr-namespace:MainModule.Properties;assembly=Shogi"
+        xmlns:Gui="clr-namespace:MainModule.Gui;assembly=Shogi" 
+        Title="MainWindow" Height="600" Width="800">
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="2*" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Border BorderThickness="1" BorderBrush="LightGray" Margin="5" SnapsToDevicePixels="True">
-      <Gui1:WelcomeView DataContext="{Binding WelcomeViewModel}"/>
+      <Gui:WelcomeView DataContext="{Binding WelcomeViewModel}"/>
     </Border>
     <DockPanel Grid.Column="1" LastChildFill="True"  >
       <GroupBox Header="WelcomeViewModel" DataContext="{Binding WelcomeViewModel}" Margin="5" Padding="0,3"
