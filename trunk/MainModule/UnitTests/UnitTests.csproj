@@ -123,8 +123,8 @@
       <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
       <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Yasc\MainModule.csproj">
-      <Project>{96247E76-8563-43B1-BD14-4CDD83EED508}</Project>
+    <ProjectReference Include="..\MainModule\MainModule.csproj">
+      <Project>{DFDF38A0-E0DE-46F5-B38C-49EE3FB325C2}</Project>
       <Name>MainModule %28MainModule\MainModule%29</Name>
     </ProjectReference>
   </ItemGroup>

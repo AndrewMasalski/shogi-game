@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DFDF38A0-E0DE-46F5-B38C-49EE3FB325C2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MainModule</RootNamespace>
+    <AssemblyName>Yasc</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>Resources\App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AI\AiControllerBase.cs" />
+    <Compile Include="AI\RandomAiController.cs" />
+    <Compile Include="AI\UsiAiController.cs" />
+    <Compile Include="ChatCommands.cs" />
+    <Compile Include="Gui\ConnectingView.xaml.cs">
+      <DependentUpon>ConnectingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ConnectingViewModel.cs" />
+    <Compile Include="Gui\Game\AutoplayViewModel.cs" />
+    <Compile Include="Gui\Game\GameItemViewModel.cs" />
+    <Compile Include="Gui\Game\GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Game\GameViewModel.cs" />
+    <Compile Include="Gui\Game\GameWithEngineView.xaml.cs">
+      <DependentUpon>GameWithEngineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Game\GameWithEngineViewModel.cs" />
+    <Compile Include="Gui\Game\GameWithHumanViewModel.cs" />
+    <Compile Include="Gui\Game\GameWithOpponentViewModel.cs" />
+    <Compile Include="Gui\Game\MovesAndCommentsControl.xaml.cs">
+      <DependentUpon>MovesAndCommentsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Game\TimersControl.xaml.cs">
+      <DependentUpon>TimersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\LogOnView.xaml.cs">
+      <DependentUpon>LogOnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\LogOnViewModel.cs" />
+    <Compile Include="Gui\ServerView.xaml.cs">
+      <DependentUpon>ServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ServerViewModel.cs" />
+    <Compile Include="Gui\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\WelcomeViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Model\ChatMessage.cs" />
+    <Compile Include="Utils\GameTicket.cs" />
+    <Compile Include="Utils\LvsSettingsExtension.cs" />
+    <Compile Include="Utils\StringRangeValidationRule.cs" />
+    <Compile Include="Utils\WelcomeChoice.cs" />
+    <Compile Include="ViewModel\SkinningViewModel.cs" />
+    <Compile Include="ViewModel\SkinViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
+    <Page Include="Gui\ConnectingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\Game\GameView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\Game\GameWithEngineView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\Game\MovesAndCommentsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\Game\TimersControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\LogOnView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\ServerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\WelcomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Gui\WelcomeView.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BoardControl\BoardControl\BoardControl.csproj">
+      <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
+      <Name>BoardControl %28BoardControl\BoardControl%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DotUsi\DotUsi\DotUsi.csproj">
+      <Project>{70532AD0-F1D5-4787-9E62-E06377C04CC4}</Project>
+      <Name>DotUsi %28DotUsi\DotUsi%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Networking\Networking\Networking.csproj">
+      <Project>{E8497624-9F29-411B-A917-C2DE3A87661E}</Project>
+      <Name>Networking %28Networking\Networking%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Persistence\Persistence\Persistence.csproj">
+      <Project>{E8497624-9F29-411B-A917-C2DE3A87661D}</Project>
+      <Name>Persistence %28Persistence\Persistence%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ShogiCore\ShogiCore\ShogiCore.csproj">
+      <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
+      <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Error.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <Version>$(BUILD_NUMBER)</Version>
+  </PropertyGroup>
+  <Target Name="BeforeBuild" Condition=" '$(Version)' != '' ">
+    <FileUpdate Files="$(MSBuildProjectDirectory)\Properties\AssemblyInfo.cs" Regex="\[\s*assembly\s*:\s*AssemblyVersion\s*\(\s*&quot;[\d\.\*]+&quot;\s*\)\s*\]" ReplacementText="[assembly: AssemblyVersion(&quot;$(Version)&quot;)]" />
+    <Message Text="Varsion altered: $(Version)" />
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

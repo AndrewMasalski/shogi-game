@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="MainModule.Gui.Game.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:controls="clr-namespace:Yasc.BoardControl.Controls;assembly=Yasc.BoardControl" 
+xmlns:ViewModel="clr-namespace:MainModule.ViewModel" 
+xmlns:Game="clr-namespace:MainModule.Gui.Game"
+ xmlns:MainModule="clr-namespace:MainModule">
+
+  <DockPanel LastChildFill="True">
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="File">
+        <MenuItem Header="Load Transcript"  Command="{Binding LoadTranscriptCommand}" />
+      </MenuItem>
+      <MenuItem Header="Board">
+        <MenuItem Header="Leave" Command="{Binding GetBackCommand}" />
+        <MenuItem Header="Clean" Command="{Binding CleanBoardCommand}" />
+        <MenuItem Header="Enforce rules" IsCheckable="True"
+                  IsChecked="{Binding ElementName=board, Path=AreMoveRulesEnforced}"  />
+      </MenuItem>
+      <MenuItem Header="Skins" ItemsSource="{Binding AvailableSkins}"
+                DataContext="{x:Static ViewModel:SkinningViewModel.Instance}" >
+        <MenuItem.ItemContainerStyle>
+          <Style TargetType="MenuItem">
+            <Setter Property="Header" Value="{Binding Name}"/>
+            <Setter Property="IsChecked" Value="{Binding IsSelected}"/>
+            <Setter Property="Command" Value="{Binding LoadCommand}"/>
+          </Style>
+        </MenuItem.ItemContainerStyle>
+      </MenuItem>
+    </Menu>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto" MinWidth="100"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <controls:ShogiBoard x:Name="board" MoveAttempt="OnMoveAttempt" 
+                           Board="{Binding Board}" 
+                           IsFlipped="{Binding IsFlipped}"/>
+
+      <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Game:TimersControl/>
+
+        <TabControl Grid.Row="1" MaxWidth="300">
+          <TabItem Header="Moves">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Game:MovesAndCommentsControl/>
+              <TextBox Grid.Row="1" Margin="0,3,0,0" TextWrapping="Wrap"
+                       Text="{Binding CurrentMessage, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.CommandBindings>
+                  <CommandBinding Command="{x:Static MainModule:ChatCommands.SendMessage}"
+                                  Executed="CommandBinding_Executed"/>
+                </TextBox.CommandBindings>
+                <TextBox.InputBindings>
+                  <KeyBinding Key="Return" Command="{x:Static MainModule:ChatCommands.SendMessage}" />
+                </TextBox.InputBindings>
+
+              </TextBox>
+            </Grid>
+
+          </TabItem>
+        </TabControl>
+      </Grid>
+      <TextBlock x:Name="_errorLabel" Grid.Row="2" Grid.ColumnSpan="2"/>
+    </Grid>
+  </DockPanel>
+
+</UserControl>

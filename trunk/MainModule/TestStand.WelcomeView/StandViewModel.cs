@@ -1,6 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
-using Yasc.Gui;
+using MainModule.Gui;
 using Yasc.Utils.Mvvm;
 
 namespace TestStand.WelcomeView
