@@ -30,7 +30,9 @@ namespace MainModule.UnitTests.Automation
       _windowElement.InvokeByName("Play with myself");
       var piece = _windowElement.FindFirstByName("White P");
       Assert.IsNotNull(piece);
+      AutomationExtensions.Trace = true;
       var core = new ShogiBoardCoreAutomation(_windowElement);
+      AutomationExtensions.Trace = false;
       var pieces = core.Element.FindAll(typeof(ShogiPiece), 40);
       Assert.AreEqual(40, pieces.Count);
 
