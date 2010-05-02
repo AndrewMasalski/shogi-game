@@ -8,9 +8,9 @@ using System.Windows;
 [assembly: AssemblyTitle("TestStand.WelcomeView")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("VPI")]
+[assembly: AssemblyCompany("Ilya inc.")]
 [assembly: AssemblyProduct("TestStand.WelcomeView")]
-[assembly: AssemblyCopyright("Copyright © VPI 2010")]
+[assembly: AssemblyCopyright("Copyright © Ilya inc. 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
