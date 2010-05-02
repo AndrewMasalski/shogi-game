@@ -7,6 +7,8 @@ namespace Yasc.Utils.Automation
 {
   public static class AutomationExtensions
   {
+    public static bool Trace { get; set; }
+
     private const int WiatCyclesCount = 30;
     private const int WaitCycleLength = 400;
 
@@ -84,8 +86,25 @@ namespace Yasc.Utils.Automation
     }
     public static AutomationElement FindFirstNoWait(this AutomationElement element, Type type)
     {
+      if (Trace)
+      {
+        TraceIt(element, "--");
+      }
       return element.FindFirst(TreeScope.Descendants,
-                               new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
+        new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
+    }
+
+    private static void TraceIt(AutomationElement element, string prefix)
+    {
+      if (!string.IsNullOrWhiteSpace(element.Current.ClassName))
+      {
+        Console.WriteLine(prefix + element.Current.ClassName);
+      }
+      var children = element.FindAll(TreeScope.Children, Condition.TrueCondition);
+      foreach (AutomationElement child in children)
+      {
+        TraceIt(child, prefix + "--");
+      }
     }
 
     public static AutomationElementCollection FindAll(this AutomationElement element, Type type, int expectedCount)
