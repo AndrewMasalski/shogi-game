@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MainModule.Properties;
+using MainModule.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Properties;
-using Yasc.Utils;
 
 namespace MainModule.UnitTests.ViewModel
 {

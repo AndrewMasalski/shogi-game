@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
+using MainModule.Gui.Game;
+using MainModule.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Gui.Game;
-using Yasc.Properties;
 using Yasc.ShogiCore;
 
 namespace MainModule.UnitTests.ViewModel

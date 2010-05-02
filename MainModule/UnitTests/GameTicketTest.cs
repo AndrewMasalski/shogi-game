@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
+using MainModule.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Networking;
 using Yasc.Networking.Interfaces;
-using Yasc.Utils;
 
 namespace MainModule.UnitTests
 {

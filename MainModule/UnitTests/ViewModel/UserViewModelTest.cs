@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.Gui;
+﻿using MainModule.Gui;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Networking;
 
 namespace MainModule.UnitTests.ViewModel
