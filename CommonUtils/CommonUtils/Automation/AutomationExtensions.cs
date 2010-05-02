@@ -88,22 +88,40 @@ namespace Yasc.Utils.Automation
     {
       if (Trace)
       {
-        TraceIt(element, "--");
+        Console.WriteLine("Trace up");
+        TraceUp(element);
+        Console.WriteLine("Trace down");
+        TraceDown(element, "--");
+        Console.WriteLine("Done");
       }
       return element.FindFirst(TreeScope.Descendants,
         new PropertyCondition(AutomationElement.ClassNameProperty, type.Name));
     }
 
-    private static void TraceIt(AutomationElement element, string prefix)
+    private static void TraceUp(AutomationElement element)
     {
-      if (!string.IsNullOrWhiteSpace(element.Current.ClassName))
-      {
-        Console.WriteLine(prefix + element.Current.ClassName);
-      }
+      TraceElement(element, "+");
+      var parent = element.FindFirst(TreeScope.Parent, Condition.TrueCondition);
+      if (parent == null || element == parent) return;
+      TraceUp(parent);
+    }
+
+    private static void TraceDown(AutomationElement element, string prefix)
+    {
+      TraceElement(element, prefix);
       var children = element.FindAll(TreeScope.Children, Condition.TrueCondition);
       foreach (AutomationElement child in children)
       {
-        TraceIt(child, prefix + "--");
+        TraceDown(child, prefix + "--");
+      }
+    }
+
+    private static void TraceElement(AutomationElement element, string prefix)
+    {
+      var e = element.Current;
+      if (!string.IsNullOrWhiteSpace(e.ClassName))
+      {
+        Console.WriteLine(prefix + e.ClassName + "//" + e.ControlType + "//" + e.FrameworkId + "//" + e.AutomationId);
       }
     }
 
