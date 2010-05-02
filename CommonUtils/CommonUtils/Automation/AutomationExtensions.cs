@@ -8,7 +8,7 @@ namespace Yasc.Utils.Automation
   public static class AutomationExtensions
   {
     private const int WiatCyclesCount = 30;
-    private const int WaitCycleLength = 40;
+    private const int WaitCycleLength = 400;
 
     public static AutomationElement FindFirstByAutomaionId(this AutomationElement element, string name)
     {
