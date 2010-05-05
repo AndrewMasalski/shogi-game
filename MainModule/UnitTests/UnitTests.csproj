@@ -55,7 +55,25 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bricks">
+      <HintPath>..\..\Lib\Bricks.dll</HintPath>
+    </Reference>
+    <Reference Include="Bricks.RuntimeFramework">
+      <HintPath>..\..\Lib\Bricks.RuntimeFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2">
+      <HintPath>..\..\Lib\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -86,6 +104,9 @@
     <Reference Include="UIAutomationTypes">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="White.Core">
+      <HintPath>..\..\Lib\White.Core.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -98,6 +119,7 @@
     <Compile Include="Automation\Peers\ShogiBoardAutomation.cs" />
     <Compile Include="Automation\Peers\ShogiCellAutomation.cs" />
     <Compile Include="Automation\Peers\ShogiHandAutomation.cs" />
+    <Compile Include="Automation\WhiteTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GameTicketTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
