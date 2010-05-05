@@ -1,84 +1,94 @@
-﻿using System.Windows.Automation;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Threading;
+using System.Windows.Automation;
 using MainModule.UnitTests.Automation.Peers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.BoardControl.Controls;
+using White.Core;
+using White.Core.Configuration;
+using White.Core.UIItems;
+using White.Core.UIItems.Finders;
+using White.Core.UIItems.ListBoxItems;
+using White.Core.UIItems.MenuItems;
+using White.Core.UIItems.TabItems;
+using White.Core.UIItems.WindowItems;
+using White.Core.UIItems.WPFUIItems;
 using Yasc.ShogiCore;
-using Yasc.Utils.Automation;
+using System.Linq;
 
 namespace MainModule.UnitTests.Automation
 {
-//  [TestClass]
+  [TestClass]
   public class MainWindowTest
   {
-    private ApplicationHost _app;
-    private AutomationElement _windowElement;
+    private Application _application;
+    private Window _window;
+    private UShogiBoard _board;
 
     [TestInitialize]
-    public void SetUp()
+    public void Init()
     {
-      _app = new ApplicationHost();
-      _windowElement = _app.Open(typeof(MainWindow).Assembly.Location);
+      CoreAppXmlConfiguration.Instance.BusyTimeout = 15000;
+      _application = Application.Launch(typeof(MainWindow).Assembly.Location);
+      _window = _application.GetWindow("Shogi");
+      var button = _window.Get<Button>(SearchCriteria.ByText("Play with myself"));
+      button.Click();
+      _board = _window.Get<UShogiBoard>();
     }
-
+    [TestCleanup]
+    public void Cleanup()
+    {
+      _window.Close();
+    }
     [TestMethod]
     public void CheckDragAndDrop()
     {
-      _windowElement.Pattern<WindowPattern>().SetWindowVisualState(WindowVisualState.Maximized);
-      _windowElement.InvokeByName("Play with myself");
-      var piece = _windowElement.FindFirstByName("White P");
-      Assert.IsNotNull(piece);
-      AutomationExtensions.Trace = true;
-      var core = new ShogiBoardCoreAutomation(_windowElement);
-      AutomationExtensions.Trace = false;
-      var pieces = core.Element.FindAll(typeof(ShogiPiece), 40);
-      Assert.AreEqual(40, pieces.Count);
-
-      var board = new ShogiBoardAutomation(_windowElement);
-      Mouse.PrimaryDevice.PressAt(board["1c"].Element.Center(), MouseButton.Left);
-      Mouse.PrimaryDevice.Release(MouseButton.Left);
-      board.UsusalMove("1c", "1d");
+      _board.UsusalMove("1c", "1d");
+      _board.UsusalMove("1g", "1f");
+      Thread.Sleep(1000);
+      Assert.IsNull(_board["1d"].Piece);
+      Assert.IsNotNull(_board["1f"].Piece);
     }
+
+
     [TestMethod]
     public void CheckMovesHistory()
     {
-      _windowElement.InvokeByName("Play with myself");
+      _board.UsusalMove("1g", "1f");
+      _board.UsusalMove("1c", "1d");
+      _board.UsusalMove("2g", "2f");
+      _board.UsusalMove("2c", "2d");
+      _board.UsusalMove("3g", "3f");
+      _board.UsusalMove("3c", "3d");
+      _board.UsusalMove("4g", "4f");
+      _board.UsusalMove("4c", "4d");
 
-      var board = new ShogiBoardAutomation(_windowElement);
-      board.UsusalMove("1c", "1d");
-      board.UsusalMove("1g", "1f");
-      board.UsusalMove("2c", "2d");
-      board.UsusalMove("2g", "2f");
-      board.UsusalMove("3c", "3d");
-      board.UsusalMove("3g", "3f");
-      board.UsusalMove("4c", "4d");
-      board.UsusalMove("4g", "4f");
+      Thread.Sleep(1000);
 
-      var moveListBoxItems = _windowElement.
-        FindFirstByName(typeof(TabItem), "Moves").
-        FindFirst(typeof(ListBox)).
-        FindAll(typeof(ListBoxItem), 8);
+//      var history = _window.Get<UMovesHistory>(SearchCriteria.ByText("Moves"));
+      var tabPage = _window.Get<TabPage>(SearchCriteria.ByText("Moves"));
+      var listBox = tabPage.Get<ListBox>(SearchCriteria.All);
+//      listBox.Items
+//      var moveListBoxItems = listBox.GetMultiple(
+//        SearchCriteria.Indexed(0)
+//        SearchCriteria.All
+//        SearchCriteria.ByControlType(ControlType.ListItem)
+//        );
 
-      foreach (AutomationElement item in moveListBoxItems)
-        item.Pattern<SelectionItemPattern>().Select();
+//      var count = listBox.Items.Count;
+      Assert.AreEqual(8, listBox.Items.Count);
+      foreach (var item in  listBox.Items)
+        item.Select();
     }
 
     [TestMethod]
     public void CheckNoRulesDnD()
     {
-      _windowElement.InvokeByName("Play with myself");
-      _windowElement.InvokeMenu("Board/Enforce rules");
-      var board = new ShogiBoardAutomation(_windowElement);
-      board.UsusalMove("1c", "1d");
-      _windowElement.InvokeMenu("Board/Clean");
-      board.DropMove(PieceType.桂, PieceColor.White, "1i");
+      _window.Get<Menu>(SearchCriteria.ByText("Board"))
+        .SubMenu("Enforce rules").Click();
+      _board.UsusalMove("1c", "1d");
+      _window.Get<Menu>(SearchCriteria.ByText("Board"))
+        .SubMenu("Clean").Click();
+      //      _window.InvokeMenu("Board/Clean");
+      _board.DropMove("桂", PieceColor.White, "1i");
     } 
-    [TestCleanup]
-    public void TearDown()
-    {
-      _app.Close();
-      _windowElement = null;
-    }
   }
 }

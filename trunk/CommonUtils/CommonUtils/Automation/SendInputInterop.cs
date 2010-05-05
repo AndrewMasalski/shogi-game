@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Yasc.Utils.Automation
 {
-  public class SendInputInterop
+  internal class SendInputInterop
   {
     public static void SpinMouseWheel(int distance, WheelType wheelType)
     {
