@@ -1,6 +1,7 @@
 ﻿using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using White.Core;
+using White.Core.Configuration;
 using White.Core.UIItems;
 using White.Core.UIItems.Actions;
 using White.Core.UIItems.Custom;
@@ -16,6 +17,7 @@ namespace MainModule.UnitTests.Automation
     [TestMethod]
     public void Test()
     {
+      CoreAppXmlConfiguration.Instance.BusyTimeout = 15000;
       var application = Application.Launch(typeof(MainWindow).Assembly.Location);
       var window = application.GetWindow("Shogi");
       var button = window.Get<Button>(SearchCriteria.ByText("Play with myself"));
