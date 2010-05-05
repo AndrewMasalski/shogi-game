@@ -112,14 +112,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\Peers\ShogiBoardCoreAutomation.cs" />
-    <Compile Include="Automation\Peers\ConcreteAutomation.cs" />
-    <Compile Include="Automation\Peers\HandNestAutomation.cs" />
     <Compile Include="Automation\MainWindowTest.cs" />
-    <Compile Include="Automation\Peers\ShogiBoardAutomation.cs" />
-    <Compile Include="Automation\Peers\ShogiCellAutomation.cs" />
-    <Compile Include="Automation\Peers\ShogiHandAutomation.cs" />
-    <Compile Include="Automation\WhiteTest.cs" />
+    <Compile Include="Automation\Peers\UHandNest.cs" />
+    <Compile Include="Automation\Peers\UMovesHistory.cs" />
+    <Compile Include="Automation\Peers\UPieceHolderBase.cs" />
+    <Compile Include="Automation\Peers\UShogiBoard.cs" />
+    <Compile Include="Automation\Peers\UShogiCell.cs" />
+    <Compile Include="Automation\Peers\UShogiHand.cs" />
+    <Compile Include="Automation\Peers\UShogiPiece.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GameTicketTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -85,9 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\ApplicationHost.cs" />
-    <Compile Include="Automation\AutomationElementExtensions.cs" />
-    <Compile Include="Automation\AutomationExtensions.cs" />
     <Compile Include="Automation\KeyboardDeviceExtensions.cs" />
     <Compile Include="Automation\MouseDeviceExtensions.cs" />
     <Compile Include="Automation\RectExtensions.cs" />
