@@ -3,14 +3,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MainModule.UnitTests.Automation.Peers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc;
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 using Yasc.Utils.Automation;
 
 namespace MainModule.UnitTests.Automation
 {
-  [TestClass]
+//  [TestClass]
   public class MainWindowTest
   {
     private ApplicationHost _app;
