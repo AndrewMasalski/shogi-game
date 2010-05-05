@@ -1,4 +1,5 @@
-﻿using System.Windows.Automation;
+﻿using System.Threading;
+using System.Windows.Automation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using White.Core;
 using White.Core.Configuration;
@@ -49,6 +50,7 @@ namespace MainModule.UnitTests.Automation
         var cell = this[from];
         var piece = cell.Piece;
         Container.Mouse.DragAndDrop(piece, this[to]);
+        Thread.Sleep(1000);
         return this[to].Piece != null;
       }
     }
