@@ -1,25 +1,18 @@
-using System.Windows.Automation;
-using White.Core.UIItems.Actions;
-using White.Core.UIItems.Custom;
-using White.Core.UIItems.Finders;
+using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
 namespace MainModule.UnitTests.Automation.Peers
 {
-  [ControlTypeMapping(CustomUIItemType.Custom)]
-  public abstract class UPieceHolderBase : CustomUIItem
+  public abstract class UPieceHolderBase : WpfCustom
   {
-    protected UPieceHolderBase(AutomationElement automationElement, ActionListener actionListener)
-      : base(automationElement, actionListener)
-    {
-    }
-
-    protected UPieceHolderBase()
+    protected UPieceHolderBase(UITestControl parent) 
+      : base(parent)
     {
     }
 
     public UShogiPiece Piece
     {
-      get { return Container.Get<UShogiPiece>(SearchCriteria.All); }
+      get { return new UShogiPiece(this); }
     }
   }
 }

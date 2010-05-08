@@ -1,22 +1,17 @@
 using System;
-using System.Windows.Automation;
-using White.Core.UIItems.Actions;
-using White.Core.UIItems.Custom;
-using White.Core.UIItems.Finders;
+using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Yasc.ShogiCore;
 
 namespace MainModule.UnitTests.Automation.Peers
 {
-  [ControlTypeMapping(CustomUIItemType.Custom)]
-  public class UShogiHand : CustomUIItem
+  public class UShogiHand : WpfCustom
   {
-    protected UShogiHand(AutomationElement automationElement, ActionListener actionListener)
-      : base(automationElement, actionListener)
+    public UShogiHand(UITestControl parent, PieceColor player) 
+      : base(parent)
     {
-    }
-
-    protected UShogiHand()
-    {
+      var automationId = player == PieceColor.White ? "TopHand" : "WhiteHand";
+      SearchProperties[PropertyNames.Name] = automationId;
     }
 
     public UHandNest this[PieceType pieceType]
@@ -24,7 +19,7 @@ namespace MainModule.UnitTests.Automation.Peers
       get
       {
         if (pieceType.IsPromoted) throw new ArgumentOutOfRangeException("pieceType");
-        return Container.Get<UHandNest>(SearchCriteria.ByText(pieceType.ToString()));
+        return new UHandNest(this, pieceType);
       }
     }
   }

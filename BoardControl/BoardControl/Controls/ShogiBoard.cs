@@ -45,6 +45,11 @@ namespace Yasc.BoardControl.Controls
       get { return _hands[0].Color == PieceColor.Black ? _hands[0] : _hands[1]; }
     }
 
+    internal bool AreChildrenLoaded
+    {
+      get { return Core != null && _hands.Count == 2; }
+    }
+
     #endregion
 
     #region ' Moves Animation '

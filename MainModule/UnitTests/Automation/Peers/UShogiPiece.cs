@@ -1,19 +1,15 @@
-using System.Windows.Automation;
-using White.Core.UIItems.Actions;
-using White.Core.UIItems.Custom;
+using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
+using Yasc.BoardControl.Controls;
 
 namespace MainModule.UnitTests.Automation.Peers
 {
-  [ControlTypeMapping(CustomUIItemType.Custom)]
-  public class UShogiPiece : CustomUIItem
+  public class UShogiPiece : WpfCustom
   {
-    protected UShogiPiece(AutomationElement automationElement, ActionListener actionListener)
-      : base(automationElement, actionListener)
+    public UShogiPiece(UITestControl parent) 
+      : base(parent)
     {
-    }
-
-    protected UShogiPiece()
-    {
+      SearchProperties[PropertyNames.ClassName] = typeof (ShogiPiece).UiaClassName();
     }
   }
 }

@@ -12,12 +12,14 @@ namespace Yasc.BoardControl.Controls.Automation
 
     protected override List<AutomationPeer> GetChildrenCore()
     {
-      return new List<AutomationPeer>
-               {
-                 CreatePeerForElement(Owner.WhiteHand),
-                 CreatePeerForElement(Owner.BlackHand),
-                 CreatePeerForElement(Owner.Core)
-               };
+      var automationPeers = new List<AutomationPeer>();
+      if (Owner.AreChildrenLoaded)
+      {
+        automationPeers.Add(CreatePeerForElement(Owner.WhiteHand));
+        automationPeers.Add(CreatePeerForElement(Owner.BlackHand));
+        automationPeers.Add(CreatePeerForElement(Owner.Core));
+      }
+      return automationPeers;
     }
   }
 }

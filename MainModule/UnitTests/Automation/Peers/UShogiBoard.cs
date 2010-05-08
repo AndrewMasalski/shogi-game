@@ -1,46 +1,39 @@
-﻿using System.Windows.Automation;
-using White.Core.UIItems.Actions;
-using White.Core.UIItems.Custom;
-using White.Core.UIItems.Finders;
+﻿using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
+using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 
 namespace MainModule.UnitTests.Automation.Peers
 {
-  [ControlTypeMapping(CustomUIItemType.Custom)]
-  public class UShogiBoard : CustomUIItem
+  public class UShogiBoard : WpfCustom
   {
-    protected UShogiBoard(AutomationElement automationElement, ActionListener actionListener)
-      : base(automationElement, actionListener)
+    public UShogiBoard(UITestControl parent) 
+      : base(parent)
     {
-    }
-
-    protected UShogiBoard()
-    {
+      SearchProperties[PropertyNames.ClassName] = typeof(ShogiBoard).UiaClassName();
     }
 
     public UShogiCell this[Position p]
     {
-      get { return Container.Get<UShogiCell>(SearchCriteria.ByText(p.ToString())); }
+      get { return new UShogiCell(this, p); }
     }
     public UShogiHand this[PieceColor player]
     {
-      get
-      {
-        var automationId = player == PieceColor.White ? "TopHand" : "WhiteHand";
-        return Container.Get<UShogiHand>(SearchCriteria.ByText(automationId));
-      }
+      get { return new UShogiHand(this, player); }
     }
 
     public void UsusalMove(Position from, Position to)
     {
       var cell = this[from];
       var piece = cell.Piece;
-      Container.Mouse.DragAndDrop(piece, this[to]);
+      Mouse.StartDragging(piece);
+      Mouse.StopDragging(this[to]);
     }
 
-    public void DropMove(PieceType piece, PieceColor player, Position destination)
+    public void DropMove(PieceType pieceType, PieceColor player, Position destination)
     {
-      Container.Mouse.DragAndDrop(this[player][piece].Piece, this[destination]);
+      Mouse.StartDragging(this[player][pieceType].Piece);
+      Mouse.StopDragging(this[destination]);
     }
   }
 }

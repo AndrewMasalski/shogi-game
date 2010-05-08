@@ -1,19 +1,17 @@
-﻿using System.Windows.Automation;
-using White.Core.UIItems.Actions;
-using White.Core.UIItems.Custom;
+﻿using Microsoft.VisualStudio.TestTools.UITesting;
+using Yasc.ShogiCore;
 
 namespace MainModule.UnitTests.Automation.Peers
 { 
-  [ControlTypeMapping(CustomUIItemType.Custom)]
   public class UShogiCell : UPieceHolderBase
   {
-    protected UShogiCell(AutomationElement automationElement, ActionListener actionListener)
-      : base(automationElement, actionListener)
-    {
-    }
+    public Position Position { get; set; }
 
-    protected UShogiCell()
+    public UShogiCell(UITestControl parent, Position position) 
+      : base(parent)
     {
+      Position = position;
+      SearchProperties[PropertyNames.Name] = position.ToString();
     }
   }
 }
