@@ -1,19 +1,17 @@
-using System.Windows.Automation;
-using White.Core.UIItems.Actions;
-using White.Core.UIItems.Custom;
+using Microsoft.VisualStudio.TestTools.UITesting;
+using Yasc.ShogiCore;
 
 namespace MainModule.UnitTests.Automation.Peers
 {
-  [ControlTypeMapping(CustomUIItemType.Custom)]
   public class UHandNest : UPieceHolderBase
   {
-    protected UHandNest(AutomationElement automationElement, ActionListener actionListener)
-      : base(automationElement, actionListener)
-    {
-    }
+    public PieceType PieceType { get; set; }
 
-    protected UHandNest()
+    public UHandNest(UITestControl parent, PieceType pieceType) 
+      : base(parent)
     {
+      PieceType = pieceType;
+      SearchProperties[PropertyNames.Name] = pieceType.ToString();
     }
   }
 }
