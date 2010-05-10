@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Automation;
+using System.Windows.Data;
 using System.Windows.Threading;
 using Yasc.Utils;
 using Yasc.Utils.Mvvm;
@@ -52,7 +54,8 @@ namespace AutomationSpy
       }
     }
     public AutomationElement Element { get; private set; }
-    public ObservableCollection<ElementPropertyViewModel> Properties { get; private set; }
+    private readonly ObservableCollection<ElementPropertyViewModel> _properties;
+    public ICollectionView Properties { get; private set; }
     public ObservableCollection<AutomationPatternViewModel> Patterns { get; private set; }
     public ObservableCollection<AutomationElementViewModel> Children { get; private set; }
 
@@ -60,7 +63,11 @@ namespace AutomationSpy
     {
       Element = element;
       Children = new ObservableCollection<AutomationElementViewModel>();
-      Properties = new ObservableCollection<ElementPropertyViewModel>();
+      _properties = new ObservableCollection<ElementPropertyViewModel>();
+      var collectionView = new CollectionViewSource {Source = _properties};
+      collectionView.GroupDescriptions.Add(new PropertyGroupDescription("Category"));
+      collectionView.SortDescriptions.Add(new SortDescription("CategoryRank", ListSortDirection.Ascending));
+      Properties = collectionView.View;
       Patterns = new ObservableCollection<AutomationPatternViewModel>();
       _filterChildrenCondition = filterChildrenCondition;
       _disp = Dispatcher.CurrentDispatcher;
@@ -129,7 +136,7 @@ namespace AutomationSpy
     private void RefreshProperties()
     {
       // This is called on timer thread!
-      if (Properties.Count == 0)
+      if (_properties.Count == 0)
       {
         var properties =
           (from p in Element.GetSupportedProperties()
@@ -138,12 +145,12 @@ namespace AutomationSpy
         _disp.BeginInvoke(DispatcherPriority.Background, new Action(() =>
           {
             foreach (var p in properties)
-              Properties.Add(p);
+              _properties.Add(p);
           }));
       }
       else
       {
-        foreach (var p in Properties)
+        foreach (var p in _properties)
           p.Refresh();
       }
     }
