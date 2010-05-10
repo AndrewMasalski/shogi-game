@@ -20,6 +20,8 @@ namespace AutomationSpy
     private string _caption;
     private readonly Condition _filterChildrenCondition;
     private readonly Dispatcher _disp;
+    private static readonly Dictionary<int, string> _verbs;
+    private readonly ObservableCollection<ElementPropertyViewModel> _properties;
 
     #endregion
 
@@ -54,10 +56,60 @@ namespace AutomationSpy
       }
     }
     public AutomationElement Element { get; private set; }
-    private readonly ObservableCollection<ElementPropertyViewModel> _properties;
     public ICollectionView Properties { get; private set; }
     public ObservableCollection<AutomationPatternViewModel> Patterns { get; private set; }
     public ObservableCollection<AutomationElementViewModel> Children { get; private set; }
+    public string VerbalFlags
+    {
+      get
+      {
+        var list = new List<string>();
+        foreach (var automationProperty in Element.GetSupportedProperties())
+        {
+          string verb;
+          if (!_verbs.TryGetValue(automationProperty.Id, out verb)) continue;
+          verb = verb.ToLower();
+          var flag = (bool)Element.GetCurrentPropertyValue(automationProperty);
+          if (!flag)
+            verb = verb.Replace("is", "is not").
+              Replace("can", "can't").
+              Replace("has", "hasn't");
+          list.Add(verb);
+        }
+        return string.Join(", ", list);
+      }
+    }
+
+    static AutomationElementViewModel()
+    {
+      _verbs = new Dictionary<int, string>
+        {
+          { AutomationElementIdentifiers.HasKeyboardFocusProperty.Id, "Has keyboard focus"},
+          { AutomationElementIdentifiers.IsContentElementProperty.Id, "Is content element"},
+          { AutomationElementIdentifiers.IsControlElementProperty.Id, "Is control element"},
+          { AutomationElementIdentifiers.IsEnabledProperty.Id, "Is enabled"},
+          { AutomationElementIdentifiers.IsKeyboardFocusableProperty.Id, "Is keyboard focusable"},
+          { AutomationElementIdentifiers.IsOffscreenProperty.Id, "Is offscreen"},
+          { AutomationElementIdentifiers.IsPasswordProperty.Id, "Is password"},
+          { AutomationElementIdentifiers.IsRequiredForFormProperty.Id, "Is required for form"},
+
+          { RangeValuePatternIdentifiers.IsReadOnlyProperty.Id, "Is readonly"},
+          { SelectionItemPatternIdentifiers.IsSelectedProperty.Id, "Is selected"},
+          { SelectionPatternIdentifiers.CanSelectMultipleProperty.Id, "Can select multiple"},
+          { SelectionPatternIdentifiers.IsSelectionRequiredProperty.Id, "Selection is required"},
+          { TransformPatternIdentifiers.CanMoveProperty.Id, "Can move"},
+          { TransformPatternIdentifiers.CanResizeProperty.Id, "Can resize"},
+          { TransformPatternIdentifiers.CanRotateProperty.Id, "Can rotate"},
+          { ValuePatternIdentifiers.IsReadOnlyProperty.Id, "Is readonly"},
+          { WindowPatternIdentifiers.CanMaximizeProperty.Id, "Can maximize"},
+          { WindowPatternIdentifiers.CanMinimizeProperty.Id, "Can minimize"},
+          { WindowPatternIdentifiers.IsModalProperty.Id, "Is modal"},
+          { WindowPatternIdentifiers.IsTopmostProperty.Id, "Is topmost"},                   
+          
+          { ScrollPatternIdentifiers.HorizontallyScrollableProperty.Id, "is horizontally scrollable"},
+          { ScrollPatternIdentifiers.VerticallyScrollableProperty.Id, "is vertically scrollable"},
+         };
+    }
 
     public AutomationElementViewModel(AutomationElement element, Condition filterChildrenCondition)
     {
@@ -140,6 +192,7 @@ namespace AutomationSpy
       {
         var properties =
           (from p in Element.GetSupportedProperties()
+           where !_verbs.ContainsKey(p.Id)
            select new ElementPropertyViewModel(Element, p)).ToList();
 
         _disp.BeginInvoke(DispatcherPriority.Background, new Action(() =>

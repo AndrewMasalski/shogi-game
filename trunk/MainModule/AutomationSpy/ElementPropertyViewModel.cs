@@ -30,6 +30,8 @@ namespace AutomationSpy
     }
 
     private static readonly Dictionary<int, string> _categories;
+    private static readonly Dictionary<int, object > _hiddenWhen;
+    private static readonly object _nullOrWhiteSpace = new object();
 
     static ElementPropertyViewModel()
     {
@@ -48,13 +50,13 @@ namespace AutomationSpy
           { AutomationElementIdentifiers.HelpTextProperty.Id, "Misc"},
           { AutomationElementIdentifiers.IsContentElementProperty.Id, "Misc"},
           { AutomationElementIdentifiers.IsControlElementProperty.Id, "Misc"},
-          { AutomationElementIdentifiers.IsDockPatternAvailableProperty.Id, "Misc"},
+          { AutomationElementIdentifiers.IsDockPatternAvailableProperty.Id, "Hidden"},
           { AutomationElementIdentifiers.IsEnabledProperty.Id, "Misc"},
           { AutomationElementIdentifiers.IsExpandCollapsePatternAvailableProperty.Id, "Hidden"},
           { AutomationElementIdentifiers.IsGridItemPatternAvailableProperty.Id, "Hidden"},
           { AutomationElementIdentifiers.IsGridPatternAvailableProperty.Id, "Hidden"},
           { AutomationElementIdentifiers.IsInvokePatternAvailableProperty.Id, "Hidden"},
-          { AutomationElementIdentifiers.IsItemContainerPatternAvailableProperty.Id, "MHiddenisc"},
+          { AutomationElementIdentifiers.IsItemContainerPatternAvailableProperty.Id, "Hidden"},
           { AutomationElementIdentifiers.IsKeyboardFocusableProperty.Id, "Misc"},
           { AutomationElementIdentifiers.IsMultipleViewPatternAvailableProperty.Id, "Hidden"},
           { AutomationElementIdentifiers.IsOffscreenProperty.Id, "Misc"},
@@ -130,11 +132,53 @@ namespace AutomationSpy
           { WindowPatternIdentifiers.WindowInteractionStateProperty.Id, "Window"},
           { WindowPatternIdentifiers.WindowVisualStateProperty.Id, "Window"},        
         };
+      _hiddenWhen = new Dictionary<int, object>
+        {
+          { AutomationElementIdentifiers.AcceleratorKeyProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.AccessKeyProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.AutomationIdProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.ClassNameProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.ClickablePointProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.CultureProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.FrameworkIdProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.HelpTextProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.ItemStatusProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.ItemTypeProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.LabeledByProperty.Id, null},
+          { AutomationElementIdentifiers.LocalizedControlTypeProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.NameProperty.Id, _nullOrWhiteSpace},
+          { AutomationElementIdentifiers.OrientationProperty.Id, OrientationType.None},
+
+          { MultipleViewPatternIdentifiers.CurrentViewProperty.Id, _nullOrWhiteSpace},
+          { MultipleViewPatternIdentifiers.SupportedViewsProperty.Id, _nullOrWhiteSpace},
+          { ScrollPatternIdentifiers.HorizontalScrollPercentProperty.Id, _nullOrWhiteSpace},
+          { ScrollPatternIdentifiers.HorizontalViewSizeProperty.Id, _nullOrWhiteSpace},
+          { ScrollPatternIdentifiers.VerticalScrollPercentProperty.Id, _nullOrWhiteSpace},
+          { ScrollPatternIdentifiers.VerticalViewSizeProperty.Id, _nullOrWhiteSpace},
+          { SelectionItemPatternIdentifiers.SelectionContainerProperty.Id, _nullOrWhiteSpace},
+          { WindowPatternIdentifiers.WindowVisualStateProperty.Id, WindowVisualState.Normal},    
+        };
     }
     
     public string Category
     {
-      get { return _categories[Property.Id]; }
+      get
+      {
+        object expected;
+        if (_hiddenWhen.TryGetValue(Property.Id, out expected))
+        {
+          var value = Element.GetCurrentPropertyValue(Property);
+          if (value == expected)
+          {
+            return "Hidden";
+          }
+          if (expected == _nullOrWhiteSpace && string.IsNullOrWhiteSpace((string)value))
+          {
+            return "Hidden";
+          }
+        }
+        return _categories[Property.Id];
+      }
     }
     public int CategoryRank
     {
@@ -196,7 +240,7 @@ namespace AutomationSpy
       var list = value as IEnumerable;
       if (list != null)
       {
-        return "(" + string.Join(", ", list.Cast<object>().Select(o => o.ToString()).ToArray()) + ")";
+        return "(" + string.Join(", ", list.Cast<object>()) + ")";
       }
       var controlType = value as ControlType;
       if (controlType != null)

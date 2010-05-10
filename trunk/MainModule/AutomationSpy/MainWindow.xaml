@@ -28,37 +28,46 @@
     <GridSplitter Grid.Column="1" ResizeDirection="Columns" 
                   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-    <Grid Grid.Column="2">
+    <Grid Grid.Column="2" DataContext="{Binding ElementName=_tree, Path=SelectedItem}">
       <Grid.RowDefinitions>
         <RowDefinition Height="5*"/>
         <RowDefinition Height="4"/>
         <RowDefinition Height="1*"/>
       </Grid.RowDefinitions>
-      
-      <ListView ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Properties}">
-        <ListView.View>
-          <GridView>
-            <GridView.Columns>
-              <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-              <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}"/>
-            </GridView.Columns>
-          </GridView>
-        </ListView.View>
-        <ListView.GroupStyle>
-          <GroupStyle>
-            <GroupStyle.HeaderTemplate>
-              <DataTemplate DataType="{x:Type CollectionViewGroup}">
-                <TextBlock Text="{Binding Name}"/>                
-              </DataTemplate>
-            </GroupStyle.HeaderTemplate>
-          </GroupStyle>
-        </ListView.GroupStyle>
-      </ListView>
+
+      <Grid >
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding Properties}">
+          <ListView.View>
+            <GridView>
+              <GridView.Columns>
+                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Value}"/>
+              </GridView.Columns>
+            </GridView>
+          </ListView.View>
+          <ListView.GroupStyle>
+            <GroupStyle>
+              <GroupStyle.HeaderTemplate>
+                <DataTemplate DataType="{x:Type CollectionViewGroup}">
+                  <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+              </GroupStyle.HeaderTemplate>
+            </GroupStyle>
+          </ListView.GroupStyle>
+        </ListView>
+
+        <TextBlock Grid.Row="1" Text="{Binding VerbalFlags}" TextWrapping="Wrap"/>
+      </Grid>
       
       <GridSplitter Grid.Row="1" ResizeDirection="Rows" 
                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-      <ListBox ItemsSource="{Binding ElementName=_tree, Path=SelectedItem.Patterns}"
+
+      <ListBox ItemsSource="{Binding Patterns}"
                Grid.Row="2">
         <ListBox.Resources>
           <DataTemplate DataType="{x:Type local:AutomationPatternViewModel}">
