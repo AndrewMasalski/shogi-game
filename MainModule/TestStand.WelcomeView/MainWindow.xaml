@@ -19,27 +19,27 @@
         <StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="Address: " FontWeight="Bold"/>
-            <TextBlock Text="{Binding Address}" />
+            <TextBlock Text="{Binding Address}" Name="Address" />
           </StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="UserName: " FontWeight="Bold"/>
-            <TextBlock Text="{Binding UserName}" />
+            <TextBlock Text="{Binding UserName}" Name="UserName" />
           </StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="Mode: " FontWeight="Bold"/>
-            <TextBlock Text="{Binding Mode}" />
+            <TextBlock Text="{Binding Mode}" Name="Horizontal" />
           </StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="SaveAndSkip: " FontWeight="Bold"/>
-            <TextBlock Text="{Binding SaveAndSkip}" />
+            <TextBlock Text="{Binding SaveAndSkip}" Name="SaveAndSkip" />
           </StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="IsServerStartedOnThisComputer: " FontWeight="Bold"/>
-            <TextBlock Text="{Binding IsServerStartedOnThisComputer}" />
+            <TextBlock Text="{Binding IsServerStartedOnThisComputer}" Name="IsServerStartedOnThisComputer" />
           </StackPanel>
           <StackPanel Orientation="Horizontal" Margin="5, 2">
             <TextBlock Text="LastVisitedServers: " VerticalAlignment="Top" FontWeight="Bold"/>
-            <ListBox ItemsSource="{Binding LastVisitedServers}" MinHeight="30" />
+            <ListBox ItemsSource="{Binding LastVisitedServers}" MinHeight="30" Name="LastVisitedServers" />
           </StackPanel>
         </StackPanel>
       </GroupBox>
