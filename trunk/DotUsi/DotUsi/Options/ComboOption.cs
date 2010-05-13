@@ -1,8 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
-using DotUsi.Options.Base;
+using Yasc.DotUsi.Options.Base;
 
-namespace DotUsi.Options
+namespace Yasc.DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.Combo"/></summary>
   public class ComboOption : ValueOptionBase<string>

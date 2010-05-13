@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DotUsi.Utils;
+using Yasc.DotUsi.Utils;
 
-namespace DotUsi.Info
+namespace Yasc.DotUsi.Info
 {
   internal static class InfoParserUtils
   {

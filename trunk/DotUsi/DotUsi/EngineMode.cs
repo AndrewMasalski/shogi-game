@@ -1,7 +1,7 @@
-using DotUsi.Options.Base;
-using DotUsi.SearchModifiers;
+using Yasc.DotUsi.Options.Base;
+using Yasc.DotUsi.SearchModifiers;
 
-namespace DotUsi
+namespace Yasc.DotUsi
 {
   /// <summary>Represents modes <see cref="UsiEngine"/> can be in</summary>
   public enum EngineMode

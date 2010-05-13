@@ -1,7 +1,7 @@
 using System;
-using DotUsi.Process;
+using Yasc.DotUsi.Process;
 
-namespace DotUsi.Drivers
+namespace Yasc.DotUsi.Drivers
 {
   /// <summary>Base class for concrete engine driver</summary>
   public abstract class UsiDriverBase : IUsiProcess

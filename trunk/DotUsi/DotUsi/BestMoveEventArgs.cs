@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi
+namespace Yasc.DotUsi
 {
   /// <summary>Holds the data engine sends when the best move is found</summary>
   public class BestMoveEventArgs : EventArgs

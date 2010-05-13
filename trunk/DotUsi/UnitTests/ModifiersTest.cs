@@ -1,8 +1,8 @@
 using System;
-using DotUsi.SearchModifiers;
-using DotUsi.SearchModifiers.DepthConstraints;
-using DotUsi.SearchModifiers.TimeConstraints;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.DotUsi.SearchModifiers;
+using Yasc.DotUsi.SearchModifiers.DepthConstraints;
+using Yasc.DotUsi.SearchModifiers.TimeConstraints;
 
 namespace DotUsi.UnitTests
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi.SearchModifiers.Base
+namespace Yasc.DotUsi.SearchModifiers.Base
 {
   /// <summary>Base class for all search modifiers with scalar value of type <see cref="TimeSpan"/></summary>
   public abstract class TimeSpanModifier : ScalarModifier<TimeSpan>

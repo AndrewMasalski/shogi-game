@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi.Exceptions
+namespace Yasc.DotUsi.Exceptions
 {
   /// <summary>Represents error that occurs during parse of engine's output</summary>
   public class UsiParserException : Exception

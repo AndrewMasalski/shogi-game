@@ -1,6 +1,6 @@
 using System.Threading;
-using DotUsi.Process;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.DotUsi.Process;
 using Yasc.Utils;
 
 namespace DotUsi.UnitTests

@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi
+namespace Yasc.DotUsi
 {
   /// <summary>Contains a line of console output</summary>
   public class LineReceivedEventArgs : EventArgs

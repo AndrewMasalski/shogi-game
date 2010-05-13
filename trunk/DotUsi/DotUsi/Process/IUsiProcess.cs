@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi.Process
+namespace Yasc.DotUsi.Process
 {
   /// <summary>Abstraction for an engine process</summary>
   public interface IUsiProcess : IDisposable

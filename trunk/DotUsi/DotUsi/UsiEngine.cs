@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using DotUsi.Drivers;
-using DotUsi.Exceptions;
-using DotUsi.Info;
-using DotUsi.Options;
-using DotUsi.Options.Base;
-using DotUsi.Process;
-using DotUsi.SearchModifiers;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.Drivers;
+using Yasc.DotUsi.Exceptions;
+using Yasc.DotUsi.Info;
+using Yasc.DotUsi.Options;
+using Yasc.DotUsi.Options.Base;
+using Yasc.DotUsi.Process;
+using Yasc.DotUsi.SearchModifiers;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace Yasc.DotUsi
 {
   /// <summary>Represents USI compatible engine as described 
   ///   <a href="http://www.glaurungchess.com/shogi/usi.html">here</a></summary>

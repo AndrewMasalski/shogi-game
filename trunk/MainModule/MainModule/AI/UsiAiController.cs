@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using DotUsi;
-using DotUsi.Drivers;
-using DotUsi.Options;
-using DotUsi.Process;
 using MainModule.Properties;
+using Yasc.DotUsi;
+using Yasc.DotUsi.Drivers;
+using Yasc.DotUsi.Options;
+using Yasc.DotUsi.Process;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Moves;
 

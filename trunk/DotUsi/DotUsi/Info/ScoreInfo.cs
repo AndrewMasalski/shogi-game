@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace DotUsi.Info
+namespace Yasc.DotUsi.Info
 {
   /// <summary>Keeps information about score engine sends</summary>
   public class ScoreInfo : INotifyPropertyChanged

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace DotUsi.Utils
+namespace Yasc.DotUsi.Utils
 {
   internal static class ListExtensions
   {

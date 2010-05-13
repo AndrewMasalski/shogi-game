@@ -1,7 +1,8 @@
 using System.Diagnostics;
 using DotUsi;
-using DotUsi.Process;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.DotUsi;
+using Yasc.DotUsi.Process;
 
 namespace UnitTests
 {

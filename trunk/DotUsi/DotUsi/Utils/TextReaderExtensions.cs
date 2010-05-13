@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DotUsi.Utils
+namespace Yasc.DotUsi.Utils
 {
   internal static class TextReaderExtensions
   {
