@@ -1,7 +1,7 @@
 using System;
-using DotUsi.Options.Base;
+using Yasc.DotUsi.Options.Base;
 
-namespace DotUsi.Options
+namespace Yasc.DotUsi.Options
 {
   /// <summary>Represents option of type <see cref="UsiOptionType.Button"/></summary>
   public class ButtonOption : UsiOptionBase

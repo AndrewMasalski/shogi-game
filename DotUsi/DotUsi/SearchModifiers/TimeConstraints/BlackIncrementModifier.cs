@@ -1,7 +1,7 @@
 using System;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi.SearchModifiers.TimeConstraints
+namespace Yasc.DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>Black time increment per move</summary>
   public class BlackIncrementModifier : TimeSpanModifier

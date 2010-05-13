@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using DotUsi.Options.Base;
-using DotUsi.Process;
+using Yasc.DotUsi.Options.Base;
+using Yasc.DotUsi.Process;
 
-namespace DotUsi.Drivers
+namespace Yasc.DotUsi.Drivers
 {
   /// <summary>If <see cref="IUsiProcess"/> supports that interface
   ///   <see cref="UsiEngine"/> will pass additional info to it.

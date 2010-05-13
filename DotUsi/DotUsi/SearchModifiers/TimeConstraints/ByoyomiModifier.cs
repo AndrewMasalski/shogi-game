@@ -1,7 +1,7 @@
 using System;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi.SearchModifiers.TimeConstraints
+namespace Yasc.DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary><para>Byo-yomi is an extended time control in two-player games, specifically Shogi and Go.
   ///  The word is borrowed from Japanese, where it additionally means "countdown" in general.</para>

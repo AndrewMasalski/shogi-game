@@ -1,4 +1,4 @@
-namespace DotUsi
+namespace Yasc.DotUsi
 {
   /// <summary>Represents SFEN string as described in standard</summary>
   public class SfenString

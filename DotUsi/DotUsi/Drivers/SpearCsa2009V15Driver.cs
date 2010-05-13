@@ -1,6 +1,6 @@
-using DotUsi.Process;
+using Yasc.DotUsi.Process;
 
-namespace DotUsi.Drivers
+namespace Yasc.DotUsi.Drivers
 {
   ///<summary>Driver for Spear CSA 2009 v.1.5 </summary>
   public class SpearCsa2009V15Driver : UsiDriverBase

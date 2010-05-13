@@ -2,6 +2,7 @@ using System;
 using System.Collections.Specialized;
 using DotUsi.UnitTests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.DotUsi;
 using Yasc.Utils;
 
 namespace DotUsi.UnitTests

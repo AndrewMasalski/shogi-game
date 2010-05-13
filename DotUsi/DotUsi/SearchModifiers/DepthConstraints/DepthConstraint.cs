@@ -1,7 +1,7 @@
 using System;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi.SearchModifiers.DepthConstraints
+namespace Yasc.DotUsi.SearchModifiers.DepthConstraints
 {
   /// <summary>Constraints search depth.</summary>
   public class DepthConstraint : ScalarModifier<int>

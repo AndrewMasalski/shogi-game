@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using DotUsi.Options;
-using DotUsi.Options.Base;
 using DotUsi.UnitTests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yasc.DotUsi;
+using Yasc.DotUsi.Options;
+using Yasc.DotUsi.Options.Base;
 
 namespace DotUsi.UnitTests
 {

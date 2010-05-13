@@ -2,9 +2,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using DotUsi.Exceptions;
+using Yasc.DotUsi.Exceptions;
 
-namespace DotUsi.Process
+namespace Yasc.DotUsi.Process
 {
   /// <summary>Default <see cref="IUsiProcess"/> implementation 
   ///   with real windows process in backgroud.</summary>

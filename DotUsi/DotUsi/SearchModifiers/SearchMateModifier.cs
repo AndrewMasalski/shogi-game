@@ -1,7 +1,7 @@
 using System;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi.SearchModifiers
+namespace Yasc.DotUsi.SearchModifiers
 {
   /// <summary>Search for a mate</summary>
   public class SearchMateModifier : ScalarModifier<int>

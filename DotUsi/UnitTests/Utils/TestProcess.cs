@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using DotUsi.Process;
+using Yasc.DotUsi;
+using Yasc.DotUsi.Process;
 
 namespace DotUsi.UnitTests.Utils
 {

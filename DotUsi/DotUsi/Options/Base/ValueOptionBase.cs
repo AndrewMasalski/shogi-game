@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi.Options.Base
+namespace Yasc.DotUsi.Options.Base
 {
   ///<summary>Base class for options with scalar value</summary>
   ///<typeparam name="T">value type</typeparam>

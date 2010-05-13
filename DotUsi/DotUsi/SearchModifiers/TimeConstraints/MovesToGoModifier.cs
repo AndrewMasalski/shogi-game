@@ -1,7 +1,7 @@
 using System;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi.SearchModifiers.TimeConstraints
+namespace Yasc.DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>There are n moves to the next time control.</summary>
   /// <remarks>If you don't get this and get the <see cref="WhiteTimeModifier"/> 

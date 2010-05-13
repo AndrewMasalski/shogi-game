@@ -1,4 +1,4 @@
-namespace DotUsi.Options.Base
+namespace Yasc.DotUsi.Options.Base
 {
   /// <summary>Type of an option USI engine can have</summary>
   public enum UsiOptionType

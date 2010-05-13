@@ -1,4 +1,4 @@
-namespace DotUsi.SearchModifiers.Base
+namespace Yasc.DotUsi.SearchModifiers.Base
 {
   /// <summary>Base class for all search modifiers with scalar value</summary>
   /// <typeparam name="T">value type</typeparam>

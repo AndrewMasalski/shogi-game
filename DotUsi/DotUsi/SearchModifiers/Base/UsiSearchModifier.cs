@@ -1,4 +1,4 @@
-namespace DotUsi.SearchModifiers.Base
+namespace Yasc.DotUsi.SearchModifiers.Base
 {
   /// <summary>Base class for all modifiers USI 'go' command can have</summary>
   public abstract class UsiSearchModifier

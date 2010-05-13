@@ -1,7 +1,7 @@
 using System;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi.SearchModifiers.TimeConstraints
+namespace Yasc.DotUsi.SearchModifiers.TimeConstraints
 {
   /// <summary>Lets engine know how much time white have for the rest of the game</summary>
   public class WhiteTimeModifier : TimeSpanModifier

@@ -1,6 +1,6 @@
 using System;
 
-namespace DotUsi.Options.Base
+namespace Yasc.DotUsi.Options.Base
 {
   ///<summary>Base class for all USI options</summary>
   public abstract class UsiOptionBase

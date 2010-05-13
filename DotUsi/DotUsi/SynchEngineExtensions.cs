@@ -1,8 +1,8 @@
 using System;
 using System.Threading;
-using DotUsi.SearchModifiers.Base;
+using Yasc.DotUsi.SearchModifiers.Base;
 
-namespace DotUsi
+namespace Yasc.DotUsi
 {
   ///<summary>Contains <see cref="UsiEngine"/> extensions 
   ///   related with synchronous excexution of methods</summary>
