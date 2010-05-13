@@ -55,23 +55,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -107,15 +91,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\MainWindowTest.cs" />
-    <Compile Include="Automation\Peers\UHandNest.cs" />
-    <Compile Include="Automation\Peers\Uia.cs" />
-    <Compile Include="Automation\Peers\UPieceHolderBase.cs" />
-    <Compile Include="Automation\Peers\UShogiBoard.cs" />
-    <Compile Include="Automation\Peers\UShogiCell.cs" />
-    <Compile Include="Automation\Peers\UShogiHand.cs" />
-    <Compile Include="Automation\Peers\UShogiPiece.cs" />
-    <Compile Include="Automation\UITestControlExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GameTicketTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +100,10 @@
     <Compile Include="ViewModel\WelcomeViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BoardControl\AutomationTests\AutomationTests.csproj">
+      <Project>{827C0D96-8647-4D96-9393-E27299309DFC}</Project>
+      <Name>AutomationTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BoardControl\BoardControl\BoardControl.csproj">
       <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
       <Name>BoardControl %28BoardControl\BoardControl%29</Name>
@@ -144,6 +123,10 @@
     <ProjectReference Include="..\MainModule\MainModule.csproj">
       <Project>{DFDF38A0-E0DE-46F5-B38C-49EE3FB325C2}</Project>
       <Name>MainModule %28MainModule\MainModule%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestStand.WelcomeView\TestStand.WelcomeView.csproj">
+      <Project>{9DF369E4-A5DC-467B-BF11-E596332F68D5}</Project>
+      <Name>TestStand.WelcomeView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

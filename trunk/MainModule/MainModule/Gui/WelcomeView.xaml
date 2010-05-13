@@ -1,9 +1,21 @@
 ﻿<UserControl x:Class="MainModule.Gui.WelcomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Common1="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" xmlns:Utils="clr-namespace:Yasc.Utils" xmlns:Utils1="clr-namespace:MainModule.Utils" MinHeight="200" MinWidth="375" >
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Common="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" 
+             xmlns:Utils="clr-namespace:MainModule.Utils"
+             MinHeight="200" MinWidth="375" >
   <UserControl.Resources>
-    <Common1:ScalarConverter x:Key="NotConverter" Invert="True"/>
-    <Common1:AndConverter x:Key="AndConverter"/>
+    <Common:ScalarConverter x:Key="NotConverter" Invert="True"/>
+    <Common:AndConverter x:Key="AndConverter"/>
+    <Style x:Key="ControlInError" TargetType="{x:Type FrameworkElement}">
+      <Style.Triggers>
+        <Trigger Property="Validation.HasError" Value="true">
+          <Setter Property="AutomationProperties.HelpText"
+                  Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                  Path=(Validation.Errors)[0].ErrorContent}"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
   </UserControl.Resources>
   <Grid ShowGridLines="False">
     <Grid.RowDefinitions>
@@ -49,11 +61,11 @@
           <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Target="{Binding ElementName=_nameEdit}" Content="Enter your name:" VerticalAlignment="Center"/>
-        <TextBox Name="_nameEdit" Grid.Row="1" Margin="5,0,5,5">
+        <TextBox Name="_nameEdit" Grid.Row="1" Margin="5,0,5,5" Style="{StaticResource ControlInError}">
           <TextBox.Text>
             <Binding Path="UserName" UpdateSourceTrigger="PropertyChanged">
               <Binding.ValidationRules>
-                <Utils1:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
+                <Utils:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
               </Binding.ValidationRules>
             </Binding>
           </TextBox.Text>
@@ -61,11 +73,13 @@
         <Label Target="{Binding ElementName=_serverCombo}" Content="Enter server address:" 
              VerticalAlignment="Center" Grid.Row="2"/>
         <ComboBox Margin="5,0,5,5" IsEditable="True" Name="_serverCombo" 
-                SelectedIndex="0" Grid.Row="3" ItemsSource="{Binding LastVisitedServers}">
+                  Style="{StaticResource ControlInError}"
+                  SelectedIndex="0" Grid.Row="3" 
+                  ItemsSource="{Binding LastVisitedServers}">
           <ComboBox.Text>
             <Binding Path="Address" UpdateSourceTrigger="PropertyChanged">
               <Binding.ValidationRules>
-                <Utils1:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
+                <Utils:StringRangeValidationRule MinimumLength="1" ErrorMessage="A name is required." />
               </Binding.ValidationRules>
             </Binding>
           </ComboBox.Text>
