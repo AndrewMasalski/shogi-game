@@ -89,6 +89,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationTests", "BoardCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationTests", "MainModule\AutomationTests\AutomationTests.csproj", "{FA6F18BA-5EC8-4CEC-9725-C99F917940B2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Everything.vsmdi
@@ -332,6 +334,12 @@ Global
 		{FA6F18BA-5EC8-4CEC-9725-C99F917940B2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FA6F18BA-5EC8-4CEC-9725-C99F917940B2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FA6F18BA-5EC8-4CEC-9725-C99F917940B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}.Debug|Any CPU.ActiveCfg = Debug
+		{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}.Debug|x86.ActiveCfg = Debug
+		{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}.Release|Any CPU.ActiveCfg = Release
+		{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}.Release|Mixed Platforms.ActiveCfg = Release
+		{E44E51B6-2F7E-4AD2-B25F-5C7178A490A1}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
