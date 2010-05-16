@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -114,15 +115,15 @@ namespace Yasc.RulesVisualization
     }
     private void OnWhiteHandChanged(string pcs)
     {
-      Board.White.ResetAllPiecesFromHand();
+      Board.White.Hand.ResetAllPiecesFromHand();
       foreach (var pieceType in ParseA(pcs))
-        Board.White.AddToHand(pieceType);
+        Board.White.Hand.AddToHand(pieceType);
     }
     private void OnBlackHandChanged(string pcs)
     {
-      Board.Black.ResetAllPiecesFromHand();
+      Board.Black.Hand.ResetAllPiecesFromHand();
       foreach (var pieceType in ParseA(pcs))
-        Board.Black.AddToHand(pieceType);
+        Board.Black.Hand.AddToHand(pieceType);
     }
 
     #endregion
@@ -138,9 +139,9 @@ namespace Yasc.RulesVisualization
     }
     private static IEnumerable<PieceType> ParseA(string pcs)
     {
-      foreach (var p in pcs.Split(','))
-        yield return p.Trim();
+      return pcs.Split(',').Select(p => (PieceType) p.Trim());
     }
+
     private static IEnumerable<KeyValuePair<Position, PieceType>> ParseB(string pcs)
     {
       foreach (var p in pcs.Split(','))

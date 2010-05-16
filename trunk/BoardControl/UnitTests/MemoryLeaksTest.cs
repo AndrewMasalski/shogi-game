@@ -12,9 +12,8 @@ namespace BoardControl.UnitTests
     [TestMethod]
     public void Test()
     {
-      var hand = new ShogiHand();
-      var collection = new ObservableCollection<Piece>();
-      hand.Hand = collection;
+      var board = new Board();
+      var hand = new ShogiHand {Hand = board.White.Hand};
 
       var handWeakReference = new WeakReference(hand);
       hand = null;

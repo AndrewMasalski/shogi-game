@@ -143,8 +143,8 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void IsMovesOrderMaintainedForDropMovesTest()
     {
-      var piece1 = _board.Black.AddToHand("馬");
-      _board.Black.AddToHand("馬");
+      var piece1 = _board.Black.Hand.AddToHand("馬");
+      _board.Black.Hand.AddToHand("馬");
       _board.IsMovesOrderMaintained = false;
       // Make move for black twice and check there's no exception
       _board.MakeMove(_board.GetDropMove(piece1, "1i"));
@@ -263,7 +263,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void TestGetAvailableDropMovesByPiece()
     {
-      var piece = _board.Black.AddToHand("馬");
+      var piece = _board.Black.Hand.AddToHand("馬");
       var availableMoves = _board.GetAvailableMoves(piece);
       var toPositions = (from m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), toPositions);
@@ -304,7 +304,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void GetDropMoveAlienPieceArgTest()
     {
-      _board.GetDropMove(new Board().White.AddToHand("歩"), "1i");
+      _board.GetDropMove(new Board().White.Hand.AddToHand("歩"), "1i");
     }
     
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
