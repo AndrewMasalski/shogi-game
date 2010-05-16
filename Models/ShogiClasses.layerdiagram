@@ -90,11 +90,11 @@
                     <dependencyFromLayerToLayer Id="3269a808-cecb-4afe-8581-2f27386a1b48" direction="Forward">
                       <layerMoniker Id="5d64d198-7316-4a69-9c38-807206d6373e" />
                     </dependencyFromLayerToLayer>
-                    <dependencyFromLayerToLayer Id="847f633a-687b-4cda-af89-0641c4c96feb" direction="Bidirectional">
-                      <layerMoniker Id="81d729b0-ba69-48de-b444-9db757a22489" />
-                    </dependencyFromLayerToLayer>
                     <dependencyFromLayerToLayer Id="9684eef1-5ca8-4972-8531-49c18e699cd2" direction="Forward">
                       <layerMoniker Id="26e45011-927e-479a-81a8-a6b28b157857" />
+                    </dependencyFromLayerToLayer>
+                    <dependencyFromLayerToLayer Id="f46c97bc-e11e-4ba7-bbe6-93a1a88a1dea" direction="Forward">
+                      <layerMoniker Id="81d729b0-ba69-48de-b444-9db757a22489" />
                     </dependencyFromLayerToLayer>
                   </dependencyToLayers>
                   <references>

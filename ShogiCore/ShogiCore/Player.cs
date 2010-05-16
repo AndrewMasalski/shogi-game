@@ -8,12 +8,11 @@ namespace Yasc.ShogiCore
     /// <summary>The player name</summary>
     public string Name { get; set; }
     /// <summary>The pieces player has in hand</summary>
-    public Hand Hand { get; set; }
+    public Hand Hand { get; internal set; }
 
     internal Player(Board board)
     {
       Board = board;
-      Hand = new Hand(board, this);
     }
 
     /// <summary>The player opponent</summary>
