@@ -192,7 +192,6 @@ namespace MainModule.Gui.Game
     }
     protected virtual void BoardOnMoved(object sender, MoveEventArgs args)
     {
-
       OnAnyMove();
     }
     private void OnAnyMove()

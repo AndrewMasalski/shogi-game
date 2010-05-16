@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using System.Linq;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 {
   public static class UITestControlExtensions
   {

@@ -421,7 +421,8 @@ namespace Yasc.BoardControl.Controls
     }
     private void OnMoveRulesEnforcedChanged(bool value)
     {
-      Board.IsMovesOrderMaintained = value;
+// TODO: Seems this completely unnecesarry
+//      Board.IsMovesOrderMaintained = value;
     }
 
     public bool AreMoveRulesEnforced
@@ -436,6 +437,7 @@ namespace Yasc.BoardControl.Controls
 
     public override void OnApplyTemplate()
     {
+      _hands.Clear();
       _adornerLayer = GetTemplateChild("PART_AdornerLayer") as Canvas;
       base.OnApplyTemplate();
     }

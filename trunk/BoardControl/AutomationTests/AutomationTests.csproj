@@ -9,8 +9,8 @@
     <ProjectGuid>{827C0D96-8647-4D96-9393-E27299309DFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MainModule.AutomationTests</RootNamespace>
-    <AssemblyName>MainModule.AutomationTests</AssemblyName>
+    <RootNamespace>BoardControl.AutomationTests</RootNamespace>
+    <AssemblyName>BoardControl.AutomationTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,6 +69,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowTest.cs" />
     <Compile Include="Peers\UHandNest.cs" />
     <Compile Include="Peers\Uia.cs" />
     <Compile Include="Peers\UITestControlExtensions.cs" />
@@ -91,6 +92,10 @@
     <ProjectReference Include="..\BoardControl\BoardControl.csproj">
       <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
       <Name>BoardControl %28BoardControl\BoardControl%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestStand.ShogiBoard\TestStand.ShogiBoard.csproj">
+      <Project>{AABC1AF8-9B80-429A-9279-B99F30378FFD}</Project>
+      <Name>TestStand.ShogiBoard</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Yasc.BoardControl.Controls;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 {
   public class UShogiPiece : WpfCustom
   {

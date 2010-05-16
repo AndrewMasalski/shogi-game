@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="Loads skin from specified assembly in the same domain. Works if assembly wasn't referenced at compile time">
+    <Position X="0.531" Y="8.926" Height="0.813" Width="2.181" />
+  </Comment>
+  <Comment CommentText="Loads skin by Uri. Works if assembly was referenced at compile time">
+    <Position X="0.542" Y="7.207" Height="0.657" Width="2.184" />
+  </Comment>
+  <Comment CommentText="Loads skin from specified XAML file. Parser has to compile it first.">
+    <Position X="0.5" Y="5.165" Height="0.523" Width="2.184" />
+  </Comment>
+  <Class Name="Yasc.Utils.Skins.LooseXamlSkin">
+    <Position X="3.25" Y="5" Width="5.5" />
+    <Members>
+      <Field Name="_sources" Hidden="true" />
+      <Method Name="LoadResources" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Skins\LooseXamlSkin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Utils.Skins.ReferencedAssemblySkin">
+    <Position X="3.25" Y="7" Width="5.5" />
+    <Members>
+      <Field Name="_resourceUri" Hidden="true" />
+      <Method Name="LoadResources" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Skins\ReferencedAssemblySkin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Utils.Skins.Skin">
+    <Position X="0.5" Y="0.5" Width="5.25" />
+    <Members>
+      <Field Name="_name" Hidden="true" />
+      <Field Name="_resources" Hidden="true" />
+      <Method Name="LoadResources" Hidden="true" />
+      <Property Name="Resources" Hidden="true" />
+      <Method Name="Skin" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Class Name="Yasc.Utils.Skins.Skin.NullSkin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Skins\Skin.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAoACAIgAAAAAAAAAAAAwAQAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Skins\Skin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.Utils.Skins.DirectAssemblySkin">
+    <Position X="3.25" Y="8.75" Width="5.5" />
+    <Members>
+      <Field Name="_resourceName" Hidden="true" />
+      <Property Name="AssemblyName" Hidden="true" />
+      <Method Name="FixResourceName" Hidden="true" />
+      <Method Name="LoadResources" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAgCAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Skins\DirectAssemblySkin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

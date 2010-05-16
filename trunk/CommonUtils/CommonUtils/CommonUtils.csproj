@@ -85,6 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppDomainExtensions.cs" />
     <Compile Include="Automation\KeyboardDeviceExtensions.cs" />
     <Compile Include="Automation\MouseDeviceExtensions.cs" />
     <Compile Include="Automation\RectExtensions.cs" />
@@ -101,18 +102,19 @@
     <Compile Include="ObservableCollectionLocker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlySquareArray.cs" />
-    <Compile Include="Skins\AppDomainAssemblySkin.cs" />
-    <Compile Include="Skins\BamlHelper.cs" />
-    <Compile Include="Skins\DirectAssemblySkin.cs" />
-    <Compile Include="Skins\ISkinBamlResolver.cs" />
+    <Compile Include="Skins\DirectAssemblySkin.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Skins\LooseXamlSkin.cs" />
     <Compile Include="Skins\ReferencedAssemblySkin.cs" />
     <Compile Include="Skins\Skin.cs" />
-    <Compile Include="Skins\SkinBamlResolver.cs" />
     <Compile Include="TestLog.cs" />
     <Compile Include="ThreadSafeObservableCollection.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="WeakReference.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Skins\Skins.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Yasc.Controls;assembly=Yasc"
-                    xmlns:Common="clr-namespace:Yasc.Common;assembly=Yasc"
-                    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore;assembly=Yasc.ShogiCore">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:ShogiCore="clr-namespace:Yasc.ShogiCore;assembly=Yasc.ShogiCore" 
+                    xmlns:Common="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" 
+                    xmlns:Controls="clr-namespace:Yasc.BoardControl.Controls;assembly=Yasc.BoardControl">
 
   <!--  Converters  -->
   <Common:DebugConverter x:Key="DebugConverter"/>
@@ -16,7 +16,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CheckBox}">
           <Border Name="Border" CornerRadius="6" Background="Transparent">
-            <Image Name="Image" Source="..\Resources\Rotate.png" Width="22"
+            <Image Name="Image" Source="/Yasc.BoardControl;component/Resources/Rotate.png" Width="22"
                    RenderOptions.BitmapScalingMode="NearestNeighbor">
               <Image.RenderTransform>
                 <RotateTransform x:Name="Rotate" CenterX="11" CenterY="11"/>
@@ -80,40 +80,45 @@
   </Style>
 
   <!--  ShogiBoard  -->
-  <Style TargetType="{x:Type local:ShogiBoard}">
+  <Style TargetType="{x:Type Controls:ShogiBoard}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiBoard}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiBoard}">
           <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="5*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <local:ShogiHand x:Name="WhiteHand" Color="White" Grid.Column="0" 
+            <Controls:ShogiHand x:Name="TopHand" Color="White" Grid.Column="0" 
                              Board="{TemplateBinding Board}"
+                             AutomationProperties.Name="TopHand"
                              VerticalAlignment="Top" HorizontalAlignment="Right"/>
             <Common:UniformPanel Grid.Column="1">
-              <local:BoardBorder>
+              <Controls:BoardBorder>
                 <Grid>
-                  <local:ShogiBoardCore Board="{TemplateBinding Board}"/>
+                  <Controls:ShogiBoardCore Board="{TemplateBinding Board}"/>
                   <CheckBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-19,-21,0"
                             Style="{StaticResource IsFlippedButtonStyle}"
                             IsChecked="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}}"/>
                 </Grid>
-              </local:BoardBorder>
+              </Controls:BoardBorder>
             </Common:UniformPanel>
 
-            <local:ShogiHand x:Name="BlackHand" Color="Black" Grid.Column="2" 
+            <Controls:ShogiHand x:Name="BottomHand" Color="Black" Grid.Column="2" 
                              Board="{TemplateBinding Board}"
+                             AutomationProperties.Name="BottomHand"
                              VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
             <Canvas Name="PART_AdornerLayer"/>
-            <ContentControl Name="PART_Shield" Grid.ColumnSpan="3"/>
+            <Rectangle Fill="#3333" Visibility="Collapsed" Name="Shield" Grid.ColumnSpan="3"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsFlipped" Value="True">
-              <Setter TargetName="WhiteHand" Property="Color" Value="Black"/>
-              <Setter TargetName="BlackHand" Property="Color" Value="White"/>
+              <Setter TargetName="TopHand" Property="Color" Value="Black"/>
+              <Setter TargetName="BottomHand" Property="Color" Value="White"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="Shield" Property="Visibility" Value="Visible"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -122,11 +127,11 @@
   </Style>
 
   <!--  ShogiHand  -->
-  <Style TargetType="{x:Type local:ShogiHand}">
-    <Setter Property="GroupingMode" Value="True"/>
+  <Style TargetType="{x:Type Controls:ShogiHand}">
+    <Setter Property="GroupingMode" Value="Groups"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiHand}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiHand}">
           <ItemsControl ItemsSource="{TemplateBinding Items}">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
@@ -140,27 +145,26 @@
   </Style>
 
   <!--  ShogiPiece  -->
-  <Style TargetType="{x:Type local:ShogiPiece}">
+  <Style TargetType="{x:Type Controls:ShogiPiece}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiPiece}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiPiece}">
           <Grid  Background="Transparent">
             <Grid.ToolTip>
-              <local:SwitchControl Switcher="{Binding PieceType.Latin, Mode=OneTime, 
+              <Common:SwitchControl Switcher="{Binding PieceType.Latin, Mode=OneTime, 
                                               RelativeSource={RelativeSource TemplatedParent}}">
-                <local:SwitchControl.Resources>
+                <Common:SwitchControl.Resources>
                   <DataTemplate x:Key="P">
-                    <TextBlock Text="Pawn"/>
+                    <TextBlock Text="Pawn" TextOptions.TextRenderingMode="Auto"/>
                   </DataTemplate>
-                </local:SwitchControl.Resources>
-              </local:SwitchControl>
+                </Common:SwitchControl.Resources>
+              </Common:SwitchControl>
             </Grid.ToolTip>
             <Viewbox>
               <Grid Height="13" Width="13">
                 <Grid Height="10" Width="10" RenderTransformOrigin=".5, .5" Name="_piece">
                   <Path Height="10" Width="10" Stroke="Black" StrokeThickness=".3" StrokeLineJoin="Round"
-                        Data="M0.1,0.1 L2,9 5,9.9 8,9 9.9,0.1 z" Fill="yellow"
-                        Name="_path">
+                        Data="M0.1,0.1 L2,9 5,9.9 8,9 9.9,0.1 z" Fill="WhiteSmoke">
                     <Path.RenderTransform>
                       <RotateTransform CenterX="5" CenterY="5" Angle="180"/>
                     </Path.RenderTransform>
@@ -185,7 +189,6 @@
                   <RotateTransform Angle="180"/>
                 </Setter.Value>
               </Setter>
-              <Setter TargetName="_path" Property="Fill" Value="YellowGreen"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -194,13 +197,13 @@
   </Style>
 
   <!--  ShogiCell  -->
-  <Style TargetType="{x:Type local:ShogiCell}">
+  <Style TargetType="{x:Type Controls:ShogiCell}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiCell}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiCell}">
           <Grid Background="Transparent" >
             <Rectangle Name="border" Stretch="Fill" SnapsToDevicePixels="True"/>
-            <ContentPresenter Name="PART_Piece"/>
+            <ContentPresenter/>
             <Rectangle Name="border1" Stretch="Fill" SnapsToDevicePixels="True"/>
           </Grid>
           <ControlTemplate.Triggers>
@@ -217,12 +220,12 @@
   </Style>
 
   <!--  HandNest  -->
-  <Style TargetType="{x:Type local:HandNest}">
+  <Style TargetType="{x:Type Controls:HandNest}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:HandNest}">
+        <ControlTemplate TargetType="{x:Type Controls:HandNest}">
           <Grid>
-            <ContentPresenter Name="PART_Piece"/>
+            <ContentPresenter/>
             <TextBlock Name="Index" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                        Text="{Binding PiecesCount, RelativeSource={RelativeSource TemplatedParent}}"/>
           </Grid>
@@ -249,8 +252,6 @@
               <TextBlock Text="{Binding Value.Minutes, RelativeSource={RelativeSource TemplatedParent}}"/>
               <TextBlock Text=":"/>
               <TextBlock Text="{Binding Value.Seconds, RelativeSource={RelativeSource TemplatedParent}}"/>
-              <TextBlock Text="."/>
-              <TextBlock Text="{Binding Value.Milliseconds, RelativeSource={RelativeSource TemplatedParent}}"/>
             </StackPanel>
 
           </Border>
@@ -260,10 +261,10 @@
   </Style>
 
   <!--  ShogiBoardCore  -->
-  <Style TargetType="{x:Type local:ShogiBoardCore}">
+  <Style TargetType="{x:Type Controls:ShogiBoardCore}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:ShogiBoardCore}">
+        <ControlTemplate TargetType="{x:Type Controls:ShogiBoardCore}">
           <Grid>
             <ItemsControl ItemsSource="{TemplateBinding Cells}" >
               <ItemsControl.ItemsPanel>
@@ -273,7 +274,7 @@
               </ItemsControl.ItemsPanel>
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type ShogiCore:Cell}">
-                  <local:ShogiCell Margin="1,1,0,0" Cell="{Binding}" />
+                  <Controls:ShogiCell Margin="1,1,0,0" Cell="{Binding}" />
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -284,10 +285,10 @@
   </Style>
 
   <!--  BoardBorder  -->
-  <Style TargetType="{x:Type local:BoardBorder}">
+  <Style TargetType="{x:Type Controls:BoardBorder}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:BoardBorder}">
+        <ControlTemplate TargetType="{x:Type Controls:BoardBorder}">
           <ControlTemplate.Resources>
             <Style x:Key="VerticalLine" TargetType="{x:Type Path}">
               <Setter Property="Grid.RowSpan" Value="9"/>
@@ -457,12 +458,67 @@
     </Setter>
   </Style>
 
-  <!--  Shield  -->
-  <Style TargetType="{x:Type local:Shield}">
+  <!--  ProgressClock  -->
+  <Style TargetType="{x:Type Common:ProgressClock}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:Shield}">
-          <Border Background="#2222"/>
+        <ControlTemplate TargetType="{x:Type Common:ProgressClock}">
+          <ControlTemplate.Resources>
+            <Storyboard x:Key="OnLoadedStoryboard" AutoReverse="False" RepeatBehavior="Forever">
+              <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="line" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:06" Value="360"/>
+              </DoubleAnimationUsingKeyFrames>
+              <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="line1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="110"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:06" Value="1190"/>
+              </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+          </ControlTemplate.Resources>
+          <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+              <BeginStoryboard Name="BeginSt" Storyboard="{StaticResource OnLoadedStoryboard}"/>
+              <PauseStoryboard BeginStoryboardName="BeginSt"/>
+            </EventTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Trigger.EnterActions>
+                <PauseStoryboard BeginStoryboardName="BeginSt"/>
+              </Trigger.EnterActions>
+              <Trigger.ExitActions>
+                <ResumeStoryboard BeginStoryboardName="BeginSt"/>
+              </Trigger.ExitActions>
+            </Trigger>
+          </ControlTemplate.Triggers>
+          <Viewbox>
+            <Grid x:Name="LayoutRoot" Width="100" Height="100">
+              <Ellipse Stroke="#FF961D1D" StrokeThickness="6"/>
+              <Line x:Name="line" Height="30" Stretch="Fill" StrokeThickness="6" Stroke="#FF41330F"
+                    VerticalAlignment="Top" Y1="1" Margin="0,20,0,0" 
+                    RenderTransformOrigin="0.5,1" StrokeEndLineCap="Triangle" StrokeStartLineCap="Round" >
+                <Line.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                  </TransformGroup>
+                </Line.RenderTransform>
+              </Line>
+              <Line x:Name="line1" Height="42" Stretch="Fill" StrokeThickness="4" Stroke="#FF41330F"
+                    VerticalAlignment="Top" Y1="1" Margin="0,8,0,0" RenderTransformOrigin="0.5,1"
+                    StrokeEndLineCap="Triangle" StrokeStartLineCap="Round" >
+                <Line.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                  </TransformGroup>
+                </Line.RenderTransform>
+              </Line>
+              <Ellipse Margin="44" Fill="Black"/>
+            </Grid>
+          </Viewbox>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

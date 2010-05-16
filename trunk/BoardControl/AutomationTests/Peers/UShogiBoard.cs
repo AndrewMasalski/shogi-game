@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 {
   public class UShogiBoard : WpfCustom
   {

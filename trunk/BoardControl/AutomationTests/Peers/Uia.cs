@@ -1,6 +1,6 @@
 using System;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 {
   public static class Uia
   {

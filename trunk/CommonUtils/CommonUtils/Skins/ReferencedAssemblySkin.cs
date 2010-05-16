@@ -3,7 +3,8 @@ using System.Windows;
 
 namespace Yasc.Utils.Skins
 {
-  public sealed class ReferencedAssemblySkin : Skin
+  /// <summary>Loads skin by Uri. Works if assembly was referenced at compile time</summary>
+  internal sealed class ReferencedAssemblySkin : Skin
   {
     private readonly Uri _resourceUri;
 
