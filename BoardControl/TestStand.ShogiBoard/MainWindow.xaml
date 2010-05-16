@@ -1,10 +1,12 @@
 ﻿<Window x:Class="TestStand.ShogiBoard.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:Yasc.BoardControl.Controls;assembly=Yasc.BoardControl" Title="MainWindow" Height="600" Width="800">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:Controls="clr-namespace:Yasc.BoardControl.Controls;assembly=Yasc.BoardControl" 
+        Title="MainWindow" Height="600" Width="800">
   <StackPanel>
-    <Controls:ShogiBoard Board="{Binding}" Height="500" 
-                         Name="Board"/>
-    <CheckBox Content="IsEnabled" 
-              IsChecked="{Binding ElementName=Board, Path=IsEnabled, Mode=TwoWay}"/>
+    <Controls:ShogiBoard Board="{Binding}" Height="500" Name="Board"/>
+    <CheckBox Content="IsEnabled" IsChecked="{Binding ElementName=Board, Path=IsEnabled, Mode=TwoWay}"/>
+    <CheckBox Content="IsMovesOrderMaintained" IsChecked="{Binding ElementName=Board, Path=Board.IsMovesOrderMaintained, Mode=TwoWay}"/>
+    <CheckBox Content="AreMoveRulesEnforced" IsChecked="{Binding ElementName=Board, Path=AreMoveRulesEnforced, Mode=TwoWay}"/>
   </StackPanel>
 </Window>

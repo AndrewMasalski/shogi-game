@@ -1,8 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Common1="clr-namespace:Yasc.BoardControl.Common" xmlns:Controls="clr-namespace:Yasc.BoardControl.Controls" x:Class="Yasc.BoardControl.Themes.c__users_ilya_documents_visual_studio_2010_projects_shogi_game_trunk_boardcontrol_boardcontrol_themes_red_xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:Common="clr-namespace:Yasc.BoardControl.Common" 
+                    xmlns:Controls="clr-namespace:Yasc.BoardControl.Controls">
   
-  <Common1:DebugConverter x:Key="DebugConverter"/>
-  <Common1:ToStringConverter x:Key="ToStirngConverter"/>
+  <Common:DebugConverter x:Key="DebugConverter"/>
+  <Common:ToStringConverter x:Key="ToStirngConverter"/>
 
   <!--  ShogiPiece  -->
   <Style TargetType="{x:Type Controls:ShogiPiece}">
@@ -11,14 +13,14 @@
         <ControlTemplate TargetType="{x:Type Controls:ShogiPiece}">
           <Grid  Background="Transparent">
             <Grid.ToolTip>
-              <Common1:SwitchControl Switcher="{Binding PieceType.Latin, Mode=OneTime, 
+              <Common:SwitchControl Switcher="{Binding PieceType.Latin, Mode=OneTime, 
                                               RelativeSource={RelativeSource TemplatedParent}}">
-                <Common1:SwitchControl.Resources>
+                <Common:SwitchControl.Resources>
                   <DataTemplate x:Key="P">
                     <TextBlock Text="Pawn"/>
                   </DataTemplate>
-                </Common1:SwitchControl.Resources>
-              </Common1:SwitchControl>
+                </Common:SwitchControl.Resources>
+              </Common:SwitchControl>
             </Grid.ToolTip>
             <Viewbox>
               <Grid Height="13" Width="13">

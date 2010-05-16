@@ -4,7 +4,8 @@ using System.Windows;
 
 namespace Yasc.Utils.Skins
 {
-  public sealed class LooseXamlSkin : Skin
+  /// <summary>Loads skin from specified XAML file. Parser has to compile it first.</summary>
+  internal sealed class LooseXamlSkin : Skin
   {
     private readonly List<Uri> _sources;
 

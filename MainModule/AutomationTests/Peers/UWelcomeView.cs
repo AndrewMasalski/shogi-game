@@ -1,3 +1,4 @@
+using BoardControl.AutomationTests.Peers;
 using MainModule.Gui;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Yasc.BoardControl.Controls;
 using Yasc.Utils;
 using Yasc.Utils.Mvvm;
 using Yasc.Utils.Skins;
 
 namespace MainModule.ViewModel
 {
+  /// <summary>Represents a set of skins</summary>
   public class SkinningViewModel : ObservableObject
   {
     #region ' Fields '
@@ -57,9 +59,11 @@ namespace MainModule.ViewModel
     }
     private IEnumerable<SkinViewModel> GetLocalSkins()
     {
-      foreach (var uri in typeof(SkinViewModel).Assembly.GetBamlUris("Themes"))
-        if (string.Compare(uri.OriginalString, @"/Yasc;component/Themes/Generic.xaml", true) != 0)
-          yield return new SkinViewModel(this, new ReferencedAssemblySkin(uri.ToString(), uri));
+      const string generic = @"/Yasc.BoardControl;component/Themes/Generic.xaml";
+      foreach (var uri in typeof(ShogiBoard).Assembly.GetBamlUris("Themes", null))
+        if (string.Compare(uri.OriginalString, generic, true) != 0)
+          yield return new SkinViewModel(this, 
+            Skin.Load(uri.ToString(), uri));
     }
     private IEnumerable<SkinViewModel> GetDirectAssemblySkins()
     {
@@ -70,7 +74,7 @@ namespace MainModule.ViewModel
       foreach (var skin in Directory.GetFiles(baseDirectory, "*.dll"))
       {
         string skinName = Path.GetFileName(skin);
-        var assemblySkin = new DirectAssemblySkin(skinName, skin);
+        var assemblySkin = Skin.Load(skinName, skin);
         yield return new SkinViewModel(this, assemblySkin);
       }
     }

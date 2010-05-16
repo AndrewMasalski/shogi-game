@@ -32,7 +32,7 @@ namespace MainModule
           GoWelcome();
           break;
         case WelcomeChoice.ArtificialIntelligence:
-          GoGameWithComp();
+          GoPlayWithComp();
           break;
         case WelcomeChoice.Autoplay:
           GoAutoplay();
@@ -87,7 +87,7 @@ namespace MainModule
       switch (welcomeViewModel.Mode)
       {
         case WelcomeChoice.ArtificialIntelligence:
-          GoGameWithComp();
+          GoPlayWithComp();
           break;
         case WelcomeChoice.Autoplay:
           GoAutoplay();
@@ -160,13 +160,20 @@ namespace MainModule
       serverViewModel.GameNegotiation += OnGameNegotiation;
       CurrentView = serverViewModel;
     }
-    private void GoGameWithComp()
+    private void GoPlayWithComp()
     {
       var gameViewModel = GameWithEngineViewModel.Create();
-      if (gameViewModel == null) return;
-      gameViewModel.GameOver += OnGameOver;
-      CurrentView = gameViewModel;
+      if (gameViewModel != null)
+      {
+        gameViewModel.GameOver += OnGameOver;
+        CurrentView = gameViewModel;
+      }
+      else
+      {
+        GoWelcome();
+      }
     }
+
     private void GoAutoplay()
     {
       var gameViewModel = new AutoplayViewModel();

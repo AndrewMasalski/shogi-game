@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting;
 using Yasc.ShogiCore;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 { 
   public class UShogiCell : UPieceHolderBase
   {

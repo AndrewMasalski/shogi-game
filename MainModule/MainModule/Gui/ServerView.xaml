@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="MainModule.Gui.ServerView"
+<UserControl x:Class="MainModule.Gui.ServerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-              xmlns:Common="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" xmlns:ViewModel="clr-namespace:MainModule.ViewModel">
+              xmlns:Common="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" xmlns:ViewModel="clr-namespace:MainModule.ViewModel" xmlns:Gui="clr-namespace:MainModule.Gui">
   <UserControl.Resources>
-    <DataTemplate DataType="{x:Type ViewModel:UserViewModel}">
+    <DataTemplate DataType="{x:Type Gui:UserViewModel}">
       <TextBlock>
         <Hyperlink Command="{Binding InviteCommand}">
           <TextBlock Text="{Binding Name}"/>

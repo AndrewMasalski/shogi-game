@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 {
   public abstract class UPieceHolderBase : WpfCustom
   {

@@ -1,11 +1,11 @@
 ﻿using BoardControl.AutomationTests.Peers;
-using MainModule.AutomationTests.Peers;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TestStand.ShogiBoard;
 using Yasc.ShogiCore;
 
-namespace MainModule.AutomationTests
+namespace BoardControl.AutomationTests
 {
   [TestClass]
   public class MainWindowTest
@@ -23,8 +23,6 @@ namespace MainModule.AutomationTests
       
       _window = new WpfWindow(_application);
       _window.WindowTitles.Add("Shogi");
-
-      Mouse.Click(new UWelcomeView(_window).PlayWithMyselfButton);
 
       _board = new UShogiBoard(_window);
     }

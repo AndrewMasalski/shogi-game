@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Yasc.ShogiCore;
 
-namespace MainModule.AutomationTests.Peers
+namespace BoardControl.AutomationTests.Peers
 {
   public class UShogiHand : WpfCustom
   {

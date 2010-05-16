@@ -4,7 +4,7 @@ using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
 using Yasc.Utils.Mvvm;
 
-namespace MainModule.ViewModel
+namespace MainModule.Gui
 {
   public class UserViewModel : ObservableObject
   {

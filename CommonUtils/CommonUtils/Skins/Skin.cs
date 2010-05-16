@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Windows;
 
 namespace Yasc.Utils.Skins
@@ -58,5 +60,34 @@ namespace Yasc.Utils.Skins
     }
 
     #endregion
+
+    public static Skin Load(string name, string assemblyPath)
+    {
+      return new DirectAssemblySkin(name, assemblyPath);
+    }
+    public static Skin Load(string name, AssemblyName assemblyName)
+    {
+      return new DirectAssemblySkin(name, assemblyName);
+    }
+    public static Skin Load(string name, string assemblyPath, string resourceName)
+    {
+      return new DirectAssemblySkin(name, assemblyPath, resourceName);
+    }
+    public static Skin Load(string name, AssemblyName assemblyName, string resourceName)
+    {
+      return new DirectAssemblySkin(name, assemblyName, resourceName);
+    }
+    public static Skin Load(string name, Uri resourceUri) 
+    {
+      return new ReferencedAssemblySkin(name, resourceUri);
+    }  
+    public static Skin LoadXaml(string name, Uri resourceUri) 
+    {
+      return new LooseXamlSkin(name, resourceUri);
+    }
+    public static Skin LoadXaml(string name, IEnumerable<Uri> resourceUri) 
+    {
+      return new LooseXamlSkin(name, resourceUri);
+    }  
   }
 }

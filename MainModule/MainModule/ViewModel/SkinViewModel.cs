@@ -5,6 +5,7 @@ using Yasc.Utils.Skins;
 
 namespace MainModule.ViewModel
 {
+  /// <summary>Represents a skin</summary>
   public class SkinViewModel : ObservableObject
   {
     private readonly SkinningViewModel _owner;
