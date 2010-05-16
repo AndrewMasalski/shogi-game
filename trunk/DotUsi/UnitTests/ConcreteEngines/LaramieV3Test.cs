@@ -1,25 +1,20 @@
-using System;
 using System.Diagnostics;
-using DotUsi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.DotUsi;
-using Yasc.DotUsi.Drivers;
 using Yasc.DotUsi.Process;
-using Yasc.DotUsi.SearchModifiers.TimeConstraints;
 
-namespace UnitTests
+namespace DotUsi.UnitTests.ConcreteEngines
 {
   [TestClass]
-  public class Lesserkai133Test
+  public class LaramieV3Test
   {
     [TestMethod]
-    public void UsiEngineConstructorTest1()
+    public void UsiEngineConstructorTest()
     {
-      foreach (var p in Process.GetProcessesByName("Lesserkai"))
+      foreach (var p in Process.GetProcessesByName("LaramieV3"))
         p.Kill();
 
-      IUsiProcess process = new UsiWindowsProcess(@"Lesserkai\Lesserkai.exe");
-      process = new Lesserkai133Driver(process);
+      var process = new UsiWindowsProcess(@"LaramieV3\LaramieV3.exe");
       using (var engine = new UsiEngine(process))
       {
         engine.DebugMode = true;
@@ -35,7 +30,7 @@ namespace UnitTests
           "4h3g", "2e3g+", "6i5h", "G*4h", "5h4h", "3g4h", "5i6i", "G*8h", "G*5g", "4g5g", "B*7a",
           "8b7a", "B*6b", "7a6b", "7f7c+", "7b7c"
           );
-        engine.SynchGo(new MoveTimeModifier(TimeSpan.FromSeconds(1)));
+        engine.SynchGo();
       }
     }
   }

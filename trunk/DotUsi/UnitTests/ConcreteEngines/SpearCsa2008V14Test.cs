@@ -1,13 +1,12 @@
 using System.Diagnostics;
 using System.Linq;
-using DotUsi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.DotUsi;
 using Yasc.DotUsi.Drivers;
 using Yasc.DotUsi.Options;
 using Yasc.DotUsi.Process;
 
-namespace UnitTests
+namespace DotUsi.UnitTests.ConcreteEngines
 {
   [TestClass]
   public class SpearCsa2008V14Test

@@ -115,15 +115,15 @@ namespace Yasc.RulesVisualization
     }
     private void OnWhiteHandChanged(string pcs)
     {
-      Board.White.Hand.ResetAllPiecesFromHand();
+      Board.White.Hand.Clear();
       foreach (var pieceType in ParseA(pcs))
-        Board.White.Hand.AddToHand(pieceType);
+        Board.White.Hand.Add(pieceType);
     }
     private void OnBlackHandChanged(string pcs)
     {
-      Board.Black.Hand.ResetAllPiecesFromHand();
+      Board.Black.Hand.Clear();
       foreach (var pieceType in ParseA(pcs))
-        Board.Black.Hand.AddToHand(pieceType);
+        Board.Black.Hand.Add(pieceType);
     }
 
     #endregion
