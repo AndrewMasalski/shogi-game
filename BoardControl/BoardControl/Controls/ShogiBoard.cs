@@ -250,10 +250,10 @@ namespace Yasc.BoardControl.Controls
       piece.Owner.Hand.Remove(piece);
       hand.Hand.Add(piece);
     }
-    private static void ArbitraryMove(Cell cell, ShogiHand hand)
+    private void ArbitraryMove(Cell cell, ShogiHand hand)
     {
       var piece = cell.Piece;
-      cell.ResetPiece();
+      Board.ResetPiece(cell.Position);
       hand.Hand.Add(piece);
     }
     private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
@@ -263,19 +263,19 @@ namespace Yasc.BoardControl.Controls
       if (promotionRequest) piece.IsPromoted = true;
       piece.Owner.Hand.Remove(piece);
       var m = cell.Piece;
-      cell.ResetPiece();
-      cell.SetPiece(piece, owner);
+      Board.ResetPiece(cell.Position);
+      Board.SetPiece(cell.Position, piece, owner);
       if (m != null) piece.Owner.Hand.Add(m);
     }
-    private static void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
+    private void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
     {
       var piece = from.Piece;
       var owner = piece.Owner;
       if (promotionRequest) piece.IsPromoted = true;
-      from.ResetPiece();
+      Board.ResetPiece(from.Position);
       var m = to.Piece;
-      to.ResetPiece();
-      to.SetPiece(piece, owner);
+      Board.ResetPiece(to.Position);
+      Board.SetPiece(to.Position, piece, owner);
       if (m != null) piece.Owner.Hand.Add(m);
     }
 

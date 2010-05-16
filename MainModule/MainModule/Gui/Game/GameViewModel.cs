@@ -185,7 +185,7 @@ namespace MainModule.Gui.Game
         if (piece != null)
         {
           var player = piece.Owner;
-          cell.ResetPiece();
+          Board.ResetPiece(cell.Position);
           player.Hand.Add(piece);
         }
       }
