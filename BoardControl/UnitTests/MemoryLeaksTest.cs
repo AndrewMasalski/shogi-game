@@ -10,7 +10,7 @@ namespace BoardControl.UnitTests
   public class MemoryLeaksTest
   {
     [TestMethod]
-    public void Test()
+    public void CheckMemoryLeaksForShogiHand()
     {
       var board = new Board();
       var hand = new ShogiHand {Hand = board.White.Hand};

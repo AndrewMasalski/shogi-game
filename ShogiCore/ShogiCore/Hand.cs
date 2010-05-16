@@ -11,59 +11,124 @@ namespace Yasc.ShogiCore
   /// <summary>Represents collection of pieces player has "in hand"</summary>
   public class Hand : ReadOnlyObservableCollection<Piece>
   {
-    public void RemoveAt(int index)
+    #region ' Fields '
+
+    private readonly Board _board;
+    private readonly Player _owner;
+
+    #endregion
+
+    #region ' Public Interface '
+
+    /// <summary>ctor</summary>
+    public Hand(Board board, Player owner)
+      : base(new PieceCollection())
     {
-      Items.RemoveAt(index);
+      _board = board;
+      _owner = owner;
+      Items.FirstCalledCollectionChanged += OnCollectionChanged;
     }
-    public bool Remove(Piece item)
+
+    /// <summary>Adds the piece from board's piece set to the hand</summary>
+    public Piece Add(PieceType type)
     {
-      return Items.Remove(item);
+      Piece piece = _board.PieceSet[type];
+      if (piece == null)
+      {
+        throw new NotEnoughPiecesInSetException(
+          "Cannot add piece because there's no more pieces of type " +
+          type + " in the set. Consider using Infinite PieceSet");
+      }
+      Items.Add(piece);
+      return piece;
     }
+    /// <summary>Adds the piece to the hand</summary>
     public void Add(Piece item)
     {
       Items.Add(item);
     }
+
+    /// <summary>Gets the piece from player hand by type -or- null</summary>
+    public Piece GetByType(PieceType pieceType)
+    {
+      return Items.FirstOrDefault(piece => piece.PieceType == pieceType);
+    }
+    /// <summary>Load pieces to the hand from snapshot</summary>
+    public void LoadSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
+    {
+      if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
+      Items.Update(handSnapshot,
+                   p => new PieceSnapshot(p),
+                   ps => ps,
+                   ps => _board.PieceSet[ps.PieceType]);
+    }
+
+    /// <summary>Removes the piece from hand</summary>
+    public bool Remove(Piece item)
+    {
+      return Items.Remove(item);
+    }
+    /// <summary>Removes the piece from hand by type</summary>
+    public bool Remove(PieceType pieceType)
+    {
+      var item = GetByType(pieceType);
+      if (item == null) return false;
+      return Items.Remove(item);
+    }
+
+    /// <summary>Returns all pieces from hand to the set</summary>
     public void Clear()
     {
-      Items.Clear();
-    }
-    public void Move(int oldIndex, int newIndex)
-    {
-      Items.Move(oldIndex, newIndex);
-    }
-    
-    private readonly Board _board;
-    private readonly Player _owner;
-
-    private new ObservableCollection<Piece> Items
-    {
-      get { return (ObservableCollection<Piece>) base.Items; }
-    }
-    /// <summary>ctor</summary>
-    public Hand(Board board, Player owner)
-      : base(new ThreadSafeObservableCollection<Piece>())
-    {
-      _board = board;
-      _owner = owner;
-      Items.CollectionChanged += OnHandCollectionChanged;
+      // TODO: Replace with clear. Now some synchronizer doesn't support it
+      while (Items.Count > 0)
+        Items.RemoveAt(Items.Count - 1);
     }
 
-    private void OnHandCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+    #endregion
+
+    #region ' Nested: PieceCollection '
+
+    class PieceCollection : ThreadSafeObservableCollection<Piece>
+    {
+      public NotifyCollectionChangedEventHandler FirstCalledCollectionChanged { get; set; }
+
+      protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+      {
+        using (BlockReentrancy())
+        {
+          var handler = FirstCalledCollectionChanged;
+          if (handler != null) handler(this, e);
+
+          base.OnCollectionChanged(e);
+        }
+      }
+    }
+
+    #endregion
+
+    #region ' Implementation '
+
+    private new PieceCollection Items
+    {
+      get { return (PieceCollection)base.Items; }
+    }
+
+    private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
     {
       switch (args.Action)
       {
         case NotifyCollectionChangedAction.Add:
-          OnAddPieceToHand(args);
+          OnPieceAdded(args);
           break;
         case NotifyCollectionChangedAction.Remove:
-          OnRemovePieceFromHand(args);
+          OnPieceRemoved(args);
           break;
         case NotifyCollectionChangedAction.Move:
           // Piece doesn't come and doesn't leave.
           break;
         case NotifyCollectionChangedAction.Replace:
-          OnRemovePieceFromHand(args);
-          OnAddPieceToHand(args);
+          OnPieceRemoved(args);
+          OnPieceAdded(args);
           break;
         default:
           throw new NotSupportedException(
@@ -71,8 +136,7 @@ namespace Yasc.ShogiCore
             "If you want to clear try Player.ResetAllPiecesFromHand");
       }
     }
-
-    private void OnAddPieceToHand(NotifyCollectionChangedEventArgs args)
+    private void OnPieceAdded(NotifyCollectionChangedEventArgs args)
     {
       foreach (Piece p in args.NewItems)
       {
@@ -87,50 +151,12 @@ namespace Yasc.ShogiCore
         p.IsPromoted = false;
       }
     }
-
-    private void OnRemovePieceFromHand(NotifyCollectionChangedEventArgs args)
+    private void OnPieceRemoved(NotifyCollectionChangedEventArgs args)
     {
       foreach (Piece p in args.OldItems)
         _board.PieceSet.Push(p);
     }
 
-    /// <summary>Gets the piece from player hand by type</summary>
-    public Piece GetByType(PieceType pieceType)
-    {
-      return Items.FirstOrDefault(piece => piece.PieceType == pieceType);
-    }
-
-    /// <summary>Adds the piece to player hand</summary>
-    public Piece AddToHand(PieceType type)
-    {
-      Piece piece = _board.PieceSet[type];
-      if (piece == null)
-      {
-        throw new NotEnoughPiecesInSetException(
-          "Cannot add piece because there's no more pieces of type " +
-          type + " in the set. Consider using Infinite PieceSet");
-      }
-      Items.Add(piece);
-      return piece;
-    }
-
-    /// <summary>Load pieces to the hand from snapshot</summary>
-    public void LoadSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
-    {
-      if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
-      Items.Update(handSnapshot,
-                   p => new PieceSnapshot(p),
-                   ps => ps,
-                   ps => _board.PieceSet[ps.PieceType]);
-    }
-
-    /// <summary>Returns all pieces from hand to the set</summary>
-    public void ResetAllPiecesFromHand()
-    {
-#warning some synchronizer doesn't support clear.
-      while (Items.Count > 0)
-        Items.RemoveAt(Items.Count - 1);
-    }
-
+    #endregion
   }
 }

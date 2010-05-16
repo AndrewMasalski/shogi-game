@@ -71,13 +71,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete Engines\LaramieV3Test.cs">
+    <Compile Include="ConcreteEngines\LaramieV3Test.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Concrete Engines\Lesserkai133Test.cs">
+    <Compile Include="ConcreteEngines\Lesserkai133Test.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Concrete Engines\SpearCsa2008V14Test.cs">
+    <Compile Include="ConcreteEngines\SpearCsa2008V14Test.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ModifiersTest.cs" />

@@ -16,7 +16,7 @@ namespace Yasc.Utils
     [DebuggerStepThrough]
     protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-      // Be nice - use BlockReentrancy like MSDN said
+      // Be nice - use BlockReentrancy like MSDN says
       using (BlockReentrancy())
       {
         NotifyCollectionChangedEventHandler eventHandler = CollectionChanged;

@@ -12,8 +12,8 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void ResetAllPiecesFromHand()
     {
       var board = new Board();
-      board.White.Hand.AddToHand("馬");
-      board.White.Hand.ResetAllPiecesFromHand();
+      board.White.Hand.Add("馬");
+      board.White.Hand.Clear();
       Assert.AreEqual(0, board.White.Hand.Count);
     }
     [TestMethod]
@@ -34,7 +34,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void GetByTypeMethodTest()
     {
       var player = new Board().White;
-      player.Hand.AddToHand(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
       Assert.IsNull(player.Hand.GetByType(PieceType.馬));
       Assert.IsNull(player.Hand.GetByType(PieceType.と));
       Assert.IsNull(player.Hand.GetByType(PieceType.歩));
@@ -44,16 +44,16 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void AddToHandMethodTest()
     {
       var player = new Board().White;
-      var piece = player.Hand.AddToHand(PieceType.馬);
+      var piece = player.Hand.Add(PieceType.馬);
       Assert.AreSame(player.Hand[0], piece);
     }
     [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void AddToHandPieceYouDontHaveInSetTest()
     {
       var player = new Board().White;
-      player.Hand.AddToHand(PieceType.馬);
-      player.Hand.AddToHand(PieceType.馬);
-      player.Hand.AddToHand(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void LoadNullSnapshotMethodTest()
@@ -64,7 +64,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void LoadEmptySnapshotMethodTest()
     {
       var player = new Board().White;
-      player.Hand.AddToHand(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
       player.Hand.LoadSnapshot(new PieceSnapshot[0]);
       Assert.AreEqual(0, player.Hand.Count);
     }
@@ -72,7 +72,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void LoadSnapsotMethodTest()
     {
       var player = new Board().White;
-      player.Hand.AddToHand(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
       player.Hand.LoadSnapshot(new [] { new PieceSnapshot(PieceType.金, PieceColor.White), });
       var piece = player.Hand[0];
       Assert.AreEqual(PieceColor.White, piece.Color);
@@ -82,7 +82,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void WrongColorLoadSnapsotMethodTest()
     {
       var player = new Board().White;
-      player.Hand.AddToHand(PieceType.馬);
+      player.Hand.Add(PieceType.馬);
       player.Hand.LoadSnapshot(new [] { new PieceSnapshot(PieceType.金, PieceColor.Black), });
       var piece = player.Hand[0];
       Assert.AreEqual(PieceColor.White, piece.Color);
@@ -102,29 +102,15 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void AddBusyPieceToHandTest1()
     {
       var player = new Board().White;
-      var piece = player.Hand.AddToHand(PieceType.歩);
+      var piece = player.Hand.Add(PieceType.歩);
       player.Hand.Add(piece);
     }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void AddBusyPieceToHandTest2()
     {
       var board = new Board();
-      var piece = board.White.Hand.AddToHand(PieceType.歩);
+      var piece = board.White.Hand.Add(PieceType.歩);
       board.Black.Hand.Add(piece);
     }
-    [TestMethod, ExpectedException(typeof(NotSupportedException))]
-    public void ClearHandNotSupportedTest()
-    {
-      new Board().White.Hand.Clear();
-    }
-    [TestMethod]
-    public void MovePiecesInHandSupportedTest()
-    {
-      var player = new Board().White;
-      player.Hand.AddToHand(PieceType.歩);
-      player.Hand.AddToHand(PieceType.歩);
-      player.Hand.Move(0, 1);
-    }
-
   }
 }
