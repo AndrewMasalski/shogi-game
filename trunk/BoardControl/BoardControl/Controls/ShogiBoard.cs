@@ -246,8 +246,9 @@ namespace Yasc.BoardControl.Controls
     private void ArbitraryMove(PieceType pieceType, PieceColor color, ShogiHand hand)
     {
       if (color == hand.Color) return;
-      var piece = Board[color].Hand.GetByType(pieceType);
-      piece.Owner.Hand.Remove(piece);
+      var opponentHand = Board[color].Hand;
+      var piece = opponentHand.GetByType(pieceType);
+      opponentHand.Remove(piece);
       hand.Hand.Add(piece);
     }
     private void ArbitraryMove(Cell cell, ShogiHand hand)
@@ -258,14 +259,14 @@ namespace Yasc.BoardControl.Controls
     }
     private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
     {
-      var piece = Board[color].Hand.GetByType(pieceType);
-      var owner = piece.Owner;
+      var hand = Board[color].Hand;
+      var piece = hand.GetByType(pieceType);
       if (promotionRequest) piece.IsPromoted = true;
-      piece.Owner.Hand.Remove(piece);
+      hand.Remove(piece);
       var m = cell.Piece;
       Board.ResetPiece(cell.Position);
-      Board.SetPiece(cell.Position, piece, owner);
-      if (m != null) piece.Owner.Hand.Add(m);
+      Board.SetPiece(piece, color, cell.Position);
+      if (m != null) hand.Add(m);
     }
     private void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
     {
@@ -276,7 +277,7 @@ namespace Yasc.BoardControl.Controls
       var m = to.Piece;
       Board.ResetPiece(to.Position);
       Board.SetPiece(to.Position, piece, owner);
-      if (m != null) piece.Owner.Hand.Add(m);
+      if (m != null) owner.Hand.Add(m);
     }
 
     private void ReleaseDragSource()

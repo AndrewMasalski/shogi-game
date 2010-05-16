@@ -13,7 +13,7 @@ namespace Yasc.ShogiCore
   {
     #region ' Fields '
 
-    private readonly Board _board;
+    private readonly IPieceSet _pieceSet;
     private readonly Player _owner;
 
     #endregion
@@ -21,10 +21,10 @@ namespace Yasc.ShogiCore
     #region ' Public Interface '
 
     /// <summary>ctor</summary>
-    public Hand(Board board, Player owner)
+    public Hand(IPieceSet pieceSet, Player owner)
       : base(new PieceCollection())
     {
-      _board = board;
+      _pieceSet = pieceSet;
       _owner = owner;
       Items.FirstCalledCollectionChanged += OnCollectionChanged;
     }
@@ -32,7 +32,7 @@ namespace Yasc.ShogiCore
     /// <summary>Adds the piece from board's piece set to the hand</summary>
     public Piece Add(PieceType type)
     {
-      Piece piece = _board.PieceSet[type];
+      Piece piece = _pieceSet[type];
       if (piece == null)
       {
         throw new NotEnoughPiecesInSetException(
@@ -60,7 +60,7 @@ namespace Yasc.ShogiCore
       Items.Update(handSnapshot,
                    p => new PieceSnapshot(p),
                    ps => ps,
-                   ps => _board.PieceSet[ps.PieceType]);
+                   ps => _pieceSet[ps.PieceType]);
     }
 
     /// <summary>Removes the piece from hand</summary>
@@ -146,7 +146,7 @@ namespace Yasc.ShogiCore
             "Piece can't be in two places at the same time. " +
             "First return it to the PieceSet, then try to add it to the hand");
         }
-        _board.PieceSet.Pop(p);
+        _pieceSet.Pop(p);
         p.Owner = _owner;
         p.IsPromoted = false;
       }
@@ -154,7 +154,7 @@ namespace Yasc.ShogiCore
     private void OnPieceRemoved(NotifyCollectionChangedEventArgs args)
     {
       foreach (Piece p in args.OldItems)
-        _board.PieceSet.Push(p);
+        _pieceSet.Push(p);
     }
 
     #endregion
