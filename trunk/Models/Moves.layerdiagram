@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="6728a9c3-dda3-4bd9-87e0-563b749a4b95" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="f66344be-f9d6-48a6-a564-e5cd06cb3b84" name="MoveBase.cs">
+      <references>
+        <reference Id="9f4bbd0e-c1b8-4624-a68e-c1b9d3a250ef" name="MoveBase.cs">
+          <ArtifactNode Label="MoveBase.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Moves/MoveBase.cs&quot;)" />
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=MoveBase)" Label="MoveBase" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="c1f1a557-368b-49a5-9f0c-4c37ac374590" name="MovesHistory.cs">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="8c712c3b-d1af-49de-b3ae-f27972f3d4f2" direction="Bidirectional">
+          <layerMoniker Id="f66344be-f9d6-48a6-a564-e5cd06cb3b84" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="77a6f69b-2c8f-44b8-983c-dc5c9e8ae917" name="MovesHistory.cs">
+          <ArtifactNode Label="MovesHistory.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Moves/MovesHistory.cs&quot;)" />
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=MovesHistory)" Label="MovesHistory" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="3ca467de-e320-4d86-8021-73fca634d859" name="Layer1">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="25866f2f-f71e-4769-9cd3-0ca8fbf2d3b5" direction="Forward">
+          <layerMoniker Id="f66344be-f9d6-48a6-a564-e5cd06cb3b84" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <childLayers>
+        <layer Id="631fce13-9216-4d1d-b469-1973db4c2908" name="DropMove.cs">
+          <references>
+            <reference Id="4ea2ca8c-fed4-446e-b3d5-e2d6a1a1d995" name="DropMove.cs">
+              <ArtifactNode Label="DropMove.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Moves/DropMove.cs&quot;)" />
+              <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=DropMove)" Label="DropMove" Category="CodeSchema_Class">
+                <LinkCategory Ref="Contains" />
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="e6bbf488-325c-4fd5-b49e-d98dc44c7ea7" name="ResignMove.cs">
+          <references>
+            <reference Id="deb146df-2a6a-4c65-a5ea-d95772dd6bac" name="ResignMove.cs">
+              <ArtifactNode Label="ResignMove.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Moves/ResignMove.cs&quot;)" />
+              <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=ResignMove)" Label="ResignMove" Category="CodeSchema_Class">
+                <LinkCategory Ref="Contains" />
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="e114f16b-0963-4e02-b9a6-ac89a2ac03a4" name="UsualMove.cs">
+          <references>
+            <reference Id="d77fedfe-9511-4019-81c2-5627e04a7078" name="UsualMove.cs">
+              <ArtifactNode Label="UsualMove.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Moves/UsualMove.cs&quot;)" />
+              <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=UsualMove)" Label="UsualMove" Category="CodeSchema_Class">
+                <LinkCategory Ref="Contains" />
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+      </childLayers>
+    </layer>
+  </layers>
+</layerModel>
