@@ -44,12 +44,13 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Override to get validation error message or null if move is valid</summary>
     protected override string GetValidationErrorMessage()
     {
-      return BoardSnapshot.ValidateDropMove(new DropMoveSnapshot(this));
+      return BoardSnapshot.ValidateDropMove(
+        new DropMoveSnapshot(PieceType, Who.Color, To));
     }
     /// <summary>Gets snapshot of the <see cref="DropMove"/></summary>
     public override MoveSnapshotBase Snapshot()
     {
-      return new DropMoveSnapshot(this);
+      return new DropMoveSnapshot(PieceType, Who.Color, To);
     }
 
     /// <summary>Returns user friendly move representation (latin)</summary>

@@ -42,7 +42,7 @@ namespace MainModule.AI
 
       if (moves.Count == 0) return null; // mate
       var m = moves[_rnd.Next(moves.Count)];
-      return m.AsRealMove(_board);
+      return _board.GetMove(m);
     }
   }
 }

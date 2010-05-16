@@ -7,41 +7,27 @@ namespace Yasc.ShogiCore.Snapshots
   [Serializable]
   public sealed class UsualMoveSnapshot : MoveSnapshotBase
   {
+    private readonly PieceColor _who;
+
     /// <summary>Position on the board move originates from</summary>
     public Position From { get; private set; }
     /// <summary>Position on the board piece is moving to</summary>
     public Position To { get; private set; }
     /// <summary>Indicates whether the move is promoting</summary>
     public bool IsPromoting { get; private set; }
+    /// <summary>Gets the color of player who made the move</summary>
+    public override PieceColor Who
+    {
+      get { return _who; }
+    }
 
     /// <summary>ctor</summary>
-    public UsualMoveSnapshot(UsualMove move)
+    public UsualMoveSnapshot(PieceColor who, Position from, Position to, bool isPromoting)
     {
-      From = move.From;
-      To = move.To;
-      IsPromoting = move.IsPromoting;
-    }
-    /// <summary>ctor</summary>
-    public UsualMoveSnapshot(Position from, Position to, bool isPromoting)
-    {
+      _who = who;
       From = from;
       To = to;
       IsPromoting = isPromoting;
-    }
-    /// <summary>Creates observable move on the base of the snapshot</summary>
-    public new UsualMove AsRealMove(Board board)
-    {
-      return board.GetUsualMove(From, To, IsPromoting);
-    }
-    /// <summary>Override to determine color of the player the move belongs to</summary>
-    public override PieceColor GetColor(BoardSnapshot snapshot)
-    {
-      return snapshot[From].Color;
-    }
-    /// <summary>Override to convert snapshot to observable move</summary>
-    protected override MoveBase AsRealMoveCore(Board board)
-    {
-      return AsRealMove(board);
     }
     /// <summary>Gets user friendly transcription of the move (latin)</summary>
     public override string ToString()
