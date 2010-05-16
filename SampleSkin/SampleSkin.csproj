@@ -56,9 +56,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Shogi">
-      <HintPath>..\MainModule\MainModule\bin\Debug\Shogi.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -75,15 +72,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Yasc.BoardControl">
-      <HintPath>..\MainModule\MainModule\bin\Debug\Yasc.BoardControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.ShogiCore">
-      <HintPath>..\MainModule\MainModule\bin\Debug\Yasc.ShogiCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Yasc.Utils">
-      <HintPath>..\MainModule\MainModule\bin\Debug\Yasc.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -136,6 +124,24 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BoardControl\BoardControl\BoardControl.csproj">
+      <Project>{543CD7CD-94C9-4D57-8C99-28E52DD60CA8}</Project>
+      <Name>BoardControl %28BoardControl\BoardControl%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonUtils\CommonUtils\CommonUtils.csproj">
+      <Project>{20FCADD3-099D-4702-BBA1-AEB8C43EA920}</Project>
+      <Name>CommonUtils %28CommonUtils\CommonUtils%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MainModule\MainModule\MainModule.csproj">
+      <Project>{DFDF38A0-E0DE-46F5-B38C-49EE3FB325C2}</Project>
+      <Name>MainModule %28MainModule\MainModule%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShogiCore\ShogiCore\ShogiCore.csproj">
+      <Project>{FDF88DAA-6BED-41A1-A1AF-EE259D710C9A}</Project>
+      <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
