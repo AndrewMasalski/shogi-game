@@ -36,7 +36,7 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Applies move to the <see cref="MoveBase.Board"/></summary>
     protected internal override void Make()
     {
-      Piece piece = Who.GetPieceFromHandByType(PieceType);
+      var piece = Who.Hand.GetByType(PieceType);
       Who.Hand.Remove(piece);
       Board.SetPiece(piece, Who, To);
     }

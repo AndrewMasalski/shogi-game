@@ -83,6 +83,7 @@
     <Compile Include="CuteMoveParser.cs" />
     <Compile Include="DefaultPieceSet.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Hand.cs" />
     <Compile Include="HistoryNavigateEventArgs.cs" />
     <Compile Include="InfinitePieceSet.cs" />
     <Compile Include="IPieceSet.cs" />

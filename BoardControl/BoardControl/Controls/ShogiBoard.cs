@@ -246,7 +246,7 @@ namespace Yasc.BoardControl.Controls
     private void ArbitraryMove(PieceType pieceType, PieceColor color, ShogiHand hand)
     {
       if (color == hand.Color) return;
-      var piece = Board[color].GetPieceFromHandByType(pieceType);
+      var piece = Board[color].Hand.GetByType(pieceType);
       piece.Owner.Hand.Remove(piece);
       hand.Hand.Add(piece);
     }
@@ -258,7 +258,7 @@ namespace Yasc.BoardControl.Controls
     }
     private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
     {
-      var piece = Board[color].GetPieceFromHandByType(pieceType);
+      var piece = Board[color].Hand.GetByType(pieceType);
       var owner = piece.Owner;
       if (promotionRequest) piece.IsPromoted = true;
       piece.Owner.Hand.Remove(piece);

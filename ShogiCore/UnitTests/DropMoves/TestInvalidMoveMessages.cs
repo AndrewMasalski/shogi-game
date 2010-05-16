@@ -18,7 +18,7 @@ namespace ShogiCore.UnitTests.DropMoves
     public void CantDropTwoPawnsToTheSameColumn()
     {
       _board.SetPiece("歩", _board.Black, "1c");
-      _board.Black.AddToHand("歩");
+      _board.Black.Hand.AddToHand("歩");
       var move = _board.GetDropMove("歩", "1d", _board.OneWhoMoves);
       Assert.AreEqual("Can't drop 歩 to the column 1 " +
                       "because it already has one 歩", move.ErrorMessage);
@@ -28,7 +28,7 @@ namespace ShogiCore.UnitTests.DropMoves
     public void CanDropPieceToFreeCellOnly()
     {
       _board.SetPiece("歩", _board.Black, "1c");
-      _board.Black.AddToHand("歩");
+      _board.Black.Hand.AddToHand("歩");
       var move = _board.GetDropMove("歩", "1c", _board.OneWhoMoves);
       Assert.AreEqual("Can drop piece to free cell only", move.ErrorMessage);
     }
@@ -36,7 +36,7 @@ namespace ShogiCore.UnitTests.DropMoves
     [TestMethod]
     public void CantDropPawnToTheLastLine()
     {
-      _board.Black.AddToHand("歩");
+      _board.Black.Hand.AddToHand("歩");
       var move = _board.GetDropMove("歩", "1a", _board.OneWhoMoves);
       Assert.AreEqual("Can't drop 歩 to the last line", move.ErrorMessage);
     }
@@ -44,7 +44,7 @@ namespace ShogiCore.UnitTests.DropMoves
     [TestMethod]
     public void CantDropLanceToTheLastLine()
     {
-      _board.Black.AddToHand("香");
+      _board.Black.Hand.AddToHand("香");
       var move = _board.GetDropMove("香", "1a", _board.OneWhoMoves);
       Assert.AreEqual("Can't drop 香 to the last line", move.ErrorMessage);
     }
@@ -52,7 +52,7 @@ namespace ShogiCore.UnitTests.DropMoves
     [TestMethod]
     public void CantDropKnightToTheLastLines()
     {
-      _board.Black.AddToHand("桂");
+      _board.Black.Hand.AddToHand("桂");
       var move = _board.GetDropMove("桂", "1a", _board.OneWhoMoves);
       Assert.AreEqual("Can't drop 桂 to the last two lines", move.ErrorMessage);
     }
@@ -65,7 +65,7 @@ namespace ShogiCore.UnitTests.DropMoves
       _board.SetPiece("歩", _board.Black, "1g");
       _board.SetPiece("飛", _board.White, "2h");
       _board.SetPiece("金", _board.White, "3g");
-      _board.White.AddToHand("歩");
+      _board.White.Hand.AddToHand("歩");
 
       var move = _board.GetDropMove("歩", "1h", _board.White);
       Assert.AreEqual("Can't drop 歩 to mate the opponent", move.ErrorMessage);

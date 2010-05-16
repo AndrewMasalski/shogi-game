@@ -79,17 +79,17 @@ namespace Yasc.BoardControl.Controls
     #region ' Hand Property '
 
     public static readonly DependencyProperty HandProperty =
-      DependencyProperty.Register("Hand", typeof(ObservableCollection<Piece>),
+      DependencyProperty.Register("Hand", typeof(Hand),
         typeof(ShogiHand), new UIPropertyMetadata(null, OnHandChanged));
 
     private static void OnHandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      ((ShogiHand)d)._synchStrategy.OnHandChanged((ObservableCollection<Piece>)e.NewValue);
+      ((ShogiHand)d)._synchStrategy.OnHandChanged((Hand)e.NewValue);
     }
 
-    public ObservableCollection<Piece> Hand
+    public Hand Hand
     {
-      get { return (ObservableCollection<Piece>)GetValue(HandProperty); }
+      get { return (Hand)GetValue(HandProperty); }
       set { SetValue(HandProperty, value); }
     }
 
@@ -161,7 +161,7 @@ namespace Yasc.BoardControl.Controls
 
       private INotifyCollectionChanged _src;
 
-      public void OnHandChanged(ObservableCollection<Piece> collection)
+      public void OnHandChanged(Hand collection)
       {
         if (_src != null)
         {
@@ -192,7 +192,7 @@ namespace Yasc.BoardControl.Controls
 
     private sealed class PlainSynch : SynchStrategy
     {
-      public PlainSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+      public PlainSynch(ShogiHand owner, Hand collection)
         : base(owner)
       {
         OnHandChanged(collection);
@@ -237,7 +237,7 @@ namespace Yasc.BoardControl.Controls
 
     private sealed class GroupsSynch : SynchStrategy
     {
-      public GroupsSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+      public GroupsSynch(ShogiHand owner, Hand collection)
         : base(owner)
       {
         OnHandChanged(collection);
@@ -304,7 +304,7 @@ namespace Yasc.BoardControl.Controls
 
     private sealed class OrderedGroupsSynch : SynchStrategy
     {
-      public OrderedGroupsSynch(ShogiHand owner, ObservableCollection<Piece> collection)
+      public OrderedGroupsSynch(ShogiHand owner, Hand collection)
         : base(owner)
       {
         OnHandChanged(collection);
