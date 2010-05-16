@@ -6,7 +6,7 @@
         <dependencyFromLayerToLayer Id="c7975747-ff51-41b3-8915-476bc5abcfb8" direction="Forward">
           <layerMoniker Id="54dd3ade-48e7-4d88-b04a-22b52efb5e23" />
         </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="5211f28e-8258-4c96-8c13-ba5ae0a316fd" direction="Bidirectional">
+        <dependencyFromLayerToLayer Id="b36225e2-0b0b-4313-be2d-2c0fa602c498" direction="Forward">
           <layerMoniker Id="fdac633e-ea46-4d37-bf89-043b229c218f" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>

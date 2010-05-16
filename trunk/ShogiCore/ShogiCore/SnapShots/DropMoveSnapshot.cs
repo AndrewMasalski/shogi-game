@@ -1,5 +1,4 @@
 using System;
-using Yasc.ShogiCore.Moves;
 
 namespace Yasc.ShogiCore.Snapshots
 {
@@ -11,33 +10,23 @@ namespace Yasc.ShogiCore.Snapshots
     public PieceSnapshot Piece { get; private set; }
     /// <summary>Position on the board to drop piece to</summary>
     public Position To { get; private set; }
+    /// <summary>Gets the color of player who made the move</summary>
+    public override PieceColor Who
+    {
+      get { return Piece.Color; }
+    }
 
     /// <summary>ctor</summary>
-    public DropMoveSnapshot(DropMove move)
+    public DropMoveSnapshot(PieceType pieceType, PieceColor color, Position to)
     {
-      Piece = new PieceSnapshot(move.PieceType, move.Who.Color);
-      To = move.To;
+      Piece = new PieceSnapshot(pieceType, color);
+      To = to;
     }
     /// <summary>ctor</summary>
     public DropMoveSnapshot(PieceSnapshot piece, Position to)
     {
       Piece = piece;
       To = to;
-    }
-    /// <summary>Override to determine color of the player the move belongs to</summary>
-    public override PieceColor GetColor(BoardSnapshot snapshot)
-    {
-      return Piece.Color;
-    }
-    /// <summary>Gets observable version of the move</summary>
-    public new DropMove AsRealMove(Board board)
-    {
-      return board.GetDropMove(Piece.PieceType, To, board[Piece.Color]);
-    }
-    /// <summary>Override to convert snapshot to observable move</summary>
-    protected override MoveBase AsRealMoveCore(Board board)
-    {
-      return AsRealMove(board);
     }
   }
 }

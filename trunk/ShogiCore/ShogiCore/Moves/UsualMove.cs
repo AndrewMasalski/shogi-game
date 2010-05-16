@@ -24,7 +24,7 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Returns snapshot of the move</summary>
     public override MoveSnapshotBase Snapshot()
     {
-      return new UsualMoveSnapshot(this);
+      return new UsualMoveSnapshot(Who.Color, From, To, IsPromoting);
     }
     /// <summary>Gets user friendly move transcription (latin)</summary>
     public override string ToString()
@@ -119,7 +119,8 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Override to get validation error message or null if move is valid</summary>
     protected override string GetValidationErrorMessage()
     {
-      return BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(this));
+      return BoardSnapshot.ValidateUsualMove(
+        new UsualMoveSnapshot(Who.Color, From, To, IsPromoting));
     }
     /// <summary>Apply the move to the board</summary>
     protected internal override void Make()
