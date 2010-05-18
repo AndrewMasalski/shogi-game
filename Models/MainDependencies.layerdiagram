@@ -1,71 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="386d38de-61bc-4709-9c3a-a5aea51d6be1" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
   <layers>
-    <layer Id="c64174e1-259f-450b-b54a-63156297fa8d" name="CommonUtils">
-      <references>
-        <reference Id="f2c0eed6-badc-4813-978d-150081df8947" name="CommonUtils">
-          <ArtifactNode Label="CommonUtils" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/CommonUtils/CommonUtils/CommonUtils.csproj&quot;)">
-            <Category Ref="CodeSchema_SourceFile" />
-          </ArtifactNode>
-          <ExpandedNode Id="(Assembly=Yasc.Utils)" Label="Yasc.Utils.dll" Category="FileSystem.Category.FileOfType.dll">
-            <LinkCategory Ref="Produces" />
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-      </references>
-    </layer>
-    <layer Id="a949286d-d422-49c9-bb75-253d978beee9" name="DotUsi">
-      <references>
-        <reference Id="02ce63d0-a25e-46ca-ac7d-2a46b90ac2a8" name="DotUsi">
-          <ArtifactNode Label="DotUsi" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/DotUsi/DotUsi/DotUsi.csproj&quot;)">
-            <Category Ref="CodeSchema_SourceFile" />
-          </ArtifactNode>
-          <ExpandedNode Id="(Assembly=DotUsi)" Label="DotUsi.dll" Category="FileSystem.Category.FileOfType.dll">
-            <LinkCategory Ref="Produces" />
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-      </references>
-    </layer>
     <layer Id="cefa1839-c9c7-4773-b4ff-2b9909d7e781" name="Components">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="96982abe-bd5a-4eda-95ee-2ac852f4e56c" direction="Forward">
-          <layerMoniker Id="a380e518-a39c-4b8e-b9cf-ab978e3c31cf" />
+        <dependencyFromLayerToLayer Id="d45812bb-ee1a-492c-acc5-979ead9b4c80" direction="Forward">
+          <layerMoniker Id="9fadcca2-f151-43c6-a566-f98f0911ed6c" />
         </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="d8b1c9f0-c0ff-42fe-b432-296321355194" direction="Forward">
-          <layerMoniker Id="c64174e1-259f-450b-b54a-63156297fa8d" />
+        <dependencyFromLayerToLayer Id="eaf2a240-db56-4e44-87ce-97164799d0a4" direction="Forward">
+          <layerMoniker Id="18707039-da1b-4c40-9e22-c092409f37ec" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
       <childLayers>
-        <layer Id="48f29f05-0345-44ab-9b39-d53a4f2b3b68" name="BoardControl">
+        <layer Id="8286f261-280a-41a5-9685-e67ad3da1b5e" name="Networking">
           <references>
-            <reference Id="87cbaa8b-ce30-4e0c-b9b7-a03526dccb00" name="BoardControl">
-              <ArtifactNode Label="BoardControl" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/BoardControl/BoardControl/BoardControl.csproj&quot;)">
-                <Category Ref="CodeSchema_SourceFile" />
-              </ArtifactNode>
-              <ExpandedNode Id="(Assembly=Yasc.BoardControl)" Label="Yasc.BoardControl.dll" Category="FileSystem.Category.FileOfType.dll">
-                <LinkCategory Ref="Produces" />
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-        <layer Id="341089e7-ca3f-4fd3-a8c8-54e0c0af9d06" name="Persistence">
-          <references>
-            <reference Id="ac6076e6-469a-4b25-99dc-6983daefd8b2" name="Persistence">
-              <ArtifactNode Label="Persistence" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/Persistence/Persistence/Persistence.csproj&quot;)">
-                <Category Ref="CodeSchema_SourceFile" />
-              </ArtifactNode>
-              <ExpandedNode Id="(Assembly=Yasc.Persistence)" Label="Yasc.Persistence.dll" Category="FileSystem.Category.FileOfType.dll">
-                <LinkCategory Ref="Produces" />
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-        <layer Id="7a48815f-789e-4f95-a629-9e1bb5d3192d" name="Networking">
-          <references>
-            <reference Id="c3b69b30-a8c0-4350-a713-15010e1f72ae" name="Networking">
+            <reference Id="697c80fc-1be7-475b-bc6b-a18cda602ebb" name="Networking">
               <ArtifactNode Label="Networking" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/Networking/Networking/Networking.csproj&quot;)">
                 <Category Ref="CodeSchema_SourceFile" />
               </ArtifactNode>
@@ -76,16 +24,82 @@
             </reference>
           </references>
         </layer>
+        <layer Id="738b17e2-6b93-4464-9d1f-5c76d0965a7b" name="BoardControl">
+          <references>
+            <reference Id="ec4bd567-29ef-4662-8f79-03f8cbf38d34" name="BoardControl">
+              <ArtifactNode Label="BoardControl" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/BoardControl/BoardControl/BoardControl.csproj&quot;)">
+                <Category Ref="CodeSchema_SourceFile" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Yasc.BoardControl)" Label="Yasc.BoardControl.dll" Category="FileSystem.Category.FileOfType.dll">
+                <LinkCategory Ref="Produces" />
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="899a4882-1d6f-4a99-82dd-c07bcea11fc1" name="Persistence">
+          <references>
+            <reference Id="c6ce2b3d-93c0-4ccb-9c17-ec01393e53b0" name="Persistence">
+              <ArtifactNode Label="Persistence" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/Persistence/Persistence/Persistence.csproj&quot;)">
+                <Category Ref="CodeSchema_SourceFile" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Yasc.Persistence)" Label="Yasc.Persistence.dll" Category="FileSystem.Category.FileOfType.dll">
+                <LinkCategory Ref="Produces" />
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
       </childLayers>
     </layer>
-    <layer Id="a380e518-a39c-4b8e-b9cf-ab978e3c31cf" name="ShogiCore">
+    <layer Id="f65d61c4-2f55-488a-913f-6452f9f66e6b" name="DotUsi">
+      <references>
+        <reference Id="b4f80d2c-a3ae-47ce-a986-dcd5dbfa0294" name="DotUsi">
+          <ArtifactNode Label="DotUsi" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/DotUsi/DotUsi/DotUsi.csproj&quot;)">
+            <Category Ref="CodeSchema_SourceFile" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Yasc.DotUsi)" Label="Yasc.DotUsi.dll" Category="FileSystem.Category.FileOfType.dll">
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="1b4f1559-8a1f-46ca-8d98-3b14ebb0825a" name="MainModule">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="d804b0e8-8028-48dc-aa92-30a87bc12704" direction="Forward">
-          <layerMoniker Id="c64174e1-259f-450b-b54a-63156297fa8d" />
+        <dependencyFromLayerToLayer Id="0c09c803-2a79-4488-a40a-f270008ba11c" direction="Forward">
+          <layerMoniker Id="f65d61c4-2f55-488a-913f-6452f9f66e6b" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="70f23174-40a6-405c-8b95-820993f08d33" direction="Forward">
+          <layerMoniker Id="cefa1839-c9c7-4773-b4ff-2b9909d7e781" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="e2d16e2c-5b00-4382-8915-af350b30dd9d" direction="Forward">
+          <layerMoniker Id="18707039-da1b-4c40-9e22-c092409f37ec" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="9cadafb9-3a7e-4713-b04b-c86b2d0392fa" direction="Forward">
+          <layerMoniker Id="9fadcca2-f151-43c6-a566-f98f0911ed6c" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
       <references>
-        <reference Id="164bebd0-5ad3-4eb7-861b-d1aff47d5f55" name="ShogiCore">
+        <reference Id="7dff2cc6-8b67-4acc-834e-7952026d54a3" name="MainModule">
+          <ArtifactNode Label="MainModule" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/MainModule/MainModule/MainModule.csproj&quot;)">
+            <Category Ref="CodeSchema_SourceFile" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Shogi)" Label="Shogi.exe" Category="FileSystem.Category.FileOfType.exe">
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="9fadcca2-f151-43c6-a566-f98f0911ed6c" name="ShogiCore">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="e93dd602-f3bf-4d61-9b2e-e169f1d7c137" direction="Forward">
+          <layerMoniker Id="18707039-da1b-4c40-9e22-c092409f37ec" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="b5c43516-9d5c-4dd5-9734-79aee5276167" name="ShogiCore">
           <ArtifactNode Label="ShogiCore" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/ShogiCore.csproj&quot;)">
             <Category Ref="CodeSchema_SourceFile" />
           </ArtifactNode>
@@ -96,27 +110,13 @@
         </reference>
       </references>
     </layer>
-    <layer Id="9783b7bd-2a90-45a3-be92-e3ea1617d730" name="MainModule">
-      <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="0a61d271-9133-4028-a6e3-784c2fd562b7" direction="Forward">
-          <layerMoniker Id="a949286d-d422-49c9-bb75-253d978beee9" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="da33ef37-5865-4155-889d-acf7b64b85a2" direction="Forward">
-          <layerMoniker Id="cefa1839-c9c7-4773-b4ff-2b9909d7e781" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="81c82db5-07f4-455c-99fd-ba01ec0f5bc5" direction="Forward">
-          <layerMoniker Id="c64174e1-259f-450b-b54a-63156297fa8d" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="7d7b122d-08a9-4bca-9233-ea33d15effc0" direction="Forward">
-          <layerMoniker Id="a380e518-a39c-4b8e-b9cf-ab978e3c31cf" />
-        </dependencyFromLayerToLayer>
-      </dependencyToLayers>
+    <layer Id="18707039-da1b-4c40-9e22-c092409f37ec" name="CommonUtils">
       <references>
-        <reference Id="3078e053-a3f0-4769-9dd9-f35d75194df8" name="MainModule">
-          <ArtifactNode Label="MainModule" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/MainModule/Yasc/MainModule.csproj&quot;)">
+        <reference Id="7021829c-d57e-4cf7-bd72-ba7df6a576d5" name="CommonUtils">
+          <ArtifactNode Label="CommonUtils" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/CommonUtils/CommonUtils/CommonUtils.csproj&quot;)">
             <Category Ref="CodeSchema_SourceFile" />
           </ArtifactNode>
-          <ExpandedNode Id="(Assembly=Yasc)" Label="Yasc.exe" Category="FileSystem.Category.FileOfType.exe">
+          <ExpandedNode Id="(Assembly=Yasc.Utils)" Label="Yasc.Utils.dll" Category="FileSystem.Category.FileOfType.dll">
             <LinkCategory Ref="Produces" />
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
