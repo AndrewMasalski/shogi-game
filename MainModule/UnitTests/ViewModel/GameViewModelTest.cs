@@ -36,7 +36,7 @@ namespace MainModule.UnitTests.ViewModel
       Assert.AreEqual(PieceColor.White, model.Ticket.MyColor);
       Assert.IsTrue(model.IsItMyMove);
       Assert.IsFalse(model.IsItOpponentMove);
-      model.Board.MakeMove(model.Board.GetMove("1g-1f"));
+      model.Board.MakeMove(model.Board.GetMove("1g-1f", FormalNotation.Instance).First());
       Assert.IsFalse(model.IsItMyMove);
       Assert.IsTrue(model.IsItOpponentMove);
     }
@@ -57,7 +57,7 @@ namespace MainModule.UnitTests.ViewModel
       Assert.IsFalse(model.IsOpponentTimerLaunched, "#2");
       Assert.IsFalse(model.IsItOpponentMove, "#3");
 
-      model.Board.MakeMove(model.Board.GetMove("1g-1f"));
+      model.Board.MakeMove(model.Board.GetMove("1g-1f", FormalNotation.Instance).First());
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
       Assert.IsFalse(model.IsMyTimerLaunched, "#4");
@@ -67,7 +67,7 @@ namespace MainModule.UnitTests.ViewModel
       Assert.IsTrue(model.IsOpponentTimerLaunched);
       Assert.IsTrue(model.IsItOpponentMove);
 
-      model.Board.MakeMove(model.Board.GetMove("1c-1d"));
+      model.Board.MakeMove(model.Board.GetMove("1c-1d", FormalNotation.Instance).First());
 
       Assert.AreEqual(TimeSpan.FromMinutes(1), model.MyTime);
       Assert.IsTrue(model.IsMyTimerLaunched, "#6");

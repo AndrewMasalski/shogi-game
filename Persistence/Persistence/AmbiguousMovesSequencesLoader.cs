@@ -6,10 +6,10 @@ using Yasc.ShogiCore.Moves;
 
 namespace Yasc.Persistence
 {
-  /// <summary>Loads given <see cref="MoveNotation.Cute"/> move sequence to the 
+  /// <summary>Loads given <see cref="CuteNotation"/> move sequence to the 
   ///   <see cref="Board"/>.<see cref="Board.History"/> resolving ambiguities 
   ///   from the conext.</summary>
-  /// <remarks><see cref="MoveNotation.Cute"/> moves are not completely definitive
+  /// <remarks><see cref="CuteNotation"/> moves are not completely definitive
   ///   so we might need to solve ambiguities from conext. To be more precise
   ///   after ambiguity found, we go on for all variants of transcription until
   ///   some furhter moves don't cross invalid options out.</remarks>
@@ -38,7 +38,7 @@ namespace Yasc.Persistence
       MoveBase[] choice;
       while (true)
       {
-        choice = _board.GetMove(_moves[index], MoveNotation.Cute).ToArray();
+        choice = _board.GetMove(_moves[index], CuteNotation.Instance).ToArray();
         if (choice.Length != 1) break;
         _board.MakeMove(choice[0]);
         if (++index == _moves.Count) return true;

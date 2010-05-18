@@ -28,7 +28,7 @@ namespace MainModule.AI
     protected override void OnHumanMoved(string hisMove)
     {
       Thread.Sleep(1000);
-      _board.MakeMove(_board.GetMove(hisMove));
+      _board.MakeMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
       var myMove = ChooseAbsolutelyRandomMove();
       if (myMove == null) return; // mate
       _board.MakeMove(myMove);
