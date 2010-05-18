@@ -75,15 +75,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardControl\BoardControl\BoardControl.csproj">
-      <Name>BoardControl</Name>
+      <Name>BoardControl (BoardControl\BoardControl)</Name>
       <Project>{543cd7cd-94c9-4d57-8c99-28e52dd60ca8}</Project>
     </ProjectReference>
     <ProjectReference Include="..\CommonUtils\CommonUtils\CommonUtils.csproj">
-      <Name>CommonUtils</Name>
+      <Name>CommonUtils (CommonUtils\CommonUtils)</Name>
       <Project>{20fcadd3-099d-4702-bba1-aeb8c43ea920}</Project>
     </ProjectReference>
     <ProjectReference Include="..\DotUsi\DotUsi\DotUsi.csproj">
-      <Name>DotUsi</Name>
+      <Name>DotUsi (DotUsi\DotUsi)</Name>
       <Project>{70532ad0-f1d5-4787-9e62-e06377c04cc4}</Project>
     </ProjectReference>
     <ProjectReference Include="..\MainModule\MainModule\MainModule.csproj">
@@ -91,15 +91,15 @@
       <Project>{dfdf38a0-e0de-46f5-b38c-49ee3fb325c2}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Networking\Networking\Networking.csproj">
-      <Name>Networking</Name>
+      <Name>Networking (Networking\Networking)</Name>
       <Project>{e8497624-9f29-411b-a917-c2de3a87661e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Persistence\Persistence\Persistence.csproj">
-      <Name>Persistence</Name>
+      <Name>Persistence (Persistence\Persistence)</Name>
       <Project>{e8497624-9f29-411b-a917-c2de3a87661d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ShogiCore\ShogiCore\ShogiCore.csproj">
-      <Name>ShogiCore</Name>
+      <Name>ShogiCore (ShogiCore\ShogiCore)</Name>
       <Project>{fdf88daa-6bed-41a1-a1af-ee259d710c9a}</Project>
     </ProjectReference>
   </ItemGroup>
