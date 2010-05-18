@@ -1,33 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Snapshots;
+using Yasc.Utils;
 
 namespace Yasc.ShogiCore
 {
-  /// <summary>Can parse one cute move</summary>
-  internal class CuteMoveParser
+  /// <summary>Can parse cute move notation like "+Rx1a"</summary>
+  public class CuteNotation : Singletone<CuteNotation>, INotation
   {
-    private readonly Board _board;
+    private BoardSnapshot _board;
     private string _moveText;
 
-    public CuteMoveParser(Board board)
+    public IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move)
     {
-      if (board == null) throw new ArgumentNullException("board");
-      _board = board;
-    }
-    public IEnumerable<MoveBase> Parse(string moveText)
-    {
-      _moveText = moveText;
-      IEnumerable<MoveBase> choice;
-      if (_moveText.EndsWith("x") || _moveText.EndsWith("x+") || _moveText.EndsWith("x=")) 
-        choice = ParseTake();
-      else 
-        choice = ParseMove();
-      return from option in choice where option.IsValid select option;
+      _board = originalBoardState;
+      _moveText = move;
+      return Parse();
     }
 
-    private IEnumerable<MoveBase> ParseMove()
+    private IEnumerable<MoveSnapshotBase> Parse()
+    {
+      return _moveText.EndsWith("x") 
+          || _moveText.EndsWith("x+")
+          || _moveText.EndsWith("x=") 
+          ? ParseTake() : ParseMove();
+    }
+
+    private IEnumerable<MoveSnapshotBase> ParseMove()
     {
       _moveText = _moveText.Replace("x", "");
       var pieceType = GetPieceType();
@@ -36,16 +36,24 @@ namespace Yasc.ShogiCore
       var fromPosition = FindFromPosition(_moveText, pieceType, toPosition, isPromoting);
       return CreateMoves(pieceType, toPosition, isPromoting, fromPosition);
     }
-    private IEnumerable<MoveBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, Position[] fromPosition)
+    private IEnumerable<MoveSnapshotBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, Position[] fromPositions)
     {
-      if (fromPosition.Length == 0)
+      if (fromPositions.Length == 0)
       {
-        yield return _board.GetDropMove(pieceType, toPosition, _board.OneWhoMoves);
+        var dropMoveSnapshot = new DropMoveSnapshot(
+          pieceType, _board.OneWhoMoves, toPosition);
+        if (_board.ValidateDropMove(dropMoveSnapshot) == null)
+          yield return dropMoveSnapshot;
       }
       else
       {
-        foreach (var option in fromPosition)
-          yield return _board.GetUsualMove(option, toPosition, isPromoting);
+        foreach (var fromPosition in fromPositions)
+        {
+          var usualMoveSnapshot = new UsualMoveSnapshot(
+            _board[fromPosition].Color, fromPosition, toPosition, isPromoting);
+          if (_board.ValidateUsualMove(usualMoveSnapshot) == null)
+            yield return usualMoveSnapshot;
+        }
       }
     }
     private string GetToPosition()
@@ -69,30 +77,32 @@ namespace Yasc.ShogiCore
       _moveText = _moveText.Substring(pieceTypeLength, _moveText.Length - pieceTypeLength);
       return pieceType;
     }
-    private IEnumerable<MoveBase> ParseTake()
+    private IEnumerable<UsualMoveSnapshot> ParseTake()
     {
       var isPromoting = _moveText.EndsWith("+");
       var pieceType = GetPieceType();
       return from p in Position.OnBoard
              where _board[p] != null &&
                    _board[p].PieceType == pieceType &&
-                   _board[p].Owner == _board.OneWhoMoves
-             from m in _board.GetAvailableMoves(p)
-             where m.IsPromoting == isPromoting && m.TakenPiece != null
-             select (MoveBase)m;
+                   _board[p].Color == _board.OneWhoMoves
+             from m in _board.GetAvailableUsualMoves(p)
+             where m.IsPromoting == isPromoting 
+                && _board[m.To] != null 
+                && _board.ValidateUsualMove(m) == null
+             select m;
     }
     protected string CurrentKing
     {
       // NOTE: Strictly speaking king type doesnt depend on color...
-      get { return _board.OneWhoMoves.Color == PieceColor.White ? "Kr" : "Kc"; }
+      get { return _board.OneWhoMoves == PieceColor.White ? "Kr" : "Kc"; }
     }
     private Position[] FindFromPosition(string hint, PieceType pieceType, Position toPosition, bool isPromoting)
     {
       var candidates = (from p in Position.OnBoard
                         where _board[p] != null &&
                               _board[p].PieceType == pieceType &&
-                              _board[p].Owner == _board.OneWhoMoves &&
-                              (from move in _board.GetAvailableMoves(p)
+                              _board[p].Color == _board.OneWhoMoves &&
+                              (from move in _board.GetAvailableUsualMoves(p)
                                where move.IsPromoting == isPromoting
                                select move.To).Contains(toPosition)
                         select p).ToArray();
@@ -102,6 +112,12 @@ namespace Yasc.ShogiCore
       var result = candidates.Where(c => c.ToString().Contains(hint)).ToArray();
       // if we have a hint and it suits all choices we're parsing something wrong
       return result.Length == candidates.Length ? new Position[0] : result;
+    }
+
+
+    public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
+    {
+      throw new NotImplementedException();
     }
   }
 }

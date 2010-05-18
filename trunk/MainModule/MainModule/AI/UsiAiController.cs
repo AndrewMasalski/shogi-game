@@ -93,7 +93,7 @@ namespace MainModule.AI
 
     protected override void OnHumanMoved(string hisMove)
     {
-      _board.MakeMove(_board.GetMove(hisMove));
+      _board.MakeMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
       _engine.Position(string.Join(" ", 
         _board.History.Select(MoveToUsiString)));
       _engine.Go();
@@ -120,8 +120,8 @@ namespace MainModule.AI
     private static MoveBase ParseUsiMove(Board board, string usiMove)
     {
       return usiMove.Contains("*") ?
-        board.GetMove(usiMove.Replace('*', '\'')) :
-        board.GetMove(usiMove.Insert(2, "-"));
+        board.GetMove(usiMove.Replace('*', '\''), FormalNotation.Instance).First() :
+        board.GetMove(usiMove.Insert(2, "-"), FormalNotation.Instance).First();
     }
 
     public void Dispose()

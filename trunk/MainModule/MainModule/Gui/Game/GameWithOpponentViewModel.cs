@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MainModule.Model;
@@ -21,25 +22,11 @@ namespace MainModule.Gui.Game
 
     public ICommand TakeBackCommand
     {
-      get
-      {
-        if (_takeBackCommand == null)
-        {
-          _takeBackCommand = new RelayCommand(UndoLastMove);
-        }
-        return _takeBackCommand;
-      }
+      get { return _takeBackCommand ?? (_takeBackCommand = new RelayCommand(UndoLastMove)); }
     }
     public ICommand SendMessageCommand
     {
-      get
-      {
-        if (_sendMessageCommand == null)
-        {
-          _sendMessageCommand = new RelayCommand(SendMessage);
-        }
-        return _sendMessageCommand;
-      }
+      get { return _sendMessageCommand ?? (_sendMessageCommand = new RelayCommand(SendMessage)); }
     }
     public GameTicket Ticket { get; private set; }
 
@@ -71,7 +58,7 @@ namespace MainModule.Gui.Game
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
-        Board.MakeMove(Board.GetMove(move.Move));
+        Board.MakeMove(Board.GetMove(move.Move, FormalNotation.Instance).First());
       return DateTime.Now;
     }
     private void SendMessage()

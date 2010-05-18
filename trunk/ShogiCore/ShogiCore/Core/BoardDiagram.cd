@@ -43,13 +43,14 @@
       <FileName>Shogi.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.Cell">
+  <Class Name="Yasc.ShogiCore.Cell" Collapsed="true">
     <Position X="4.5" Y="3.25" Width="2" />
     <Members>
+      <Field Name="_piece" Hidden="true" />
       <Method Name="Cell" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAACAACAAAAAAAAICAAAAA=</HashCode>
+      <HashCode>ACAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Cell.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -74,14 +75,11 @@
   <Class Name="Yasc.ShogiCore.Player">
     <Position X="4.5" Y="0.5" Width="2" />
     <Members>
-      <Method Name="OnAddPieceToHand" Hidden="true" />
-      <Method Name="OnHandCollectionChanged" Hidden="true" />
-      <Method Name="OnRemovePieceFromHand" Hidden="true" />
       <Method Name="Player" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQICAAAAAEAABAACQAAAgAAgAAAAAAgCAAAgA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAEAABAAAQAAAAAAAAAAAAAgCAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -103,7 +101,7 @@
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>BFACYKAQIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAMAAiA=</HashCode>
-      <FileName>PieceType.cs</FileName>
+      <FileName>Primitives\PieceType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
@@ -111,7 +109,7 @@
     <Position X="7.5" Y="4.25" Width="2" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAIAAEwAFAAAAAABAAAIAAAAAAAAABYiA=</HashCode>
-      <FileName>Position.cs</FileName>
+      <FileName>Primitives\Position.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="Yasc.ShogiCore.IPieceSet">
@@ -125,7 +123,7 @@
     <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PieceColor.cs</FileName>
+      <FileName>Primitives\PieceColor.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Tahoma" Size="8.25" />

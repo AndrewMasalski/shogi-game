@@ -50,7 +50,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]
     public void MakeInvalidMoveTest()
     {
-      _board.MakeMove(_board.GetMove("1i-1i"));
+      _board.MakeMove(_board.GetUsualMove("1i", "1i", false));
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void MakeMoveFromAnotherBoard()
@@ -332,7 +332,7 @@ namespace ShogiCore.UnitTests.ShogiCore
       _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
       _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
       Shogi.InitBoard(_board);
-      _board.MakeMove(_board.GetMove("1g-1f"));
+      _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       Assert.AreEqual("Moving(1g-1f) Moved(1g-1f)", log.ToString());
     }
 
@@ -349,9 +349,9 @@ namespace ShogiCore.UnitTests.ShogiCore
       _board.HistoryNavigated += (s, e) => 
         log.Write(string.Format("HistoryNavigated({0})", e.Step));
       Shogi.InitBoard(_board);
-      _board.MakeMove(_board.GetMove("1g-1f"));
-      _board.MakeMove(_board.GetMove("1c-1d"));
-      _board.MakeMove(_board.GetMove("2g-2f"));
+      _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
+      _board.MakeMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
+      _board.MakeMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
       _board.History.CurrentMoveIndex = 0;
       Assert.AreEqual("HistoryNavigating(-2) HistoryNavigated(-2)", 
         log.ToString());
@@ -374,10 +374,10 @@ namespace ShogiCore.UnitTests.ShogiCore
                                      Assert.AreEqual(snapshot[0], e.Snapshot);
                                    };
 
-      _board.MakeMove(_board.GetMove("1g-1f"));
+      _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       snapshot[0] = _board.CurrentSnapshot;
-      _board.MakeMove(_board.GetMove("1c-1d"));
-      _board.MakeMove(_board.GetMove("2g-2f"));
+      _board.MakeMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
+      _board.MakeMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
       _board.History.CurrentMoveIndex = 0;
     }
 
@@ -387,7 +387,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void ParseCuteMoveTest()
     {
       Shogi.InitBoard(_board);
-      var move = _board.GetMove("P2f", MoveNotation.Cute).Cast<UsualMove>().First();
+      var move = _board.GetMove("P2f", CuteNotation.Instance).Cast<UsualMove>().First();
       Assert.AreEqual("2g", move.From.ToString());
       Assert.AreEqual("2f", move.To.ToString());
       Assert.IsFalse(move.IsPromoting);
@@ -396,7 +396,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void ParseFormalMoveTest()
     {
       Shogi.InitBoard(_board);
-      var move = _board.GetMove("2g-2f", MoveNotation.Formal).Cast<UsualMove>().First();
+      var move = _board.GetMove("2g-2f", FormalNotation.Instance).Cast<UsualMove>().First();
       Assert.AreEqual("2g", move.From.ToString());
       Assert.AreEqual("2f", move.To.ToString());
       Assert.IsFalse(move.IsPromoting);
