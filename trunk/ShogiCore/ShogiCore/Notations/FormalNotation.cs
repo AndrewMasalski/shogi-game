@@ -11,6 +11,11 @@ namespace Yasc.ShogiCore.Notations
   ///   (like "1a-1i", "R'1a")</summary>
   public class FormalNotation : Singletone<FormalNotation>, INotation
   {
+    /// <summary>Gets move on the board parsing it from transcript</summary>
+    /// <param name="originalBoardState">State of the board before move</param>
+    /// <param name="move">Move trancsript to parse</param>
+    /// <returns>All moves which may be transcribed given way. 
+    ///   Doesn't return null but be prepared to receive 0 moves.</returns>
     public IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move)
     {
       if (move == "resign")
@@ -42,9 +47,12 @@ namespace Yasc.ShogiCore.Notations
           piece, originalBoardState.OneWhoMoves, to);
       }
     }
+    /// <summary>Returns the transcript for a given move</summary>
+    /// <param name="originalBoardState">State of the board before move</param>
+    /// <param name="move">Move to trancsript</param>
     public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
     {
-      throw new NotImplementedException();
+      return move.ToString();
     }
   }
 }

@@ -19,6 +19,7 @@ namespace Yasc.ShogiCore.PieceSets
         _set[i] = new List<Piece>();
     }
 
+    /// <summary>Gets reference to the piece from the set by type</summary>
     public Piece this[PieceType type]
     {
       get
@@ -34,6 +35,7 @@ namespace Yasc.ShogiCore.PieceSets
         return last;
       }
     }
+    /// <summary>Marks given <paramref name="piece"/> as occupied</summary>
     public void Pop(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
@@ -44,6 +46,7 @@ namespace Yasc.ShogiCore.PieceSets
           "Cannont take the piece because it has already been taken");
       }
     }
+    /// <summary>Returns given <paramref name="piece"/> to the set</summary>
     public void Push(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
