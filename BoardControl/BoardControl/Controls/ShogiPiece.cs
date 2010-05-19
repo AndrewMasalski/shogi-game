@@ -4,6 +4,8 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 using Yasc.Utils.Mvvm;
 
 namespace Yasc.BoardControl.Controls

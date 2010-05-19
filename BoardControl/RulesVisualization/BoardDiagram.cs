@@ -7,6 +7,8 @@ using System.Windows.Markup;
 using Yasc.BoardControl.Controls;
 using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.RulesVisualization
 {

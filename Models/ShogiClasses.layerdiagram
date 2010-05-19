@@ -86,14 +86,6 @@
               </dependencyToLayers>
               <childLayers>
                 <layer Id="ea547e4d-007f-4926-8e7a-dfdeec0ee50d" name="Board.cs">
-                  <dependencyToLayers>
-                    <dependencyFromLayerToLayer Id="3269a808-cecb-4afe-8581-2f27386a1b48" direction="Forward">
-                      <layerMoniker Id="5d64d198-7316-4a69-9c38-807206d6373e" />
-                    </dependencyFromLayerToLayer>
-                    <dependencyFromLayerToLayer Id="f46c97bc-e11e-4ba7-bbe6-93a1a88a1dea" direction="Forward">
-                      <layerMoniker Id="81d729b0-ba69-48de-b444-9db757a22489" />
-                    </dependencyFromLayerToLayer>
-                  </dependencyToLayers>
                   <references>
                     <reference Id="260a5ea5-a0b5-48a6-a0e7-d524075d1bd5" name="Board.cs">
                       <ArtifactNode Label="Board.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/visual studio 2010/projects/shogi-game/trunk/shogicore/shogicore/board.cs&quot;)">
@@ -211,11 +203,6 @@
               </references>
             </layer>
             <layer Id="def0b630-e1c7-4337-80db-e5036b1d5e61" name="Piece.cs">
-              <dependencyToLayers>
-                <dependencyFromLayerToLayer Id="9d77ea1a-8be9-4ee0-bbaf-e5933677cb85" direction="Forward">
-                  <layerMoniker Id="a6fc87d9-326c-4dec-ab80-244ed91fa220" />
-                </dependencyFromLayerToLayer>
-              </dependencyToLayers>
               <references>
                 <reference Id="a7c74af9-1fcc-4d33-b2fe-9e1b532e1856" name="Piece.cs">
                   <ArtifactNode Label="Piece.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/visual studio 2010/projects/shogi-game/trunk/shogicore/shogicore/piece.cs&quot;)">

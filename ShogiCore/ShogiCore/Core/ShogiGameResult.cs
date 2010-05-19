@@ -1,4 +1,4 @@
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents shogi game result</summary>
   public enum ShogiGameResult

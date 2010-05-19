@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShogiCore.UnitTests.ShogiCore;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
 using Yasc.Utils;
 
 namespace ShogiCore.UnitTests.UsualMoves

@@ -2,6 +2,7 @@ using System;
 using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace MainModule.Utils
 {

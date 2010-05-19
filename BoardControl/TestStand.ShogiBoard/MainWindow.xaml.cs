@@ -1,4 +1,5 @@
-﻿using Yasc.ShogiCore;
+using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
 
 namespace TestStand.ShogiBoard
 {

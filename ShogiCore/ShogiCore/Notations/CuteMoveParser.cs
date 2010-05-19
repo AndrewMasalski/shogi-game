@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Notations
 {
   /// <summary>Can parse cute move notation like "+Rx1a"</summary>
   public class CuteNotation : Singletone<CuteNotation>, INotation

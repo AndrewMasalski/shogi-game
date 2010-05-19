@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Yasc.Utils;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Primitives
 {
   /// <summary>Identifies shogi board cell coordinates in a user-friendly manner</summary>
   [Serializable]

@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows;
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.UnitTests.ShogiPiece
 {

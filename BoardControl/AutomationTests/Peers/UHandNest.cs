@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.AutomationTests.Peers
 {

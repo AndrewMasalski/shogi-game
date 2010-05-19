@@ -1,5 +1,6 @@
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.BoardControl.GenericDragDrop
 {

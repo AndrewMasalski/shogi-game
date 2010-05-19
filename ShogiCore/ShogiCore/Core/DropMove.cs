@@ -1,6 +1,7 @@
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Moves
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents drop move (as opposing to <see cref="UsualMove"/>)</summary>
   public sealed class DropMove : MoveBase

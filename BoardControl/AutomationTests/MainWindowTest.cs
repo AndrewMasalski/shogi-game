@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestStand.ShogiBoard;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.AutomationTests
 {

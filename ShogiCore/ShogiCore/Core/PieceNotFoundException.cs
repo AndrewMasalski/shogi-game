@@ -1,6 +1,7 @@
 using System;
+using Yasc.ShogiCore.Primitives;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>The exception is fired when piece is not found by type</summary>
   public class PieceNotFoundException : Exception

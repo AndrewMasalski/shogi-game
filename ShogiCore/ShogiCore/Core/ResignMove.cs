@@ -1,6 +1,7 @@
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Moves
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents resign move</summary>
   public sealed class ResignMove : MoveBase

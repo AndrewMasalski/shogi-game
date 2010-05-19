@@ -1,4 +1,6 @@
-namespace Yasc.ShogiCore
+using Yasc.ShogiCore.Primitives;
+
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents piece set</summary>
   public interface IPieceSet

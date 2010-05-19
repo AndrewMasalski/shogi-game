@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.RulesVisualization
 {
