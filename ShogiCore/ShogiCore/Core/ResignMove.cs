@@ -19,7 +19,7 @@ namespace Yasc.ShogiCore.Core
     {
       Board.GameResult = Who.Color == PieceColor.White ? ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
     }
-
+    /// <summary>null if move is valid -or- explanation why it's not</summary>
     public override string ErrorMessage
     {
       get { return _errorMessage = _errorMessage ?? GetValidationErrorMessage(); }

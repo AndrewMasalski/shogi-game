@@ -18,7 +18,7 @@ namespace BoardControl.UnitTests.ShogiPiece
       Pieces = new[] { b.PieceSet[(PieceType)"と"], b.PieceSet[(PieceType)"玉"] };
       PossibleDirections = (PieceDirection[])Enum.GetValues(typeof(PieceDirection));
       PossibleColors = (PieceColor[])Enum.GetValues(typeof(PieceColor));
-      PossibleTypes = PieceType.GetValues().ToArray();
+      PossibleTypes = PieceType.AllPieceTypes.ToArray();
  
     }
 

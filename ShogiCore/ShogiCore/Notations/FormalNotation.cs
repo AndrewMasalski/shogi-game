@@ -18,6 +18,9 @@ namespace Yasc.ShogiCore.Notations
     ///   Doesn't return null but be prepared to receive 0 moves.</returns>
     public IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move)
     {
+      if (originalBoardState == null) throw new ArgumentNullException("originalBoardState");
+      if (move == null) throw new ArgumentNullException("move");
+
       if (move == "resign")
       {
         yield return new ResignMoveSnapshot(originalBoardState.OneWhoMoves);
@@ -52,6 +55,7 @@ namespace Yasc.ShogiCore.Notations
     /// <param name="move">Move to trancsript</param>
     public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
     {
+      if (move == null) throw new ArgumentNullException("move");
       return move.ToString();
     }
   }

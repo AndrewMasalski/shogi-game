@@ -9,7 +9,6 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.BoardControl.GenericDragDrop;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
 
@@ -316,7 +315,7 @@ namespace Yasc.BoardControl.Controls
       {
         if (collection == null) return null;
         return new ObservableCollection<HandNest>(
-          from id in PieceType.GetIds()
+          from id in PieceType.AllValidIds
           let pieceType = PieceType.GetPieceType(id)
           select new HandNest
                    {
