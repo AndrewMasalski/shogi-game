@@ -82,11 +82,11 @@
     <Compile Include="Core\Cell.cs" />
     <Compile Include="Notations\FormalNotation.cs" />
     <Compile Include="Notations\CuteMoveParser.cs" />
-    <Compile Include="Core\DefaultPieceSet.cs" />
+    <Compile Include="PieceSets\StandardPieceSet.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Core\Hand.cs" />
     <Compile Include="Core\HistoryNavigateEventArgs.cs" />
-    <Compile Include="Core\InfinitePieceSet.cs" />
+    <Compile Include="PieceSets\InfinitePieceSet.cs" />
     <Compile Include="Core\IPieceSet.cs" />
     <Compile Include="Core\DropMove.cs" />
     <Compile Include="Core\InvalidMoveException.cs" />
@@ -102,7 +102,6 @@
     <Compile Include="Core\Piece.cs" />
     <Compile Include="Primitives\PieceColor.cs" />
     <Compile Include="Core\PieceHasNoOwnerException.cs" />
-    <Compile Include="Core\PieceSetType.cs" />
     <Compile Include="Primitives\PieceType.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="Primitives\Position.cs" />

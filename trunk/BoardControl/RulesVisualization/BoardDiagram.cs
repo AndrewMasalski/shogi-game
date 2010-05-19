@@ -8,6 +8,7 @@ using Yasc.BoardControl.Controls;
 using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.RulesVisualization
@@ -46,7 +47,7 @@ namespace Yasc.RulesVisualization
     public static readonly DependencyProperty BoardProperty =
       DependencyProperty.Register("Board", typeof(Board),
         typeof(BoardDiagram), new UIPropertyMetadata(
-          new Board(PieceSetType.Infinite)));
+          new Board(InfinitePieceSet.Instance)));
 
     private static void OnWhiteChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {

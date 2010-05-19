@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
@@ -182,7 +182,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void NoArgsCtorTest()
     {
       var board = new Board();
-      Assert.IsTrue(board.PieceSet is DefaultPieceSet);
+      Assert.IsTrue(board.PieceSet is StandardPieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
       Assert.IsNotNull(board.OneWhoMoves);
@@ -192,7 +192,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void PieceSetTypeCtorTest()
     {
-      var board = new Board(PieceSetType.Infinite);
+      var board = new Board(InfinitePieceSet.Instance);
       Assert.IsTrue(board.PieceSet is InfinitePieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
@@ -203,8 +203,8 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void InvalidPieceSetTypeCtorTest()
     {
-      var board = new Board((PieceSetType)4);
-      Assert.IsTrue(board.PieceSet is DefaultPieceSet);
+      var board = new Board(InfinitePieceSet.Instance);
+      Assert.IsTrue(board.PieceSet is StandardPieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
       Assert.IsNotNull(board.OneWhoMoves);
@@ -214,7 +214,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
     {
-      var board = new Board(PieceSetType.Infinite);
+      var board = new Board(InfinitePieceSet.Instance);
       board.SetPiece("馬", PieceColor.Black, "1i");
       board.SetPiece("馬", PieceColor.Black, "2i");
       board.SetPiece("馬", PieceColor.Black, "3i");
