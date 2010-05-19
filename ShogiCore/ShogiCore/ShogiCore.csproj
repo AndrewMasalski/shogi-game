@@ -81,7 +81,7 @@
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\Cell.cs" />
     <Compile Include="Notations\FormalNotation.cs" />
-    <Compile Include="Notations\CuteMoveParser.cs" />
+    <Compile Include="Notations\CuteNotation.cs" />
     <Compile Include="PieceSets\StandardPieceSet.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Core\Hand.cs" />

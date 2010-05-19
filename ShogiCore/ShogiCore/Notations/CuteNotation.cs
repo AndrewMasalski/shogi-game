@@ -14,6 +14,11 @@ namespace Yasc.ShogiCore.Notations
     private BoardSnapshot _board;
     private string _moveText;
 
+    /// <summary>Gets move on the board parsing it from transcript</summary>
+    /// <param name="originalBoardState">State of the board before move</param>
+    /// <param name="move">Move trancsript to parse</param>
+    /// <returns>All moves which may be transcribed given way. 
+    ///   Doesn't return null but be prepared to receive 0 moves.</returns>
     public IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move)
     {
       _board = originalBoardState;
@@ -94,7 +99,8 @@ namespace Yasc.ShogiCore.Notations
                 && _board.ValidateUsualMove(m) == null
              select m;
     }
-    protected string CurrentKing
+
+    private string CurrentKing
     {
       // NOTE: Strictly speaking king type doesnt depend on color...
       get { return _board.OneWhoMoves == PieceColor.White ? "Kr" : "Kc"; }
@@ -116,8 +122,10 @@ namespace Yasc.ShogiCore.Notations
       // if we have a hint and it suits all choices we're parsing something wrong
       return result.Length == candidates.Length ? new Position[0] : result;
     }
-
-
+    
+    /// <summary>Returns the transcript for a given move</summary>
+    /// <param name="originalBoardState">State of the board before move</param>
+    /// <param name="move">Move to trancsript</param>
     public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
     {
       throw new NotImplementedException();

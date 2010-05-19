@@ -487,16 +487,15 @@ namespace Yasc.ShogiCore.Core
   public interface INotation
   {
     /// <summary>Gets move on the board parsing it from transcript</summary>
-    /// <param name="originalBoardState">The state of the board befor the move</param>
+    /// <param name="originalBoardState">State of the board before move</param>
     /// <param name="move">Move trancsript to parse</param>
     /// <returns>All moves which may be transcribed given way. 
     ///   Doesn't return null but be prepared to receive 0 moves.</returns>
     IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move);
 
-    /// <summary> </summary>
-    /// <param name="originalBoardState"></param>
-    /// <param name="move"></param>
-    /// <returns></returns>
+    /// <summary>Returns the transcript for a given move</summary>
+    /// <param name="originalBoardState">State of the board before move</param>
+    /// <param name="move">Move to trancsript</param>
     string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move);
   }
 }
