@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
 using Yasc.Utils.Mvvm;
 
 namespace Yasc.BoardControl.Controls

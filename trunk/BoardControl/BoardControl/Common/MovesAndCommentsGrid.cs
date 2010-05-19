@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
 
 namespace Yasc.BoardControl.Common
 {

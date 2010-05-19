@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.UnitTests.Controls
 {

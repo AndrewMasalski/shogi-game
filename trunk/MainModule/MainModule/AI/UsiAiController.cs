@@ -9,7 +9,8 @@ using Yasc.DotUsi.Drivers;
 using Yasc.DotUsi.Options;
 using Yasc.DotUsi.Process;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Notations;
 
 namespace MainModule.AI
 {

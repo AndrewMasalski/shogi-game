@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Yasc.ShogiCore.Primitives;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Contains very common knowledge about shogi game</summary>
   public static class Shogi

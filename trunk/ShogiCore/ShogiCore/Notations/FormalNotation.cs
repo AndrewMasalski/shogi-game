@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Notations
 {
   /// <summary>Describes one of the ways moves can be transcribed 
   ///   (like "1a-1i", "R'1a")</summary>

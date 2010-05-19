@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Yasc.ShogiCore.Primitives;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   internal class DefaultPieceSet : IPieceSet
   {

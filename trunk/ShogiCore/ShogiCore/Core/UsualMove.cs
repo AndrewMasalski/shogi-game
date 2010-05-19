@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Moves
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents usual move (as opposing to the <see cref="DropMove"/>)</summary>
   public sealed class UsualMove : MoveBase

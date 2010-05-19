@@ -1,4 +1,5 @@
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.RulesVisualization
 {

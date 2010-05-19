@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>The exception is fired when piece has no owner but must have</summary>
   public class PieceHasNoOwnerException : Exception

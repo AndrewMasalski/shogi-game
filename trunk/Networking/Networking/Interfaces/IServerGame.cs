@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.Networking.Interfaces
 {

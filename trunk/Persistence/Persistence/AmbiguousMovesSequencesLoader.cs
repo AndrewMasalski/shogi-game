@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Notations;
 
 namespace Yasc.Persistence
 {

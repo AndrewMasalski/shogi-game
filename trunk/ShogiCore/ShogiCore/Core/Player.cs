@@ -1,4 +1,6 @@
-namespace Yasc.ShogiCore
+using Yasc.ShogiCore.Primitives;
+
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Game participiant</summary>
   public class Player

@@ -2,7 +2,9 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 

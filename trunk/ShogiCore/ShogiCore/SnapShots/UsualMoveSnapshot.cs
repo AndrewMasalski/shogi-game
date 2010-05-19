@@ -1,5 +1,5 @@
 using System;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Snapshots
 {

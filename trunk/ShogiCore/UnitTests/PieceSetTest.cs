@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 
 namespace ShogiCore.UnitTests
 {

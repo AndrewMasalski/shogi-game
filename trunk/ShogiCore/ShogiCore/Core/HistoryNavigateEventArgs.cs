@@ -1,7 +1,7 @@
 using System;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Contains info about navigation in the moves history</summary>
   public class HistoryNavigateEventArgs : EventArgs

@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.ShogiCore.Moves
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>This exception is thrown when you'tr trying 
   ///   to make invalid move (<see cref="Board.MakeMove"/>)</summary>

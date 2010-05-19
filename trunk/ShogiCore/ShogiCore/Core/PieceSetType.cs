@@ -1,4 +1,4 @@
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Defines piece set</summary>
   public enum PieceSetType

@@ -1,7 +1,7 @@
 using System;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Moves
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Base class for the shogi move (usual and drop)</summary>
   public abstract class MoveBase

@@ -50,17 +50,6 @@
       <SubType>Content</SubType>
       <DependentUpon>MainDependencies.layerdiagram</DependentUpon>
     </Validate>
-    <Validate Include="Moves.layerdiagram">
-      <SubType>Content</SubType>
-    </Validate>
-    <Validate Include="Moves.layerdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>Moves.layerdiagram</DependentUpon>
-    </Validate>
-    <Validate Include="Moves.layerdiagram.suppressions">
-      <SubType>Content</SubType>
-      <DependentUpon>Moves.layerdiagram</DependentUpon>
-    </Validate>
     <Validate Include="ShogiClasses.layerdiagram">
       <SubType>Content</SubType>
     </Validate>

@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Primitives;
 
 namespace MainModule.AI
 {

@@ -4,6 +4,8 @@ using MainModule.Gui.Game;
 using MainModule.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Primitives;
 
 namespace MainModule.UnitTests.ViewModel
 {

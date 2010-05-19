@@ -4,7 +4,7 @@ using System.ComponentModel;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace Yasc.ShogiCore.Moves
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents history of moves of the game</summary>
   public class MovesHistory : ReadOnlyObservableCollection<MoveBase>

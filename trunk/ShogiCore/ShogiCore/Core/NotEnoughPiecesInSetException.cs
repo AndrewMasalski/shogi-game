@@ -1,6 +1,6 @@
 using System;
 
-namespace Yasc.ShogiCore
+namespace Yasc.ShogiCore.Core
 {
   /// <summary>Exception if fired when user is trying to use  
   ///   piece when all pieces from set have been already used</summary>

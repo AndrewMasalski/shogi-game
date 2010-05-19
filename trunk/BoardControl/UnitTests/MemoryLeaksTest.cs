@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.BoardControl.Controls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
 
 namespace BoardControl.UnitTests
 {

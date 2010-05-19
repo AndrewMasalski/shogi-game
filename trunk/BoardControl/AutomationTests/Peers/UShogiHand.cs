@@ -2,6 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.AutomationTests.Peers
 {

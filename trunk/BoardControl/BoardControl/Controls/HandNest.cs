@@ -2,6 +2,7 @@
 using System.Windows.Automation.Peers;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.ShogiCore;
+using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.BoardControl.Controls
 {

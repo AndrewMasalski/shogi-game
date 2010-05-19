@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -6,7 +6,8 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using Yasc.Persistence;
 using Yasc.ShogiCore;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 using Yasc.Utils.Mvvm;
 
 namespace MainModule.Gui.Game

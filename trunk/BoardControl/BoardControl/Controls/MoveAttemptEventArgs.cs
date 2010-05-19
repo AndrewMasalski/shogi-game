@@ -1,5 +1,5 @@
 using System.Windows;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Core;
 
 namespace Yasc.BoardControl.Controls
 {
