@@ -19,7 +19,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Indicates whether the move is valid</summary>
     public bool IsValid { get { return ErrorMessage == null; } }
     /// <summary>null if move is valid -or- explanation why it's not</summary>
-    public string ErrorMessage { get; private set; }
+    public abstract string ErrorMessage { get; }
 
     /// <summary>ctor</summary>
     protected MoveBase(Board board, Player who)
@@ -37,15 +37,6 @@ namespace Yasc.ShogiCore.Core
 
     /// <summary>Override to apply move to the <see cref="MoveBase.Board"/></summary>
     protected internal abstract void Make();
-
-    /// <summary>Validates the move</summary>
-    protected void Validate()
-    {
-      ErrorMessage = GetValidationErrorMessage();
-    }
-
-    /// <summary>Override to get validation error message or null if move is valid</summary>
-    protected abstract string GetValidationErrorMessage();
 
     /// <summary>Gets snapshot of the move</summary>
     public abstract MoveSnapshotBase Snapshot();

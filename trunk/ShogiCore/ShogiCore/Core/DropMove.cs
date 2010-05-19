@@ -6,6 +6,8 @@ namespace Yasc.ShogiCore.Core
   /// <summary>Represents drop move (as opposing to <see cref="UsualMove"/>)</summary>
   public sealed class DropMove : MoveBase
   {
+    private string _errorMessage;
+
     /// <summary>Droping piece type</summary>
     public PieceType PieceType { get; private set; }
     /// <summary>Position to drop piece to</summary>
@@ -21,19 +23,25 @@ namespace Yasc.ShogiCore.Core
     ///   from type and position and validates it immediately</summary>
     public static DropMove Create(Board board, PieceType pieceType, Position to, Player who)
     {
-      var res = new DropMove(board, pieceType, to, who);
-      res.Validate();
-      return res;
+      return new DropMove(board, pieceType, to, who);
     }
     /// <summary>Creates an instance of <see cref="DropMove"/> 
     ///   from snapshot and validates it immediately</summary>
     public static DropMove Create(Board board, DropMoveSnapshot snapshot)
     {
-      var res = new DropMove(board, snapshot.Piece.PieceType,
+      return new DropMove(board, snapshot.Piece.PieceType, 
         snapshot.To, board[snapshot.Piece.Color]);
-      res.Validate();
-      return res;
     }
+
+    public override string ErrorMessage
+    {
+      get
+      {
+        return _errorMessage = _errorMessage ??  BoardSnapshot.
+          ValidateDropMove(new DropMoveSnapshot(PieceType, Who.Color, To));
+      }
+    }
+
     /// <summary>Applies move to the <see cref="MoveBase.Board"/></summary>
     protected internal override void Make()
     {
@@ -42,12 +50,6 @@ namespace Yasc.ShogiCore.Core
       Board.SetPiece(piece, Who, To);
     }
 
-    /// <summary>Override to get validation error message or null if move is valid</summary>
-    protected override string GetValidationErrorMessage()
-    {
-      return BoardSnapshot.ValidateDropMove(
-        new DropMoveSnapshot(PieceType, Who.Color, To));
-    }
     /// <summary>Gets snapshot of the <see cref="DropMove"/></summary>
     public override MoveSnapshotBase Snapshot()
     {

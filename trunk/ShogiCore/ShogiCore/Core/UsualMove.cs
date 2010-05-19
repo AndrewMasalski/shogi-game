@@ -10,6 +10,7 @@ namespace Yasc.ShogiCore.Core
   public sealed class UsualMove : MoveBase
   {
     private string _cuteNotation;
+    private string _errorMessage;
 
     /// <summary>Move origin</summary>
     public Position From { get; private set; }
@@ -21,7 +22,15 @@ namespace Yasc.ShogiCore.Core
     public Piece TakenPiece { get; private set; }
     /// <summary>Indicates whether move is promoting</summary>
     public bool IsPromoting { get; private set; }
-
+    
+    public override string ErrorMessage
+    {
+      get
+      {
+        return _errorMessage = _errorMessage ?? BoardSnapshot.
+          ValidateUsualMove(new UsualMoveSnapshot(Who.Color, From, To, IsPromoting));
+      }
+    }
     /// <summary>Returns snapshot of the move</summary>
     public override MoveSnapshotBase Snapshot()
     {
@@ -97,27 +106,17 @@ namespace Yasc.ShogiCore.Core
     ///   from origin and target positions and validates it immediately</summary>
     public static UsualMove Create(Board board, Position from, Position to, bool isPromoting)
     {
-      var res = new UsualMove(board, from, to, isPromoting);
-      res.Validate();
-      return res;
+      return new UsualMove(board, from, to, isPromoting);
     }
     /// <summary>Creates an instance of <see cref="UsualMove"/> 
     ///   from snapshot and validates it immediately</summary>
     public static UsualMove Create(Board board, UsualMoveSnapshot snapshot)
     {
-      var res = new UsualMove(board, snapshot.From, snapshot.To, snapshot.IsPromoting);
-      res.Validate();
-      return res;
+      return new UsualMove(board, snapshot.From, snapshot.To, snapshot.IsPromoting);
     }
 
     #endregion
 
-    /// <summary>Override to get validation error message or null if move is valid</summary>
-    protected override string GetValidationErrorMessage()
-    {
-      return BoardSnapshot.ValidateUsualMove(
-        new UsualMoveSnapshot(Who.Color, From, To, IsPromoting));
-    }
     /// <summary>Apply the move to the board</summary>
     protected internal override void Make()
     {
