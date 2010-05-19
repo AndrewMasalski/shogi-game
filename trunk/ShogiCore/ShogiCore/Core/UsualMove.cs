@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace Yasc.ShogiCore.Core
     public Piece TakenPiece { get; private set; }
     /// <summary>Indicates whether move is promoting</summary>
     public bool IsPromoting { get; private set; }
-    
+    /// <summary>null if move is valid -or- explanation why it's not</summary>
     public override string ErrorMessage
     {
       get
@@ -112,6 +113,8 @@ namespace Yasc.ShogiCore.Core
     ///   from snapshot and validates it immediately</summary>
     public static UsualMove Create(Board board, UsualMoveSnapshot snapshot)
     {
+      if (board == null) throw new ArgumentNullException("board");
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
       return new UsualMove(board, snapshot.From, snapshot.To, snapshot.IsPromoting);
     }
 

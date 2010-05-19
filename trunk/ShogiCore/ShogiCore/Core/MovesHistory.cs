@@ -68,6 +68,7 @@ namespace Yasc.ShogiCore.Core
         _currentMoveIndex = value;
         OnPropertyChanged(new PropertyChangedEventArgs("CurrentMoveIndex"));
         OnPropertyChanged(new PropertyChangedEventArgs("CurrentMove"));
+        OnPropertyChanged(new PropertyChangedEventArgs("CurrentSnapshot"));
         OnPropertyChanged(new PropertyChangedEventArgs("IsCurrentMoveLast"));
       }
     }
@@ -85,18 +86,21 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Gets the snapshot ot the move chosen as the current</summary>
-    public BoardSnapshot GetCurrentSnapshot()
+    public BoardSnapshot CurrentSnapshot
     {
-      if (CurrentMoveIndex == -1)
+      get
       {
-        return Count > 0 ? this[0].BoardSnapshot : null;
+        if (CurrentMoveIndex == -1)
+        {
+          return Count > 0 ? this[0].BoardSnapshot : null;
+        }
+        if (CurrentMoveIndex < Count - 1)
+        {
+          return this[CurrentMoveIndex + 1].BoardSnapshot;
+        }
+        return new BoardSnapshot(
+          CurrentMove.BoardSnapshot, CurrentMove.Snapshot());
       }
-      if (CurrentMoveIndex < Count - 1)
-      {
-        return this[CurrentMoveIndex + 1].BoardSnapshot;
-      }
-      return new BoardSnapshot(
-        CurrentMove.BoardSnapshot, CurrentMove.Snapshot());
     }
 
     /// <summary>Changes the current move to the last one</summary>

@@ -46,7 +46,7 @@ namespace Yasc.ShogiCore.PieceSets
       if (!list.Remove(piece))
       {
         throw new InvalidOperationException(
-          "Cannont take the piece because it has already been taken");
+          "Cannot take the piece because it has already been taken");
       }
     }
     /// <summary>Returns given <paramref name="piece"/> to the set</summary>

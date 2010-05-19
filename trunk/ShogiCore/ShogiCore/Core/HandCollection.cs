@@ -10,7 +10,7 @@ using Yasc.Utils;
 namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents collection of pieces player has "in hand"</summary>
-  public class HandCollection : ReadOnlyObservableCollection<Piece>
+  public sealed class HandCollection : ReadOnlyObservableCollection<Piece>
   {
     #region ' Fields '
 
@@ -38,7 +38,7 @@ namespace Yasc.ShogiCore.Core
       {
         throw new NotEnoughPiecesInSetException(
           "Cannot add piece because there's no more pieces of type " +
-          type + " in the set. Consider using Infinite PieceSet");
+          type + " in the set. Consider using infinite piece set");
       }
       Items.Add(piece);
       return piece;
@@ -129,8 +129,7 @@ namespace Yasc.ShogiCore.Core
           break;
         default:
           throw new NotSupportedException(
-            "Player.Hand collection doesn't support Reset change. " +
-            "If you want to clear try Player.ResetAllPiecesFromHand");
+            "Player.Hand collection doesn't support Reset change. ");
       }
     }
     private void OnPieceAdded(NotifyCollectionChangedEventArgs args)
@@ -141,7 +140,7 @@ namespace Yasc.ShogiCore.Core
         {
           throw new InvalidOperationException(
             "Piece can't be in two places at the same time. " +
-            "First return it to the PieceSet, then try to add it to the hand");
+            "First return it to the piece set, then try to add it to the hand");
         }
         _pieceSet.Pop(p);
         p.Owner = _owner;

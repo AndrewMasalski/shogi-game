@@ -126,6 +126,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Loads the snapshot</summary>
     public void LoadSnapshot(BoardSnapshot snapshot)
     {
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
       OneWhoMoves = this[snapshot.OneWhoMoves];
 
       ResetAll();
@@ -193,7 +194,7 @@ namespace Yasc.ShogiCore.Core
       {
         throw new NotEnoughPiecesInSetException(
           "Cannot set piece because there's no more pieces of type " +
-          ofType + " in the set. Consider using Infinite PieceSet");
+          ofType + " in the set. Consider using infinite piece set");
       }
 
       SetPiece(piece, forOwner, toPosition);
@@ -248,6 +249,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets move on the board parsing it from trascript</summary>
     public IEnumerable<MoveBase> GetMove(string text, INotation notation)
     {
+      if (notation == null) throw new ArgumentNullException("notation");
       return notation.Parse(CurrentSnapshot, text).Select(GetMove);
     }
 
@@ -265,11 +267,13 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets move on the board parsing it from snapsot</summary>
     public UsualMove GetMove(UsualMoveSnapshot snapshot)
     {
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
       return GetUsualMove(snapshot.From, snapshot.To, snapshot.IsPromoting);
     }
     /// <summary>Gets move on the board parsing it from snapsot</summary>
     public DropMove GetMove(DropMoveSnapshot snapshot)
     {
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
       return GetDropMove(snapshot.Piece.PieceType, snapshot.To, this[snapshot.Who]);
     }
     /// <summary>Makes the move on the board</summary>
@@ -392,7 +396,7 @@ namespace Yasc.ShogiCore.Core
       _currentMoveIndex = History.CurrentMoveIndex;
       if (_moving) return;
 
-      var snapshot = History.GetCurrentSnapshot();
+      var snapshot = History.CurrentSnapshot;
       OnHistoryNavigating(diff, snapshot);
       LoadSnapshot(snapshot);
       OnHistoryNavigated(diff, snapshot);
@@ -426,7 +430,7 @@ namespace Yasc.ShogiCore.Core
       {
         throw new InvalidOperationException(
           "Piece can't be in two places at the same time. " +
-          "First return it to the PieceSet, then try to add it to the hand");
+          "First return it to the piece set, then try to add it to the hand");
       }
 
       piece.Owner = owner;

@@ -40,6 +40,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Sets start position on the board</summary>
     public static void InitBoard(Board board)
     {
+      if (board == null) throw new ArgumentNullException("board");
       foreach (var pair in InitialPosition)
       {
         var party = pair.Key.Y < 5 ? board.White : board.Black;

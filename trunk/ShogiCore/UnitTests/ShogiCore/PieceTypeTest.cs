@@ -220,7 +220,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void GetIdsMethodTest()
     {
-      CollectionAssert.AreEqual(new []{0, 1, 2, 3, 4, 5, 6, 7, 8}, PieceType.GetIds().ToList());
+      CollectionAssert.AreEqual(new []{0, 1, 2, 3, 4, 5, 6, 7, 8}, PieceType.AllValidIds.ToList());
     }
     [TestMethod]
     public void GetValuesStaticMethodTest()
@@ -229,13 +229,13 @@ namespace ShogiCore.UnitTests.ShogiCore
           PieceType.竜, PieceType.馬, PieceType.全, PieceType.今, PieceType.仝, PieceType.と,
           PieceType.飛, PieceType.角, PieceType.銀, PieceType.桂, PieceType.香, PieceType.歩
         };
-      CollectionAssert.AreEquivalent(expected, PieceType.GetValues().ToList());
+      CollectionAssert.AreEquivalent(expected, PieceType.AllPieceTypes.ToList());
     }
     [TestMethod]
     public void GetPieceMethodTest()
     {
       var expected = new[] { PieceType.王, PieceType.玉, PieceType.金, PieceType.飛, PieceType.角, PieceType.銀, PieceType.桂, PieceType.香, PieceType.歩 };
-      var actual = from id in PieceType.GetIds() select PieceType.GetPieceType(id);
+      var actual = from id in PieceType.AllValidIds select PieceType.GetPieceType(id);
       CollectionAssert.AreEquivalent(expected, actual.ToList());
     }
 
@@ -259,7 +259,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void GetHashCodeTest()
     {
-      var expected = from t in PieceType.GetValues() select t.GetHashCode();
+      var expected = from t in PieceType.AllPieceTypes select t.GetHashCode();
       var actual = expected.Distinct();
       Assert.AreEqual(expected.Count(), actual.Count());
     }
