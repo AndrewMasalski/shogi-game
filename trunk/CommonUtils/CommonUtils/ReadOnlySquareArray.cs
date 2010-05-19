@@ -28,8 +28,10 @@ namespace Yasc.Utils
     }
     public IEnumerator<T> GetEnumerator()
     {
-      foreach (T item in _array)
+      // ReSharper disable LoopCanBeConvertedToQuery
+      foreach (var item in _array)
         yield return item;
+      // ReSharper restore LoopCanBeConvertedToQuery
     }
     void ICollection.CopyTo(Array array, int index)
     {

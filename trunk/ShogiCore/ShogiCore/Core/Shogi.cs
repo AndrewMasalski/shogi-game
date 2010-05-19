@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Yasc.ShogiCore.Primitives;
+using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Core
 {
@@ -9,7 +9,7 @@ namespace Yasc.ShogiCore.Core
   public static class Shogi
   {
     /// <summary>Contains position-pieceType pairs of initial position</summary>
-    public static readonly Dictionary<Position, string> InitialPosition = Pairs(new[]
+    public static readonly ReadOnlyDictionary<Position, string> InitialPosition = Pairs(new[]
           {
             "1a", "香", "9a", "香", "1i", "香", "9i", "香",
             "2a", "桂", "8a", "桂", "2i", "桂", "8i", "桂",
@@ -22,7 +22,7 @@ namespace Yasc.ShogiCore.Core
             "2g", "歩", "3g", "歩", "4g", "歩", "5g", "歩",
             "6g", "歩", "7g", "歩", "8g", "歩", "9g", "歩",
           },
-        s => (Position)s).ToDictionary(pair => pair.Key, pair => pair.Value);
+        s => (Position)s).ToReadOnlyDictionary(pair => pair.Key, pair => pair.Value);
 
     private static IEnumerable<KeyValuePair<TKey, TValue>> Pairs<TKey, TValue>(IEnumerable<TValue> list, Converter<TValue, TKey> firstConverter)
     {
@@ -43,7 +43,7 @@ namespace Yasc.ShogiCore.Core
       foreach (var pair in InitialPosition)
       {
         var party = pair.Key.Y < 5 ? board.White : board.Black;
-        board.SetPiece(pair.Value, party, pair.Key);
+        board.SetPiece((PieceType)pair.Value, party, pair.Key);
       }
     }
   }

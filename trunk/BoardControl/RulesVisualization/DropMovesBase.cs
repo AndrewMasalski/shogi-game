@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Yasc.BoardControl.Controls;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.RulesVisualization
@@ -14,7 +13,7 @@ namespace Yasc.RulesVisualization
 
     PieceType IDropMoves.Piece
     {
-      get { return Piece; }
+      get { return (PieceType)Piece; }
     }
     IEnumerable<Position> IDropMoves.To
     {

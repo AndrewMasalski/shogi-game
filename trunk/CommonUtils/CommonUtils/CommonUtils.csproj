@@ -101,6 +101,8 @@
     <Compile Include="Mvvm\RelayCommand.cs" />
     <Compile Include="ObservableCollectionLocker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadOnlyDictionary.cs" />
+    <Compile Include="ReadOnlyExtensions.cs" />
     <Compile Include="ReadOnlySquareArray.cs" />
     <Compile Include="Singletone.cs" />
     <Compile Include="Skins\DirectAssemblySkin.cs">

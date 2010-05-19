@@ -84,7 +84,7 @@
     <Compile Include="Notations\CuteNotation.cs" />
     <Compile Include="PieceSets\StandardPieceSet.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Core\Hand.cs" />
+    <Compile Include="Core\HandCollection.cs" />
     <Compile Include="Core\Helpers\HistoryNavigateEventArgs.cs" />
     <Compile Include="PieceSets\InfinitePieceSet.cs" />
     <Compile Include="Core\IPieceSet.cs" />

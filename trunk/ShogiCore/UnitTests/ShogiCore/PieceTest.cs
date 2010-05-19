@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Primitives;
 
 namespace ShogiCore.UnitTests.ShogiCore
 {
@@ -12,11 +12,11 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void TestPromote()
     {
       var b = new Board();
-      var p = b.PieceSet["歩"];
+      var p = b.PieceSet[(PieceType)"歩"];
       p.IsPromoted = true;
-      Assert.AreEqual("と", (string)p.PieceType);
+      Assert.AreEqual((PieceType)"と", (string)p.PieceType);
       p.IsPromoted = false;
-      Assert.AreEqual("歩", (string)p.PieceType);
+      Assert.AreEqual((PieceType)"歩", (string)p.PieceType);
     }
     [TestMethod]
     public void CellTest()
@@ -26,7 +26,7 @@ namespace ShogiCore.UnitTests.ShogiCore
       Assert.IsNull(c.Piece);
       b.ResetPiece(c.Position);
       Assert.IsNull(c.Piece);
-      var piece = b.PieceSet["馬"];
+      var piece = b.PieceSet[(PieceType)"馬"];
       b.SetPiece(c.Position, piece, b.White);
       Assert.AreSame(c.Piece, piece);
       b.SetPiece(c.Position, piece);
@@ -36,7 +36,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void SetNullOwnerCellTest()
     {
       var b = new Board();
-      b.SetPiece(b[0, 0].Position, b.PieceSet["馬"], null);
+      b.SetPiece(b[0, 0].Position, b.PieceSet[(PieceType)"馬"], null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void SetNullPieceCellTest()
@@ -48,7 +48,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void SetPieceWhichIsAlreadySet()
     {
       var b = new Board();
-      var piece = b.PieceSet["馬"];
+      var piece = b.PieceSet[(PieceType)"馬"];
       b.SetPiece(b[0, 0].Position, piece, b.White);
       b.SetPiece(b[0, 1].Position, piece, b.White);
     }
@@ -62,7 +62,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void SetPieceWithOwner()
     {
       var b = new Board();
-      var piece = b.PieceSet["馬"];
+      var piece = b.PieceSet[(PieceType)"馬"];
       b.SetPiece(b[0, 0].Position, piece, b.White);
       b.SetPiece(b[0, 1].Position, piece);
     }
@@ -70,7 +70,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void SetOwnerlessPiece()
     {
       var b = new Board();
-      var piece = b.PieceSet["馬"];
+      var piece = b.PieceSet[(PieceType)"馬"];
       b.SetPiece(b[0, 0].Position, piece);
     }
   }

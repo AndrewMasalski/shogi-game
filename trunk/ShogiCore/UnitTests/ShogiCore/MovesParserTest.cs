@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
@@ -17,13 +16,13 @@ namespace ShogiCore.UnitTests.ShogiCore
     {
       _board = new Board();
 
-      _board.SetPiece("歩", PieceColor.White, "1c");
-      _board.SetPiece("歩", PieceColor.White, "2c");
-      _board.White.Hand.Add("歩");
+      _board.SetPiece((PieceType)"歩", PieceColor.White, "1c");
+      _board.SetPiece((PieceType)"歩", PieceColor.White, "2c");
+      _board.White.Hand.Add((PieceType)"歩");
 
-      _board.SetPiece("歩", PieceColor.Black, "8g");
-      _board.SetPiece("歩", PieceColor.Black, "9g");
-      _board.Black.Hand.Add("歩");
+      _board.SetPiece((PieceType)"歩", PieceColor.Black, "8g");
+      _board.SetPiece((PieceType)"歩", PieceColor.Black, "9g");
+      _board.Black.Hand.Add((PieceType)"歩");
     }
 
     [TestMethod]

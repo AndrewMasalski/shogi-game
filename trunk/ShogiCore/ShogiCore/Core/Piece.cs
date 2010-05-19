@@ -25,7 +25,7 @@ namespace Yasc.ShogiCore.Core
       set
       {
         if (value == IsPromoted) return;
-        PieceType = value ? PieceType.Promote() : PieceType.Unpromote();
+        PieceType = value ? PieceType.Promote() : PieceType.Demote();
         RaisePropertyChanged("IsPromoted");
         RaisePropertyChanged("PieceType");
       }
@@ -37,7 +37,7 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Takes a snapshot of the piece</summary>
-    public PieceSnapshot Snapsot()
+    public PieceSnapshot Snapshot()
     {
       return new PieceSnapshot(PieceType, Color);
     }

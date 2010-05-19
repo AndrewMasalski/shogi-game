@@ -81,17 +81,17 @@ namespace Yasc.BoardControl.Controls
     #region ' Hand Property '
 
     public static readonly DependencyProperty HandProperty =
-      DependencyProperty.Register("Hand", typeof(Hand),
+      DependencyProperty.Register("Hand", typeof(HandCollection),
         typeof(ShogiHand), new UIPropertyMetadata(null, OnHandChanged));
 
     private static void OnHandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      ((ShogiHand)d)._synchStrategy.OnHandChanged((Hand)e.NewValue);
+      ((ShogiHand)d)._synchStrategy.OnHandChanged((HandCollection)e.NewValue);
     }
 
-    public Hand Hand
+    public HandCollection Hand
     {
-      get { return (Hand)GetValue(HandProperty); }
+      get { return (HandCollection)GetValue(HandProperty); }
       set { SetValue(HandProperty, value); }
     }
 
@@ -163,7 +163,7 @@ namespace Yasc.BoardControl.Controls
 
       private INotifyCollectionChanged _src;
 
-      public void OnHandChanged(Hand collection)
+      public void OnHandChanged(HandCollection collection)
       {
         if (_src != null)
         {
@@ -194,7 +194,7 @@ namespace Yasc.BoardControl.Controls
 
     private sealed class PlainSynch : SynchStrategy
     {
-      public PlainSynch(ShogiHand owner, Hand collection)
+      public PlainSynch(ShogiHand owner, HandCollection collection)
         : base(owner)
       {
         OnHandChanged(collection);
@@ -239,7 +239,7 @@ namespace Yasc.BoardControl.Controls
 
     private sealed class GroupsSynch : SynchStrategy
     {
-      public GroupsSynch(ShogiHand owner, Hand collection)
+      public GroupsSynch(ShogiHand owner, HandCollection collection)
         : base(owner)
       {
         OnHandChanged(collection);
@@ -306,7 +306,7 @@ namespace Yasc.BoardControl.Controls
 
     private sealed class OrderedGroupsSynch : SynchStrategy
     {
-      public OrderedGroupsSynch(ShogiHand owner, Hand collection)
+      public OrderedGroupsSynch(ShogiHand owner, HandCollection collection)
         : base(owner)
       {
         OnHandChanged(collection);
