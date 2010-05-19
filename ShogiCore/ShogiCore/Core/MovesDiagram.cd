@@ -1,60 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Yasc.ShogiCore.Moves.DropMove">
-    <Position X="6.75" Y="3.75" Width="2" />
-    <Members>
-      <Method Name="DropMove" Hidden="true" />
-      <Method Name="GetValidationErrorMessage" Hidden="true" />
-      <Method Name="Make" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAEAAEAAAAAAAAIAFAAAAAAAAIAAAA=</HashCode>
-      <FileName>Moves\DropMove.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Yasc.ShogiCore.Moves.UsualMove">
-    <Position X="9.25" Y="3.75" Width="2" />
-    <Members>
-      <Field Name="_cuteNotation" Hidden="true" />
-      <Method Name="GetCuteNotation" Hidden="true" />
-      <Method Name="GetHint" Hidden="true" />
-      <Method Name="GetValidationErrorMessage" Hidden="true" />
-      <Method Name="Make" Hidden="true" />
-      <Method Name="UsualMove" Hidden="true" />
-      <Method Name="WhoElseCouldMoveThere" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AgAAAEAAAAAoIAAEAIEgAABAAEAIAEIAAAAAAAIAAAA=</HashCode>
-      <FileName>Moves\UsualMove.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Yasc.ShogiCore.Moves.MoveBase">
-    <Position X="8.25" Y="0.5" Width="1.5" />
-    <Members>
-      <Method Name="GetValidationErrorMessage" Hidden="true" />
-      <Method Name="Make" Hidden="true" />
-      <Method Name="MoveBase" Hidden="true" />
-      <Method Name="Validate" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAACgAAAAAkkCAAAAAAAAAAAAAAAIACIAAAA=</HashCode>
-      <FileName>Moves\MoveBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Yasc.ShogiCore.Moves.MovesHistory">
-    <Position X="4.25" Y="0.5" Width="2.5" />
-    <Members>
-      <Field Name="_currentMoveIndex" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAACACAAQAiQAAACAAAAAA=</HashCode>
-      <FileName>Moves\MovesHistory.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="CurrentMove" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Yasc.ShogiCore.Board">
+  <Class Name="Yasc.ShogiCore.Core.Board">
     <Position X="0.5" Y="0.5" Width="2.5" />
     <Members>
       <Field Name="_cells" Hidden="true" />
@@ -81,6 +27,60 @@
     <ShowAsAssociation>
       <Property Name="History" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Yasc.ShogiCore.Core.MoveBase">
+    <Position X="8.25" Y="0.5" Width="2.5" />
+    <Members>
+      <Method Name="GetValidationErrorMessage" Hidden="true" />
+      <Method Name="Make" Hidden="true" />
+      <Method Name="MoveBase" Hidden="true" />
+      <Method Name="Validate" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAACgAAAAAkkCAAAAAAAAAAAAAAAIACIAAAA=</HashCode>
+      <FileName>Core\MoveBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.Core.DropMove">
+    <Position X="7.25" Y="3.75" Width="2" />
+    <Members>
+      <Method Name="DropMove" Hidden="true" />
+      <Method Name="GetValidationErrorMessage" Hidden="true" />
+      <Method Name="Make" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAEAAEAAAAAAAAIAFAAAAAAAAIAAAA=</HashCode>
+      <FileName>Core\DropMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.Core.MovesHistory">
+    <Position X="4.25" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_currentMoveIndex" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAACACAAQAiQAAACAAAAAA=</HashCode>
+      <FileName>Core\MovesHistory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentMove" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Yasc.ShogiCore.Core.UsualMove">
+    <Position X="9.75" Y="3.75" Width="2" />
+    <Members>
+      <Field Name="_cuteNotation" Hidden="true" />
+      <Method Name="GetCuteNotation" Hidden="true" />
+      <Method Name="GetHint" Hidden="true" />
+      <Method Name="GetValidationErrorMessage" Hidden="true" />
+      <Method Name="Make" Hidden="true" />
+      <Method Name="UsualMove" Hidden="true" />
+      <Method Name="WhoElseCouldMoveThere" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AgAAAEAAAAAoIAAEAIEgAABAAEAIAEIAAAAAAAIAAAA=</HashCode>
+      <FileName>Core\UsualMove.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

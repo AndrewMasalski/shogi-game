@@ -1,18 +1,28 @@
 using System;
 using System.Collections.Generic;
+using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
+using Yasc.Utils;
 
-namespace Yasc.ShogiCore.Core
+namespace Yasc.ShogiCore.PieceSets
 {
-  internal class InfinitePieceSet : IPieceSet
+  /// <summary>40 pieces</summary>
+  public class StandardPieceSet : Singletone<StandardPieceSet>, IPieceSet
   {
     private readonly List<Piece>[] _set;
 
-    internal InfinitePieceSet()
+    /// <summary>ctor</summary>
+    public StandardPieceSet()
     {
       _set = new List<Piece>[9];
       for (int i = 0; i < _set.Length; i++)
         _set[i] = new List<Piece>();
+
+      foreach (var position in Shogi.InitialPosition)
+      {
+        PieceType pieceType = position.Value;
+        _set[pieceType.Id].Add(new Piece(pieceType));
+      }
     }
 
     public Piece this[PieceType type]
@@ -22,7 +32,7 @@ namespace Yasc.ShogiCore.Core
         var list = _set[type.Id];
         if (list.Count == 0)
         {
-          list.Add(new Piece(type));
+          return null;
         }
 
         var last = list[list.Count - 1];
