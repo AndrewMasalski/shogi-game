@@ -33,31 +33,32 @@ namespace Yasc.ShogiCore.Notations
     {
       _moveText = _moveText.Replace("x", "");
       var pieceType = GetPieceType();
-      bool isPromoting = GetIsPromoting();
-      string toPosition = GetToPosition();
+      var isPromoting = GetIsPromoting();
+      var toPosition = GetToPosition();
       var fromPosition = FindFromPosition(_moveText, pieceType, toPosition, isPromoting);
       return CreateMoves(pieceType, toPosition, isPromoting, fromPosition);
     }
-    private IEnumerable<MoveSnapshotBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, Position[] fromPositions)
+    private IEnumerable<MoveSnapshotBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, ICollection<Position> fromPositions)
     {
-      if (fromPositions.Length == 0)
-      {
-        var dropMoveSnapshot = new DropMoveSnapshot(
-          pieceType, _board.OneWhoMoves, toPosition);
-        if (_board.ValidateDropMove(dropMoveSnapshot) == null)
-          yield return dropMoveSnapshot;
-      }
-      else
-      {
-        foreach (var fromPosition in fromPositions)
-        {
-          var usualMoveSnapshot = new UsualMoveSnapshot(
-            _board[fromPosition].Color, fromPosition, toPosition, isPromoting);
-          if (_board.ValidateUsualMove(usualMoveSnapshot) == null)
-            yield return usualMoveSnapshot;
-        }
-      }
+      return fromPositions.Count == 0 
+        ? CreateDropMoves(pieceType, toPosition) 
+        : CreateUsualMoves(fromPositions, toPosition, isPromoting);
     }
+
+    private IEnumerable<MoveSnapshotBase> CreateUsualMoves(IEnumerable<Position> fromPositions, string toPosition, bool isPromoting)
+    {
+      return fromPositions.Select(fromPosition => 
+        new UsualMoveSnapshot(_board[fromPosition].Color, fromPosition, toPosition, isPromoting)).
+        Where(move => _board.ValidateUsualMove(move) == null);
+    }
+
+    private IEnumerable<DropMoveSnapshot> CreateDropMoves(PieceType pieceType, string toPosition)
+    {
+      var dropMoveSnapshot = new DropMoveSnapshot(pieceType, _board.OneWhoMoves, toPosition);
+      if (_board.ValidateDropMove(dropMoveSnapshot) == null)
+        yield return dropMoveSnapshot;
+    }
+
     private string GetToPosition()
     {
       var toPosition = _moveText.Substring(_moveText.Length - 2, 2);
@@ -73,8 +74,8 @@ namespace Yasc.ShogiCore.Notations
     }
     private PieceType GetPieceType()
     {
-      int pieceTypeLength = _moveText.StartsWith("+") ? 2 : 1;
-      string pieceTypeStr = _moveText.Substring(0, pieceTypeLength);
+      var pieceTypeLength = _moveText.StartsWith("+") ? 2 : 1;
+      var pieceTypeStr = _moveText.Substring(0, pieceTypeLength);
       var pieceType = pieceTypeStr == "K" ? CurrentKing : pieceTypeStr;
       _moveText = _moveText.Substring(pieceTypeLength, _moveText.Length - pieceTypeLength);
       return pieceType;

@@ -33,7 +33,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Adds the piece from board's piece set to the hand</summary>
     public Piece Add(PieceType type)
     {
-      Piece piece = _pieceSet[type];
+      var piece = _pieceSet[type];
       if (piece == null)
       {
         throw new NotEnoughPiecesInSetException(
@@ -70,8 +70,7 @@ namespace Yasc.ShogiCore.Core
     public bool Remove(PieceType pieceType)
     {
       var item = GetByType(pieceType);
-      if (item == null) return false;
-      return Items.Remove(item);
+      return item != null && Items.Remove(item);
     }
 
     /// <summary>Returns all pieces from hand to the set</summary>

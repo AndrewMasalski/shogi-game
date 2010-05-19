@@ -83,15 +83,14 @@ namespace Yasc.ShogiCore.Snapshots
     {
       if (ReferenceEquals(null, obj)) return false;
       if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != typeof (PieceSnapshot)) return false;
-      return Equals((PieceSnapshot) obj);
+      return obj.GetType() == typeof (PieceSnapshot) && Equals((PieceSnapshot) obj);
     }
     /// <summary>Serves as a hash function for a PieceSnapshot</summary>
     public override int GetHashCode()
     {
       unchecked
       {
-        int result = PieceType.GetHashCode();
+        var result = PieceType.GetHashCode();
         result = (result*397) ^ Color.GetHashCode();
         return result;
       }

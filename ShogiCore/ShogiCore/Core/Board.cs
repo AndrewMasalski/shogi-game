@@ -112,24 +112,15 @@ namespace Yasc.ShogiCore.Core
     public Board(IPieceSet pieceSet)
     {
       if (pieceSet == null) throw new ArgumentNullException("pieceSet");
+      
       PieceSet = pieceSet;
-
-      History = new MovesHistory();
-      ((INotifyPropertyChanged)History).PropertyChanged += OnHistoryPropertyChanged;
-
-      White = new Player(this);
-      White.Hand = new Hand(PieceSet, White);
-      Black = new Player(this);
-      Black.Hand = new Hand(PieceSet, Black);
+      History = CreateMovesHistory();
+      White = CreatePlayer();
+      Black = CreatePlayer();
 
       _oneWhoMoves = Black;
 
-      foreach (var p in Position.OnBoard)
-      {
-        var cell = new Cell(p);
-        cell.PropertyChanged += (s, e) => ResetCurrentSnapshot();
-        _cells[p.X, p.Y] = cell;
-      }
+      FillCells();
     }
 
     /// <summary>Loads the snapshot</summary>
@@ -154,6 +145,28 @@ namespace Yasc.ShogiCore.Core
 
       White.Hand.LoadSnapshot(snapshot.WhiteHand);
       Black.Hand.LoadSnapshot(snapshot.BlackHand);
+    }
+
+    private void FillCells()
+    {
+      foreach (var p in Position.OnBoard)
+      {
+        var cell = new Cell(p);
+        cell.PropertyChanged += (s, e) => ResetCurrentSnapshot();
+        _cells[p.X, p.Y] = cell;
+      }
+    }
+    private Player CreatePlayer()
+    {
+      var player = new Player(this);
+      player.Hand = new Hand(PieceSet, player);
+      return player;
+    }
+    private MovesHistory CreateMovesHistory()
+    {
+      var movesHistory = new MovesHistory();
+      ((INotifyPropertyChanged)movesHistory).PropertyChanged += OnHistoryPropertyChanged;
+      return movesHistory;
     }
 
     #endregion
@@ -333,9 +346,8 @@ namespace Yasc.ShogiCore.Core
     /// both hands to <see cref="PieceSet"/> </summary>
     public void ResetAll()
     {
-      foreach (var cell in Cells)
-        if (cell.Piece != null)
-          ResetPiece(cell.Position);
+      foreach (var cell in Cells.Where(cell => cell.Piece != null))
+        ResetPiece(cell.Position);
 
       White.Hand.Clear();
       Black.Hand.Clear();

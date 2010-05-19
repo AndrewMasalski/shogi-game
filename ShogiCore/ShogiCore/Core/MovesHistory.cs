@@ -46,7 +46,7 @@ namespace Yasc.ShogiCore.Core
           return;
         }
 
-        int index = Items.IndexOf(value);
+        var index = Items.IndexOf(value);
         if (index == -1) throw new ArgumentOutOfRangeException("value",
           "You can only assign to MovesHistory.CurrentMove move from MovesHistory");
 

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
-using Yasc.Utils;
 
 namespace Yasc.ShogiCore.PieceSets
 {
@@ -15,14 +15,11 @@ namespace Yasc.ShogiCore.PieceSets
     public StandardPieceSet()
     {
       _set = new List<Piece>[9];
-      for (int i = 0; i < _set.Length; i++)
+      for (var i = 0; i < _set.Length; i++)
         _set[i] = new List<Piece>();
 
-      foreach (var position in Shogi.InitialPosition)
-      {
-        PieceType pieceType = position.Value;
+      foreach (PieceType pieceType in Shogi.InitialPosition.Select(p => p.Value))
         _set[pieceType.Id].Add(new Piece(pieceType));
-      }
     }
 
     public Piece this[PieceType type]

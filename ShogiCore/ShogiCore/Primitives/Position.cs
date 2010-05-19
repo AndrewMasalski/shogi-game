@@ -62,9 +62,9 @@ namespace Yasc.ShogiCore.Primitives
     /// <summary>Indicates whether this instance and a specified object are equal.</summary>
     public override bool Equals(object obj)
     {
-      if (obj.GetType() != typeof(Position)) return false;
-      return Equals((Position)obj);
+      return obj.GetType() == typeof (Position) && Equals((Position) obj);
     }
+
     /// <summary>Returns the hash code for this instance.</summary>
     public override int GetHashCode()
     {
@@ -124,8 +124,8 @@ namespace Yasc.ShogiCore.Primitives
     {
       get
       {
-        for (int i = 0; i < 9; i++)
-          for (int j = 8; j >= 0; j--)
+        for (var i = 0; i < 9; i++)
+          for (var j = 8; j >= 0; j--)
             yield return new Position(j, i);
       }
     }
