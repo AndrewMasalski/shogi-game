@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestStand.ShogiBoard;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.AutomationTests
@@ -70,7 +69,7 @@ namespace BoardControl.AutomationTests
       _window.InvokeMenu("Board/Enforce rules");
       _board.UsusalMove("1c", "1d");
       _window.InvokeMenu("Board/Clean");
-      _board.DropMove("桂", PieceColor.White, "1i");
+      _board.DropMove((PieceType)"桂", PieceColor.White, "1i");
     }
   }
 }

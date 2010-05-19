@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Primitives;
 
 namespace ShogiCore.UnitTests.ShogiCore
@@ -69,18 +68,24 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void UnpromoteMethodTest()
     {
-      Assert.AreEqual("R", PieceType.竜.Unpromote().Latin);
-      Assert.AreEqual("B", PieceType.馬.Unpromote().Latin);
-      Assert.AreEqual("S", PieceType.全.Unpromote().Latin);
-      Assert.AreEqual("N", PieceType.今.Unpromote().Latin);
-      Assert.AreEqual("L", PieceType.仝.Unpromote().Latin);
-      Assert.AreEqual("P", PieceType.と.Unpromote().Latin);
+      Assert.AreEqual("R", PieceType.竜.Demote().Latin);
+      Assert.AreEqual("B", PieceType.馬.Demote().Latin);
+      Assert.AreEqual("S", PieceType.全.Demote().Latin);
+      Assert.AreEqual("N", PieceType.今.Demote().Latin);
+      Assert.AreEqual("L", PieceType.仝.Demote().Latin);
+      Assert.AreEqual("P", PieceType.と.Demote().Latin);
 
-      foreach (var p in new PieceType[] { "王", "玉", "金", "飛", "角", "銀", "桂", "香", "歩", })
+      foreach (var p in new[] 
+                            { 
+                              PieceType.王, PieceType.玉, 
+                              PieceType.金, PieceType.飛, 
+                              PieceType.角, PieceType.銀, 
+                              PieceType.桂, PieceType.香, PieceType.歩 
+                            })
       {
         try
         {
-          p.Unpromote();
+          p.Demote();
           Assert.Fail("Can't unpromote " + p);
         }
         catch (InvalidOperationException x)
@@ -101,7 +106,7 @@ namespace ShogiCore.UnitTests.ShogiCore
       Assert.AreEqual("Lp", PieceType.香.Promote().Latin);
       Assert.AreEqual("Pp", PieceType.歩.Promote().Latin);
 
-      foreach (var p in new PieceType[] { "王", "玉", "金", "竜", "馬", "全", "今", "仝", "と", })
+      foreach (var p in new[] { PieceType.王, PieceType.玉, PieceType.金, PieceType.竜, PieceType.馬, PieceType.全, PieceType.今, PieceType.仝, PieceType.と })
       {
         try
         {
@@ -220,16 +225,16 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void GetValuesStaticMethodTest()
     {
-      var expected = new PieceType[] { "王", "玉", "金", 
-          "竜", "馬", "全", "今", "仝", "と",
-          "飛", "角", "銀", "桂", "香", "歩"
+      var expected = new[] { PieceType.王, PieceType.玉, PieceType.金, 
+          PieceType.竜, PieceType.馬, PieceType.全, PieceType.今, PieceType.仝, PieceType.と,
+          PieceType.飛, PieceType.角, PieceType.銀, PieceType.桂, PieceType.香, PieceType.歩
         };
       CollectionAssert.AreEquivalent(expected, PieceType.GetValues().ToList());
     }
     [TestMethod]
     public void GetPieceMethodTest()
     {
-      var expected = new PieceType[] { "王", "玉", "金", "飛", "角", "銀", "桂", "香", "歩", };
+      var expected = new[] { PieceType.王, PieceType.玉, PieceType.金, PieceType.飛, PieceType.角, PieceType.銀, PieceType.桂, PieceType.香, PieceType.歩 };
       var actual = from id in PieceType.GetIds() select PieceType.GetPieceType(id);
       CollectionAssert.AreEquivalent(expected, actual.ToList());
     }
@@ -240,7 +245,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void TypedEqualsTest()
     {
       Assert.IsTrue(new PieceType().Equals(new PieceType()));
-      Assert.IsTrue(PieceType.馬.Equals("馬"));
+      Assert.IsTrue(PieceType.馬.Equals((PieceType)"馬"));
       Assert.IsFalse(((PieceType)"王").Equals("玉"));
     }
     [TestMethod]
@@ -267,9 +272,9 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void ComparerTest()
     {
-      Assert.IsTrue(PieceType.玉.CompareTo("香") < 0);
-      Assert.IsTrue(PieceType.香.CompareTo("玉") > 0);
-      Assert.AreEqual(0, PieceType.玉.CompareTo("玉"));
+      Assert.IsTrue(PieceType.玉.CompareTo((PieceType)"香") < 0);
+      Assert.IsTrue(PieceType.香.CompareTo((PieceType)"玉") > 0);
+      Assert.AreEqual(0, PieceType.玉.CompareTo((PieceType)"玉"));
     }
     #endregion
 

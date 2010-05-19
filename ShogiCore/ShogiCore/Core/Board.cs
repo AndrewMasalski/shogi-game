@@ -159,7 +159,7 @@ namespace Yasc.ShogiCore.Core
     private Player CreatePlayer()
     {
       var player = new Player(this);
-      player.Hand = new Hand(PieceSet, player);
+      player.Hand = new HandCollection(PieceSet, player);
       return player;
     }
     private MovesHistory CreateMovesHistory()
@@ -321,7 +321,7 @@ namespace Yasc.ShogiCore.Core
       if (piece == null) throw new ArgumentNullException("piece");
       if (piece.Owner == null) throw new PieceHasNoOwnerException();
 
-      return from snapshot in CurrentSnapshot.GetAvailableDropMoves(piece.Snapsot())
+      return from snapshot in CurrentSnapshot.GetAvailableDropMoves(piece.Snapshot())
              select GetMove(snapshot);
     }
 
@@ -418,7 +418,7 @@ namespace Yasc.ShogiCore.Core
     ///   <paramref name="piece"/> or <paramref name="owner"/> is null
     /// </exception>
     /// <exception cref="InvalidOperationException">The piece is not ownerless</exception>
-    public void SetPiece(Position p, Piece piece, Player owner)
+    public void SetPiece(Position position, Piece piece, Player owner)
     {
       if (piece == null) throw new ArgumentNullException("piece");
       if (owner == null) throw new ArgumentNullException("owner");
@@ -432,7 +432,7 @@ namespace Yasc.ShogiCore.Core
       piece.Owner = owner;
 
       PieceSet.Pop(piece);
-      this[p.X, p.Y].Piece = piece;
+      this[position.X, position.Y].Piece = piece;
     }
     /// <summary>Places the piece into the cell</summary>
     /// <remarks>Method takes piece and places it into the cell</remarks>
@@ -440,23 +440,23 @@ namespace Yasc.ShogiCore.Core
     ///   <paramref name="piece"/> is null
     /// </exception>
     /// <exception cref="PieceHasNoOwnerException">the piece has no owner</exception>
-    public void SetPiece(Position p, Piece piece)
+    public void SetPiece(Position position, Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
-      if (this[p.X, p.Y].Piece == piece) return;
+      if (this[position.X, position.Y].Piece == piece) return;
 
       var player = piece.Owner;
       if (player == null)
         throw new PieceHasNoOwnerException();
       PieceSet.Push(piece);
-      SetPiece(p, piece, player);
+      SetPiece(position, piece, player);
     }
     /// <summary>Removes the piece from the cell to the piece set</summary>
-    public Piece ResetPiece(Position p)
+    public Piece ResetPiece(Position position)
     {
-      if (this[p.X, p.Y].Piece == null) return null;
-      var old = this[p.X, p.Y].Piece;
-      this[p.X, p.Y].Piece = null;
+      if (this[position.X, position.Y].Piece == null) return null;
+      var old = this[position.X, position.Y].Piece;
+      this[position.X, position.Y].Piece = null;
       PieceSet.Push(old);
       return old;
     }
@@ -470,15 +470,15 @@ namespace Yasc.ShogiCore.Core
           from position in Position.OnBoard
           let piece = this[position]
           where piece != null
-          select Tuple.Create(position, piece.Snapsot()),
+          select Tuple.Create(position, piece.Snapshot()),
 
           from whitePiece in White.Hand
           orderby whitePiece.PieceType
-          select whitePiece.Snapsot(),
+          select whitePiece.Snapshot(),
 
           from blackPiece in Black.Hand
           orderby blackPiece.PieceType
-          select blackPiece.Snapsot()
+          select blackPiece.Snapshot()
         );
     }
   }

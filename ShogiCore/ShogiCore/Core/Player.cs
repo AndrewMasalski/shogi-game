@@ -10,7 +10,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>The player name</summary>
     public string Name { get; set; }
     /// <summary>The pieces player has in hand</summary>
-    public Hand Hand { get; internal set; }
+    public HandCollection Hand { get; internal set; }
 
     internal Player(Board board)
     {

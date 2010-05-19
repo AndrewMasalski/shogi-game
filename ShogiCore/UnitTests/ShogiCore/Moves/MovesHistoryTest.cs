@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Primitives;
 
 namespace ShogiCore.UnitTests.ShogiCore.Moves
 {
@@ -123,7 +123,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestMethod]
     public void HistoryTest()
     {
-      _board.SetPiece("歩", _board.Black, "1i");
+      _board.SetPiece((PieceType)"歩", _board.Black, "1i");
       var move = _board.GetMove("1i-1h", FormalNotation.Instance).First();
       var s1 = _board.CurrentSnapshot;
       _board.MakeMove(move);

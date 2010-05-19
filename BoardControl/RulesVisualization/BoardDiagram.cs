@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using Yasc.BoardControl.Controls;
 using Yasc.BoardControl.GenericDragDrop;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
@@ -151,7 +150,7 @@ namespace Yasc.RulesVisualization
       {
         var trim = p.Trim();
         yield return new KeyValuePair<Position, PieceType>(
-          trim.Substring(trim.Length - 2, 2), trim.Substring(0, trim.Length - 2));
+          trim.Substring(trim.Length - 2, 2), (PieceType)trim.Substring(0, trim.Length - 2));
       }
     }
 
@@ -205,7 +204,13 @@ namespace Yasc.RulesVisualization
     private static void ResetFlagsInHands(ShogiBoard board)
     {
       foreach (var color in new[] { PieceColor.White, PieceColor.Black })
-        foreach (var type in new PieceType[] { "王", "玉", "飛", "角", "金", "銀", "桂", "香", "歩", })
+        foreach (var type in new[]
+                               {
+                                 PieceType.王, PieceType.玉, 
+                                 PieceType.飛, PieceType.角, 
+                                 PieceType.金, PieceType.銀, 
+                                 PieceType.桂, PieceType.香,PieceType.歩,
+                               })
         {
           var nest = board[color][type];
           if (nest != null) nest.IsMoveSource = false;

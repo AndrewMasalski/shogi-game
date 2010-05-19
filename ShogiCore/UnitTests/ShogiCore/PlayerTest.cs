@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
@@ -14,7 +13,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void ResetAllPiecesFromHand()
     {
       var board = new Board();
-      board.White.Hand.Add("馬");
+      board.White.Hand.Add((PieceType)"馬");
       board.White.Hand.Clear();
       Assert.AreEqual(0, board.White.Hand.Count);
     }
