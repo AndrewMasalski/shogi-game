@@ -7,7 +7,7 @@ using Yasc.Utils;
 namespace Yasc.ShogiCore.PieceSets
 {
   /// <summary>40 pieces</summary>
-  public class StandardPieceSet : Singletone<StandardPieceSet>, IPieceSet
+  public class StandardPieceSet : IPieceSet
   {
     private readonly List<Piece>[] _set;
 

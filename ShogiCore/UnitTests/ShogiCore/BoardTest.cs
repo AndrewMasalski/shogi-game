@@ -200,16 +200,10 @@ namespace ShogiCore.UnitTests.ShogiCore
       foreach (var p in Position.OnBoard)
         Assert.IsNotNull(board[p.X, p.Y]);
     }
-    [TestMethod]
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void InvalidPieceSetTypeCtorTest()
     {
-      var board = new Board(InfinitePieceSet.Instance);
-      Assert.IsTrue(board.PieceSet is StandardPieceSet);
-      Assert.IsNotNull(board.White);
-      Assert.IsNotNull(board.Black);
-      Assert.IsNotNull(board.OneWhoMoves);
-      foreach (var p in Position.OnBoard)
-        Assert.IsNotNull(board[p.X, p.Y]);
+      new Board(null);
     }
     [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantLoadSnapshotBecauseNotEnoughPiecesTest()

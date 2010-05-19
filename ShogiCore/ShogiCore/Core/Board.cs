@@ -105,7 +105,7 @@ namespace Yasc.ShogiCore.Core
 
     /// <summary>ctor</summary>
     public Board()
-      : this(StandardPieceSet.Instance)
+      : this(new StandardPieceSet())
     {
     }
     /// <summary>ctor</summary>
