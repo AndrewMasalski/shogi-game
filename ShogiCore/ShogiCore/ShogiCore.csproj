@@ -80,7 +80,7 @@
   <ItemGroup>
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\Cell.cs" />
-    <Compile Include="FormalNotation.cs" />
+    <Compile Include="Notations\FormalNotation.cs" />
     <Compile Include="Notations\CuteMoveParser.cs" />
     <Compile Include="Core\DefaultPieceSet.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -88,16 +88,16 @@
     <Compile Include="Core\HistoryNavigateEventArgs.cs" />
     <Compile Include="Core\InfinitePieceSet.cs" />
     <Compile Include="Core\IPieceSet.cs" />
-    <Compile Include="Moves\DropMove.cs" />
-    <Compile Include="Moves\InvalidMoveException.cs" />
-    <Compile Include="Moves\MoveBase.cs" />
-    <Compile Include="Moves\MoveEventArgs.cs" />
-    <Compile Include="Moves\MovesHistory.cs" />
-    <Compile Include="Moves\ResignMove.cs" />
+    <Compile Include="Core\DropMove.cs" />
+    <Compile Include="Core\InvalidMoveException.cs" />
+    <Compile Include="Core\MoveBase.cs" />
+    <Compile Include="Core\MoveEventArgs.cs" />
+    <Compile Include="Core\MovesHistory.cs" />
+    <Compile Include="Core\ResignMove.cs" />
     <Compile Include="Core\PieceNotFoundException.cs" />
     <Compile Include="Snapshots\ResignMoveSnapshot.cs" />
     <Compile Include="Core\ShogiGameResult.cs" />
-    <Compile Include="Moves\UsualMove.cs" />
+    <Compile Include="Core\UsualMove.cs" />
     <Compile Include="Core\NotEnoughPiecesInSetException.cs" />
     <Compile Include="Core\Piece.cs" />
     <Compile Include="Primitives\PieceColor.cs" />
@@ -116,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\BoardDiagram.cd" />
-    <None Include="Moves\MovesDiagram.cd" />
+    <None Include="Core\MovesDiagram.cd" />
     <None Include="Snapshots\SnapShotsDiagram.cd" />
   </ItemGroup>
   <ItemGroup>

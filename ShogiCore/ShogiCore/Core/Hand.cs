@@ -57,10 +57,7 @@ namespace Yasc.ShogiCore
     public void LoadSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
     {
       if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
-      Items.Update(handSnapshot,
-                   p => new PieceSnapshot(p),
-                   ps => ps,
-                   ps => _pieceSet[ps.PieceType]);
+      Items.Update(handSnapshot, p => p.Snapsot(), ps => ps, ps => _pieceSet[ps.PieceType]);
     }
 
     /// <summary>Removes the piece from hand</summary>

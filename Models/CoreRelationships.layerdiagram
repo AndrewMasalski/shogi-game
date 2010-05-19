@@ -1,56 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="e918d970-026e-4f5c-82e2-d7a184051756" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
   <layers>
-    <layer Id="56b98dbe-f877-4937-8eea-870a12e6e54d" name="Snapshots">
+    <layer Id="80631493-955c-4a68-9100-47dc3b56b73b" name="Core">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="d82ae14a-c135-42a1-a8de-f6d049ab8bd7" direction="Forward">
-          <layerMoniker Id="8eee2a93-f45a-4685-afd1-4bd85a285374" />
+        <dependencyFromLayerToLayer Id="39d4dec6-a49d-4cc6-8633-6d63485640ce" direction="Forward">
+          <layerMoniker Id="405e3510-55fe-418c-be67-430ecfc797c4" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="e48eb51e-4113-4712-a4af-ca5c62fb79ad" direction="Forward">
+          <layerMoniker Id="0635a086-87ee-4fc4-905c-4c90586f85da" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
       <references>
-        <reference Id="41546d75-2491-468d-9cac-3b8a95d2eca8" name="Snapshots">
-          <ArtifactNode Label="Snapshots" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Snapshots/&quot;)">
+        <reference Id="01602f09-d35b-4b7f-81dd-2fc5f7611227" name="Core">
+          <ArtifactNode Label="Core" Category="CodeSchema_ProjectItem" Id="(Assembly=../shogicore/shogicore/core/)">
             <Category Ref="ProjectFolder" />
           </ArtifactNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=BoardSnapshot)" Label="BoardSnapshot" Category="CodeSchema_Class">
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Board)" Label="Board" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=DropMoveSnapshot)" Label="DropMoveSnapshot" Category="CodeSchema_Class">
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=INotation)" Label="INotation" Category="CodeSchema_Interface">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=MoveSnapshotBase)" Label="MoveSnapshotBase" Category="CodeSchema_Class">
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Cell)" Label="Cell" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=PieceSnapshot)" Label="PieceSnapshot" Category="CodeSchema_Class">
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=DefaultPieceSet)" Label="DefaultPieceSet" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=ResignMoveSnapshot)" Label="ResignMoveSnapshot" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=UsualMoveSnapshot)" Label="UsualMoveSnapshot" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-      </references>
-    </layer>
-    <layer Id="06a97e59-56b6-42f9-9b6a-2d33cc4a45c1" name="Moves">
-      <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="251d033a-1240-4ab2-b802-a0fa4a52109f" direction="Forward">
-          <layerMoniker Id="56b98dbe-f877-4937-8eea-870a12e6e54d" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="4db6a882-f928-4738-a988-61ac5b1c1af0" direction="Forward">
-          <layerMoniker Id="8eee2a93-f45a-4685-afd1-4bd85a285374" />
-        </dependencyFromLayerToLayer>
-      </dependencyToLayers>
-      <references>
-        <reference Id="02480052-15d7-40f1-a7b7-d366864e96f9" name="Moves">
-          <ArtifactNode Label="Moves" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/Visual Studio 2010/Projects/shogi-game/trunk/ShogiCore/ShogiCore/Moves/&quot;)">
-            <Category Ref="ProjectFolder" />
-          </ArtifactNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=DropMove)" Label="DropMove" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=(Name=PieceCollection ParentType=Hand))" Label="Hand.PieceCollection" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Hand)" Label="Hand" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=HistoryNavigateEventArgs)" Label="HistoryNavigateEventArgs" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=InfinitePieceSet)" Label="InfinitePieceSet" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=InvalidMoveException)" Label="InvalidMoveException" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=IPieceSet)" Label="IPieceSet" Category="CodeSchema_Interface">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=MoveBase)" Label="MoveBase" Category="CodeSchema_Class">
@@ -60,59 +55,6 @@
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=MovesHistory)" Label="MovesHistory" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=ResignMove)" Label="ResignMove" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=UsualMove)" Label="UsualMove" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-      </references>
-    </layer>
-    <layer Id="456f3b35-9fdb-439c-9ef0-773370d313e3" name="Core">
-      <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="7880237f-c07d-4a5b-8bec-5844a914365d" direction="Forward">
-          <layerMoniker Id="8eee2a93-f45a-4685-afd1-4bd85a285374" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="4c3cb264-3c86-4be6-ad4f-4941a1f5cd23" direction="Bidirectional">
-          <layerMoniker Id="06a97e59-56b6-42f9-9b6a-2d33cc4a45c1" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="43976624-de09-4391-89d4-8cf58d571357" direction="Bidirectional">
-          <layerMoniker Id="56b98dbe-f877-4937-8eea-870a12e6e54d" />
-        </dependencyFromLayerToLayer>
-      </dependencyToLayers>
-      <references>
-        <reference Id="9db91395-3609-4c3b-ae1a-377402c481f4" name="Core">
-          <ArtifactNode Label="Core" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/visual studio 2010/projects/shogi-game/trunk/shogicore/shogicore/core/&quot;)">
-            <Category Ref="ProjectFolder" />
-          </ArtifactNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=INotation)" Label="INotation" Category="CodeSchema_Interface">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Board)" Label="Board" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Cell)" Label="Cell" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=DefaultPieceSet)" Label="DefaultPieceSet" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Hand)" Label="Hand" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=(Name=PieceCollection ParentType=Hand))" Label="Hand.PieceCollection" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=HistoryNavigateEventArgs)" Label="HistoryNavigateEventArgs" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=InfinitePieceSet)" Label="InfinitePieceSet" Category="CodeSchema_Class">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=IPieceSet)" Label="IPieceSet" Category="CodeSchema_Interface">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=NotEnoughPiecesInSetException)" Label="NotEnoughPiecesInSetException" Category="CodeSchema_Class">
@@ -133,54 +75,95 @@
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Player)" Label="Player" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=ResignMove)" Label="ResignMove" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Shogi)" Label="Shogi" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=ShogiGameResult)" Label="ShogiGameResult" Category="CodeSchema_Enum">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Moves Type=UsualMove)" Label="UsualMove" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
         </reference>
       </references>
     </layer>
-    <layer Id="fbeed198-0e81-4866-9156-628c975bba32" name="Notations">
+    <layer Id="8c3b5e2c-ac1b-473f-ac05-d2d0f69e0d76" name="Notations">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="ab5ec033-b4f6-4e93-958e-de2af732eb09" direction="Forward">
-          <layerMoniker Id="8eee2a93-f45a-4685-afd1-4bd85a285374" />
+        <dependencyFromLayerToLayer Id="c2dc1c2b-539d-45f4-92f8-dce1a3f424cf" direction="Forward">
+          <layerMoniker Id="405e3510-55fe-418c-be67-430ecfc797c4" />
         </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="e471153d-fa92-4f14-803b-946e30a13d69" direction="Forward">
-          <layerMoniker Id="56b98dbe-f877-4937-8eea-870a12e6e54d" />
+        <dependencyFromLayerToLayer Id="e73c44a1-b649-4126-bff5-03720104d106" direction="Forward">
+          <layerMoniker Id="0635a086-87ee-4fc4-905c-4c90586f85da" />
         </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="8f13cd4d-44cf-4302-b9d8-b7cba8a75d24" direction="Forward">
-          <layerMoniker Id="456f3b35-9fdb-439c-9ef0-773370d313e3" />
+        <dependencyFromLayerToLayer Id="abff2895-4549-4804-8526-3796771ec48d" direction="Forward">
+          <layerMoniker Id="80631493-955c-4a68-9100-47dc3b56b73b" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
       <references>
-        <reference Id="323dd022-2703-4fcc-b5f0-4c34ee44d321" name="Notations">
-          <ArtifactNode Label="Notations" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/visual studio 2010/projects/shogi-game/trunk/shogicore/shogicore/notations/&quot;)">
+        <reference Id="d4d1fe29-0df7-47e2-b9f6-c720d428f048" name="Notations">
+          <ArtifactNode Label="Notations" Category="CodeSchema_ProjectItem" Id="(Assembly=../shogicore/shogicore/notations/)">
             <Category Ref="ProjectFolder" />
           </ArtifactNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=CuteNotation)" Label="CuteNotation" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=FormalNotation)" Label="FormalNotation" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
         </reference>
       </references>
     </layer>
-    <layer Id="8eee2a93-f45a-4685-afd1-4bd85a285374" name="Primitives">
+    <layer Id="405e3510-55fe-418c-be67-430ecfc797c4" name="Primitives">
       <references>
-        <reference Id="5c5225e4-555d-46e1-8237-2b38b1265393" name="Primitives">
-          <ArtifactNode Label="Primitives" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(PersonalUri)/visual studio 2010/projects/shogi-game/trunk/shogicore/shogicore/primitives/&quot;)">
+        <reference Id="8aaaf6e9-2b34-435e-8274-b716271506eb" name="Primitives">
+          <ArtifactNode Label="Primitives" Category="CodeSchema_ProjectItem" Id="(Assembly=../shogicore/shogicore/primitives/)">
             <Category Ref="ProjectFolder" />
           </ArtifactNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=PieceColor)" Label="PieceColor" Category="CodeSchema_Enum">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
-          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=(Name=RealType ParentType=PieceType))" Label="PieceType.RealType" Category="CodeSchema_Enum">
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=PieceType)" Label="PieceType" Category="CodeSchema_Struct">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=(Name=RealType ParentType=PieceType))" Label="PieceType.RealType" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
           <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore Type=Position)" Label="Position" Category="CodeSchema_Struct">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="0635a086-87ee-4fc4-905c-4c90586f85da" name="Snapshots">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="e801d8b0-8cf2-4320-b413-eba78a343426" direction="Forward">
+          <layerMoniker Id="405e3510-55fe-418c-be67-430ecfc797c4" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="43e26cef-2e61-4c33-8d94-86f66e4f1223" name="Snapshots">
+          <ArtifactNode Label="Snapshots" Category="CodeSchema_ProjectItem" Id="(Assembly=../shogicore/shogicore/snapshots/)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=BoardSnapshot)" Label="BoardSnapshot" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=DropMoveSnapshot)" Label="DropMoveSnapshot" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=MoveSnapshotBase)" Label="MoveSnapshotBase" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=PieceSnapshot)" Label="PieceSnapshot" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=ResignMoveSnapshot)" Label="ResignMoveSnapshot" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=UsualMoveSnapshot)" Label="UsualMoveSnapshot" Category="CodeSchema_Class">
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
         </reference>

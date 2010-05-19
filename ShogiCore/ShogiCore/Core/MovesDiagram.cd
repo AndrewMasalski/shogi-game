@@ -71,11 +71,12 @@
       <Method Name="OnMoved" Hidden="true" />
       <Method Name="OnMoving" Hidden="true" />
       <Method Name="ResetCurrentSnapshot" Hidden="true" />
+      <Method Name="TakeSnapshot" Hidden="true" />
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhACAIQQAoMAhCAIAAAAQDAACAgRAAEACSFCAIAA=</HashCode>
-      <FileName>Board.cs</FileName>
+      <HashCode>BCAdhACAIQQAoMAhCAIAACAQDAACAgRAAEACSFCAIAA=</HashCode>
+      <FileName>Core\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="History" />
