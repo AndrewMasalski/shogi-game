@@ -59,19 +59,14 @@ namespace Yasc.ShogiCore.Core
     private string GetHint(IEnumerable<Position> list)
     {
       var s = new HashSet<char>(From.ToString());
-      foreach (var position in list)
-        foreach (var c in position.ToString())
-          s.Remove(c);
+      s.ExceptWith(list.SelectMany(p => p.ToString()));
 
-      if (s.Count == 0)
+      switch (s.Count)
       {
-        return From.ToString();
+        case 0: return From.ToString();
+        case 1: return s.First().ToString();
+        default: return null;
       }
-      if (s.Count == 1)
-      {
-        return s.First().ToString();
-      }
-      return null;
     }
     private IEnumerable<Position> WhoElseCouldMoveThere()
     {

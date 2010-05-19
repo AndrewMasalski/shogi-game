@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShogiCore.UnitTests.ShogiCore;
 using Yasc.RulesVisualization;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.Utils;
 
@@ -19,7 +18,9 @@ namespace ShogiCore.UnitTests.UsualMoves
     public void RunDiagrams()
     {
       var assembly = typeof(PieceTest).Assembly;
-      foreach (var uri in assembly.GetBamlUris("Positions"))
+      var bamlUris = assembly.GetBamlUris("Positions", null).ToList();
+      Assert.AreNotEqual(0, bamlUris.Count, "No test positions found!");
+      foreach (var uri in bamlUris)
       {
         Console.WriteLine("start: " + uri);
         var page = (Page)Application.LoadComponent(uri);
