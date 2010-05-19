@@ -17,17 +17,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
   <ItemGroup>
-    <Validate Include="BoardSnapshot.layerdiagram">
-      <SubType>Content</SubType>
-    </Validate>
-    <Validate Include="BoardSnapshot.layerdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>BoardSnapshot.layerdiagram</DependentUpon>
-    </Validate>
-    <Validate Include="BoardSnapshot.layerdiagram.suppressions">
-      <SubType>Content</SubType>
-      <DependentUpon>BoardSnapshot.layerdiagram</DependentUpon>
-    </Validate>
     <Validate Include="CoreRelationships.layerdiagram">
       <SubType>Content</SubType>
     </Validate>
@@ -49,17 +38,6 @@
     <Validate Include="MainDependencies.layerdiagram.suppressions">
       <SubType>Content</SubType>
       <DependentUpon>MainDependencies.layerdiagram</DependentUpon>
-    </Validate>
-    <Validate Include="ShogiClasses.layerdiagram">
-      <SubType>Content</SubType>
-    </Validate>
-    <Validate Include="ShogiClasses.layerdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>ShogiClasses.layerdiagram</DependentUpon>
-    </Validate>
-    <Validate Include="ShogiClasses.layerdiagram.suppressions">
-      <SubType>Content</SubType>
-      <DependentUpon>ShogiClasses.layerdiagram</DependentUpon>
     </Validate>
   </ItemGroup>
   <ItemGroup>
