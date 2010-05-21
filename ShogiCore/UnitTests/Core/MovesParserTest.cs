@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 
 namespace ShogiCore.UnitTests.ShogiCore
 {
@@ -29,7 +30,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void TestMoveToSting()
     {
       var b = new Board();
-      Shogi.InitBoard(b);
+      b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d", FormalNotation.Instance).First();
       var m = (UsualMove) move;
       Assert.AreEqual(new Position(2, 2), m.From);
@@ -41,7 +42,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void TestUsualMoveToString()
     {
       var b = new Board();
-      Shogi.InitBoard(b);
+      b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d+", FormalNotation.Instance).First();
       var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
@@ -53,7 +54,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void TestUsualMoveNoPropmotionToString()
     {
       var b = new Board();
-      Shogi.InitBoard(b);
+      b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d=", FormalNotation.Instance).First();
       var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);

@@ -123,7 +123,7 @@ namespace Yasc.ShogiCore.Core
       FillCells();
     }
 
-    /// <summary>Loads the snapshot</summary>
+    /// <summary>Resets the pieces on board and from hands and loads a snapshot from scratch</summary>
     public void LoadSnapshot(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");

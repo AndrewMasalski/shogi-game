@@ -8,6 +8,7 @@ using Yasc.Persistence;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils.Mvvm;
 
 namespace MainModule.Gui.Game
@@ -166,7 +167,7 @@ namespace MainModule.Gui.Game
     protected void InitBoard()
     {
       Board = new Board();
-      Shogi.InitBoard(Board);
+      Board.LoadSnapshot(BoardSnapshot.InitialPosition);
       MovesAndComments = new ObservableCollection<object>();
     }
     private void GetBack()

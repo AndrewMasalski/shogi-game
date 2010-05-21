@@ -5,6 +5,7 @@ using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 
 namespace MainModule.AI
 {
@@ -16,7 +17,7 @@ namespace MainModule.AI
     public RandomAiController()
     {
       _board = new Board();
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
     }
 
     public override void UndoLastMove()

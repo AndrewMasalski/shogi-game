@@ -1,5 +1,6 @@
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.Persistence
 {
@@ -10,7 +11,7 @@ namespace Yasc.Persistence
     public PsnLoader()
     {
       _board = new Board();
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
     }
 
     public Board Load(GameTrascription trascription)
