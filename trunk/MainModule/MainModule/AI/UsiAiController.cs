@@ -11,6 +11,7 @@ using Yasc.DotUsi.Process;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Snapshots;
 
 namespace MainModule.AI
 {
@@ -22,7 +23,7 @@ namespace MainModule.AI
     private UsiAiController(IUsiProcess engine)
     {
       _board = new Board();
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _engine = CreateEngine(engine);
     }
 

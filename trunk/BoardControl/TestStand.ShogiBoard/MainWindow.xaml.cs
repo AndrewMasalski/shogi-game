@@ -1,5 +1,6 @@
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Snapshots;
 
 namespace TestStand.ShogiBoard
 {
@@ -9,7 +10,7 @@ namespace TestStand.ShogiBoard
     {
       InitializeComponent();
       var board = new Board();
-      Shogi.InitBoard(board);
+      board.LoadSnapshot(BoardSnapshot.InitialPosition);
       DataContext = board;
     }
   }

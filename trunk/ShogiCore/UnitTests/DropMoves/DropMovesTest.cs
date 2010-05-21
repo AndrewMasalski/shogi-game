@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 
 namespace ShogiCore.UnitTests.DropMoves
 {
@@ -17,7 +18,7 @@ namespace ShogiCore.UnitTests.DropMoves
     {
       _board = new Board();
       
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       
       _blackPiece = _board["9a"];
       _board.ResetPiece("9a");

@@ -17,7 +17,7 @@ namespace ShogiCore.UnitTests
     public void Immutability()
     {
       var board = new Board();
-      Shogi.InitBoard(board);
+      board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var original = board.CurrentSnapshot;
       var clone = new BoardSnapshot(original,
         new UsualMoveSnapshot(PieceColor.White, "3c", "3d", false));
@@ -60,7 +60,7 @@ namespace ShogiCore.UnitTests
     public void IndexerTest()
     {
       var board = new Board();
-      Shogi.InitBoard(board);
+      board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var snapshot = board.CurrentSnapshot;
       foreach (var p in Position.OnBoard)
         Assert.AreSame(snapshot[p.X, p.Y], snapshot[p]);
@@ -69,7 +69,7 @@ namespace ShogiCore.UnitTests
     public void EqualsTest()
     {
       var board = new Board();
-      Shogi.InitBoard(board);
+      board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var snapshot1 = board.CurrentSnapshot;
       var snapshot2 = board.CurrentSnapshot;
       Assert.IsTrue(snapshot1.Equals(snapshot2));
@@ -92,7 +92,7 @@ namespace ShogiCore.UnitTests
       using (var buffer = new MemoryStream())
       {
         var board = new Board();
-        Shogi.InitBoard(board);
+        board.LoadSnapshot(BoardSnapshot.InitialPosition);
         formatter.Serialize(buffer, board.CurrentSnapshot);
       }
     }

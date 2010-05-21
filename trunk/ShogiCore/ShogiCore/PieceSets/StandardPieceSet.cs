@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.PieceSets
 {
@@ -18,7 +19,14 @@ namespace Yasc.ShogiCore.PieceSets
       for (var i = 0; i < _set.Length; i++)
         _set[i] = new List<Piece>();
 
-      foreach (PieceType pieceType in Shogi.InitialPosition.Select(p => p.Value))
+      var allPiecesInInitialPosition =
+        from position in Position.OnBoard
+        select BoardSnapshot.InitialPosition[position]
+        into pieceSnapshot
+        where pieceSnapshot != null
+        select pieceSnapshot.PieceType;
+
+      foreach (var pieceType in allPiecesInInitialPosition)
         _set[pieceType.Id].Add(new Piece(pieceType));
     }
 

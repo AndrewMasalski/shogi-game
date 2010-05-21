@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
 namespace ShogiCore.UnitTests.ShogiCore.Moves
@@ -88,7 +89,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestMethod]
     public void ValidMoveWithoutTakingPieceTest()
     {
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = _board.GetUsualMove("9g", "9f", false);
       _board.MakeMove(move);
       Assert.IsNull(_board["9g"]);
@@ -97,7 +98,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestMethod]
     public void ValidMoveWithTakingPieceTest()
     {
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
 
       _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9c", "9d", false));
       _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9d", "9e", false));
@@ -140,7 +141,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestMethod]
     public void TestMoveOrder()
     {
-      Shogi.InitBoard(_board);
+      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.MakeMove(_board.GetUsualMove("3g", "3f", false));
       Assert.AreEqual("It's White's move now",
         _board.GetUsualMove("3f", "3e", false).ErrorMessage);
