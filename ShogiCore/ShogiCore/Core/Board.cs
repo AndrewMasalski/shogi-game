@@ -435,7 +435,7 @@ namespace Yasc.ShogiCore.Core
 
       piece.Owner = owner;
 
-      PieceSet.Pop(piece);
+      PieceSet.AcquirePiece(piece);
       this[position.X, position.Y].Piece = piece;
     }
     /// <summary>Places the piece into the cell</summary>
@@ -452,7 +452,7 @@ namespace Yasc.ShogiCore.Core
       var player = piece.Owner;
       if (player == null)
         throw new PieceHasNoOwnerException();
-      PieceSet.Push(piece);
+      PieceSet.ReleasePiece(piece);
       SetPiece(position, piece, player);
     }
     /// <summary>Removes the piece from the cell to the piece set</summary>
@@ -461,7 +461,7 @@ namespace Yasc.ShogiCore.Core
       if (this[position.X, position.Y].Piece == null) return null;
       var old = this[position.X, position.Y].Piece;
       this[position.X, position.Y].Piece = null;
-      PieceSet.Push(old);
+      PieceSet.ReleasePiece(old);
       return old;
     }
 

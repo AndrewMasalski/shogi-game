@@ -8,8 +8,8 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets reference to the piece from the set by type</summary>
     Piece this[PieceType type] { get; }
     /// <summary>Marks given <paramref name="piece"/> as occupied</summary>
-    void Pop(Piece piece);
+    void AcquirePiece(Piece piece);
     /// <summary>Returns given <paramref name="piece"/> to the set</summary>
-    void Push(Piece piece);
+    void ReleasePiece(Piece piece);
   }
 }

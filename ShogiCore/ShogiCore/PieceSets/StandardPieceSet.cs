@@ -47,7 +47,7 @@ namespace Yasc.ShogiCore.PieceSets
       }
     }
     /// <summary>Marks given <paramref name="piece"/> as occupied</summary>
-    public void Pop(Piece piece)
+    public void AcquirePiece(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
       var list = _set[piece.PieceType.Id];
@@ -58,7 +58,7 @@ namespace Yasc.ShogiCore.PieceSets
       }
     }
     /// <summary>Returns given <paramref name="piece"/> to the set</summary>
-    public void Push(Piece piece)
+    public void ReleasePiece(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
       piece.Owner = null;

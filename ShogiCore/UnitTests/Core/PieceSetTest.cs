@@ -15,9 +15,9 @@ namespace ShogiCore.UnitTests
     {
       var board = new Board();
       var piece = board.PieceSet[(PieceType)"馬"];
-      board.PieceSet.Pop(piece);
+      board.PieceSet.AcquirePiece(piece);
       piece.Owner = board.White;
-      board.PieceSet.Push(piece);
+      board.PieceSet.ReleasePiece(piece);
       Assert.IsNull(piece.Owner);
     }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
@@ -25,8 +25,8 @@ namespace ShogiCore.UnitTests
     {
       var board = new Board();
       var piece = board.PieceSet[(PieceType)"馬"];
-      board.PieceSet.Pop(piece);
-      board.PieceSet.Pop(piece);
+      board.PieceSet.AcquirePiece(piece);
+      board.PieceSet.AcquirePiece(piece);
     }
     [TestMethod]
     public void TestPromoted()
@@ -45,7 +45,7 @@ namespace ShogiCore.UnitTests
       {
         var p = board.PieceSet[(PieceType)"馬"];
         if (p == null) break;
-        board.PieceSet.Pop(p);
+        board.PieceSet.AcquirePiece(p);
         Assert.IsTrue(set.Add(p), "Not all pieces are different objects");
       }
       Assert.IsFalse(ReferenceEquals(set.First(), set.Last()));
@@ -61,18 +61,18 @@ namespace ShogiCore.UnitTests
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void TakeNullPiece()
     {
-      new Board().PieceSet.Pop(null);
+      new Board().PieceSet.AcquirePiece(null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void ReturnNullPiece()
     {
-      new Board().PieceSet.Push(null);
+      new Board().PieceSet.ReleasePiece(null);
     }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void ReturnPieceTwice()
     {
       var board = new Board();
-      board.PieceSet.Push(board.PieceSet[(PieceType)"馬"]);
+      board.PieceSet.ReleasePiece(board.PieceSet[(PieceType)"馬"]);
       
     }
   }
