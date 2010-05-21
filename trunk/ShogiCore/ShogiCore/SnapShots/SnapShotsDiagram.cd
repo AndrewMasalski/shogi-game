@@ -50,11 +50,8 @@
       <Method Name="UpLeft" Hidden="true" />
       <Method Name="UpRight" Hidden="true" />
     </Members>
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
     <TypeIdentifier>
-      <HashCode>QCARCgMMAKAEAAiZmgNJJIAIEEAhApAACAShJAABAiM=</HashCode>
+      <HashCode>QCARCgMMAKAEAAiZmgNJJIAIEEAhApAACAShJABBAiM=</HashCode>
       <FileName>Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -106,8 +103,8 @@
       <FileName>Snapshots\PieceSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Color" />
       <Property Name="PieceType" />
+      <Property Name="Color" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Core.Board">
@@ -120,6 +117,9 @@
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
       <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
+      <Method Name="CreateMovesHistory" Hidden="true" />
+      <Method Name="CreatePlayer" Hidden="true" />
+      <Method Name="FillCells" Hidden="true" />
       <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
       <Method Name="OnHistoryNavigated" Hidden="true" />
       <Method Name="OnHistoryNavigating" Hidden="true" />
@@ -131,7 +131,7 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhACAIQQAoMAhCAIAACAQDAACAgRAAEACSFCAIAA=</HashCode>
+      <HashCode>BCAdhAGAIQQAoMAhCAIAACAQDAACAgRAAkACSFCAIAA=</HashCode>
       <FileName>Core\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -140,11 +140,6 @@
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.ResignMoveSnapshot" Collapsed="true">
     <Position X="9" Y="6.25" Width="1.75" />
-    <Members>
-      <Field Name="_who" Hidden="true" />
-      <Method Name="ResignMoveSnapshot" Hidden="true" />
-      <Property Name="Who" Hidden="true" />
-    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Snapshots\ResignMoveSnapshot.cs</FileName>
@@ -157,7 +152,6 @@
       <Property Name="CanPromote" Hidden="true" />
       <Method Name="CompareTo" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="implicit operator PieceType" Hidden="true" />
       <Method Name="implicit operator string" Hidden="true" />
       <Property Name="IsPromoted" Hidden="true" />
       <Property Name="Latin" Hidden="true" />
@@ -166,7 +160,6 @@
       <Method Name="PieceType" Hidden="true" />
       <Method Name="Promote" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
-      <Method Name="Unpromote" Hidden="true" />
     </Members>
     <NestedTypes>
       <Enum Name="Yasc.ShogiCore.Primitives.PieceType.RealType" Collapsed="true">
@@ -176,7 +169,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BFACYKAQIAAIBAQEgCGHAAAAAAAAAIAIYAAgAAMAAiA=</HashCode>
+      <HashCode>BFACYKAQIAAABAQEgCGHAgBAAAFAAIAIYAAgAAEAAiA=</HashCode>
       <FileName>Primitives\PieceType.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />

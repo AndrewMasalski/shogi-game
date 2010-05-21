@@ -142,7 +142,7 @@ namespace Yasc.ShogiCore.Core
             "Piece can't be in two places at the same time. " +
             "First return it to the piece set, then try to add it to the hand");
         }
-        _pieceSet.Pop(p);
+        _pieceSet.AcquirePiece(p);
         p.Owner = _owner;
         p.IsPromoted = false;
       }
@@ -150,7 +150,7 @@ namespace Yasc.ShogiCore.Core
     private void OnPieceRemoved(NotifyCollectionChangedEventArgs args)
     {
       foreach (Piece p in args.OldItems)
-        _pieceSet.Push(p);
+        _pieceSet.ReleasePiece(p);
     }
 
     #endregion
