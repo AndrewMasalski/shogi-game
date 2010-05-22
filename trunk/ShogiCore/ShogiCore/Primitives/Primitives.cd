@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Yasc.ShogiCore.Primitives.PT">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <Members>
+      <Field Name="_parser" Hidden="true" />
+      <Method Name="PT" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="Yasc.ShogiCore.Primitives.PT.RealType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceCategoryImpl" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceTypeImpl" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Yasc.ShogiCore.Primitives.PT.MoveDirection" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAwQqIAIAAIAAgAACGHAAAAEAFQAAAAagCAKJXBEQI=</HashCode>
+      <FileName>Primitives\PT.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="AllPieceTypes" />
+      <Property Name="AllPieceKinds" />
+      <Property Name="AllPieceQualities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Struct Name="Yasc.ShogiCore.Primitives.Position">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgAAAAAAAAIAAEwAFAAAAAABAAAIAAAAAAAAABYiA=</HashCode>
+      <FileName>Primitives\Position.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Yasc.ShogiCore.Primitives.IPieceCategory">
+    <Position X="4.25" Y="0.5" Width="3" />
+    <AssociationLine Name="PieceTypes" Type="Yasc.ShogiCore.Primitives.IPieceType" FixedToPoint="true">
+      <Path>
+        <Point X="5.812" Y="1.629" />
+        <Point X="5.812" Y="2.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Primitives\IPieceCategory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="PieceTypes" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
+    <Position X="4.25" Y="2.75" Width="3" />
+    <AssociationLine Name="PieceKind" Type="Yasc.ShogiCore.Primitives.IPieceCategory" FixedToPoint="true">
+      <Path>
+        <Point X="6.875" Y="2.75" />
+        <Point X="6.875" Y="1.629" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="PieceQuality" Type="Yasc.ShogiCore.Primitives.IPieceCategory" FixedToPoint="true">
+      <Path>
+        <Point X="4.625" Y="2.75" />
+        <Point X="4.625" Y="1.629" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
+      <FileName>Primitives\IPieceType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PieceKind" />
+      <Property Name="PieceQuality" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="MoveDirections" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="Yasc.ShogiCore.Primitives.IMoveDirection">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Primitives\IMoveDirection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Yasc.ShogiCore.Primitives.PieceColor">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Primitives\PieceColor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Yasc.ShogiCore.Primitives
 {
@@ -24,10 +25,12 @@ namespace Yasc.ShogiCore.Primitives
     /// <summary>Returns "unpromoted" version of the piece type</summary>
     IPieceType Demote();
     /// <summary>Gets the kind of the piece which is the same for 
-    ///   promoted and unpromoted versions + different kings</summary>
+    ///   promoted and unpromoted versions and different kings</summary>
     IPieceCategory PieceKind { get; }
     ///<summary>Gets the kind of the piece which is the same for 
-    ///   promoted and unpromoted versions and NOT different kings</summary>
+    ///   promoted and unpromoted versions and NOT the same for different kings</summary>
     IPieceCategory PieceQuality { get; }
+    /// <summary>Gets all directions of move piece can do</summary>
+    IEnumerable<IMoveDirection> MoveDirections { get; }
   }
 }
