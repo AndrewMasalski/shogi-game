@@ -287,8 +287,7 @@ namespace Yasc.ShogiCore.Snapshots
       return (from p in Position.OnBoard
               where GetPieceAt(p) != null
               where GetPieceAt(p).Color == color
-              //TODO: Does anyone checks that there are two options here?
-              where GetPieceAt(p).PieceType == PT.玉 || GetPieceAt(p).PieceType == PT.王
+              where GetPieceAt(p).PieceType.PieceKind == PT.K
               select (Position?)p).FirstOrDefault();
     }
 
@@ -388,116 +387,11 @@ namespace Yasc.ShogiCore.Snapshots
 
     #region ' Estimate UsualMove Targets '
 
-    private const int MaxMoveLength = 8;
-
     private IEnumerable<Position> EstimateUsualMoveTargets(Position from)
     {
-      switch (GetPieceAt(from).PieceType.ToString())
-      {
-        case "王": return GetMovesFor王(from);
-        case "玉": return GetMovesFor王(from);
-        case "飛": return GetMovesFor飛(from);
-        case "角": return GetMovesFor角(from);
-        case "金": return GetMovesFor金(from);
-        case "銀": return GetMovesFor銀(from);
-        case "桂": return GetMovesFor桂(from);
-        case "香": return GetMovesFor香(from);
-        case "歩": return GetMovesFor歩(from);
-        case "竜": return GetMovesFor竜(from);
-        case "馬": return GetMovesFor馬(from);
-        case "全": return GetMovesFor金(from);
-        case "今": return GetMovesFor金(from);
-        case "仝": return GetMovesFor金(from);
-        default:
-          /*case "と":*/
-          return GetMovesFor金(from);
-      }
+      return GetPieceAt(from).PieceType.MoveDirections.
+        SelectMany(dir => Go(from, dir.Dx, dir.Dy, dir.Count));
     }
-
-    private IEnumerable<Position> GetMovesFor馬(Position from)
-    {
-      return Join(GetMovesFor角(from),
-                  Up(from, 1), Right(from, 1), Down(from, 1), Left(from, 1));
-    }
-    private IEnumerable<Position> GetMovesFor竜(Position from)
-    {
-      return Join(GetMovesFor飛(from),
-                  UpLeft(from, 1), UpRight(from, 1), DownRight(from, 1), DownLeft(from, 1));
-    }
-    private IEnumerable<Position> GetMovesFor歩(Position from)
-    {
-      return Up(from, 1);
-    }
-    private IEnumerable<Position> GetMovesFor香(Position from)
-    {
-      return Up(from, MaxMoveLength);
-    }
-    private IEnumerable<Position> GetMovesFor桂(Position from)
-    {
-      return Join(Go(from, 1, 2, 1), Go(from, -1, 2, 1));
-    }
-    private IEnumerable<Position> GetMovesFor銀(Position from)
-    {
-      return Join(Up(from, 1), UpRight(from, 1),
-                  DownRight(from, 1), DownLeft(from, 1), UpLeft(from, 1));
-    }
-    private IEnumerable<Position> GetMovesFor金(Position from)
-    {
-      return Join(Up(from, 1), UpRight(from, 1),
-                  Right(from, 1), Down(from, 1), Left(from, 1), UpLeft(from, 1));
-    }
-    private IEnumerable<Position> GetMovesFor角(Position from)
-    {
-      return Join(UpRight(from, MaxMoveLength),
-                  DownRight(from, MaxMoveLength), DownLeft(from, MaxMoveLength),
-                  UpLeft(from, MaxMoveLength));
-    }
-    private IEnumerable<Position> GetMovesFor飛(Position from)
-    {
-      return Join(Up(from, MaxMoveLength),
-                  Right(from, MaxMoveLength), Down(from, MaxMoveLength),
-                  Left(from, MaxMoveLength));
-    }
-    private IEnumerable<Position> GetMovesFor王(Position from)
-    {
-      return Join(Up(from, 1), UpRight(from, 1), Right(from, 1),
-                  DownRight(from, 1), Down(from, 1), DownLeft(from, 1),
-                  Left(from, 1), UpLeft(from, 1));
-    }
-
-    private IEnumerable<Position> Up(Position from, int i)
-    {
-      return Go(from, 0, 1, i);
-    }
-    private IEnumerable<Position> UpRight(Position from, int i)
-    {
-      return Go(from, 1, 1, i);
-    }
-    private IEnumerable<Position> Right(Position from, int i)
-    {
-      return Go(from, 1, 0, i);
-    }
-    private IEnumerable<Position> DownRight(Position from, int i)
-    {
-      return Go(from, 1, -1, i);
-    }
-    private IEnumerable<Position> Down(Position from, int i)
-    {
-      return Go(from, 0, -1, i);
-    }
-    private IEnumerable<Position> DownLeft(Position from, int i)
-    {
-      return Go(from, -1, -1, i);
-    }
-    private IEnumerable<Position> Left(Position from, int i)
-    {
-      return Go(from, -1, 0, i);
-    }
-    private IEnumerable<Position> UpLeft(Position from, int i)
-    {
-      return Go(from, -1, 1, i);
-    }
-
     private IEnumerable<Position> Go(Position from, int dx, int dy, int count)
     {
       var color = GetPieceAt(from).Color;
@@ -522,11 +416,6 @@ namespace Yasc.ShogiCore.Snapshots
         }
         else yield break;
       }
-    }
-
-    private static IEnumerable<T> Join<T>(params IEnumerable<T>[] arr)
-    {
-      return arr.SelectMany(e => e);
     }
 
     #endregion
@@ -579,15 +468,5 @@ namespace Yasc.ShogiCore.Snapshots
       });
 
     #endregion
-  }
-  /// <summary>Set of extension methods which makes work with 
-  ///   grid handy althogh don't add any functionality</summary>
-  public static class BoardSnapshotExtensions
-  {
-    /// <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
-    public static PieceSnapshot GetPieceAt(this BoardSnapshot board, string position)
-    {
-      return board.GetPieceAt(Position.Parse(position));
-    }
   }
 }

@@ -97,8 +97,10 @@
     <Compile Include="Core\MovesHistory.cs" />
     <Compile Include="Core\ResignMove.cs" />
     <Compile Include="Core\Helpers\PieceNotFoundException.cs" />
+    <Compile Include="Primitives\IMoveDirection.cs" />
     <Compile Include="Primitives\IPieceCategory.cs" />
     <Compile Include="Primitives\IPieceType.cs" />
+    <Compile Include="Snapshots\BoardSnapshotExtensions.cs" />
     <Compile Include="Snapshots\ResignMoveSnapshot.cs" />
     <Compile Include="Core\Helpers\ShogiGameResult.cs" />
     <Compile Include="Core\UsualMove.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Snapshots\UsualMoveSnapshot.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Primitives\Primitives.cd" />
     <None Include="Core\BoardDiagram.cd" />
     <None Include="Core\MovesDiagram.cd" />
     <None Include="Snapshots\SnapShotsDiagram.cd" />

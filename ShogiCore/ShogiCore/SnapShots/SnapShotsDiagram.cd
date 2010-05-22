@@ -51,7 +51,7 @@
       <Method Name="UpRight" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QCARCgMMAKAEAAiZmgNJJIAIEEAhApAACAShJABBAiM=</HashCode>
+      <HashCode>QCARCgMMAKAEAAiZkgNJJIAIEMAjApAACAShJABBAiM=</HashCode>
       <FileName>Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -99,12 +99,12 @@
       <Method Name="IsThatPromitionZoneFor" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAhAAAgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
+      <HashCode>AAAAAAAAEAAAhAAEgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
       <FileName>Snapshots\PieceSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="PieceType" />
       <Property Name="Color" />
+      <Property Name="PieceType" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Core.Board">
@@ -131,7 +131,7 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhAGAIQQAoMAhCAIAACAQDAACAgRAAkACSFCAIAA=</HashCode>
+      <HashCode>BCAdhAGAIQQAoMAhAAMAACIQDIACAgRAAkACSFCAIAA=</HashCode>
       <FileName>Core\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -145,37 +145,15 @@
       <FileName>Snapshots\ResignMoveSnapshot.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="Yasc.ShogiCore.Primitives.PieceType">
-    <Position X="11.75" Y="2" Width="1.5" />
-    <Members>
-      <Field Name="_value" Hidden="true" />
-      <Property Name="CanPromote" Hidden="true" />
-      <Method Name="CompareTo" Hidden="true" />
-      <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="implicit operator string" Hidden="true" />
-      <Property Name="IsPromoted" Hidden="true" />
-      <Property Name="Latin" Hidden="true" />
-      <Method Name="operator !=" Hidden="true" />
-      <Method Name="operator ==" Hidden="true" />
-      <Method Name="PieceType" Hidden="true" />
-      <Method Name="Promote" Hidden="true" />
-      <Method Name="ToString" Hidden="true" />
-    </Members>
-    <NestedTypes>
-      <Enum Name="Yasc.ShogiCore.Primitives.PieceType.RealType" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Primitives\PieceType.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
+  <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
+    <Position X="12" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BFACYKAQIAAABAQEgCGHAgBAAAFAAIAIYAAgAAEAAiA=</HashCode>
-      <FileName>Primitives\PieceType.cs</FileName>
+      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAA=</HashCode>
+      <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Struct>
+  </Interface>
   <Enum Name="Yasc.ShogiCore.Primitives.PieceColor">
-    <Position X="11.75" Y="0.5" Width="1.5" />
+    <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\PieceColor.cs</FileName>
