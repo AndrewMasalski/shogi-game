@@ -6,7 +6,7 @@ namespace Yasc.ShogiCore.Core
   public interface IPieceSet
   {
     /// <summary>Gets reference to the piece from the set by type</summary>
-    Piece this[PieceType type] { get; }
+    Piece this[IPieceType type] { get; }
     /// <summary>Marks given <paramref name="piece"/> as occupied</summary>
     void AcquirePiece(Piece piece);
     /// <summary>Returns given <paramref name="piece"/> to the set</summary>

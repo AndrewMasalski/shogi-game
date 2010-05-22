@@ -8,7 +8,7 @@ namespace Yasc.BoardControl.GenericDragDrop
   {
     public ShogiBoard ShogiBoard { get; private set; }
     public ShogiPiece ShogiPiece { get; private set; }
-    public PieceType PieceType
+    public IPieceType PieceType
     {
       get { return ShogiPiece.PieceType; }
     }

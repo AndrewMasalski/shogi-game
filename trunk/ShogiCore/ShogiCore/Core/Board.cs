@@ -194,7 +194,7 @@ namespace Yasc.ShogiCore.Core
       SetPiece(piece, GetPlayer(forOwner), toPosition);
     }
     /// <summary>Set piece to the board cell</summary>
-    public void SetPiece(PieceType ofType, Player forOwner, Position toPosition)
+    public void SetPiece(IPieceType ofType, Player forOwner, Position toPosition)
     {
       VerifyPlayerBelongs(forOwner);
       var piece = PieceSet[ofType];
@@ -221,7 +221,7 @@ namespace Yasc.ShogiCore.Core
       return UsualMove.Create(this, from, to, isPromoting);
     }
     /// <summary>Gets drop move on the board</summary>
-    public DropMove GetDropMove(PieceType piece, Position to, Player who)
+    public DropMove GetDropMove(IPieceType piece, Position to, Player who)
     {
       if (!IsMovesOrderMaintained)
         OneWhoMoves = who;
@@ -306,7 +306,7 @@ namespace Yasc.ShogiCore.Core
              select GetMove(snapshot);
     }
     /// <summary>Gets all valid drop moves available for the player for the given piece type</summary>
-    public IEnumerable<DropMove> GetAvailableMoves(PieceType pieceType, PieceColor color)
+    public IEnumerable<DropMove> GetAvailableMoves(IPieceType pieceType, PieceColor color)
     {
       var piece = GetPlayer(color).Hand.GetByType(pieceType);
       if (piece == null)
@@ -511,7 +511,7 @@ namespace Yasc.ShogiCore.Core
       return board.GetDropMove(piece, Position.Parse(to));
     }
     /// <summary>Gets drop move on the board</summary>
-    public static DropMove GetDropMove(this Board board, PieceType piece, string to, Player who)
+    public static DropMove GetDropMove(this Board board, IPieceType piece, string to, Player who)
     {
       return board.GetDropMove(piece, Position.Parse(to), who);
     }
@@ -524,7 +524,7 @@ namespace Yasc.ShogiCore.Core
     }
     
     /// <summary>Set piece to the board cell</summary>
-    public static void SetPiece(this Board board, PieceType ofType, PieceColor forOwner, Position toPosition)
+    public static void SetPiece(this Board board, IPieceType ofType, PieceColor forOwner, Position toPosition)
     {
       board.SetPiece(ofType, board.GetPlayer(forOwner), toPosition);
     }
@@ -539,12 +539,12 @@ namespace Yasc.ShogiCore.Core
       board.SetPiece(piece, forOwner, Position.Parse(toPosition));
     }
     /// <summary>Set piece to the board cell</summary>
-    public static void SetPiece(this Board board, PieceType pieceType, PieceColor forOwner, string toPosition)
+    public static void SetPiece(this Board board, IPieceType pieceType, PieceColor forOwner, string toPosition)
     {
       board.SetPiece(pieceType, forOwner, Position.Parse(toPosition));
     }
     /// <summary>Set piece to the board cell</summary>
-    public static void SetPiece(this Board board, PieceType pieceType, Player forOwner, string toPosition)
+    public static void SetPiece(this Board board, IPieceType pieceType, Player forOwner, string toPosition)
     {
       board.SetPiece(pieceType, forOwner, Position.Parse(toPosition));
     }

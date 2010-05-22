@@ -68,7 +68,7 @@ namespace ShogiCore.UnitTests.ShogiCore
       var b = new Board();
       var move = b.GetMove("P'3d", FormalNotation.Instance).First();
       var m = (DropMove)move;
-      Assert.AreEqual("歩", (string)m.PieceType);
+      Assert.AreEqual("歩", m.PieceType.ToString());
       Assert.AreEqual(new Position(2, 3), m.To);
       Assert.AreEqual("P'3d", move.ToString());
     }

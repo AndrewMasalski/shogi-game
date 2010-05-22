@@ -15,7 +15,7 @@ namespace BoardControl.AutomationTests.Peers
       SearchProperties[PropertyNames.Name] = automationId;
     }
 
-    public UHandNest this[PieceType pieceType]
+    public UHandNest this[IPieceType pieceType]
     {
       get
       {

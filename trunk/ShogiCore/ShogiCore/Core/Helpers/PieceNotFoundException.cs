@@ -12,7 +12,7 @@ namespace Yasc.ShogiCore.Core
       : base(info, context)
     {
       if (info == null) throw new ArgumentNullException("info");
-      PieceType = (PieceType) info.GetString("PieceType");
+      PieceType = Primitives.PieceType.Parse(info.GetString("PieceType"));
     }
     /// <summary>Partisipates serialization</summary>
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -23,18 +23,18 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>The type of piece which couldn't be found</summary>
-    public PieceType PieceType { get; private set; }
+    public IPieceType PieceType { get; private set; }
 
     private const string DefaultMessage =
       "The piece of type {0} is not found.";
 
-    internal PieceNotFoundException(PieceType pieceType)
+    internal PieceNotFoundException(IPieceType pieceType)
       : base(string.Format(DefaultMessage, pieceType))
     {
       PieceType = pieceType;
     }
 
-    internal PieceNotFoundException(PieceType pieceType, string message)
+    internal PieceNotFoundException(IPieceType pieceType, string message)
       : base(message)
     {
       PieceType = pieceType;

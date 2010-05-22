@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using Yasc.ShogiCore;
@@ -108,22 +108,22 @@ namespace Yasc.BoardControl.Controls
     #region ' PieceType Property '
 
     public static readonly DependencyProperty PieceTypeProperty =
-      DependencyProperty.Register("PieceType", typeof(PieceType),
-        typeof(PieceHolderBase), new UIPropertyMetadata(default(PieceType), OnPieceTypeChanged));
+      DependencyProperty.Register("PieceType", typeof(IPieceType), typeof(PieceHolderBase), 
+        new UIPropertyMetadata(ShogiCore.Primitives.PieceType.王, OnPieceTypeChanged));
 
     private static void OnPieceTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-      ((PieceHolderBase)d).OnPieceTypeChanged((PieceType)e.NewValue);
+      ((PieceHolderBase)d).OnPieceTypeChanged((IPieceType)e.NewValue);
     }
 
-    protected virtual void OnPieceTypeChanged(PieceType pieceType)
+    protected virtual void OnPieceTypeChanged(IPieceType pieceType)
     {
       UpdateContent();
     }
 
-    public PieceType PieceType
+    public IPieceType PieceType
     {
-      get { return (PieceType)GetValue(PieceTypeProperty); }
+      get { return (IPieceType)GetValue(PieceTypeProperty); }
       set { SetValue(PieceTypeProperty, value); }
     }
 

@@ -120,8 +120,14 @@ namespace ShogiCore.UnitTests.ShogiCore
       board.LoadSnapshot(s);
 
       foreach (var p in Position.OnBoard)
-        if (board.GetPieceAt(p) != null || BoardSnapshot.InitialPosition.GetPieceAt(p) != null)
-          Assert.AreEqual(board.GetPieceAt(p).Snapshot(), BoardSnapshot.InitialPosition.GetPieceAt(p));
+      {
+        var expected = BoardSnapshot.InitialPosition.GetPieceAt(p);
+        if (board.GetPieceAt(p) != null || expected != null)
+        {
+          var actual = board.GetPieceAt(p).Snapshot();
+          Assert.AreEqual(actual, expected);
+        }
+      }
     }
 
     #endregion
@@ -145,7 +151,7 @@ namespace ShogiCore.UnitTests.ShogiCore
       _board.IsMovesOrderMaintained = false;
       // Make move for black twice and check there's no exception
       _board.MakeMove(_board.GetDropMove(piece1, "1i"));
-      _board.MakeMove(_board.GetDropMove((PieceType)"角", "2i", _board.Black));
+      _board.MakeMove(_board.GetDropMove(PieceType.角, "2i", _board.Black));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedKeepsValueTest()
@@ -269,14 +275,14 @@ namespace ShogiCore.UnitTests.ShogiCore
     {
       _board.Black.Hand.Add(_board.PieceSet[PieceType.馬]);
       // When got in hand 馬 turns into 角
-      var availableMoves = _board.GetAvailableMoves((PieceType)"角", PieceColor.Black);
+      var availableMoves = _board.GetAvailableMoves(PieceType.角, PieceColor.Black);
       var toPositions = (from m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), toPositions);
     }
     [TestMethod, ExpectedException(typeof(PieceNotFoundException))]
     public void TestGetAvailableDropMovesByPieceForUnexistingPieceType()
     {
-      _board.GetAvailableMoves((PieceType)"角", PieceColor.Black);
+      _board.GetAvailableMoves(PieceType.角, PieceColor.Black);
     }
 
     #endregion

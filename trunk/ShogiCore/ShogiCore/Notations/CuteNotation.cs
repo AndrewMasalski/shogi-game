@@ -43,7 +43,7 @@ namespace Yasc.ShogiCore.Notations
       var fromPosition = FindFromPosition(_moveText, pieceType, Position.Parse(toPosition), isPromoting);
       return CreateMoves(pieceType, toPosition, isPromoting, fromPosition);
     }
-    private IEnumerable<MoveSnapshotBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, ICollection<Position> fromPositions)
+    private IEnumerable<MoveSnapshotBase> CreateMoves(IPieceType pieceType, string toPosition, bool isPromoting, ICollection<Position> fromPositions)
     {
       return fromPositions.Count == 0 
         ? CreateDropMoves(pieceType, toPosition) 
@@ -57,7 +57,7 @@ namespace Yasc.ShogiCore.Notations
         Where(move => _board.ValidateUsualMove(move) == null);
     }
 
-    private IEnumerable<DropMoveSnapshot> CreateDropMoves(PieceType pieceType, string toPosition)
+    private IEnumerable<DropMoveSnapshot> CreateDropMoves(IPieceType pieceType, string toPosition)
     {
       var dropMoveSnapshot = new DropMoveSnapshot(pieceType, _board.OneWhoMoves, Position.Parse(toPosition));
       if (_board.ValidateDropMove(dropMoveSnapshot) == null)
@@ -77,13 +77,13 @@ namespace Yasc.ShogiCore.Notations
       _moveText = _moveText.TrimEnd('=');
       return isPromoting;
     }
-    private PieceType GetPieceType()
+    private IPieceType GetPieceType()
     {
       var pieceTypeLength = _moveText.StartsWith("+") ? 2 : 1;
       var pieceTypeStr = _moveText.Substring(0, pieceTypeLength);
       var pieceType = pieceTypeStr == "K" ? CurrentKing : pieceTypeStr;
       _moveText = _moveText.Substring(pieceTypeLength, _moveText.Length - pieceTypeLength);
-      return (PieceType)pieceType;
+      return PieceType.Parse(pieceType);
     }
     private IEnumerable<UsualMoveSnapshot> ParseTake()
     {
@@ -105,7 +105,7 @@ namespace Yasc.ShogiCore.Notations
       // NOTE: Strictly speaking king type doesnt depend on color...
       get { return _board.OneWhoMoves == PieceColor.White ? "Kr" : "Kc"; }
     }
-    private Position[] FindFromPosition(string hint, PieceType pieceType, Position toPosition, bool isPromoting)
+    private Position[] FindFromPosition(string hint, IPieceType pieceType, Position toPosition, bool isPromoting)
     {
       var candidates = (from p in Position.OnBoard
                         where _board.GetPieceAt(p) != null &&

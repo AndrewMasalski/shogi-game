@@ -38,12 +38,12 @@ namespace BoardControl.AutomationTests.Peers
     {
       UsualMove(Position.Parse(positionFrom), Position.Parse(positionTo));
     }
-    public void DropMove(PieceType pieceType, PieceColor player, Position destination)
+    public void DropMove(IPieceType pieceType, PieceColor player, Position destination)
     {
       Mouse.StartDragging(GetHand(player)[pieceType].Piece);
       Mouse.StopDragging(GetCell(destination));
     }
-    public void DropMove(PieceType pieceType, PieceColor player, string destination)
+    public void DropMove(IPieceType pieceType, PieceColor player, string destination)
     {
       DropMove(pieceType, player, Position.Parse(destination));
     }

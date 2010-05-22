@@ -6,9 +6,9 @@ namespace BoardControl.AutomationTests.Peers
 {
   public class UHandNest : UPieceHolderBase
   {
-    public PieceType PieceType { get; set; }
+    public IPieceType PieceType { get; set; }
 
-    public UHandNest(UITestControl parent, PieceType pieceType) 
+    public UHandNest(UITestControl parent, IPieceType pieceType) 
       : base(parent)
     {
       PieceType = pieceType;

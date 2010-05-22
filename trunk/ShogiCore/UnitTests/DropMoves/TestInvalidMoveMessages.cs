@@ -45,8 +45,8 @@ namespace ShogiCore.UnitTests.DropMoves
     [TestMethod]
     public void CantDropLanceToTheLastLine()
     {
-      _board.Black.Hand.Add((PieceType)"香");
-      var move = _board.GetDropMove((PieceType)"香", "1a", _board.OneWhoMoves);
+      _board.Black.Hand.Add(PieceType.香);
+      var move = _board.GetDropMove(PieceType.香, "1a", _board.OneWhoMoves);
       Assert.AreEqual("Can't drop 香 to the last line", move.ErrorMessage);
     }
 
@@ -62,10 +62,10 @@ namespace ShogiCore.UnitTests.DropMoves
     public void CantDropPawnToMateTheOpponent()
     {
       _board.OneWhoMoves = _board.White;
-      _board.SetPiece((PieceType)"玉", _board.Black, "1i");
+      _board.SetPiece(PieceType.玉, _board.Black, "1i");
       _board.SetPiece(PieceType.歩, _board.Black, "1g");
-      _board.SetPiece((PieceType)"飛", _board.White, "2h");
-      _board.SetPiece((PieceType)"金", _board.White, "3g");
+      _board.SetPiece(PieceType.飛, _board.White, "2h");
+      _board.SetPiece(PieceType.金, _board.White, "3g");
       _board.White.Hand.Add(PieceType.歩);
 
       var move = _board.GetDropMove(PieceType.歩, "1h", _board.White);
