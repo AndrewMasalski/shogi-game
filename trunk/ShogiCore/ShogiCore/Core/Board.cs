@@ -13,6 +13,9 @@ namespace Yasc.ShogiCore.Core
   /// <summary>Represents observable and mutable shogi board with moves tracking, analysis, etc.</summary>
   public class Board : ObservableObject
   {
+    // TODO: Sfen strings
+    // TODO: Dix the mess with thousands SetPiece overloads
+
     #region ' Fields '
 
     private int _currentMoveIndex;
@@ -73,19 +76,24 @@ namespace Yasc.ShogiCore.Core
       get { return Position.OnBoard.Select(p => _cells[p.X, p.Y]); }
     }
     /// <summary>Gets the piece in the cell in the position -or- null if the cell is empty</summary>
-    public Piece this[Position position]
+    public Piece GetPieceAt(Position position)
     {
-      get { return _cells[position.X, position.Y].Piece; }
+      return _cells[position.X, position.Y].Piece; 
     }
     /// <summary>Gets the cell in the position</summary>
-    public Cell this[int x, int y]
+    public Cell GetCellAt(Position position)
     {
-      get { return _cells[x, y]; }
+      return _cells[position.X, position.Y];
+    }
+    /// <summary>Gets the cell in the position</summary>
+    public Cell GetCellAt(int x, int y)
+    {
+      return _cells[x, y];
     }
     /// <summary>Gets the player of the given color</summary>
-    public Player this[PieceColor color]
+    public Player GetPlayer(PieceColor color)
     {
-      get { return color == PieceColor.White ? White : Black; }
+      return color == PieceColor.White ? White : Black; 
     }
     /// <summary>Gets the game result (or <see cref="ShogiGameResult.None"/> otherwise)</summary>
     public ShogiGameResult GameResult
@@ -127,21 +135,21 @@ namespace Yasc.ShogiCore.Core
     public void LoadSnapshot(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-      OneWhoMoves = this[snapshot.OneWhoMoves];
+      OneWhoMoves = GetPlayer(snapshot.OneWhoMoves);
 
       ResetAll();
 
       foreach (var p in Position.OnBoard)
-        if (snapshot[p] != null)
+        if (snapshot.GetPieceAt(p) != null)
         {
-          var piece = PieceSet[snapshot[p].PieceType];
+          var piece = PieceSet[snapshot.GetPieceAt(p).PieceType];
           if (piece == null)
           {
             throw new NotEnoughPiecesInSetException(
               "Can't load snapshot because it's not enough pieces in set: " +
-              "couldn't find " + snapshot[p].PieceType + " to fill " + p);
+              "couldn't find " + snapshot.GetPieceAt(p).PieceType + " to fill " + p);
           }
-          SetPiece(piece, snapshot[p].Color, p);
+          SetPiece(piece, snapshot.GetPieceAt(p).Color, p);
         }
 
       White.Hand.LoadSnapshot(snapshot.WhiteHand);
@@ -183,7 +191,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Set piece to the board cell</summary>
     public void SetPiece(Piece piece, PieceColor forOwner, Position toPosition)
     {
-      SetPiece(piece, this[forOwner], toPosition);
+      SetPiece(piece, GetPlayer(forOwner), toPosition);
     }
     /// <summary>Set piece to the board cell</summary>
     public void SetPiece(PieceType ofType, Player forOwner, Position toPosition)
@@ -199,11 +207,6 @@ namespace Yasc.ShogiCore.Core
 
       SetPiece(piece, forOwner, toPosition);
     }
-    /// <summary>Set piece to the board cell</summary>
-    public void SetPiece(PieceType ofType, PieceColor forOwner, Position toPosition)
-    {
-      SetPiece(ofType, this[forOwner], toPosition);
-    }
 
     #endregion
 
@@ -212,8 +215,8 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets usual move on the board</summary>
     public UsualMove GetUsualMove(Position from, Position to, bool isPromoting)
     {
-      if (!IsMovesOrderMaintained && this[from] != null)
-        OneWhoMoves = this[from].Owner;
+      if (!IsMovesOrderMaintained && GetPieceAt(from) != null)
+        OneWhoMoves = GetPieceAt(from).Owner;
 
       return UsualMove.Create(this, from, to, isPromoting);
     }
@@ -246,13 +249,6 @@ namespace Yasc.ShogiCore.Core
       return new ResignMove(this, OneWhoMoves);
     }
 
-    /// <summary>Gets move on the board parsing it from trascript</summary>
-    public IEnumerable<MoveBase> GetMove(string text, INotation notation)
-    {
-      if (notation == null) throw new ArgumentNullException("notation");
-      return notation.Parse(CurrentSnapshot, text).Select(GetMove);
-    }
-
     /// <summary>Gets move on the board parsing it from snapsot</summary>
     public MoveBase GetMove(MoveSnapshotBase snapshot)
     {
@@ -274,7 +270,7 @@ namespace Yasc.ShogiCore.Core
     public DropMove GetMove(DropMoveSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-      return GetDropMove(snapshot.Piece.PieceType, snapshot.To, this[snapshot.Who]);
+      return GetDropMove(snapshot.Piece.PieceType, snapshot.To, GetPlayer(snapshot.Who));
     }
     /// <summary>Makes the move on the board</summary>
     /// <remarks>The method adds the move to the history and sends events</remarks>
@@ -298,12 +294,12 @@ namespace Yasc.ShogiCore.Core
 
     #region ' Analysis '
 
-    /// <summary>Gets all valid ususal moves available from the given position</summary>
+    /// <summary>Gets all valid usual moves available from the given position</summary>
     public IEnumerable<UsualMove> GetAvailableMoves(Position fromPosition)
     {
       if (!IsMovesOrderMaintained)
       {
-        var piece = this[fromPosition];
+        var piece = GetPieceAt(fromPosition);
         if (piece != null) OneWhoMoves = piece.Owner;
       }
       return from snapshot in CurrentSnapshot.GetAvailableUsualMoves(fromPosition)
@@ -312,7 +308,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets all valid drop moves available for the player for the given piece type</summary>
     public IEnumerable<DropMove> GetAvailableMoves(PieceType pieceType, PieceColor color)
     {
-      var piece = this[color].Hand.GetByType(pieceType);
+      var piece = GetPlayer(color).Hand.GetByType(pieceType);
       if (piece == null)
         throw new PieceNotFoundException(pieceType, string.Format(
           "The piece of type {0} is not found in {1} hand.", pieceType, color));
@@ -436,7 +432,7 @@ namespace Yasc.ShogiCore.Core
       piece.Owner = owner;
 
       PieceSet.AcquirePiece(piece);
-      this[position.X, position.Y].Piece = piece;
+      GetCellAt(position).Piece = piece;
     }
     /// <summary>Places the piece into the cell</summary>
     /// <remarks>Method takes piece and places it into the cell</remarks>
@@ -447,7 +443,7 @@ namespace Yasc.ShogiCore.Core
     public void SetPiece(Position position, Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
-      if (this[position.X, position.Y].Piece == piece) return;
+      if (GetCellAt(position).Piece == piece) return;
 
       var player = piece.Owner;
       if (player == null)
@@ -458,9 +454,9 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Removes the piece from the cell to the piece set</summary>
     public Piece ResetPiece(Position position)
     {
-      if (this[position.X, position.Y].Piece == null) return null;
-      var old = this[position.X, position.Y].Piece;
-      this[position.X, position.Y].Piece = null;
+      if (GetCellAt(position).Piece == null) return null;
+      var old = GetCellAt(position).Piece;
+      GetCellAt(position).Piece = null;
       PieceSet.ReleasePiece(old);
       return old;
     }
@@ -472,7 +468,7 @@ namespace Yasc.ShogiCore.Core
       return new BoardSnapshot(OneWhoMoves.Color,
 
           from position in Position.OnBoard
-          let piece = this[position]
+          let piece = GetPieceAt(position) 
           where piece != null
           select Tuple.Create(position, piece.Snapshot()),
 
@@ -487,19 +483,76 @@ namespace Yasc.ShogiCore.Core
     }
   }
 
-  /// <summary>Describes one of the ways moves can be transcribed</summary>
-  public interface INotation
+  /// <summary>Set of extension methods which makes work with 
+  ///   grid handy althogh don't add any functionality</summary>
+  public static class BoardExtensions
   {
-    /// <summary>Gets move on the board parsing it from transcript</summary>
-    /// <param name="originalBoardState">State of the board before move</param>
-    /// <param name="move">Move trancsript to parse</param>
-    /// <returns>All moves which may be transcribed given way. 
-    ///   Doesn't return null but be prepared to receive 0 moves.</returns>
-    IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move);
+    /// <summary>Gets the piece in the cell in the position -or- null if the cell is empty</summary>
+    public static Piece GetPieceAt(this Board board, string position)
+    {
+      return board.GetPieceAt(Position.Parse(position));
+    }
+    
+    /// <summary>Removes the piece from the cell to the piece set</summary>
+    public static Piece ResetPiece(this Board board, string position)
+    {
+      return board.ResetPiece(Position.Parse(position));
+    }
+    
+    /// <summary>Gets usual move on the board</summary>
+    public static UsualMove GetUsualMove(this Board board, string from, string to, bool isPromoting)
+    {
+      return board.GetUsualMove(Position.Parse(from), Position.Parse(to), isPromoting);
+    }
 
-    /// <summary>Returns the transcript for a given move</summary>
-    /// <param name="originalBoardState">State of the board before move</param>
-    /// <param name="move">Move to trancsript</param>
-    string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move);
+    /// <summary>Gets drop move on the board</summary>
+    public static DropMove GetDropMove(this Board board, Piece piece, string to)
+    {
+      return board.GetDropMove(piece, Position.Parse(to));
+    }
+    /// <summary>Gets drop move on the board</summary>
+    public static DropMove GetDropMove(this Board board, PieceType piece, string to, Player who)
+    {
+      return board.GetDropMove(piece, Position.Parse(to), who);
+    }
+    
+    /// <summary>Gets move on the board parsing it from trascript</summary>
+    public static IEnumerable<MoveBase> GetMove(this Board board, string text, INotation notation)
+    {
+      if (notation == null) throw new ArgumentNullException("notation");
+      return notation.Parse(board.CurrentSnapshot, text).Select(board.GetMove);
+    }
+    
+    /// <summary>Set piece to the board cell</summary>
+    public static void SetPiece(this Board board, PieceType ofType, PieceColor forOwner, Position toPosition)
+    {
+      board.SetPiece(ofType, board.GetPlayer(forOwner), toPosition);
+    }
+    /// <summary>Set piece to the board cell</summary>
+    public static void SetPiece(this Board board, Piece piece, Player forOwner, string toPosition)
+    {
+      board.SetPiece(piece, forOwner, Position.Parse(toPosition));
+    }
+    /// <summary>Set piece to the board cell</summary>
+    public static void SetPiece(this Board board, Piece piece, PieceColor forOwner, string toPosition)
+    {
+      board.SetPiece(piece, forOwner, Position.Parse(toPosition));
+    }
+    /// <summary>Set piece to the board cell</summary>
+    public static void SetPiece(this Board board, PieceType pieceType, PieceColor forOwner, string toPosition)
+    {
+      board.SetPiece(pieceType, forOwner, Position.Parse(toPosition));
+    }
+    /// <summary>Set piece to the board cell</summary>
+    public static void SetPiece(this Board board, PieceType pieceType, Player forOwner, string toPosition)
+    {
+      board.SetPiece(pieceType, forOwner, Position.Parse(toPosition));
+    }
+
+    /// <summary>Gets all valid usual moves available from the given position</summary>
+    public static IEnumerable<UsualMove> GetAvailableMoves(this Board board, string fromPosition)
+    {
+      return board.GetAvailableMoves(Position.Parse(fromPosition));
+    }
   }
 }

@@ -41,7 +41,7 @@ namespace Yasc.BoardControl.Controls
 
     private void OnBoardChanged(Board board)
     {
-      Hand = board == null ? null : board[Color].Hand;
+      Hand = board == null ? null : board.GetPlayer(Color).Hand;
     }
 
     public Board Board
@@ -66,7 +66,7 @@ namespace Yasc.BoardControl.Controls
 
     private void OnColorChanged(PieceColor color)
     {
-      Hand = Board == null ? null : Board[color].Hand;
+      Hand = Board == null ? null : Board.GetPlayer(color).Hand;
     }
 
     public PieceColor Color

@@ -21,7 +21,7 @@ namespace Yasc.ShogiCore.PieceSets
 
       var allPiecesInInitialPosition =
         from position in Position.OnBoard
-        select BoardSnapshot.InitialPosition[position]
+        select BoardSnapshot.InitialPosition.GetPieceAt(position)
         into pieceSnapshot
         where pieceSnapshot != null
         select pieceSnapshot.PieceType;

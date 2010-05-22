@@ -47,7 +47,7 @@ namespace ShogiCore.UnitTests.UsualMoves
     }
     private static void ValidateDropMoves(Board board, IDropMoves dropMoves)
     {
-      board.OneWhoMoves = board[dropMoves.For];
+      board.OneWhoMoves = board.GetPlayer(dropMoves.For);
       var moves = board.GetAvailableMoves(dropMoves.Piece, dropMoves.For);
       var expected = from p in dropMoves.To
                      select board.GetDropMove(dropMoves.Piece, p, board.OneWhoMoves);
@@ -71,7 +71,7 @@ namespace ShogiCore.UnitTests.UsualMoves
 
     private static void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
     {
-      board.OneWhoMoves = board[usualMoves.From].Owner;
+      board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
 
       var moves = board.GetAvailableMoves(usualMoves.From);
       var expected = from p in usualMoves.To

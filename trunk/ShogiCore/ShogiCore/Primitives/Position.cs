@@ -13,17 +13,17 @@ namespace Yasc.ShogiCore.Primitives
     /// <summary>Y coordinate of the position</summary>
     public int Y { get; private set; }
     
-    /// <summary>ctor</summary>
+
     /// <param name="position">"1a"</param>
-    public Position(string position)
-      : this()
+    public static Position Parse(string position)
     {
       if (position == null) throw new ArgumentNullException("position");
       if (position.Length != 2) throw new ArgumentOutOfRangeException("position");
-      X = int.Parse(position[0].ToString()) - 1;
-      Y = char.ToLower(position[1]) - 'a';
-      if (X < 0 || X > 8) throw new ArgumentOutOfRangeException("position");
-      if (Y < 0 || Y > 8) throw new ArgumentOutOfRangeException("position");
+      var x = int.Parse(position[0].ToString()) - 1;
+      var y = char.ToLower(position[1]) - 'a';
+      if (x < 0 || x > 8) throw new ArgumentOutOfRangeException("position");
+      if (y < 0 || y > 8) throw new ArgumentOutOfRangeException("position");
+      return new Position { X = x, Y = y };
     }
 
     /// <summary>ctor</summary>
@@ -62,6 +62,7 @@ namespace Yasc.ShogiCore.Primitives
     /// <summary>Indicates whether this instance and a specified object are equal.</summary>
     public override bool Equals(object obj)
     {
+      if (obj == null) return false;
       return obj.GetType() == typeof (Position) && Equals((Position) obj);
     }
 
@@ -88,11 +89,6 @@ namespace Yasc.ShogiCore.Primitives
 
     #region ' Operators & Statics '
 
-    /// <summary>Converts strings like "1a"</summary>
-    public static implicit operator Position(string text)
-    {
-      return new Position(text);
-    }
     /// <summary>Termwise subtraction</summary>
     public static Vector operator -(Position first, Position second)
     {

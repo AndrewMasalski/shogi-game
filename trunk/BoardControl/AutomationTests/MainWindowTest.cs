@@ -35,22 +35,22 @@ namespace BoardControl.AutomationTests
     [TestMethod]
     public void CheckDragAndDrop()
     {
-      _board.UsusalMove("1c", "1d");
-      _board.UsusalMove("1g", "1f");
-      Assert.IsFalse(_board["1d"].Piece.WaitForControlNotExist());
-      Assert.IsTrue(_board["1d"].Piece.WaitForControlExist());
+      _board.UsualMove("1c", "1d");
+      _board.UsualMove("1g", "1f");
+      Assert.IsFalse(_board.GetPiece("1d").WaitForControlNotExist());
+      Assert.IsTrue(_board.GetPiece("1f").WaitForControlExist());
     }
     [TestMethod]
     public void CheckMovesHistory()
     {
-      _board.UsusalMove("1g", "1f");
-      _board.UsusalMove("1c", "1d");
-      _board.UsusalMove("2g", "2f");
-      _board.UsusalMove("2c", "2d");
-      _board.UsusalMove("3g", "3f");
-      _board.UsusalMove("3c", "3d");
-      _board.UsusalMove("4g", "4f");
-      _board.UsusalMove("4c", "4d");
+      _board.UsualMove("1g", "1f");
+      _board.UsualMove("1c", "1d");
+      _board.UsualMove("2g", "2f");
+      _board.UsualMove("2c", "2d");
+      _board.UsualMove("3g", "3f");
+      _board.UsualMove("3c", "3d");
+      _board.UsualMove("4g", "4f");
+      _board.UsualMove("4c", "4d");
 
       var tabPage = new WpfTabPage(_window);
       tabPage.SearchProperties[WpfTabPage.PropertyNames.Name] = "Moves";
@@ -67,9 +67,9 @@ namespace BoardControl.AutomationTests
     public void CheckNoRulesDnD()
     {
       _window.InvokeMenu("Board/Enforce rules");
-      _board.UsusalMove("1c", "1d");
+      _board.UsualMove("1c", "1d");
       _window.InvokeMenu("Board/Clean");
-      _board.DropMove((PieceType)"桂", PieceColor.White, "1i");
+      _board.DropMove(PieceType.桂, PieceColor.White, "1i");
     }
   }
 }

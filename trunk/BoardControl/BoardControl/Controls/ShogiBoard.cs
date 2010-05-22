@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.BoardControl.GenericDragDrop;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
 using Yasc.Utils;
@@ -239,7 +238,8 @@ namespace Yasc.BoardControl.Controls
       var fromHand = e.From as DragFromHandEventArgs;
       if (fromHand != null)
       {
-        return Board.GetDropMove(fromHand.PieceType, e.ToPosition, Board[fromHand.PieceColor]);
+        return Board.GetDropMove(fromHand.PieceType, 
+          e.ToPosition, Board.GetPlayer(fromHand.PieceColor));
       }
       throw new ArgumentOutOfRangeException("e");
     }
@@ -247,7 +247,7 @@ namespace Yasc.BoardControl.Controls
     private void ArbitraryMove(PieceType pieceType, PieceColor color, ShogiHand hand)
     {
       if (color == hand.Color) return;
-      var opponentHand = Board[color].Hand;
+      var opponentHand = Board.GetPlayer(color).Hand;
       var piece = opponentHand.GetByType(pieceType);
       opponentHand.Remove(piece);
       hand.Hand.Add(piece);
@@ -260,7 +260,7 @@ namespace Yasc.BoardControl.Controls
     }
     private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
     {
-      var hand = Board[color].Hand;
+      var hand = Board.GetPlayer(color).Hand;
       var piece = hand.GetByType(pieceType);
       if (promotionRequest) piece.IsPromoted = true;
       hand.Remove(piece);

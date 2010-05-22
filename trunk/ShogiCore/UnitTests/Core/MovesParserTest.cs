@@ -17,13 +17,13 @@ namespace ShogiCore.UnitTests.ShogiCore
     {
       _board = new Board();
 
-      _board.SetPiece((PieceType)"歩", PieceColor.White, "1c");
-      _board.SetPiece((PieceType)"歩", PieceColor.White, "2c");
-      _board.White.Hand.Add((PieceType)"歩");
+      _board.SetPiece(PieceType.歩, PieceColor.White, "1c");
+      _board.SetPiece(PieceType.歩, PieceColor.White, "2c");
+      _board.White.Hand.Add(PieceType.歩);
 
-      _board.SetPiece((PieceType)"歩", PieceColor.Black, "8g");
-      _board.SetPiece((PieceType)"歩", PieceColor.Black, "9g");
-      _board.Black.Hand.Add((PieceType)"歩");
+      _board.SetPiece(PieceType.歩, PieceColor.Black, "8g");
+      _board.SetPiece(PieceType.歩, PieceColor.Black, "9g");
+      _board.Black.Hand.Add(PieceType.歩);
     }
 
     [TestMethod]
@@ -77,8 +77,8 @@ namespace ShogiCore.UnitTests.ShogiCore
     {
       _board.IsMovesOrderMaintained = false;
       var m = (UsualMove)_board.GetMove("8g-8f", FormalNotation.Instance).First();
-      Assert.AreEqual("8g", m.From);
-      Assert.AreEqual("8f", m.To);
+      Assert.AreEqual("8g", m.From.ToString());
+      Assert.AreEqual("8f", m.To.ToString());
       Assert.AreEqual(_board.Black, _board.OneWhoMoves);
     }
     [TestMethod]

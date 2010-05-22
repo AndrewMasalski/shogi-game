@@ -33,7 +33,7 @@ namespace Yasc.ShogiCore.Core
       if (board == null) throw new ArgumentNullException("board");
       if (snapshot == null) throw new ArgumentNullException("snapshot");
       return new DropMove(board, snapshot.Piece.PieceType, 
-        snapshot.To, board[snapshot.Piece.Color]);
+        snapshot.To, board.GetPlayer(snapshot.Piece.Color));
     }
 
     /// <summary>null if move is valid -or- explanation why it's not</summary>

@@ -55,22 +55,22 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     }
     private static void ValidateDropMoves(Board board, IDropMoves dropMoves)
     {
-      board.OneWhoMoves = board[dropMoves.For];
+      board.OneWhoMoves = board.GetPlayer(dropMoves.For);
       foreach (var to in dropMoves.To)
       {
-        var move = board.GetDropMove(dropMoves.Piece, to, board[dropMoves.For]);
+        var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
         Assert.IsTrue(move.IsValid, move.ErrorMessage);
       }
 
       foreach (var to in dropMoves.NotTo)
       {
-        var move = board.GetDropMove(dropMoves.Piece, to, board[dropMoves.For]);
+        var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
         Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
       }
     }
     private static void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
     {
-      board.OneWhoMoves = board[usualMoves.From].Owner;
+      board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
       foreach (var to in usualMoves.To)
       {
         var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
@@ -92,8 +92,8 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = _board.GetUsualMove("9g", "9f", false);
       _board.MakeMove(move);
-      Assert.IsNull(_board["9g"]);
-      Assert.AreEqual(PieceType.歩, _board["9f"].PieceType);
+      Assert.IsNull(_board.GetPieceAt("9g"));
+      Assert.AreEqual(PieceType.歩, _board.GetPieceAt("9f").PieceType);
     }
     [TestMethod]
     public void ValidMoveWithTakingPieceTest()
@@ -105,13 +105,13 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9e", "9f", false));
       _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9f", "9g", false));
 
-      Assert.IsNull(_board["9c"]);
-      Assert.IsNull(_board["9d"]);
-      Assert.IsNull(_board["9e"]);
-      Assert.IsNull(_board["9f"]);
+      Assert.IsNull(_board.GetPieceAt("9c"));
+      Assert.IsNull(_board.GetPieceAt("9d"));
+      Assert.IsNull(_board.GetPieceAt("9e"));
+      Assert.IsNull(_board.GetPieceAt("9f"));
 
-      Assert.AreEqual(PieceType.歩, _board["9g"].PieceType);
-      Assert.AreEqual(_board.White, _board["9g"].Owner);
+      Assert.AreEqual(PieceType.歩, _board.GetPieceAt("9g").PieceType);
+      Assert.AreEqual(_board.White, _board.GetPieceAt("9g").Owner);
       Assert.AreEqual(1, _board.White.Hand.Count);
       Assert.AreEqual(PieceType.歩, _board.White.Hand[0].PieceType);
       Assert.AreEqual(_board.White, _board.White.Hand[0].Owner);

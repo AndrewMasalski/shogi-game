@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\Cell.cs" />
+    <Compile Include="Core\INotation.cs" />
     <Compile Include="Notations\FormalNotation.cs" />
     <Compile Include="Notations\CuteNotation.cs" />
     <Compile Include="PieceSets\StandardPieceSet.cs" />

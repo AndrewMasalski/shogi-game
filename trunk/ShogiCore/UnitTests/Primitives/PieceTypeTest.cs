@@ -168,15 +168,15 @@ namespace ShogiCore.UnitTests.ShogiCore
       Assert.AreEqual("B", ((PieceType)"角").Latin);
       Assert.AreEqual("G", ((PieceType)"金").Latin);
       Assert.AreEqual("S", ((PieceType)"銀").Latin);
-      Assert.AreEqual("N", ((PieceType)"桂").Latin);
+      Assert.AreEqual("N", (PieceType.桂).Latin);
       Assert.AreEqual("L", ((PieceType)"香").Latin);
-      Assert.AreEqual("P", ((PieceType)"歩").Latin);
+      Assert.AreEqual("P", (PieceType.歩).Latin);
       Assert.AreEqual("Rp", ((PieceType)"竜").Latin);
-      Assert.AreEqual("Bp", ((PieceType)"馬").Latin);
+      Assert.AreEqual("Bp", (PieceType.馬).Latin);
       Assert.AreEqual("Sp", ((PieceType)"全").Latin);
       Assert.AreEqual("Np", ((PieceType)"今").Latin);
       Assert.AreEqual("Lp", ((PieceType)"仝").Latin);
-      Assert.AreEqual("Pp", ((PieceType)"と").Latin);
+      Assert.AreEqual("Pp", (PieceType.と).Latin);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void FromNullStringOperatorTest()
@@ -245,7 +245,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void TypedEqualsTest()
     {
       Assert.IsTrue(new PieceType().Equals(new PieceType()));
-      Assert.IsTrue(PieceType.馬.Equals((PieceType)"馬"));
+      Assert.IsTrue(PieceType.馬.Equals(PieceType.馬));
       Assert.IsFalse(((PieceType)"王").Equals("玉"));
     }
     [TestMethod]
