@@ -141,7 +141,7 @@ namespace Yasc.RulesVisualization
     }
     private static IEnumerable<IPieceType> ParseA(string pcs)
     {
-      return pcs.Split(',').Select(p => PieceType.Parse(p.Trim()));
+      return pcs.Split(',').Select(p => PT.Parse(p.Trim()));
     }
 
     private static IEnumerable<KeyValuePair<Position, IPieceType>> ParseB(string pcs)
@@ -151,7 +151,7 @@ namespace Yasc.RulesVisualization
         var trim = p.Trim();
         yield return new KeyValuePair<Position, IPieceType>(
           Position.Parse(trim.Substring(trim.Length - 2, 2)), 
-          PieceType.Parse(trim.Substring(0, trim.Length - 2)));
+          PT.Parse(trim.Substring(0, trim.Length - 2)));
       }
     }
 
@@ -207,10 +207,10 @@ namespace Yasc.RulesVisualization
       foreach (var color in new[] { PieceColor.White, PieceColor.Black })
         foreach (var type in new[]
                                {
-                                 PieceType.王, PieceType.玉, 
-                                 PieceType.飛, PieceType.角, 
-                                 PieceType.金, PieceType.銀, 
-                                 PieceType.桂, PieceType.香,PieceType.歩,
+                                 PT.王, PT.玉, 
+                                 PT.飛, PT.角, 
+                                 PT.金, PT.銀, 
+                                 PT.桂, PT.香,PT.歩,
                                })
         {
           var nest = board.GetHand(color).GetPiece(type);

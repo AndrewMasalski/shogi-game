@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
@@ -15,7 +16,7 @@ namespace ShogiCore.UnitTests
     [TestMethod]
     public void Immutability()
     {
-      var board = new Board();
+      var board = new Board(new StandardPieceSet());
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var original = board.CurrentSnapshot;
       var clone = new BoardSnapshot(original, new UsualMoveSnapshot(
@@ -30,35 +31,35 @@ namespace ShogiCore.UnitTests
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void CellsCollectionIsReadonly()
     {
-      var snapshot = new Board().CurrentSnapshot;
+      var snapshot = new Board(new StandardPieceSet()).CurrentSnapshot;
       ((IList<PieceSnapshot>)snapshot.Cells).Add(
-        new PieceSnapshot(PieceType.馬, PieceColor.Black));
+        new PieceSnapshot(PT.馬, PieceColor.Black));
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void BlackHandCollectionIsReadonly()
     {
-      var snapshot = new Board().CurrentSnapshot;
+      var snapshot = new Board(new StandardPieceSet()).CurrentSnapshot;
       ((IList<PieceSnapshot>)snapshot.BlackHand).Add(
-        new PieceSnapshot(PieceType.馬, PieceColor.Black));
+        new PieceSnapshot(PT.馬, PieceColor.Black));
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void WhiteHandCollectionIsReadonly()
     {
-      var snapshot = new Board().CurrentSnapshot;
+      var snapshot = new Board(new StandardPieceSet()).CurrentSnapshot;
       ((IList<PieceSnapshot>)snapshot.WhiteHand).Add(
-        new PieceSnapshot(PieceType.馬, PieceColor.Black));
+        new PieceSnapshot(PT.馬, PieceColor.Black));
     }
     [TestMethod]
     public void HandIndexerTest()
     {
-      var snapshot = new Board().CurrentSnapshot;
+      var snapshot = new Board(new StandardPieceSet()).CurrentSnapshot;
       Assert.AreSame(snapshot.WhiteHand, snapshot.Hand(PieceColor.White));
       Assert.AreSame(snapshot.BlackHand, snapshot.Hand(PieceColor.Black));
     }
     [TestMethod]
     public void IndexerTest()
     {
-      var board = new Board();
+      var board = new Board(new StandardPieceSet());
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var snapshot = board.CurrentSnapshot;
       foreach (var p in Position.OnBoard)
@@ -67,7 +68,7 @@ namespace ShogiCore.UnitTests
     [TestMethod]
     public void EqualsTest()
     {
-      var board = new Board();
+      var board = new Board(new StandardPieceSet());
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var snapshot1 = board.CurrentSnapshot;
       var snapshot2 = board.CurrentSnapshot;
@@ -81,7 +82,7 @@ namespace ShogiCore.UnitTests
     [TestMethod]
     public void IsCheckForTest()
     {
-      var snapshot = new Board().CurrentSnapshot;
+      var snapshot = new Board(new StandardPieceSet()).CurrentSnapshot;
       Assert.IsFalse(snapshot.IsCheckFor(PieceColor.Black));
     }
     [TestMethod]
@@ -90,7 +91,7 @@ namespace ShogiCore.UnitTests
       var formatter = new BinaryFormatter();
       using (var buffer = new MemoryStream())
       {
-        var board = new Board();
+        var board = new Board(new StandardPieceSet());
         board.LoadSnapshot(BoardSnapshot.InitialPosition);
         formatter.Serialize(buffer, board.CurrentSnapshot);
       }

@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
@@ -16,7 +17,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestInitialize]
     public void Init()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
     }
 
     /// <summary>Contains position-pieceType pairs of initial position</summary>
@@ -34,7 +35,7 @@ namespace ShogiCore.UnitTests.ShogiCore
         "6g", "歩", "7g", "歩", "8g", "歩", "9g", "歩",
       }
       .Pairs((position, pieceType) => Tuple.Create(
-          Position.Parse(position), PieceType.Parse(pieceType)))
+          Position.Parse(position), PT.Parse(pieceType)))
       .ToReadOnlyDictionary(pair => pair.Item1, pair => pair.Item2);
 
 

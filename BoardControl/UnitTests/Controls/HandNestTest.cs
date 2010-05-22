@@ -14,7 +14,7 @@ namespace BoardControl.UnitTests.Controls
    *  nest.DetachPiece();
    *  nest.PiecesCount = 1;
    *  nest.PieceColor = PieceColor.Black;
-   *  nest.PieceType = PieceType.馬;
+   *  nest.PieceType = PT.馬;
    *  nest.IsFlipped = true;
    *  nest.IsMoveSource = true;
    *  nest.IsPossibleMoveTarget = true;
@@ -29,10 +29,10 @@ namespace BoardControl.UnitTests.Controls
     {
       var nest = new HandNest();
       Assert.IsNotNull(nest.Content);
-      nest.PieceType = PieceType.香;
-      Assert.AreEqual(PieceType.香, nest.ShogiPiece.PieceType);
-      nest.PieceType = PieceType.と;
-      Assert.AreEqual(PieceType.と, nest.ShogiPiece.PieceType);
+      nest.PieceType = PT.香;
+      Assert.AreEqual(PT.香, nest.ShogiPiece.PieceType);
+      nest.PieceType = PT.と;
+      Assert.AreEqual(PT.と, nest.ShogiPiece.PieceType);
       nest.PieceColor = PieceColor.White;
       Assert.AreEqual(PieceColor.White, nest.ShogiPiece.PieceColor);
       nest.PieceColor = PieceColor.Black;
@@ -54,11 +54,11 @@ namespace BoardControl.UnitTests.Controls
     public void DetachTest()
     {
       var nest = new HandNest();
-      Assert.AreEqual(PieceType.王, nest.ShogiPiece.PieceType);
+      Assert.AreEqual(PT.王, nest.ShogiPiece.PieceType);
       Assert.AreEqual(PieceColor.Black, nest.ShogiPiece.PieceColor);
       var piece = nest.DetachPiece();
       Assert.IsNull(nest.ShogiPiece);
-      Assert.AreEqual(PieceType.王, piece.PieceType);
+      Assert.AreEqual(PT.王, piece.PieceType);
       Assert.AreEqual(PieceColor.Black, piece.PieceColor);
     }
   }

@@ -43,7 +43,7 @@ namespace Yasc.ShogiCore.Notations
       else
       {
         var elements = move.Split('\'');
-        var piece = PieceType.Parse(elements[0]);
+        var piece = PT.Parse(elements[0]);
         var to = Position.Parse(elements[1]);
 
         yield return new DropMoveSnapshot(

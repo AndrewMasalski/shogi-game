@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Board.cs" />
+    <Compile Include="Core\BoardExtensions.cs" />
     <Compile Include="Core\Cell.cs" />
     <Compile Include="Core\INotation.cs" />
     <Compile Include="Notations\FormalNotation.cs" />
@@ -96,6 +97,8 @@
     <Compile Include="Core\MovesHistory.cs" />
     <Compile Include="Core\ResignMove.cs" />
     <Compile Include="Core\Helpers\PieceNotFoundException.cs" />
+    <Compile Include="Primitives\IPieceCategory.cs" />
+    <Compile Include="Primitives\IPieceType.cs" />
     <Compile Include="Snapshots\ResignMoveSnapshot.cs" />
     <Compile Include="Core\Helpers\ShogiGameResult.cs" />
     <Compile Include="Core\UsualMove.cs" />
@@ -103,7 +106,7 @@
     <Compile Include="Core\Piece.cs" />
     <Compile Include="Primitives\PieceColor.cs" />
     <Compile Include="Core\Helpers\PieceHasNoOwnerException.cs" />
-    <Compile Include="Primitives\PieceType.cs" />
+    <Compile Include="Primitives\PT.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="Primitives\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

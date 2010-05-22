@@ -315,7 +315,7 @@ namespace Yasc.BoardControl.Controls
       {
         if (collection == null) return null;
         return new ObservableCollection<HandNest>(
-          from id in PieceType.AllPieceQualities
+          from id in PT.AllPieceQualities
           // TODO: Consider changing pieceType with piece kind!
           let pieceType = id.PieceTypes[0]
           select new HandNest

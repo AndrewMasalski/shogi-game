@@ -71,7 +71,7 @@ namespace MainModule.AutomationTests
       _window.InvokeMenu("Board/Enforce rules");
       _board.UsualMove("1c", "1d");
       _window.InvokeMenu("Board/Clean");
-      _board.DropMove(PieceType.桂, PieceColor.White, "1i");
+      _board.DropMove(PT.桂, PieceColor.White, "1i");
     }
   }
 }

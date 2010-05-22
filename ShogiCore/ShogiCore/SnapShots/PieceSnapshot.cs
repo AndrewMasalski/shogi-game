@@ -40,12 +40,12 @@ namespace Yasc.ShogiCore.Snapshots
     ///   text with explanation why he's not allowed to do that</summary>
     public string IsPromotionMandatory(Position position)
     {
-      if (PieceType == Primitives.PieceType.歩 || PieceType == Primitives.PieceType.香)
+      if (PieceType == PT.歩 || PieceType == PT.香)
         if (HowFarFromTheLastLine(position) == 0)
           return PieceType + " cannot move to "
                  + "the last line without promotion";
 
-      if (PieceType == Primitives.PieceType.桂)
+      if (PieceType == PT.桂)
         if (HowFarFromTheLastLine(position) < 2)
           return "桂 cannot move to the last two lines without promotion";
 
@@ -113,6 +113,7 @@ namespace Yasc.ShogiCore.Snapshots
       return HowFarFromTheLastLine(position) < 3;
     }
 
+    /// <summary>Returns a <see cref="string"/> which represents the piece instance.</summary>
     public override string ToString()
     {
       return Color + " " + PieceType;

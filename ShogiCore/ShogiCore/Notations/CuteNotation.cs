@@ -83,7 +83,7 @@ namespace Yasc.ShogiCore.Notations
       var pieceTypeStr = _moveText.Substring(0, pieceTypeLength);
       var pieceType = pieceTypeStr == "K" ? CurrentKing : pieceTypeStr;
       _moveText = _moveText.Substring(pieceTypeLength, _moveText.Length - pieceTypeLength);
-      return PieceType.Parse(pieceType);
+      return PT.Parse(pieceType);
     }
     private IEnumerable<UsualMoveSnapshot> ParseTake()
     {
