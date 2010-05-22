@@ -4,6 +4,7 @@ using System.Threading;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
@@ -16,7 +17,7 @@ namespace MainModule.AI
 
     public RandomAiController()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
     }
 

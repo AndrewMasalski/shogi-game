@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
 namespace ShogiCore.UnitTests.ShogiCore.Moves
@@ -15,7 +16,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestInitialize]
     public void Init()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
     }
 
     [TestMethod]
@@ -118,12 +119,12 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     }
     private static MoveBase CreateDummyMove()
     {
-      return new Board().GetUsualMove("1i", "2i", false);
+      return new Board(new StandardPieceSet()).GetUsualMove("1i", "2i", false);
     }
     [TestMethod]
     public void HistoryTest()
     {
-      _board.SetPiece(PieceType.歩, _board.Black, "1i");
+      _board.SetPiece(PT.歩, _board.Black, "1i");
       var move = _board.GetMove("1i-1h", FormalNotation.Instance).First();
       var s1 = _board.CurrentSnapshot;
       _board.MakeMove(move);

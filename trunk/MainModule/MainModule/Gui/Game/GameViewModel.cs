@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using Yasc.Persistence;
 using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils.Mvvm;
@@ -166,7 +167,7 @@ namespace MainModule.Gui.Game
 
     protected void InitBoard()
     {
-      Board = new Board();
+      Board = new Board(new StandardPieceSet());
       Board.LoadSnapshot(BoardSnapshot.InitialPosition);
       MovesAndComments = new ObservableCollection<object>();
     }

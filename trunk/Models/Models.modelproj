@@ -69,5 +69,9 @@
       <Name>ShogiCore (ShogiCore\ShogiCore)</Name>
       <Project>{fdf88daa-6bed-41a1-a1af-ee259d710c9a}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ShogiCore\UnitTests\UnitTests.csproj">
+      <Name>UnitTests</Name>
+      <Project>{94f07960-a013-46af-bcc3-6e55dd48989e}</Project>
+    </ProjectReference>
   </ItemGroup>
 </Project>

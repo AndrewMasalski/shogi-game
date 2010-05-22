@@ -1,9 +1,8 @@
 using System;
-using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.BoardControl.Controls;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 
 namespace BoardControl.UnitTests
 {
@@ -13,7 +12,7 @@ namespace BoardControl.UnitTests
     [TestMethod]
     public void CheckMemoryLeaksForShogiHand()
     {
-      var board = new Board();
+      var board = new Board(new StandardPieceSet());
       var hand = new ShogiHand {Hand = board.White.Hand};
 
       var handWeakReference = new WeakReference(hand);

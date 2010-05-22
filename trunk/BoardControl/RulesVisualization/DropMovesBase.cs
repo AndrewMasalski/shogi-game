@@ -13,7 +13,7 @@ namespace Yasc.RulesVisualization
 
     IPieceType IDropMoves.Piece
     {
-      get { return PieceType.Parse(Piece); }
+      get { return PT.Parse(Piece); }
     }
     IEnumerable<Position> IDropMoves.To
     {

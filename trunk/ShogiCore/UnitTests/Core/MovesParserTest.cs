@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
@@ -15,21 +16,21 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestInitialize]
     public void Init()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
 
-      _board.SetPiece(PieceType.歩, PieceColor.White, "1c");
-      _board.SetPiece(PieceType.歩, PieceColor.White, "2c");
-      _board.White.Hand.Add(PieceType.歩);
+      _board.SetPiece(PT.歩, PieceColor.White, "1c");
+      _board.SetPiece(PT.歩, PieceColor.White, "2c");
+      _board.White.Hand.Add(PT.歩);
 
-      _board.SetPiece(PieceType.歩, PieceColor.Black, "8g");
-      _board.SetPiece(PieceType.歩, PieceColor.Black, "9g");
-      _board.Black.Hand.Add(PieceType.歩);
+      _board.SetPiece(PT.歩, PieceColor.Black, "8g");
+      _board.SetPiece(PT.歩, PieceColor.Black, "9g");
+      _board.Black.Hand.Add(PT.歩);
     }
 
     [TestMethod]
     public void TestMoveToSting()
     {
-      var b = new Board();
+      var b = new Board(new StandardPieceSet());
       b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d", FormalNotation.Instance).First();
       var m = (UsualMove) move;
@@ -41,7 +42,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void TestUsualMoveToString()
     {
-      var b = new Board();
+      var b = new Board(new StandardPieceSet());
       b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d+", FormalNotation.Instance).First();
       var m = (UsualMove)move;
@@ -53,7 +54,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void TestUsualMoveNoPropmotionToString()
     {
-      var b = new Board();
+      var b = new Board(new StandardPieceSet());
       b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d=", FormalNotation.Instance).First();
       var m = (UsualMove)move;
@@ -65,7 +66,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void TestDropMoveToString()
     {
-      var b = new Board();
+      var b = new Board(new StandardPieceSet());
       var move = b.GetMove("P'3d", FormalNotation.Instance).First();
       var m = (DropMove)move;
       Assert.AreEqual("歩", m.PieceType.ToString());

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
@@ -18,7 +19,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestInitialize]
     public void Init()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
     }
 
     #region ' RunDiagrams '
@@ -93,7 +94,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       var move = _board.GetUsualMove("9g", "9f", false);
       _board.MakeMove(move);
       Assert.IsNull(_board.GetPieceAt("9g"));
-      Assert.AreEqual(PieceType.歩, _board.GetPieceAt("9f").PieceType);
+      Assert.AreEqual(PT.歩, _board.GetPieceAt("9f").PieceType);
     }
     [TestMethod]
     public void ValidMoveWithTakingPieceTest()
@@ -110,10 +111,10 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       Assert.IsNull(_board.GetPieceAt("9e"));
       Assert.IsNull(_board.GetPieceAt("9f"));
 
-      Assert.AreEqual(PieceType.歩, _board.GetPieceAt("9g").PieceType);
+      Assert.AreEqual(PT.歩, _board.GetPieceAt("9g").PieceType);
       Assert.AreEqual(_board.White, _board.GetPieceAt("9g").Owner);
       Assert.AreEqual(1, _board.White.Hand.Count);
-      Assert.AreEqual(PieceType.歩, _board.White.Hand[0].PieceType);
+      Assert.AreEqual(PT.歩, _board.White.Hand[0].PieceType);
       Assert.AreEqual(_board.White, _board.White.Hand[0].Owner);
     }
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]

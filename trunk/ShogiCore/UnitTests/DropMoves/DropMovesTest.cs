@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
@@ -16,7 +17,7 @@ namespace ShogiCore.UnitTests.DropMoves
     [TestInitialize]
     public void Init()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
       
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       
@@ -41,7 +42,7 @@ namespace ShogiCore.UnitTests.DropMoves
     public void MovesOrderMaintenanceFalse()
     {
       _board.IsMovesOrderMaintained = false;
-      var move = _board.GetDropMove(PieceType.歩, "9e", _board.OneWhoMoves);
+      var move = _board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves);
       Assert.AreEqual("Player doesn't have this piece in hand", move.ErrorMessage);
     }
     [TestMethod]

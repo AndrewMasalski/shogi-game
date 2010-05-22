@@ -12,7 +12,7 @@ namespace Yasc.ShogiCore.Core
       : base(info, context)
     {
       if (info == null) throw new ArgumentNullException("info");
-      PieceType = Primitives.PieceType.Parse(info.GetString("PieceType"));
+      PieceType = Primitives.PT.Parse(info.GetString("PieceType"));
     }
     /// <summary>Partisipates serialization</summary>
     public override void GetObjectData(SerializationInfo info, StreamingContext context)

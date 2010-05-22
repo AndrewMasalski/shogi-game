@@ -92,7 +92,7 @@ namespace Yasc.BoardControl.Controls
 
     public static readonly DependencyProperty PieceTypeProperty =
       DependencyProperty.Register("PieceType", typeof(IPieceType),
-        typeof(ShogiPiece), new UIPropertyMetadata(ShogiCore.Primitives.PieceType.王));
+        typeof(ShogiPiece), new UIPropertyMetadata(ShogiCore.Primitives.PT.王));
 
     public IPieceType PieceType
     {

@@ -1,5 +1,5 @@
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.Persistence
@@ -10,7 +10,7 @@ namespace Yasc.Persistence
 
     public PsnLoader()
     {
-      _board = new Board();
+      _board = new Board(new StandardPieceSet());
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
     }
 

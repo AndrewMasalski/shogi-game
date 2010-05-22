@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Windows;
 using Yasc.BoardControl.Controls;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
 namespace BoardControl.UnitTests.ShogiPiece
@@ -14,11 +14,11 @@ namespace BoardControl.UnitTests.ShogiPiece
     {
       InitializeComponent();
       DataContext = this;
-      var b = new Board();
-      Pieces = new[] { b.PieceSet[PieceType.と], b.PieceSet[PieceType.Parse("玉")] };
+      var b = new Board(new StandardPieceSet());
+      Pieces = new[] { b.PieceSet[PT.と], b.PieceSet[PT.Parse("玉")] };
       PossibleDirections = (PieceDirection[])Enum.GetValues(typeof(PieceDirection));
       PossibleColors = (PieceColor[])Enum.GetValues(typeof(PieceColor));
-      PossibleTypes = PieceType.AllPieceTypes.ToArray();
+      PossibleTypes = PT.AllPieceTypes.ToArray();
  
     }
 

@@ -1,5 +1,5 @@
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Snapshots;
 
 namespace TestStand.ShogiBoard
@@ -9,7 +9,7 @@ namespace TestStand.ShogiBoard
     public MainWindow()
     {
       InitializeComponent();
-      var board = new Board();
+      var board = new Board(new StandardPieceSet());
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       DataContext = board;
     }

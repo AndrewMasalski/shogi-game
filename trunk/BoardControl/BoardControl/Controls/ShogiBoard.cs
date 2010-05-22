@@ -165,7 +165,7 @@ namespace Yasc.BoardControl.Controls
       foreach (var p in promoting)
         GetCell(p).IsPromotionAllowed = true;
 
-      if (args.Piece.PieceType != PieceType.銀)
+      if (args.Piece.PieceType != PT.銀)
         foreach (var p in promoting)
           GetCell(p).IsPromotionRecommended = true;
 
