@@ -286,7 +286,7 @@ namespace Yasc.BoardControl.Controls
         }
       }
 
-      private HandNest FindOrCreateNest(PieceType type)
+      private HandNest FindOrCreateNest(IPieceType type)
       {
         foreach (var nest in Owner.Items)
           if (nest.PieceType == type)
@@ -315,8 +315,9 @@ namespace Yasc.BoardControl.Controls
       {
         if (collection == null) return null;
         return new ObservableCollection<HandNest>(
-          from id in PieceType.AllValidIds
-          let pieceType = PieceType.GetPieceType(id)
+          from id in PieceType.AllPieceQualities
+          // TODO: Consider changing pieceType with piece kind!
+          let pieceType = id.PieceTypes[0]
           select new HandNest
                    {
                      PieceColor = Owner.Color,
@@ -333,11 +334,11 @@ namespace Yasc.BoardControl.Controls
         {
           case NotifyCollectionChangedAction.Add:
             foreach (Piece piece in args.NewItems)
-              Owner.Items[piece.PieceType.Id].PiecesCount++;
+              Owner.Items[piece.PieceType.PieceQuality.Id].PiecesCount++;
             break;
           case NotifyCollectionChangedAction.Remove:
             foreach (Piece piece in args.OldItems)
-              Owner.Items[piece.PieceType.Id].PiecesCount--;
+              Owner.Items[piece.PieceType.PieceQuality.Id].PiecesCount--;
             break;
           default:
             throw new NotSupportedException();
@@ -358,9 +359,9 @@ namespace Yasc.BoardControl.Controls
       return new ShogiHandAutomationPeer(this);
     }
 
-    public HandNest this [PieceType pieceType]
+    public HandNest GetPiece(IPieceType pieceType)
     {
-      get { return Items.LastOrDefault(n => n.PieceType == pieceType); }
+      return Items.LastOrDefault(n => n.PieceType == pieceType); 
     }
   }
 }

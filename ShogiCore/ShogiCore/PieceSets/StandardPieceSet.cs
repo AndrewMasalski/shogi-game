@@ -27,15 +27,15 @@ namespace Yasc.ShogiCore.PieceSets
         select pieceSnapshot.PieceType;
 
       foreach (var pieceType in allPiecesInInitialPosition)
-        _set[pieceType.Id].Add(new Piece(pieceType));
+        _set[pieceType.PieceQuality.Id].Add(new Piece(pieceType));
     }
 
     /// <summary>Gets reference to the piece from the set by type</summary>
-    public Piece this[PieceType type]
+    public Piece this[IPieceType type]
     {
       get
       {
-        var list = _set[type.Id];
+        var list = _set[type.PieceQuality.Id];
         if (list.Count == 0)
         {
           return null;
@@ -50,7 +50,7 @@ namespace Yasc.ShogiCore.PieceSets
     public void AcquirePiece(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
-      var list = _set[piece.PieceType.Id];
+      var list = _set[piece.PieceType.PieceQuality.Id];
       if (!list.Remove(piece))
       {
         throw new InvalidOperationException(
@@ -62,7 +62,7 @@ namespace Yasc.ShogiCore.PieceSets
     {
       if (piece == null) throw new ArgumentNullException("piece");
       piece.Owner = null;
-      var list = _set[piece.PieceType.Id];
+      var list = _set[piece.PieceType.PieceQuality.Id];
       if (list.Contains(piece))
       {
         throw new InvalidOperationException(

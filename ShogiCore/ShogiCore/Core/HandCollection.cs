@@ -31,7 +31,7 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Adds the piece from board's piece set to the hand</summary>
-    public Piece Add(PieceType type)
+    public Piece Add(IPieceType type)
     {
       var piece = _pieceSet[type];
       if (piece == null)
@@ -50,7 +50,7 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Gets the piece from player hand by type -or- null</summary>
-    public Piece GetByType(PieceType pieceType)
+    public Piece GetByType(IPieceType pieceType)
     {
       return Items.FirstOrDefault(piece => piece.PieceType == pieceType);
     }
@@ -67,7 +67,7 @@ namespace Yasc.ShogiCore.Core
       return Items.Remove(item);
     }
     /// <summary>Removes the piece from hand by type</summary>
-    public bool Remove(PieceType pieceType)
+    public bool Remove(IPieceType pieceType)
     {
       var item = GetByType(pieceType);
       return item != null && Items.Remove(item);

@@ -33,7 +33,7 @@ namespace ShogiCore.UnitTests
     {
       var board = new Board();
       var piece = board.PieceSet[PieceType.馬];
-      Assert.AreEqual(PieceType.馬, (string)piece.PieceType);
+      Assert.AreEqual(PieceType.馬, piece.PieceType);
       Assert.IsNull(piece.Owner);
     }
     [TestMethod]

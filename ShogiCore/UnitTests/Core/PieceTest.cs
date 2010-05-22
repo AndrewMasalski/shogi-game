@@ -14,9 +14,9 @@ namespace ShogiCore.UnitTests.ShogiCore
       var b = new Board();
       var p = b.PieceSet[PieceType.歩];
       p.IsPromoted = true;
-      Assert.AreEqual(PieceType.と, (string)p.PieceType);
+      Assert.AreEqual(PieceType.と, p.PieceType);
       p.IsPromoted = false;
-      Assert.AreEqual(PieceType.歩, (string)p.PieceType);
+      Assert.AreEqual(PieceType.歩, p.PieceType);
     }
     [TestMethod]
     public void CellTest()

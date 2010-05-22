@@ -143,84 +143,88 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void ToStringOperatorTest()
     {
-      Assert.AreEqual("王", (string)PieceType.王);
-      Assert.AreEqual("玉", (string)PieceType.玉);
-      Assert.AreEqual("飛", (string)PieceType.飛);
-      Assert.AreEqual("角", (string)PieceType.角);
-      Assert.AreEqual("金", (string)PieceType.金);
-      Assert.AreEqual("銀", (string)PieceType.銀);
-      Assert.AreEqual("桂", (string)PieceType.桂);
-      Assert.AreEqual("香", (string)PieceType.香);
-      Assert.AreEqual("歩", (string)PieceType.歩);
-      Assert.AreEqual("竜", (string)PieceType.竜);
-      Assert.AreEqual("馬", (string)PieceType.馬);
-      Assert.AreEqual("全", (string)PieceType.全);
-      Assert.AreEqual("今", (string)PieceType.今);
-      Assert.AreEqual("仝", (string)PieceType.仝);
-      Assert.AreEqual("と", (string)PieceType.と);
+      Assert.AreEqual("王", PieceType.王.ToString());
+      Assert.AreEqual("玉", PieceType.玉.ToString());
+      Assert.AreEqual("飛", PieceType.飛.ToString());
+      Assert.AreEqual("角", PieceType.角.ToString());
+      Assert.AreEqual("金", PieceType.金.ToString());
+      Assert.AreEqual("銀", PieceType.銀.ToString());
+      Assert.AreEqual("桂", PieceType.桂.ToString());
+      Assert.AreEqual("香", PieceType.香.ToString());
+      Assert.AreEqual("歩", PieceType.歩.ToString());
+      Assert.AreEqual("竜", PieceType.竜.ToString());
+      Assert.AreEqual("馬", PieceType.馬.ToString());
+      Assert.AreEqual("全", PieceType.全.ToString());
+      Assert.AreEqual("今", PieceType.今.ToString());
+      Assert.AreEqual("仝", PieceType.仝.ToString());
+      Assert.AreEqual("と", PieceType.と.ToString());
     }
     [TestMethod]
     public void FromStringOperatorTest()
     {
-      Assert.AreEqual("Kr", ((PieceType)"王").Latin);
-      Assert.AreEqual("Kc", ((PieceType)"玉").Latin);
-      Assert.AreEqual("R", ((PieceType)"飛").Latin);
-      Assert.AreEqual("B", ((PieceType)"角").Latin);
-      Assert.AreEqual("G", ((PieceType)"金").Latin);
-      Assert.AreEqual("S", ((PieceType)"銀").Latin);
+      Assert.AreEqual("Kr", (PieceType.王).Latin);
+      Assert.AreEqual("Kc", (PieceType.玉).Latin);
+      Assert.AreEqual("R", (PieceType.飛).Latin);
+      Assert.AreEqual("B", (PieceType.角).Latin);
+      Assert.AreEqual("G", (PieceType.金).Latin);
+      Assert.AreEqual("S", (PieceType.銀).Latin);
       Assert.AreEqual("N", (PieceType.桂).Latin);
-      Assert.AreEqual("L", ((PieceType)"香").Latin);
+      Assert.AreEqual("L", (PieceType.香).Latin);
       Assert.AreEqual("P", (PieceType.歩).Latin);
-      Assert.AreEqual("Rp", ((PieceType)"竜").Latin);
+      Assert.AreEqual("Rp", (PieceType.竜).Latin);
       Assert.AreEqual("Bp", (PieceType.馬).Latin);
-      Assert.AreEqual("Sp", ((PieceType)"全").Latin);
-      Assert.AreEqual("Np", ((PieceType)"今").Latin);
-      Assert.AreEqual("Lp", ((PieceType)"仝").Latin);
+      Assert.AreEqual("Sp", (PieceType.全).Latin);
+      Assert.AreEqual("Np", (PieceType.今).Latin);
+      Assert.AreEqual("Lp", (PieceType.仝).Latin);
       Assert.AreEqual("Pp", (PieceType.と).Latin);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void FromNullStringOperatorTest()
     {
-      ((PieceType) null).ToString();
+      PieceType.Parse(null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void FromEmptyStringOperatorTest()
     {
-      ((PieceType) "").ToString();
+      PieceType.Parse("");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void FromIncorrectStringOperatorTest()
     {
-      ((PieceType) "d").ToString();
+      PieceType.Parse("d");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void FromLongIncorrectStringOperatorTest()
     {
-      ((PieceType) "afsdfd").ToString();
+      PieceType.Parse("afsdfd");
     }
     [TestMethod]
     public void IdPropertyTest()
     {
-      Assert.AreEqual(0, PieceType.王.Id);
-      Assert.AreEqual(1, PieceType.玉.Id);
-      Assert.AreEqual(2, PieceType.飛.Id);
-      Assert.AreEqual(3, PieceType.角.Id);
-      Assert.AreEqual(4, PieceType.金.Id);
-      Assert.AreEqual(5, PieceType.銀.Id);
-      Assert.AreEqual(6, PieceType.桂.Id);
-      Assert.AreEqual(7, PieceType.香.Id);
-      Assert.AreEqual(8, PieceType.歩.Id);
-      Assert.AreEqual(2, PieceType.竜.Id);
-      Assert.AreEqual(3, PieceType.馬.Id);
-      Assert.AreEqual(5, PieceType.全.Id);
-      Assert.AreEqual(6, PieceType.今.Id);
-      Assert.AreEqual(7, PieceType.仝.Id);
-      Assert.AreEqual(8, PieceType.と.Id);
+      Assert.AreEqual(7, PieceType.王.PieceQuality.Id);
+      Assert.AreEqual(8, PieceType.玉.PieceQuality.Id);
+
+      Assert.AreEqual(7, PieceType.王.PieceKind.Id);
+      Assert.AreEqual(7, PieceType.玉.PieceKind.Id);
+      Assert.AreEqual(0, PieceType.飛.PieceKind.Id);
+      Assert.AreEqual(1, PieceType.角.PieceKind.Id);
+      Assert.AreEqual(2, PieceType.金.PieceKind.Id);
+      Assert.AreEqual(3, PieceType.銀.PieceKind.Id);
+      Assert.AreEqual(4, PieceType.桂.PieceKind.Id);
+      Assert.AreEqual(5, PieceType.香.PieceKind.Id);
+      Assert.AreEqual(6, PieceType.歩.PieceKind.Id);
+      Assert.AreEqual(0, PieceType.竜.PieceKind.Id);
+      Assert.AreEqual(1, PieceType.馬.PieceKind.Id);
+      Assert.AreEqual(3, PieceType.全.PieceKind.Id);
+      Assert.AreEqual(4, PieceType.今.PieceKind.Id);
+      Assert.AreEqual(5, PieceType.仝.PieceKind.Id);
+      Assert.AreEqual(6, PieceType.と.PieceKind.Id);
     }
     [TestMethod]
     public void GetIdsMethodTest()
     {
-      CollectionAssert.AreEqual(new []{0, 1, 2, 3, 4, 5, 6, 7, 8}, PieceType.AllValidIds.ToList());
+      CollectionAssert.AreEqual(new []{7, 0, 1, 2, 3, 4, 5, 6}, 
+        PieceType.AllPieceKinds.Select(knd => knd.Id).ToList());
     }
     [TestMethod]
     public void GetValuesStaticMethodTest()
@@ -234,47 +238,20 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void GetPieceMethodTest()
     {
-      var expected = new[] { PieceType.王, PieceType.玉, PieceType.金, PieceType.飛, PieceType.角, PieceType.銀, PieceType.桂, PieceType.香, PieceType.歩 };
-      var actual = from id in PieceType.AllValidIds select PieceType.GetPieceType(id);
+      var expected = new[] { PieceType.王, PieceType.金, PieceType.飛, 
+        PieceType.角, PieceType.銀, PieceType.桂, PieceType.香, PieceType.歩 };
+      var actual = from id in PieceType.AllPieceKinds select id.PieceTypes[0];
       CollectionAssert.AreEquivalent(expected, actual.ToList());
     }
 
     #region ' Equality '
 
     [TestMethod]
-    public void TypedEqualsTest()
-    {
-      Assert.IsTrue(new PieceType().Equals(new PieceType()));
-      Assert.IsTrue(PieceType.馬.Equals(PieceType.馬));
-      Assert.IsFalse(((PieceType)"王").Equals("玉"));
-    }
-    [TestMethod]
-    public void CommonEqualsTest()
-    {
-      Assert.IsFalse(new PieceType().Equals((object)null));
-      Assert.IsFalse(new PieceType().Equals(new object()));
-      Assert.IsFalse(new PieceType().Equals(6));
-      Assert.IsTrue(new PieceType().Equals((object)new PieceType()));
-    }
-    [TestMethod]
-    public void GetHashCodeTest()
-    {
-      var expected = from t in PieceType.AllPieceTypes select t.GetHashCode();
-      var actual = expected.Distinct();
-      Assert.AreEqual(expected.Count(), actual.Count());
-    }
-    [TestMethod]
-    public void OperatorsTest()
-    {
-      Assert.IsTrue(PieceType.香 == "香");
-      Assert.IsTrue("香" != PieceType.玉);
-    }
-    [TestMethod]
     public void ComparerTest()
     {
-      Assert.IsTrue(PieceType.玉.CompareTo((PieceType)"香") < 0);
-      Assert.IsTrue(PieceType.香.CompareTo((PieceType)"玉") > 0);
-      Assert.AreEqual(0, PieceType.玉.CompareTo((PieceType)"玉"));
+      Assert.IsTrue(PieceType.玉.CompareTo(PieceType.香) < 0);
+      Assert.IsTrue(PieceType.香.CompareTo(PieceType.玉) > 0);
+      Assert.AreEqual(0, PieceType.玉.CompareTo(PieceType.玉));
     }
     #endregion
 

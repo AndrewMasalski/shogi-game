@@ -11,9 +11,9 @@ namespace Yasc.RulesVisualization
     public PieceColor For { get; set; }
     public string Piece { get; set; }
 
-    PieceType IDropMoves.Piece
+    IPieceType IDropMoves.Piece
     {
-      get { return (PieceType)Piece; }
+      get { return PieceType.Parse(Piece); }
     }
     IEnumerable<Position> IDropMoves.To
     {
@@ -45,7 +45,7 @@ namespace Yasc.RulesVisualization
     {
       var dropMoves = (IDropMoves)this;
 
-      board[dropMoves.For][dropMoves.Piece].IsMoveSource = true;
+      board.GetHand(dropMoves.For).GetPiece(dropMoves.Piece).IsMoveSource = true;
 
       foreach (var p in dropMoves.To)
         board.GetCell(p).IsPossibleMoveTarget = true;

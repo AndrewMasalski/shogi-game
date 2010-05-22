@@ -18,7 +18,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     /// <summary>ctor</summary>
-    public DropMoveSnapshot(PieceType pieceType, PieceColor color, Position to)
+    public DropMoveSnapshot(IPieceType pieceType, PieceColor color, Position to)
     {
       // TODO: Change signature to match Board.GetDropMove()
       Piece = new PieceSnapshot(pieceType, color);

@@ -115,9 +115,9 @@ namespace BoardControl.UnitTests.Controls
       Assert.AreEqual(0, hand.Items[1].PiecesCount);
       Assert.AreEqual(0, hand.Items[2].PiecesCount);
       Assert.AreEqual(0, hand.Items[3].PiecesCount);
-      Assert.AreEqual(0, hand.Items[4].PiecesCount);
+      Assert.AreEqual(4, hand.Items[4].PiecesCount);
       Assert.AreEqual(0, hand.Items[5].PiecesCount);
-      Assert.AreEqual(4, hand.Items[6].PiecesCount);
+      Assert.AreEqual(0, hand.Items[6].PiecesCount);
       Assert.AreEqual(0, hand.Items[7].PiecesCount);
       Assert.AreEqual(0, hand.Items[8].PiecesCount);
     }
@@ -133,24 +133,24 @@ namespace BoardControl.UnitTests.Controls
         Board = board
       };
       Assert.AreEqual(9, hand.Items.Count);
-      Assert.AreEqual(0, hand.Items[5].PiecesCount);
-      Assert.AreEqual(0, hand.Items[6].PiecesCount);
+      Assert.AreEqual(0, hand.Items[3].PiecesCount);
+      Assert.AreEqual(0, hand.Items[4].PiecesCount);
       
       board.Black.Hand.Add(PieceType.桂);
-      Assert.AreEqual(0, hand.Items[5].PiecesCount);
-      Assert.AreEqual(1, hand.Items[6].PiecesCount);
+      Assert.AreEqual(0, hand.Items[3].PiecesCount);
+      Assert.AreEqual(1, hand.Items[4].PiecesCount);
 
       board.Black.Hand.Add(PieceType.桂);
-      Assert.AreEqual(0, hand.Items[5].PiecesCount);
-      Assert.AreEqual(2, hand.Items[6].PiecesCount);
+      Assert.AreEqual(0, hand.Items[3].PiecesCount);
+      Assert.AreEqual(2, hand.Items[4].PiecesCount);
 
       board.Black.Hand.Remove(PieceType.桂);
-      Assert.AreEqual(0, hand.Items[5].PiecesCount);
-      Assert.AreEqual(1, hand.Items[6].PiecesCount);
+      Assert.AreEqual(0, hand.Items[3].PiecesCount);
+      Assert.AreEqual(1, hand.Items[4].PiecesCount);
 
       board.Black.Hand.Remove(PieceType.桂);
-      Assert.AreEqual(0, hand.Items[5].PiecesCount);
-      Assert.AreEqual(0, hand.Items[6].PiecesCount);
+      Assert.AreEqual(0, hand.Items[3].PiecesCount);
+      Assert.AreEqual(0, hand.Items[4].PiecesCount);
 
       Assert.AreEqual(9, hand.Items.Count);
     }

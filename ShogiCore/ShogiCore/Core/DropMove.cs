@@ -10,11 +10,11 @@ namespace Yasc.ShogiCore.Core
     private string _errorMessage;
 
     /// <summary>Droping piece type</summary>
-    public PieceType PieceType { get; private set; }
+    public IPieceType PieceType { get; private set; }
     /// <summary>Position to drop piece to</summary>
     public Position To { get; private set; }
 
-    private DropMove(Board board, PieceType pieceType, Position to, Player who) 
+    private DropMove(Board board, IPieceType pieceType, Position to, Player who) 
       : base(board, who)
     {
       PieceType = pieceType;
@@ -22,7 +22,7 @@ namespace Yasc.ShogiCore.Core
     }
     /// <summary>Creates an instance of <see cref="DropMove"/> 
     ///   from type and position and validates it immediately</summary>
-    public static DropMove Create(Board board, PieceType pieceType, Position to, Player who)
+    public static DropMove Create(Board board, IPieceType pieceType, Position to, Player who)
     {
       return new DropMove(board, pieceType, to, who);
     }

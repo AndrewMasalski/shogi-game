@@ -139,17 +139,17 @@ namespace Yasc.RulesVisualization
           Board.ResetPiece(p);
       }
     }
-    private static IEnumerable<PieceType> ParseA(string pcs)
+    private static IEnumerable<IPieceType> ParseA(string pcs)
     {
-      return pcs.Split(',').Select(p => (PieceType) p.Trim());
+      return pcs.Split(',').Select(p => PieceType.Parse(p.Trim()));
     }
 
-    private static IEnumerable<KeyValuePair<Position, PieceType>> ParseB(string pcs)
+    private static IEnumerable<KeyValuePair<Position, IPieceType>> ParseB(string pcs)
     {
       foreach (var p in pcs.Split(','))
       {
         var trim = p.Trim();
-        yield return new KeyValuePair<Position, PieceType>(
+        yield return new KeyValuePair<Position, IPieceType>(
           Position.Parse(trim.Substring(trim.Length - 2, 2)), 
           PieceType.Parse(trim.Substring(0, trim.Length - 2)));
       }
@@ -213,7 +213,7 @@ namespace Yasc.RulesVisualization
                                  PieceType.桂, PieceType.香,PieceType.歩,
                                })
         {
-          var nest = board[color][type];
+          var nest = board.GetHand(color).GetPiece(type);
           if (nest != null) nest.IsMoveSource = false;
         }
     }

@@ -71,7 +71,7 @@ namespace Yasc.BoardControl.Controls
       var d = move as DropMove;
       if (d != null)
       {
-        AnimateMove(this[d.Who.Color][d.PieceType], GetCell(d.To));
+        AnimateMove(GetHand(d.Who.Color).GetPiece(d.PieceType), GetCell(d.To));
       }
     }
     private void AnimateInvertedMove(MoveBase move)
@@ -86,8 +86,8 @@ namespace Yasc.BoardControl.Controls
       var d = move as DropMove;
       if (d != null)
       {
-        var hand = this[d.Who.Color];
-        AnimateMove(GetCell(d.To), hand[d.PieceType] ?? (UIElement)hand);
+        var hand = GetHand(d.Who.Color);
+        AnimateMove(GetCell(d.To), hand.GetPiece(d.PieceType) ?? (UIElement)hand);
       }
     }
 
@@ -165,7 +165,7 @@ namespace Yasc.BoardControl.Controls
       foreach (var p in promoting)
         GetCell(p).IsPromotionAllowed = true;
 
-      if (args.Piece.PieceType != "銀")
+      if (args.Piece.PieceType != PieceType.銀)
         foreach (var p in promoting)
           GetCell(p).IsPromotionRecommended = true;
 
@@ -244,7 +244,7 @@ namespace Yasc.BoardControl.Controls
       throw new ArgumentOutOfRangeException("e");
     }
 
-    private void ArbitraryMove(PieceType pieceType, PieceColor color, ShogiHand hand)
+    private void ArbitraryMove(IPieceType pieceType, PieceColor color, ShogiHand hand)
     {
       if (color == hand.Color) return;
       var opponentHand = Board.GetPlayer(color).Hand;
@@ -258,7 +258,7 @@ namespace Yasc.BoardControl.Controls
       Board.ResetPiece(cell.Position);
       hand.Hand.Add(piece);
     }
-    private void ArbitraryMove(PieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
+    private void ArbitraryMove(IPieceType pieceType, PieceColor color, Cell cell, bool promotionRequest)
     {
       var hand = Board.GetPlayer(color).Hand;
       var piece = hand.GetByType(pieceType);
@@ -450,9 +450,9 @@ namespace Yasc.BoardControl.Controls
 
     #region ' Helpers '
 
-    public ShogiHand this [PieceColor index]
+    public ShogiHand GetHand(PieceColor index)
     {
-      get { return index == PieceColor.White ? WhiteHand : BlackHand; }
+      return index == PieceColor.White ? WhiteHand : BlackHand;
     }
     public ShogiCell GetCell(Position position)
     {

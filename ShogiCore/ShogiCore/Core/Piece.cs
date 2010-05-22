@@ -10,7 +10,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>The piece owner</summary>
     public Player Owner { get; set; }
     /// <summary>The piece type</summary>
-    public PieceType PieceType { get; private set; }
+    public IPieceType PieceType { get; private set; }
     /// <summary>Current piece color</summary>
     /// <remarks>Makes no sense if there's no <see cref="Owner"/></remarks>
     public PieceColor Color
@@ -31,7 +31,7 @@ namespace Yasc.ShogiCore.Core
       }
     }
 
-    internal Piece(PieceType type)
+    internal Piece(IPieceType type)
     {
       PieceType = type;
     }

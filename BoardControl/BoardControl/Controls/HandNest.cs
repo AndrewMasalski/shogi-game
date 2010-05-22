@@ -19,7 +19,7 @@ namespace Yasc.BoardControl.Controls
       UpdateContent();
     }
 
-    private void UpdateContent(PieceType pieceType, PieceColor pieceColor)
+    private void UpdateContent(IPieceType pieceType, PieceColor pieceColor)
     {
       Content = new ShogiPiece { PieceType = pieceType, PieceColor = pieceColor };
     }

@@ -13,12 +13,12 @@ namespace Yasc.ShogiCore.Snapshots
       get { return PieceType.IsPromoted; }
     }
     /// <summary>The piece type</summary>
-    public PieceType PieceType { get; private set; }
+    public IPieceType PieceType { get; private set; }
     /// <summary>The piece color</summary>
     public PieceColor Color { get; private set; }
 
     /// <summary>ctor</summary>
-    public PieceSnapshot(PieceType type, PieceColor color)
+    public PieceSnapshot(IPieceType type, PieceColor color)
     {
       PieceType = type;
       Color = color;
@@ -40,12 +40,12 @@ namespace Yasc.ShogiCore.Snapshots
     ///   text with explanation why he's not allowed to do that</summary>
     public string IsPromotionMandatory(Position position)
     {
-      if (PieceType == PieceType.歩 || PieceType == PieceType.香)
+      if (PieceType == Primitives.PieceType.歩 || PieceType == Primitives.PieceType.香)
         if (HowFarFromTheLastLine(position) == 0)
           return PieceType + " cannot move to "
                  + "the last line without promotion";
 
-      if (PieceType == PieceType.桂)
+      if (PieceType == Primitives.PieceType.桂)
         if (HowFarFromTheLastLine(position) < 2)
           return "桂 cannot move to the last two lines without promotion";
 
@@ -111,6 +111,11 @@ namespace Yasc.ShogiCore.Snapshots
     private bool IsThatPromitionZoneFor(Position position)
     {
       return HowFarFromTheLastLine(position) < 3;
+    }
+
+    public override string ToString()
+    {
+      return Color + " " + PieceType;
     }
   }
 }
