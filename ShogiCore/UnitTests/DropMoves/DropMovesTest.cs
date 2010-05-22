@@ -20,11 +20,11 @@ namespace ShogiCore.UnitTests.DropMoves
       
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       
-      _blackPiece = _board["9a"];
+      _blackPiece = _board.GetPieceAt("9a");
       _board.ResetPiece("9a");
       _board.Black.Hand.Add(_blackPiece);
 
-      _whitePiece = _board["9i"];
+      _whitePiece = _board.GetPieceAt("9i");
       _board.ResetPiece("9i");
       _board.White.Hand.Add(_whitePiece);
     }
@@ -34,14 +34,14 @@ namespace ShogiCore.UnitTests.DropMoves
     {
       var move = _board.GetDropMove(_blackPiece.PieceType, "9e", _board.Black);
       _board.MakeMove(move);
-      Assert.AreSame(_blackPiece, _board["9e"]);
+      Assert.AreSame(_blackPiece, _board.GetPieceAt("9e"));
       Assert.AreSame(_board.Black, _blackPiece.Owner);
     }
     [TestMethod]
     public void MovesOrderMaintenanceFalse()
     {
       _board.IsMovesOrderMaintained = false;
-      var move = _board.GetDropMove((PieceType)"歩", "9e", _board.OneWhoMoves);
+      var move = _board.GetDropMove(PieceType.歩, "9e", _board.OneWhoMoves);
       Assert.AreEqual("Player doesn't have this piece in hand", move.ErrorMessage);
     }
     [TestMethod]
@@ -61,7 +61,7 @@ namespace ShogiCore.UnitTests.DropMoves
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void TryDropPieceWhichIsOnTheBoard()
     {
-      _board.GetDropMove(_board["1a"], "9e");
+      _board.GetDropMove(_board.GetPieceAt("1a"), "9e");
     }
   }
 }

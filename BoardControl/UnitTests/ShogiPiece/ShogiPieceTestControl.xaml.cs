@@ -15,7 +15,7 @@ namespace BoardControl.UnitTests.ShogiPiece
       InitializeComponent();
       DataContext = this;
       var b = new Board();
-      Pieces = new[] { b.PieceSet[(PieceType)"と"], b.PieceSet[(PieceType)"玉"] };
+      Pieces = new[] { b.PieceSet[PieceType.と], b.PieceSet[(PieceType)"玉"] };
       PossibleDirections = (PieceDirection[])Enum.GetValues(typeof(PieceDirection));
       PossibleColors = (PieceColor[])Enum.GetValues(typeof(PieceColor));
       PossibleTypes = PieceType.AllPieceTypes.ToArray();

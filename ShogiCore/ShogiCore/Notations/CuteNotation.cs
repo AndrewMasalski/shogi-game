@@ -40,7 +40,7 @@ namespace Yasc.ShogiCore.Notations
       var pieceType = GetPieceType();
       var isPromoting = GetIsPromoting();
       var toPosition = GetToPosition();
-      var fromPosition = FindFromPosition(_moveText, pieceType, toPosition, isPromoting);
+      var fromPosition = FindFromPosition(_moveText, pieceType, Position.Parse(toPosition), isPromoting);
       return CreateMoves(pieceType, toPosition, isPromoting, fromPosition);
     }
     private IEnumerable<MoveSnapshotBase> CreateMoves(PieceType pieceType, string toPosition, bool isPromoting, ICollection<Position> fromPositions)
@@ -53,13 +53,13 @@ namespace Yasc.ShogiCore.Notations
     private IEnumerable<MoveSnapshotBase> CreateUsualMoves(IEnumerable<Position> fromPositions, string toPosition, bool isPromoting)
     {
       return fromPositions.Select(fromPosition => 
-        new UsualMoveSnapshot(_board[fromPosition].Color, fromPosition, toPosition, isPromoting)).
+        new UsualMoveSnapshot(_board.GetPieceAt(fromPosition).Color, fromPosition, Position.Parse(toPosition), isPromoting)).
         Where(move => _board.ValidateUsualMove(move) == null);
     }
 
     private IEnumerable<DropMoveSnapshot> CreateDropMoves(PieceType pieceType, string toPosition)
     {
-      var dropMoveSnapshot = new DropMoveSnapshot(pieceType, _board.OneWhoMoves, toPosition);
+      var dropMoveSnapshot = new DropMoveSnapshot(pieceType, _board.OneWhoMoves, Position.Parse(toPosition));
       if (_board.ValidateDropMove(dropMoveSnapshot) == null)
         yield return dropMoveSnapshot;
     }
@@ -90,12 +90,12 @@ namespace Yasc.ShogiCore.Notations
       var isPromoting = _moveText.EndsWith("+");
       var pieceType = GetPieceType();
       return from p in Position.OnBoard
-             where _board[p] != null &&
-                   _board[p].PieceType == pieceType &&
-                   _board[p].Color == _board.OneWhoMoves
+             where _board.GetPieceAt(p) != null &&
+                   _board.GetPieceAt(p).PieceType == pieceType &&
+                   _board.GetPieceAt(p).Color == _board.OneWhoMoves
              from m in _board.GetAvailableUsualMoves(p)
              where m.IsPromoting == isPromoting 
-                && _board[m.To] != null 
+                && _board.GetPieceAt(m.To) != null 
                 && _board.ValidateUsualMove(m) == null
              select m;
     }
@@ -108,9 +108,9 @@ namespace Yasc.ShogiCore.Notations
     private Position[] FindFromPosition(string hint, PieceType pieceType, Position toPosition, bool isPromoting)
     {
       var candidates = (from p in Position.OnBoard
-                        where _board[p] != null &&
-                              _board[p].PieceType == pieceType &&
-                              _board[p].Color == _board.OneWhoMoves &&
+                        where _board.GetPieceAt(p) != null &&
+                              _board.GetPieceAt(p).PieceType == pieceType &&
+                              _board.GetPieceAt(p).Color == _board.OneWhoMoves &&
                               (from move in _board.GetAvailableUsualMoves(p)
                                where move.IsPromoting == isPromoting
                                select move.To).Contains(toPosition)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
@@ -19,14 +18,14 @@ namespace ShogiCore.UnitTests
       var board = new Board();
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var original = board.CurrentSnapshot;
-      var clone = new BoardSnapshot(original,
-        new UsualMoveSnapshot(PieceColor.White, "3c", "3d", false));
+      var clone = new BoardSnapshot(original, new UsualMoveSnapshot(
+        PieceColor.White, Position.Parse("3c"), Position.Parse("3d"), false));
       
-      Assert.IsNull(clone["3c"]);
-      Assert.IsNotNull(clone["3d"]);
+      Assert.IsNull(clone.GetPieceAt("3c"));
+      Assert.IsNotNull(clone.GetPieceAt("3d"));
 
-      Assert.IsNotNull(original["3c"]);
-      Assert.IsNull(original["3d"]);
+      Assert.IsNotNull(original.GetPieceAt("3c"));
+      Assert.IsNull(original.GetPieceAt("3d"));
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void CellsCollectionIsReadonly()
@@ -63,7 +62,7 @@ namespace ShogiCore.UnitTests
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var snapshot = board.CurrentSnapshot;
       foreach (var p in Position.OnBoard)
-        Assert.AreSame(snapshot[p.X, p.Y], snapshot[p]);
+        Assert.AreSame(snapshot.GetPieceAt(p.X, p.Y), snapshot.GetPieceAt(p));
     }
     [TestMethod]
     public void EqualsTest()

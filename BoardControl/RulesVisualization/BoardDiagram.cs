@@ -134,7 +134,7 @@ namespace Yasc.RulesVisualization
     {
       foreach (var p in Position.OnBoard)
       {
-        var piece = Board[p];
+        var piece = Board.GetPieceAt(p);
         if (piece != null && piece.Color == color)
           Board.ResetPiece(p);
       }
@@ -150,7 +150,8 @@ namespace Yasc.RulesVisualization
       {
         var trim = p.Trim();
         yield return new KeyValuePair<Position, PieceType>(
-          trim.Substring(trim.Length - 2, 2), (PieceType)trim.Substring(0, trim.Length - 2));
+          Position.Parse(trim.Substring(trim.Length - 2, 2)), 
+          PieceType.Parse(trim.Substring(0, trim.Length - 2)));
       }
     }
 

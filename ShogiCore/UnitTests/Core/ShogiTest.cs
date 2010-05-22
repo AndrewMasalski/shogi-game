@@ -33,7 +33,8 @@ namespace ShogiCore.UnitTests.ShogiCore
             "2g", "歩", "3g", "歩", "4g", "歩", "5g", "歩",
             "6g", "歩", "7g", "歩", "8g", "歩", "9g", "歩",
           }
-            .Pairs((position, pieceType) => Tuple.Create((Position)position, (PieceType)pieceType))
+            .Pairs((position, pieceType) => Tuple.Create(
+              Position.Parse(position), PieceType.Parse(pieceType)))
             .ToReadOnlyDictionary(pair => pair.Item1, pair => pair.Item2);
 
 
@@ -46,13 +47,13 @@ namespace ShogiCore.UnitTests.ShogiCore
       //    _________________________________
       //___/ Check pieces which must present \_______________________________
       foreach (var pair in _initialPosition)
-        Assert.AreEqual(pair.Value, (string)_board[pair.Key].PieceType);
+        Assert.AreEqual(pair.Value, (string)_board.GetPieceAt(pair.Key).PieceType);
       //    _________________________________
       //___/ Check cells which must be empty \_______________________________
       for (int i = 0; i < 9; i++)
         for (int j = 0; j < 9; j++)
           if (!_initialPosition.ContainsKey(new Position(i, j)))
-            Assert.IsNull(_board[i, j].Piece);
+            Assert.IsNull(_board.GetCellAt(i, j).Piece);
     }
     [TestMethod]
     public void CellBindabilityTest()
@@ -70,7 +71,7 @@ namespace ShogiCore.UnitTests.ShogiCore
         {
           int x = i;
           int y = j;
-          _board[i, j].PropertyChanged +=
+          _board.GetCellAt(i, j).PropertyChanged +=
             (s, e) => handler(new Position(x, y), (Cell)s);
         }
 

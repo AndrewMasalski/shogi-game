@@ -29,11 +29,11 @@ namespace Yasc.ShogiCore.Notations
       if (move.Contains("-"))
       {
         var elements = move.Split('-');
-        var from = (Position)elements[0];
-        var to = (Position)elements[1].Substring(0, 2);
+        var from = Position.Parse(elements[0]);
+        var to = Position.Parse(elements[1].Substring(0, 2));
         var modifier = elements[1].Length > 2 ? elements[1].Substring(2, 1) : null;
 
-        var fromPiece = originalBoardState[from];
+        var fromPiece = originalBoardState.GetPieceAt(from);
         if (fromPiece != null)
         {
           yield return new UsualMoveSnapshot(
@@ -43,8 +43,8 @@ namespace Yasc.ShogiCore.Notations
       else
       {
         var elements = move.Split('\'');
-        var piece = (PieceType)elements[0];
-        var to = (Position)elements[1];
+        var piece = PieceType.Parse(elements[0]);
+        var to = Position.Parse(elements[1]);
 
         yield return new DropMoveSnapshot(
           piece, originalBoardState.OneWhoMoves, to);

@@ -80,13 +80,14 @@ namespace Yasc.ShogiCore.Core
     }
     private IEnumerable<Position> WhoElseCouldMoveThere()
     {
-      return from p in Position.OnBoard 
-             where p != From 
-             where BoardSnapshot[p] != null
-             where BoardSnapshot[p].PieceType == MovingPiece.PieceType
-             where BoardSnapshot[p].Color == Who.Color 
-             where BoardSnapshot.GetAvailableUsualMoves(p).Count(m => m.To == To) > 0 
-             select p;
+      return from position in Position.OnBoard
+             where position != From
+             let piece = BoardSnapshot.GetPieceAt(position)
+             where piece != null
+             where piece.PieceType == MovingPiece.PieceType
+             where piece.Color == Who.Color 
+             where BoardSnapshot.GetAvailableUsualMoves(position).Count(m => m.To == To) > 0 
+             select position;
     }
 
     #endregion
@@ -99,8 +100,8 @@ namespace Yasc.ShogiCore.Core
       From = from;
       To = to;
       IsPromoting = isPromoting;
-      MovingPiece = board[from];
-      TakenPiece = board[to];
+      MovingPiece = board.GetPieceAt(from);
+      TakenPiece = board.GetPieceAt(to);
     }
 
     /// <summary>Creates an instance of <see cref="UsualMove"/> 
@@ -111,7 +112,7 @@ namespace Yasc.ShogiCore.Core
     }
     /// <summary>Creates an instance of <see cref="UsualMove"/> 
     ///   from snapshot and validates it immediately</summary>
-    public static UsualMove Create(Board board, UsualMoveSnapshot snapshot)
+    internal static UsualMove Create(Board board, UsualMoveSnapshot snapshot)
     {
       if (board == null) throw new ArgumentNullException("board");
       if (snapshot == null) throw new ArgumentNullException("snapshot");
@@ -123,10 +124,10 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Apply the move to the board</summary>
     protected internal override void Make()
     {
-      var piece = Board[From];
+      var piece = Board.GetPieceAt(From);
       Board.ResetPiece(From);
       if (IsPromoting) piece.IsPromoted = true;
-      var targetPiece = Board[To];
+      var targetPiece = Board.GetPieceAt(To);
       if (targetPiece != null)
       {
         Board.ResetPiece(To);

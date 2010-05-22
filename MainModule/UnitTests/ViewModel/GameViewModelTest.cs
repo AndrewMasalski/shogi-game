@@ -3,7 +3,7 @@ using System.Linq;
 using MainModule.Gui.Game;
 using MainModule.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yasc.ShogiCore;
+using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
 
@@ -24,8 +24,8 @@ namespace MainModule.UnitTests.ViewModel
       var model = new AutoplayViewModel();
       model.CleanBoardCommand.Execute(null);
       Assert.AreEqual(0, (from p in Position.OnBoard
-                          where model.Board[p] != null 
-                          select model.Board[p]).Count());
+                          where model.Board.GetPieceAt(p) != null 
+                          select model.Board.GetPieceAt(p)).Count());
       Assert.AreEqual(40, model.Board.White.Hand.Concat(
         model.Board.Black.Hand).Count());
     }

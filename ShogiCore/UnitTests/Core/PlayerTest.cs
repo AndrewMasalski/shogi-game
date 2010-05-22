@@ -13,7 +13,7 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void ResetAllPiecesFromHand()
     {
       var board = new Board();
-      board.White.Hand.Add((PieceType)"馬");
+      board.White.Hand.Add(PieceType.馬);
       board.White.Hand.Clear();
       Assert.AreEqual(0, board.White.Hand.Count);
     }

@@ -12,49 +12,49 @@ namespace ShogiCore.UnitTests
     [TestMethod]
     public void Strings()
     {
-      Assert.AreEqual(new Position(0, 0), new Position("1a"));
-      Assert.AreEqual(new Position(1, 0), new Position("2a"));
-      Assert.AreEqual(new Position(0, 1), new Position("1b"));
+      Assert.AreEqual(new Position(0, 0), Position.Parse("1a"));
+      Assert.AreEqual(new Position(1, 0), Position.Parse("2a"));
+      Assert.AreEqual(new Position(0, 1), Position.Parse("1b"));
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void NullPositionString()
     {
-      new Position(null);
+      Position.Parse(null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void EmptyPositionString()
     {
-      new Position("");
+      Position.Parse("");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void TooShortPositionString()
     {
-      new Position("a");
+      Position.Parse("a");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void TooLongPositionString()
     {
-      new Position("aaa");
+      Position.Parse("aaa");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void OutOfRangePositionString1()
     {
-      new Position("1k");
+      Position.Parse("1k");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void OutOfRangePositionString2()
     {
-      new Position("0a");
+      Position.Parse("0a");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void OutOfRangePositionString3()
     {
-      new Position("1ù");
+      Position.Parse("1ù");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void OutOfRangePositionString4()
     {
-      new Position("1+");
+      Position.Parse("1+");
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void OutOfRangePosition1()
@@ -79,20 +79,20 @@ namespace ShogiCore.UnitTests
     [TestMethod]
     public void TestEquals()
     {
-      Assert.IsFalse(new Position("1i").Equals(new object()));
+      Assert.IsFalse(Position.Parse("1i").Equals(new object()));
 // ReSharper disable EqualExpressionComparison
-      Assert.IsFalse(new Position("1i") != new Position("1i"));
+      Assert.IsFalse(Position.Parse("1i") != Position.Parse("1i"));
 // ReSharper restore EqualExpressionComparison
     }
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    [TestMethod]
     public void CompareWithNull()
     {
-      Assert.IsFalse(new Position("1i").Equals(null));
+      Assert.IsFalse(Position.Parse("1i").Equals(null));
     }
     [TestMethod]
     public void TestMath()
     {
-      Assert.AreEqual(new Vector(), new Position("1i") - new Position("1i"));
+      Assert.AreEqual(new Vector(), Position.Parse("1i") - Position.Parse("1i"));
     }
   }
 }

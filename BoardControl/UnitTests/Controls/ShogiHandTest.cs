@@ -144,11 +144,11 @@ namespace BoardControl.UnitTests.Controls
       Assert.AreEqual(0, hand.Items[5].PiecesCount);
       Assert.AreEqual(2, hand.Items[6].PiecesCount);
 
-      board.Black.Hand.Remove((PieceType)"桂");
+      board.Black.Hand.Remove(PieceType.桂);
       Assert.AreEqual(0, hand.Items[5].PiecesCount);
       Assert.AreEqual(1, hand.Items[6].PiecesCount);
 
-      board.Black.Hand.Remove((PieceType)"桂");
+      board.Black.Hand.Remove(PieceType.桂);
       Assert.AreEqual(0, hand.Items[5].PiecesCount);
       Assert.AreEqual(0, hand.Items[6].PiecesCount);
 

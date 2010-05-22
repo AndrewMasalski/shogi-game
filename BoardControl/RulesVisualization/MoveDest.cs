@@ -1,4 +1,3 @@
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.RulesVisualization
@@ -12,11 +11,11 @@ namespace Yasc.RulesVisualization
     {
       if (str.Length == 2)
       {
-        Position = str;
+        Position = Position.Parse(str);
       }
       else
       {
-        Position = str.Substring(0, 2);
+        Position = Position.Parse(str.Substring(0, 2));
         Promotion = str.Substring(2, 1) == "+";
       }
     }

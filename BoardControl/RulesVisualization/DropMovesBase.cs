@@ -26,7 +26,8 @@ namespace Yasc.RulesVisualization
 
     protected IEnumerable<Position> GetTo()
     {
-      return from s in To.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) select (Position)s;
+      return from s in To.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries) 
+             select Position.Parse(s);
     }
     protected IEnumerable<Position> GetNotTo()
     {
