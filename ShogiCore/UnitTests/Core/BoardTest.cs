@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommonUtils.UnitTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;

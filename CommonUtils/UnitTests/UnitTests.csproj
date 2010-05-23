@@ -89,6 +89,7 @@
     <Compile Include="ListUtilsUpdateTestBase.cs" />
     <Compile Include="ListUtilsUpdateWithConvertTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyObserverAssertion.cs" />
     <Compile Include="RangesCollectionAssert.cs" />
     <Compile Include="RangeTest.cs" />
   </ItemGroup>

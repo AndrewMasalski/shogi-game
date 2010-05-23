@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.Utils.Mvvm;
 
-namespace ShogiCore.UnitTests.ShogiCore
+namespace CommonUtils.UnitTests
 {
   public class PropertyObserverAssertion<T> 
     where T : INotifyPropertyChanged
