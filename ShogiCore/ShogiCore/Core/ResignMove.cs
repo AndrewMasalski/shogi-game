@@ -6,7 +6,7 @@ namespace Yasc.ShogiCore.Core
   /// <summary>Represents resign move</summary>
   public sealed class ResignMove : MoveBase
   {
-    private string _errorMessage;
+    private RulesViolation _errorMessage;
 
     /// <summary>ctor</summary>
     public ResignMove(Board board, Player who) 
@@ -20,17 +20,21 @@ namespace Yasc.ShogiCore.Core
       Board.GameResult = Who.Color == PieceColor.White ? ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
     }
     /// <summary>null if move is valid -or- explanation why it's not</summary>
-    public override string ErrorMessage
+    public override RulesViolation RulesViolation
     {
-      get { return _errorMessage = _errorMessage ?? GetValidationErrorMessage(); }
+      get
+      {
+        return _errorMessage = _errorMessage == RulesViolation.HasntBeenChecked
+          ? GetValidationErrorMessage()
+          : _errorMessage;
+      }
     }
     /// <summary>Override to get validation error message or null if move is valid</summary>
-    private string GetValidationErrorMessage()
+    private RulesViolation GetValidationErrorMessage()
     {
-      if (Who != Board.OneWhoMoves)
-        return "It's " + Board.OneWhoMoves + "'s move now";
-      
-      return null;
+      return Who != Board.OneWhoMoves 
+        ? RulesViolation.WrongSideToMove 
+        : RulesViolation.NoViolations;
     }
 
     /// <summary>Gets snapshot of the move</summary>

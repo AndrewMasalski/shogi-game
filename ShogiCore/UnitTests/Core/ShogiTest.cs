@@ -7,7 +7,7 @@ using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace ShogiCore.UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class ShogiTest

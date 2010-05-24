@@ -5,7 +5,7 @@ using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace ShogiCore.UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class PlayerTest

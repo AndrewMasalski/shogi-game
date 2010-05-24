@@ -5,7 +5,7 @@ using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace ShogiCore.UnitTests.DropMoves
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class DropMovesTest
@@ -43,14 +43,14 @@ namespace ShogiCore.UnitTests.DropMoves
     {
       _board.IsMovesOrderMaintained = false;
       var move = _board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves);
-      Assert.AreEqual("Player doesn't have this piece in hand", move.ErrorMessage);
+      Assert.AreEqual(RulesViolation.WrongPieceReference, move.RulesViolation);
     }
     [TestMethod]
     public void MovesOrderMaintenanceTrue()
     {
       _board.OneWhoMoves = _board.White;
       var move = _board.GetDropMove(_blackPiece, "5e");
-      Assert.AreEqual("It's White's move now", move.ErrorMessage);
+      Assert.AreEqual(RulesViolation.WrongSideToMove, move.RulesViolation);
     }
   
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShogiCore.UnitTests.ShogiCore;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore.Core;
 using Yasc.Utils;
 
-namespace ShogiCore.UnitTests.UsualMoves
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class GetAvailableMovesTest

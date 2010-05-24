@@ -6,7 +6,7 @@ using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
-namespace ShogiCore.UnitTests
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class PieceSetTest
@@ -56,7 +56,7 @@ namespace ShogiCore.UnitTests
     {
       var board = new Board(new StandardPieceSet());
       var piece = board.PieceSet[PT.馬];
-      board.SetPiece(piece, PieceColor.White, "1i");
+      board.SetPiece(piece, "1i", PieceColor.White);
       board.White.Hand.Add(piece);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]

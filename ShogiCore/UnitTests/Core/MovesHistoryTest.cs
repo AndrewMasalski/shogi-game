@@ -6,7 +6,7 @@ using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
-namespace ShogiCore.UnitTests.ShogiCore.Moves
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class MovesHistoryTest
@@ -124,7 +124,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     [TestMethod]
     public void HistoryTest()
     {
-      _board.SetPiece(PT.歩, _board.Black, "1i");
+      _board.SetPiece(PT.歩, "1i", _board.Black);
       var move = _board.GetMove("1i-1h", FormalNotation.Instance).First();
       var s1 = _board.CurrentSnapshot;
       _board.MakeMove(move);

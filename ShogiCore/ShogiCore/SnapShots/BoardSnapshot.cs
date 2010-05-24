@@ -116,70 +116,58 @@ namespace Yasc.ShogiCore.Snapshots
 
     /// <summary>Validates drop move</summary>
     /// <returns>null if the move is valid -or- the reason why it's not</returns>
-    public string ValidateDropMove(DropMoveSnapshot move)
+    public RulesViolation ValidateDropMove(DropMoveSnapshot move)
     {
       if (move == null) throw new ArgumentNullException("move");
-      if (move.Piece.Color != OneWhoMoves) return "It's " + OneWhoMoves + "'s move now";
-      if (!Hand(OneWhoMoves).Contains(move.Piece)) return "Player doesn't have this piece in hand";
-      if (GetPieceAt(move.To) != null) return "Can drop piece to free cell only";
+      if (move.Piece.Color != OneWhoMoves) return RulesViolation.WrongSideToMove;
+      if (!Hand(OneWhoMoves).Contains(move.Piece)) return RulesViolation.WrongPieceReference;
+      if (GetPieceAt(move.To) != null) return RulesViolation.DropToOccupiedCell;
 
       if (move.Piece.PieceType == PT.歩 || move.Piece.PieceType == PT.香)
-      {
-        if (move.Piece.HowFarFromTheLastLine(move.To) == 0)
-        {
-          return "Can't drop " + move.Piece.PieceType + " to the last line";
-        }
-      }
+       if (move.Piece.HowFarFromTheLastLine(move.To) == 0)
+          return RulesViolation. DropToLastLines;
 
       if (move.Piece.PieceType == PT.桂)
-      {
         if (move.Piece.HowFarFromTheLastLine(move.To) < 2)
-        {
-          return "Can't drop 桂 to the last two lines";
-        }
-      }
+          return RulesViolation.DropToLastLines;
 
       if (move.Piece.PieceType == PT.歩)
-      {
         if (IsTherePawnOnThisColumn(OneWhoMoves, move.To.X))
-        {
-          return "Can't drop 歩 to the column " + move.To.Column + " because it already has one 歩";
-        }
-      }
+          return RulesViolation.TwoPawnsOnTheSameFile;
 
       var newPosition = new BoardSnapshot(this, move);
-      if (move.Piece.PieceType == PT.歩 && newPosition.IsMateFor(Opponent(OneWhoMoves)))
-      {
-        return "Can't drop 歩 to mate the opponent";
-      }
-      return !newPosition.IsCheckFor(OneWhoMoves) ? null :
-        "If you made this move your king would be taken on the next move";
+      if (move.Piece.PieceType == PT.歩)
+        if (newPosition.IsMateFor(Opponent(OneWhoMoves)))
+          return RulesViolation.DropPawnToMate;
+
+      return newPosition.IsCheckFor(OneWhoMoves) 
+        ? RulesViolation.MoveToCheck 
+        : RulesViolation.NoViolations;
     }
     /// <summary>Validates usual move</summary>
     /// <returns>null if the move is valid -or- the reason why it's not</returns>
-    public string ValidateUsualMove(UsualMoveSnapshot move)
+    public RulesViolation ValidateUsualMove(UsualMoveSnapshot move)
     {
       if (move == null) throw new ArgumentNullException("move");
-      var piece = GetPieceAt(move.From);
+      var movingPiece = GetPieceAt(move.From);
 
-      if (piece == null)
-        return "No piece at " + move.From;
+      if (movingPiece == null)
+        return RulesViolation.WrongPieceReference;
 
       if (move.From == move.To)
-        return "You can't move from " + move.From + " to " + move.To;
+        return RulesViolation.PieceDoesntMoveThisWay;
 
-      if (piece.Color != OneWhoMoves)
-        return "It's " + OneWhoMoves + "'s move now";
+      if (movingPiece.Color != OneWhoMoves)
+        return RulesViolation.WrongSideToMove;
 
-      if (GetPieceAt(move.To) != null)
-        if (piece.Color == GetPieceAt(move.To).Color)
-          return "Cant take piece of the same color";
+      var takenPiece = GetPieceAt(move.To);
+      if (takenPiece != null)
+        if (movingPiece.Color == takenPiece.Color)
+          return RulesViolation.TakeAllyPiece;
 
       var analyser = EstimateUsualMoveTargets(move.From);
       if (!analyser.Contains(move.To))
-      {
-        return GetPieceAt(move.From).PieceType + " doesn't move this way";
-      }
+        return RulesViolation.PieceDoesntMoveThisWay;
 
       return ShortValidateUsualMove(move);
     }
@@ -203,7 +191,7 @@ namespace Yasc.ShogiCore.Snapshots
       var estimate = from p in EstimateUsualMoveTargets(fromPosition)
                      select new UsualMoveSnapshot(GetPieceAt(fromPosition).Color, fromPosition, p, false);
       return from move in DuplicateForPromoting(estimate)
-             where ShortValidateUsualMove(move) == null
+             where ShortValidateUsualMove(move) == RulesViolation.NoViolations
              select move;
     }
     /// <summary>Gets all valid drop moves for the piece</summary>
@@ -211,7 +199,7 @@ namespace Yasc.ShogiCore.Snapshots
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) == null).
         Select(p => new DropMoveSnapshot(piece, p)).
-        Where(move => ValidateDropMove(move) == null);
+        Where(move => ValidateDropMove(move) == RulesViolation.NoViolations);
     }
     /// <summary>Gets all valid usual and drop moves for the player</summary>
     public IEnumerable<MoveSnapshotBase> GetAllAvailableMoves(PieceColor color)
@@ -295,10 +283,10 @@ namespace Yasc.ShogiCore.Snapshots
     {
       foreach (var m in moves)
       {
-        if (GetPieceAt(m.From).IsPromotionMandatory(m.To) == null)
+        if (GetPieceAt(m.From).IsPromotionMandatory(m.To) == RulesViolation.NoViolations)
           yield return new UsualMoveSnapshot(GetPieceAt(m.From).Color, m.From, m.To, false);
 
-        if (GetPieceAt(m.From).IsPromotionAllowed(m.From, m.To) == null)
+        if (GetPieceAt(m.From).IsPromotionAllowed(m.From, m.To) == RulesViolation.NoViolations)
           yield return new UsualMoveSnapshot(GetPieceAt(m.From).Color, m.From, m.To, true);
       }
     }
@@ -316,24 +304,25 @@ namespace Yasc.ShogiCore.Snapshots
 
       return false;
     }
-    private string ShortValidateUsualMove(UsualMoveSnapshot move)
+    private RulesViolation ShortValidateUsualMove(UsualMoveSnapshot move)
     {
       if (move.IsPromoting)
       {
         var error = GetPieceAt(move.From).IsPromotionAllowed(move.From, move.To);
-        if (error != null)
+        if (error != RulesViolation.NoViolations)
           return error;
       }
       else
       {
         var error = GetPieceAt(move.From).IsPromotionMandatory(move.To);
-        if (error != null)
+        if (error != RulesViolation.NoViolations)
           return error;
       }
 
       var snapshot = new BoardSnapshot(this, move);
-      return !snapshot.IsCheckFor(move.Who) ? null :
-        "If you made this move your king would be taken on the next move";
+      return !snapshot.IsCheckFor(move.Who) 
+        ? RulesViolation.NoViolations 
+        : RulesViolation.MoveToCheck;
     }
 
     private int CalculateHashCode()
@@ -469,4 +458,5 @@ namespace Yasc.ShogiCore.Snapshots
 
     #endregion
   }
+
 }

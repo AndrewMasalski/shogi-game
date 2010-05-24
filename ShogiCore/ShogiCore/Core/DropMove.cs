@@ -7,7 +7,7 @@ namespace Yasc.ShogiCore.Core
   /// <summary>Represents drop move (as opposing to <see cref="UsualMove"/>)</summary>
   public sealed class DropMove : MoveBase
   {
-    private string _errorMessage;
+    private RulesViolation _errorMessage;
 
     /// <summary>Droping piece type</summary>
     public IPieceType PieceType { get; private set; }
@@ -37,12 +37,13 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>null if move is valid -or- explanation why it's not</summary>
-    public override string ErrorMessage
+    public override RulesViolation RulesViolation
     {
       get
       {
-        return _errorMessage = _errorMessage ??  BoardSnapshot.
-          ValidateDropMove(new DropMoveSnapshot(PieceType, Who.Color, To));
+        return _errorMessage = _errorMessage == RulesViolation.HasntBeenChecked
+          ? BoardSnapshot.ValidateDropMove(new DropMoveSnapshot(PieceType, Who.Color, To))
+          : _errorMessage;
       }
     }
 
@@ -51,7 +52,7 @@ namespace Yasc.ShogiCore.Core
     {
       var piece = Who.Hand.GetByType(PieceType);
       Who.Hand.Remove(piece);
-      Board.SetPiece(piece, Who, To);
+      Board.SetPiece(piece, To, Who);
     }
 
     /// <summary>Gets snapshot of the <see cref="DropMove"/></summary>

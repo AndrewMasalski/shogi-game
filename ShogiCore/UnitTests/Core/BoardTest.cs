@@ -10,7 +10,7 @@ using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace ShogiCore.UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class BoardTest
@@ -28,20 +28,20 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void SetPieceTest()
     {
-      _board.SetPiece(PT.馬, PieceColor.White, "5g");
+      _board.SetPiece(PT.馬, "5g", PieceColor.White);
       Assert.IsNotNull(_board.GetPieceAt("5g"));
     }
     [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
     public void CantSetPieceBecauseNotEnoughPiecesTest()
     {
-      _board.SetPiece(PT.馬, PieceColor.Black, "1i");
-      _board.SetPiece(PT.馬, PieceColor.Black, "2i");
-      _board.SetPiece(PT.馬, PieceColor.Black, "3i");
+      _board.SetPiece(PT.馬, "1i", PieceColor.Black);
+      _board.SetPiece(PT.馬, "2i", PieceColor.Black);
+      _board.SetPiece(PT.馬, "3i", PieceColor.Black);
     }
     [TestMethod]
     public void SetWhitePiece()
     {
-      _board.SetPiece(PT.馬, PieceColor.Black, "1i");
+      _board.SetPiece(PT.馬, "1i", PieceColor.Black);
 
     }
     #endregion
@@ -93,7 +93,7 @@ namespace ShogiCore.UnitTests.ShogiCore
 
       // Here we never read _board.CurrentSnapshot property 
       // so there's nothing to change
-      _board.SetPiece(PT.馬, PieceColor.Black, "1i");
+      _board.SetPiece(PT.馬, "1i", PieceColor.Black);
       _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
 
       assertion1.Check();
@@ -106,7 +106,7 @@ namespace ShogiCore.UnitTests.ShogiCore
       // Here we read _board.CurrentSnapshot property every time 
       // so every time snapshot changes we get notification
       Assert.IsNotNull(_board.CurrentSnapshot);
-      _board.SetPiece(PT.馬, PieceColor.Black, "1i");
+      _board.SetPiece(PT.馬, "1i", PieceColor.Black);
       Assert.IsNotNull(_board.CurrentSnapshot);
       _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
 
@@ -211,9 +211,9 @@ namespace ShogiCore.UnitTests.ShogiCore
     public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
     {
       var board = new Board(InfinitePieceSet.Instance);
-      board.SetPiece(PT.馬, PieceColor.Black, "1i");
-      board.SetPiece(PT.馬, PieceColor.Black, "2i");
-      board.SetPiece(PT.馬, PieceColor.Black, "3i");
+      board.SetPiece(PT.馬, "1i", PieceColor.Black);
+      board.SetPiece(PT.馬, "2i", PieceColor.Black);
+      board.SetPiece(PT.馬, "3i", PieceColor.Black);
 
       _board.LoadSnapshot(board.CurrentSnapshot);
     }
@@ -317,12 +317,12 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void PassWrongPlayerToSetPieceA()
     {
-      _board.SetPiece(_board.PieceSet[PT.馬], new Board(new StandardPieceSet()).White, "1i");
+      _board.SetPiece(_board.PieceSet[PT.馬], "1i", new Board(new StandardPieceSet()).White);
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void PassWrongPlayerToSetPieceB()
     {
-      _board.SetPiece(PT.馬, new Board(new StandardPieceSet()).White, "1i");
+      _board.SetPiece(PT.馬, "1i", new Board(new StandardPieceSet()).White);
     }
 
     #region ' OnMoving/OnMoved Events '
