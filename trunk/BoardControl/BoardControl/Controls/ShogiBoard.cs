@@ -266,7 +266,7 @@ namespace Yasc.BoardControl.Controls
       hand.Remove(piece);
       var m = cell.Piece;
       Board.ResetPiece(cell.Position);
-      Board.SetPiece(piece, color, cell.Position);
+      Board.SetPiece(piece, cell.Position, color);
       if (m != null) hand.Add(m);
     }
     private void ArbitraryMove(Cell from, Cell to, bool promotionRequest)
@@ -277,7 +277,7 @@ namespace Yasc.BoardControl.Controls
       Board.ResetPiece(from.Position);
       var m = to.Piece;
       Board.ResetPiece(to.Position);
-      Board.SetPiece(to.Position, piece, owner);
+      Board.SetPiece(piece, to.Position, owner);
       if (m != null) owner.Hand.Add(m);
     }
 

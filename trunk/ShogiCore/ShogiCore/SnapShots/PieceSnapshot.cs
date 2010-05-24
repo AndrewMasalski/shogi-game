@@ -33,36 +33,34 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Returns null it the piece can move to the 
     ///   <paramref name="position"/> without promotion -or- 
     ///   text with explanation why he's not allowed to do that</summary>
-    public string IsPromotionMandatory(Position position)
+    public RulesViolation IsPromotionMandatory(Position position)
     {
       if (PieceType == PT.歩 || PieceType == PT.香)
         if (HowFarFromTheLastLine(position) == 0)
-          return PieceType + " cannot move to "
-                 + "the last line without promotion";
+          return RulesViolation.CantMoveWithoutPromotion;
 
       if (PieceType == PT.桂)
         if (HowFarFromTheLastLine(position) < 2)
-          return "桂 cannot move to the last two lines without promotion";
+          return RulesViolation.CantMoveWithoutPromotion;
 
-      return null;
+      return RulesViolation.NoViolations;
     }
     /// <summary>Returns null it the piece can promote moving
     ///   from position <paramref name="from"/> to position <paramref name="to"/> -or- 
     ///   text with explanation why it's impossible</summary>
-    public string IsPromotionAllowed(Position from, Position to)
+    public RulesViolation IsPromotionAllowed(Position from, Position to)
     {
       if (PieceType.IsPromoted)
-        return "Can't promote piece that is already promoted";
+        return RulesViolation.CantPromoteTwice;
 
       if (!PieceType.CanPromote)
-        return "Can't promote " + PieceType;
+        return RulesViolation.CantPromotePiecesOfThisType;
 
       if (!IsThatPromitionZoneFor(from))
         if (!IsThatPromitionZoneFor(to))
-          return "Can't promote " + PieceType +
-                 " when move from line " + from.Line + " to line " + to.Line;
-
-      return null;
+          return RulesViolation.CantPromoteWithThisMove;
+      
+      return RulesViolation.NoViolations;
     }
     
     #region ' Equality '

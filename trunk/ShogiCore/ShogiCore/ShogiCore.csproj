@@ -116,6 +116,7 @@
     <Compile Include="Snapshots\DropMoveSnapshot.cs" />
     <Compile Include="Snapshots\MoveSnapshotBase.cs" />
     <Compile Include="Snapshots\PieceSnapshot.cs" />
+    <Compile Include="Snapshots\RulesViolation.cs" />
     <Compile Include="Snapshots\UsualMoveSnapshot.cs" />
   </ItemGroup>
   <ItemGroup>

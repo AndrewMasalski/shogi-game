@@ -11,7 +11,7 @@ namespace Yasc.ShogiCore.Core
   public sealed class UsualMove : MoveBase
   {
     private string _cuteNotation;
-    private string _errorMessage;
+    private RulesViolation _errorMessage;
 
     /// <summary>Move origin</summary>
     public Position From { get; private set; }
@@ -24,12 +24,13 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Indicates whether move is promoting</summary>
     public bool IsPromoting { get; private set; }
     /// <summary>null if move is valid -or- explanation why it's not</summary>
-    public override string ErrorMessage
+    public override RulesViolation RulesViolation
     {
       get
       {
-        return _errorMessage = _errorMessage ?? BoardSnapshot.
-          ValidateUsualMove(new UsualMoveSnapshot(Who.Color, From, To, IsPromoting));
+        return _errorMessage = _errorMessage == RulesViolation.HasntBeenChecked
+          ? BoardSnapshot.ValidateUsualMove(new UsualMoveSnapshot(Who.Color, From, To, IsPromoting))
+          : _errorMessage;
       }
     }
     /// <summary>Returns snapshot of the move</summary>
@@ -133,7 +134,7 @@ namespace Yasc.ShogiCore.Core
         Board.ResetPiece(To);
         Who.Hand.Add(targetPiece);
       }
-      Board.SetPiece(piece, Who, To);
+      Board.SetPiece(piece, To, Who);
     }
   }
 }

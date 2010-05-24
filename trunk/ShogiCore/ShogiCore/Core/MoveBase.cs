@@ -17,9 +17,9 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Board snapshot before the move is done</summary>
     public BoardSnapshot BoardSnapshot { get; private set; }
     /// <summary>Indicates whether the move is valid</summary>
-    public bool IsValid { get { return ErrorMessage == null; } }
+    public bool IsValid { get { return RulesViolation == RulesViolation.NoViolations; } }
     /// <summary>null if move is valid -or- explanation why it's not</summary>
-    public abstract string ErrorMessage { get; }
+    public abstract RulesViolation RulesViolation { get; }
 
     /// <summary>ctor</summary>
     protected MoveBase(Board board, Player who)

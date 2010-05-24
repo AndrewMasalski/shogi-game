@@ -6,7 +6,7 @@ using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace ShogiCore.UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class MovesParserTest
@@ -18,12 +18,12 @@ namespace ShogiCore.UnitTests.ShogiCore
     {
       _board = new Board(new StandardPieceSet());
 
-      _board.SetPiece(PT.歩, PieceColor.White, "1c");
-      _board.SetPiece(PT.歩, PieceColor.White, "2c");
+      _board.SetPiece(PT.歩, "1c", PieceColor.White);
+      _board.SetPiece(PT.歩, "2c", PieceColor.White);
       _board.White.Hand.Add(PT.歩);
 
-      _board.SetPiece(PT.歩, PieceColor.Black, "8g");
-      _board.SetPiece(PT.歩, PieceColor.Black, "9g");
+      _board.SetPiece(PT.歩, "8g", PieceColor.Black);
+      _board.SetPiece(PT.歩, "9g", PieceColor.Black);
       _board.Black.Hand.Add(PT.歩);
     }
 

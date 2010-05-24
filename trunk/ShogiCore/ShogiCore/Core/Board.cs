@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
@@ -144,7 +143,7 @@ namespace Yasc.ShogiCore.Core
               "Can't load snapshot because it's not enough pieces in set: " +
               "couldn't find " + snapshot.GetPieceAt(p).PieceType + " to fill " + p);
           }
-          SetPiece(piece, snapshot.GetPieceAt(p).Color, p);
+          SetPiece(piece, p, GetPlayer(snapshot.GetPieceAt(p).Color));
         }
 
       White.Hand.LoadSnapshot(snapshot.WhiteHand);
@@ -175,32 +174,84 @@ namespace Yasc.ShogiCore.Core
 
     #endregion
 
-    #region ' Set/Reset Piece '
+    #region ' PieceSet + Set/Reset Piece '
 
-    /// <summary>Set piece to the board cell</summary>
-    public void SetPiece(Piece piece, Player forOwner, Position toPosition)
+    /// <summary>The set of pieces user has</summary>
+    public IPieceSet PieceSet { get; private set; }
+
+    /// <summary>Places the piece into the cell</summary>
+    /// <remarks>Method takes ownerless piece and places it into the cell</remarks>
+    /// <exception cref="ArgumentNullException">
+    ///   <paramref name="piece"/> or <paramref name="owner"/> is null
+    /// </exception>
+    /// <exception cref="InvalidOperationException">The piece is not ownerless</exception>
+    public void SetPiece(Piece piece, Position position, Player owner)
     {
-      VerifyPlayerBelongs(forOwner);
-      SetPiece(toPosition, piece, forOwner);
+      if (piece == null) throw new ArgumentNullException("piece");
+      if (owner == null) throw new ArgumentNullException("owner");
+      VerifyPlayerBelongs(owner);
+      if (piece.Owner != null)
+      {
+        throw new InvalidOperationException(
+          "Piece can't be in two places at the same time. " +
+          "First return it to the piece set, then try to add it to the hand");
+      }
+
+      piece.Owner = owner;
+
+      PieceSet.AcquirePiece(piece);
+      GetCellAt(position).Piece = piece;
     }
     /// <summary>Set piece to the board cell</summary>
-    public void SetPiece(Piece piece, PieceColor forOwner, Position toPosition)
+    public void SetPiece(IPieceType pieceType, Position position, Player owner)
     {
-      SetPiece(piece, GetPlayer(forOwner), toPosition);
-    }
-    /// <summary>Set piece to the board cell</summary>
-    public void SetPiece(IPieceType ofType, Player forOwner, Position toPosition)
-    {
-      VerifyPlayerBelongs(forOwner);
-      var piece = PieceSet[ofType];
+      if (pieceType == null) throw new ArgumentNullException("pieceType");
+      
+      var piece = PieceSet[pieceType];
       if (piece == null)
       {
         throw new NotEnoughPiecesInSetException(
           "Cannot set piece because there's no more pieces of type " +
-          ofType + " in the set. Consider using infinite piece set");
+          pieceType + " in the set. Consider using infinite piece set");
       }
 
-      SetPiece(piece, forOwner, toPosition);
+      SetPiece(piece, position, owner);
+    }
+    /// <summary>Places the piece into the cell</summary>
+    /// <remarks>Method takes <b>owned</b> piece and places it into the cell</remarks>
+    /// <exception cref="ArgumentNullException">
+    ///   <paramref name="piece"/> is null
+    /// </exception>
+    /// <exception cref="PieceHasNoOwnerException">the piece has no owner</exception>
+    public void SetPiece(Piece piece, Position position)
+    {
+      if (piece == null) throw new ArgumentNullException("piece");
+      if (GetCellAt(position).Piece == piece) return;
+
+      var player = piece.Owner;
+      if (player == null)
+        throw new PieceHasNoOwnerException();
+      PieceSet.ReleasePiece(piece);
+      SetPiece(piece, position, player);
+    }
+    /// <summary>Removes the piece from the cell to the piece set</summary>
+    public Piece ResetPiece(Position position)
+    {
+      if (GetCellAt(position).Piece == null) return null;
+      var old = GetCellAt(position).Piece;
+      GetCellAt(position).Piece = null;
+      PieceSet.ReleasePiece(old);
+      return old;
+    }
+    /// <summary>Returns all pieces from the board and
+    /// both hands to <see cref="PieceSet"/> </summary>
+    public void ResetAll()
+    {
+      foreach (var cell in Cells.Where(cell => cell.Piece != null))
+        ResetPiece(cell.Position);
+
+      White.Hand.Clear();
+      Black.Hand.Clear();
     }
 
     #endregion
@@ -273,7 +324,7 @@ namespace Yasc.ShogiCore.Core
     {
       if (move == null) throw new ArgumentNullException("move");
       if (move.Board != this) throw new ArgumentOutOfRangeException("move");
-      if (!move.IsValid) throw new InvalidMoveException(move.ErrorMessage);
+      if (!move.IsValid) throw new InvalidMoveException(move.RulesViolation);
 
       using (_moving.Set())
       {
@@ -335,23 +386,6 @@ namespace Yasc.ShogiCore.Core
 
     #endregion
 
-    #region ' PieceSet '
-
-    /// <summary>Returns all pieces from the board and
-    /// both hands to <see cref="PieceSet"/> </summary>
-    public void ResetAll()
-    {
-      foreach (var cell in Cells.Where(cell => cell.Piece != null))
-        ResetPiece(cell.Position);
-
-      White.Hand.Clear();
-      Black.Hand.Clear();
-    }
-    /// <summary>The set of pieces user has</summary>
-    public IPieceSet PieceSet { get; private set; }
-
-    #endregion
-
     private void OnMoving(MoveEventArgs e)
     {
       var handler = Moving;
@@ -404,59 +438,6 @@ namespace Yasc.ShogiCore.Core
       if (player != White && player != Black)
         throw new ArgumentOutOfRangeException("player", "Player doesn't belong to this board");
     }
-
-    #region ' Set\Reset piece in the cell '
-
-    /// <summary>Places the piece into the cell</summary>
-    /// <remarks>Method takes ownerless piece and places it into the cell</remarks>
-    /// <exception cref="ArgumentNullException">
-    ///   <paramref name="piece"/> or <paramref name="owner"/> is null
-    /// </exception>
-    /// <exception cref="InvalidOperationException">The piece is not ownerless</exception>
-    public void SetPiece(Position position, Piece piece, Player owner)
-    {
-      if (piece == null) throw new ArgumentNullException("piece");
-      if (owner == null) throw new ArgumentNullException("owner");
-      if (piece.Owner != null)
-      {
-        throw new InvalidOperationException(
-          "Piece can't be in two places at the same time. " +
-          "First return it to the piece set, then try to add it to the hand");
-      }
-
-      piece.Owner = owner;
-
-      PieceSet.AcquirePiece(piece);
-      GetCellAt(position).Piece = piece;
-    }
-    /// <summary>Places the piece into the cell</summary>
-    /// <remarks>Method takes piece and places it into the cell</remarks>
-    /// <exception cref="ArgumentNullException">
-    ///   <paramref name="piece"/> is null
-    /// </exception>
-    /// <exception cref="PieceHasNoOwnerException">the piece has no owner</exception>
-    public void SetPiece(Position position, Piece piece)
-    {
-      if (piece == null) throw new ArgumentNullException("piece");
-      if (GetCellAt(position).Piece == piece) return;
-
-      var player = piece.Owner;
-      if (player == null)
-        throw new PieceHasNoOwnerException();
-      PieceSet.ReleasePiece(piece);
-      SetPiece(position, piece, player);
-    }
-    /// <summary>Removes the piece from the cell to the piece set</summary>
-    public Piece ResetPiece(Position position)
-    {
-      if (GetCellAt(position).Piece == null) return null;
-      var old = GetCellAt(position).Piece;
-      GetCellAt(position).Piece = null;
-      PieceSet.ReleasePiece(old);
-      return old;
-    }
-
-    #endregion
 
     private BoardSnapshot TakeSnapshot()
     {

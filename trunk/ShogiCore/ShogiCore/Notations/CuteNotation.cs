@@ -54,13 +54,13 @@ namespace Yasc.ShogiCore.Notations
     {
       return fromPositions.Select(fromPosition => 
         new UsualMoveSnapshot(_board.GetPieceAt(fromPosition).Color, fromPosition, Position.Parse(toPosition), isPromoting)).
-        Where(move => _board.ValidateUsualMove(move) == null);
+        Where(move => _board.ValidateUsualMove(move) == RulesViolation.NoViolations);
     }
 
     private IEnumerable<DropMoveSnapshot> CreateDropMoves(IPieceType pieceType, string toPosition)
     {
       var dropMoveSnapshot = new DropMoveSnapshot(pieceType, _board.OneWhoMoves, Position.Parse(toPosition));
-      if (_board.ValidateDropMove(dropMoveSnapshot) == null)
+      if (_board.ValidateDropMove(dropMoveSnapshot) == RulesViolation.NoViolations)
         yield return dropMoveSnapshot;
     }
 
@@ -96,7 +96,7 @@ namespace Yasc.ShogiCore.Notations
              from m in _board.GetAvailableUsualMoves(p)
              where m.IsPromoting == isPromoting 
                 && _board.GetPieceAt(m.To) != null 
-                && _board.ValidateUsualMove(m) == null
+                && _board.ValidateUsualMove(m) == RulesViolation.NoViolations
              select m;
     }
 

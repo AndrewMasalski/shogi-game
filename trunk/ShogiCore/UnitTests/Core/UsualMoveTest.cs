@@ -9,7 +9,7 @@ using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
-namespace ShogiCore.UnitTests.ShogiCore.Moves
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class UsualMoveTest
@@ -60,7 +60,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       foreach (var to in dropMoves.To)
       {
         var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
-        Assert.IsTrue(move.IsValid, move.ErrorMessage);
+        Assert.IsTrue(move.IsValid, move.RulesViolation.ToString());
       }
 
       foreach (var to in dropMoves.NotTo)
@@ -75,7 +75,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       foreach (var to in usualMoves.To)
       {
         var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
-        Assert.IsTrue(move.IsValid, move.ErrorMessage);
+        Assert.IsTrue(move.IsValid, move.RulesViolation.ToString());
       }
 
       foreach (var to in usualMoves.NotTo)
@@ -128,7 +128,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     {
       var badMove = _board.GetUsualMove("1c", "1d", false);
       Assert.IsFalse(badMove.IsValid);
-      Assert.AreEqual("No piece at 1c", badMove.ErrorMessage);
+      Assert.AreEqual(RulesViolation.WrongPieceReference, badMove.RulesViolation);
     }
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]
     public void GetUsualMoveFromEmptyCell()
@@ -136,7 +136,7 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
       var move = _board.GetUsualMove("3d", "3e", false);
 
       Assert.IsFalse(move.IsValid);
-      Assert.AreEqual("No piece at 3d", move.ErrorMessage);
+      Assert.AreEqual(RulesViolation.WrongPieceReference, move.RulesViolation);
       _board.MakeMove(move);
     }
     [TestMethod]
@@ -144,8 +144,8 @@ namespace ShogiCore.UnitTests.ShogiCore.Moves
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.MakeMove(_board.GetUsualMove("3g", "3f", false));
-      Assert.AreEqual("It's White's move now",
-        _board.GetUsualMove("3f", "3e", false).ErrorMessage);
+      var move = _board.GetUsualMove("3f", "3e", false);
+      Assert.AreEqual(RulesViolation.WrongSideToMove, move.RulesViolation);
     }
   }
 }

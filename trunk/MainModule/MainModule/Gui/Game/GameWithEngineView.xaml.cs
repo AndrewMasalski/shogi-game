@@ -25,7 +25,7 @@ namespace MainModule.Gui.Game
       Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
         new Action(CommandManager.InvalidateRequerySuggested));
 
-      _errorLabel.Text = e.Move.ErrorMessage;
+      _errorLabel.Text = e.Move.RulesViolation.ToString();
     }
   }
 }

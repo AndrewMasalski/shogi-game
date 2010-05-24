@@ -4,16 +4,22 @@ using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
-namespace ShogiCore.UnitTests.ShogiCore
+namespace ShogiCore.UnitTests.Core
 {
   [TestClass]
   public class PieceTest
   {
+    private Board _board;
+
+    [TestInitialize]
+    public void Init()
+    {
+      _board = new Board(new StandardPieceSet());
+    }
     [TestMethod]
     public void TestPromote()
     {
-      var b = new Board(new StandardPieceSet());
-      var p = b.PieceSet[PT.歩];
+      var p = _board.PieceSet[PT.歩];
       p.IsPromoted = true;
       Assert.AreEqual(PT.と, p.PieceType);
       p.IsPromoted = false;
@@ -22,57 +28,55 @@ namespace ShogiCore.UnitTests.ShogiCore
     [TestMethod]
     public void CellTest()
     {
-      var b = new Board(new StandardPieceSet());
-      var c = b.GetCellAt(0, 0);
+      var c = _board.GetCellAt(0, 0);
       Assert.IsNull(c.Piece);
-      b.ResetPiece(c.Position);
+      _board.ResetPiece(c.Position);
       Assert.IsNull(c.Piece);
-      var piece = b.PieceSet[PT.馬];
-      b.SetPiece(c.Position, piece, b.White);
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, c.Position, _board.White);
       Assert.AreSame(c.Piece, piece);
-      b.SetPiece(c.Position, piece);
+      _board.SetPiece(piece, c.Position);
       Assert.AreSame(c.Piece, piece);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void SetNullOwnerCellTest()
     {
-      var b = new Board(new StandardPieceSet());
-      b.SetPiece(b.GetCellAt(0, 0).Position, b.PieceSet[PT.馬], null);
+      _board.SetPiece(_board.PieceSet[PT.馬], _board.GetCellAt(0, 0).Position, null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void SetNullPieceCellTest()
     {
-      var b = new Board(new StandardPieceSet());
-      b.SetPiece(b.GetCellAt(0, 0).Position, null, b.White);
+      _board.SetPiece((Piece)null, _board.GetCellAt(0, 0).Position, _board.White);
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void SetNullPieceTypeCellTest()
+    {
+      _board.SetPiece((IPieceType)null, _board.GetCellAt(0, 0).Position, _board.White);
     }
     [TestMethod, ExpectedException(typeof(InvalidOperationException))]
     public void SetPieceWhichIsAlreadySet()
     {
-      var b = new Board(new StandardPieceSet());
-      var piece = b.PieceSet[PT.馬];
-      b.SetPiece(b.GetCellAt(0, 0).Position, piece, b.White);
-      b.SetPiece(b.GetCellAt(0, 1).Position, piece, b.White);
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position, _board.White);
+      _board.SetPiece(piece, _board.GetCellAt(0, 1).Position, _board.White);
     }
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void SetNullPieceTest()
     {
-      var b = new Board(new StandardPieceSet());
-      b.SetPiece(b.GetCellAt(0, 0).Position, null);
+      _board.SetPiece(null, _board.GetCellAt(0, 0).Position);
     }
     [TestMethod]
     public void SetPieceWithOwner()
     {
-      var b = new Board(new StandardPieceSet());
-      var piece = b.PieceSet[PT.馬];
-      b.SetPiece(b.GetCellAt(0, 0).Position, piece, b.White);
-      b.SetPiece(b.GetCellAt(0, 1).Position, piece);
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position, _board.White);
+      _board.SetPiece(piece, _board.GetCellAt(0, 1).Position);
     }
     [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
     public void SetOwnerlessPiece()
     {
-      var b = new Board(new StandardPieceSet());
-      var piece = b.PieceSet[PT.馬];
-      b.SetPiece(b.GetCellAt(0, 0).Position, piece);
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position);
     }
   }
 }
