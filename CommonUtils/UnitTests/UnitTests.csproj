@@ -92,6 +92,7 @@
     <Compile Include="PropertyObserverAssertion.cs" />
     <Compile Include="RangesCollectionAssert.cs" />
     <Compile Include="RangeTest.cs" />
+    <Compile Include="SerializationUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonUtils\CommonUtils.csproj">

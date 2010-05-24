@@ -3,8 +3,19 @@
   <Class Name="Yasc.ShogiCore.Primitives.PT">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <Members>
-      <Field Name="_parser" Hidden="true" />
+      <Field Name="_deserializerDic" Hidden="true" />
+      <Field Name="_parserDic" Hidden="true" />
+      <Method Name="Down" Hidden="true" />
+      <Method Name="DownLeft" Hidden="true" />
+      <Method Name="DownRight" Hidden="true" />
+      <Method Name="Go" Hidden="true" />
+      <Method Name="Join" Hidden="true" />
+      <Method Name="Left" Hidden="true" />
       <Method Name="PT" Hidden="true" />
+      <Method Name="Right" Hidden="true" />
+      <Method Name="Up" Hidden="true" />
+      <Method Name="UpLeft" Hidden="true" />
+      <Method Name="UpRight" Hidden="true" />
     </Members>
     <NestedTypes>
       <Enum Name="Yasc.ShogiCore.Primitives.PT.RealType" Collapsed="true">
@@ -12,13 +23,19 @@
           <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
-      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceCategoryImpl" Collapsed="true">
+      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceCategory" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
-      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceTypeImpl" Collapsed="true">
+      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Yasc.ShogiCore.Primitives.PT.PieceTypeSerializationHelper" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -32,7 +49,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BAAwQqIAIAAIAAgAACGHAAAAEAFQAAAAagCAKJXBEQI=</HashCode>
+      <HashCode>BIAwQqIAIAAIAAgACCGHAAAAEABQAAAAagCAKJXBEQI=</HashCode>
       <FileName>Primitives\PT.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -42,7 +59,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Struct Name="Yasc.ShogiCore.Primitives.Position">
-    <Position X="8" Y="0.5" Width="1.5" />
+    <Position X="8" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>BAAgAAAAAAAAIAAEwAFAAAAAABAAAIAAAAAAAAABYiA=</HashCode>
       <FileName>Primitives\Position.cs</FileName>
@@ -50,12 +67,6 @@
   </Struct>
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceCategory">
     <Position X="4.25" Y="0.5" Width="3" />
-    <AssociationLine Name="PieceTypes" Type="Yasc.ShogiCore.Primitives.IPieceType" FixedToPoint="true">
-      <Path>
-        <Point X="5.812" Y="1.629" />
-        <Point X="5.812" Y="2.75" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\IPieceCategory.cs</FileName>
@@ -66,18 +77,6 @@
   </Interface>
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
     <Position X="4.25" Y="2.75" Width="3" />
-    <AssociationLine Name="PieceKind" Type="Yasc.ShogiCore.Primitives.IPieceCategory" FixedToPoint="true">
-      <Path>
-        <Point X="6.875" Y="2.75" />
-        <Point X="6.875" Y="1.629" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="PieceQuality" Type="Yasc.ShogiCore.Primitives.IPieceCategory" FixedToPoint="true">
-      <Path>
-        <Point X="4.625" Y="2.75" />
-        <Point X="4.625" Y="1.629" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>

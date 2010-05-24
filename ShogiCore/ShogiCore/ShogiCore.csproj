@@ -120,9 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Primitives\Primitives.cd" />
-    <None Include="Core\BoardDiagram.cd" />
-    <None Include="Core\MovesDiagram.cd" />
-    <None Include="Snapshots\SnapShotsDiagram.cd" />
+    <None Include="Core\Board.cd" />
+    <None Include="Core\Moves.cd" />
+    <None Include="Snapshots\Snapshots.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CommonUtils\CommonUtils\CommonUtils.csproj">

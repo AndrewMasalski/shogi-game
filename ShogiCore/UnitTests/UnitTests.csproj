@@ -115,7 +115,7 @@
     <Compile Include="Core\PieceSetTest.cs" />
     <Compile Include="Primitives\PieceTypeTest.cs" />
     <Compile Include="Core\PlayerTest.cs" />
-    <Compile Include="PositionTest.cs">
+    <Compile Include="Primitives\PositionTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\DropMovesTest.cs">

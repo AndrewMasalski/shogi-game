@@ -7,11 +7,6 @@ namespace Yasc.ShogiCore.Snapshots
   [Serializable]
   public class PieceSnapshot
   {
-    /// <summary>Indicates whether the piece is primoted</summary>
-    public bool IsPromoted
-    {
-      get { return PieceType.IsPromoted; }
-    }
     /// <summary>The piece type</summary>
     public IPieceType PieceType { get; private set; }
     /// <summary>The piece color</summary>
@@ -56,7 +51,7 @@ namespace Yasc.ShogiCore.Snapshots
     ///   text with explanation why it's impossible</summary>
     public string IsPromotionAllowed(Position from, Position to)
     {
-      if (IsPromoted)
+      if (PieceType.IsPromoted)
         return "Can't promote piece that is already promoted";
 
       if (!PieceType.CanPromote)

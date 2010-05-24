@@ -13,9 +13,6 @@
       <Field Name="_whiteHandRo" Hidden="true" />
       <Method Name="CalculateHashCode" Hidden="true" />
       <Method Name="DoesntHaveValidMoves" Hidden="true" />
-      <Method Name="Down" Hidden="true" />
-      <Method Name="DownLeft" Hidden="true" />
-      <Method Name="DownRight" Hidden="true" />
       <Method Name="DuplicateForPromoting" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="EstimateUsualMoveTargets" Hidden="true" />
@@ -25,33 +22,17 @@
       <Method Name="GetAllValidUsualMovesWithoutCheck3" Hidden="true" />
       <Method Name="GetAvailableDropMoves" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="GetMovesFor桂" Hidden="true" />
-      <Method Name="GetMovesFor歩" Hidden="true" />
-      <Method Name="GetMovesFor王" Hidden="true" />
-      <Method Name="GetMovesFor竜" Hidden="true" />
-      <Method Name="GetMovesFor角" Hidden="true" />
-      <Method Name="GetMovesFor金" Hidden="true" />
-      <Method Name="GetMovesFor銀" Hidden="true" />
-      <Method Name="GetMovesFor飛" Hidden="true" />
-      <Method Name="GetMovesFor香" Hidden="true" />
-      <Method Name="GetMovesFor馬" Hidden="true" />
       <Method Name="Go" Hidden="true" />
       <Method Name="HandInternal" Hidden="true" />
       <Property Name="HashCode" Hidden="true" />
       <Method Name="IsTherePawnOnThisColumn" Hidden="true" />
-      <Method Name="Join" Hidden="true" />
-      <Method Name="Left" Hidden="true" />
-      <Field Name="MaxMoveLength" Hidden="true" />
       <Method Name="Move" Hidden="true" />
       <Method Name="Opponent" Hidden="true" />
-      <Method Name="Right" Hidden="true" />
+      <Method Name="SetPiece" Hidden="true" />
       <Method Name="ShortValidateUsualMove" Hidden="true" />
-      <Method Name="Up" Hidden="true" />
-      <Method Name="UpLeft" Hidden="true" />
-      <Method Name="UpRight" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>QCARCgMMAKAEAAiZkgNJJIAIEMAjApAACAShJABBAiM=</HashCode>
+      <HashCode>QCABCAMMAKAEAACZkgNJJIAAEMAjApAAAAQhAABAAiE=</HashCode>
       <FileName>Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -99,12 +80,12 @@
       <Method Name="IsThatPromitionZoneFor" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAhAAEgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
+      <HashCode>AAAAAAAAEAAAgAAEgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
       <FileName>Snapshots\PieceSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Color" />
       <Property Name="PieceType" />
+      <Property Name="Color" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Core.Board">
@@ -148,7 +129,7 @@
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
     <Position X="12" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAA=</HashCode>
+      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
   </Interface>
