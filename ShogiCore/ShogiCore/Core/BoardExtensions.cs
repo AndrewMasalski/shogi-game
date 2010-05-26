@@ -9,16 +9,20 @@ namespace Yasc.ShogiCore.Core
   ///   grid handy althogh don't add any functionality</summary>
   public static class BoardExtensions
   {
-    /// <summary>Gets the piece in the cell in the position -or- null if the cell is empty</summary>
+    /// <summary>Gets piece in the cell at position -or- null if the cell is empty</summary>
     public static Piece GetPieceAt(this Board board, string position)
     {
       return board.GetPieceAt(Position.Parse(position));
     }
-
+    /// <summary>Gets cell at position</summary>
+    public static Cell GetCellAt(this Board board, string position)
+    {
+      return board.GetCellAt(Position.Parse(position));
+    }
     #region ' Get/Make Move '
 
     /// <summary>Gets usual move on the board</summary>
-    public static UsualMove GetUsualMove(this Board board, string from, string to, bool isPromoting)
+    public static UsualMove GetUsualMove(this Board board, string from, string to, bool isPromoting = false)
     {
       return board.GetUsualMove(Position.Parse(from), Position.Parse(to), isPromoting);
     }

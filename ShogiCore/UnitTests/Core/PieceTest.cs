@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CommonUtils.UnitTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.PieceSets;
@@ -10,73 +10,57 @@ namespace ShogiCore.UnitTests.Core
   public class PieceTest
   {
     private Board _board;
-
+    private Piece _piece;
+    // TODO: PropertyObserverAssertion!
     [TestInitialize]
     public void Init()
     {
       _board = new Board(new StandardPieceSet());
+      _piece = _board.PieceSet[PT.銀];
     }
     [TestMethod]
-    public void TestPromote()
+    public void IsPromoted()
     {
-      var p = _board.PieceSet[PT.歩];
-      p.IsPromoted = true;
-      Assert.AreEqual(PT.と, p.PieceType);
-      p.IsPromoted = false;
-      Assert.AreEqual(PT.歩, p.PieceType);
+      _piece.IsPromoted = true;
+      Assert.AreEqual(PT.全, _piece.PieceType);
+      _piece.IsPromoted = false;
+      Assert.AreEqual(PT.銀, _piece.PieceType);
     }
     [TestMethod]
-    public void CellTest()
+    public void Owner()
     {
-      var c = _board.GetCellAt(0, 0);
-      Assert.IsNull(c.Piece);
-      _board.ResetPiece(c.Position);
-      Assert.IsNull(c.Piece);
-      var piece = _board.PieceSet[PT.馬];
-      _board.SetPiece(piece, c.Position, _board.White);
-      Assert.AreSame(c.Piece, piece);
-      _board.SetPiece(piece, c.Position);
-      Assert.AreSame(c.Piece, piece);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void SetNullOwnerCellTest()
-    {
-      _board.SetPiece(_board.PieceSet[PT.馬], _board.GetCellAt(0, 0).Position, null);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void SetNullPieceCellTest()
-    {
-      _board.SetPiece((Piece)null, _board.GetCellAt(0, 0).Position, _board.White);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void SetNullPieceTypeCellTest()
-    {
-      _board.SetPiece((IPieceType)null, _board.GetCellAt(0, 0).Position, _board.White);
-    }
-    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
-    public void SetPieceWhichIsAlreadySet()
-    {
-      var piece = _board.PieceSet[PT.馬];
-      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position, _board.White);
-      _board.SetPiece(piece, _board.GetCellAt(0, 1).Position, _board.White);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void SetNullPieceTest()
-    {
-      _board.SetPiece(null, _board.GetCellAt(0, 0).Position);
+      Assert.IsNull(_piece.Owner);
+      _board.White.Hand.Add(_piece);
+      Assert.IsNotNull(_piece.Owner);
+      _board.White.Hand.Clear();
+      Assert.IsNull(_piece.Owner);
     }
     [TestMethod]
-    public void SetPieceWithOwner()
+    public void WhatProhibitedOnOwnerlessPiece()
     {
-      var piece = _board.PieceSet[PT.馬];
-      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position, _board.White);
-      _board.SetPiece(piece, _board.GetCellAt(0, 1).Position);
+      MyAssert.ThrowsException<PieceHasNoOwnerException>(
+        () => _piece.Color.ToString());
+
+      MyAssert.ThrowsException<PieceHasNoOwnerException>(
+        () => _piece.Snapshot());
     }
-    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
-    public void SetOwnerlessPiece()
+    [TestMethod]
+    public void ToStringTest()
     {
-      var piece = _board.PieceSet[PT.馬];
-      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position);
+      Assert.AreEqual("Ownerless 銀", _piece.ToString());
+    }
+    [TestMethod]
+    public void ToLatinString()
+    {
+      Assert.AreEqual("Ownerless S", _piece.ToLatinString());
+    }
+    [TestMethod]
+    public void Snapshot()
+    {
+      _board.White.Hand.Add(_piece);
+      var pieceSnapshot = _piece.Snapshot();
+      Assert.AreEqual(PieceColor.White, pieceSnapshot.Color);
+      Assert.AreEqual(PT.銀, pieceSnapshot.PieceType);
     }
   }
 }

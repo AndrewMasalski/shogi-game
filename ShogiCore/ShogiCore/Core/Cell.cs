@@ -11,6 +11,8 @@ namespace Yasc.ShogiCore.Core
   {
     private Piece _piece;
 
+    /// <summary>Gets the board cell belongs to</summary>
+    public Board Owner { get; set; }
     /// <summary>Position of the cell on the board</summary>
     public Position Position { get; private set; }
     /// <summary>Piece in the cell</summary>
@@ -21,12 +23,14 @@ namespace Yasc.ShogiCore.Core
       {
         if (_piece == value) return;
         _piece = value;
+        Owner.CellPieceChanged();
         RaisePropertyChanged("Piece");
       }
     }
 
-    internal Cell(Position position)
+    internal Cell(Board owner, Position position)
     {
+      Owner = owner;
       Position = position;
     }
   }

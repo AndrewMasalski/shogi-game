@@ -12,10 +12,14 @@ namespace Yasc.ShogiCore.Core
     /// <summary>The piece type</summary>
     public IPieceType PieceType { get; private set; }
     /// <summary>Current piece color</summary>
-    /// <remarks>Makes no sense if there's no <see cref="Owner"/></remarks>
+    /// <exception cref="PieceHasNoOwnerException">Piece has no owner, hence no color</exception>
     public PieceColor Color
     {
-      get { return Owner.Color; }
+      get
+      {
+        if (Owner == null) throw new PieceHasNoOwnerException("Piece has no owner, hence no color");
+        return Owner.Color;
+      }
     }
     /// <summary>Indicates whether the piece is promoted</summary>
     /// <remarks>When you set it <see cref="PieceType"/> changes accordingly</remarks>
@@ -37,6 +41,7 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Takes a snapshot of the piece</summary>
+    /// <exception cref="PieceHasNoOwnerException">Cannot take a snapshot of wnerless piece</exception>
     public PieceSnapshot Snapshot()
     {
       return new PieceSnapshot(PieceType, Color);

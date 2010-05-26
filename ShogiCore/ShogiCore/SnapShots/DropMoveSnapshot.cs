@@ -24,11 +24,5 @@ namespace Yasc.ShogiCore.Snapshots
       Piece = new PieceSnapshot(pieceType, color);
       To = to;
     }
-    /// <summary>ctor</summary>
-    public DropMoveSnapshot(PieceSnapshot piece, Position to)
-    {
-      Piece = piece;
-      To = to;
-    }
   }
 }
