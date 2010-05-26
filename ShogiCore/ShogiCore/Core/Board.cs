@@ -349,6 +349,8 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets all valid drop moves available for the player for the given piece type</summary>
     public IEnumerable<DropMove> GetAvailableMoves(IPieceType pieceType, PieceColor color)
     {
+      if (pieceType == null) throw new ArgumentNullException("pieceType");
+
       var piece = GetPlayer(color).Hand.GetByType(pieceType);
       if (piece == null)
         throw new PieceNotFoundException(pieceType, string.Format(

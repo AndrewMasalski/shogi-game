@@ -21,7 +21,7 @@ namespace Yasc.ShogiCore.Core
     #region ' Public Interface '
 
     /// <summary>ctor</summary>
-    public HandCollection(IPieceSet pieceSet, Player owner)
+    internal HandCollection(IPieceSet pieceSet, Player owner)
       : base(new PieceCollection())
     {
       _pieceSet = pieceSet;
@@ -32,6 +32,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Adds the piece from board's piece set to the hand</summary>
     public Piece Add(IPieceType type)
     {
+      if (type == null) throw new ArgumentNullException("type");
       var piece = _pieceSet[type];
       if (piece == null)
       {
@@ -46,14 +47,17 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Adds the piece to the hand</summary>
     public void Add(Piece item)
     {
+      if (item == null) throw new ArgumentNullException("item");
       Items.Add(item);
     }
 
     /// <summary>Gets the piece from player hand by type -or- null</summary>
     public Piece GetByType(IPieceType pieceType)
     {
+      if (pieceType == null) throw new ArgumentNullException("pieceType");
       return Items.FirstOrDefault(piece => piece.PieceType == pieceType);
     }
+
     /// <summary>Load pieces to the hand from snapshot</summary>
     public void LoadSnapshot(IEnumerable<IPieceType> handSnapshot)
     {

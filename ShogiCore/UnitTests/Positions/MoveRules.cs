@@ -4,14 +4,15 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShogiCore.UnitTests.Core;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore.Core;
 using Yasc.Utils;
 
-namespace ShogiCore.UnitTests.Core
+namespace ShogiCore.UnitTests.Positions
 {
   [TestClass]
-  public class GetAvailableMovesTest
+  public class MoveRules
   {
     [TestMethod]
     public void RunDiagrams()
@@ -27,6 +28,8 @@ namespace ShogiCore.UnitTests.Core
         ValidateDiagram(diagram, diagram.Board);
       }
     }
+
+    #region ' Implementation '
 
     private static void ValidateDiagram(BoardDiagram diagram, Board board)
     {
@@ -51,7 +54,7 @@ namespace ShogiCore.UnitTests.Core
       var expected = from p in dropMoves.To
                      select board.GetDropMove(dropMoves.Piece, p, board.OneWhoMoves);
       AreEquivalent(expected, moves, (x, y) =>
-        x.PieceType == y.PieceType && x.To == y.To && x.Who == y.Who);
+                                     x.PieceType == y.PieceType && x.To == y.To && x.Who == y.Who);
     }
     private static void AreEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> comparer)
     {
@@ -63,11 +66,10 @@ namespace ShogiCore.UnitTests.Core
       {
         var actualElementCopy = actualElement;
         Assert.AreEqual(1, 
-          expectedList.RemoveAll(expectedElement => 
-            comparer(actualElementCopy, expectedElement)));
+                        expectedList.RemoveAll(expectedElement => 
+                                               comparer(actualElementCopy, expectedElement)));
       }
     }
-
     private static void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
     {
       board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
@@ -77,7 +79,9 @@ namespace ShogiCore.UnitTests.Core
                      select board.GetUsualMove(usualMoves.From, p.Position, p.Promotion);
 
       AreEquivalent(expected, moves, (x, y) =>
-        x.From == y.From && x.To == y.To && x.IsPromoting == y.IsPromoting);
+                                     x.From == y.From && x.To == y.To && x.IsPromoting == y.IsPromoting);
     }
+
+    #endregion
   }
 }

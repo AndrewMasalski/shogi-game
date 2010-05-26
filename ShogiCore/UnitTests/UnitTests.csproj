@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\CellTest.cs" />
     <Compile Include="Primitives\PieceCategoryTest.cs" />
     <Compile Include="Primitives\ComparableTest.cs" />
     <Compile Include="Primitives\PTTest.cs" />

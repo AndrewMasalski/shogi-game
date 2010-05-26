@@ -92,6 +92,16 @@ namespace ShogiCore.UnitTests.Core
       _board.PieceSet.ReleasePiece(_board.PieceSet[PT.馬]);
       
     }
+    [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
+    public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
+    {
+      var board = new Board(InfinitePieceSet.Instance);
+      board.SetPiece(PT.馬, "1i", PieceColor.Black);
+      board.SetPiece(PT.馬, "2i", PieceColor.Black);
+      board.SetPiece(PT.馬, "3i", PieceColor.Black);
+
+      _board.LoadSnapshot(board.CurrentSnapshot);
+    }
 
     [TestMethod]
     public void SetPieceArgumentNull()
