@@ -24,6 +24,7 @@ namespace Yasc.ShogiCore.Core
       ViolatedRule = (RulesViolation)info.GetValue("ViolatedRule", typeof(RulesViolation));
     }
 
+    /// <summary>Partivipates serialization process</summary>
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
       base.GetObjectData(info, context);

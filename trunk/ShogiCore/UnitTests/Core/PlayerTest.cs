@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
-using Yasc.ShogiCore.Snapshots;
 
 namespace ShogiCore.UnitTests.Core
 {
@@ -67,7 +66,7 @@ namespace ShogiCore.UnitTests.Core
     {
       var player = new Board(new StandardPieceSet()).White;
       player.Hand.Add(PT.馬);
-      player.Hand.LoadSnapshot(new PieceSnapshot[0]);
+      player.Hand.LoadSnapshot(new IPieceType[0]);
       Assert.AreEqual(0, player.Hand.Count);
     }
     [TestMethod]
@@ -75,7 +74,7 @@ namespace ShogiCore.UnitTests.Core
     {
       var player = new Board(new StandardPieceSet()).White;
       player.Hand.Add(PT.馬);
-      player.Hand.LoadSnapshot(new [] { new PieceSnapshot(PT.金, PieceColor.White), });
+      player.Hand.LoadSnapshot(new [] { PT.金, });
       var piece = player.Hand[0];
       Assert.AreEqual(PieceColor.White, piece.Color);
       Assert.AreEqual(PT.金, piece.PieceType);
@@ -85,7 +84,7 @@ namespace ShogiCore.UnitTests.Core
     {
       var player = new Board(new StandardPieceSet()).White;
       player.Hand.Add(PT.馬);
-      player.Hand.LoadSnapshot(new [] { new PieceSnapshot(PT.金, PieceColor.Black), });
+      player.Hand.LoadSnapshot(new [] { PT.金, });
       var piece = player.Hand[0];
       Assert.AreEqual(PieceColor.White, piece.Color);
       Assert.AreEqual(PT.金, piece.PieceType);

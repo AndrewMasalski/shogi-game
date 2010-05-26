@@ -17,12 +17,12 @@ namespace Yasc.ShogiCore.Snapshots
     private bool _isHashCodeCalculated;
     private int _hashCode;
     private readonly PieceSnapshot[,] _cells = new PieceSnapshot[9, 9];
-    private readonly List<PieceSnapshot> _blackHand;
-    private readonly List<PieceSnapshot> _whiteHand;
+    private readonly List<IPieceType> _blackHand;
+    private readonly List<IPieceType> _whiteHand;
 
     private ReadOnlySquareArray<PieceSnapshot> _cellsRo;
-    private ReadOnlyCollection<PieceSnapshot> _blackHandRo;
-    private ReadOnlyCollection<PieceSnapshot> _whiteHandRo;
+    private ReadOnlyCollection<IPieceType> _blackHandRo;
+    private ReadOnlyCollection<IPieceType> _whiteHandRo;
 
     private int HashCode
     {
@@ -49,21 +49,21 @@ namespace Yasc.ShogiCore.Snapshots
       get { return _cellsRo ?? (_cellsRo = new ReadOnlySquareArray<PieceSnapshot>(_cells)); }
     }
     /// <summary>List of the pieces in black hand</summary>
-    public ReadOnlyCollection<PieceSnapshot> BlackHand
+    public ReadOnlyCollection<IPieceType> BlackHand
     {
-      get { return _blackHandRo ?? (_blackHandRo = new ReadOnlyCollection<PieceSnapshot>(_blackHand)); }
+      get { return _blackHandRo ?? (_blackHandRo = new ReadOnlyCollection<IPieceType>(_blackHand)); }
     }
     /// <summary>List of the pieces in white hand</summary>
-    public ReadOnlyCollection<PieceSnapshot> WhiteHand
+    public ReadOnlyCollection<IPieceType> WhiteHand
     {
-      get { return _whiteHandRo ?? (_whiteHandRo = new ReadOnlyCollection<PieceSnapshot>(_whiteHand)); }
+      get { return _whiteHandRo ?? (_whiteHandRo = new ReadOnlyCollection<IPieceType>(_whiteHand)); }
     }
 
     /// <summary>ctor</summary>
     public BoardSnapshot(PieceColor oneWhoMoves,
       IEnumerable<Tuple<Position, PieceSnapshot>> boardPieces,
-      IEnumerable<PieceSnapshot> whiteHand = null,
-      IEnumerable<PieceSnapshot> blackHand = null)
+      IEnumerable<IPieceType> whiteHand = null,
+      IEnumerable<IPieceType> blackHand = null)
     {
       if (boardPieces == null) throw new ArgumentNullException("boardPieces");
 
@@ -71,8 +71,8 @@ namespace Yasc.ShogiCore.Snapshots
       foreach (var t in boardPieces)
         SetPiece(t.Item1, t.Item2);
 
-      _whiteHand = whiteHand != null ? whiteHand.ToList() : EmptyList<PieceSnapshot>.Instance;
-      _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<PieceSnapshot>.Instance; 
+      _whiteHand = whiteHand != null ? whiteHand.ToList() : EmptyList<IPieceType>.Instance;
+      _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance; 
     }
 
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
@@ -86,8 +86,8 @@ namespace Yasc.ShogiCore.Snapshots
       foreach (var p in Position.OnBoard)
         SetPiece(p, board.GetPieceAt(p));
 
-      _whiteHand = board.WhiteHand.OrderBy(p => p.PieceType).ToList();
-      _blackHand = board.BlackHand.OrderBy(p => p.PieceType).ToList();
+      _whiteHand = board.WhiteHand.OrderBy(p => p).ToList();
+      _blackHand = board.BlackHand.OrderBy(p => p).ToList();
 
       Move(move);
       OneWhoMoves = Opponent(OneWhoMoves);
@@ -109,7 +109,7 @@ namespace Yasc.ShogiCore.Snapshots
       return _cells[x, y]; 
     }
     /// <summary>Gets the hand collection by color</summary>
-    public ReadOnlyCollection<PieceSnapshot> Hand(PieceColor color)
+    public ReadOnlyCollection<IPieceType> Hand(PieceColor color)
     {
       return color == PieceColor.White ? WhiteHand : BlackHand;
     }
@@ -120,7 +120,7 @@ namespace Yasc.ShogiCore.Snapshots
     {
       if (move == null) throw new ArgumentNullException("move");
       if (move.Piece.Color != OneWhoMoves) return RulesViolation.WrongSideToMove;
-      if (!Hand(OneWhoMoves).Contains(move.Piece)) return RulesViolation.WrongPieceReference;
+      if (!Hand(OneWhoMoves).Contains(move.Piece.PieceType)) return RulesViolation.WrongPieceReference;
       if (GetPieceAt(move.To) != null) return RulesViolation.DropToOccupiedCell;
 
       if (move.Piece.PieceType == PT.歩 || move.Piece.PieceType == PT.香)
@@ -195,10 +195,10 @@ namespace Yasc.ShogiCore.Snapshots
              select move;
     }
     /// <summary>Gets all valid drop moves for the piece</summary>
-    public IEnumerable<DropMoveSnapshot> GetAvailableDropMoves(PieceSnapshot piece)
+    public IEnumerable<DropMoveSnapshot> GetAvailableDropMoves(IPieceType piece, PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) == null).
-        Select(p => new DropMoveSnapshot(piece, p)).
+        Select(p => new DropMoveSnapshot(piece, color, p)).
         Where(move => ValidateDropMove(move) == RulesViolation.NoViolations);
     }
     /// <summary>Gets all valid usual and drop moves for the player</summary>
@@ -228,7 +228,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
     private void Move(DropMoveSnapshot move)
     {
-      HandInternal(OneWhoMoves).Remove(move.Piece);
+      HandInternal(OneWhoMoves).Remove(move.Piece.PieceType);
       SetPiece(move.To, move.Piece);
     }
     private void Move(UsualMoveSnapshot move)
@@ -237,11 +237,11 @@ namespace Yasc.ShogiCore.Snapshots
         SetPiece(move.From, GetPieceAt(move.From).ClonePromoted());
 
       if (GetPieceAt(move.To) != null)
-        HandInternal(OneWhoMoves).Add(GetPieceAt(move.To));
+        HandInternal(OneWhoMoves).Add(GetPieceAt(move.To).PieceType);
       SetPiece(move.To, GetPieceAt(move.From));
       SetPiece(move.From, null);
     }
-    private List<PieceSnapshot> HandInternal(PieceColor color)
+    private List<IPieceType> HandInternal(PieceColor color)
     {
       return color == PieceColor.White ? _whiteHand : _blackHand;
     }
@@ -263,7 +263,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
     private IEnumerable<DropMoveSnapshot> GetAllValidDropMoves(PieceColor color)
     {
-      return Hand(color).Distinct().SelectMany(GetAvailableDropMoves);
+      return Hand(color).Distinct().SelectMany(p => GetAvailableDropMoves(p, color));
     }
 
     private bool DoesntHaveValidMoves(PieceColor color)

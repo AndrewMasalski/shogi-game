@@ -13,7 +13,6 @@ namespace Yasc.ShogiCore.Core
   public class Board : ObservableObject
   {
     // TODO: Sfen strings
-    // TODO: Dix the mess with thousands SetPiece overloads
 
     #region ' Fields '
 
@@ -74,12 +73,12 @@ namespace Yasc.ShogiCore.Core
     {
       get { return Position.OnBoard.Select(p => _cells[p.X, p.Y]); }
     }
-    /// <summary>Gets the piece in the cell in the position -or- null if the cell is empty</summary>
+    /// <summary>Gets piece in cell at  position -or- null if the cell is empty</summary>
     public Piece GetPieceAt(Position position)
     {
       return _cells[position.X, position.Y].Piece; 
     }
-    /// <summary>Gets the cell in the position</summary>
+    /// <summary>Gets cell at position</summary>
     public Cell GetCellAt(Position position)
     {
       return _cells[position.X, position.Y];
@@ -153,11 +152,7 @@ namespace Yasc.ShogiCore.Core
     private void FillCells()
     {
       foreach (var p in Position.OnBoard)
-      {
-        var cell = new Cell(p);
-        cell.PropertyChanged += (s, e) => ResetCurrentSnapshot();
-        _cells[p.X, p.Y] = cell;
-      }
+        _cells[p.X, p.Y] = new Cell(this, p);
     }
     private Player CreatePlayer()
     {
@@ -367,7 +362,7 @@ namespace Yasc.ShogiCore.Core
       if (piece == null) throw new ArgumentNullException("piece");
       if (piece.Owner == null) throw new PieceHasNoOwnerException();
 
-      return from snapshot in CurrentSnapshot.GetAvailableDropMoves(piece.Snapshot())
+      return from snapshot in CurrentSnapshot.GetAvailableDropMoves(piece.PieceType, piece.Color)
              select GetMove(snapshot);
     }
 
@@ -450,12 +445,23 @@ namespace Yasc.ShogiCore.Core
 
           from whitePiece in White.Hand
           orderby whitePiece.PieceType
-          select whitePiece.Snapshot(),
+          select whitePiece.PieceType,
 
           from blackPiece in Black.Hand
           orderby blackPiece.PieceType
-          select blackPiece.Snapshot()
+          select blackPiece.PieceType
         );
+    }
+
+    /// <summary>Notification from HandCollection</summary>
+    internal void HandCollectionChanged()
+    {
+      ResetCurrentSnapshot();
+    }
+    /// <summary>Notification from Cell</summary>
+    internal void CellPieceChanged()
+    {
+      ResetCurrentSnapshot();
     }
   }
 }

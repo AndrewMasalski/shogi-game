@@ -1,3 +1,4 @@
+using System;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Core

@@ -13,7 +13,6 @@ namespace ShogiCore.UnitTests.Snapshots
   public class BoardSnapshotTest
   {
     private BoardSnapshot _snapshot;
-    private PieceSnapshot _samplePieceSnapshot;
 
     [TestInitialize]
     public void Init()
@@ -21,7 +20,6 @@ namespace ShogiCore.UnitTests.Snapshots
       var board = new Board(new StandardPieceSet());
       board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _snapshot = board.CurrentSnapshot;
-      _samplePieceSnapshot = new PieceSnapshot(PT.馬, PieceColor.Black);
     }
 
     [TestMethod]
@@ -39,17 +37,17 @@ namespace ShogiCore.UnitTests.Snapshots
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void CellsCollectionIsReadonly()
     {
-      ((IList<PieceSnapshot>)_snapshot.Cells).Add(_samplePieceSnapshot);
+      ((IList<PieceSnapshot>)_snapshot.Cells).Add(new PieceSnapshot(PT.馬, PieceColor.Black));
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void BlackHandCollectionIsReadonly()
     {
-      ((IList<PieceSnapshot>)_snapshot.BlackHand).Add(_samplePieceSnapshot);
+      ((IList<IPieceType>)_snapshot.BlackHand).Add(PT.馬);
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void WhiteHandCollectionIsReadonly()
     {
-      ((IList<PieceSnapshot>)_snapshot.WhiteHand).Add(_samplePieceSnapshot);
+      ((IList<IPieceType>)_snapshot.WhiteHand).Add(PT.馬);
     }
     [TestMethod]
     public void HandIndexerTest()

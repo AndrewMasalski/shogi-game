@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using Yasc.ShogiCore.Primitives;
-using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Core
@@ -41,6 +40,7 @@ namespace Yasc.ShogiCore.Core
           type + " in the set. Consider using infinite piece set");
       }
       Items.Add(piece);
+      _owner.Board.HandCollectionChanged();
       return piece;
     }
     /// <summary>Adds the piece to the hand</summary>
@@ -55,10 +55,10 @@ namespace Yasc.ShogiCore.Core
       return Items.FirstOrDefault(piece => piece.PieceType == pieceType);
     }
     /// <summary>Load pieces to the hand from snapshot</summary>
-    public void LoadSnapshot(IEnumerable<PieceSnapshot> handSnapshot)
+    public void LoadSnapshot(IEnumerable<IPieceType> handSnapshot)
     {
       if (handSnapshot == null) throw new ArgumentNullException("handSnapshot");
-      Items.Update(handSnapshot, p => p.Snapshot(), ps => ps, ps => _pieceSet[ps.PieceType]);
+      Items.Update(handSnapshot, p => p.Snapshot(), ps => ps, ps => _pieceSet[ps]);
     }
 
     /// <summary>Removes the piece from hand</summary>
