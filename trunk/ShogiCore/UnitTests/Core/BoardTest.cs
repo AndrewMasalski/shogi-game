@@ -126,19 +126,17 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.IsMovesOrderMaintained = false;
-      // Make move for black twice and check there's no exception
+      // Make move for black twice; there's no exception
       _board.MakeMove(_board.GetUsualMove("3c", "3d"));
       _board.MakeMove(_board.GetUsualMove("3d", "3e"));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedForDropMovesTest()
     {
-      var piece1 = _board.Black.Hand.Add(PT.馬);
-      _board.Black.Hand.Add(PT.馬);
       _board.IsMovesOrderMaintained = false;
-      // Make move for black twice and check there's no exception
-      _board.MakeMove(_board.GetDropMove(piece1, "1i"));
-      _board.MakeMove(_board.GetDropMove(PT.角, "2i", _board.Black));
+      // Make move for black twice; there's no exception
+      _board.MakeMove(_board.GetDropMove(_board.Black.Hand.Add(PT.馬), "1i"));
+      _board.MakeMove(_board.GetDropMove(_board.Black.Hand.Add(PT.馬), "2i"));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedKeepsValueTest()
@@ -193,21 +191,11 @@ namespace ShogiCore.UnitTests.Core
     {
       new Board(null);
     }
-    [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
-    public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
-    {
-      var board = new Board(InfinitePieceSet.Instance);
-      board.SetPiece(PT.馬, "1i", PieceColor.Black);
-      board.SetPiece(PT.馬, "2i", PieceColor.Black);
-      board.SetPiece(PT.馬, "3i", PieceColor.Black);
-
-      _board.LoadSnapshot(board.CurrentSnapshot);
-    }
 
     #endregion
 
     [TestMethod]
-    public void PlayerIndexerTest()
+    public void GetPlayerTest()
     {
       Assert.AreSame(_board.White, _board.GetPlayer(PieceColor.White));
       Assert.AreSame(_board.Black, _board.GetPlayer(PieceColor.Black));
@@ -220,11 +208,19 @@ namespace ShogiCore.UnitTests.Core
 
     #region ' GetAvailableMoves Method '
 
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void PassNullGetAvailableUsualMovesTest()
+    [TestMethod]
+    public void ArgumentNull()
     {
-      _board.GetAvailableMoves(null);
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.GetAvailableMoves(null));
+
+      MyAssert.ThrowsException<PieceNotFoundException>(
+        () => _board.GetAvailableMoves(PT.角, PieceColor.Black));
+
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.GetAvailableMoves(null, PieceColor.Black));
     }
+
     [TestMethod]
     public void GetAvailableUsualMovesTest()
     {
@@ -232,10 +228,6 @@ namespace ShogiCore.UnitTests.Core
       var availableMoves = _board.GetAvailableMoves("4a");
       var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("5b", "4b", "3b"), toPositions);
-    }
-    private static List<Position>P(params string[] positions)
-    {
-      return positions.Select(Position.Parse).ToList();
     }
     [TestMethod]
     public void GetAvailableMovesOrderTest()
@@ -265,11 +257,6 @@ namespace ShogiCore.UnitTests.Core
       var availableMoves = _board.GetAvailableMoves(PT.角, PieceColor.Black);
       var toPositions = (from m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(Position.OnBoard.ToList(), toPositions);
-    }
-    [TestMethod, ExpectedException(typeof(PieceNotFoundException))]
-    public void TestGetAvailableDropMovesByPieceForUnexistingPieceType()
-    {
-      _board.GetAvailableMoves(PT.角, PieceColor.Black);
     }
 
     #endregion
@@ -406,5 +393,14 @@ namespace ShogiCore.UnitTests.Core
       _board.MakeMove(_board.GetResignMove());
       Assert.AreEqual(ShogiGameResult.BlackWin, _board.GameResult);
     }
+
+    #region ' Implementation '
+
+    private static List<Position> P(params string[] positions)
+    {
+      return positions.Select(Position.Parse).ToList();
+    }
+
+    #endregion
   }
 }

@@ -6,7 +6,7 @@ using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace ShogiCore.UnitTests.Core
+namespace ShogiCore.UnitTests.Notations
 {
   [TestClass]
   public class MovesParserTest
