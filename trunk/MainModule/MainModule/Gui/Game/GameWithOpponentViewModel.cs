@@ -7,7 +7,6 @@ using MainModule.Model;
 using MainModule.Utils;
 using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
@@ -60,7 +59,7 @@ namespace MainModule.Gui.Game
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
-        Board.MakeMove(Board.GetMove(move.Move, FormalNotation.Instance).First());
+        Board.MakeWrapedMove(Board.GetMove(move.Move, FormalNotation.Instance).First());
       return DateTime.Now;
     }
     private void SendMessage()
@@ -72,7 +71,7 @@ namespace MainModule.Gui.Game
     private void UndoLastMove()
     {
       if (Board.History.IsEmpty) return;
-      if (Board.History.CurrentMove.Who.Color != Ticket.MyColor) return;
+      if (Board.History.CurrentMove.Who != Ticket.MyColor) return;
       
       Board.History.CurrentMoveIndex -= 2;
       Ticket.UndoLastMove();

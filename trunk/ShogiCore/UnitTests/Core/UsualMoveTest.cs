@@ -59,13 +59,13 @@ namespace ShogiCore.UnitTests.Core
       board.OneWhoMoves = board.GetPlayer(dropMoves.For);
       foreach (var to in dropMoves.To)
       {
-        var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
+        var move = board.Wrap(board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For)));
         Assert.IsTrue(move.IsValid, move.RulesViolation.ToString());
       }
 
       foreach (var to in dropMoves.NotTo)
       {
-        var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
+        var move = board.Wrap(board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For)));
         Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
       }
     }
@@ -74,13 +74,13 @@ namespace ShogiCore.UnitTests.Core
       board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
       foreach (var to in usualMoves.To)
       {
-        var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
+        var move = board.Wrap(board.GetUsualMove(usualMoves.From, to.Position, to.Promotion));
         Assert.IsTrue(move.IsValid, move.RulesViolation.ToString());
       }
 
       foreach (var to in usualMoves.NotTo)
       {
-        var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
+        var move = board.Wrap(board.GetUsualMove(usualMoves.From, to.Position, to.Promotion));
         Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
       }
     }
@@ -91,8 +91,8 @@ namespace ShogiCore.UnitTests.Core
     public void ValidMoveWithoutTakingPieceTest()
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      var move = _board.GetUsualMove("9g", "9f", false);
-      _board.MakeMove(move);
+      var move = _board.GetUsualMove("9g", "9f");
+      _board.MakeWrapedMove(move);
       Assert.IsNull(_board.GetPieceAt("9g"));
       Assert.AreEqual(PT.歩, _board.GetPieceAt("9f").PieceType);
     }
@@ -101,10 +101,10 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
 
-      _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9c", "9d", false));
-      _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9d", "9e", false));
-      _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9e", "9f", false));
-      _board.OneWhoMoves = _board.White; _board.MakeMove(_board.GetUsualMove("9f", "9g", false));
+      _board.OneWhoMoves = _board.White; _board.MakeWrapedMove(_board.GetUsualMove("9c", "9d"));
+      _board.OneWhoMoves = _board.White; _board.MakeWrapedMove(_board.GetUsualMove("9d", "9e"));
+      _board.OneWhoMoves = _board.White; _board.MakeWrapedMove(_board.GetUsualMove("9e", "9f"));
+      _board.OneWhoMoves = _board.White; _board.MakeWrapedMove(_board.GetUsualMove("9f", "9g"));
 
       Assert.IsNull(_board.GetPieceAt("9c"));
       Assert.IsNull(_board.GetPieceAt("9d"));
@@ -120,20 +120,20 @@ namespace ShogiCore.UnitTests.Core
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]
     public void InvalidMoveTest()
     {
-      var badMove = _board.GetUsualMove("1c", "1d", false);
-      _board.MakeMove(badMove);
+      var badMove = _board.GetUsualMove("1c", "1d");
+      _board.MakeWrapedMove(badMove);
     }
     [TestMethod]
     public void InvalidMoveMessageTest()
     {
-      var badMove = _board.GetUsualMove("1c", "1d", false);
+      var badMove = _board.Wrap(_board.GetUsualMove("1c", "1d"));
       Assert.IsFalse(badMove.IsValid);
       Assert.AreEqual(RulesViolation.WrongPieceReference, badMove.RulesViolation);
     }
     [TestMethod, ExpectedException(typeof(InvalidMoveException))]
     public void GetUsualMoveFromEmptyCell()
     {
-      var move = _board.GetUsualMove("3d", "3e", false);
+      var move = _board.Wrap(_board.GetUsualMove("3d", "3e"));
 
       Assert.IsFalse(move.IsValid);
       Assert.AreEqual(RulesViolation.WrongPieceReference, move.RulesViolation);
@@ -143,8 +143,8 @@ namespace ShogiCore.UnitTests.Core
     public void TestMoveOrder()
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      _board.MakeMove(_board.GetUsualMove("3g", "3f", false));
-      var move = _board.GetUsualMove("3f", "3e", false);
+      _board.MakeWrapedMove(_board.GetUsualMove("3g", "3f"));
+      var move = _board.Wrap(_board.GetUsualMove("3f", "3e"));
       Assert.AreEqual(RulesViolation.WrongSideToMove, move.RulesViolation);
     }
   }

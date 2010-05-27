@@ -54,7 +54,7 @@ namespace ShogiCore.UnitTests.Positions
       var expected = from p in dropMoves.To
                      select board.GetDropMove(dropMoves.Piece, p, board.OneWhoMoves);
       AreEquivalent(expected, moves, (x, y) =>
-                                     x.PieceType == y.PieceType && x.To == y.To && x.Who == y.Who);
+         x.PieceType == y.PieceType && x.To == y.To && x.Who == y.Who);
     }
     private static void AreEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> comparer)
     {

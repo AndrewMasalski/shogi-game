@@ -5,13 +5,14 @@ xmlns:Model="clr-namespace:MainModule.Model" xmlns:Core="clr-namespace:Yasc.Shog
   <ListBox x:Name="_listBox" ItemsSource="{Binding MovesAndComments}"
                        SelectedItem="{Binding Board.History.CurrentMove}">
     <ItemsControl.Resources>
-      <DataTemplate DataType="{x:Type Core:ResignMove}">
-        <StackPanel Orientation="Horizontal" Margin="5,2">
-          <TextBlock Text="{Binding Number}"/>
-          <TextBlock Text=". "/>
-          <TextBlock Text="Resign" Foreground="Red"/>
-        </StackPanel>
-      </DataTemplate>
+<!--      TODO: Uncomment and fix! -->
+<!--      <DataTemplate DataType="{x:Type Core:ResignMove}">-->
+<!--        <StackPanel Orientation="Horizontal" Margin="5,2">-->
+<!--          <TextBlock Text="{Binding Number}"/>-->
+<!--          <TextBlock Text=". "/>-->
+<!--          <TextBlock Text="Resign" Foreground="Red"/>-->
+<!--        </StackPanel>-->
+<!--      </DataTemplate>-->
       <DataTemplate DataType="{x:Type Core:MoveBase}">
         <StackPanel Orientation="Horizontal" Margin="5,2">
           <TextBlock Text="{Binding Number}"/>

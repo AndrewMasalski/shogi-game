@@ -34,7 +34,7 @@ namespace ShogiCore.UnitTests.Core
     public void SimplestTest()
     {
       var move = _board.GetDropMove(_blackPiece.PieceType, "9e", _board.Black);
-      _board.MakeMove(move);
+      _board.MakeWrapedMove(move);
       Assert.AreSame(_blackPiece, _board.GetPieceAt("9e"));
       Assert.AreSame(_board.Black, _blackPiece.Owner);
     }
@@ -42,14 +42,14 @@ namespace ShogiCore.UnitTests.Core
     public void MovesOrderMaintenanceFalse()
     {
       _board.IsMovesOrderMaintained = false;
-      var move = _board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves);
+      var move = _board.Wrap(_board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves));
       Assert.AreEqual(RulesViolation.WrongPieceReference, move.RulesViolation);
     }
     [TestMethod]
     public void MovesOrderMaintenanceTrue()
     {
       _board.OneWhoMoves = _board.White;
-      var move = _board.GetDropMove(_blackPiece, "5e");
+      var move = _board.Wrap(_board.GetDropMove(_blackPiece, "5e"));
       Assert.AreEqual(RulesViolation.WrongSideToMove, move.RulesViolation);
     }
   

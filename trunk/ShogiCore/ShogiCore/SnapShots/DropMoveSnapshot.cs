@@ -16,6 +16,7 @@ namespace Yasc.ShogiCore.Snapshots
     {
       get { return Piece.Color; }
     }
+    public IPieceType PieceType { get { return Piece.PieceType; }}
 
     /// <summary>ctor</summary>
     public DropMoveSnapshot(IPieceType pieceType, PieceColor color, Position to)
@@ -23,6 +24,12 @@ namespace Yasc.ShogiCore.Snapshots
       // TODO: Change signature to match Board.GetDropMove()
       Piece = new PieceSnapshot(pieceType, color);
       To = to;
+    }
+
+    /// <summary>Returns user friendly move representation (latin)</summary>
+    public override string ToString()
+    {
+      return PieceType.Latin + "'" + To;
     }
   }
 }

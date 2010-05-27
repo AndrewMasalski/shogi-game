@@ -119,15 +119,17 @@ namespace ShogiCore.UnitTests.Core
     }
     private static MoveBase CreateDummyMove()
     {
-      return new Board(new StandardPieceSet()).GetUsualMove("1i", "2i", false);
+      var board = new Board(new StandardPieceSet());
+      return board.Wrap(board.GetUsualMove("1i", "2i"));
     }
+
     [TestMethod]
     public void HistoryTest()
     {
       _board.SetPiece(PT.歩, "1i", _board.Black);
       var move = _board.GetMove("1i-1h", FormalNotation.Instance).First();
       var s1 = _board.CurrentSnapshot;
-      _board.MakeMove(move);
+      _board.MakeWrapedMove(move);
       var s2 = _board.CurrentSnapshot;
       _board.History.CurrentMoveIndex = -1;
       Assert.AreEqual(s1, _board.CurrentSnapshot);

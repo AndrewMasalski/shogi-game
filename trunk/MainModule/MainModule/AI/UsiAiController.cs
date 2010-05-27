@@ -8,7 +8,6 @@ using Yasc.DotUsi;
 using Yasc.DotUsi.Drivers;
 using Yasc.DotUsi.Options;
 using Yasc.DotUsi.Process;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
@@ -81,7 +80,7 @@ namespace MainModule.AI
       else
       {
         var engineMove = ParseUsiMove(_board, args.Move);
-        _board.MakeMove(engineMove);
+        _board.MakeWrapedMove(engineMove);
         Move(engineMove.ToString());
       }
     }
@@ -96,31 +95,32 @@ namespace MainModule.AI
 
     protected override void OnHumanMoved(string hisMove)
     {
-      _board.MakeMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
       _engine.Position(string.Join(" ", 
-        _board.History.Select(MoveToUsiString)));
+        _board.History.Select(m => MoveToUsiString(m.Move))));
       _engine.Go();
     }
 
     /// <summary>
     /// TODO: Create a native implementation
     /// </summary>
-    private static string MoveToUsiString(MoveBase move)
+    private static string MoveToUsiString(MoveSnapshotBase move)
     {
-      var usualMove = move as UsualMove;
+      var usualMove = move as UsualMoveSnapshot;
       if (usualMove != null)
       {
         return usualMove.From + usualMove.To.ToString() +
           (usualMove.IsPromoting ? "+" : "");
       }
-      var dropMove = (DropMove) move;
+      // BUG: Resign move!?
+      var dropMove = (DropMoveSnapshot) move;
       return dropMove.PieceType.Latin + "*" + dropMove.To;
     }
 
     /// <summary>
     /// TODO: Create a native implementation
     /// </summary>
-    private static MoveBase ParseUsiMove(Board board, string usiMove)
+    private static MoveSnapshotBase ParseUsiMove(Board board, string usiMove)
     {
       return usiMove.Contains("*") ?
         board.GetMove(usiMove.Replace('*', '\''), FormalNotation.Instance).First() :

@@ -19,6 +19,16 @@ namespace ShogiCore.UnitTests.Core
     {
       _board = new Board(new StandardPieceSet());
     }
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void PassWrongPlayerToSetPieceA()
+    {
+      _board.SetPiece(_board.PieceSet[PT.馬], "1i", new Board(new StandardPieceSet()).White);
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void PassWrongPlayerToSetPieceB()
+    {
+      _board.SetPiece(PT.馬, "1i", new Board(new StandardPieceSet()).White);
+    }
     [TestMethod]
     public void CellTest()
     {
