@@ -26,7 +26,7 @@
               <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=Move)" Label="Move" Category="CodeSchema_Class">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
-              <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=PieceSnapshot)" Label="PieceSnapshot" Category="CodeSchema_Class">
+              <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=IColoredPiece)" Label="IColoredPiece" Category="CodeSchema_Class">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
               <ExpandedNode Id="(Assembly=Yasc.ShogiCore Namespace=Yasc.ShogiCore.Snapshots Type=ResignMove)" Label="ResignMove" Category="CodeSchema_Class">

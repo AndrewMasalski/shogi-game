@@ -47,7 +47,7 @@ namespace Yasc.ShogiCore.Notations
         var to = Position.Parse(elements[1]);
 
         yield return new DropMove(
-          piece, originalBoardState.OneWhoMoves, to);
+          piece.GetColored(originalBoardState.OneWhoMoves), to);
       }
     }
     /// <summary>Returns the transcript for a given move</summary>

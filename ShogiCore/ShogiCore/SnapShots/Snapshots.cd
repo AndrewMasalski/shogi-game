@@ -65,7 +65,7 @@
       <FileName>Snapshots\ResignMove.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.Snapshots.PieceSnapshot">
+  <Class Name="Yasc.ShogiCore.Snapshots.IColoredPiece">
     <Position X="8.5" Y="0.5" Width="2.25" />
     <Members>
       <Method Name="Equals" Hidden="true" />
@@ -74,7 +74,7 @@
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAgAAEgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
-      <FileName>Snapshots\PieceSnapshot.cs</FileName>
+      <FileName>Snapshots\IColoredPiece.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PieceType" />

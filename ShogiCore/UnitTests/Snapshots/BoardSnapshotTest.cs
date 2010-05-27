@@ -37,7 +37,7 @@ namespace ShogiCore.UnitTests.Snapshots
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void CellsCollectionIsReadonly()
     {
-      ((IList<PieceSnapshot>)_snapshot.Cells).Add(new PieceSnapshot(PT.馬, PieceColor.Black));
+      ((IList<IColoredPiece>)_snapshot.Cells).Add(PT.馬.Black);
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void BlackHandCollectionIsReadonly()

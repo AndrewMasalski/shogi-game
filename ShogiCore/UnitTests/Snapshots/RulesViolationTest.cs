@@ -14,7 +14,7 @@ namespace ShogiCore.UnitTests.Snapshots
     public void Init()
     {
       _board = new BoardSnapshot(PieceColor.Black,
-        new[] { P("1c", PieceColor.Black, PT.歩) },
+        new[] { P("1c", PT.歩.Black) },
         blackHand: new[] { PT.歩, PT.香, PT.桂 });
     }
 
@@ -22,35 +22,35 @@ namespace ShogiCore.UnitTests.Snapshots
     public void CantDropTwoPawnsToTheSameColumn()
     {
       var move = _board.ValidateDropMove(
-        new DropMove(PT.歩, PieceColor.Black, Position.Parse("1d")));
+        new DropMove(PT.歩.Black, Position.Parse("1d")));
       Assert.AreEqual(RulesViolation.TwoPawnsOnTheSameFile, move);
     }
     [TestMethod]
     public void CanDropPieceToFreeCellOnly()
     {
       var move = _board.ValidateDropMove(
-        new DropMove(PT.歩, PieceColor.Black, Position.Parse("1c")));
+        new DropMove(PT.歩.Black, Position.Parse("1c")));
       Assert.AreEqual(RulesViolation.DropToOccupiedCell, move);
     }
     [TestMethod]
     public void CantDropPawnToTheLastLine()
     {
       var move = _board.ValidateDropMove(
-        new DropMove(PT.歩, PieceColor.Black, Position.Parse("1a")));
+        new DropMove(PT.歩.Black, Position.Parse("1a")));
       Assert.AreEqual(RulesViolation.DropToLastLines, move);
     }
     [TestMethod]
     public void CantDropLanceToTheLastLine()
     {
       var move = _board.ValidateDropMove(
-        new DropMove(PT.香, PieceColor.Black, Position.Parse("1a")));
+        new DropMove(PT.香.Black, Position.Parse("1a")));
       Assert.AreEqual(RulesViolation.DropToLastLines, move);
     }
     [TestMethod]
     public void CantDropKnightToTheLastLines()
     {
       var move = _board.ValidateDropMove(
-        new DropMove(PT.桂, PieceColor.Black, Position.Parse("1a")));
+        new DropMove(PT.桂.Black, Position.Parse("1a")));
       Assert.AreEqual(RulesViolation.DropToLastLines, move);
     }
     [TestMethod]
@@ -59,23 +59,23 @@ namespace ShogiCore.UnitTests.Snapshots
       var board = new BoardSnapshot(PieceColor.White,
         new[]
           {
-            P("1i", PieceColor.Black, PT.玉),
-            P("1g", PieceColor.Black, PT.歩),
-            P("2h", PieceColor.White, PT.飛),
-            P("3g", PieceColor.White, PT.金),
+            P("1i", PT.玉.Black),
+            P("1g", PT.歩.Black),
+            P("2h", PT.飛.White),
+            P("3g", PT.金.White),
           },
         new[] { PT.歩 });
 
       var move = board.ValidateDropMove(
-        new DropMove(PT.歩, PieceColor.White, Position.Parse("1h")));
+        new DropMove(PT.歩.White, Position.Parse("1h")));
       Assert.AreEqual(RulesViolation.DropPawnToMate, move);
     }
 
     #region ' Implementation '
 
-    private static Tuple<Position, PieceSnapshot> P(string position, PieceColor color, IPieceType pieceType)
+    private static Tuple<Position, IColoredPiece> P(string position, IColoredPiece coloredPiece)
     {
-      return Tuple.Create(Position.Parse(position), new PieceSnapshot(pieceType, color));
+      return Tuple.Create(Position.Parse(position), coloredPiece);
     }
 
     #endregion

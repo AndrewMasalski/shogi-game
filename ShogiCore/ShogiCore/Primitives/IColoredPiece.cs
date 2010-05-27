@@ -7,5 +7,8 @@ namespace Yasc.ShogiCore.Primitives
     IPieceType PieceType { get; }
     /// <summary>Piece color</summary>
     PieceColor Color { get; }
+
+    /// <summary>Gets a promoted version of this piece</summary>
+    IColoredPiece Promoted { get; }
   }
 }

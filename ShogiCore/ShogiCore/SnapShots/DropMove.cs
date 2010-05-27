@@ -8,7 +8,7 @@ namespace Yasc.ShogiCore.Snapshots
   public sealed class DropMove : Move
   {
     /// <summary>Type and color of piece being dropped</summary>
-    public PieceSnapshot Piece { get; private set; }
+    public IColoredPiece Piece { get; private set; }
     /// <summary>Position on the board to drop piece to</summary>
     public Position To { get; private set; }
     /// <summary>Gets the color of player who made the move</summary>
@@ -20,10 +20,10 @@ namespace Yasc.ShogiCore.Snapshots
     public IPieceType PieceType { get { return Piece.PieceType; } }
 
     /// <summary>ctor</summary>
-    public DropMove(IPieceType pieceType, PieceColor color, Position to)
+    public DropMove(IColoredPiece coloredPiece, Position to)
     {
       // TODO: Change signature to match Board.GetDropMove()
-      Piece = new PieceSnapshot(pieceType, color);
+      Piece = coloredPiece;
       To = to;
     }
 
