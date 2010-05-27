@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 using Yasc.BoardControl.Controls.Automation;
 using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore.Core;
-using Yasc.ShogiCore.MovesHistory;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;

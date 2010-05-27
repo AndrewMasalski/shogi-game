@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using Yasc.ShogiCore.Core;
-using Yasc.ShogiCore.MovesHistory;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;

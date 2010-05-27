@@ -2,12 +2,12 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
-using Yasc.ShogiCore.MovesHistory;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 
-namespace ShogiCore.UnitTests.MovesHistory
+namespace ShogiCore.UnitTests.Moves
 {
   [TestClass]
   public class MovesHistoryTest
@@ -23,7 +23,7 @@ namespace ShogiCore.UnitTests.MovesHistory
     [TestMethod]
     public void DefaultTestCase()
     {
-      var history = new Yasc.ShogiCore.MovesHistory.MovesHistory();
+      var history = new Yasc.ShogiCore.Moves.MovesHistory();
       Assert.AreEqual(-1, history.CurrentMoveIndex);
       Assert.IsNull(history.CurrentMove);
       
@@ -41,7 +41,7 @@ namespace ShogiCore.UnitTests.MovesHistory
     [TestMethod]
     public void ChangeCurrentTest()
     {
-      var history = new Yasc.ShogiCore.MovesHistory.MovesHistory();
+      var history = new Yasc.ShogiCore.Moves.MovesHistory();
       var m1 = CreateDummyMove();
       history.Do(m1);
       var m2 = CreateDummyMove();
@@ -63,38 +63,38 @@ namespace ShogiCore.UnitTests.MovesHistory
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void AddNullTest()
     {
-      new Yasc.ShogiCore.MovesHistory.MovesHistory().Do(null);
+      new Yasc.ShogiCore.Moves.MovesHistory().Do(null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidIndex()
     {
-      new Yasc.ShogiCore.MovesHistory.MovesHistory {CurrentMoveIndex = 0};
+      new Yasc.ShogiCore.Moves.MovesHistory {CurrentMoveIndex = 0};
     }
 
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidIndex1()
     {
-      var history = new Yasc.ShogiCore.MovesHistory.MovesHistory();
+      var history = new Yasc.ShogiCore.Moves.MovesHistory();
       history.Do(CreateDummyMove());
       history.CurrentMoveIndex = 1;
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidCurrentMove()
     {
-      new Yasc.ShogiCore.MovesHistory.MovesHistory {CurrentMove = CreateDummyMove()};
+      new Yasc.ShogiCore.Moves.MovesHistory {CurrentMove = CreateDummyMove()};
     }
 
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidCurrentMove1()
     {
-      var history = new Yasc.ShogiCore.MovesHistory.MovesHistory();
+      var history = new Yasc.ShogiCore.Moves.MovesHistory();
       history.Do(CreateDummyMove());
       history.CurrentMove = CreateDummyMove();
     }
     [TestMethod]
     public void TestDerivativeProps()
     {
-      var history = new Yasc.ShogiCore.MovesHistory.MovesHistory();
+      var history = new Yasc.ShogiCore.Moves.MovesHistory();
       Assert.IsTrue(history.IsEmpty);
       Assert.IsTrue(history.IsCurrentMoveLast);
       var m1 = CreateDummyMove();
