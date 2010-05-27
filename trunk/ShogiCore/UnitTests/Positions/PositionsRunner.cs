@@ -11,11 +11,9 @@ using Yasc.Utils;
 
 namespace ShogiCore.UnitTests.Positions
 {
-  [TestClass]
-  public class MoveRules
+  public abstract class PositionsRunner
   {
-    [TestMethod]
-    public void RunDiagrams()
+    protected void Run()
     {
       var assembly = typeof(PieceTest).Assembly;
       var bamlUris = assembly.GetBamlUris("Positions", null).ToList();
@@ -29,9 +27,7 @@ namespace ShogiCore.UnitTests.Positions
       }
     }
 
-    #region ' Implementation '
-
-    private static void ValidateDiagram(BoardDiagram diagram, Board board)
+    private void ValidateDiagram(BoardDiagram diagram, Board board)
     {
       foreach (var moves in diagram.Moves)
       {
@@ -47,16 +43,10 @@ namespace ShogiCore.UnitTests.Positions
         }
       }
     }
-    private static void ValidateDropMoves(Board board, IDropMoves dropMoves)
-    {
-      board.OneWhoMoves = board.GetPlayer(dropMoves.For);
-      var moves = board.GetAvailableMoves(dropMoves.Piece, dropMoves.For);
-      var expected = from p in dropMoves.To
-                     select board.GetDropMove(dropMoves.Piece, p, board.OneWhoMoves);
-      AreEquivalent(expected, moves, (x, y) =>
-         x.PieceType == y.PieceType && x.To == y.To && x.Who == y.Who);
-    }
-    private static void AreEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> comparer)
+
+    protected abstract void ValidateUsualMoves(IUsualMoves usualMoves, Board board);
+    protected abstract void ValidateDropMoves(Board board, IDropMoves dropMoves);
+    protected static void AreEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, Func<T, T, bool> comparer)
     {
       var expectedList = expected.ToList();
       var actualList = actual.ToList();
@@ -65,23 +55,10 @@ namespace ShogiCore.UnitTests.Positions
       foreach (var actualElement in actualList)
       {
         var actualElementCopy = actualElement;
-        Assert.AreEqual(1, 
-                        expectedList.RemoveAll(expectedElement => 
+        Assert.AreEqual(1,
+                        expectedList.RemoveAll(expectedElement =>
                                                comparer(actualElementCopy, expectedElement)));
       }
     }
-    private static void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
-    {
-      board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
-
-      var moves = board.GetAvailableMoves(usualMoves.From);
-      var expected = from p in usualMoves.To
-                     select board.GetUsualMove(usualMoves.From, p.Position, p.Promotion);
-
-      AreEquivalent(expected, moves, (x, y) =>
-                                     x.From == y.From && x.To == y.To && x.IsPromoting == y.IsPromoting);
-    }
-
-    #endregion
   }
 }

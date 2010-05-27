@@ -91,9 +91,9 @@
     <Compile Include="PieceSets\InfinitePieceSet.cs" />
     <Compile Include="Core\IPieceSet.cs" />
     <Compile Include="Core\Helpers\InvalidMoveException.cs" />
-    <Compile Include="Core\DecoratedMove.cs" />
+    <Compile Include="MovesHistory\DecoratedMove.cs" />
     <Compile Include="Core\Helpers\MoveEventArgs.cs" />
-    <Compile Include="Core\MovesHistory.cs" />
+    <Compile Include="MovesHistory\MovesHistory.cs" />
     <Compile Include="Core\Helpers\PieceNotFoundException.cs" />
     <Compile Include="Primitives\IMoveDirection.cs" />
     <Compile Include="Primitives\IPieceCategory.cs" />

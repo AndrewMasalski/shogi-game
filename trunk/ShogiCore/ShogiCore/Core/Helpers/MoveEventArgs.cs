@@ -1,4 +1,5 @@
 using System;
+using Yasc.ShogiCore.MovesHistory;
 
 namespace Yasc.ShogiCore.Core
 {

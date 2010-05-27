@@ -16,15 +16,107 @@ namespace ShogiCore.UnitTests.Core
   public class BoardTest
   {
     private Board _board;
+    private Board _initializedBoard;
+    private Piece _blackPiece;
+    private Piece _whitePiece;
 
     [TestInitialize]
     public void Init()
     {
       _board = new Board(new StandardPieceSet());
+
+      _initializedBoard = new Board(new StandardPieceSet());
+      _initializedBoard.LoadSnapshot(BoardSnapshot.InitialPosition);
+
+      _blackPiece = _initializedBoard.GetPieceAt("9a");
+      _initializedBoard.ResetPiece("9a");
+      _initializedBoard.Black.Hand.Add(_blackPiece);
+
+      _whitePiece = _initializedBoard.GetPieceAt("9i");
+      _initializedBoard.ResetPiece("9i");
+      _initializedBoard.White.Hand.Add(_whitePiece);
     }
 
+    #region ' SetPiece() '
+
     [TestMethod]
-    public void MakeMove()
+    public void SetPieceTest()
+    {
+      _board.SetPiece(PT.馬, "5g", PieceColor.White);
+      Assert.IsNotNull(_board.GetPieceAt("5g"));
+    }
+    [TestMethod]
+    public void SetPieceWrongPlayer()
+    {
+      var piece = _board.PieceSet[PT.馬];
+      var wrongPlayer = new Board(new StandardPieceSet()).White;
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () => _board.SetPiece(piece, "1i", wrongPlayer));
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () => _board.SetPiece(PT.馬, "1i", wrongPlayer));
+    }
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void SetPieceTwice()
+    {
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, "1i", PieceColor.White);
+      _board.White.Hand.Add(piece);
+    }
+    [TestMethod]
+    public void SetPieceArgumentNull()
+    {
+      var pieceType = _board.PieceSet[PT.馬];
+      var position = Position.Parse("1a");
+      var player = _board.White;
+
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.SetPiece(pieceType, position, null));
+
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.SetPiece((Piece)null, position, player));
+
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.SetPiece((IPieceType)null, position, player));
+
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.SetPiece(null, position));
+    }
+    [TestMethod, ExpectedException(typeof(InvalidOperationException))]
+    public void SetPieceWhichIsAlreadySet()
+    {
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position, _board.White);
+      _board.SetPiece(piece, _board.GetCellAt(0, 1).Position, _board.White);
+    }
+    [TestMethod]
+    public void SetPieceWithOwner()
+    {
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position, _board.White);
+      _board.SetPiece(piece, _board.GetCellAt(0, 1).Position);
+    }
+    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
+    public void SetPieceOwnerless()
+    {
+      var piece = _board.PieceSet[PT.馬];
+      _board.SetPiece(piece, _board.GetCellAt(0, 0).Position);
+    }
+    [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
+    public void SetNonexistingPiece()
+    {
+      _board.SetPiece(PT.馬, "1i", PieceColor.Black);
+      _board.SetPiece(PT.馬, "2i", PieceColor.Black);
+      _board.SetPiece(PT.馬, "3i", PieceColor.Black);
+    }
+
+    #endregion
+
+    #region ' MakeMove '
+
+    [TestMethod]
+    public void MakeMoveInvalidArguments()
     {
       MyAssert.ThrowsException<ArgumentNullException>(
         () => _board.MakeMove(null));
@@ -32,14 +124,61 @@ namespace ShogiCore.UnitTests.Core
       MyAssert.ThrowsException<InvalidMoveException>(
         () => _board.MakeWrapedMove(_board.GetUsualMove("1i", "1i")));
     }
+    [TestMethod]
+    public void MakeMoveDrop()
+    {
+      var move = _initializedBoard.GetDropMove(
+        _blackPiece.PieceType, "9e", _initializedBoard.Black);
+      _initializedBoard.MakeWrapedMove(move);
+      Assert.AreSame(_blackPiece, _initializedBoard.GetPieceAt("9e"));
+      Assert.AreSame(_initializedBoard.Black, _blackPiece.Owner);
+    }
+    [TestMethod]
+    public void MakeMoveUsual()
+    {
+      var b = _initializedBoard;
+      b.IsMovesOrderMaintained = false;
+
+      b.MakeWrapedMove(b.GetUsualMove("9c", "9d"));
+      b.MakeWrapedMove(b.GetUsualMove("9d", "9e"));
+      b.MakeWrapedMove(b.GetUsualMove("9e", "9f"));
+      b.MakeWrapedMove(b.GetUsualMove("9f", "9g"));
+
+      Assert.IsNull(b.GetPieceAt("9c"));
+      Assert.IsNull(b.GetPieceAt("9d"));
+      Assert.IsNull(b.GetPieceAt("9e"));
+      Assert.IsNull(b.GetPieceAt("9f"));
+
+      Assert.AreEqual(PT.歩, b.GetPieceAt("9g").PieceType);
+      Assert.AreEqual(b.White, b.GetPieceAt("9g").Owner);
+      Assert.AreEqual(2, b.White.Hand.Count);
+      Assert.AreEqual(PT.歩, b.White.Hand[1].PieceType);
+    }
+
+    #endregion
+
+    #region ' GetDropMove '
+
+    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
+    public void GetDropMoveNull()
+    {
+      _board.GetDropMove(null, "5g");
+    }
+    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
+    public void GetDropMoveNoPieceInHand()
+    {
+      _initializedBoard.GetDropMove(_initializedBoard.GetPieceAt("1a"), "9e");
+    }
+
+    #endregion
 
     [TestMethod]
     public void OneWhoMoves()
     {
       MyAssert.ThrowsException<ArgumentOutOfRangeException>(() =>
-      {
-        _board.OneWhoMoves = new Board(new StandardPieceSet()).White;
-      });
+                                                              {
+                                                                _board.OneWhoMoves = new Board(new StandardPieceSet()).White;
+                                                              });
     }
 
     #region ' CurrentSnapshot Property '
@@ -143,6 +282,13 @@ namespace ShogiCore.UnitTests.Core
       Assert.IsTrue(_board.IsMovesOrderMaintained);
     }
     [TestMethod]
+    public void IsMovesOrderMaintainedForDropMovesWithEmptyHand()
+    {
+      _board.IsMovesOrderMaintained = false;
+      var move = _board.Wrap(_board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves));
+      Assert.AreEqual(Yasc.ShogiCore.Snapshots.RulesViolation.WrongPieceReference, move.RulesViolation);
+    }
+    [TestMethod]
     public void IsMovesOrderMaintainedBindabilityTest()
     {
       var assertion = new PropertyObserverAssertion<Board>(_board).
@@ -157,7 +303,7 @@ namespace ShogiCore.UnitTests.Core
 
     #endregion
 
-    #region ' Ctors / Snapshot loading '
+    #region ' Ctor '
 
     [TestMethod]
     public void NoArgsCtorTest()
@@ -187,6 +333,20 @@ namespace ShogiCore.UnitTests.Core
       new Board(null);
     }
 
+    #endregion
+
+    #region ' LoadSnapshot() '
+
+    [TestMethod, ExpectedException(typeof(NotEnoughPiecesInSetException))]
+    public void CantLoadSnapshotBecauseNotEnoughPiecesTest()
+    {
+      var board = new Board(InfinitePieceSet.Instance);
+      board.SetPiece(PT.馬, "1i", PieceColor.Black);
+      board.SetPiece(PT.馬, "2i", PieceColor.Black);
+      board.SetPiece(PT.馬, "3i", PieceColor.Black);
+
+      _board.LoadSnapshot(board.CurrentSnapshot);
+    }
     #endregion
 
     [TestMethod]
@@ -291,9 +451,9 @@ namespace ShogiCore.UnitTests.Core
     {
       var log = new TestLog();
       _board.HistoryNavigating += (s, e) =>
-        log.Write(string.Format("HistoryNavigating({0})", e.Step));
+                                  log.Write(string.Format("HistoryNavigating({0})", e.Step));
       _board.HistoryNavigated += (s, e) =>
-        log.Write(string.Format("HistoryNavigated({0})", e.Step));
+                                 log.Write(string.Format("HistoryNavigated({0})", e.Step));
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.MakeWrapedMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       _board.MakeWrapedMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
