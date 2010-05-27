@@ -95,6 +95,7 @@
     <Compile Include="Core\Helpers\MoveEventArgs.cs" />
     <Compile Include="Moves\MovesHistory.cs" />
     <Compile Include="Core\Helpers\PieceNotFoundException.cs" />
+    <Compile Include="Primitives\IColoredPiece.cs" />
     <Compile Include="Primitives\IMoveDirection.cs" />
     <Compile Include="Primitives\IPieceCategory.cs" />
     <Compile Include="Primitives\IPieceType.cs" />

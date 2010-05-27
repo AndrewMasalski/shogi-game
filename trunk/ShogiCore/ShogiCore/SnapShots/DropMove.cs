@@ -7,7 +7,7 @@ namespace Yasc.ShogiCore.Snapshots
   [Serializable]
   public sealed class DropMove : Move
   {
-    /// <summary>Piece with type and color being dropped</summary>
+    /// <summary>Type and color of piece being dropped</summary>
     public PieceSnapshot Piece { get; private set; }
     /// <summary>Position on the board to drop piece to</summary>
     public Position To { get; private set; }
@@ -16,7 +16,8 @@ namespace Yasc.ShogiCore.Snapshots
     {
       get { return Piece.Color; }
     }
-    public IPieceType PieceType { get { return Piece.PieceType; }}
+    /// <summary>Type of piece being dropped</summary>
+    public IPieceType PieceType { get { return Piece.PieceType; } }
 
     /// <summary>ctor</summary>
     public DropMove(IPieceType pieceType, PieceColor color, Position to)

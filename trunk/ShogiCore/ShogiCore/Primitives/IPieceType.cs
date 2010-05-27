@@ -32,5 +32,9 @@ namespace Yasc.ShogiCore.Primitives
     IPieceCategory PieceQuality { get; }
     /// <summary>Gets all directions of move piece can do</summary>
     IEnumerable<IMoveDirection> MoveDirections { get; }
+
+    IColoredPiece GetColored(PieceColor color);
+    IColoredPiece White { get; }
+    IColoredPiece Black { get; }
   }
 }

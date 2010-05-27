@@ -100,10 +100,10 @@
     <Compile Include="Positions\GetAvailableMovesRunner.cs" />
     <Compile Include="Positions\GetMovesRunner.cs" />
     <Compile Include="Positions\PositionsRunner.cs" />
+    <Compile Include="Primitives\ColoredPieceTest.cs" />
     <Compile Include="Primitives\PieceCategoryTest.cs" />
     <Compile Include="Primitives\ComparableTest.cs" />
     <Compile Include="Primitives\PTTest.cs" />
-    <Compile Include="Primitives\SerializableTest.cs" />
     <Compile Include="Snapshots\BoardSnapshotTest.cs">
       <SubType>Code</SubType>
     </Compile>

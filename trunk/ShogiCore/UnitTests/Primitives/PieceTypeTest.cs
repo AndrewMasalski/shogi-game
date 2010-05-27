@@ -1,4 +1,5 @@
 ﻿using System;
+using CommonUtils.UnitTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Primitives;
 
@@ -151,6 +152,12 @@ namespace ShogiCore.UnitTests.Primitives
       Assert.AreEqual("今", PT.今.Japanese);
       Assert.AreEqual("仝", PT.仝.Japanese);
       Assert.AreEqual("と", PT.と.Japanese);
+    }
+    [TestMethod]
+    public void SerializableTest()
+    {
+      foreach (var pieceType in PT.AllPieceTypes)
+       Assert.AreSame(pieceType, pieceType.SerializeDeserialize());
     }
   }
 }
