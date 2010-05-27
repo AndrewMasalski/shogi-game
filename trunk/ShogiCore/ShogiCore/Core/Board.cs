@@ -269,7 +269,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         OneWhoMoves = who;
 
-      return new DropMove(piece, who.Color, to);
+      return new DropMove(piece.GetColored(who.Color), to);
     }
     /// <summary>Gets drop move on the board</summary>
     public DropMove GetDropMove(Piece piece, Position to)
@@ -284,7 +284,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         OneWhoMoves = piece.Owner;
 
-      return new DropMove(piece.PieceType, piece.Owner.Color, to);
+      return new DropMove(piece.Snapshot(), to);
     }
     /// <summary>Gets resign move</summary>
     public DecoratedMove GetResignMove()

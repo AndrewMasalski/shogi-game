@@ -22,9 +22,9 @@ namespace Yasc.ShogiCore.PieceSets
       var allPiecesInInitialPosition =
         from position in Position.OnBoard
         select BoardSnapshot.InitialPosition.GetPieceAt(position)
-        into pieceSnapshot
-        where pieceSnapshot != null
-        select pieceSnapshot.PieceType;
+        into IColoredPiece
+        where IColoredPiece != null
+        select IColoredPiece.PieceType;
 
       foreach (var pieceType in allPiecesInInitialPosition)
         _set[pieceType.PieceQuality.Id].Add(new Piece(pieceType));

@@ -58,9 +58,9 @@ namespace ShogiCore.UnitTests.Core
     public void Snapshot()
     {
       _board.White.Hand.Add(_piece);
-      var pieceSnapshot = _piece.Snapshot();
-      Assert.AreEqual(PieceColor.White, pieceSnapshot.Color);
-      Assert.AreEqual(PT.銀, pieceSnapshot.PieceType);
+      var IColoredPiece = _piece.Snapshot();
+      Assert.AreEqual(PieceColor.White, IColoredPiece.Color);
+      Assert.AreEqual(PT.銀, IColoredPiece.PieceType);
     }
   }
 }

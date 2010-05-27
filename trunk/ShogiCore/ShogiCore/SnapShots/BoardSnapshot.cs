@@ -16,11 +16,11 @@ namespace Yasc.ShogiCore.Snapshots
 
     private bool _isHashCodeCalculated;
     private int _hashCode;
-    private readonly PieceSnapshot[,] _cells = new PieceSnapshot[9, 9];
+    private readonly IColoredPiece[,] _cells = new IColoredPiece[9, 9];
     private readonly List<IPieceType> _blackHand;
     private readonly List<IPieceType> _whiteHand;
 
-    private ReadOnlySquareArray<PieceSnapshot> _cellsRo;
+    private ReadOnlySquareArray<IColoredPiece> _cellsRo;
     private ReadOnlyCollection<IPieceType> _blackHandRo;
     private ReadOnlyCollection<IPieceType> _whiteHandRo;
 
@@ -44,9 +44,9 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>The player who moves next</summary>
     public PieceColor OneWhoMoves { get; private set; }
     /// <summary>9x9 array of the cells with pieces</summary>
-    public ReadOnlySquareArray<PieceSnapshot> Cells
+    public ReadOnlySquareArray<IColoredPiece> Cells
     {
-      get { return _cellsRo ?? (_cellsRo = new ReadOnlySquareArray<PieceSnapshot>(_cells)); }
+      get { return _cellsRo ?? (_cellsRo = new ReadOnlySquareArray<IColoredPiece>(_cells)); }
     }
     /// <summary>List of the pieces in black hand</summary>
     public ReadOnlyCollection<IPieceType> BlackHand
@@ -61,7 +61,7 @@ namespace Yasc.ShogiCore.Snapshots
 
     /// <summary>ctor</summary>
     public BoardSnapshot(PieceColor oneWhoMoves,
-      IEnumerable<Tuple<Position, PieceSnapshot>> boardPieces,
+      IEnumerable<Tuple<Position, IColoredPiece>> boardPieces,
       IEnumerable<IPieceType> whiteHand = null,
       IEnumerable<IPieceType> blackHand = null)
     {
@@ -94,17 +94,17 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     /// <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
-    public PieceSnapshot GetPieceAt(Position position)
+    public IColoredPiece GetPieceAt(Position position)
     {
       return _cells[position.X, position.Y]; 
     }
 
-    private void SetPiece(Position position, PieceSnapshot value)
+    private void SetPiece(Position position, IColoredPiece value)
     {
       _cells[position.X, position.Y] = value;
     }
     /// <summary>Gets the piece snapshot at the coordinates</summary>
-    public PieceSnapshot GetPieceAt(int x, int y)
+    public IColoredPiece GetPieceAt(int x, int y)
     {
       return _cells[x, y]; 
     }
@@ -124,11 +124,11 @@ namespace Yasc.ShogiCore.Snapshots
       if (GetPieceAt(move.To) != null) return RulesViolation.DropToOccupiedCell;
 
       if (move.Piece.PieceType == PT.歩 || move.Piece.PieceType == PT.香)
-       if (move.Piece.HowFarFromTheLastLine(move.To) == 0)
+        if (HowFarFromTheLastLine(move.Piece, move.To) == 0)
           return RulesViolation. DropToLastLines;
 
       if (move.Piece.PieceType == PT.桂)
-        if (move.Piece.HowFarFromTheLastLine(move.To) < 2)
+        if (HowFarFromTheLastLine(move.Piece, move.To) < 2)
           return RulesViolation.DropToLastLines;
 
       if (move.Piece.PieceType == PT.歩)
@@ -198,7 +198,7 @@ namespace Yasc.ShogiCore.Snapshots
     public IEnumerable<DropMove> GetAvailableDropMoves(IPieceType piece, PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) == null).
-        Select(p => new DropMove(piece, color, p)).
+        Select(p => new DropMove(piece.GetColored(color), p)).
         Where(move => ValidateDropMove(move) == RulesViolation.NoViolations);
     }
     /// <summary>Gets all valid usual and drop moves for the player</summary>
@@ -234,7 +234,7 @@ namespace Yasc.ShogiCore.Snapshots
     private void Move(UsualMove move)
     {
       if (move.IsPromoting)
-        SetPiece(move.From, GetPieceAt(move.From).ClonePromoted());
+        SetPiece(move.From, GetPieceAt(move.From).Promoted);
 
       if (GetPieceAt(move.To) != null)
         HandInternal(OneWhoMoves).Add(GetPieceAt(move.To).PieceType);
@@ -283,10 +283,10 @@ namespace Yasc.ShogiCore.Snapshots
     {
       foreach (var m in moves)
       {
-        if (GetPieceAt(m.From).IsPromotionMandatory(m.To) == RulesViolation.NoViolations)
+        if (IsPromotionMandatory(GetPieceAt(m.From), m.To) == RulesViolation.NoViolations)
           yield return new UsualMove(GetPieceAt(m.From).Color, m.From, m.To, false);
 
-        if (GetPieceAt(m.From).IsPromotionAllowed(m.From, m.To) == RulesViolation.NoViolations)
+        if (IsPromotionAllowed(GetPieceAt(m.From), m.From, m.To) == RulesViolation.NoViolations)
           yield return new UsualMove(GetPieceAt(m.From).Color, m.From, m.To, true);
       }
     }
@@ -308,13 +308,13 @@ namespace Yasc.ShogiCore.Snapshots
     {
       if (move.IsPromoting)
       {
-        var error = GetPieceAt(move.From).IsPromotionAllowed(move.From, move.To);
+        var error = IsPromotionAllowed(GetPieceAt(move.From), move.From, move.To);
         if (error != RulesViolation.NoViolations)
           return error;
       }
       else
       {
-        var error = GetPieceAt(move.From).IsPromotionMandatory(move.To);
+        var error = IsPromotionMandatory(GetPieceAt(move.From), move.To);
         if (error != RulesViolation.NoViolations)
           return error;
       }
@@ -414,49 +414,96 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Contains initial position</summary>
     public static readonly BoardSnapshot InitialPosition = 
       new BoardSnapshot(PieceColor.Black, new[]{
-        Tuple.Create(Position.Parse("1a"), new PieceSnapshot(PT.香, PieceColor.White)),
-        Tuple.Create(Position.Parse("9a"), new PieceSnapshot(PT.香, PieceColor.White)),
-        Tuple.Create(Position.Parse("1i"), new PieceSnapshot(PT.香, PieceColor.Black)),
-        Tuple.Create(Position.Parse("9i"), new PieceSnapshot(PT.香, PieceColor.Black)),
-        Tuple.Create(Position.Parse("2a"), new PieceSnapshot(PT.桂, PieceColor.White)),
-        Tuple.Create(Position.Parse("8a"), new PieceSnapshot(PT.桂, PieceColor.White)),
-        Tuple.Create(Position.Parse("2i"), new PieceSnapshot(PT.桂, PieceColor.Black)),
-        Tuple.Create(Position.Parse("8i"), new PieceSnapshot(PT.桂, PieceColor.Black)),
-        Tuple.Create(Position.Parse("3a"), new PieceSnapshot(PT.銀, PieceColor.White)),
-        Tuple.Create(Position.Parse("7a"), new PieceSnapshot(PT.銀, PieceColor.White)),
-        Tuple.Create(Position.Parse("3i"), new PieceSnapshot(PT.銀, PieceColor.Black)),
-        Tuple.Create(Position.Parse("7i"), new PieceSnapshot(PT.銀, PieceColor.Black)),
-        Tuple.Create(Position.Parse("4a"), new PieceSnapshot(PT.金, PieceColor.White)),
-        Tuple.Create(Position.Parse("6a"), new PieceSnapshot(PT.金, PieceColor.White)),
-        Tuple.Create(Position.Parse("4i"), new PieceSnapshot(PT.金, PieceColor.Black)),
-        Tuple.Create(Position.Parse("6i"), new PieceSnapshot(PT.金, PieceColor.Black)),
-        Tuple.Create(Position.Parse("5a"), new PieceSnapshot(PT.王, PieceColor.White)),
-        Tuple.Create(Position.Parse("5i"), new PieceSnapshot(PT.玉, PieceColor.Black)),
-        Tuple.Create(Position.Parse("2b"), new PieceSnapshot(PT.角, PieceColor.White)),
-        Tuple.Create(Position.Parse("8h"), new PieceSnapshot(PT.角, PieceColor.Black)),
-        Tuple.Create(Position.Parse("8b"), new PieceSnapshot(PT.飛, PieceColor.White)),
-        Tuple.Create(Position.Parse("2h"), new PieceSnapshot(PT.飛, PieceColor.Black)),
-        Tuple.Create(Position.Parse("1c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("2c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("3c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("4c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("5c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("6c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("7c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("8c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("9c"), new PieceSnapshot(PT.歩, PieceColor.White)),
-        Tuple.Create(Position.Parse("1g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("2g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("3g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("4g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("5g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("6g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("7g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("8g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
-        Tuple.Create(Position.Parse("9g"), new PieceSnapshot(PT.歩, PieceColor.Black)),
+        Tuple.Create(Position.Parse("1a"), PT.香.White),
+        Tuple.Create(Position.Parse("9a"), PT.香.White),
+        Tuple.Create(Position.Parse("1i"), PT.香.Black),
+        Tuple.Create(Position.Parse("9i"), PT.香.Black),
+        Tuple.Create(Position.Parse("2a"), PT.桂.White),
+        Tuple.Create(Position.Parse("8a"), PT.桂.White),
+        Tuple.Create(Position.Parse("2i"), PT.桂.Black),
+        Tuple.Create(Position.Parse("8i"), PT.桂.Black),
+        Tuple.Create(Position.Parse("3a"), PT.銀.White),
+        Tuple.Create(Position.Parse("7a"), PT.銀.White),
+        Tuple.Create(Position.Parse("3i"), PT.銀.Black),
+        Tuple.Create(Position.Parse("7i"), PT.銀.Black),
+        Tuple.Create(Position.Parse("4a"), PT.金.White),
+        Tuple.Create(Position.Parse("6a"), PT.金.White),
+        Tuple.Create(Position.Parse("4i"), PT.金.Black),
+        Tuple.Create(Position.Parse("6i"), PT.金.Black),
+        Tuple.Create(Position.Parse("5a"), PT.王.White),
+        Tuple.Create(Position.Parse("5i"), PT.玉.Black),
+        Tuple.Create(Position.Parse("2b"), PT.角.White),
+        Tuple.Create(Position.Parse("8h"), PT.角.Black),
+        Tuple.Create(Position.Parse("8b"), PT.飛.White),
+        Tuple.Create(Position.Parse("2h"), PT.飛.Black),
+        Tuple.Create(Position.Parse("1c"), PT.歩.White),
+        Tuple.Create(Position.Parse("2c"), PT.歩.White),
+        Tuple.Create(Position.Parse("3c"), PT.歩.White),
+        Tuple.Create(Position.Parse("4c"), PT.歩.White),
+        Tuple.Create(Position.Parse("5c"), PT.歩.White),
+        Tuple.Create(Position.Parse("6c"), PT.歩.White),
+        Tuple.Create(Position.Parse("7c"), PT.歩.White),
+        Tuple.Create(Position.Parse("8c"), PT.歩.White),
+        Tuple.Create(Position.Parse("9c"), PT.歩.White),
+        Tuple.Create(Position.Parse("1g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("2g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("3g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("4g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("5g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("6g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("7g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("8g"), PT.歩.Black),
+        Tuple.Create(Position.Parse("9g"), PT.歩.Black),
       });
 
     #endregion
-  }
 
+    #region 
+
+    /// <summary>Returns distance for from the last line for the piece (of the color)</summary>
+    public int HowFarFromTheLastLine(IColoredPiece coloredPiece, Position position)
+    {
+      var lastLineIndex = coloredPiece.Color == PieceColor.White ? 8 : 0;
+      return Math.Abs(position.Y - lastLineIndex);
+    }
+    /// <summary>Returns null it the piece can move to the 
+    ///   <paramref name="position"/> without promotion -or- 
+    ///   text with explanation why he's not allowed to do that</summary>
+    public RulesViolation IsPromotionMandatory(IColoredPiece coloredPiece, Position position)
+    {
+      if (coloredPiece.PieceType == PT.歩 || coloredPiece.PieceType == PT.香)
+        if (HowFarFromTheLastLine(coloredPiece, position) == 0)
+          return RulesViolation.CantMoveWithoutPromotion;
+
+      if (coloredPiece.PieceType == PT.桂)
+        if (HowFarFromTheLastLine(coloredPiece, position) < 2)
+          return RulesViolation.CantMoveWithoutPromotion;
+
+      return RulesViolation.NoViolations;
+    }
+    /// <summary>Returns null it the piece can promote moving
+    ///   from position <paramref name="from"/> to position <paramref name="to"/> -or- 
+    ///   text with explanation why it's impossible</summary>
+    public RulesViolation IsPromotionAllowed(IColoredPiece coloredPiece, Position from, Position to)
+    {
+      if (coloredPiece.PieceType.IsPromoted)
+        return RulesViolation.CantPromoteTwice;
+
+      if (!coloredPiece.PieceType.CanPromote)
+        return RulesViolation.CantPromotePiecesOfThisType;
+
+      if (!IsThatPromitionZoneFor(coloredPiece, from))
+        if (!IsThatPromitionZoneFor(coloredPiece, to))
+          return RulesViolation.CantPromoteWithThisMove;
+      
+      return RulesViolation.NoViolations;
+    }
+
+    private bool IsThatPromitionZoneFor(IColoredPiece coloredPiece, Position position)
+    {
+      return HowFarFromTheLastLine(coloredPiece, position) < 3;
+    }
+
+    #endregion
+  }
 }

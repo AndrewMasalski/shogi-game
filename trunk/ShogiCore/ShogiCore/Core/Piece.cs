@@ -1,5 +1,4 @@
 ﻿using Yasc.ShogiCore.Primitives;
-using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils.Mvvm;
 
 namespace Yasc.ShogiCore.Core
@@ -42,9 +41,10 @@ namespace Yasc.ShogiCore.Core
 
     /// <summary>Takes a snapshot of the piece</summary>
     /// <exception cref="PieceHasNoOwnerException">Cannot take a snapshot of wnerless piece</exception>
-    public PieceSnapshot Snapshot()
+    public IColoredPiece Snapshot()
     {
-      return new PieceSnapshot(PieceType, Color);
+      // TODO: Replace with "ColoredPiece" property
+      return PieceType.GetColored(Color);
     }
 
     /// <summary>Gets user friendly piece name with japanese type for debug purposes</summary>

@@ -59,7 +59,7 @@ namespace Yasc.ShogiCore.Notations
 
     private IEnumerable<DropMove> CreateDropMoves(IPieceType pieceType, string toPosition)
     {
-      var dropMoveSnapshot = new DropMove(pieceType, _board.OneWhoMoves, Position.Parse(toPosition));
+      var dropMoveSnapshot = new DropMove(pieceType.GetColored(_board.OneWhoMoves), Position.Parse(toPosition));
       if (_board.ValidateDropMove(dropMoveSnapshot) == RulesViolation.NoViolations)
         yield return dropMoveSnapshot;
     }

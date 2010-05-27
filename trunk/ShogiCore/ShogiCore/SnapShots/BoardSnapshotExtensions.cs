@@ -7,7 +7,7 @@ namespace Yasc.ShogiCore.Snapshots
   public static class BoardSnapshotExtensions
   {
     /// <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
-    public static PieceSnapshot GetPieceAt(this BoardSnapshot board, string position)
+    public static IColoredPiece GetPieceAt(this BoardSnapshot board, string position)
     {
       return board.GetPieceAt(Position.Parse(position));
     }
