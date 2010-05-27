@@ -16,14 +16,14 @@ namespace Yasc.ShogiCore.Notations
     /// <param name="move">Move trancsript to parse</param>
     /// <returns>All moves which may be transcribed given way. 
     ///   Doesn't return null but be prepared to receive 0 moves.</returns>
-    public IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move)
+    public IEnumerable<Move> Parse(BoardSnapshot originalBoardState, string move)
     {
       if (originalBoardState == null) throw new ArgumentNullException("originalBoardState");
       if (move == null) throw new ArgumentNullException("move");
 
       if (move == "resign")
       {
-        yield return new ResignMoveSnapshot(originalBoardState.OneWhoMoves);
+        yield return new ResignMove(originalBoardState.OneWhoMoves);
         yield break;
       }
       if (move.Contains("-"))
@@ -36,7 +36,7 @@ namespace Yasc.ShogiCore.Notations
         var fromPiece = originalBoardState.GetPieceAt(from);
         if (fromPiece != null)
         {
-          yield return new UsualMoveSnapshot(
+          yield return new UsualMove(
             fromPiece.Color, from, to, modifier == "+");
         }
       }
@@ -46,14 +46,14 @@ namespace Yasc.ShogiCore.Notations
         var piece = PT.Parse(elements[0]);
         var to = Position.Parse(elements[1]);
 
-        yield return new DropMoveSnapshot(
+        yield return new DropMove(
           piece, originalBoardState.OneWhoMoves, to);
       }
     }
     /// <summary>Returns the transcript for a given move</summary>
     /// <param name="originalBoardState">State of the board before move</param>
     /// <param name="move">Move to trancsript</param>
-    public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
+    public string ToString(BoardSnapshot originalBoardState, Move move)
     {
       if (move == null) throw new ArgumentNullException("move");
       return move.ToString();

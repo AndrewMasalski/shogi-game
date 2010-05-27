@@ -19,14 +19,14 @@ namespace Yasc.ShogiCore.Notations
     /// <param name="move">Move trancsript to parse</param>
     /// <returns>All moves which may be transcribed given way. 
     ///   Doesn't return null but be prepared to receive 0 moves.</returns>
-    public IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move)
+    public IEnumerable<Move> Parse(BoardSnapshot originalBoardState, string move)
     {
       _board = originalBoardState;
       _moveText = move;
       return Parse();
     }
 
-    private IEnumerable<MoveSnapshotBase> Parse()
+    private IEnumerable<Move> Parse()
     {
       return _moveText.EndsWith("x") 
           || _moveText.EndsWith("x+")
@@ -34,7 +34,7 @@ namespace Yasc.ShogiCore.Notations
           ? ParseTake() : ParseMove();
     }
 
-    private IEnumerable<MoveSnapshotBase> ParseMove()
+    private IEnumerable<Move> ParseMove()
     {
       _moveText = _moveText.Replace("x", "");
       var pieceType = GetPieceType();
@@ -43,23 +43,23 @@ namespace Yasc.ShogiCore.Notations
       var fromPosition = FindFromPosition(_moveText, pieceType, Position.Parse(toPosition), isPromoting);
       return CreateMoves(pieceType, toPosition, isPromoting, fromPosition);
     }
-    private IEnumerable<MoveSnapshotBase> CreateMoves(IPieceType pieceType, string toPosition, bool isPromoting, ICollection<Position> fromPositions)
+    private IEnumerable<Move> CreateMoves(IPieceType pieceType, string toPosition, bool isPromoting, ICollection<Position> fromPositions)
     {
       return fromPositions.Count == 0 
         ? CreateDropMoves(pieceType, toPosition) 
         : CreateUsualMoves(fromPositions, toPosition, isPromoting);
     }
 
-    private IEnumerable<MoveSnapshotBase> CreateUsualMoves(IEnumerable<Position> fromPositions, string toPosition, bool isPromoting)
+    private IEnumerable<Move> CreateUsualMoves(IEnumerable<Position> fromPositions, string toPosition, bool isPromoting)
     {
       return fromPositions.Select(fromPosition => 
-        new UsualMoveSnapshot(_board.GetPieceAt(fromPosition).Color, fromPosition, Position.Parse(toPosition), isPromoting)).
+        new UsualMove(_board.GetPieceAt(fromPosition).Color, fromPosition, Position.Parse(toPosition), isPromoting)).
         Where(move => _board.ValidateUsualMove(move) == RulesViolation.NoViolations);
     }
 
-    private IEnumerable<DropMoveSnapshot> CreateDropMoves(IPieceType pieceType, string toPosition)
+    private IEnumerable<DropMove> CreateDropMoves(IPieceType pieceType, string toPosition)
     {
-      var dropMoveSnapshot = new DropMoveSnapshot(pieceType, _board.OneWhoMoves, Position.Parse(toPosition));
+      var dropMoveSnapshot = new DropMove(pieceType, _board.OneWhoMoves, Position.Parse(toPosition));
       if (_board.ValidateDropMove(dropMoveSnapshot) == RulesViolation.NoViolations)
         yield return dropMoveSnapshot;
     }
@@ -85,7 +85,7 @@ namespace Yasc.ShogiCore.Notations
       _moveText = _moveText.Substring(pieceTypeLength, _moveText.Length - pieceTypeLength);
       return PT.Parse(pieceType);
     }
-    private IEnumerable<UsualMoveSnapshot> ParseTake()
+    private IEnumerable<UsualMove> ParseTake()
     {
       var isPromoting = _moveText.EndsWith("+");
       var pieceType = GetPieceType();
@@ -126,7 +126,7 @@ namespace Yasc.ShogiCore.Notations
     /// <summary>Returns the transcript for a given move</summary>
     /// <param name="originalBoardState">State of the board before move</param>
     /// <param name="move">Move to trancsript</param>
-    public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
+    public string ToString(BoardSnapshot originalBoardState, Move move)
     {
       throw new NotImplementedException();
     /*  var sb = new StringBuilder();

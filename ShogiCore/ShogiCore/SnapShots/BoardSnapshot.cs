@@ -76,7 +76,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
-    public BoardSnapshot(BoardSnapshot board, MoveSnapshotBase move)
+    public BoardSnapshot(BoardSnapshot board, Move move)
     {
       if (board == null) throw new ArgumentNullException("board");
       if (move == null) throw new ArgumentNullException("move");
@@ -116,7 +116,7 @@ namespace Yasc.ShogiCore.Snapshots
 
     /// <summary>Validates drop move</summary>
     /// <returns>null if the move is valid -or- the reason why it's not</returns>
-    public RulesViolation ValidateDropMove(DropMoveSnapshot move)
+    public RulesViolation ValidateDropMove(DropMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
       if (move.Piece.Color != OneWhoMoves) return RulesViolation.WrongSideToMove;
@@ -146,7 +146,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
     /// <summary>Validates usual move</summary>
     /// <returns>null if the move is valid -or- the reason why it's not</returns>
-    public RulesViolation ValidateUsualMove(UsualMoveSnapshot move)
+    public RulesViolation ValidateUsualMove(UsualMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
       var movingPiece = GetPieceAt(move.From);
@@ -186,23 +186,23 @@ namespace Yasc.ShogiCore.Snapshots
         Any(move => move.To == king);
     }
     /// <summary>Gets all valid usual moves from the position</summary>
-    public IEnumerable<UsualMoveSnapshot> GetAvailableUsualMoves(Position fromPosition)
+    public IEnumerable<UsualMove> GetAvailableUsualMoves(Position fromPosition)
     {
       var estimate = from p in EstimateUsualMoveTargets(fromPosition)
-                     select new UsualMoveSnapshot(GetPieceAt(fromPosition).Color, fromPosition, p, false);
+                     select new UsualMove(GetPieceAt(fromPosition).Color, fromPosition, p, false);
       return from move in DuplicateForPromoting(estimate)
              where ShortValidateUsualMove(move) == RulesViolation.NoViolations
              select move;
     }
     /// <summary>Gets all valid drop moves for the piece</summary>
-    public IEnumerable<DropMoveSnapshot> GetAvailableDropMoves(IPieceType piece, PieceColor color)
+    public IEnumerable<DropMove> GetAvailableDropMoves(IPieceType piece, PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) == null).
-        Select(p => new DropMoveSnapshot(piece, color, p)).
+        Select(p => new DropMove(piece, color, p)).
         Where(move => ValidateDropMove(move) == RulesViolation.NoViolations);
     }
     /// <summary>Gets all valid usual and drop moves for the player</summary>
-    public IEnumerable<MoveSnapshotBase> GetAllAvailableMoves(PieceColor color)
+    public IEnumerable<Move> GetAllAvailableMoves(PieceColor color)
     {
       foreach (var move in GetAllAvailableUsualMoves(color))
         yield return move;
@@ -214,24 +214,24 @@ namespace Yasc.ShogiCore.Snapshots
 
     #region ' Implemetation '
 
-    private void Move(MoveSnapshotBase move)
+    private void Move(Move move)
     {
-      var usual = move as UsualMoveSnapshot;
+      var usual = move as UsualMove;
       if (usual != null)
       {
         Move(usual);
       }
       else
       {
-        Move((DropMoveSnapshot)move);
+        Move((DropMove)move);
       }
     }
-    private void Move(DropMoveSnapshot move)
+    private void Move(DropMove move)
     {
       HandInternal(OneWhoMoves).Remove(move.Piece.PieceType);
       SetPiece(move.To, move.Piece);
     }
-    private void Move(UsualMoveSnapshot move)
+    private void Move(UsualMove move)
     {
       if (move.IsPromoting)
         SetPiece(move.From, GetPieceAt(move.From).ClonePromoted());
@@ -246,22 +246,22 @@ namespace Yasc.ShogiCore.Snapshots
       return color == PieceColor.White ? _whiteHand : _blackHand;
     }
 
-    private IEnumerable<UsualMoveSnapshot> GetAllAvailableUsualMoves(PieceColor color)
+    private IEnumerable<UsualMove> GetAllAvailableUsualMoves(PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) != null && GetPieceAt(p).Color == color).
         SelectMany(p => DuplicateForPromoting(GetAvailableUsualMoves(p)));
     }
-    private IEnumerable<UsualMoveSnapshot> GetAllValidUsualMovesWithoutCheck3(PieceColor color)
+    private IEnumerable<UsualMove> GetAllValidUsualMovesWithoutCheck3(PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) != null && GetPieceAt(p).Color == color).
         SelectMany(GetAllValidUsualMovesWithoutCheck3);
     }
-    private IEnumerable<UsualMoveSnapshot> GetAllValidUsualMovesWithoutCheck3(Position f)
+    private IEnumerable<UsualMove> GetAllValidUsualMovesWithoutCheck3(Position f)
     {
       return from p in EstimateUsualMoveTargets(f)
-             select new UsualMoveSnapshot(GetPieceAt(f).Color, f, p, false);
+             select new UsualMove(GetPieceAt(f).Color, f, p, false);
     }
-    private IEnumerable<DropMoveSnapshot> GetAllValidDropMoves(PieceColor color)
+    private IEnumerable<DropMove> GetAllValidDropMoves(PieceColor color)
     {
       return Hand(color).Distinct().SelectMany(p => GetAvailableDropMoves(p, color));
     }
@@ -279,15 +279,15 @@ namespace Yasc.ShogiCore.Snapshots
               select (Position?)p).FirstOrDefault();
     }
 
-    private IEnumerable<UsualMoveSnapshot> DuplicateForPromoting(IEnumerable<UsualMoveSnapshot> moves)
+    private IEnumerable<UsualMove> DuplicateForPromoting(IEnumerable<UsualMove> moves)
     {
       foreach (var m in moves)
       {
         if (GetPieceAt(m.From).IsPromotionMandatory(m.To) == RulesViolation.NoViolations)
-          yield return new UsualMoveSnapshot(GetPieceAt(m.From).Color, m.From, m.To, false);
+          yield return new UsualMove(GetPieceAt(m.From).Color, m.From, m.To, false);
 
         if (GetPieceAt(m.From).IsPromotionAllowed(m.From, m.To) == RulesViolation.NoViolations)
-          yield return new UsualMoveSnapshot(GetPieceAt(m.From).Color, m.From, m.To, true);
+          yield return new UsualMove(GetPieceAt(m.From).Color, m.From, m.To, true);
       }
     }
     private static PieceColor Opponent(PieceColor color)
@@ -304,7 +304,7 @@ namespace Yasc.ShogiCore.Snapshots
 
       return false;
     }
-    private RulesViolation ShortValidateUsualMove(UsualMoveSnapshot move)
+    private RulesViolation ShortValidateUsualMove(UsualMove move)
     {
       if (move.IsPromoting)
       {

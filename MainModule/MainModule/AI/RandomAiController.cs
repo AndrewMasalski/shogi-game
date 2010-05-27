@@ -38,7 +38,7 @@ namespace MainModule.AI
       Move(myMove.ToString());
     }
 
-    private MoveBase ChooseAbsolutelyRandomMove()
+    private DecoratedMove ChooseAbsolutelyRandomMove()
     {
       var moves = _board.CurrentSnapshot.
         GetAllAvailableMoves(PieceColor.Black).ToList();

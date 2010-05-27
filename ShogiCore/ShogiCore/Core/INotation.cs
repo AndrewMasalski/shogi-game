@@ -11,11 +11,11 @@ namespace Yasc.ShogiCore.Core
     /// <param name="move">Move trancsript to parse</param>
     /// <returns>All moves which may be transcribed given way. 
     ///   Doesn't return null but be prepared to receive 0 moves.</returns>
-    IEnumerable<MoveSnapshotBase> Parse(BoardSnapshot originalBoardState, string move);
+    IEnumerable<Move> Parse(BoardSnapshot originalBoardState, string move);
 
     /// <summary>Returns the transcript for a given move</summary>
     /// <param name="originalBoardState">State of the board before move</param>
     /// <param name="move">Move to trancsript</param>
-    string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move);
+    string ToString(BoardSnapshot originalBoardState, Move move);
   }
 }

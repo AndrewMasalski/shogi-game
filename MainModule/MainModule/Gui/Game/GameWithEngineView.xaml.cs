@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -25,7 +25,7 @@ namespace MainModule.Gui.Game
       Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle,
         new Action(CommandManager.InvalidateRequerySuggested));
 
-      _errorLabel.Text = e.Move.RulesViolation.ToString();
+      _errorLabel.Text = e.DecoratedMove.RulesViolation.ToString();
     }
   }
 }

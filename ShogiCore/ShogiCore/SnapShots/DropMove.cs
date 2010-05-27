@@ -3,9 +3,9 @@ using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Snapshots
 {
-  /// <summary>Lightweight representation of drop move (as opposing to <see cref="UsualMoveSnapshot"/></summary>
+  /// <summary>Lightweight representation of drop move (as opposing to <see cref="UsualMove"/></summary>
   [Serializable]
-  public sealed class DropMoveSnapshot : MoveSnapshotBase
+  public sealed class DropMove : Move
   {
     /// <summary>Piece with type and color being dropped</summary>
     public PieceSnapshot Piece { get; private set; }
@@ -19,7 +19,7 @@ namespace Yasc.ShogiCore.Snapshots
     public IPieceType PieceType { get { return Piece.PieceType; }}
 
     /// <summary>ctor</summary>
-    public DropMoveSnapshot(IPieceType pieceType, PieceColor color, Position to)
+    public DropMove(IPieceType pieceType, PieceColor color, Position to)
     {
       // TODO: Change signature to match Board.GetDropMove()
       Piece = new PieceSnapshot(pieceType, color);

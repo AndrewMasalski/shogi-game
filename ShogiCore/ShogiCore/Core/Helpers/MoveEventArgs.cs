@@ -6,12 +6,12 @@ namespace Yasc.ShogiCore.Core
   public class MoveEventArgs : EventArgs
   {
     /// <summary>Move</summary>
-    public MoveBase Move { get; private set; }
+    public DecoratedMove DecoratedMove { get; private set; }
 
     /// <summary>ctor</summary>
-    public MoveEventArgs(MoveBase move)
+    public MoveEventArgs(DecoratedMove move)
     {
-      Move = move;
+      DecoratedMove = move;
     }
   }
 }

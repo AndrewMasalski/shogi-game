@@ -5,7 +5,7 @@ using Yasc.ShogiCore.Snapshots;
 namespace Yasc.ShogiCore.Core
 {
   /// <summary>Base class for the shogi move (usual and drop)</summary>
-  public class MoveBase
+  public class DecoratedMove
   {
     /// <summary>Moment move is performed</summary>
     public DateTime Timestamp { get; private set; }
@@ -17,7 +17,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Board snapshot before the move is done</summary>
     public BoardSnapshot BoardSnapshot { get; private set; }
     /// <summary>Gets the move data</summary>
-    public MoveSnapshotBase Move { get; set; }
+    public Move Move { get; set; }
 
     /// <summary>Indicates whether the move is valid</summary>
     public bool IsValid { get { return RulesViolation == RulesViolation.NoViolations; } }
@@ -31,17 +31,17 @@ namespace Yasc.ShogiCore.Core
       {
         if (_errorMessage == RulesViolation.HasntBeenChecked)
         {
-          var dropMove = Move as DropMoveSnapshot;
+          var dropMove = Move as DropMove;
           if (dropMove != null)
           {
             _errorMessage = BoardSnapshot.ValidateDropMove(dropMove);
           }
-          var usualMove = Move as UsualMoveSnapshot;
+          var usualMove = Move as UsualMove;
           if (usualMove != null)
           {
             _errorMessage = BoardSnapshot.ValidateUsualMove(usualMove);
           }
-          var resignMove = Move as ResignMoveSnapshot;
+          var resignMove = Move as ResignMove;
           if (resignMove != null)
           {
             _errorMessage = resignMove.Who != BoardSnapshot.OneWhoMoves
@@ -52,7 +52,7 @@ namespace Yasc.ShogiCore.Core
       }
     }
     /// <summary>ctor</summary>
-    internal MoveBase(BoardSnapshot boardSnapshot, MoveSnapshotBase move, int number)
+    internal DecoratedMove(BoardSnapshot boardSnapshot, Move move, int number)
     {
       if (boardSnapshot == null) throw new ArgumentNullException("boardSnapshot");
       

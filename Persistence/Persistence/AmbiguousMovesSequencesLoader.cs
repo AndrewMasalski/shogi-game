@@ -36,7 +36,7 @@ namespace Yasc.Persistence
       if (index == _moves.Count) return true;
 
       // We've just one choice here
-      MoveSnapshotBase[] choice;
+      Move[] choice;
       while (true)
       {
         choice = _board.GetMove(_moves[index], CuteNotation.Instance).ToArray();

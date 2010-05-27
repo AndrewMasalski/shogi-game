@@ -254,23 +254,23 @@ namespace Yasc.ShogiCore.Core
     #region ' Get/Make Move '
 
     /// <summary>Gets usual move on the board</summary>
-    public UsualMoveSnapshot GetUsualMove(Position from, Position to, bool isPromoting)
+    public UsualMove GetUsualMove(Position from, Position to, bool isPromoting)
     {
       if (!IsMovesOrderMaintained && GetPieceAt(from) != null)
         OneWhoMoves = GetPieceAt(from).Owner;
 
-      return new UsualMoveSnapshot(OneWhoMoves.Color, from, to, isPromoting);
+      return new UsualMove(OneWhoMoves.Color, from, to, isPromoting);
     }
     /// <summary>Gets drop move on the board</summary>
-    public DropMoveSnapshot GetDropMove(IPieceType piece, Position to, Player who)
+    public DropMove GetDropMove(IPieceType piece, Position to, Player who)
     {
       if (!IsMovesOrderMaintained)
         OneWhoMoves = who;
 
-      return new DropMoveSnapshot(piece, who.Color, to);
+      return new DropMove(piece, who.Color, to);
     }
     /// <summary>Gets drop move on the board</summary>
-    public DropMoveSnapshot GetDropMove(Piece piece, Position to)
+    public DropMove GetDropMove(Piece piece, Position to)
     {
       if (piece == null) throw new ArgumentNullException("piece");
       if (piece.Owner == null) throw new PieceHasNoOwnerException();
@@ -282,24 +282,24 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         OneWhoMoves = piece.Owner;
 
-      return new DropMoveSnapshot(piece.PieceType, piece.Owner.Color, to);
+      return new DropMove(piece.PieceType, piece.Owner.Color, to);
     }
     /// <summary>Gets resign move</summary>
-    public MoveBase GetResignMove()
+    public DecoratedMove GetResignMove()
     {
-      return new MoveBase(CurrentSnapshot,
-        new ResignMoveSnapshot(OneWhoMoves.Color),
+      return new DecoratedMove(CurrentSnapshot,
+        new ResignMove(OneWhoMoves.Color),
         History.Count + 1);
     }
 
     /// <summary>Gets move on the board parsing it from snapsot</summary>
-    public MoveBase Wrap(MoveSnapshotBase snapshot)
+    public DecoratedMove Wrap(Move snapshot)
     {
       // TODO: Using of this method is almost always ugly!
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-      return new MoveBase(CurrentSnapshot, snapshot, History.Count + 1);
+      return new DecoratedMove(CurrentSnapshot, snapshot, History.Count + 1);
     }
-    public void MakeWrapedMove(MoveSnapshotBase move)
+    public void MakeWrapedMove(Move move)
     {
       // TODO: Rename it to MakeMove
       MakeMove(Wrap(move));
@@ -307,7 +307,7 @@ namespace Yasc.ShogiCore.Core
 
     /// <summary>Makes the move on the board</summary>
     /// <remarks>The method adds the move to the history and sends events</remarks>
-    public void MakeMove(MoveBase move)
+    public void MakeMove(DecoratedMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
       if (!move.IsValid) throw new InvalidMoveException(move.RulesViolation);
@@ -327,7 +327,7 @@ namespace Yasc.ShogiCore.Core
     #region ' Analysis '
 
     /// <summary>Gets all valid usual moves available from the given position</summary>
-    public IEnumerable<UsualMoveSnapshot> GetAvailableMoves(Position fromPosition)
+    public IEnumerable<UsualMove> GetAvailableMoves(Position fromPosition)
     {
       if (!IsMovesOrderMaintained)
       {
@@ -338,7 +338,7 @@ namespace Yasc.ShogiCore.Core
              select snapshot;
     }
     /// <summary>Gets all valid drop moves available for the player for the given piece type</summary>
-    public IEnumerable<DropMoveSnapshot> GetAvailableMoves(IPieceType pieceType, PieceColor color)
+    public IEnumerable<DropMove> GetAvailableMoves(IPieceType pieceType, PieceColor color)
     {
       if (pieceType == null) throw new ArgumentNullException("pieceType");
 
@@ -350,7 +350,7 @@ namespace Yasc.ShogiCore.Core
       return GetAvailableMoves(piece);
     }
     /// <summary>Gets all valid drop moves available for for the given piece in hand</summary>
-    public IEnumerable<DropMoveSnapshot> GetAvailableMoves(Piece piece)
+    public IEnumerable<DropMove> GetAvailableMoves(Piece piece)
     {
       if (piece == null) throw new ArgumentNullException("piece");
       if (piece.Owner == null) throw new PieceHasNoOwnerException();
@@ -457,34 +457,34 @@ namespace Yasc.ShogiCore.Core
       ResetCurrentSnapshot();
     }
 
-    private void MakeMoveInternal(MoveSnapshotBase move)
+    private void MakeMoveInternal(Move move)
     {
       // TODO: if (CurrentSnapshot != move.BoardSnapshot) throw new Exception();
-      var dropMove = move as DropMoveSnapshot;
+      var dropMove = move as DropMove;
       if (dropMove != null)
       {
         MakeDropMove(dropMove);
       }
-      var usualMove = move as UsualMoveSnapshot;
+      var usualMove = move as UsualMove;
       if (usualMove != null)
       {
         MakeUsualMove(usualMove);
       }
-      var resignMove = move as ResignMoveSnapshot;
+      var resignMove = move as ResignMove;
       if (resignMove != null)
       {
         GameResult = resignMove.Who == PieceColor.White ? 
           ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
       }
     }
-    private void MakeDropMove(DropMoveSnapshot move)
+    private void MakeDropMove(DropMove move)
     {
       var player = GetPlayer(move.Who);
       var piece = player.Hand.GetByType(move.Piece.PieceType);
       player.Hand.Remove(piece);
       SetPiece(piece, move.To, player);
     }
-    private void MakeUsualMove(UsualMoveSnapshot move)
+    private void MakeUsualMove(UsualMove move)
     {
       var player = GetPlayer(move.Who);
       var piece = GetPieceAt(move.From);

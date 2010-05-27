@@ -41,35 +41,28 @@
       <Property Name="WhiteHand" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Yasc.ShogiCore.Snapshots.UsualMoveSnapshot">
+  <Class Name="Yasc.ShogiCore.Snapshots.UsualMove">
     <Position X="3.5" Y="6.25" Width="2.5" />
     <Members>
       <Field Name="_who" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
-      <Method Name="UsualMoveSnapshot" Hidden="true" />
       <Property Name="Who" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AgAAAACAAAAAAAAEAIAAAAAAAAAIAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>Snapshots\UsualMoveSnapshot.cs</FileName>
+      <FileName>Snapshots\UsualMove.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.Snapshots.DropMoveSnapshot">
-    <Position X="6.25" Y="6.25" Width="2.5" />
+  <Class Name="Yasc.ShogiCore.Snapshots.ResignMove">
+    <Position X="9" Y="6.25" Width="2" />
     <Members>
-      <Method Name="DropMoveSnapshot" Hidden="true" />
+      <Field Name="_who" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
       <Property Name="Who" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAIIAAAAAA=</HashCode>
-      <FileName>Snapshots\DropMoveSnapshot.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Yasc.ShogiCore.Snapshots.MoveSnapshotBase">
-    <Position X="6.5" Y="4.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>Snapshots\MoveSnapshotBase.cs</FileName>
+      <HashCode>AAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Snapshots\ResignMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.PieceSnapshot">
@@ -112,18 +105,29 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhAGAIQQAoMAhAAMAACIQDIACAgRAAkACSFCAIAA=</HashCode>
+      <HashCode>hCA9hAGAAQQAoMAhAAMAACIQDIACCiRAAkACSFCAIAA=</HashCode>
       <FileName>Core\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="CurrentSnapshot" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Yasc.ShogiCore.Snapshots.ResignMoveSnapshot" Collapsed="true">
-    <Position X="9" Y="6.25" Width="1.75" />
+  <Class Name="Yasc.ShogiCore.Snapshots.Move">
+    <Position X="6.5" Y="4.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>Snapshots\ResignMoveSnapshot.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Snapshots\Move.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Yasc.ShogiCore.Snapshots.DropMove">
+    <Position X="6.25" Y="6.25" Width="2.5" />
+    <Members>
+      <Method Name="ToString" Hidden="true" />
+      <Property Name="Who" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAIABAAAAAIIAAAAAA=</HashCode>
+      <FileName>Snapshots\DropMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">

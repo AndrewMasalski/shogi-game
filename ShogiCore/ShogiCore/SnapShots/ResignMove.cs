@@ -5,7 +5,7 @@ namespace Yasc.ShogiCore.Snapshots
 {
   /// <summary>Represents lightweight snapshot of resign move</summary>
   [Serializable]
-  public sealed class ResignMoveSnapshot : MoveSnapshotBase
+  public sealed class ResignMove : Move
   {
     private readonly PieceColor _who;
 
@@ -16,9 +16,15 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     /// <summary>ctor</summary>
-    public ResignMoveSnapshot(PieceColor who)
+    public ResignMove(PieceColor who)
     {
       _who = who;
+    }
+
+    /// <summary>Returns user friendly move representation (latin)</summary>
+    public override string ToString()
+    {
+      return "Resign";
     }
   }
 }

@@ -58,33 +58,33 @@ namespace Yasc.BoardControl.Controls
     private void BoardOnMoving(object sender, MoveEventArgs args)
     {
       if (_dragMove) return;
-      AnimateMove(args.Move);
+      AnimateMove(args.DecoratedMove);
     }
-    private void AnimateMove(MoveBase move)
+    private void AnimateMove(DecoratedMove move)
     {
       if (_adornerLayer == null) return;
-      var u = move.Move as UsualMoveSnapshot;
+      var u = move.Move as UsualMove;
       if (u != null)
       {
         AnimateMove(GetCell(u.From), GetCell(u.To));
       }
 
-      var d = move.Move as DropMoveSnapshot;
+      var d = move.Move as DropMove;
       if (d != null)
       {
         AnimateMove(GetHand(d.Who).GetPiece(d.Piece.PieceType), GetCell(d.To));
       }
     }
-    private void AnimateInvertedMove(MoveBase move)
+    private void AnimateInvertedMove(DecoratedMove move)
     {
       if (_adornerLayer == null) return;
-      var u = move.Move as UsualMoveSnapshot;
+      var u = move.Move as UsualMove;
       if (u != null)
       {
         AnimateMove(GetCell(u.To), GetCell(u.From));
       }
 
-      var d = move.Move as DropMoveSnapshot;
+      var d = move.Move as DropMove;
       if (d != null)
       {
         var hand = GetHand(d.Who);
@@ -230,7 +230,7 @@ namespace Yasc.BoardControl.Controls
       ReleaseDragSource();
     }
 
-    private MoveSnapshotBase RecognizeMove(DropToBoardEventArgs e)
+    private Move RecognizeMove(DropToBoardEventArgs e)
     {
       var fromBoard = e.From as DragFromBoardEventArgs;
       if (fromBoard != null)
@@ -309,7 +309,7 @@ namespace Yasc.BoardControl.Controls
       add { AddHandler(MoveAttemptEvent, value); }
       remove { RemoveHandler(MoveAttemptEvent, value); }
     }
-    private void RaiseMoveAttemptEvent(MoveBase move)
+    private void RaiseMoveAttemptEvent(DecoratedMove move)
     {
       RaiseEvent(new MoveAttemptEventArgs(MoveAttemptEvent, this, move));
     }

@@ -89,7 +89,7 @@ namespace Yasc.BoardControl.Common
 
     private static bool IsMove(ContentControl visualAdded)
     {
-      return visualAdded.Content is MoveBase;
+      return visualAdded.Content is DecoratedMove;
     }
   }
 }

@@ -31,7 +31,7 @@ namespace ShogiCore.UnitTests.Notations
     public void ParseCuteMoveTest()
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      var move = _board.GetMove("P2f", CuteNotation.Instance).Cast<UsualMoveSnapshot>().First();
+      var move = _board.GetMove("P2f", CuteNotation.Instance).Cast<UsualMove>().First();
       Assert.AreEqual("2g", move.From.ToString());
       Assert.AreEqual("2f", move.To.ToString());
       Assert.IsFalse(move.IsPromoting);
@@ -40,7 +40,7 @@ namespace ShogiCore.UnitTests.Notations
     public void ParseFormalMoveTest()
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      var move = _board.GetMove("2g-2f", FormalNotation.Instance).Cast<UsualMoveSnapshot>().First();
+      var move = _board.GetMove("2g-2f", FormalNotation.Instance).Cast<UsualMove>().First();
       Assert.AreEqual("2g", move.From.ToString());
       Assert.AreEqual("2f", move.To.ToString());
       Assert.IsFalse(move.IsPromoting);
@@ -53,7 +53,7 @@ namespace ShogiCore.UnitTests.Notations
       var b = new Board(new StandardPieceSet());
       b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d", FormalNotation.Instance).First();
-      var m = (UsualMoveSnapshot)move;
+      var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
       Assert.AreEqual(new Position(2, 3), m.To);
       Assert.IsFalse(m.IsPromoting);
@@ -65,7 +65,7 @@ namespace ShogiCore.UnitTests.Notations
       var b = new Board(new StandardPieceSet());
       b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d+", FormalNotation.Instance).First();
-      var m = (UsualMoveSnapshot)move;
+      var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
       Assert.AreEqual(new Position(2, 3), m.To);
       Assert.IsTrue(m.IsPromoting);
@@ -77,7 +77,7 @@ namespace ShogiCore.UnitTests.Notations
       var b = new Board(new StandardPieceSet());
       b.LoadSnapshot(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d=", FormalNotation.Instance).First();
-      var m = (UsualMoveSnapshot)move;
+      var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
       Assert.AreEqual(new Position(2, 3), m.To);
       Assert.IsFalse(m.IsPromoting);
@@ -88,7 +88,7 @@ namespace ShogiCore.UnitTests.Notations
     {
       var b = new Board(new StandardPieceSet());
       var move = b.GetMove("P'3d", FormalNotation.Instance).First();
-      var m = (DropMoveSnapshot)move;
+      var m = (DropMove)move;
       Assert.AreEqual("歩", m.PieceType.ToString());
       Assert.AreEqual(new Position(2, 3), m.To);
       Assert.AreEqual("P'3d", move.ToString());
@@ -97,7 +97,7 @@ namespace ShogiCore.UnitTests.Notations
     public void MovesOrderTest()
     {
       _board.IsMovesOrderMaintained = false;
-      var m = (UsualMoveSnapshot)_board.GetMove("8g-8f", FormalNotation.Instance).First();
+      var m = (UsualMove)_board.GetMove("8g-8f", FormalNotation.Instance).First();
       Assert.AreEqual("8g", m.From.ToString());
       Assert.AreEqual("8f", m.To.ToString());
       Assert.AreEqual(_board.Black, _board.OneWhoMoves);
@@ -105,7 +105,7 @@ namespace ShogiCore.UnitTests.Notations
     [TestMethod]
     public void ParseResignMoveTest()
     {
-      var move = (ResignMoveSnapshot)
+      var move = (ResignMove)
         _board.GetMove("resign", FormalNotation.Instance).First();
       Assert.AreEqual(_board.Black.Color, move.Who);
     }

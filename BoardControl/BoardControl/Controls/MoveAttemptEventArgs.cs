@@ -5,12 +5,12 @@ namespace Yasc.BoardControl.Controls
 {
   public class MoveAttemptEventArgs : RoutedEventArgs
   {
-    public MoveBase Move { get; private set; }
+    public DecoratedMove DecoratedMove { get; private set; }
 
-    public MoveAttemptEventArgs(RoutedEvent routedEvent, object source, MoveBase move) 
+    public MoveAttemptEventArgs(RoutedEvent routedEvent, object source, DecoratedMove move) 
       : base(routedEvent, source)
     {
-      Move = move;
+      DecoratedMove = move;
     }
   }
 }

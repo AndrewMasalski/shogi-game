@@ -104,23 +104,23 @@ namespace MainModule.AI
     /// <summary>
     /// TODO: Create a native implementation
     /// </summary>
-    private static string MoveToUsiString(MoveSnapshotBase move)
+    private static string MoveToUsiString(Move move)
     {
-      var usualMove = move as UsualMoveSnapshot;
+      var usualMove = move as UsualMove;
       if (usualMove != null)
       {
         return usualMove.From + usualMove.To.ToString() +
           (usualMove.IsPromoting ? "+" : "");
       }
       // BUG: Resign move!?
-      var dropMove = (DropMoveSnapshot) move;
+      var dropMove = (DropMove) move;
       return dropMove.PieceType.Latin + "*" + dropMove.To;
     }
 
     /// <summary>
     /// TODO: Create a native implementation
     /// </summary>
-    private static MoveSnapshotBase ParseUsiMove(Board board, string usiMove)
+    private static Move ParseUsiMove(Board board, string usiMove)
     {
       return usiMove.Contains("*") ?
         board.GetMove(usiMove.Replace('*', '\''), FormalNotation.Instance).First() :
