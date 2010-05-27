@@ -116,7 +116,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Snapshots\RulesViolationTest.cs" />
-    <Compile Include="MovesHistory\MovesHistoryTest.cs" />
+    <Compile Include="Moves\MovesHistoryTest.cs" />
     <Compile Include="Primitives\PieceTypeTest.cs" />
     <Compile Include="Core\PlayerTest.cs" />
     <Compile Include="Primitives\PositionTest.cs">
