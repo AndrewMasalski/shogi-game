@@ -1,6 +1,6 @@
 using System.Windows;
 using Yasc.ShogiCore.Core;
-using Yasc.ShogiCore.MovesHistory;
+using Yasc.ShogiCore.Moves;
 
 namespace Yasc.BoardControl.Controls
 {

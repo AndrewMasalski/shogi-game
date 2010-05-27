@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Yasc.ShogiCore.MovesHistory;
+using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
@@ -68,7 +68,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Moves history</summary>
     /// <remarks>Only contains moves made through <see cref="MakeMove"/>. 
     ///   All other changes made to the board are not counted here.</remarks>
-    public MovesHistory.MovesHistory History { get; private set; }
+    public MovesHistory History { get; private set; }
     /// <summary>81 cells of the board in stable order</summary>
     public IEnumerable<Cell> Cells
     {
@@ -162,9 +162,9 @@ namespace Yasc.ShogiCore.Core
       player.Hand = new HandCollection(PieceSet, player);
       return player;
     }
-    private MovesHistory.MovesHistory CreateMovesHistory()
+    private MovesHistory CreateMovesHistory()
     {
-      var movesHistory = new MovesHistory.MovesHistory();
+      var movesHistory = new MovesHistory();
       ((INotifyPropertyChanged)movesHistory).PropertyChanged += OnHistoryPropertyChanged;
       return movesHistory;
     }

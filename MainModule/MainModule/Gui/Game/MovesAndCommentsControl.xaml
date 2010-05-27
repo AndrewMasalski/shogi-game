@@ -1,7 +1,7 @@
 <UserControl x:Class="MainModule.Gui.Game.MovesAndCommentsControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Common1="clr-namespace:Yasc.BoardControl.Common;assembly=Yasc.BoardControl" 
-xmlns:Model="clr-namespace:MainModule.Model" xmlns:Core="clr-namespace:Yasc.ShogiCore.Core;assembly=Yasc.ShogiCore" xmlns:MovesHistory="clr-namespace:Yasc.ShogiCore.MovesHistory;assembly=Yasc.ShogiCore" Loaded="UserControl_Loaded">
+xmlns:Model="clr-namespace:MainModule.Model" xmlns:Core="clr-namespace:Yasc.ShogiCore.Core;assembly=Yasc.ShogiCore" xmlns:Moves="clr-namespace:Yasc.ShogiCore.Moves;assembly=Yasc.ShogiCore" Loaded="UserControl_Loaded">
   <ListBox x:Name="_listBox" ItemsSource="{Binding MovesAndComments}"
                        SelectedItem="{Binding Board.History.CurrentMove}">
     <ItemsControl.Resources>
@@ -13,7 +13,7 @@ xmlns:Model="clr-namespace:MainModule.Model" xmlns:Core="clr-namespace:Yasc.Shog
 <!--          <TextBlock Text="Resign" Foreground="Red"/>-->
 <!--        </StackPanel>-->
 <!--      </DataTemplate>-->
-      <DataTemplate DataType="{x:Type MovesHistory:DecoratedMove}">
+      <DataTemplate DataType="{x:Type Moves:DecoratedMove}">
         <StackPanel Orientation="Horizontal" Margin="5,2">
           <TextBlock Text="{Binding Number}"/>
           <TextBlock Text=". "/>
