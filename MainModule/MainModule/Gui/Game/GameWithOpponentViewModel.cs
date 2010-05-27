@@ -8,6 +8,7 @@ using MainModule.Utils;
 using Yasc.Networking.Interfaces;
 using Yasc.Networking.Utils;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.MovesHistory;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
 using Yasc.Utils;

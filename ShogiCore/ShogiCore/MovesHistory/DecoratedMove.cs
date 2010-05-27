@@ -2,7 +2,7 @@ using System;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Core
+namespace Yasc.ShogiCore.MovesHistory
 {
   /// <summary>Base class for the shogi move (usual and drop)</summary>
   public class DecoratedMove

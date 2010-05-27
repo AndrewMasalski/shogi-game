@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Yasc.ShogiCore.MovesHistory;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
@@ -67,7 +68,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Moves history</summary>
     /// <remarks>Only contains moves made through <see cref="MakeMove"/>. 
     ///   All other changes made to the board are not counted here.</remarks>
-    public MovesHistory History { get; private set; }
+    public MovesHistory.MovesHistory History { get; private set; }
     /// <summary>81 cells of the board in stable order</summary>
     public IEnumerable<Cell> Cells
     {
@@ -125,6 +126,7 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Resets the pieces on board and from hands and loads a snapshot from scratch</summary>
+    /// <exception cref="NotEnoughPiecesInSetException">When board's piece set has not enough piecese</exception>
     public void LoadSnapshot(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
@@ -160,9 +162,9 @@ namespace Yasc.ShogiCore.Core
       player.Hand = new HandCollection(PieceSet, player);
       return player;
     }
-    private MovesHistory CreateMovesHistory()
+    private MovesHistory.MovesHistory CreateMovesHistory()
     {
-      var movesHistory = new MovesHistory();
+      var movesHistory = new MovesHistory.MovesHistory();
       ((INotifyPropertyChanged)movesHistory).PropertyChanged += OnHistoryPropertyChanged;
       return movesHistory;
     }

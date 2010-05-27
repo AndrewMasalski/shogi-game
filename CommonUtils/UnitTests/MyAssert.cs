@@ -11,12 +11,13 @@ namespace CommonUtils.UnitTests
       try
       {
         action();
-        Assert.Fail("Exception's been expected: " + typeof(TException));
       }
       catch (Exception x)
       {
         Assert.AreEqual(typeof(TException), x.GetType());
+        return;
       }
+      Assert.Fail("Exception's been expected: " + typeof(TException));
     }
   }
 }

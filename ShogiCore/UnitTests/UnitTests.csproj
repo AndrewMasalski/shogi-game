@@ -96,6 +96,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CellTest.cs" />
+    <Compile Include="PieceSets\PieceSetTest.cs" />
+    <Compile Include="Positions\GetAvailableMovesRunner.cs" />
+    <Compile Include="Positions\GetMovesRunner.cs" />
+    <Compile Include="Positions\PositionsRunner.cs" />
     <Compile Include="Primitives\PieceCategoryTest.cs" />
     <Compile Include="Primitives\ComparableTest.cs" />
     <Compile Include="Primitives\PTTest.cs" />
@@ -111,23 +115,17 @@
     <Compile Include="Core\BoardTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\TestInvalidMoveMessages.cs" />
-    <Compile Include="Core\MovesHistoryTest.cs" />
-    <Compile Include="Core\PieceSetTest.cs" />
+    <Compile Include="Snapshots\RulesViolationTest.cs" />
+    <Compile Include="MovesHistory\MovesHistoryTest.cs" />
     <Compile Include="Primitives\PieceTypeTest.cs" />
     <Compile Include="Core\PlayerTest.cs" />
     <Compile Include="Primitives\PositionTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Core\DropMovesTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Notations\MovesParserTest.cs" />
     <Compile Include="Core\PieceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\ShogiTest.cs" />
-    <Compile Include="Positions\MoveRules.cs" />
-    <Compile Include="Core\UsualMoveTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Positions\BishopMoves.xaml">
@@ -200,6 +198,7 @@
       <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.MovesHistory;
 
 namespace Yasc.BoardControl.Common
 {
