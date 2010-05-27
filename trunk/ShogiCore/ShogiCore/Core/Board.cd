@@ -10,9 +10,14 @@
       <Field Name="_isMovesOrderMaintained" Hidden="true" />
       <Field Name="_moving" Hidden="true" />
       <Field Name="_oneWhoMoves" Hidden="true" />
+      <Method Name="CellPieceChanged" Hidden="true" />
       <Method Name="CreateMovesHistory" Hidden="true" />
       <Method Name="CreatePlayer" Hidden="true" />
       <Method Name="FillCells" Hidden="true" />
+      <Method Name="HandCollectionChanged" Hidden="true" />
+      <Method Name="MakeDropMove" Hidden="true" />
+      <Method Name="MakeMoveInternal" Hidden="true" />
+      <Method Name="MakeUsualMove" Hidden="true" />
       <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
       <Method Name="OnHistoryNavigated" Hidden="true" />
       <Method Name="OnHistoryNavigating" Hidden="true" />
@@ -24,7 +29,7 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>BCAdhAGAIQQAoMAhAAMAACIQDIACAgRAAkACSFCAIAA=</HashCode>
+      <HashCode>hCA9hAGAAQQAoMAhAAMAACIQDIACCiRAAkACSFCAIAA=</HashCode>
       <FileName>Core\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -52,7 +57,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ACAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <HashCode>ACAAAACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Core\Cell.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -70,8 +75,8 @@
       <FileName>Core\Piece.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Color" />
       <Property Name="PieceType" />
+      <Property Name="Color" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Core.Player">
@@ -96,7 +101,7 @@
     </TypeIdentifier>
   </Struct>
   <Interface Name="Yasc.ShogiCore.Core.IPieceSet">
-    <Position X="0.5" Y="6" Width="1.5" />
+    <Position X="0.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Core\IPieceSet.cs</FileName>
@@ -105,7 +110,7 @@
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
     <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAA=</HashCode>
+      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
   </Interface>

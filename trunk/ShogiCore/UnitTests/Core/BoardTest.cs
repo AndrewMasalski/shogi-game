@@ -224,7 +224,7 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var availableMoves = _board.GetAvailableMoves("4a");
-      var toPositions = (from UsualMoveSnapshot m in availableMoves select m.To).ToList();
+      var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("5b", "4b", "3b"), toPositions);
     }
     [TestMethod]
@@ -233,7 +233,7 @@ namespace ShogiCore.UnitTests.Core
       _board.IsMovesOrderMaintained = false;
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var availableMoves = _board.GetAvailableMoves("7g");
-      var toPositions = (from UsualMoveSnapshot m in availableMoves select m.To).ToList();
+      var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("7f"), toPositions);
       Assert.AreEqual(_board.Black, _board.OneWhoMoves);
     }
@@ -275,8 +275,8 @@ namespace ShogiCore.UnitTests.Core
     public void OnMoveEventTest()
     {
       var log = new TestLog();
-      _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
-      _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
+      _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.DecoratedMove));
+      _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.DecoratedMove));
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.MakeWrapedMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       Assert.AreEqual("Moving(1g-1f) Moved(1g-1f)", log.ToString());

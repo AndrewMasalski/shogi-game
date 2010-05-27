@@ -91,7 +91,7 @@
     <Compile Include="PieceSets\InfinitePieceSet.cs" />
     <Compile Include="Core\IPieceSet.cs" />
     <Compile Include="Core\Helpers\InvalidMoveException.cs" />
-    <Compile Include="Core\MoveBase.cs" />
+    <Compile Include="Core\DecoratedMove.cs" />
     <Compile Include="Core\Helpers\MoveEventArgs.cs" />
     <Compile Include="Core\MovesHistory.cs" />
     <Compile Include="Core\Helpers\PieceNotFoundException.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Primitives\IPieceCategory.cs" />
     <Compile Include="Primitives\IPieceType.cs" />
     <Compile Include="Snapshots\BoardSnapshotExtensions.cs" />
-    <Compile Include="Snapshots\ResignMoveSnapshot.cs" />
+    <Compile Include="Snapshots\ResignMove.cs" />
     <Compile Include="Core\Helpers\ShogiGameResult.cs" />
     <Compile Include="Core\Helpers\NotEnoughPiecesInSetException.cs" />
     <Compile Include="Core\Piece.cs" />
@@ -110,11 +110,11 @@
     <Compile Include="Primitives\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snapshots\BoardSnapshot.cs" />
-    <Compile Include="Snapshots\DropMoveSnapshot.cs" />
-    <Compile Include="Snapshots\MoveSnapshotBase.cs" />
+    <Compile Include="Snapshots\DropMove.cs" />
+    <Compile Include="Snapshots\Move.cs" />
     <Compile Include="Snapshots\PieceSnapshot.cs" />
     <Compile Include="Snapshots\RulesViolation.cs" />
-    <Compile Include="Snapshots\UsualMoveSnapshot.cs" />
+    <Compile Include="Snapshots\UsualMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Primitives\Primitives.cd" />

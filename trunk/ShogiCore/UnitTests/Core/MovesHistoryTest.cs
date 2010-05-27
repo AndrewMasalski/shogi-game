@@ -117,7 +117,7 @@ namespace ShogiCore.UnitTests.Core
       Assert.AreSame(m2, history.CurrentMove);
       Assert.IsTrue(history.IsCurrentMoveLast);
     }
-    private static MoveBase CreateDummyMove()
+    private static DecoratedMove CreateDummyMove()
     {
       var board = new Board(new StandardPieceSet());
       return board.Wrap(board.GetUsualMove("1i", "2i"));

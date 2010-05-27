@@ -3,9 +3,9 @@ using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Snapshots
 {
-  /// <summary>Lightweight representation of the usual move (as opposing to <see cref="DropMoveSnapshot"/></summary>
+  /// <summary>Lightweight representation of the usual move (as opposing to <see cref="DropMove"/></summary>
   [Serializable]
-  public sealed class UsualMoveSnapshot : MoveSnapshotBase
+  public sealed class UsualMove : Move
   {
     private readonly PieceColor _who;
 
@@ -22,7 +22,7 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     /// <summary>ctor</summary>
-    public UsualMoveSnapshot(PieceColor who, Position from, Position to, bool isPromoting)
+    public UsualMove(PieceColor who, Position from, Position to, bool isPromoting)
     {
       _who = who;
       From = from;

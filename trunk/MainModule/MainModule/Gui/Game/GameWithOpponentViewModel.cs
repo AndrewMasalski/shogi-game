@@ -50,7 +50,7 @@ namespace MainModule.Gui.Game
     private void OnMyMove(MoveEventArgs args)
     {
       if (Ticket == null) return;
-      Ticket.Move(new MoveMsg(args.Move.ToString()));
+      Ticket.Move(new MoveMsg(args.DecoratedMove.ToString()));
       if (Board.CurrentSnapshot.IsMateFor(Opponent(Ticket.MyColor)))
       {
         MessageBox.Show("You won!");
@@ -76,8 +76,8 @@ namespace MainModule.Gui.Game
       Board.History.CurrentMoveIndex -= 2;
       Ticket.UndoLastMove();
 
-      MovesAndComments.FindLastAndRemove(o => o is MoveBase);
-      MovesAndComments.FindLastAndRemove(o => o is MoveBase);
+      MovesAndComments.FindLastAndRemove(o => o is DecoratedMove);
+      MovesAndComments.FindLastAndRemove(o => o is DecoratedMove);
     }
   }
 

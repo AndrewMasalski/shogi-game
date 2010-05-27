@@ -25,7 +25,7 @@ namespace ShogiCore.UnitTests.Snapshots
     [TestMethod]
     public void Immutability()
     {
-      var clone = new BoardSnapshot(_snapshot, new UsualMoveSnapshot(
+      var clone = new BoardSnapshot(_snapshot, new UsualMove(
         PieceColor.White, Position.Parse("3c"), Position.Parse("3d"), false));
       
       Assert.IsNull(clone.GetPieceAt("3c"));

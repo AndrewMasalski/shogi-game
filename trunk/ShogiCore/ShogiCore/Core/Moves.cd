@@ -31,16 +31,20 @@
       <Property Name="History" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Yasc.ShogiCore.Core.MoveBase">
-    <Position X="8.25" Y="0.5" Width="2.5" />
+  <Class Name="Yasc.ShogiCore.Core.DecoratedMove">
+    <Position X="4.25" Y="3.75" Width="2.5" />
     <Members>
       <Field Name="_errorMessage" Hidden="true" />
-      <Method Name="MoveBase" Hidden="true" />
+      <Method Name="DecoratedMove" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAKAAAAAEAkgCAAAEAAAAAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>Core\MoveBase.cs</FileName>
+      <FileName>Core\DecoratedMove.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Move" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Core.MovesHistory">
     <Position X="4.25" Y="0.5" Width="2.5" />
@@ -54,6 +58,13 @@
     <ShowAsAssociation>
       <Property Name="CurrentMove" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Yasc.ShogiCore.Snapshots.Move">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Snapshots\Move.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

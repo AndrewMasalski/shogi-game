@@ -13,7 +13,7 @@ xmlns:Model="clr-namespace:MainModule.Model" xmlns:Core="clr-namespace:Yasc.Shog
 <!--          <TextBlock Text="Resign" Foreground="Red"/>-->
 <!--        </StackPanel>-->
 <!--      </DataTemplate>-->
-      <DataTemplate DataType="{x:Type Core:MoveBase}">
+      <DataTemplate DataType="{x:Type Core:DecoratedMove}">
         <StackPanel Orientation="Horizontal" Margin="5,2">
           <TextBlock Text="{Binding Number}"/>
           <TextBlock Text=". "/>

@@ -7,18 +7,18 @@ using Yasc.Utils;
 namespace Yasc.ShogiCore.Core
 {
   /// <summary>Represents history of moves of the game</summary>
-  public class MovesHistory : ReadOnlyObservableCollection<MoveBase>
+  public class MovesHistory : ReadOnlyObservableCollection<DecoratedMove>
   {
     private int _currentMoveIndex = -1;
 
     /// <summary>ctor</summary>
     public MovesHistory()
-      : base(new ThreadSafeObservableCollection<MoveBase>())
+      : base(new ThreadSafeObservableCollection<DecoratedMove>())
     {
     }
 
     /// <summary>Adds the move to the history</summary>
-    public void Do(MoveBase move)
+    public void Do(DecoratedMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
 
@@ -33,7 +33,7 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Gets or sets currebt move reference</summary>
-    public MoveBase CurrentMove
+    public DecoratedMove CurrentMove
     {
       get { return _currentMoveIndex < 0 ? null : Items[_currentMoveIndex]; }
       set
