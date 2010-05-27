@@ -62,6 +62,7 @@ namespace Yasc.ShogiCore.Moves
       Move = move;
     }
 
+    /// <summary>Gets the string representation of the move</summary>
     public override string ToString()
     {
       return Move.ToString();
