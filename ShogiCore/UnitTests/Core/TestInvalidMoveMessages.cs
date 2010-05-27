@@ -22,7 +22,7 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.SetPiece(PT.歩, "1c", _board.Black);
       _board.Black.Hand.Add(PT.歩);
-      var move = _board.GetDropMove(PT.歩, "1d", _board.OneWhoMoves);
+      var move = _board.Wrap(_board.GetDropMove(PT.歩, "1d", _board.OneWhoMoves));
       Assert.AreEqual(RulesViolation.TwoPawnsOnTheSameFile, move.RulesViolation);
     }
 
@@ -31,7 +31,7 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.SetPiece(PT.歩, "1c", _board.Black);
       _board.Black.Hand.Add(PT.歩);
-      var move = _board.GetDropMove(PT.歩, "1c", _board.OneWhoMoves);
+      var move = _board.Wrap(_board.GetDropMove(PT.歩, "1c", _board.OneWhoMoves));
       Assert.AreEqual(RulesViolation.DropToOccupiedCell, move.RulesViolation);
     }
 
@@ -39,7 +39,7 @@ namespace ShogiCore.UnitTests.Core
     public void CantDropPawnToTheLastLine()
     {
       _board.Black.Hand.Add(PT.歩);
-      var move = _board.GetDropMove(PT.歩, "1a", _board.OneWhoMoves);
+      var move = _board.Wrap(_board.GetDropMove(PT.歩, "1a", _board.OneWhoMoves));
       Assert.AreEqual(RulesViolation.DropToLastLines, move.RulesViolation);
     }
 
@@ -47,7 +47,7 @@ namespace ShogiCore.UnitTests.Core
     public void CantDropLanceToTheLastLine()
     {
       _board.Black.Hand.Add(PT.香);
-      var move = _board.GetDropMove(PT.香, "1a", _board.OneWhoMoves);
+      var move = _board.Wrap(_board.GetDropMove(PT.香, "1a", _board.OneWhoMoves));
       Assert.AreEqual(RulesViolation.DropToLastLines, move.RulesViolation);
     }
 
@@ -55,7 +55,7 @@ namespace ShogiCore.UnitTests.Core
     public void CantDropKnightToTheLastLines()
     {
       _board.Black.Hand.Add(PT.桂);
-      var move = _board.GetDropMove(PT.桂, "1a", _board.OneWhoMoves);
+      var move = _board.Wrap(_board.GetDropMove(PT.桂, "1a", _board.OneWhoMoves));
       Assert.AreEqual(RulesViolation.DropToLastLines, move.RulesViolation);
     }
 
@@ -69,7 +69,7 @@ namespace ShogiCore.UnitTests.Core
       _board.SetPiece(PT.金, "3g", _board.White);
       _board.White.Hand.Add(PT.歩);
 
-      var move = _board.GetDropMove(PT.歩, "1h", _board.White);
+      var move = _board.Wrap(_board.GetDropMove(PT.歩, "1h", _board.White));
       Assert.AreEqual(RulesViolation.DropPawnToMate, move.RulesViolation);
     }
   }

@@ -28,23 +28,18 @@ namespace ShogiCore.UnitTests.Core
     {
       MyAssert.ThrowsException<ArgumentNullException>(
         () => _board.MakeMove(null));
-      
-      MyAssert.ThrowsException<InvalidMoveException>(
-        () => _board.MakeMove(_board.GetUsualMove("1i", "1i")));
 
-      MyAssert.ThrowsException<ArgumentOutOfRangeException>(() =>
-        {
-          var anotherBoard = new Board(new StandardPieceSet());
-          anotherBoard.LoadSnapshot(BoardSnapshot.InitialPosition);
-          _board.MakeMove(anotherBoard.GetUsualMove("3c", "3d"));
-        });
+      MyAssert.ThrowsException<InvalidMoveException>(
+        () => _board.MakeWrapedMove(_board.GetUsualMove("1i", "1i")));
     }
 
     [TestMethod]
     public void OneWhoMoves()
     {
-      MyAssert.ThrowsException<ArgumentOutOfRangeException>(() => {
-        _board.OneWhoMoves = new Board(new StandardPieceSet()).White; });
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(() =>
+      {
+        _board.OneWhoMoves = new Board(new StandardPieceSet()).White;
+      });
     }
 
     #region ' CurrentSnapshot Property '
@@ -59,7 +54,7 @@ namespace ShogiCore.UnitTests.Core
                                  Assert.AreNotSame(snapshot, s);
                                  snapshot = s;
                                });
-      
+
       _board.OneWhoMoves = _board.White;
       check();
       _board.White.Hand.Add(PT.香);
@@ -127,16 +122,16 @@ namespace ShogiCore.UnitTests.Core
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.IsMovesOrderMaintained = false;
       // Make move for black twice; there's no exception
-      _board.MakeMove(_board.GetUsualMove("3c", "3d"));
-      _board.MakeMove(_board.GetUsualMove("3d", "3e"));
+      _board.MakeWrapedMove(_board.GetUsualMove("3c", "3d"));
+      _board.MakeWrapedMove(_board.GetUsualMove("3d", "3e"));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedForDropMovesTest()
     {
       _board.IsMovesOrderMaintained = false;
       // Make move for black twice; there's no exception
-      _board.MakeMove(_board.GetDropMove(_board.Black.Hand.Add(PT.馬), "1i"));
-      _board.MakeMove(_board.GetDropMove(_board.Black.Hand.Add(PT.馬), "2i"));
+      _board.MakeWrapedMove(_board.GetDropMove(_board.Black.Hand.Add(PT.馬), "1i"));
+      _board.MakeWrapedMove(_board.GetDropMove(_board.Black.Hand.Add(PT.馬), "2i"));
     }
     [TestMethod]
     public void IsMovesOrderMaintainedKeepsValueTest()
@@ -219,6 +214,9 @@ namespace ShogiCore.UnitTests.Core
 
       MyAssert.ThrowsException<ArgumentNullException>(
         () => _board.GetAvailableMoves(null, PieceColor.Black));
+
+      MyAssert.ThrowsException<PieceHasNoOwnerException>(
+        () => _board.GetAvailableMoves(_board.PieceSet[PT.馬]));
     }
 
     [TestMethod]
@@ -226,7 +224,7 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var availableMoves = _board.GetAvailableMoves("4a");
-      var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
+      var toPositions = (from UsualMoveSnapshot m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("5b", "4b", "3b"), toPositions);
     }
     [TestMethod]
@@ -235,7 +233,7 @@ namespace ShogiCore.UnitTests.Core
       _board.IsMovesOrderMaintained = false;
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       var availableMoves = _board.GetAvailableMoves("7g");
-      var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
+      var toPositions = (from UsualMoveSnapshot m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("7f"), toPositions);
       Assert.AreEqual(_board.Black, _board.OneWhoMoves);
     }
@@ -261,41 +259,14 @@ namespace ShogiCore.UnitTests.Core
 
     #endregion
 
-    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
-    public void CantUseOwnerlessPieceInGetAvailableMovesTest()
+    [TestMethod]
+    public void GetDropMoveWrongArgs()
     {
-      _board.GetAvailableMoves(_board.PieceSet[PT.馬]);
-    }
-    [TestMethod, ExpectedException(typeof(PieceHasNoOwnerException))]
-    public void CantUseOwnerlessPieceInGetDropMoveTest()
-    {
-      _board.GetDropMove(_board.PieceSet[PT.馬], "1a");
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void GetDropMoveNullPieceArgTest()
-    {
-      _board.GetDropMove(null, "1i");
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void GetDropMoveAlienPieceArgTest()
-    {
-      _board.GetDropMove(new Board(new StandardPieceSet()).White.Hand.Add(PT.歩), "1i");
-    }
-    
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void PassWrongPlayerToGetDropMoveTest()
-    {
-      _board.GetDropMove(PT.馬, "1i", new Board(new StandardPieceSet()).White);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void PassWrongPlayerToSetPieceA()
-    {
-      _board.SetPiece(_board.PieceSet[PT.馬], "1i", new Board(new StandardPieceSet()).White);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void PassWrongPlayerToSetPieceB()
-    {
-      _board.SetPiece(PT.馬, "1i", new Board(new StandardPieceSet()).White);
+      MyAssert.ThrowsException<PieceHasNoOwnerException>(
+        () => _board.GetDropMove(_board.PieceSet[PT.馬], "1a"));
+
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => _board.GetDropMove(null, "1i"));
     }
 
     #region ' OnMoving/OnMoved Events '
@@ -307,29 +278,28 @@ namespace ShogiCore.UnitTests.Core
       _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
       _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       Assert.AreEqual("Moving(1g-1f) Moved(1g-1f)", log.ToString());
     }
 
     #endregion
 
     #region ' Hostory Navigation '
-    
+
     [TestMethod]
     public void HistoryNavigationEventsTest()
     {
       var log = new TestLog();
       _board.HistoryNavigating += (s, e) =>
         log.Write(string.Format("HistoryNavigating({0})", e.Step));
-      _board.HistoryNavigated += (s, e) => 
+      _board.HistoryNavigated += (s, e) =>
         log.Write(string.Format("HistoryNavigated({0})", e.Step));
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
-      _board.MakeMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
-      _board.MakeMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
       _board.History.CurrentMoveIndex = 0;
-      Assert.AreEqual("HistoryNavigating(-2) HistoryNavigated(-2)", 
-        log.ToString());
+      Assert.AreEqual("HistoryNavigating(-2) HistoryNavigated(-2)", log.ToString());
     }
 
     [TestMethod]
@@ -349,33 +319,14 @@ namespace ShogiCore.UnitTests.Core
                                      Assert.AreEqual(snapshot[0], e.Snapshot);
                                    };
 
-      _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       snapshot[0] = _board.CurrentSnapshot;
-      _board.MakeMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
-      _board.MakeMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
       _board.History.CurrentMoveIndex = 0;
     }
 
     #endregion
-
-    [TestMethod]
-    public void ParseCuteMoveTest()
-    {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      var move = _board.GetMove("P2f", CuteNotation.Instance).Cast<UsualMove>().First();
-      Assert.AreEqual("2g", move.From.ToString());
-      Assert.AreEqual("2f", move.To.ToString());
-      Assert.IsFalse(move.IsPromoting);
-    }
-    [TestMethod]
-    public void ParseFormalMoveTest()
-    {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
-      var move = _board.GetMove("2g-2f", FormalNotation.Instance).Cast<UsualMove>().First();
-      Assert.AreEqual("2g", move.From.ToString());
-      Assert.AreEqual("2f", move.To.ToString());
-      Assert.IsFalse(move.IsPromoting);
-    }
 
     [TestMethod]
     public void TestBlackResignMove()

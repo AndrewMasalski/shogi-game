@@ -1,44 +1,70 @@
 using System;
+using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.Core
 {
   /// <summary>Base class for the shogi move (usual and drop)</summary>
-  public abstract class MoveBase
+  public class MoveBase
   {
-    /// <summary>Board move belongs to</summary>
-    public Board Board { get; private set; }
     /// <summary>Moment move is performed</summary>
     public DateTime Timestamp { get; private set; }
-    /// <summary>Player performing the move</summary>
-    public Player Who { get; private set; }
+
+    /// <summary>Gets the color of player who made the move</summary>
+    public PieceColor Who { get { return Move.Who; } }
     /// <summary>Move sequential number within the game</summary>
     public int Number { get; private set; }
     /// <summary>Board snapshot before the move is done</summary>
     public BoardSnapshot BoardSnapshot { get; private set; }
+    /// <summary>Gets the move data</summary>
+    public MoveSnapshotBase Move { get; set; }
+
     /// <summary>Indicates whether the move is valid</summary>
     public bool IsValid { get { return RulesViolation == RulesViolation.NoViolations; } }
-    /// <summary>null if move is valid -or- explanation why it's not</summary>
-    public abstract RulesViolation RulesViolation { get; }
 
-    /// <summary>ctor</summary>
-    protected MoveBase(Board board, Player who)
+    private RulesViolation _errorMessage;
+
+    /// <summary>null if move is valid -or- explanation why it's not</summary>
+    public RulesViolation RulesViolation
     {
-      if (board == null) throw new ArgumentNullException("board");
-      if (who == null) throw new ArgumentNullException("who");
-      board.VerifyPlayerBelongs(who);
+      get
+      {
+        if (_errorMessage == RulesViolation.HasntBeenChecked)
+        {
+          var dropMove = Move as DropMoveSnapshot;
+          if (dropMove != null)
+          {
+            _errorMessage = BoardSnapshot.ValidateDropMove(dropMove);
+          }
+          var usualMove = Move as UsualMoveSnapshot;
+          if (usualMove != null)
+          {
+            _errorMessage = BoardSnapshot.ValidateUsualMove(usualMove);
+          }
+          var resignMove = Move as ResignMoveSnapshot;
+          if (resignMove != null)
+          {
+            _errorMessage = resignMove.Who != BoardSnapshot.OneWhoMoves
+              ? RulesViolation.WrongSideToMove : RulesViolation.NoViolations;
+          }
+        }
+        return _errorMessage;
+      }
+    }
+    /// <summary>ctor</summary>
+    internal MoveBase(BoardSnapshot boardSnapshot, MoveSnapshotBase move, int number)
+    {
+      if (boardSnapshot == null) throw new ArgumentNullException("boardSnapshot");
       
-      Board = board;
       Timestamp = DateTime.Now;
-      Who = who;
-      Number = Board.History.Count + 1;
-      BoardSnapshot = Board.CurrentSnapshot;
+      Number = number;
+      BoardSnapshot = boardSnapshot;
+      Move = move;
     }
 
-    /// <summary>Override to apply move to the <see cref="MoveBase.Board"/></summary>
-    protected internal abstract void Make();
-
-    /// <summary>Gets snapshot of the move</summary>
-    public abstract MoveSnapshotBase Snapshot();
+    public override string ToString()
+    {
+      return Move.ToString();
+    }
   }
 }

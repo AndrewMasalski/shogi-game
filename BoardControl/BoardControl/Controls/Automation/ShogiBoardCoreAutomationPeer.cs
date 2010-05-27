@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.BoardControl.Controls.Automation

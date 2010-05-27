@@ -10,6 +10,7 @@ using Yasc.BoardControl.Controls.Automation;
 using Yasc.BoardControl.GenericDragDrop;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 using Yasc.Utils;
 
 namespace Yasc.BoardControl.Controls
@@ -62,32 +63,32 @@ namespace Yasc.BoardControl.Controls
     private void AnimateMove(MoveBase move)
     {
       if (_adornerLayer == null) return;
-      var u = move as UsualMove;
+      var u = move.Move as UsualMoveSnapshot;
       if (u != null)
       {
         AnimateMove(GetCell(u.From), GetCell(u.To));
       }
 
-      var d = move as DropMove;
+      var d = move.Move as DropMoveSnapshot;
       if (d != null)
       {
-        AnimateMove(GetHand(d.Who.Color).GetPiece(d.PieceType), GetCell(d.To));
+        AnimateMove(GetHand(d.Who).GetPiece(d.Piece.PieceType), GetCell(d.To));
       }
     }
     private void AnimateInvertedMove(MoveBase move)
     {
       if (_adornerLayer == null) return;
-      var u = move as UsualMove;
+      var u = move.Move as UsualMoveSnapshot;
       if (u != null)
       {
         AnimateMove(GetCell(u.To), GetCell(u.From));
       }
 
-      var d = move as DropMove;
+      var d = move.Move as DropMoveSnapshot;
       if (d != null)
       {
-        var hand = GetHand(d.Who.Color);
-        AnimateMove(GetCell(d.To), hand.GetPiece(d.PieceType) ?? (UIElement)hand);
+        var hand = GetHand(d.Who);
+        AnimateMove(GetCell(d.To), hand.GetPiece(d.Piece.PieceType) ?? (UIElement)hand);
       }
     }
 
@@ -186,11 +187,12 @@ namespace Yasc.BoardControl.Controls
         var move = RecognizeMove(e);
         if (move == null) return;
 
-        RaiseMoveAttemptEvent(move);
+        RaiseMoveAttemptEvent(Board.Wrap(move));
 
-        if (move.IsValid)
+        // Board.Wrap(move).IsValid is ugly!
+        if (Board.Wrap(move).IsValid)
           using (_dragMove.Set())
-            Board.MakeMove(move);
+            Board.MakeWrapedMove(move);
       }
       else
       {
@@ -228,7 +230,7 @@ namespace Yasc.BoardControl.Controls
       ReleaseDragSource();
     }
 
-    private MoveBase RecognizeMove(DropToBoardEventArgs e)
+    private MoveSnapshotBase RecognizeMove(DropToBoardEventArgs e)
     {
       var fromBoard = e.From as DragFromBoardEventArgs;
       if (fromBoard != null)

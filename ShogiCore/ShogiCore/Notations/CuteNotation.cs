@@ -129,6 +129,19 @@ namespace Yasc.ShogiCore.Notations
     public string ToString(BoardSnapshot originalBoardState, MoveSnapshotBase move)
     {
       throw new NotImplementedException();
+    /*  var sb = new StringBuilder();
+      sb.Append(MovingPiece.PieceType);
+      var hint = GetHint(WhoElseCouldMoveThere());
+      if (hint != null)
+      {
+        sb.Append(hint);
+        if (TakenPiece == null)
+          sb.Append("-");
+      }
+      if (TakenPiece != null)
+        sb.Append("x");
+      sb.Append(To);
+      return sb.ToString();*/
     }
   }
 }

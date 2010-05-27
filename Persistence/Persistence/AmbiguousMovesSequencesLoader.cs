@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.Persistence
 {
@@ -36,19 +36,19 @@ namespace Yasc.Persistence
       if (index == _moves.Count) return true;
 
       // We've just one choice here
-      MoveBase[] choice;
+      MoveSnapshotBase[] choice;
       while (true)
       {
         choice = _board.GetMove(_moves[index], CuteNotation.Instance).ToArray();
         if (choice.Length != 1) break;
-        _board.MakeMove(choice[0]);
+        _board.MakeMove(_board.Wrap(choice[0]));
         if (++index == _moves.Count) return true;
       }
 
       // We've 0 or >1 choices
       foreach (var option in choice)
       {
-        _board.MakeMove(option);
+        _board.MakeMove(_board.Wrap(option));
         bool success = Start(index + 1);
         // This one is good
         if (success) return true;

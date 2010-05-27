@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
@@ -23,7 +22,7 @@ namespace MainModule.AI
 
     public override void UndoLastMove()
     {
-      if (_board.History.CurrentMove.Who.Color != MyColor)
+      if (_board.History.CurrentMove.Who != MyColor)
         throw new Exception("Wait until comp stop thinking!");
       
       _board.History.CurrentMoveIndex -= 2;
@@ -32,7 +31,7 @@ namespace MainModule.AI
     protected override void OnHumanMoved(string hisMove)
     {
       Thread.Sleep(1000);
-      _board.MakeMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
+      _board.MakeWrapedMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
       var myMove = ChooseAbsolutelyRandomMove();
       if (myMove == null) return; // mate
       _board.MakeMove(myMove);
@@ -46,7 +45,7 @@ namespace MainModule.AI
 
       if (moves.Count == 0) return null; // mate
       var m = moves[_rnd.Next(moves.Count)];
-      return _board.GetMove(m);
+      return _board.Wrap(m);
     }
   }
 }
