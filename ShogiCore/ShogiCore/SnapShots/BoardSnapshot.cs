@@ -10,12 +10,13 @@ namespace Yasc.ShogiCore.Snapshots
 {
   /// <summary>Represents lightweigth snapshot of the <see cref="Board"/></summary>
   [Serializable]
-  public class BoardSnapshot
+  public class BoardSnapshot 
   {
     #region ' Fields '
 
     private bool _isHashCodeCalculated;
-    private int _hashCode;
+    private KnownPositions _knownPositions;
+    
     private readonly IColoredPiece[,] _cells = new IColoredPiece[9, 9];
     private readonly List<IPieceType> _blackHand;
     private readonly List<IPieceType> _whiteHand;
@@ -24,6 +25,7 @@ namespace Yasc.ShogiCore.Snapshots
     private ReadOnlyCollection<IPieceType> _blackHandRo;
     private ReadOnlyCollection<IPieceType> _whiteHandRo;
 
+    private int _hashCode;
     private int HashCode
     {
       get
@@ -58,6 +60,11 @@ namespace Yasc.ShogiCore.Snapshots
     {
       get { return _whiteHandRo ?? (_whiteHandRo = new ReadOnlyCollection<IPieceType>(_whiteHand)); }
     }
+    /// <summary>Gets reference to the move leaded to the current position 
+    /// -or- null if current position is custom</summary>
+    public Move Move { get; private set; }
+    /// <summary>Gets the game result (or <see cref="ShogiGameResult.None"/> if game is not finished)</summary>
+    public ShogiGameResult GameResult { get; internal set; }
 
     /// <summary>ctor</summary>
     public BoardSnapshot(PieceColor oneWhoMoves,
@@ -74,35 +81,26 @@ namespace Yasc.ShogiCore.Snapshots
       _whiteHand = whiteHand != null ? whiteHand.ToList() : EmptyList<IPieceType>.Instance;
       _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance; 
     }
-
+    
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
-    public BoardSnapshot(BoardSnapshot board, Move move)
+    public BoardSnapshot MakeMove(Move move)
     {
-      if (board == null) throw new ArgumentNullException("board");
       if (move == null) throw new ArgumentNullException("move");
+      if (move.BoardSnapshot != this)
+        throw new ArgumentException(
+          "You cannot apply this move to the given board because it "+
+          "is different from the one move had been created for");
+      if (!move.IsValid)
+        throw new InvalidMoveException(move.RulesViolation);
 
-      OneWhoMoves = board.OneWhoMoves;
-
-      foreach (var p in Position.OnBoard)
-        SetPiece(p, board.GetPieceAt(p));
-
-      _whiteHand = board.WhiteHand.OrderBy(p => p).ToList();
-      _blackHand = board.BlackHand.OrderBy(p => p).ToList();
-
-      Move(move);
-      OneWhoMoves = Opponent(OneWhoMoves);
+      return new BoardSnapshot(this, move);
     }
-
     /// <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
     public IColoredPiece GetPieceAt(Position position)
     {
       return _cells[position.X, position.Y]; 
     }
 
-    private void SetPiece(Position position, IColoredPiece value)
-    {
-      _cells[position.X, position.Y] = value;
-    }
     /// <summary>Gets the piece snapshot at the coordinates</summary>
     public IColoredPiece GetPieceAt(int x, int y)
     {
@@ -123,7 +121,7 @@ namespace Yasc.ShogiCore.Snapshots
     {
       var king = FindTheKing(color);
       return king != null &&
-        GetAllValidUsualMovesWithoutCheck3(Opponent(color)).
+        GetAllValidUsualMovesDontCheckTheCheck(Opponent(color)).
         Any(move => move.To == king);
     }
     /// <summary>Gets all valid usual moves from the position</summary>
@@ -155,6 +153,10 @@ namespace Yasc.ShogiCore.Snapshots
 
     #region ' Internal Interface '
 
+    internal List<IPieceType> GetHandCollection(PieceColor color)
+    {
+      return color == PieceColor.White ? _whiteHand : _blackHand;
+    }
     internal RulesViolation ValidateDropMove(DropMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
@@ -179,8 +181,8 @@ namespace Yasc.ShogiCore.Snapshots
         if (newPosition.IsMateFor(Opponent(OneWhoMoves)))
           return RulesViolation.DropPawnToMate;
 
-      return newPosition.IsCheckFor(OneWhoMoves)
-        ? RulesViolation.MoveToCheck
+      return newPosition.IsMateFor(OneWhoMoves)
+        ? RulesViolation.MoveToMate
         : RulesViolation.NoViolations;
     }
     internal RulesViolation ValidateUsualMove(UsualMove move)
@@ -208,41 +210,28 @@ namespace Yasc.ShogiCore.Snapshots
 
       return ShortValidateUsualMove(move);
     }
+    internal void SetPiece(Position position, IColoredPiece value)
+    {
+      _cells[position.X, position.Y] = value;
+    }
 
     #endregion
 
     #region ' Implemetation '
 
-    private void Move(Move move)
+    private BoardSnapshot(BoardSnapshot board, Move move)
     {
-      var usual = move as UsualMove;
-      if (usual != null)
-      {
-        Move(usual);
-      }
-      else
-      {
-        Move((DropMove)move);
-      }
-    }
-    private void Move(DropMove move)
-    {
-      HandInternal(OneWhoMoves).Remove(move.Piece.PieceType);
-      SetPiece(move.To, move.Piece);
-    }
-    private void Move(UsualMove move)
-    {
-      if (move.IsPromoting)
-        SetPiece(move.From, GetPieceAt(move.From).Promoted);
+      Move = move;
+      OneWhoMoves = board.OneWhoMoves;
 
-      if (GetPieceAt(move.To) != null)
-        HandInternal(OneWhoMoves).Add(GetPieceAt(move.To).PieceType);
-      SetPiece(move.To, GetPieceAt(move.From));
-      SetPiece(move.From, null);
-    }
-    private List<IPieceType> HandInternal(PieceColor color)
-    {
-      return color == PieceColor.White ? _whiteHand : _blackHand;
+      foreach (var p in Position.OnBoard)
+        SetPiece(p, board.GetPieceAt(p));
+
+      _whiteHand = board.WhiteHand.OrderBy(p => p).ToList();
+      _blackHand = board.BlackHand.OrderBy(p => p).ToList();
+
+      Move.Apply(this);
+      OneWhoMoves = Opponent(OneWhoMoves);
     }
 
     private IEnumerable<UsualMove> GetAllAvailableUsualMoves(PieceColor color)
@@ -250,12 +239,12 @@ namespace Yasc.ShogiCore.Snapshots
       return Position.OnBoard.Where(p => GetPieceAt(p) != null && GetPieceAt(p).Color == color).
         SelectMany(p => DuplicateForPromoting(GetAvailableUsualMoves(p)));
     }
-    private IEnumerable<UsualMove> GetAllValidUsualMovesWithoutCheck3(PieceColor color)
+    private IEnumerable<UsualMove> GetAllValidUsualMovesDontCheckTheCheck(PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) != null && GetPieceAt(p).Color == color).
-        SelectMany(GetAllValidUsualMovesWithoutCheck3);
+        SelectMany(GetAllValidUsualMovesDontCheckTheCheck);
     }
-    private IEnumerable<UsualMove> GetAllValidUsualMovesWithoutCheck3(Position f)
+    private IEnumerable<UsualMove> GetAllValidUsualMovesDontCheckTheCheck(Position f)
     {
       return from p in EstimateUsualMoveTargets(f)
              select new UsualMove(this, GetPieceAt(f).Color, f, p, false);
@@ -321,7 +310,7 @@ namespace Yasc.ShogiCore.Snapshots
       var snapshot = new BoardSnapshot(this, move);
       return !snapshot.IsCheckFor(move.Who) 
                ? RulesViolation.NoViolations 
-               : RulesViolation.MoveToCheck;
+               : RulesViolation.MoveToMate;
     }
 
     private int CalculateHashCode()
@@ -512,5 +501,100 @@ namespace Yasc.ShogiCore.Snapshots
       return move;
     }
 
+    #region ' Nested classes '
+
+    [Serializable]
+    private class KnownPositions : Dictionary<BoardSnapshot, KnownPositions.Integer>
+    {
+      private const int Arity = 10;
+
+      [Serializable]
+      public class Integer
+      {
+        public int Value { get; set; }
+      }
+
+      private KnownPositions()
+      {
+      }
+
+      private KnownPositions(IDictionary<BoardSnapshot, Integer> dictionary)
+        : base(dictionary)
+      {
+      }
+
+      private static KnownPositions GetAll(BoardSnapshot current)
+      {
+        var dic = GetNearestKnownPositionsDic(current);
+        var res = dic == null ? new KnownPositions() : new KnownPositions(dic);
+
+        while (true)
+        {
+          var move = current.Move;
+          if (move == null) break;
+
+          {
+            Integer counter;
+            if (!res.TryGetValue(current, out counter))
+              res[current] = counter = new Integer();
+
+            counter.Value++;
+          }
+
+          current = move.BoardSnapshot;
+          if (current == null) break;
+          if (current._knownPositions == null) break;
+        }
+
+        return res;
+
+      }
+      private static KnownPositions GetNearestKnownPositionsDic(BoardSnapshot current)
+      {
+        while (true)
+        {
+          var move = current.Move;
+          if (move == null) return null;
+          current = move.BoardSnapshot;
+          if (current == null) return null;
+          if (current._knownPositions != null) return current._knownPositions;
+        }
+      }
+      public static int CountSimilar(BoardSnapshot position)
+      {
+        var m = position.Move;
+        if (m == null) return 0;
+        var current = m.BoardSnapshot;
+
+        var counter = 0;
+        while (true)
+        {
+          if (current._knownPositions != null) break;
+
+          var move = current.Move;
+          if (move != null && move.Number % Arity == 0)
+          {
+            current._knownPositions = GetAll(current);
+            break;
+          }
+
+          if (current == position)
+          {
+            counter++;
+          }
+          current = move == null ? null : move.BoardSnapshot;
+
+          if (current == null) break;
+        }
+
+        if (current == null)
+          return 0;
+        Integer res;
+        var rres = current._knownPositions.TryGetValue(position, out res) ? res.Value : 0;
+        return rres + counter;
+      }
+    }
+
+    #endregion
   }
 }

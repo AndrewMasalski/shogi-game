@@ -101,7 +101,7 @@
     <Compile Include="Primitives\IPieceType.cs" />
     <Compile Include="Snapshots\BoardSnapshotExtensions.cs" />
     <Compile Include="Snapshots\ResignMove.cs" />
-    <Compile Include="Core\Helpers\ShogiGameResult.cs" />
+    <Compile Include="Snapshots\ShogiGameResult.cs" />
     <Compile Include="Core\Helpers\NotEnoughPiecesInSetException.cs" />
     <Compile Include="Core\Piece.cs" />
     <Compile Include="Primitives\PieceColor.cs" />

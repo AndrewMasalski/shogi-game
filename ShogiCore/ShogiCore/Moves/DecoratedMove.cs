@@ -11,8 +11,6 @@ namespace Yasc.ShogiCore.Moves
     public DateTime Timestamp { get; private set; }
     /// <summary>Gets the color of player who made the move</summary>
     public PieceColor Who { get { return Move.Who; } }
-    /// <summary>Move sequential number within the game</summary>
-    public int Number { get; private set; }
     /// <summary>Gets the move data</summary>
     public Move Move { get; set; }
     /// <summary>Board snapshot before the move is done</summary>
@@ -20,12 +18,13 @@ namespace Yasc.ShogiCore.Moves
     {
       get { return Move.BoardSnapshot; }
     }
+    /// <summary>Move sequential number within the game</summary>
+    public int Number { get { return Move.Number; } }
 
     /// <summary>ctor</summary>
-    internal DecoratedMove(Move move, int number)
+    internal DecoratedMove(Move move)
     {
       Timestamp = DateTime.Now;
-      Number = number;
       Move = move;
     }
 
