@@ -1,5 +1,5 @@
 using System;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.Core
 {
@@ -7,12 +7,12 @@ namespace Yasc.ShogiCore.Core
   public class MoveEventArgs : EventArgs
   {
     /// <summary>Move</summary>
-    public DecoratedMove DecoratedMove { get; private set; }
+    public Move Move { get; private set; }
 
     /// <summary>ctor</summary>
-    public MoveEventArgs(DecoratedMove move)
+    public MoveEventArgs(Move move)
     {
-      DecoratedMove = move;
+      Move = move;
     }
   }
 }

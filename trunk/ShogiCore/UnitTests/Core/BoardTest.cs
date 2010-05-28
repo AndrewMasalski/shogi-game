@@ -177,7 +177,7 @@ namespace ShogiCore.UnitTests.Core
     {
       _board.IsMovesOrderMaintained = false;
       var move = _board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves);
-      Assert.AreEqual(RulesViolation.WrongPieceReference, _board.Validate(move));
+      Assert.AreEqual(RulesViolation.WrongPieceReference, move.RulesViolation);
     }
     [TestMethod]
     public void IsMovesOrderMaintainedBindabilityTest()
@@ -464,8 +464,8 @@ namespace ShogiCore.UnitTests.Core
     public void OnMoveEventTest()
     {
       var log = new TestLog();
-      _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.DecoratedMove));
-      _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.DecoratedMove));
+      _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
+      _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
       _board.LoadSnapshot(BoardSnapshot.InitialPosition);
       _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       Assert.AreEqual("Moving(1g-1f) Moved(1g-1f)", log.ToString());

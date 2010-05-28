@@ -16,11 +16,18 @@ namespace Yasc.ShogiCore.Snapshots
     {
       get { return Piece.Color; }
     }
+
+    internal override RulesViolation Validate()
+    {
+      return BoardSnapshot.ValidateDropMove(this);
+    }
+
     /// <summary>Type of piece being dropped</summary>
     public IPieceType PieceType { get { return Piece.PieceType; } }
 
     /// <summary>ctor</summary>
-    public DropMove(IColoredPiece coloredPiece, Position to)
+    public DropMove(BoardSnapshot boardSnapshot, IColoredPiece coloredPiece, Position to)
+      : base(boardSnapshot)
     {
       // TODO: Change signature to match Board.GetDropMove()
       Piece = coloredPiece;

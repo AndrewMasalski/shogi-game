@@ -52,16 +52,23 @@ namespace Yasc.ShogiCore.Notations
 
     private IEnumerable<Move> CreateUsualMoves(IEnumerable<Position> fromPositions, string toPosition, bool isPromoting)
     {
-      return fromPositions.Select(fromPosition => 
-        new UsualMove(_board.GetPieceAt(fromPosition).Color, fromPosition, Position.Parse(toPosition), isPromoting)).
-        Where(move => _board.ValidateUsualMove(move) == RulesViolation.NoViolations);
+      return fromPositions.Select(
+        fromPosition => new UsualMove(
+          _board, 
+          _board.GetPieceAt(fromPosition).Color, 
+          fromPosition, 
+          Position.Parse(toPosition), 
+          isPromoting)).
+        Where(move => move.IsValid);
     }
 
     private IEnumerable<DropMove> CreateDropMoves(IPieceType pieceType, string toPosition)
     {
-      var dropMoveSnapshot = new DropMove(pieceType.GetColored(_board.OneWhoMoves), Position.Parse(toPosition));
-      if (_board.ValidateDropMove(dropMoveSnapshot) == RulesViolation.NoViolations)
-        yield return dropMoveSnapshot;
+      var move = new DropMove(_board, 
+        pieceType.GetColored(_board.OneWhoMoves), 
+        Position.Parse(toPosition));
+
+      if (move.IsValid) yield return move;
     }
 
     private string GetToPosition()
@@ -90,13 +97,14 @@ namespace Yasc.ShogiCore.Notations
       var isPromoting = _moveText.EndsWith("+");
       var pieceType = GetPieceType();
       return from p in Position.OnBoard
-             where _board.GetPieceAt(p) != null &&
-                   _board.GetPieceAt(p).PieceType == pieceType &&
-                   _board.GetPieceAt(p).Color == _board.OneWhoMoves
+             let piece = _board.GetPieceAt(p)
+             where piece != null &&
+                   piece.PieceType == pieceType &&
+                   piece.Color == _board.OneWhoMoves
              from m in _board.GetAvailableUsualMoves(p)
              where m.IsPromoting == isPromoting 
                 && _board.GetPieceAt(m.To) != null 
-                && _board.ValidateUsualMove(m) == RulesViolation.NoViolations
+                && m.IsValid
              select m;
     }
 
