@@ -98,8 +98,7 @@ namespace Yasc.ShogiCore.Moves
         {
           return this[CurrentMoveIndex + 1].BoardSnapshot;
         }
-        return new BoardSnapshot(
-          CurrentMove.BoardSnapshot, CurrentMove.Move);
+        return CurrentMove.BoardSnapshot.MakeMove(CurrentMove.Move);
       }
     }
 

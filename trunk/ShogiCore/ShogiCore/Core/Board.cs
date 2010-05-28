@@ -94,7 +94,7 @@ namespace Yasc.ShogiCore.Core
     {
       return color == PieceColor.White ? White : Black;
     }
-    /// <summary>Gets the game result (or <see cref="ShogiGameResult.None"/> otherwise)</summary>
+    /// <summary>Gets the game result (or <see cref="ShogiGameResult.None"/> if game is not finished)</summary>
     public ShogiGameResult GameResult
     {
       get { return _gameResult; }
@@ -297,7 +297,7 @@ namespace Yasc.ShogiCore.Core
     {
       // TODO: Using of this method is almost always ugly!
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-      return new DecoratedMove(snapshot, History.Count + 1);
+      return new DecoratedMove(snapshot);
     }
     /// <summary>Makes the move on the board</summary>
     /// <remarks>The method adds the move to the history and sends events</remarks>
@@ -462,21 +462,18 @@ namespace Yasc.ShogiCore.Core
     private void MakeMoveInternal(Move move)
     {
       // TODO: if (CurrentSnapshot != move.BoardSnapshot) throw new Exception();
-      var dropMove = move as DropMove;
-      if (dropMove != null)
+      switch (move.MoveType)
       {
-        MakeDropMove(dropMove);
-      }
-      var usualMove = move as UsualMove;
-      if (usualMove != null)
-      {
-        MakeUsualMove(usualMove);
-      }
-      var resignMove = move as ResignMove;
-      if (resignMove != null)
-      {
-        GameResult = resignMove.Who == PieceColor.White ? 
+        case MoveType.Drop:
+          MakeDropMove((DropMove)move);
+          break;
+        case MoveType.Usual:
+          MakeUsualMove((UsualMove)move);
+          break;
+        case MoveType.Resign:
+          GameResult = move.Who == PieceColor.White ?
           ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
+          break;
       }
     }
     private void MakeDropMove(DropMove move)

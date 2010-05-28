@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Snapshots
@@ -15,6 +16,12 @@ namespace Yasc.ShogiCore.Snapshots
     public Position To { get; private set; }
     /// <summary>Indicates whether the move is promoting</summary>
     public bool IsPromoting { get; private set; }
+
+    public override MoveType MoveType
+    {
+      get { return MoveType.Usual; }
+    }
+
     /// <summary>Gets the color of player who made the move</summary>
     public override PieceColor Who
     {
@@ -39,6 +46,20 @@ namespace Yasc.ShogiCore.Snapshots
     public override string ToString()
     {
       return From + "-" + To + (IsPromoting ? "+" : "");
+    }
+
+    internal override void Apply(BoardSnapshot board)
+    {
+      if (IsPromoting)
+        board.SetPiece(From, board.GetPieceAt(From).Promoted);
+
+      if (board.GetPieceAt(To) != null)
+      {
+        var handCollection = board.GetHandCollection(board.OneWhoMoves);
+        handCollection.Add(board.GetPieceAt(To).PieceType);
+      }
+      board.SetPiece(To, board.GetPieceAt(From));
+      board.SetPiece(From, null);
     }
   }
 }

@@ -9,6 +9,11 @@ namespace Yasc.ShogiCore.Snapshots
   {
     private readonly PieceColor _who;
 
+    public override MoveType MoveType
+    {
+      get { return MoveType.Resign; }
+    }
+
     /// <summary>Gets the color of player who made the move</summary>
     public override PieceColor Who
     {
@@ -20,6 +25,12 @@ namespace Yasc.ShogiCore.Snapshots
       return Who != BoardSnapshot.OneWhoMoves
                ? RulesViolation.WrongSideToMove
                : RulesViolation.NoViolations;
+    }
+
+    internal override void Apply(BoardSnapshot board)
+    {
+      board.GameResult = Who == PieceColor.White ? 
+        ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
     }
 
     /// <summary>ctor</summary>

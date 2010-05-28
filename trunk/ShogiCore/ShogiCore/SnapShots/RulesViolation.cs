@@ -11,8 +11,8 @@ namespace Yasc.ShogiCore.Snapshots
     TwoPawnsOnTheSameFile,
     /// <summary>Drop pawn to mate opponent's king</summary>
     DropPawnToMate,
-    /// <summary>Move which leaves king under check</summary>
-    MoveToCheck,
+    /// <summary>Move which mates the king</summary>
+    MoveToMate,
     /// <summary>Drop pawn or lance to the last lines</summary>
     DropToLastLines,
     /// <summary>Drop piece to the cell which is already occupied</summary>
