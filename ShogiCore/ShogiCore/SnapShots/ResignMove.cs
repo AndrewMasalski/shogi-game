@@ -15,8 +15,16 @@ namespace Yasc.ShogiCore.Snapshots
       get { return _who; }
     }
 
+    internal override RulesViolation Validate()
+    {
+      return Who != BoardSnapshot.OneWhoMoves
+               ? RulesViolation.WrongSideToMove
+               : RulesViolation.NoViolations;
+    }
+
     /// <summary>ctor</summary>
-    public ResignMove(PieceColor who)
+    public ResignMove(BoardSnapshot boardSnapshot, PieceColor who)
+      : base(boardSnapshot)
     {
       _who = who;
     }

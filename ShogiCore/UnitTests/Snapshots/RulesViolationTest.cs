@@ -21,37 +21,32 @@ namespace ShogiCore.UnitTests.Snapshots
     [TestMethod]
     public void CantDropTwoPawnsToTheSameColumn()
     {
-      var move = _board.ValidateDropMove(
-        new DropMove(PT.歩.Black, Position.Parse("1d")));
-      Assert.AreEqual(RulesViolation.TwoPawnsOnTheSameFile, move);
+      var move = new DropMove(_board, PT.歩.Black, Position.Parse("1d"));
+      Assert.AreEqual(RulesViolation.TwoPawnsOnTheSameFile, move.RulesViolation);
     }
     [TestMethod]
     public void CanDropPieceToFreeCellOnly()
     {
-      var move = _board.ValidateDropMove(
-        new DropMove(PT.歩.Black, Position.Parse("1c")));
-      Assert.AreEqual(RulesViolation.DropToOccupiedCell, move);
+      var move = new DropMove(_board, PT.歩.Black, Position.Parse("1c"));
+      Assert.AreEqual(RulesViolation.DropToOccupiedCell, move.RulesViolation);
     }
     [TestMethod]
     public void CantDropPawnToTheLastLine()
     {
-      var move = _board.ValidateDropMove(
-        new DropMove(PT.歩.Black, Position.Parse("1a")));
-      Assert.AreEqual(RulesViolation.DropToLastLines, move);
+      var move = new DropMove(_board, PT.歩.Black, Position.Parse("1a"));
+      Assert.AreEqual(RulesViolation.DropToLastLines, move.RulesViolation);
     }
     [TestMethod]
     public void CantDropLanceToTheLastLine()
     {
-      var move = _board.ValidateDropMove(
-        new DropMove(PT.香.Black, Position.Parse("1a")));
-      Assert.AreEqual(RulesViolation.DropToLastLines, move);
+      var move = new DropMove(_board, PT.香.Black, Position.Parse("1a"));
+      Assert.AreEqual(RulesViolation.DropToLastLines, move.RulesViolation);
     }
     [TestMethod]
     public void CantDropKnightToTheLastLines()
     {
-      var move = _board.ValidateDropMove(
-        new DropMove(PT.桂.Black, Position.Parse("1a")));
-      Assert.AreEqual(RulesViolation.DropToLastLines, move);
+      var move = new DropMove(_board, PT.桂.Black, Position.Parse("1a"));
+      Assert.AreEqual(RulesViolation.DropToLastLines, move.RulesViolation);
     }
     [TestMethod]
     public void CantDropPawnToMateTheOpponent()
@@ -66,9 +61,8 @@ namespace ShogiCore.UnitTests.Snapshots
           },
         new[] { PT.歩 });
 
-      var move = board.ValidateDropMove(
-        new DropMove(PT.歩.White, Position.Parse("1h")));
-      Assert.AreEqual(RulesViolation.DropPawnToMate, move);
+      var move = new DropMove(board, PT.歩.White, Position.Parse("1h"));
+      Assert.AreEqual(RulesViolation.DropPawnToMate, move.RulesViolation);
     }
 
     #region ' Implementation '

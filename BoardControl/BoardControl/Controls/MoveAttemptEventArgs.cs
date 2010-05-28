@@ -1,17 +1,16 @@
 using System.Windows;
-using Yasc.ShogiCore.Core;
-using Yasc.ShogiCore.Moves;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.BoardControl.Controls
 {
   public class MoveAttemptEventArgs : RoutedEventArgs
   {
-    public DecoratedMove DecoratedMove { get; private set; }
+    public Move Move { get; private set; }
 
-    public MoveAttemptEventArgs(RoutedEvent routedEvent, object source, DecoratedMove move) 
+    public MoveAttemptEventArgs(RoutedEvent routedEvent, object source, Move move) 
       : base(routedEvent, source)
     {
-      DecoratedMove = move;
+      Move = move;
     }
   }
 }

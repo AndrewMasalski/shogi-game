@@ -113,10 +113,49 @@ namespace Yasc.ShogiCore.Snapshots
     {
       return color == PieceColor.White ? WhiteHand : BlackHand;
     }
+    /// <summary>Checks wheter it's mate for <paramref name="color"/> king </summary>
+    public bool IsMateFor(PieceColor color)
+    {
+      return IsCheckFor(color) && DoesntHaveValidMoves(color);
+    }
+    /// <summary>Checks wheter it's check for <paramref name="color"/> king </summary>
+    public bool IsCheckFor(PieceColor color)
+    {
+      var king = FindTheKing(color);
+      return king != null &&
+        GetAllValidUsualMovesWithoutCheck3(Opponent(color)).
+        Any(move => move.To == king);
+    }
+    /// <summary>Gets all valid usual moves from the position</summary>
+    public IEnumerable<UsualMove> GetAvailableUsualMoves(Position fromPosition)
+    {
+      var estimate = from p in EstimateUsualMoveTargets(fromPosition)
+                     select new UsualMove(this, GetPieceAt(fromPosition).Color, fromPosition, p, false);
+      return from move in DuplicateForPromoting(estimate)
+             where ShortValidateUsualMove(move) == RulesViolation.NoViolations
+             select MarkValid(move);
+    }
+    /// <summary>Gets all valid drop moves for the piece</summary>
+    public IEnumerable<DropMove> GetAvailableDropMoves(IPieceType piece, PieceColor color)
+    {
+      return Position.OnBoard.Where(p => GetPieceAt(p) == null).
+        Select(p => new DropMove(this, piece.GetColored(color), p)).
+        Where(move => move.IsValid);
+    }
+    /// <summary>Gets all valid usual and drop moves for the player</summary>
+    public IEnumerable<Move> GetAllAvailableMoves(PieceColor color)
+    {
+      foreach (var move in GetAllAvailableUsualMoves(color))
+        yield return move;
+      foreach (var move in GetAllValidDropMoves(color))
+        yield return move;
+    }
 
-    /// <summary>Validates drop move</summary>
-    /// <returns>null if the move is valid -or- the reason why it's not</returns>
-    public RulesViolation ValidateDropMove(DropMove move)
+    #endregion
+
+    #region ' Internal Interface '
+
+    internal RulesViolation ValidateDropMove(DropMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
       if (move.Piece.Color != OneWhoMoves) return RulesViolation.WrongSideToMove;
@@ -125,7 +164,7 @@ namespace Yasc.ShogiCore.Snapshots
 
       if (move.Piece.PieceType == PT.歩 || move.Piece.PieceType == PT.香)
         if (HowFarFromTheLastLine(move.Piece, move.To) == 0)
-          return RulesViolation. DropToLastLines;
+          return RulesViolation.DropToLastLines;
 
       if (move.Piece.PieceType == PT.桂)
         if (HowFarFromTheLastLine(move.Piece, move.To) < 2)
@@ -140,13 +179,11 @@ namespace Yasc.ShogiCore.Snapshots
         if (newPosition.IsMateFor(Opponent(OneWhoMoves)))
           return RulesViolation.DropPawnToMate;
 
-      return newPosition.IsCheckFor(OneWhoMoves) 
-        ? RulesViolation.MoveToCheck 
+      return newPosition.IsCheckFor(OneWhoMoves)
+        ? RulesViolation.MoveToCheck
         : RulesViolation.NoViolations;
     }
-    /// <summary>Validates usual move</summary>
-    /// <returns>null if the move is valid -or- the reason why it's not</returns>
-    public RulesViolation ValidateUsualMove(UsualMove move)
+    internal RulesViolation ValidateUsualMove(UsualMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
       var movingPiece = GetPieceAt(move.From);
@@ -170,44 +207,6 @@ namespace Yasc.ShogiCore.Snapshots
         return RulesViolation.PieceDoesntMoveThisWay;
 
       return ShortValidateUsualMove(move);
-    }
-
-    /// <summary>Checks wheter it's mate for <paramref name="color"/> king </summary>
-    public bool IsMateFor(PieceColor color)
-    {
-      return IsCheckFor(color) && DoesntHaveValidMoves(color);
-    }
-    /// <summary>Checks wheter it's check for <paramref name="color"/> king </summary>
-    public bool IsCheckFor(PieceColor color)
-    {
-      var king = FindTheKing(color);
-      return king != null &&
-        GetAllValidUsualMovesWithoutCheck3(Opponent(color)).
-        Any(move => move.To == king);
-    }
-    /// <summary>Gets all valid usual moves from the position</summary>
-    public IEnumerable<UsualMove> GetAvailableUsualMoves(Position fromPosition)
-    {
-      var estimate = from p in EstimateUsualMoveTargets(fromPosition)
-                     select new UsualMove(GetPieceAt(fromPosition).Color, fromPosition, p, false);
-      return from move in DuplicateForPromoting(estimate)
-             where ShortValidateUsualMove(move) == RulesViolation.NoViolations
-             select move;
-    }
-    /// <summary>Gets all valid drop moves for the piece</summary>
-    public IEnumerable<DropMove> GetAvailableDropMoves(IPieceType piece, PieceColor color)
-    {
-      return Position.OnBoard.Where(p => GetPieceAt(p) == null).
-        Select(p => new DropMove(piece.GetColored(color), p)).
-        Where(move => ValidateDropMove(move) == RulesViolation.NoViolations);
-    }
-    /// <summary>Gets all valid usual and drop moves for the player</summary>
-    public IEnumerable<Move> GetAllAvailableMoves(PieceColor color)
-    {
-      foreach (var move in GetAllAvailableUsualMoves(color))
-        yield return move;
-      foreach (var move in GetAllValidDropMoves(color))
-        yield return move;
     }
 
     #endregion
@@ -259,7 +258,7 @@ namespace Yasc.ShogiCore.Snapshots
     private IEnumerable<UsualMove> GetAllValidUsualMovesWithoutCheck3(Position f)
     {
       return from p in EstimateUsualMoveTargets(f)
-             select new UsualMove(GetPieceAt(f).Color, f, p, false);
+             select new UsualMove(this, GetPieceAt(f).Color, f, p, false);
     }
     private IEnumerable<DropMove> GetAllValidDropMoves(PieceColor color)
     {
@@ -284,10 +283,10 @@ namespace Yasc.ShogiCore.Snapshots
       foreach (var m in moves)
       {
         if (IsPromotionMandatory(GetPieceAt(m.From), m.To) == RulesViolation.NoViolations)
-          yield return new UsualMove(GetPieceAt(m.From).Color, m.From, m.To, false);
+          yield return new UsualMove(this, GetPieceAt(m.From).Color, m.From, m.To, false);
 
         if (IsPromotionAllowed(GetPieceAt(m.From), m.From, m.To) == RulesViolation.NoViolations)
-          yield return new UsualMove(GetPieceAt(m.From).Color, m.From, m.To, true);
+          yield return new UsualMove(this, GetPieceAt(m.From).Color, m.From, m.To, true);
       }
     }
     private static PieceColor Opponent(PieceColor color)
@@ -321,8 +320,8 @@ namespace Yasc.ShogiCore.Snapshots
 
       var snapshot = new BoardSnapshot(this, move);
       return !snapshot.IsCheckFor(move.Who) 
-        ? RulesViolation.NoViolations 
-        : RulesViolation.MoveToCheck;
+               ? RulesViolation.NoViolations 
+               : RulesViolation.MoveToCheck;
     }
 
     private int CalculateHashCode()
@@ -385,7 +384,7 @@ namespace Yasc.ShogiCore.Snapshots
     {
       var color = GetPieceAt(from).Color;
       var upDirection = color == PieceColor.White ?
-        new Vector(1, 1) : new Vector(1, -1);
+                                                    new Vector(1, 1) : new Vector(1, -1);
       var delta = new Vector(dx, dy) * upDirection;
 
       for (var curr = from + delta; count > 0; count--, curr += delta)
@@ -414,47 +413,47 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Contains initial position</summary>
     public static readonly BoardSnapshot InitialPosition = 
       new BoardSnapshot(PieceColor.Black, new[]{
-        Tuple.Create(Position.Parse("1a"), PT.香.White),
-        Tuple.Create(Position.Parse("9a"), PT.香.White),
-        Tuple.Create(Position.Parse("1i"), PT.香.Black),
-        Tuple.Create(Position.Parse("9i"), PT.香.Black),
-        Tuple.Create(Position.Parse("2a"), PT.桂.White),
-        Tuple.Create(Position.Parse("8a"), PT.桂.White),
-        Tuple.Create(Position.Parse("2i"), PT.桂.Black),
-        Tuple.Create(Position.Parse("8i"), PT.桂.Black),
-        Tuple.Create(Position.Parse("3a"), PT.銀.White),
-        Tuple.Create(Position.Parse("7a"), PT.銀.White),
-        Tuple.Create(Position.Parse("3i"), PT.銀.Black),
-        Tuple.Create(Position.Parse("7i"), PT.銀.Black),
-        Tuple.Create(Position.Parse("4a"), PT.金.White),
-        Tuple.Create(Position.Parse("6a"), PT.金.White),
-        Tuple.Create(Position.Parse("4i"), PT.金.Black),
-        Tuple.Create(Position.Parse("6i"), PT.金.Black),
-        Tuple.Create(Position.Parse("5a"), PT.王.White),
-        Tuple.Create(Position.Parse("5i"), PT.玉.Black),
-        Tuple.Create(Position.Parse("2b"), PT.角.White),
-        Tuple.Create(Position.Parse("8h"), PT.角.Black),
-        Tuple.Create(Position.Parse("8b"), PT.飛.White),
-        Tuple.Create(Position.Parse("2h"), PT.飛.Black),
-        Tuple.Create(Position.Parse("1c"), PT.歩.White),
-        Tuple.Create(Position.Parse("2c"), PT.歩.White),
-        Tuple.Create(Position.Parse("3c"), PT.歩.White),
-        Tuple.Create(Position.Parse("4c"), PT.歩.White),
-        Tuple.Create(Position.Parse("5c"), PT.歩.White),
-        Tuple.Create(Position.Parse("6c"), PT.歩.White),
-        Tuple.Create(Position.Parse("7c"), PT.歩.White),
-        Tuple.Create(Position.Parse("8c"), PT.歩.White),
-        Tuple.Create(Position.Parse("9c"), PT.歩.White),
-        Tuple.Create(Position.Parse("1g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("2g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("3g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("4g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("5g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("6g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("7g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("8g"), PT.歩.Black),
-        Tuple.Create(Position.Parse("9g"), PT.歩.Black),
-      });
+                                                 Tuple.Create(Position.Parse("1a"), PT.香.White),
+                                                 Tuple.Create(Position.Parse("9a"), PT.香.White),
+                                                 Tuple.Create(Position.Parse("1i"), PT.香.Black),
+                                                 Tuple.Create(Position.Parse("9i"), PT.香.Black),
+                                                 Tuple.Create(Position.Parse("2a"), PT.桂.White),
+                                                 Tuple.Create(Position.Parse("8a"), PT.桂.White),
+                                                 Tuple.Create(Position.Parse("2i"), PT.桂.Black),
+                                                 Tuple.Create(Position.Parse("8i"), PT.桂.Black),
+                                                 Tuple.Create(Position.Parse("3a"), PT.銀.White),
+                                                 Tuple.Create(Position.Parse("7a"), PT.銀.White),
+                                                 Tuple.Create(Position.Parse("3i"), PT.銀.Black),
+                                                 Tuple.Create(Position.Parse("7i"), PT.銀.Black),
+                                                 Tuple.Create(Position.Parse("4a"), PT.金.White),
+                                                 Tuple.Create(Position.Parse("6a"), PT.金.White),
+                                                 Tuple.Create(Position.Parse("4i"), PT.金.Black),
+                                                 Tuple.Create(Position.Parse("6i"), PT.金.Black),
+                                                 Tuple.Create(Position.Parse("5a"), PT.王.White),
+                                                 Tuple.Create(Position.Parse("5i"), PT.玉.Black),
+                                                 Tuple.Create(Position.Parse("2b"), PT.角.White),
+                                                 Tuple.Create(Position.Parse("8h"), PT.角.Black),
+                                                 Tuple.Create(Position.Parse("8b"), PT.飛.White),
+                                                 Tuple.Create(Position.Parse("2h"), PT.飛.Black),
+                                                 Tuple.Create(Position.Parse("1c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("2c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("3c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("4c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("5c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("6c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("7c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("8c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("9c"), PT.歩.White),
+                                                 Tuple.Create(Position.Parse("1g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("2g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("3g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("4g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("5g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("6g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("7g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("8g"), PT.歩.Black),
+                                                 Tuple.Create(Position.Parse("9g"), PT.歩.Black),
+                                               });
 
     #endregion
 
@@ -505,5 +504,13 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     #endregion
+
+    private static T MarkValid<T>(T move)
+      where T : Move
+    {
+      move.MarkValid();
+      return move;
+    }
+
   }
 }

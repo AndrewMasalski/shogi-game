@@ -21,8 +21,14 @@ namespace Yasc.ShogiCore.Snapshots
       get { return _who; }
     }
 
+    internal override RulesViolation Validate()
+    {
+      return BoardSnapshot.ValidateUsualMove(this);
+    }
+
     /// <summary>ctor</summary>
-    public UsualMove(PieceColor who, Position from, Position to, bool isPromoting)
+    public UsualMove(BoardSnapshot boardSnapshot, PieceColor who, Position from, Position to, bool isPromoting)
+      : base(boardSnapshot)
     {
       _who = who;
       From = from;

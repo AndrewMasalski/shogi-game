@@ -261,7 +261,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained && GetPieceAt(from) != null)
         OneWhoMoves = GetPieceAt(from).Owner;
 
-      return new UsualMove(OneWhoMoves.Color, from, to, isPromoting);
+      return new UsualMove(CurrentSnapshot, OneWhoMoves.Color, from, to, isPromoting);
     }
     /// <summary>Gets drop move on the board</summary>
     public DropMove GetDropMove(IPieceType piece, Position to, Player who)
@@ -269,7 +269,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         OneWhoMoves = who;
 
-      return new DropMove(piece.GetColored(who.Color), to);
+      return new DropMove(CurrentSnapshot, piece.GetColored(who.Color), to);
     }
     /// <summary>Gets drop move on the board</summary>
     public DropMove GetDropMove(Piece piece, Position to)
@@ -284,14 +284,12 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         OneWhoMoves = piece.Owner;
 
-      return new DropMove(piece.Snapshot(), to);
+      return new DropMove(CurrentSnapshot, piece.Snapshot(), to);
     }
     /// <summary>Gets resign move</summary>
-    public DecoratedMove GetResignMove()
+    public Move GetResignMove()
     {
-      return new DecoratedMove(CurrentSnapshot,
-        new ResignMove(OneWhoMoves.Color),
-        History.Count + 1);
+      return new ResignMove(CurrentSnapshot, OneWhoMoves.Color);
     }
 
     /// <summary>Gets move on the board parsing it from snapsot</summary>
@@ -299,18 +297,11 @@ namespace Yasc.ShogiCore.Core
     {
       // TODO: Using of this method is almost always ugly!
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-      return new DecoratedMove(CurrentSnapshot, snapshot, History.Count + 1);
+      return new DecoratedMove(snapshot, History.Count + 1);
     }
     /// <summary>Makes the move on the board</summary>
     /// <remarks>The method adds the move to the history and sends events</remarks>
     public void MakeMove(Move move)
-    {
-      MakeMove(Decorate(move));
-    }
-
-    /// <summary>Makes the move on the board</summary>
-    /// <remarks>The method adds the move to the history and sends events</remarks>
-    public void MakeMove(DecoratedMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
       if (!move.IsValid) throw new InvalidMoveException(move.RulesViolation);
@@ -318,11 +309,19 @@ namespace Yasc.ShogiCore.Core
       using (_moving.Set())
       {
         OnMoving(new MoveEventArgs(move));
-        MakeMoveInternal(move.Move);
+        MakeMoveInternal(move);
         _oneWhoMoves = _oneWhoMoves.Opponent;
-        History.Do(move);
+        History.Do(Decorate(move));
         OnMoved(new MoveEventArgs(move));
       }
+    }
+
+    /// <summary>Makes the move on the board</summary>
+    /// <remarks>The method adds the move to the history and sends events</remarks>
+    public void MakeMove(DecoratedMove move)
+    {
+      if (move == null) throw new ArgumentNullException("move");
+      MakeMove(move.Move);
     }
 
     #endregion
@@ -500,11 +499,6 @@ namespace Yasc.ShogiCore.Core
         player.Hand.Add(targetPiece);
       }
       SetPiece(piece, move.To, player);
-    }
-
-    public RulesViolation Validate(Move move)
-    {
-      return Decorate(move).RulesViolation;
     }
   }
 }

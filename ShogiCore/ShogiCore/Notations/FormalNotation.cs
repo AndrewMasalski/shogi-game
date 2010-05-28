@@ -23,7 +23,7 @@ namespace Yasc.ShogiCore.Notations
 
       if (move == "resign")
       {
-        yield return new ResignMove(originalBoardState.OneWhoMoves);
+        yield return new ResignMove(originalBoardState, originalBoardState.OneWhoMoves);
         yield break;
       }
       if (move.Contains("-"))
@@ -36,7 +36,7 @@ namespace Yasc.ShogiCore.Notations
         var fromPiece = originalBoardState.GetPieceAt(from);
         if (fromPiece != null)
         {
-          yield return new UsualMove(
+          yield return new UsualMove(originalBoardState, 
             fromPiece.Color, from, to, modifier == "+");
         }
       }
@@ -46,7 +46,7 @@ namespace Yasc.ShogiCore.Notations
         var piece = PT.Parse(elements[0]);
         var to = Position.Parse(elements[1]);
 
-        yield return new DropMove(
+        yield return new DropMove(originalBoardState, 
           piece.GetColored(originalBoardState.OneWhoMoves), to);
       }
     }

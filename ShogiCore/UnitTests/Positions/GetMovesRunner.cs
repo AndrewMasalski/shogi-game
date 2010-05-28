@@ -20,13 +20,13 @@ namespace ShogiCore.UnitTests.Positions
       foreach (var to in dropMoves.To)
       {
         var move = board.GetDropMove(dropMoves.Piece, to, dropMoves.For);
-        Assert.AreEqual(RulesViolation.NoViolations, board.Validate(move));
+        Assert.AreEqual(RulesViolation.NoViolations, move.RulesViolation);
       }
 
       foreach (var to in dropMoves.NotTo)
       {
         var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
-        Assert.AreNotEqual(RulesViolation.NoViolations, board.Validate(move));
+        Assert.AreNotEqual(RulesViolation.NoViolations, move.RulesViolation);
       }
     }
     protected override void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
@@ -35,13 +35,13 @@ namespace ShogiCore.UnitTests.Positions
       foreach (var to in usualMoves.To)
       {
         var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
-        Assert.AreEqual(RulesViolation.NoViolations, board.Validate(move));
+        Assert.AreEqual(RulesViolation.NoViolations, move.RulesViolation);
       }
 
       foreach (var to in usualMoves.NotTo)
       {
         var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
-        Assert.AreNotEqual(RulesViolation.NoViolations, board.Validate(move));
+        Assert.AreNotEqual(RulesViolation.NoViolations, move.RulesViolation);
       }
     }
 
