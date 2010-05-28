@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.RulesVisualization;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Snapshots;
 
 namespace ShogiCore.UnitTests.Positions
 {
@@ -18,14 +19,14 @@ namespace ShogiCore.UnitTests.Positions
       board.OneWhoMoves = board.GetPlayer(dropMoves.For);
       foreach (var to in dropMoves.To)
       {
-        var move = board.Wrap(board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For)));
-        Assert.IsTrue(move.IsValid, move.RulesViolation.ToString());
+        var move = board.GetDropMove(dropMoves.Piece, to, dropMoves.For);
+        Assert.AreEqual(RulesViolation.NoViolations, board.Validate(move));
       }
 
       foreach (var to in dropMoves.NotTo)
       {
-        var move = board.Wrap(board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For)));
-        Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
+        var move = board.GetDropMove(dropMoves.Piece, to, board.GetPlayer(dropMoves.For));
+        Assert.AreNotEqual(RulesViolation.NoViolations, board.Validate(move));
       }
     }
     protected override void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
@@ -33,14 +34,14 @@ namespace ShogiCore.UnitTests.Positions
       board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
       foreach (var to in usualMoves.To)
       {
-        var move = board.Wrap(board.GetUsualMove(usualMoves.From, to.Position, to.Promotion));
-        Assert.IsTrue(move.IsValid, move.RulesViolation.ToString());
+        var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
+        Assert.AreEqual(RulesViolation.NoViolations, board.Validate(move));
       }
 
       foreach (var to in usualMoves.NotTo)
       {
-        var move = board.Wrap(board.GetUsualMove(usualMoves.From, to.Position, to.Promotion));
-        Assert.IsFalse(move.IsValid, "Move " + move + " is also valid");
+        var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);
+        Assert.AreNotEqual(RulesViolation.NoViolations, board.Validate(move));
       }
     }
 

@@ -23,7 +23,7 @@ namespace ShogiCore.UnitTests.Moves
     [TestMethod]
     public void DefaultTestCase()
     {
-      var history = new Yasc.ShogiCore.Moves.MovesHistory();
+      var history = new MovesHistory();
       Assert.AreEqual(-1, history.CurrentMoveIndex);
       Assert.IsNull(history.CurrentMove);
       
@@ -41,7 +41,7 @@ namespace ShogiCore.UnitTests.Moves
     [TestMethod]
     public void ChangeCurrentTest()
     {
-      var history = new Yasc.ShogiCore.Moves.MovesHistory();
+      var history = new MovesHistory();
       var m1 = CreateDummyMove();
       history.Do(m1);
       var m2 = CreateDummyMove();
@@ -63,38 +63,38 @@ namespace ShogiCore.UnitTests.Moves
     [TestMethod, ExpectedException(typeof(ArgumentNullException))]
     public void AddNullTest()
     {
-      new Yasc.ShogiCore.Moves.MovesHistory().Do(null);
+      new MovesHistory().Do(null);
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidIndex()
     {
-      new Yasc.ShogiCore.Moves.MovesHistory {CurrentMoveIndex = 0};
+      new MovesHistory {CurrentMoveIndex = 0};
     }
 
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidIndex1()
     {
-      var history = new Yasc.ShogiCore.Moves.MovesHistory();
+      var history = new MovesHistory();
       history.Do(CreateDummyMove());
       history.CurrentMoveIndex = 1;
     }
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidCurrentMove()
     {
-      new Yasc.ShogiCore.Moves.MovesHistory {CurrentMove = CreateDummyMove()};
+      new MovesHistory {CurrentMove = CreateDummyMove()};
     }
 
     [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
     public void SetInvalidCurrentMove1()
     {
-      var history = new Yasc.ShogiCore.Moves.MovesHistory();
+      var history = new MovesHistory();
       history.Do(CreateDummyMove());
       history.CurrentMove = CreateDummyMove();
     }
     [TestMethod]
     public void TestDerivativeProps()
     {
-      var history = new Yasc.ShogiCore.Moves.MovesHistory();
+      var history = new MovesHistory();
       Assert.IsTrue(history.IsEmpty);
       Assert.IsTrue(history.IsCurrentMoveLast);
       var m1 = CreateDummyMove();
@@ -121,7 +121,7 @@ namespace ShogiCore.UnitTests.Moves
     private static DecoratedMove CreateDummyMove()
     {
       var board = new Board(new StandardPieceSet());
-      return board.Wrap(board.GetUsualMove("1i", "2i"));
+      return board.Decorate(board.GetUsualMove("1i", "2i"));
     }
 
     [TestMethod]
@@ -130,7 +130,7 @@ namespace ShogiCore.UnitTests.Moves
       _board.SetPiece(PT.歩, "1i", _board.Black);
       var move = _board.GetMove("1i-1h", FormalNotation.Instance).First();
       var s1 = _board.CurrentSnapshot;
-      _board.MakeWrapedMove(move);
+      _board.MakeMove(move);
       var s2 = _board.CurrentSnapshot;
       _board.History.CurrentMoveIndex = -1;
       Assert.AreEqual(s1, _board.CurrentSnapshot);

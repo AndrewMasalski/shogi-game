@@ -41,14 +41,14 @@ namespace Yasc.Persistence
       {
         choice = _board.GetMove(_moves[index], CuteNotation.Instance).ToArray();
         if (choice.Length != 1) break;
-        _board.MakeMove(_board.Wrap(choice[0]));
+        _board.MakeMove(choice[0]);
         if (++index == _moves.Count) return true;
       }
 
       // We've 0 or >1 choices
       foreach (var option in choice)
       {
-        _board.MakeMove(_board.Wrap(option));
+        _board.MakeMove(option);
         bool success = Start(index + 1);
         // This one is good
         if (success) return true;

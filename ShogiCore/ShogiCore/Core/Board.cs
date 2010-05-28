@@ -66,7 +66,7 @@ namespace Yasc.ShogiCore.Core
       }
     }
     /// <summary>Moves history</summary>
-    /// <remarks>Only contains moves made through <see cref="MakeMove"/>. 
+    /// <remarks>Only contains moves made through <see cref="MakeMove(Yasc.ShogiCore.Moves.DecoratedMove)"/>. 
     ///   All other changes made to the board are not counted here.</remarks>
     public MovesHistory History { get; private set; }
     /// <summary>81 cells of the board in stable order</summary>
@@ -295,16 +295,17 @@ namespace Yasc.ShogiCore.Core
     }
 
     /// <summary>Gets move on the board parsing it from snapsot</summary>
-    public DecoratedMove Wrap(Move snapshot)
+    public DecoratedMove Decorate(Move snapshot)
     {
       // TODO: Using of this method is almost always ugly!
       if (snapshot == null) throw new ArgumentNullException("snapshot");
       return new DecoratedMove(CurrentSnapshot, snapshot, History.Count + 1);
     }
-    public void MakeWrapedMove(Move move)
+    /// <summary>Makes the move on the board</summary>
+    /// <remarks>The method adds the move to the history and sends events</remarks>
+    public void MakeMove(Move move)
     {
-      // TODO: Rename it to MakeMove
-      MakeMove(Wrap(move));
+      MakeMove(Decorate(move));
     }
 
     /// <summary>Makes the move on the board</summary>
@@ -499,6 +500,11 @@ namespace Yasc.ShogiCore.Core
         player.Hand.Add(targetPiece);
       }
       SetPiece(piece, move.To, player);
+    }
+
+    public RulesViolation Validate(Move move)
+    {
+      return Decorate(move).RulesViolation;
     }
   }
 }

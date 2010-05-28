@@ -80,7 +80,7 @@ namespace MainModule.AI
       else
       {
         var engineMove = ParseUsiMove(_board, args.Move);
-        _board.MakeWrapedMove(engineMove);
+        _board.MakeMove(engineMove);
         Move(engineMove.ToString());
       }
     }
@@ -95,7 +95,7 @@ namespace MainModule.AI
 
     protected override void OnHumanMoved(string hisMove)
     {
-      _board.MakeWrapedMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
+      _board.MakeMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
       _engine.Position(string.Join(" ", 
         _board.History.Select(m => MoveToUsiString(m.Move))));
       _engine.Go();

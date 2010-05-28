@@ -60,7 +60,7 @@ namespace MainModule.Gui.Game
     private DateTime OnOpponentMadeMove(MoveMsg move)
     {
       using (_opponentMoveReaction.Set())
-        Board.MakeWrapedMove(Board.GetMove(move.Move, FormalNotation.Instance).First());
+        Board.MakeMove(Board.GetMove(move.Move, FormalNotation.Instance).First());
       return DateTime.Now;
     }
     private void SendMessage()

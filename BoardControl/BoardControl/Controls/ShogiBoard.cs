@@ -188,12 +188,12 @@ namespace Yasc.BoardControl.Controls
         var move = RecognizeMove(e);
         if (move == null) return;
 
-        RaiseMoveAttemptEvent(Board.Wrap(move));
+        var decoratedMove = Board.Decorate(move);
+        RaiseMoveAttemptEvent(decoratedMove);
 
-        // Board.Wrap(move).IsValid is ugly!
-        if (Board.Wrap(move).IsValid)
+        if (decoratedMove.IsValid)
           using (_dragMove.Set())
-            Board.MakeWrapedMove(move);
+            Board.MakeMove(decoratedMove);
       }
       else
       {
