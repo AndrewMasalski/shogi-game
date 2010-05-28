@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using Yasc.ShogiCore.Core;
-using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
@@ -32,21 +31,21 @@ namespace MainModule.AI
     protected override void OnHumanMoved(string hisMove)
     {
       Thread.Sleep(1000);
-      _board.MakeWrapedMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
+      _board.MakeMove(_board.GetMove(hisMove, FormalNotation.Instance).First());
       var myMove = ChooseAbsolutelyRandomMove();
       if (myMove == null) return; // mate
       _board.MakeMove(myMove);
       Move(myMove.ToString());
     }
 
-    private DecoratedMove ChooseAbsolutelyRandomMove()
+    private Move ChooseAbsolutelyRandomMove()
     {
       var moves = _board.CurrentSnapshot.
         GetAllAvailableMoves(PieceColor.Black).ToList();
 
       if (moves.Count == 0) return null; // mate
       var m = moves[_rnd.Next(moves.Count)];
-      return _board.Wrap(m);
+      return m;
     }
   }
 }

@@ -36,6 +36,11 @@ namespace Yasc.ShogiCore.Core
     {
       return board.GetDropMove(piece, Position.Parse(to), who);
     }
+    /// <summary>Gets drop move on the board</summary>
+    public static DropMove GetDropMove(this Board board, IPieceType piece, Position to, PieceColor who)
+    {
+      return board.GetDropMove(piece, to, board.GetPlayer(who));
+    }
     /// <summary>Gets move on the board parsing it from trascript</summary>
     public static IEnumerable<Move> GetMove(this Board board, string text, INotation notation)
     {
