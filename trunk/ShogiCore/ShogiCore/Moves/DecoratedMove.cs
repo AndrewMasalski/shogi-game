@@ -20,6 +20,8 @@ namespace Yasc.ShogiCore.Moves
     }
     /// <summary>Move sequential number within the game</summary>
     public int Number { get { return Move.Number; } }
+    public string Comment { get; set; }
+    public MoveEvaluation Evaluation { get; set; }
 
     /// <summary>ctor</summary>
     internal DecoratedMove(Move move)

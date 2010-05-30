@@ -12,6 +12,8 @@ namespace Yasc.ShogiCore.Snapshots
   [Serializable]
   public class BoardSnapshot 
   {
+    // TODO: Sfen strings
+
     #region ' Fields '
 
     private bool _isHashCodeCalculated;
