@@ -13,8 +13,6 @@ namespace Yasc.ShogiCore.Core
   /// <summary>Represents observable and mutable shogi board with moves tracking, analysis, etc.</summary>
   public class Board : ObservableObject
   {
-    // TODO: Sfen strings
-
     #region ' Fields '
 
     private int _currentMoveIndex;
