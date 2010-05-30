@@ -26,13 +26,13 @@ namespace ShogiCore.UnitTests.Snapshots
     public void Immutability()
     {
       var clone = _snapshot.MakeMove(new UsualMove(_snapshot,
-        PieceColor.White, Position.Parse("3c"), Position.Parse("3d"), false));
+        PieceColor.White, Position.Parse("3g"), Position.Parse("3f"), false));
       
-      Assert.IsNull(clone.GetPieceAt("3c"));
-      Assert.IsNotNull(clone.GetPieceAt("3d"));
+      Assert.IsNull(clone.GetPieceAt("3g"));
+      Assert.IsNotNull(clone.GetPieceAt("3f"));
 
-      Assert.IsNotNull(_snapshot.GetPieceAt("3c"));
-      Assert.IsNull(_snapshot.GetPieceAt("3d"));
+      Assert.IsNotNull(_snapshot.GetPieceAt("3g"));
+      Assert.IsNull(_snapshot.GetPieceAt("3f"));
     }
     [TestMethod, ExpectedException(typeof(NotSupportedException))]
     public void CellsCollectionIsReadonly()
