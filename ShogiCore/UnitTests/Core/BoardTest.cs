@@ -411,7 +411,7 @@ namespace ShogiCore.UnitTests.Core
     [TestMethod]
     public void TestBlackResignMove()
     {
-      Assert.AreEqual(ShogiGameState.None, _board.GameState);
+      Assert.AreEqual(ShogiGameState.NotDefined, _board.GameState);
       _board.MakeMove(_board.GetResignMove());
       Assert.AreEqual(ShogiGameState.WhiteWin, _board.GameState);
     }
@@ -420,7 +420,7 @@ namespace ShogiCore.UnitTests.Core
     public void TestWhiteResignMove()
     {
       _board.OneWhoMoves = _board.GetPlayer(PieceColor.White);
-      Assert.AreEqual(ShogiGameState.None, _board.GameState);
+      Assert.AreEqual(ShogiGameState.NotDefined, _board.GameState);
       _board.MakeMove(_board.GetResignMove());
       Assert.AreEqual(ShogiGameState.BlackWin, _board.GameState);
     }
