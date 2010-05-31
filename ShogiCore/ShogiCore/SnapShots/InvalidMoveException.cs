@@ -1,8 +1,7 @@
 using System;
 using System.Runtime.Serialization;
-using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Core
+namespace Yasc.ShogiCore.Snapshots
 {
   /// <summary>This exception is thrown when you are trying 
   ///   to make invalid move (<see cref="Board.MakeMove"/>)</summary>

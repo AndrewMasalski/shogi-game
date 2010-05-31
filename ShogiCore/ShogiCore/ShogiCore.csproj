@@ -81,7 +81,7 @@
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\BoardExtensions.cs" />
     <Compile Include="Core\Cell.cs" />
-    <Compile Include="Core\INotation.cs" />
+    <Compile Include="Notations\INotation.cs" />
     <Compile Include="Moves\MoveEvaluation.cs" />
     <Compile Include="Notations\FormalNotation.cs" />
     <Compile Include="Notations\CuteNotation.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Core\Helpers\HistoryNavigateEventArgs.cs" />
     <Compile Include="PieceSets\InfinitePieceSet.cs" />
     <Compile Include="Core\IPieceSet.cs" />
-    <Compile Include="Core\Helpers\InvalidMoveException.cs" />
+    <Compile Include="Snapshots\InvalidMoveException.cs" />
     <Compile Include="Moves\DecoratedMove.cs" />
     <Compile Include="Core\Helpers\MoveEventArgs.cs" />
     <Compile Include="Moves\MovesHistory.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="Primitives\IPieceType.cs" />
     <Compile Include="Snapshots\BoardSnapshotExtensions.cs" />
     <Compile Include="Snapshots\ResignMove.cs" />
-    <Compile Include="Snapshots\ShogiGameResult.cs" />
+    <Compile Include="Snapshots\ShogiGameState.cs" />
     <Compile Include="Core\Helpers\NotEnoughPiecesInSetException.cs" />
     <Compile Include="Core\Piece.cs" />
     <Compile Include="Primitives\PieceColor.cs" />
@@ -120,7 +120,6 @@
   <ItemGroup>
     <None Include="Primitives\Primitives.cd" />
     <None Include="Core\Board.cd" />
-    <None Include="Core\Moves.cd" />
     <None Include="Snapshots\Snapshots.cd" />
   </ItemGroup>
   <ItemGroup>

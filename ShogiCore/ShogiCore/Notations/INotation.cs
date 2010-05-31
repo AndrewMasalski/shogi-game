@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Yasc.ShogiCore.Snapshots;
 
-namespace Yasc.ShogiCore.Core
+namespace Yasc.ShogiCore.Notations
 {
   /// <summary>Describes one of the ways moves can be transcribed</summary>
   public interface INotation

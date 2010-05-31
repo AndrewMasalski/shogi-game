@@ -29,7 +29,7 @@
       <Method Name="VerifyPlayerBelongs" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>hCA9hAGAAQQAoMAhAAMAACIQDIACCiRAAkACSFCAIAA=</HashCode>
+      <HashCode>hCAdhAGAAQQAoMAhAAMAACIQDIACCiRAAkACSFCAIAA=</HashCode>
       <FileName>Core\Board.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -37,6 +37,7 @@
       <Property Name="Black" />
       <Property Name="OneWhoMoves" />
       <Property Name="PieceSet" />
+      <Property Name="History" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
@@ -71,7 +72,7 @@
       <Method Name="Piece" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAiBAAEAAAAAAAAAAAAABAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAACAAAACBAAEAAAAAAAAAAAAAFAAAAAAgAAAAAA=</HashCode>
       <FileName>Core\Piece.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -93,6 +94,16 @@
       <Property Name="Hand" />
     </ShowAsCollectionAssociation>
   </Class>
+  <Class Name="Yasc.ShogiCore.Moves.MovesHistory">
+    <Position X="4.25" Y="4.5" Width="1.75" />
+    <Members>
+      <Field Name="_currentMoveIndex" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAJABAAAAAAAAAAAAAAAAAAAAACAAQAiAAAACAAgAAA=</HashCode>
+      <FileName>Moves\MovesHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="Yasc.ShogiCore.Primitives.Position">
     <Position X="7.5" Y="4.25" Width="2" />
     <TypeIdentifier>
@@ -110,7 +121,7 @@
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
     <Position X="10.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
+      <HashCode>AEEEAAAAgACEBAAAIAQAAABABAAAAAQIAAAgAAAAAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
   </Interface>

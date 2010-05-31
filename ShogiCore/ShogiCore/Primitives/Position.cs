@@ -39,11 +39,13 @@ namespace Yasc.ShogiCore.Primitives
     /// <summary>The position line ("a".."i")</summary>
     public string Line
     {
+      // TODO: Rank?
       get { return ((char)(Y + 'a')).ToString(); }
     }
     /// <summary>The position column (1..9)</summary>
     public int Column
     {
+      // TODO: File?
       get { return X + 1; }
     }
     /// <summary>Gets user friendly transcription of the position ("1a")</summary>

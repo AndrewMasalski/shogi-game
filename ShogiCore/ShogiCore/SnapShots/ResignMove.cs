@@ -29,8 +29,8 @@ namespace Yasc.ShogiCore.Snapshots
 
     internal override void Apply(BoardSnapshot board)
     {
-      board.GameResult = Who == PieceColor.White ? 
-        ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
+      board.GameState = Who == PieceColor.White ? 
+        ShogiGameState.BlackWin : ShogiGameState.WhiteWin;
     }
 
     /// <summary>ctor</summary>

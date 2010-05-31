@@ -41,6 +41,18 @@
         </TypeIdentifier>
         <Lollipop Position="0.2" />
       </Class>
+      <Class Name="Yasc.ShogiCore.Primitives.PT.ColoredPiece" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="Yasc.ShogiCore.Primitives.PT.ColoredPieceSerializationHelper" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
       <Class Name="Yasc.ShogiCore.Primitives.PT.MoveDirection" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Primitives\PT.cs</NewMemberFileName>
@@ -59,7 +71,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Struct Name="Yasc.ShogiCore.Primitives.Position">
-    <Position X="8" Y="0.5" Width="2.25" />
+    <Position X="8.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>BAAgAAAAAAAAIAAEwAFAAAAAABAAAIAAAAAAAAABYiA=</HashCode>
       <FileName>Primitives\Position.cs</FileName>
@@ -71,33 +83,56 @@
       <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\IPieceCategory.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="PieceTypes" />
-    </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
-    <Position X="4.25" Y="2.75" Width="3" />
+    <Position X="4.25" Y="3" Width="3" />
+    <AssociationLine Name="PieceKind" Type="Yasc.ShogiCore.Primitives.IPieceCategory" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="3" />
+        <Point X="6.75" Y="1.822" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.079" Y="0.404" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PieceQuality" Type="Yasc.ShogiCore.Primitives.IPieceCategory">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.089" Y="0.404" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
+      <HashCode>AEEEAAAAgACEBAAAIAQAAABABAAAAAQIAAAgAAAAAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PieceKind" />
       <Property Name="PieceQuality" />
+      <Property Name="Black" />
+      <Property Name="White" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="MoveDirections" />
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="Yasc.ShogiCore.Primitives.IMoveDirection">
-    <Position X="5.5" Y="6.5" Width="1.5" />
+    <Position X="5.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\IMoveDirection.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="Yasc.ShogiCore.Primitives.IColoredPiece">
+    <Position X="8.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAgAAAAAA=</HashCode>
+      <FileName>Primitives\IColoredPiece.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Color" />
+    </ShowAsAssociation>
+  </Interface>
   <Enum Name="Yasc.ShogiCore.Primitives.PieceColor">
-    <Position X="8" Y="5" Width="1.5" />
+    <Position X="10.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\PieceColor.cs</FileName>

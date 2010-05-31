@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
+using CommonUtils.UnitTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Moves;
 using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
+using Yasc.ShogiCore.Snapshots;
 
 namespace ShogiCore.UnitTests.Moves
 {
@@ -28,12 +30,12 @@ namespace ShogiCore.UnitTests.Moves
       Assert.IsNull(history.CurrentMove);
       
       var m1 = CreateDummyMove();
-      history.Do(m1);
+      history.Add(m1);
       Assert.AreEqual(0, history.CurrentMoveIndex);
       Assert.AreSame(m1, history.CurrentMove);
       
       var m2 = CreateDummyMove();
-      history.Do(m2);
+      history.Add(m2);
       Assert.AreEqual(1, history.CurrentMoveIndex);
       Assert.AreSame(m2, history.CurrentMove);
     }
@@ -43,9 +45,9 @@ namespace ShogiCore.UnitTests.Moves
     {
       var history = new MovesHistory();
       var m1 = CreateDummyMove();
-      history.Do(m1);
+      history.Add(m1);
       var m2 = CreateDummyMove();
-      history.Do(m2);
+      history.Add(m2);
 
       history.CurrentMove = m1;
       Assert.AreEqual(0, history.CurrentMoveIndex);
@@ -60,37 +62,37 @@ namespace ShogiCore.UnitTests.Moves
       Assert.IsNull(history.CurrentMove);
     }
 
-    [TestMethod, ExpectedException(typeof(ArgumentNullException))]
-    public void AddNullTest()
+    [TestMethod]
+    public void ExpectedExceptions()
     {
-      new MovesHistory().Do(null);
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void SetInvalidIndex()
-    {
-      new MovesHistory {CurrentMoveIndex = 0};
-    }
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => new MovesHistory().Add((DecoratedMove)null));
 
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void SetInvalidIndex1()
-    {
-      var history = new MovesHistory();
-      history.Do(CreateDummyMove());
-      history.CurrentMoveIndex = 1;
-    }
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void SetInvalidCurrentMove()
-    {
-      new MovesHistory {CurrentMove = CreateDummyMove()};
-    }
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => new MovesHistory().Add((Move)null));
 
-    [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void SetInvalidCurrentMove1()
-    {
-      var history = new MovesHistory();
-      history.Do(CreateDummyMove());
-      history.CurrentMove = CreateDummyMove();
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () => new MovesHistory { CurrentMoveIndex = 0 });
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () =>
+          {
+            var history = new MovesHistory { CreateDummyMove() };
+            history.CurrentMoveIndex = 1;            
+          });
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () => new MovesHistory { CurrentMove = CreateDummyMove() });
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () =>
+        {
+          var history = new MovesHistory { CreateDummyMove() };
+          history.CurrentMove = CreateDummyMove();
+        });
+
     }
+    
     [TestMethod]
     public void TestDerivativeProps()
     {
@@ -98,11 +100,11 @@ namespace ShogiCore.UnitTests.Moves
       Assert.IsTrue(history.IsEmpty);
       Assert.IsTrue(history.IsCurrentMoveLast);
       var m1 = CreateDummyMove();
-      history.Do(m1);
+      history.Add(m1);
       Assert.IsFalse(history.IsEmpty);
       Assert.IsTrue(history.IsCurrentMoveLast);
       var m2 = CreateDummyMove();
-      history.Do(m2);
+      history.Add(m2);
       Assert.IsFalse(history.IsEmpty);
       Assert.IsTrue(history.IsCurrentMoveLast);
 
@@ -121,7 +123,7 @@ namespace ShogiCore.UnitTests.Moves
     private static DecoratedMove CreateDummyMove()
     {
       var board = new Board(new StandardPieceSet());
-      return board.Decorate(board.GetUsualMove("1i", "2i"));
+      return board.History.Decorate(board.GetUsualMove("1i", "2i"));
     }
 
     [TestMethod]

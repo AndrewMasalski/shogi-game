@@ -21,7 +21,7 @@ namespace Yasc.ShogiCore.Core
     private bool _isMovesOrderMaintained = true;
     private readonly Cell[,] _cells = new Cell[9, 9];
     private BoardSnapshot _currentSnapshot;
-    private ShogiGameResult _gameResult;
+    private ShogiGameState _gameState;
 
     #endregion
 
@@ -92,15 +92,15 @@ namespace Yasc.ShogiCore.Core
     {
       return color == PieceColor.White ? White : Black;
     }
-    /// <summary>Gets the game result (or <see cref="ShogiGameResult.None"/> if game is not finished)</summary>
-    public ShogiGameResult GameResult
+    /// <summary>Gets the game result (or <see cref="ShogiGameState.None"/> if game is not finished)</summary>
+    public ShogiGameState GameState
     {
-      get { return _gameResult; }
+      get { return _gameState; }
       set
       {
-        if (_gameResult == value) return;
-        _gameResult = value;
-        RaisePropertyChanged("GameResult");
+        if (_gameState == value) return;
+        _gameState = value;
+        RaisePropertyChanged("GameState");
       }
     }
 
@@ -282,7 +282,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         OneWhoMoves = piece.Owner;
 
-      return new DropMove(CurrentSnapshot, piece.Snapshot(), to);
+      return new DropMove(CurrentSnapshot, piece.ToColoredPiece(), to);
     }
     /// <summary>Gets resign move</summary>
     public Move GetResignMove()
@@ -290,13 +290,6 @@ namespace Yasc.ShogiCore.Core
       return new ResignMove(CurrentSnapshot, OneWhoMoves.Color);
     }
 
-    /// <summary>Gets move on the board parsing it from snapsot</summary>
-    public DecoratedMove Decorate(Move snapshot)
-    {
-      // TODO: Using of this method is almost always ugly!
-      if (snapshot == null) throw new ArgumentNullException("snapshot");
-      return new DecoratedMove(snapshot);
-    }
     /// <summary>Makes the move on the board</summary>
     /// <remarks>The method adds the move to the history and sends events</remarks>
     public void MakeMove(Move move)
@@ -309,7 +302,7 @@ namespace Yasc.ShogiCore.Core
         OnMoving(new MoveEventArgs(move));
         MakeMoveInternal(move);
         _oneWhoMoves = _oneWhoMoves.Opponent;
-        History.Do(Decorate(move));
+        History.Add(move);
         OnMoved(new MoveEventArgs(move));
       }
     }
@@ -434,7 +427,7 @@ namespace Yasc.ShogiCore.Core
           from position in Position.OnBoard
           let piece = GetPieceAt(position)
           where piece != null
-          select Tuple.Create(position, piece.Snapshot()),
+          select Tuple.Create(position, piece.ToColoredPiece()),
 
           from whitePiece in White.Hand
           orderby whitePiece.PieceType
@@ -469,8 +462,8 @@ namespace Yasc.ShogiCore.Core
           MakeUsualMove((UsualMove)move);
           break;
         case MoveType.Resign:
-          GameResult = move.Who == PieceColor.White ?
-          ShogiGameResult.BlackWin : ShogiGameResult.WhiteWin;
+          GameState = move.Who == PieceColor.White ?
+          ShogiGameState.BlackWin : ShogiGameState.WhiteWin;
           break;
       }
     }

@@ -12,14 +12,14 @@ namespace Yasc.ShogiCore.Core
       : base(info, context)
     {
       if (info == null) throw new ArgumentNullException("info");
-      PieceType = Primitives.PT.Parse(info.GetString("PieceType"));
+      PieceType = (IPieceType)info.GetValue("PieceType", typeof(IPieceType));
     }
     /// <summary>Partisipates serialization</summary>
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
       base.GetObjectData(info, context);
       if (info == null) throw new ArgumentNullException("info");
-      info.AddValue("PieceType", PieceType.ToString());
+      info.AddValue("PieceType", typeof(IPieceType));
     }
 
     /// <summary>The type of piece which couldn't be found</summary>
