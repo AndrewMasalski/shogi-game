@@ -13,6 +13,7 @@ namespace Yasc.ShogiCore.Snapshots
   [Serializable]
   public class BoardSnapshot 
   {
+    // TODO: OneWhoMoves => SideOnMove
     // TODO: Sfen strings
 
     #region ' Fields '
@@ -68,6 +69,76 @@ namespace Yasc.ShogiCore.Snapshots
     public Move Move { get; private set; }
     /// <summary>Gets the game result (or <see cref="ShogiGameState.None"/> if game is not finished)</summary>
     public ShogiGameState GameState { get; internal set; }
+
+    /// <summary>Parses SFEN string</summary>
+    /// <param name="sfenString">lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1</param>
+    /// <exception cref="InvalidOperationException">Can't promote pieceType</exception>
+    public static BoardSnapshot ParseSfen(string sfenString)
+    {
+      if (sfenString == null) throw new ArgumentNullException("sfenString");
+      var records = sfenString.Split(' ');
+      if (records.Length < 3 || records.Length > 4)
+        throw new ArgumentOutOfRangeException("sfenString", "Must consist of 3 or 4 space separated records");
+      var board = records[0];
+      var sideOnMove = records[1];
+      var hand = records[2];
+      var rows = board.Split('/');
+      if (rows.Length != 9)
+        throw new ArgumentOutOfRangeException("sfenString", "Board record must consist of 9 slash separated rows");
+
+      var res = new BoardSnapshot(new List<IPieceType>(), new List<IPieceType>());
+      for (int i = 0; i < 9; i++)
+      {
+        var currentFile = 0;
+        var promoted = false;
+        foreach (var ch in rows[i])
+        {
+          if (char.IsDigit(ch))
+          {
+            currentFile += int.Parse(ch.ToString());
+            if (currentFile > 9)
+              throw new ArgumentOutOfRangeException("sfenString", "Row contains more than 9 cells");
+          }
+          else if (ch == '+')
+          {
+            promoted = true;
+          }
+          else
+          {
+            IPieceType pieceType;
+            switch (ch)
+            {
+              case 'k':
+                pieceType = PT.王;
+                break;
+              case 'K':
+                pieceType = PT.玉;
+                break;
+              default:
+                if (!PT.TryParse(char.ToUpper(ch).ToString(), out pieceType))
+                  throw new ArgumentOutOfRangeException("sfenString", "Piece type is not found: " + ch);
+                break;
+            }
+
+            if (promoted)
+              pieceType = pieceType.Promote();
+
+            var piece = char.IsUpper(ch) ? pieceType.Black : pieceType.White;
+
+            res._cells[8-currentFile++, i] = piece;
+          }
+        }
+        if (currentFile != 9)
+          throw new ArgumentOutOfRangeException("sfenString", "Row must contain exactly 9 cells");
+      }
+      return res;
+    }
+
+    private BoardSnapshot(List<IPieceType> blackHand, List<IPieceType> whiteHand)
+    {
+      _blackHand = blackHand;
+      _whiteHand = whiteHand;
+    }
 
     /// <summary>ctor</summary>
     public BoardSnapshot(PieceColor oneWhoMoves,

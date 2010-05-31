@@ -34,20 +34,17 @@ namespace ShogiCore.UnitTests.Snapshots
       Assert.IsNotNull(_snapshot.GetPieceAt("3g"));
       Assert.IsNull(_snapshot.GetPieceAt("3f"));
     }
-    [TestMethod, ExpectedException(typeof(NotSupportedException))]
-    public void CellsCollectionIsReadonly()
+    [TestMethod]
+    public void CollectionsReadonly()
     {
-      ((IList<IColoredPiece>)_snapshot.Cells).Add(PT.馬.Black);
-    }
-    [TestMethod, ExpectedException(typeof(NotSupportedException))]
-    public void BlackHandCollectionIsReadonly()
-    {
-      ((IList<IPieceType>)_snapshot.BlackHand).Add(PT.馬);
-    }
-    [TestMethod, ExpectedException(typeof(NotSupportedException))]
-    public void WhiteHandCollectionIsReadonly()
-    {
-      ((IList<IPieceType>)_snapshot.WhiteHand).Add(PT.馬);
+      MyAssert.ThrowsException<NotSupportedException>(
+        () => ((IList<IColoredPiece>)_snapshot.Cells).Add(PT.馬.Black));
+
+      MyAssert.ThrowsException<NotSupportedException>(
+        () => ((IList<IPieceType>)_snapshot.BlackHand).Add(PT.馬));
+
+      MyAssert.ThrowsException<NotSupportedException>(
+        () => ((IList<IPieceType>)_snapshot.WhiteHand).Add(PT.馬));
     }
     [TestMethod]
     public void HandIndexerTest()
@@ -81,6 +78,25 @@ namespace ShogiCore.UnitTests.Snapshots
     public void IsCheckForTest()
     {
       Assert.IsFalse(_snapshot.IsCheckFor(PieceColor.Black));
+    }
+    [TestMethod]
+    public void ParseSfenExceptions()
+    {
+      MyAssert.ThrowsException<ArgumentNullException>(
+        () => BoardSnapshot.ParseSfen(null));
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () => BoardSnapshot.ParseSfen(""));
+
+      MyAssert.ThrowsException<ArgumentOutOfRangeException>(
+        () => BoardSnapshot.ParseSfen("a b c"));
+    }
+
+    [TestMethod]
+    public void ParseSfen()
+    {
+      var boardSnapshot = BoardSnapshot.ParseSfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1");
+      Assert.AreEqual(BoardSnapshot.InitialPosition, boardSnapshot);
     }
   }
 }
