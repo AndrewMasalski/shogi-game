@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -65,8 +66,8 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Gets reference to the move leaded to the current position 
     /// -or- null if current position is custom</summary>
     public Move Move { get; private set; }
-    /// <summary>Gets the game result (or <see cref="ShogiGameResult.None"/> if game is not finished)</summary>
-    public ShogiGameResult GameResult { get; internal set; }
+    /// <summary>Gets the game result (or <see cref="ShogiGameState.None"/> if game is not finished)</summary>
+    public ShogiGameState GameState { get; internal set; }
 
     /// <summary>ctor</summary>
     public BoardSnapshot(PieceColor oneWhoMoves,
@@ -103,20 +104,47 @@ namespace Yasc.ShogiCore.Snapshots
       return _cells[position.X, position.Y]; 
     }
 
-    /// <summary>Gets the piece snapshot at the coordinates</summary>
-    public IColoredPiece GetPieceAt(int x, int y)
-    {
-      return _cells[x, y]; 
-    }
     /// <summary>Gets the hand collection by color</summary>
-    public ReadOnlyCollection<IPieceType> Hand(PieceColor color)
+    public ReadOnlyCollection<IPieceType> GetHand(PieceColor color)
     {
       return color == PieceColor.White ? WhiteHand : BlackHand;
     }
     /// <summary>Checks wheter it's mate for <paramref name="color"/> king </summary>
     public bool IsMateFor(PieceColor color)
     {
-      return IsCheckFor(color) && DoesntHaveValidMoves(color);
+      if (GameState == ShogiGameState.NotDefined)
+      {
+        if (IsCheckFor(color))
+        {
+          if (DoesntHaveValidMoves(color))
+          {
+            GameState = color == PieceColor.White 
+              ? ShogiGameState.BlackWin 
+              : ShogiGameState.WhiteWin;
+          }
+          else
+          {
+            GameState = ShogiGameState.None;
+          }
+        }
+        else if (IsCheckFor(Opponent(color)))
+        {
+          if (DoesntHaveValidMoves(Opponent(color)))
+          {
+            GameState = Opponent(color) == PieceColor.White
+              ? ShogiGameState.BlackWin
+              : ShogiGameState.WhiteWin;
+          }
+          else
+          {
+            GameState = ShogiGameState.None;
+          }
+        }
+      }
+      return (color == PieceColor.White 
+          && GameState == ShogiGameState.BlackWin) ||
+          (color == PieceColor.Black &&
+          GameState == ShogiGameState.WhiteWin);
     }
     /// <summary>Checks wheter it's check for <paramref name="color"/> king </summary>
     public bool IsCheckFor(PieceColor color)
@@ -143,7 +171,7 @@ namespace Yasc.ShogiCore.Snapshots
         Where(move => move.IsValid);
     }
     /// <summary>Gets all valid usual and drop moves for the player</summary>
-    public IEnumerable<Move> GetAllAvailableMoves(PieceColor color)
+    public IEnumerable<Move> GetAvailableMoves(PieceColor color)
     {
       foreach (var move in GetAllAvailableUsualMoves(color))
         yield return move;
@@ -163,7 +191,7 @@ namespace Yasc.ShogiCore.Snapshots
     {
       if (move == null) throw new ArgumentNullException("move");
       if (move.Piece.Color != OneWhoMoves) return RulesViolation.WrongSideToMove;
-      if (!Hand(OneWhoMoves).Contains(move.Piece.PieceType)) return RulesViolation.WrongPieceReference;
+      if (!GetHand(OneWhoMoves).Contains(move.Piece.PieceType)) return RulesViolation.WrongPieceReference;
       if (GetPieceAt(move.To) != null) return RulesViolation.DropToOccupiedCell;
 
       if (move.Piece.PieceType == PT.歩 || move.Piece.PieceType == PT.香)
@@ -184,7 +212,7 @@ namespace Yasc.ShogiCore.Snapshots
           return RulesViolation.DropPawnToMate;
 
       return newPosition.IsMateFor(OneWhoMoves)
-        ? RulesViolation.MoveToMate
+        ? RulesViolation.MoveToCheck // TODO: Not tested!
         : RulesViolation.NoViolations;
     }
     internal RulesViolation ValidateUsualMove(UsualMove move)
@@ -253,12 +281,12 @@ namespace Yasc.ShogiCore.Snapshots
     }
     private IEnumerable<DropMove> GetAllValidDropMoves(PieceColor color)
     {
-      return Hand(color).Distinct().SelectMany(p => GetAvailableDropMoves(p, color));
+      return GetHand(color).Distinct().SelectMany(p => GetAvailableDropMoves(p, color));
     }
 
     private bool DoesntHaveValidMoves(PieceColor color)
     {
-      return GetAllAvailableMoves(color).FirstOrDefault() == null;
+      return GetAvailableMoves(color).FirstOrDefault() == null;
     }
     private Position? FindTheKing(PieceColor color)
     {
@@ -287,10 +315,14 @@ namespace Yasc.ShogiCore.Snapshots
     private bool IsTherePawnOnThisColumn(PieceColor color, int column)
     {
       for (var i = 0; i < 9; i++)
-        if (GetPieceAt(column, i) != null)
-          if (GetPieceAt(column, i).PieceType == PT.歩)
-            if (GetPieceAt(column, i).Color == color)
+      {
+        var piece = _cells[column, i];
+
+        if (piece != null)
+          if (piece.PieceType == PT.歩)
+            if (piece.Color == color)
               return true;
+      }
 
       return false;
     }
@@ -311,8 +343,9 @@ namespace Yasc.ShogiCore.Snapshots
 
       var snapshot = new BoardSnapshot(this, move);
       return !snapshot.IsCheckFor(move.Who) 
-               ? RulesViolation.NoViolations 
-               : RulesViolation.MoveToMate;
+        ? RulesViolation.NoViolations 
+        // TODO: Not tested!
+        : RulesViolation.MoveToCheck;
     }
 
     private int CalculateHashCode()
@@ -448,10 +481,10 @@ namespace Yasc.ShogiCore.Snapshots
 
     #endregion
 
-    #region 
+    #region ' Promotion '
 
     /// <summary>Returns distance for from the last line for the piece (of the color)</summary>
-    public int HowFarFromTheLastLine(IColoredPiece coloredPiece, Position position)
+    private static int HowFarFromTheLastLine(IColoredPiece coloredPiece, Position position)
     {
       var lastLineIndex = coloredPiece.Color == PieceColor.White ? 8 : 0;
       return Math.Abs(position.Y - lastLineIndex);
@@ -459,7 +492,7 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Returns null it the piece can move to the 
     ///   <paramref name="position"/> without promotion -or- 
     ///   text with explanation why he's not allowed to do that</summary>
-    public RulesViolation IsPromotionMandatory(IColoredPiece coloredPiece, Position position)
+    private static RulesViolation IsPromotionMandatory(IColoredPiece coloredPiece, Position position)
     {
       if (coloredPiece.PieceType == PT.歩 || coloredPiece.PieceType == PT.香)
         if (HowFarFromTheLastLine(coloredPiece, position) == 0)
@@ -474,7 +507,7 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Returns null it the piece can promote moving
     ///   from position <paramref name="from"/> to position <paramref name="to"/> -or- 
     ///   text with explanation why it's impossible</summary>
-    public RulesViolation IsPromotionAllowed(IColoredPiece coloredPiece, Position from, Position to)
+    private static RulesViolation IsPromotionAllowed(IColoredPiece coloredPiece, Position from, Position to)
     {
       if (coloredPiece.PieceType.IsPromoted)
         return RulesViolation.CantPromoteTwice;
@@ -489,7 +522,7 @@ namespace Yasc.ShogiCore.Snapshots
       return RulesViolation.NoViolations;
     }
 
-    private bool IsThatPromitionZoneFor(IColoredPiece coloredPiece, Position position)
+    private static bool IsThatPromitionZoneFor(IColoredPiece coloredPiece, Position position)
     {
       return HowFarFromTheLastLine(coloredPiece, position) < 3;
     }

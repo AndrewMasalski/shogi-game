@@ -3,7 +3,12 @@ using Yasc.Utils.Mvvm;
 
 namespace Yasc.ShogiCore.Core
 {
-  /// <summary>Represents observable piece with owner, type, color, etc.</summary>
+  /// <summary>Represents observable piece with owner</summary>
+  /// <remarks>Main differences from <see cref="IColoredPiece"/>:
+  /// <list type="bullet">
+  /// <item>Can have no <see cref="Owner"/> hence no color</item>
+  /// <item><see cref="IsPromoted"/> has setter and notifies on change</item>
+  /// </list></remarks>
   public class Piece : ObservableObject
   {
     /// <summary>The piece owner</summary>
@@ -41,7 +46,7 @@ namespace Yasc.ShogiCore.Core
 
     /// <summary>Takes a snapshot of the piece</summary>
     /// <exception cref="PieceHasNoOwnerException">Cannot take a snapshot of wnerless piece</exception>
-    public IColoredPiece Snapshot()
+    public IColoredPiece ToColoredPiece()
     {
       // TODO: Replace with "ColoredPiece" property
       return PieceType.GetColored(Color);

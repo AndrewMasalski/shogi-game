@@ -42,7 +42,7 @@ namespace ShogiCore.UnitTests.Core
         () => _piece.Color.ToString());
 
       MyAssert.ThrowsException<PieceHasNoOwnerException>(
-        () => _piece.Snapshot());
+        () => _piece.ToColoredPiece());
     }
     [TestMethod]
     public void ToStringTest()
@@ -58,7 +58,7 @@ namespace ShogiCore.UnitTests.Core
     public void Snapshot()
     {
       _board.White.Hand.Add(_piece);
-      var IColoredPiece = _piece.Snapshot();
+      var IColoredPiece = _piece.ToColoredPiece();
       Assert.AreEqual(PieceColor.White, IColoredPiece.Color);
       Assert.AreEqual(PT.銀, IColoredPiece.PieceType);
     }

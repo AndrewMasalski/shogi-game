@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
 

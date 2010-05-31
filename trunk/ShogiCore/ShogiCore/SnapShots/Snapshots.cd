@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Yasc.ShogiCore.Snapshots.BoardSnapshot">
-    <Position X="4.75" Y="0.5" Width="2.25" />
+    <Position X="0.5" Y="0.5" Width="2.25" />
     <Members>
       <Field Name="_blackHand" Hidden="true" />
       <Field Name="_blackHandRo" Hidden="true" />
@@ -9,6 +9,7 @@
       <Field Name="_cellsRo" Hidden="true" />
       <Field Name="_hashCode" Hidden="true" />
       <Field Name="_isHashCodeCalculated" Hidden="true" />
+      <Field Name="_knownPositions" Hidden="true" />
       <Field Name="_whiteHand" Hidden="true" />
       <Field Name="_whiteHandRo" Hidden="true" />
       <Method Name="CalculateHashCode" Hidden="true" />
@@ -19,22 +20,46 @@
       <Method Name="FindTheKing" Hidden="true" />
       <Method Name="GetAllAvailableUsualMoves" Hidden="true" />
       <Method Name="GetAllValidDropMoves" Hidden="true" />
-      <Method Name="GetAllValidUsualMovesWithoutCheck3" Hidden="true" />
+      <Method Name="GetAllValidUsualMovesDontCheckTheCheck" Hidden="true" />
       <Method Name="GetAvailableDropMoves" Hidden="true" />
+      <Method Name="GetHandCollection" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="Go" Hidden="true" />
-      <Method Name="HandInternal" Hidden="true" />
       <Property Name="HashCode" Hidden="true" />
+      <Method Name="HowFarFromTheLastLine" Hidden="true" />
+      <Method Name="IsPromotionAllowed" Hidden="true" />
+      <Method Name="IsPromotionMandatory" Hidden="true" />
+      <Method Name="IsThatPromitionZoneFor" Hidden="true" />
       <Method Name="IsTherePawnOnThisColumn" Hidden="true" />
-      <Method Name="Move" Hidden="true" />
+      <Method Name="MarkValid" Hidden="true" />
       <Method Name="Opponent" Hidden="true" />
       <Method Name="SetPiece" Hidden="true" />
       <Method Name="ShortValidateUsualMove" Hidden="true" />
+      <Method Name="ValidateDropMove" Hidden="true" />
+      <Method Name="ValidateUsualMove" Hidden="true" />
     </Members>
+    <NestedTypes>
+      <Class Name="Yasc.ShogiCore.Snapshots.BoardSnapshot.KnownPositions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Snapshots\BoardSnapshot.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <AssociationLine Name="OneWhoMoves" Type="Yasc.ShogiCore.Primitives.PieceColor" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.062" Y="3.941" />
+        <Point X="2.062" Y="4.911" />
+        <Point X="4.5" Y="4.911" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QCABCAMMAKAEAACZkgNJJIAAEMAjApAAAAQhAABAAiE=</HashCode>
+      <HashCode>QCABCAIMEJAEgAAZkgPJJIAAFIAjIpQAAARhAADAAiU=</HashCode>
       <FileName>Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OneWhoMoves" />
+      <Property Name="GameResult" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
       <Property Name="BlackHand" />
@@ -42,106 +67,119 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.UsualMove">
-    <Position X="3.5" Y="6.25" Width="2.5" />
+    <Position X="0.5" Y="8.5" Width="2.5" />
     <Members>
       <Field Name="_who" Hidden="true" />
+      <Method Name="Apply" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
+      <Method Name="Validate" Hidden="true" />
       <Property Name="Who" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AgAAAACAAAAAAAAEAIAAAAAAAAAIAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AgAAAACAABCAAAAEAIAAAAAAAAAIAAAAAAAIABAAAAA=</HashCode>
       <FileName>Snapshots\UsualMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.ResignMove">
-    <Position X="9" Y="6.25" Width="2" />
+    <Position X="6" Y="8.5" Width="2" />
     <Members>
       <Field Name="_who" Hidden="true" />
+      <Method Name="Apply" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
+      <Method Name="Validate" Hidden="true" />
       <Property Name="Who" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAABCAAAAEAAAAAAAAAAAAAAAAAAAIABAAAAA=</HashCode>
       <FileName>Snapshots\ResignMove.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Yasc.ShogiCore.Snapshots.IColoredPiece">
-    <Position X="8.5" Y="0.5" Width="2.25" />
-    <Members>
-      <Method Name="Equals" Hidden="true" />
-      <Method Name="GetHashCode" Hidden="true" />
-      <Method Name="IsThatPromitionZoneFor" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAgAAEgACAABAAAAAAAJAAAAAAgAAAAiQ=</HashCode>
-      <FileName>Snapshots\IColoredPiece.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="PieceType" />
-      <Property Name="Color" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Yasc.ShogiCore.Core.Board">
-    <Position X="0.5" Y="0.5" Width="2.5" />
-    <Members>
-      <Field Name="_cells" Hidden="true" />
-      <Field Name="_currentMoveIndex" Hidden="true" />
-      <Field Name="_currentSnapshot" Hidden="true" />
-      <Field Name="_gameResult" Hidden="true" />
-      <Field Name="_isMovesOrderMaintained" Hidden="true" />
-      <Field Name="_moving" Hidden="true" />
-      <Field Name="_oneWhoMoves" Hidden="true" />
-      <Method Name="CreateMovesHistory" Hidden="true" />
-      <Method Name="CreatePlayer" Hidden="true" />
-      <Method Name="FillCells" Hidden="true" />
-      <Method Name="OnCurrentMoveIndexChanged" Hidden="true" />
-      <Method Name="OnHistoryNavigated" Hidden="true" />
-      <Method Name="OnHistoryNavigating" Hidden="true" />
-      <Method Name="OnHistoryPropertyChanged" Hidden="true" />
-      <Method Name="OnMoved" Hidden="true" />
-      <Method Name="OnMoving" Hidden="true" />
-      <Method Name="ResetCurrentSnapshot" Hidden="true" />
-      <Method Name="TakeSnapshot" Hidden="true" />
-      <Method Name="VerifyPlayerBelongs" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>hCA9hAGAAQQAoMAhAAMAACIQDIACCiRAAkACSFCAIAA=</HashCode>
-      <FileName>Core\Board.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="CurrentSnapshot" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.Move">
-    <Position X="6.5" Y="4.5" Width="2" />
+    <Position X="0.5" Y="6.5" Width="2" />
+    <Members>
+      <Field Name="_errorMessage" Hidden="true" />
+      <Method Name="Apply" Hidden="true" />
+      <Method Name="MarkValid" Hidden="true" />
+      <Method Name="Move" Hidden="true" />
+      <Method Name="Validate" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Who" Type="Yasc.ShogiCore.Primitives.PieceColor" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.062" Y="6.5" />
+        <Point X="2.062" Y="5.206" />
+        <Point X="4.5" Y="5.206" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="BoardSnapshot" Type="Yasc.ShogiCore.Snapshots.BoardSnapshot" FixedToPoint="true">
+      <Path>
+        <Point X="1.812" Y="6.5" />
+        <Point X="1.812" Y="3.941" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAADCAAAAAAkgAAAAEAAAAAAAAAABIABAAAAA=</HashCode>
       <FileName>Snapshots\Move.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Who" />
+      <Property Name="BoardSnapshot" />
+      <Property Name="MoveType" />
+      <Property Name="RulesViolation" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.DropMove">
-    <Position X="6.25" Y="6.25" Width="2.5" />
+    <Position X="3.25" Y="8.5" Width="2.5" />
     <Members>
+      <Method Name="Apply" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
+      <Method Name="Validate" Hidden="true" />
       <Property Name="Who" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAIABAAAAAIIAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAABCAAAAEAAAAAAAAAAAIABAAAAAIIBAAAAA=</HashCode>
       <FileName>Snapshots\DropMove.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Yasc.ShogiCore.Primitives.IPieceType">
-    <Position X="12" Y="1.75" Width="1.5" />
+    <Position X="6.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AEEAAAAAgACEBAAAAAQAAABAAAAAAAQIAAAgAAAAAAQ=</HashCode>
+      <HashCode>AEEEAAAAgACEBAAAIAQAAABABAAAAAQIAAAgAAAAAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="Yasc.ShogiCore.Primitives.IColoredPiece">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAgAAAAAA=</HashCode>
+      <FileName>Primitives\IColoredPiece.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="Yasc.ShogiCore.Primitives.PieceColor">
-    <Position X="12" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\PieceColor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Yasc.ShogiCore.Snapshots.ShogiGameResult">
+    <Position X="4.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAggAAAAAAAAAAAAAAAAAAAAAAgEAAAA=</HashCode>
+      <FileName>Snapshots\ShogiGameResult.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Yasc.ShogiCore.Snapshots.MoveType">
+    <Position X="4.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAQAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Snapshots\Move.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Yasc.ShogiCore.Snapshots.RulesViolation">
+    <Position X="6.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAASACAABAAAAAAAEAAAAAAAQSQAAAACAACAIQAAEA=</HashCode>
+      <FileName>Snapshots\RulesViolation.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Tahoma" Size="8.25" />

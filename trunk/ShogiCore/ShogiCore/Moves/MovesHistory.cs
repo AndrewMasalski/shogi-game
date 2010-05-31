@@ -18,7 +18,7 @@ namespace Yasc.ShogiCore.Moves
     }
 
     /// <summary>Adds the move to the history</summary>
-    public void Do(DecoratedMove move)
+    public void Add(DecoratedMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
 
@@ -30,6 +30,14 @@ namespace Yasc.ShogiCore.Moves
 
       if (Items.Count == 1)
         OnPropertyChanged(new PropertyChangedEventArgs("IsEmpty"));
+    }
+
+    /// <summary>Adds the move to the history</summary>
+    public void Add(Move snapshot)
+    {
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
+
+      Add(Decorate(snapshot));
     }
 
     /// <summary>Gets or sets currebt move reference</summary>
@@ -106,6 +114,14 @@ namespace Yasc.ShogiCore.Moves
     public void GoToTheLast()
     {
       CurrentMoveIndex = Count - 1;
+    }
+
+    /// <summary>Gets move on the board parsing it from snapsot</summary>
+    public DecoratedMove Decorate(Move snapshot)
+    {
+      // TODO: Using of this method is almost always ugly!
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
+      return new DecoratedMove(snapshot);
     }
   }
 }

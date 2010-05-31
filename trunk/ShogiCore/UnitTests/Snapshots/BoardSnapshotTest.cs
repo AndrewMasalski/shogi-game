@@ -52,15 +52,15 @@ namespace ShogiCore.UnitTests.Snapshots
     [TestMethod]
     public void HandIndexerTest()
     {
-      Assert.AreSame(_snapshot.WhiteHand, _snapshot.Hand(PieceColor.White));
-      Assert.AreSame(_snapshot.BlackHand, _snapshot.Hand(PieceColor.Black));
+      Assert.AreSame(_snapshot.WhiteHand, _snapshot.GetHand(PieceColor.White));
+      Assert.AreSame(_snapshot.BlackHand, _snapshot.GetHand(PieceColor.Black));
     }
     [TestMethod]
     public void GetPieceAtOverloadsTest()
     {
       foreach (var p in Position.OnBoard)
         Assert.AreSame(
-          _snapshot.GetPieceAt(p.X, p.Y), 
+          _snapshot.Cells[p.X, p.Y], 
           _snapshot.GetPieceAt(p));
     }
     [TestMethod]
