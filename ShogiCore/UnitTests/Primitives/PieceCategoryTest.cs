@@ -72,5 +72,19 @@ namespace ShogiCore.UnitTests.Primitives
       CollectionAssert.AreEqual(new[] { PT.香, PT.仝 }, PT.L.PieceTypes);
       CollectionAssert.AreEqual(new[] { PT.歩, PT.と }, PT.P.PieceTypes);
     }
+    [TestMethod]
+    public void ToStringTest()
+    {
+      Assert.AreSame("Kr", PT.Kr.ToString());
+      Assert.AreSame("Kc", PT.Kc.ToString());
+      Assert.AreSame("K", PT.K.ToString());
+      Assert.AreSame("R", PT.R.ToString());
+      Assert.AreSame("B", PT.B.ToString());
+      Assert.AreSame("G", PT.G.ToString());
+      Assert.AreSame("S", PT.S.ToString());
+      Assert.AreSame("N", PT.N.ToString());
+      Assert.AreSame("L", PT.L.ToString());
+      Assert.AreSame("P", PT.P.ToString());
+    }
   }
 }
