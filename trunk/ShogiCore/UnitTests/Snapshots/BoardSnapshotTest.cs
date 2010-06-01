@@ -95,8 +95,46 @@ namespace ShogiCore.UnitTests.Snapshots
     [TestMethod]
     public void ParseSfen()
     {
-      var boardSnapshot = BoardSnapshot.ParseSfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 1");
-      Assert.AreEqual(BoardSnapshot.InitialPosition, boardSnapshot);
+      Assert.AreEqual(BoardSnapshot.InitialPosition, 
+        BoardSnapshot.ParseSfen("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"));
+
+      Assert.AreEqual(new BoardSnapshot(PieceColor.White, 
+        new[]
+          {
+            Tuple.Create(Position.Parse("1a"), PT.香.White),
+            Tuple.Create(Position.Parse("7a"), PT.銀.White),
+            Tuple.Create(Position.Parse("8a"), PT.桂.White),
+            Tuple.Create(Position.Parse("9a"), PT.香.White),
+            Tuple.Create(Position.Parse("8b"), PT.金.Black),
+            Tuple.Create(Position.Parse("5c"), PT.歩.White),
+            Tuple.Create(Position.Parse("6c"), PT.歩.White),
+            Tuple.Create(Position.Parse("7c"), PT.歩.White),
+            Tuple.Create(Position.Parse("8c"), PT.歩.White),
+            Tuple.Create(Position.Parse("1d"), PT.歩.White),
+            Tuple.Create(Position.Parse("4d"), PT.飛.Black),
+            Tuple.Create(Position.Parse("9d"), PT.歩.White),
+            Tuple.Create(Position.Parse("2e"), PT.歩.White),
+            Tuple.Create(Position.Parse("6e"), PT.歩.Black),
+            Tuple.Create(Position.Parse("7e"), PT.角.Black),
+            Tuple.Create(Position.Parse("1f"), PT.歩.Black),
+            Tuple.Create(Position.Parse("2f"), PT.歩.Black),
+            Tuple.Create(Position.Parse("8f"), PT.銀.Black),
+            Tuple.Create(Position.Parse("9f"), PT.歩.Black),
+            Tuple.Create(Position.Parse("4g"), PT.と.White),
+            Tuple.Create(Position.Parse("5g"), PT.歩.Black),
+            Tuple.Create(Position.Parse("7g"), PT.銀.Black),
+            Tuple.Create(Position.Parse("8g"), PT.王.White),
+            Tuple.Create(Position.Parse("6h"), PT.金.Black),
+            Tuple.Create(Position.Parse("8h"), PT.金.Black),
+            Tuple.Create(Position.Parse("1i"), PT.馬.White),
+            Tuple.Create(Position.Parse("2i"), PT.桂.Black),
+            Tuple.Create(Position.Parse("6i"), PT.玉.Black),
+            Tuple.Create(Position.Parse("8i"), PT.桂.Black),
+            Tuple.Create(Position.Parse("9i"), PT.香.Black),
+          },
+          new[] { PT.歩,PT.歩,PT.歩,PT.香,PT.桂,PT.飛},
+          new[] { PT.歩,PT.歩,PT.銀,PT.金}),
+        BoardSnapshot.ParseSfen("lns5l/1G7/1pppp4/p4R2p/2BP3p1/PS5PP/1kS1P+p3/1G1G5/LN1K3N+b w GS2Prnl3p 1"));
     }
   }
 }
