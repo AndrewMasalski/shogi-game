@@ -64,7 +64,7 @@ namespace Yasc.ShogiCore.Notations
     private IEnumerable<DropMove> CreateDropMoves(IPieceType pieceType, string toPosition)
     {
       var move = new DropMove(_board, 
-        pieceType.GetColored(_board.OneWhoMoves), 
+        pieceType.GetColored(_board.SideOnMove), 
         Position.Parse(toPosition));
 
       if (move.IsValid) yield return move;
@@ -99,7 +99,7 @@ namespace Yasc.ShogiCore.Notations
              let piece = _board.GetPieceAt(p)
              where piece != null &&
                    piece.PieceType == pieceType &&
-                   piece.Color == _board.OneWhoMoves
+                   piece.Color == _board.SideOnMove
              from m in _board.GetAvailableUsualMoves(p)
              where m.IsPromoting == isPromoting 
                 && _board.GetPieceAt(m.To) != null 
@@ -110,14 +110,14 @@ namespace Yasc.ShogiCore.Notations
     private string CurrentKing
     {
       // NOTE: Strictly speaking king type doesnt depend on color...
-      get { return _board.OneWhoMoves == PieceColor.White ? "Kr" : "Kc"; }
+      get { return _board.SideOnMove == PieceColor.White ? "Kr" : "Kc"; }
     }
     private Position[] FindFromPosition(string hint, IPieceType pieceType, Position toPosition, bool isPromoting)
     {
       var candidates = (from p in Position.OnBoard
                         where _board.GetPieceAt(p) != null &&
                               _board.GetPieceAt(p).PieceType == pieceType &&
-                              _board.GetPieceAt(p).Color == _board.OneWhoMoves &&
+                              _board.GetPieceAt(p).Color == _board.SideOnMove &&
                               (from move in _board.GetAvailableUsualMoves(p)
                                where move.IsPromoting == isPromoting
                                select move.To).Contains(toPosition)

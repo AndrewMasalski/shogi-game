@@ -47,7 +47,7 @@ namespace ShogiCore.UnitTests.Core
       Assert.IsTrue(board.PieceSet is StandardPieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
-      Assert.IsNotNull(board.OneWhoMoves);
+      Assert.IsNotNull(board.SideOnMove);
       foreach (var p in Position.OnBoard)
         Assert.IsNotNull(board.GetCellAt(p));
     }
@@ -58,7 +58,7 @@ namespace ShogiCore.UnitTests.Core
       Assert.IsTrue(board.PieceSet is InfinitePieceSet);
       Assert.IsNotNull(board.White);
       Assert.IsNotNull(board.Black);
-      Assert.IsNotNull(board.OneWhoMoves);
+      Assert.IsNotNull(board.SideOnMove);
       foreach (var p in Position.OnBoard)
         Assert.IsNotNull(board.GetCellAt(p));
     }
@@ -85,7 +85,7 @@ namespace ShogiCore.UnitTests.Core
         snapshot = s;
       });
 
-      _board.OneWhoMoves = _board.White;
+      _board.SideOnMove = _board.White;
       check();
       _board.White.Hand.Add(PT.香);
       check();
@@ -105,7 +105,7 @@ namespace ShogiCore.UnitTests.Core
       // Here we never read _board.CurrentSnapshot property 
       // so there's nothing to change
       _board.SetPiece(PT.馬, "1i", PieceColor.Black);
-      _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
+      _board.SideOnMove = _board.SideOnMove.Opponent;
 
       assertion1.Check();
 
@@ -119,7 +119,7 @@ namespace ShogiCore.UnitTests.Core
       Assert.IsNotNull(_board.CurrentSnapshot);
       _board.SetPiece(PT.馬, "1i", PieceColor.Black);
       Assert.IsNotNull(_board.CurrentSnapshot);
-      _board.OneWhoMoves = _board.OneWhoMoves.Opponent;
+      _board.SideOnMove = _board.SideOnMove.Opponent;
 
       assertion2.Check();
     }
@@ -176,7 +176,7 @@ namespace ShogiCore.UnitTests.Core
     public void IsMovesOrderMaintainedForDropMovesWithEmptyHand()
     {
       _board.IsMovesOrderMaintained = false;
-      var move = _board.GetDropMove(PT.歩, "9e", _board.OneWhoMoves);
+      var move = _board.GetDropMove(PT.歩, "9e", _board.SideOnMove);
       Assert.AreEqual(RulesViolation.WrongPieceReference, move.RulesViolation);
     }
     [TestMethod]
@@ -382,7 +382,7 @@ namespace ShogiCore.UnitTests.Core
       var availableMoves = _board.GetAvailableMoves("7g");
       var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("7f"), toPositions);
-      Assert.AreEqual(_board.Black, _board.OneWhoMoves);
+      Assert.AreEqual(_board.Black, _board.SideOnMove);
     }
 
     [TestMethod]
@@ -419,7 +419,7 @@ namespace ShogiCore.UnitTests.Core
     [TestMethod]
     public void TestWhiteResignMove()
     {
-      _board.OneWhoMoves = _board.GetPlayer(PieceColor.White);
+      _board.SideOnMove = _board.GetPlayer(PieceColor.White);
       Assert.AreEqual(ShogiGameState.NotDefined, _board.GameState);
       _board.MakeMove(_board.GetResignMove());
       Assert.AreEqual(ShogiGameState.BlackWin, _board.GameState);
@@ -437,11 +437,11 @@ namespace ShogiCore.UnitTests.Core
         () => _board.GetDropMove(null, "1i"));
     }
     [TestMethod]
-    public void OneWhoMoves()
+    public void SideOnMove()
     {
       MyAssert.ThrowsException<ArgumentOutOfRangeException>(() =>
       {
-        _board.OneWhoMoves = new Board(new StandardPieceSet()).White;
+        _board.SideOnMove = new Board(new StandardPieceSet()).White;
       });
     }
     [TestMethod]

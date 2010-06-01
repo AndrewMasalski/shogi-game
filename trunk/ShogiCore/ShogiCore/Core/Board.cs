@@ -17,7 +17,7 @@ namespace Yasc.ShogiCore.Core
 
     private int _currentMoveIndex;
     private readonly Flag _moving = new Flag();
-    private Player _oneWhoMoves;
+    private Player _sideOnMove;
     private bool _isMovesOrderMaintained = true;
     private readonly Cell[,] _cells = new Cell[9, 9];
     private BoardSnapshot _currentSnapshot;
@@ -37,16 +37,16 @@ namespace Yasc.ShogiCore.Core
     /// <summary>The one who plays black pieces</summary>
     public Player Black { get; private set; }
     /// <summary>The player who moves next</summary>
-    public Player OneWhoMoves
+    public Player SideOnMove
     {
-      get { return _oneWhoMoves; }
+      get { return _sideOnMove; }
       set
       {
-        if (_oneWhoMoves == value) return;
+        if (_sideOnMove == value) return;
         if (value != White && value != Black)
           throw new ArgumentOutOfRangeException("value");
-        _oneWhoMoves = value;
-        RaisePropertyChanged("OneWhoMoves");
+        _sideOnMove = value;
+        RaisePropertyChanged("SideOnMove");
         ResetCurrentSnapshot();
       }
     }
@@ -118,7 +118,7 @@ namespace Yasc.ShogiCore.Core
       White = CreatePlayer();
       Black = CreatePlayer();
 
-      _oneWhoMoves = Black;
+      _sideOnMove = Black;
 
       FillCells();
     }
@@ -128,7 +128,7 @@ namespace Yasc.ShogiCore.Core
     public void LoadSnapshot(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-      OneWhoMoves = GetPlayer(snapshot.OneWhoMoves);
+      SideOnMove = GetPlayer(snapshot.SideOnMove);
 
       ResetAll();
 
@@ -257,15 +257,15 @@ namespace Yasc.ShogiCore.Core
     public UsualMove GetUsualMove(Position from, Position to, bool isPromoting)
     {
       if (!IsMovesOrderMaintained && GetPieceAt(from) != null)
-        OneWhoMoves = GetPieceAt(from).Owner;
+        SideOnMove = GetPieceAt(from).Owner;
 
-      return new UsualMove(CurrentSnapshot, OneWhoMoves.Color, from, to, isPromoting);
+      return new UsualMove(CurrentSnapshot, SideOnMove.Color, from, to, isPromoting);
     }
     /// <summary>Gets drop move on the board</summary>
     public DropMove GetDropMove(IPieceType piece, Position to, Player who)
     {
       if (!IsMovesOrderMaintained)
-        OneWhoMoves = who;
+        SideOnMove = who;
 
       return new DropMove(CurrentSnapshot, piece.GetColored(who.Color), to);
     }
@@ -280,14 +280,14 @@ namespace Yasc.ShogiCore.Core
         throw new ArgumentOutOfRangeException("piece", "user has no that piece on the hand");
 
       if (!IsMovesOrderMaintained)
-        OneWhoMoves = piece.Owner;
+        SideOnMove = piece.Owner;
 
       return new DropMove(CurrentSnapshot, piece.ToColoredPiece(), to);
     }
     /// <summary>Gets resign move</summary>
     public Move GetResignMove()
     {
-      return new ResignMove(CurrentSnapshot, OneWhoMoves.Color);
+      return new ResignMove(CurrentSnapshot, SideOnMove.Color);
     }
 
     /// <summary>Makes the move on the board</summary>
@@ -301,7 +301,7 @@ namespace Yasc.ShogiCore.Core
       {
         OnMoving(new MoveEventArgs(move));
         MakeMoveInternal(move);
-        _oneWhoMoves = _oneWhoMoves.Opponent;
+        _sideOnMove = _sideOnMove.Opponent;
         History.Add(move);
         OnMoved(new MoveEventArgs(move));
       }
@@ -325,7 +325,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
       {
         var piece = GetPieceAt(fromPosition);
-        if (piece != null) OneWhoMoves = piece.Owner;
+        if (piece != null) SideOnMove = piece.Owner;
       }
       return from snapshot in CurrentSnapshot.GetAvailableUsualMoves(fromPosition)
              select snapshot;
@@ -422,7 +422,7 @@ namespace Yasc.ShogiCore.Core
 
     private BoardSnapshot TakeSnapshot()
     {
-      return new BoardSnapshot(OneWhoMoves.Color,
+      return new BoardSnapshot(SideOnMove.Color,
 
           from position in Position.OnBoard
           let piece = GetPieceAt(position)

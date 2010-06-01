@@ -17,16 +17,16 @@ namespace ShogiCore.UnitTests.Positions
 
     protected override void ValidateDropMoves(Board board, IDropMoves dropMoves)
     {
-      board.OneWhoMoves = board.GetPlayer(dropMoves.For);
+      board.SideOnMove = board.GetPlayer(dropMoves.For);
       var moves = board.GetAvailableMoves(dropMoves.Piece, dropMoves.For);
       var expected = from p in dropMoves.To
-                     select board.GetDropMove(dropMoves.Piece, p, board.OneWhoMoves);
+                     select board.GetDropMove(dropMoves.Piece, p, board.SideOnMove);
       AreEquivalent(expected, moves, (x, y) =>
                                      x.PieceType == y.PieceType && x.To == y.To && x.Who == y.Who);
     }
     protected override void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
     {
-      board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
+      board.SideOnMove = board.GetPieceAt(usualMoves.From).Owner;
 
       var moves = board.GetAvailableMoves(usualMoves.From);
       var expected = from p in usualMoves.To

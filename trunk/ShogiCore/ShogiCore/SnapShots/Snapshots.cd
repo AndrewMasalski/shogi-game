@@ -21,7 +21,6 @@
       <Method Name="GetAllAvailableUsualMoves" Hidden="true" />
       <Method Name="GetAllValidDropMoves" Hidden="true" />
       <Method Name="GetAllValidUsualMovesDontCheckTheCheck" Hidden="true" />
-      <Method Name="GetAvailableDropMoves" Hidden="true" />
       <Method Name="GetHandCollection" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Method Name="Go" Hidden="true" />
@@ -45,20 +44,13 @@
         </TypeIdentifier>
       </Class>
     </NestedTypes>
-    <AssociationLine Name="OneWhoMoves" Type="Yasc.ShogiCore.Primitives.PieceColor" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="2.062" Y="3.941" />
-        <Point X="2.062" Y="4.911" />
-        <Point X="4.5" Y="4.911" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QCABCAIMEJAEgAAZkgPJJIAAFIAjIpQAAARhAADAAiU=</HashCode>
+      <HashCode>QCCACAIMEJAEgAAZkgPJJIAAFIAjIpQAAARhAABAMiU=</HashCode>
       <FileName>Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="OneWhoMoves" />
-      <Property Name="GameResult" />
+      <Property Name="SideOnMove" />
+      <Property Name="GameState" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
@@ -67,7 +59,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.UsualMove">
-    <Position X="0.5" Y="8.5" Width="2.5" />
+    <Position X="0.5" Y="8.25" Width="2.5" />
     <Members>
       <Field Name="_who" Hidden="true" />
       <Method Name="Apply" Hidden="true" />
@@ -81,7 +73,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.ResignMove">
-    <Position X="6" Y="8.5" Width="2" />
+    <Position X="6" Y="8.25" Width="2" />
     <Members>
       <Field Name="_who" Hidden="true" />
       <Method Name="Apply" Hidden="true" />
@@ -95,7 +87,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.Move">
-    <Position X="0.5" Y="6.5" Width="2" />
+    <Position X="0.5" Y="5.75" Width="2" />
     <Members>
       <Field Name="_errorMessage" Hidden="true" />
       <Method Name="Apply" Hidden="true" />
@@ -105,15 +97,9 @@
     </Members>
     <AssociationLine Name="Who" Type="Yasc.ShogiCore.Primitives.PieceColor" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.062" Y="6.5" />
+        <Point X="2.062" Y="5.75" />
         <Point X="2.062" Y="5.206" />
-        <Point X="4.5" Y="5.206" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="BoardSnapshot" Type="Yasc.ShogiCore.Snapshots.BoardSnapshot" FixedToPoint="true">
-      <Path>
-        <Point X="1.812" Y="6.5" />
-        <Point X="1.812" Y="3.941" />
+        <Point X="3.25" Y="5.206" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -121,14 +107,14 @@
       <FileName>Snapshots\Move.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="MoveType" />
       <Property Name="Who" />
       <Property Name="BoardSnapshot" />
-      <Property Name="MoveType" />
       <Property Name="RulesViolation" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Yasc.ShogiCore.Snapshots.DropMove">
-    <Position X="3.25" Y="8.5" Width="2.5" />
+    <Position X="3.25" Y="8.25" Width="2.5" />
     <Members>
       <Method Name="Apply" Hidden="true" />
       <Method Name="ToString" Hidden="true" />
@@ -155,21 +141,21 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="Yasc.ShogiCore.Primitives.PieceColor">
-    <Position X="4.5" Y="4.5" Width="1.5" />
+    <Position X="3.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\PieceColor.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="Yasc.ShogiCore.Snapshots.ShogiGameResult">
-    <Position X="4.5" Y="3" Width="1.5" />
+  <Enum Name="Yasc.ShogiCore.Snapshots.ShogiGameState">
+    <Position X="5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAggAAAAAAAAAAAAAAAAAAAAAAgEAAAA=</HashCode>
-      <FileName>Snapshots\ShogiGameResult.cs</FileName>
+      <HashCode>AAAAAAACBAAAAggAAAAAAAAAAAAAAAAAAAAAEgEAAAA=</HashCode>
+      <FileName>Snapshots\ShogiGameState.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Yasc.ShogiCore.Snapshots.MoveType">
-    <Position X="4.5" Y="5.75" Width="1.5" />
+    <Position X="5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAQAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Snapshots\Move.cs</FileName>
