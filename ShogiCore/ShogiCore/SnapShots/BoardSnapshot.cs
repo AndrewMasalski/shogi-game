@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -131,6 +130,36 @@ namespace Yasc.ShogiCore.Snapshots
         if (currentFile != 9)
           throw new ArgumentOutOfRangeException("sfenString", "Row must contain exactly 9 cells");
       }
+      res.OneWhoMoves = sideOnMove.ToLower() == "w" ? PieceColor.White : PieceColor.Black;
+      if (hand != "-")
+      {
+        int? multiplier = null;
+        foreach (var ch in hand)
+        {
+          if (char.IsDigit(ch))
+          {
+            if (multiplier == null)
+            {
+              multiplier = int.Parse(ch.ToString());
+            }
+            else multiplier = multiplier*10 + int.Parse(ch.ToString());
+          }
+          else
+          {
+            IPieceType pieceType;
+            if (!PT.TryParse(char.ToUpper(ch).ToString(), out pieceType))
+              throw new ArgumentOutOfRangeException("sfenString", "Piece type is not found: " + ch);
+
+            if (multiplier == null)
+              multiplier = 1;
+            for (int i = 0; i < multiplier; i++)
+              (char.IsUpper(ch) ? res._blackHand : res._whiteHand).Add(pieceType);
+            multiplier = null;
+          }
+        }
+        res._whiteHand.Sort();
+        res._blackHand.Sort();
+      }
       return res;
     }
 
@@ -153,7 +182,9 @@ namespace Yasc.ShogiCore.Snapshots
         SetPiece(t.Item1, t.Item2);
 
       _whiteHand = whiteHand != null ? whiteHand.ToList() : EmptyList<IPieceType>.Instance;
+      _whiteHand.Sort();
       _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance; 
+      _blackHand.Sort();
     }
     
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
@@ -328,8 +359,10 @@ namespace Yasc.ShogiCore.Snapshots
       foreach (var p in Position.OnBoard)
         SetPiece(p, board.GetPieceAt(p));
 
-      _whiteHand = board.WhiteHand.OrderBy(p => p).ToList();
-      _blackHand = board.BlackHand.OrderBy(p => p).ToList();
+      _whiteHand = board.WhiteHand.ToList();
+      _whiteHand.Sort();
+      _blackHand = board.BlackHand.ToList();
+      _blackHand.Sort();
 
       Move.Apply(this);
       OneWhoMoves = Opponent(OneWhoMoves);
