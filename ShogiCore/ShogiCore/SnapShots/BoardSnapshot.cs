@@ -12,8 +12,7 @@ namespace Yasc.ShogiCore.Snapshots
   [Serializable]
   public class BoardSnapshot 
   {
-    // TODO: OneWhoMoves => SideOnMove
-    // TODO: Sfen strings
+    // TODO: Write SFEN strings
 
     #region ' Fields '
 
@@ -47,7 +46,7 @@ namespace Yasc.ShogiCore.Snapshots
     #region ' Public Interface '
 
     /// <summary>The player who moves next</summary>
-    public PieceColor OneWhoMoves { get; private set; }
+    public PieceColor SideOnMove { get; private set; }
     /// <summary>9x9 array of the cells with pieces</summary>
     public ReadOnlySquareArray<IColoredPiece> Cells
     {
@@ -130,7 +129,7 @@ namespace Yasc.ShogiCore.Snapshots
         if (currentFile != 9)
           throw new ArgumentOutOfRangeException("sfenString", "Row must contain exactly 9 cells");
       }
-      res.OneWhoMoves = sideOnMove.ToLower() == "w" ? PieceColor.White : PieceColor.Black;
+      res.SideOnMove = sideOnMove.ToLower() == "w" ? PieceColor.White : PieceColor.Black;
       if (hand != "-")
       {
         int? multiplier = null;
@@ -170,14 +169,14 @@ namespace Yasc.ShogiCore.Snapshots
     }
 
     /// <summary>ctor</summary>
-    public BoardSnapshot(PieceColor oneWhoMoves,
+    public BoardSnapshot(PieceColor sideOnMove,
       IEnumerable<Tuple<Position, IColoredPiece>> boardPieces,
       IEnumerable<IPieceType> whiteHand = null,
       IEnumerable<IPieceType> blackHand = null)
     {
       if (boardPieces == null) throw new ArgumentNullException("boardPieces");
 
-      OneWhoMoves = oneWhoMoves;
+      SideOnMove = sideOnMove;
       foreach (var t in boardPieces)
         SetPiece(t.Item1, t.Item2);
 
@@ -292,8 +291,8 @@ namespace Yasc.ShogiCore.Snapshots
     internal RulesViolation ValidateDropMove(DropMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
-      if (move.Piece.Color != OneWhoMoves) return RulesViolation.WrongSideToMove;
-      if (!GetHand(OneWhoMoves).Contains(move.Piece.PieceType)) return RulesViolation.WrongPieceReference;
+      if (move.Piece.Color != SideOnMove) return RulesViolation.WrongSideToMove;
+      if (!GetHand(SideOnMove).Contains(move.Piece.PieceType)) return RulesViolation.WrongPieceReference;
       if (GetPieceAt(move.To) != null) return RulesViolation.DropToOccupiedCell;
 
       if (move.Piece.PieceType == PT.歩 || move.Piece.PieceType == PT.香)
@@ -305,15 +304,15 @@ namespace Yasc.ShogiCore.Snapshots
           return RulesViolation.DropToLastLines;
 
       if (move.Piece.PieceType == PT.歩)
-        if (IsTherePawnOnThisColumn(OneWhoMoves, move.To.X))
+        if (IsTherePawnOnThisColumn(SideOnMove, move.To.X))
           return RulesViolation.TwoPawnsOnTheSameFile;
 
       var newPosition = new BoardSnapshot(this, move);
       if (move.Piece.PieceType == PT.歩)
-        if (newPosition.IsMateFor(Opponent(OneWhoMoves)))
+        if (newPosition.IsMateFor(Opponent(SideOnMove)))
           return RulesViolation.DropPawnToMate;
 
-      return newPosition.IsMateFor(OneWhoMoves)
+      return newPosition.IsMateFor(SideOnMove)
         ? RulesViolation.MoveToCheck // TODO: Not tested!
         : RulesViolation.NoViolations;
     }
@@ -328,7 +327,7 @@ namespace Yasc.ShogiCore.Snapshots
       if (move.From == move.To)
         return RulesViolation.PieceDoesntMoveThisWay;
 
-      if (movingPiece.Color != OneWhoMoves)
+      if (movingPiece.Color != SideOnMove)
         return RulesViolation.WrongSideToMove;
 
       var takenPiece = GetPieceAt(move.To);
@@ -354,7 +353,7 @@ namespace Yasc.ShogiCore.Snapshots
     private BoardSnapshot(BoardSnapshot board, Move move)
     {
       Move = move;
-      OneWhoMoves = board.OneWhoMoves;
+      SideOnMove = board.SideOnMove;
 
       foreach (var p in Position.OnBoard)
         SetPiece(p, board.GetPieceAt(p));
@@ -365,7 +364,7 @@ namespace Yasc.ShogiCore.Snapshots
       _blackHand.Sort();
 
       Move.Apply(this);
-      OneWhoMoves = Opponent(OneWhoMoves);
+      SideOnMove = Opponent(SideOnMove);
     }
 
     private IEnumerable<UsualMove> GetAllAvailableUsualMoves(PieceColor color)
@@ -455,7 +454,7 @@ namespace Yasc.ShogiCore.Snapshots
     private int CalculateHashCode()
     {
       return EnumerableExtensions.GetSeqHashCode(
-        OneWhoMoves.GetHashCode(),
+        SideOnMove.GetHashCode(),
         _cells.GetSeqHashCode(),
         _whiteHand.CalcHashCode(),
         _blackHand.CalcHashCode());
@@ -471,7 +470,7 @@ namespace Yasc.ShogiCore.Snapshots
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return other.HashCode == HashCode &&
-             Equals(other.OneWhoMoves, OneWhoMoves) &&
+             Equals(other.SideOnMove, SideOnMove) &&
              EnumerableExtensions.Equal(other.Cells, Cells) &&
              EnumerableExtensions.Equal(other.BlackHand, BlackHand) &&
              EnumerableExtensions.Equal(other.WhiteHand, WhiteHand);

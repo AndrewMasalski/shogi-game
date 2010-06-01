@@ -16,7 +16,7 @@ namespace ShogiCore.UnitTests.Positions
 
     protected override void ValidateDropMoves(Board board, IDropMoves dropMoves)
     {
-      board.OneWhoMoves = board.GetPlayer(dropMoves.For);
+      board.SideOnMove = board.GetPlayer(dropMoves.For);
       foreach (var to in dropMoves.To)
       {
         var move = board.GetDropMove(dropMoves.Piece, to, dropMoves.For);
@@ -31,7 +31,7 @@ namespace ShogiCore.UnitTests.Positions
     }
     protected override void ValidateUsualMoves(IUsualMoves usualMoves, Board board)
     {
-      board.OneWhoMoves = board.GetPieceAt(usualMoves.From).Owner;
+      board.SideOnMove = board.GetPieceAt(usualMoves.From).Owner;
       foreach (var to in usualMoves.To)
       {
         var move = board.GetUsualMove(usualMoves.From, to.Position, to.Promotion);

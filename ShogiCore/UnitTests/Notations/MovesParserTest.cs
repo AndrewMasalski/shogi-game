@@ -100,7 +100,7 @@ namespace ShogiCore.UnitTests.Notations
       var m = (UsualMove)_board.GetMove("8g-8f", FormalNotation.Instance).First();
       Assert.AreEqual("8g", m.From.ToString());
       Assert.AreEqual("8f", m.To.ToString());
-      Assert.AreEqual(_board.Black, _board.OneWhoMoves);
+      Assert.AreEqual(_board.Black, _board.SideOnMove);
     }
     [TestMethod]
     public void ParseResignMoveTest()

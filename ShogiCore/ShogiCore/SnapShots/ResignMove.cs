@@ -22,7 +22,7 @@ namespace Yasc.ShogiCore.Snapshots
 
     internal override RulesViolation Validate()
     {
-      return Who != BoardSnapshot.OneWhoMoves
+      return Who != BoardSnapshot.SideOnMove
                ? RulesViolation.WrongSideToMove
                : RulesViolation.NoViolations;
     }

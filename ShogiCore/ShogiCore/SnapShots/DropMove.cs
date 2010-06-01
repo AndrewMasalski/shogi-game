@@ -42,7 +42,7 @@ namespace Yasc.ShogiCore.Snapshots
 
     internal override void Apply(BoardSnapshot board)
     {
-      var handCollection = board.GetHandCollection(board.OneWhoMoves);
+      var handCollection = board.GetHandCollection(board.SideOnMove);
       handCollection.Remove(Piece.PieceType);
       board.SetPiece(To, Piece);
     }
