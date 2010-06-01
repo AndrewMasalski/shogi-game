@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Primitives;
 using Yasc.Utils;
@@ -10,15 +11,13 @@ namespace Yasc.ShogiCore.Snapshots
 {
   /// <summary>Represents lightweigth snapshot of the <see cref="Board"/></summary>
   [Serializable]
-  public class BoardSnapshot 
+  public class BoardSnapshot
   {
-    // TODO: Write SFEN strings
-
     #region ' Fields '
 
     private bool _isHashCodeCalculated;
     private KnownPositions _knownPositions;
-    
+
     private readonly IColoredPiece[,] _cells = new IColoredPiece[9, 9];
     private readonly List<IPieceType> _blackHand;
     private readonly List<IPieceType> _whiteHand;
@@ -85,11 +84,11 @@ namespace Yasc.ShogiCore.Snapshots
         throw new ArgumentOutOfRangeException("sfenString", "Board record must consist of 9 slash separated rows");
 
       var res = new BoardSnapshot(new List<IPieceType>(), new List<IPieceType>());
-      for (int i = 0; i < 9; i++)
+      for (int rowIndex = 0; rowIndex < 9; rowIndex++)
       {
         var currentFile = 0;
         var promoted = false;
-        foreach (var ch in rows[i])
+        foreach (var ch in rows[rowIndex])
         {
           if (char.IsDigit(ch))
           {
@@ -123,7 +122,7 @@ namespace Yasc.ShogiCore.Snapshots
 
             var piece = char.IsUpper(ch) ? pieceType.Black : pieceType.White;
 
-            res._cells[8-currentFile++, i] = piece;
+            res._cells[8 - currentFile++, rowIndex] = piece;
           }
         }
         if (currentFile != 9)
@@ -141,7 +140,7 @@ namespace Yasc.ShogiCore.Snapshots
             {
               multiplier = int.Parse(ch.ToString());
             }
-            else multiplier = multiplier*10 + int.Parse(ch.ToString());
+            else multiplier = multiplier * 10 + int.Parse(ch.ToString());
           }
           else
           {
@@ -161,11 +160,64 @@ namespace Yasc.ShogiCore.Snapshots
       }
       return res;
     }
-
-    private BoardSnapshot(List<IPieceType> blackHand, List<IPieceType> whiteHand)
+    /// <summary>Gets a SFEN representation of the board state</summary>
+    public string ToSfenString()
     {
-      _blackHand = blackHand;
-      _whiteHand = whiteHand;
+      var sb = new StringBuilder();
+      for (int rankIndex = 0; rankIndex < 9; rankIndex++)
+      {
+        int gapSize = 0;
+        for (int fileIndex = 0; fileIndex < 9; fileIndex++)
+        {
+          var piece = _cells[8 - fileIndex, rankIndex];
+          if (piece == null)
+          {
+            gapSize++;
+          }
+          else
+          {
+            if (gapSize > 0)
+            {
+              sb.Append(gapSize);
+              gapSize = 0;
+            }
+            var symbol = piece.PieceType.PieceKind.ToString();
+            if (piece.Color == PieceColor.White)
+              symbol = symbol.ToLower();
+            if (piece.PieceType.IsPromoted)
+              sb.Append("+");
+            sb.Append(symbol);
+          }
+        }
+        if (gapSize > 0)
+          sb.Append(gapSize);
+        sb.Append("/");
+      }
+      sb.Remove(sb.Length - 1, 1);
+      sb.Append(" ");
+      sb.Append(SideOnMove == PieceColor.White ? "W" : "B");
+      sb.Append(" ");
+      if (BlackHand.Count + WhiteHand.Count == 0)
+      {
+        sb.Append("-");
+      }
+      foreach (var pieceTypeGroup in BlackHand.GroupBy(pt => pt))
+      {
+        var groupSize = pieceTypeGroup.Count();
+        if (groupSize > 1)
+          sb.Append(groupSize);
+        sb.Append(pieceTypeGroup.Key.Latin);
+      }
+      foreach (var pieceTypeGroup in WhiteHand.GroupBy(pt => pt))
+      {
+        var groupSize = pieceTypeGroup.Count();
+        if (groupSize > 1)
+          sb.Append(groupSize);
+        sb.Append(pieceTypeGroup.Key.Latin.ToLower());
+      }
+      sb.Append(" ");
+      sb.Append(Move == null ? 1 : Move.Number + 1);
+      return sb.ToString();
     }
 
     /// <summary>ctor</summary>
@@ -182,17 +234,17 @@ namespace Yasc.ShogiCore.Snapshots
 
       _whiteHand = whiteHand != null ? whiteHand.ToList() : EmptyList<IPieceType>.Instance;
       _whiteHand.Sort();
-      _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance; 
+      _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance;
       _blackHand.Sort();
     }
-    
+
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
     public BoardSnapshot MakeMove(Move move)
     {
       if (move == null) throw new ArgumentNullException("move");
       if (move.BoardSnapshot != this)
         throw new ArgumentException(
-          "You cannot apply this move to the given board because it "+
+          "You cannot apply this move to the given board because it " +
           "is different from the one move had been created for");
       if (!move.IsValid)
         throw new InvalidMoveException(move.RulesViolation);
@@ -202,7 +254,7 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
     public IColoredPiece GetPieceAt(Position position)
     {
-      return _cells[position.X, position.Y]; 
+      return _cells[position.X, position.Y];
     }
 
     /// <summary>Gets the hand collection by color</summary>
@@ -219,8 +271,8 @@ namespace Yasc.ShogiCore.Snapshots
         {
           if (DoesntHaveValidMoves(color))
           {
-            GameState = color == PieceColor.White 
-              ? ShogiGameState.BlackWin 
+            GameState = color == PieceColor.White
+              ? ShogiGameState.BlackWin
               : ShogiGameState.WhiteWin;
           }
           else
@@ -242,7 +294,7 @@ namespace Yasc.ShogiCore.Snapshots
           }
         }
       }
-      return (color == PieceColor.White 
+      return (color == PieceColor.White
           && GameState == ShogiGameState.BlackWin) ||
           (color == PieceColor.Black &&
           GameState == ShogiGameState.WhiteWin);
@@ -278,6 +330,12 @@ namespace Yasc.ShogiCore.Snapshots
         yield return move;
       foreach (var move in GetAllValidDropMoves(color))
         yield return move;
+    }
+    /// <summary>Gets a string representation of the board</summary>
+    /// <returns>SFEN</returns>
+    public override string ToString()
+    {
+      return ToSfenString();
     }
 
     #endregion
@@ -350,6 +408,11 @@ namespace Yasc.ShogiCore.Snapshots
 
     #region ' Implemetation '
 
+    private BoardSnapshot(List<IPieceType> blackHand, List<IPieceType> whiteHand)
+    {
+      _blackHand = blackHand;
+      _whiteHand = whiteHand;
+    }
     private BoardSnapshot(BoardSnapshot board, Move move)
     {
       Move = move;
@@ -445,8 +508,8 @@ namespace Yasc.ShogiCore.Snapshots
       }
 
       var snapshot = new BoardSnapshot(this, move);
-      return !snapshot.IsCheckFor(move.Who) 
-        ? RulesViolation.NoViolations 
+      return !snapshot.IsCheckFor(move.Who)
+        ? RulesViolation.NoViolations
         // TODO: Not tested!
         : RulesViolation.MoveToCheck;
     }
@@ -538,7 +601,7 @@ namespace Yasc.ShogiCore.Snapshots
     #region ' Initial Position '
 
     /// <summary>Contains initial position</summary>
-    public static readonly BoardSnapshot InitialPosition = 
+    public static readonly BoardSnapshot InitialPosition =
       new BoardSnapshot(PieceColor.Black, new[]{
                                                  Tuple.Create(Position.Parse("1a"), PT.香.White),
                                                  Tuple.Create(Position.Parse("9a"), PT.香.White),
@@ -621,7 +684,7 @@ namespace Yasc.ShogiCore.Snapshots
       if (!IsThatPromitionZoneFor(coloredPiece, from))
         if (!IsThatPromitionZoneFor(coloredPiece, to))
           return RulesViolation.CantPromoteWithThisMove;
-      
+
       return RulesViolation.NoViolations;
     }
 

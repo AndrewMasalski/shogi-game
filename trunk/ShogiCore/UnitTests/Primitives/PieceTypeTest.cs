@@ -58,12 +58,12 @@ namespace ShogiCore.UnitTests.Primitives
       Assert.AreEqual("N", PT.桂.Latin);
       Assert.AreEqual("L", PT.香.Latin);
       Assert.AreEqual("P", PT.歩.Latin);
-      Assert.AreEqual("Rp", PT.竜.Latin);
-      Assert.AreEqual("Bp", PT.馬.Latin);
-      Assert.AreEqual("Sp", PT.全.Latin);
-      Assert.AreEqual("Np", PT.今.Latin);
-      Assert.AreEqual("Lp", PT.仝.Latin);
-      Assert.AreEqual("Pp", PT.と.Latin);
+      Assert.AreEqual("+R", PT.竜.Latin);
+      Assert.AreEqual("+B", PT.馬.Latin);
+      Assert.AreEqual("+S", PT.全.Latin);
+      Assert.AreEqual("+N", PT.今.Latin);
+      Assert.AreEqual("+L", PT.仝.Latin);
+      Assert.AreEqual("+P", PT.と.Latin);
     } 
     [TestMethod]
     public void DemoteMethodTest()
