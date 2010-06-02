@@ -27,7 +27,7 @@ namespace ShogiCore.UnitTests.Core
       _board = new Board(new StandardPieceSet());
 
       _initializedBoard = new Board(new StandardPieceSet());
-      _initializedBoard.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _initializedBoard.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
 
       _blackPiece = _initializedBoard.GetPieceAt("9a");
       _initializedBoard.ResetPiece("9a");
@@ -149,7 +149,7 @@ namespace ShogiCore.UnitTests.Core
     [TestMethod]
     public void IsMovesOrderMaintainedForUsualMovesTest()
     {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       _board.IsMovesOrderMaintained = false;
       // Make move for black twice; there's no exception
       _board.MakeMove(_board.GetUsualMove("3c", "3d"));
@@ -344,7 +344,7 @@ namespace ShogiCore.UnitTests.Core
       board.SetPiece(PT.馬, "2i", PieceColor.Black);
       board.SetPiece(PT.馬, "3i", PieceColor.Black);
 
-      _board.LoadSnapshot(board.CurrentSnapshot);
+      _board.LoadSnapshotWithoutHistory(board.CurrentSnapshot);
     }
     #endregion
 
@@ -369,7 +369,7 @@ namespace ShogiCore.UnitTests.Core
     [TestMethod]
     public void GetAvailableUsualMovesTest()
     {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var availableMoves = _board.GetAvailableMoves("4a");
       var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("5b", "4b", "3b"), toPositions);
@@ -378,7 +378,7 @@ namespace ShogiCore.UnitTests.Core
     public void GetAvailableMovesOrderTest()
     {
       _board.IsMovesOrderMaintained = false;
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var availableMoves = _board.GetAvailableMoves("7g");
       var toPositions = (from UsualMove m in availableMoves select m.To).ToList();
       CollectionAssert.AreEquivalent(P("7f"), toPositions);
@@ -466,7 +466,7 @@ namespace ShogiCore.UnitTests.Core
       var log = new TestLog();
       _board.Moved += (s, e) => log.Write(string.Format("Moved({0})", e.Move));
       _board.Moving += (s, e) => log.Write(string.Format("Moving({0})", e.Move));
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       Assert.AreEqual("Moving(1g-1f) Moved(1g-1f)", log.ToString());
     }
@@ -483,7 +483,7 @@ namespace ShogiCore.UnitTests.Core
                                   log.Write(string.Format("HistoryNavigating({0})", e.Step));
       _board.HistoryNavigated += (s, e) =>
                                  log.Write(string.Format("HistoryNavigated({0})", e.Step));
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       _board.MakeMove(_board.GetMove("1g-1f", FormalNotation.Instance).First());
       _board.MakeMove(_board.GetMove("1c-1d", FormalNotation.Instance).First());
       _board.MakeMove(_board.GetMove("2g-2f", FormalNotation.Instance).First());
@@ -494,7 +494,7 @@ namespace ShogiCore.UnitTests.Core
     [TestMethod]
     public void HistoryNavigationSnapshotsTest()
     {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var snapshot = new BoardSnapshot[1];
 
       _board.HistoryNavigating += (s, e) =>

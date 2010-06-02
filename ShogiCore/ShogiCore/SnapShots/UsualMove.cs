@@ -55,7 +55,7 @@ namespace Yasc.ShogiCore.Snapshots
       if (board.GetPieceAt(To) != null)
       {
         var handCollection = board.GetHandCollection(board.SideOnMove);
-        handCollection.Add(board.GetPieceAt(To).PieceType);
+        handCollection.Add(board.GetPieceAt(To).PieceType.DemoteIfPossible());
       }
       board.SetPiece(To, board.GetPieceAt(From));
       board.SetPiece(From, null);

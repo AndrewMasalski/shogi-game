@@ -167,7 +167,7 @@ namespace MainModule.Gui.Game
     protected void InitBoard()
     {
       Board = new Board(new StandardPieceSet());
-      Board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      Board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       MovesAndComments = new ObservableCollection<object>();
     }
     private void GetBack()
@@ -220,7 +220,7 @@ namespace MainModule.Gui.Game
                   };
       if (dlg.ShowDialog() == true)
       {
-        Board.LoadSnapshot(new PsnLoader().Load(
+        Board.LoadSnapshotWithHistory(new PsnLoader().Load(
           new PsnTranscriber().Load(File.OpenText(dlg.FileName)).
             First()));
       }

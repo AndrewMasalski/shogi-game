@@ -17,7 +17,7 @@ namespace MainModule.AI
     public RandomAiController()
     {
       _board = new Board(new StandardPieceSet());
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
     }
 
     public override void UndoLastMove()

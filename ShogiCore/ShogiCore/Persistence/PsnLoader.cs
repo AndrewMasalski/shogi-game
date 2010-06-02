@@ -12,7 +12,7 @@ namespace Yasc.ShogiCore.Persistence
     public PsnLoader()
     {
 //      _board = new Board(new StandardPieceSet());
-//      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+//      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
     }
 
     public BoardSnapshot Load(GameTrascription trascription)

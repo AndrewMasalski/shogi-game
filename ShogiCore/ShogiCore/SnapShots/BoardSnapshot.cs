@@ -257,7 +257,7 @@ namespace Yasc.ShogiCore.Snapshots
       _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance; 
       _blackHand.Sort();
     }
-    
+
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
     public BoardSnapshot MakeMove(Move move)
     {

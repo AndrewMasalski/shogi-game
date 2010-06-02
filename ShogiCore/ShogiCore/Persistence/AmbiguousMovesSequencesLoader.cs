@@ -47,6 +47,7 @@ namespace Yasc.ShogiCore.Persistence
         if (++index == _moves.Count) return true;
       }
 
+      var prev = _board;
       // We've 0 or >1 choices
       foreach (var option in choice)
       {
@@ -55,7 +56,7 @@ namespace Yasc.ShogiCore.Persistence
         // This one is good
         if (success) return true;
         // Hope we've next cycle with one more choice
-        _board = _board.Move.BoardSnapshotBefore;
+        _board = prev;
       }
 
       // No good choice

@@ -23,7 +23,7 @@ namespace MainModule.AI
     private UsiAiController(IUsiProcess engine)
     {
       _board = new Board(new StandardPieceSet());
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       _engine = CreateEngine(engine);
     }
 

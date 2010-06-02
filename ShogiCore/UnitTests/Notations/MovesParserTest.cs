@@ -30,7 +30,7 @@ namespace ShogiCore.UnitTests.Notations
     [TestMethod]
     public void ParseCuteMoveTest()
     {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var move = _board.GetMove("P2f", CuteNotation.Instance).Cast<UsualMove>().First();
       Assert.AreEqual("2g", move.From.ToString());
       Assert.AreEqual("2f", move.To.ToString());
@@ -39,7 +39,7 @@ namespace ShogiCore.UnitTests.Notations
     [TestMethod]
     public void ParseFormalMoveTest()
     {
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var move = _board.GetMove("2g-2f", FormalNotation.Instance).Cast<UsualMove>().First();
       Assert.AreEqual("2g", move.From.ToString());
       Assert.AreEqual("2f", move.To.ToString());
@@ -51,7 +51,7 @@ namespace ShogiCore.UnitTests.Notations
     public void TestMoveToSting()
     {
       var b = new Board(new StandardPieceSet());
-      b.LoadSnapshot(BoardSnapshot.InitialPosition);
+      b.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d", FormalNotation.Instance).First();
       var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
@@ -63,7 +63,7 @@ namespace ShogiCore.UnitTests.Notations
     public void TestUsualMoveToString()
     {
       var b = new Board(new StandardPieceSet());
-      b.LoadSnapshot(BoardSnapshot.InitialPosition);
+      b.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d+", FormalNotation.Instance).First();
       var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
@@ -75,7 +75,7 @@ namespace ShogiCore.UnitTests.Notations
     public void TestUsualMoveNoPropmotionToString()
     {
       var b = new Board(new StandardPieceSet());
-      b.LoadSnapshot(BoardSnapshot.InitialPosition);
+      b.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       var move = b.GetMove("3c-3d=", FormalNotation.Instance).First();
       var m = (UsualMove)move;
       Assert.AreEqual(new Position(2, 2), m.From);
