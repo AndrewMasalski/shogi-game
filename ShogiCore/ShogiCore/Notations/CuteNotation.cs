@@ -27,10 +27,7 @@ namespace Yasc.ShogiCore.Notations
 
     private IEnumerable<Move> Parse()
     {
-      return _moveText.EndsWith("x") 
-          || _moveText.EndsWith("x+")
-          || _moveText.EndsWith("x=") 
-          ? ParseTake() : ParseMove();
+      return _moveText.Contains("x") ? ParseTake() : ParseMove();
     }
 
     private IEnumerable<Move> ParseMove()
@@ -93,6 +90,16 @@ namespace Yasc.ShogiCore.Notations
     }
     private IEnumerable<UsualMove> ParseTake()
     {
+      if (_moveText.StartsWith("x"))
+      {
+        _moveText = _moveText.TrimStart('x');
+        return ParseTakeByTakenPiece();
+      }
+      return ParseTakeByWhoTakes();
+    }
+
+    private IEnumerable<UsualMove> ParseTakeByWhoTakes()
+    {
       var isPromoting = _moveText.EndsWith("+");
       var pieceType = GetPieceType();
       return from p in Position.OnBoard
@@ -101,10 +108,34 @@ namespace Yasc.ShogiCore.Notations
                    piece.PieceType == pieceType &&
                    piece.Color == _board.SideOnMove
              from m in _board.GetAvailableUsualMoves(p)
-             where m.IsPromoting == isPromoting 
-                && _board.GetPieceAt(m.To) != null 
+             where m.IsPromoting == isPromoting
+                   && _board.GetPieceAt(m.To) != null
+                   && m.IsValid
+             select m;
+    }
+
+    private IEnumerable<UsualMove> ParseTakeByTakenPiece()
+    {
+      var isPromoting = _moveText.EndsWith("+");
+      var pieceType = GetPieceType();
+//      foreach (var m in _board.GetAvailableUsualMoves(_board.SideOnMove))
+//        if (m.IsPromoting == isPromoting
+//                   && _board.GetPieceAt(m.To).PieceType == pieceType
+//                   && m.IsValid)
+//          yield return m;
+      return from m in _board.GetAvailableUsualMoves(_board.SideOnMove)
+             let coloredPiece = _board.GetPieceAt(m.To)
+             where m.IsPromoting == isPromoting
+                && coloredPiece != null
+                && coloredPiece.PieceType == pieceType
                 && m.IsValid
              select m;
+    }
+
+    private static PieceColor Opponent(PieceColor sideOnMove)
+    {
+
+      return sideOnMove == PieceColor.White ? PieceColor.Black : PieceColor.White;
     }
 
     private string CurrentKing
@@ -114,6 +145,10 @@ namespace Yasc.ShogiCore.Notations
     }
     private Position[] FindFromPosition(string hint, IPieceType pieceType, Position toPosition, bool isPromoting)
     {
+      if (hint.Length == 3 && hint.EndsWith("-"))
+      {
+        return new[] { Position.Parse(hint.Substring(0, 2)) };
+      }
       var candidates = (from p in Position.OnBoard
                         where _board.GetPieceAt(p) != null &&
                               _board.GetPieceAt(p).PieceType == pieceType &&

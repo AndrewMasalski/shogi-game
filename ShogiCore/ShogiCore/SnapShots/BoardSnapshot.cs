@@ -351,7 +351,7 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Gets all valid usual and drop moves for the player</summary>
     public IEnumerable<Move> GetAvailableMoves(PieceColor color)
     {
-      foreach (var move in GetAllAvailableUsualMoves(color))
+      foreach (var move in GetAvailableUsualMoves(color))
         yield return move;
       foreach (var move in GetAllValidDropMoves(color))
         yield return move;
@@ -463,7 +463,7 @@ namespace Yasc.ShogiCore.Snapshots
       SideOnMove = Opponent(SideOnMove);
     }
 
-    private IEnumerable<UsualMove> GetAllAvailableUsualMoves(PieceColor color)
+    public IEnumerable<UsualMove> GetAvailableUsualMoves(PieceColor color)
     {
       return Position.OnBoard.Where(p => GetPieceAt(p) != null && GetPieceAt(p).Color == color).
         SelectMany(p => DuplicateForPromoting(GetAvailableUsualMoves(p)));
