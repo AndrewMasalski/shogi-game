@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Snapshots
@@ -30,7 +29,7 @@ namespace Yasc.ShogiCore.Snapshots
 
     internal override RulesViolation Validate()
     {
-      return BoardSnapshot.ValidateUsualMove(this);
+      return BoardSnapshotBefore.ValidateUsualMove(this);
     }
 
     /// <summary>ctor</summary>

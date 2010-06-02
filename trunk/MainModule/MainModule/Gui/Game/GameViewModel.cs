@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Win32;
-using Yasc.Persistence;
-using Yasc.ShogiCore;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Persistence;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
@@ -221,9 +220,9 @@ namespace MainModule.Gui.Game
                   };
       if (dlg.ShowDialog() == true)
       {
-        Board = new PsnLoader().Load(
+        Board.LoadSnapshot(new PsnLoader().Load(
           new PsnTranscriber().Load(File.OpenText(dlg.FileName)).
-            First());
+            First()));
       }
     }
 

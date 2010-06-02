@@ -11,13 +11,13 @@ namespace Yasc.ShogiCore.Snapshots
 {
   /// <summary>Represents lightweigth snapshot of the <see cref="Board"/></summary>
   [Serializable]
-  public class BoardSnapshot
+  public class BoardSnapshot 
   {
     #region ' Fields '
 
     private bool _isHashCodeCalculated;
     private KnownPositions _knownPositions;
-
+    
     private readonly IColoredPiece[,] _cells = new IColoredPiece[9, 9];
     private readonly List<IPieceType> _blackHand;
     private readonly List<IPieceType> _whiteHand;
@@ -140,7 +140,7 @@ namespace Yasc.ShogiCore.Snapshots
             {
               multiplier = int.Parse(ch.ToString());
             }
-            else multiplier = multiplier * 10 + int.Parse(ch.ToString());
+            else multiplier = multiplier*10 + int.Parse(ch.ToString());
           }
           else
           {
@@ -220,11 +220,31 @@ namespace Yasc.ShogiCore.Snapshots
       return sb.ToString();
     }
 
+    /// <summary>Whether the same game position occurs four times with the same player to play
+    /// (the game is considered a draw)</summary>
+    public bool IsDrawByRepitition()
+    {
+      return KnownPositions.CountSimilar(this) >= 4;
+    }
+
+    private BoardSnapshot()
+    {
+      GameState = ShogiGameState.NotDefined;
+    }
+    private BoardSnapshot(List<IPieceType> blackHand, List<IPieceType> whiteHand)
+      : this()
+    {
+      _blackHand = blackHand;
+      _whiteHand = whiteHand;
+    }
+
     /// <summary>ctor</summary>
     public BoardSnapshot(PieceColor sideOnMove,
       IEnumerable<Tuple<Position, IColoredPiece>> boardPieces,
       IEnumerable<IPieceType> whiteHand = null,
       IEnumerable<IPieceType> blackHand = null)
+      : this()
+
     {
       if (boardPieces == null) throw new ArgumentNullException("boardPieces");
 
@@ -234,27 +254,32 @@ namespace Yasc.ShogiCore.Snapshots
 
       _whiteHand = whiteHand != null ? whiteHand.ToList() : EmptyList<IPieceType>.Instance;
       _whiteHand.Sort();
-      _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance;
+      _blackHand = blackHand != null ? blackHand.ToList() : EmptyList<IPieceType>.Instance; 
       _blackHand.Sort();
     }
-
+    
     /// <summary>Creates a snapshot of the board with applied <paramref name="move"/></summary>
     public BoardSnapshot MakeMove(Move move)
     {
       if (move == null) throw new ArgumentNullException("move");
-      if (move.BoardSnapshot != this)
-        throw new ArgumentException(
-          "You cannot apply this move to the given board because it " +
-          "is different from the one move had been created for");
-      if (!move.IsValid)
-        throw new InvalidMoveException(move.RulesViolation);
 
+      // TODO: move.RulesViolation == RulesViolation.PartiallyValidated is a hack!
+      if (move.RulesViolation != RulesViolation.PartiallyValidated &&
+          move.RulesViolation != RulesViolation.ValidationInProgress)
+      {
+        if (move.BoardSnapshotBefore != this)
+          throw new ArgumentException(
+            "You cannot apply this move to the given board because it " +
+            "is different from the one move had been created for");
+        if (!move.IsValid)
+          throw new InvalidMoveException(move.RulesViolation);
+      }
       return new BoardSnapshot(this, move);
     }
     /// <summary>Gets the piece snapshot at the <paramref name="position"/></summary>
     public IColoredPiece GetPieceAt(Position position)
     {
-      return _cells[position.X, position.Y];
+      return _cells[position.X, position.Y]; 
     }
 
     /// <summary>Gets the hand collection by color</summary>
@@ -271,8 +296,8 @@ namespace Yasc.ShogiCore.Snapshots
         {
           if (DoesntHaveValidMoves(color))
           {
-            GameState = color == PieceColor.White
-              ? ShogiGameState.BlackWin
+            GameState = color == PieceColor.White 
+              ? ShogiGameState.BlackWin 
               : ShogiGameState.WhiteWin;
           }
           else
@@ -294,7 +319,7 @@ namespace Yasc.ShogiCore.Snapshots
           }
         }
       }
-      return (color == PieceColor.White
+      return (color == PieceColor.White 
           && GameState == ShogiGameState.BlackWin) ||
           (color == PieceColor.Black &&
           GameState == ShogiGameState.WhiteWin);
@@ -313,7 +338,7 @@ namespace Yasc.ShogiCore.Snapshots
       var estimate = from p in EstimateUsualMoveTargets(fromPosition)
                      select new UsualMove(this, GetPieceAt(fromPosition).Color, fromPosition, p, false);
       return from move in DuplicateForPromoting(estimate)
-             where ShortValidateUsualMove(move) == RulesViolation.NoViolations
+             where ValidateUsualMoveHard(move) == RulesViolation.NoViolations
              select MarkValid(move);
     }
     /// <summary>Gets all valid drop moves for the piece</summary>
@@ -349,6 +374,9 @@ namespace Yasc.ShogiCore.Snapshots
     internal RulesViolation ValidateDropMove(DropMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
+      
+      move.CheckIsNotValidatedAtAll();
+
       if (move.Piece.Color != SideOnMove) return RulesViolation.WrongSideToMove;
       if (!GetHand(SideOnMove).Contains(move.Piece.PieceType)) return RulesViolation.WrongPieceReference;
       if (GetPieceAt(move.To) != null) return RulesViolation.DropToOccupiedCell;
@@ -365,18 +393,27 @@ namespace Yasc.ShogiCore.Snapshots
         if (IsTherePawnOnThisColumn(SideOnMove, move.To.X))
           return RulesViolation.TwoPawnsOnTheSameFile;
 
-      var newPosition = new BoardSnapshot(this, move);
+      move.MarkPartiallyValid();
+
       if (move.Piece.PieceType == PT.歩)
-        if (newPosition.IsMateFor(Opponent(SideOnMove)))
+        if (move.BoardSnapshotAfter.IsMateFor(Opponent(SideOnMove)))
           return RulesViolation.DropPawnToMate;
 
-      return newPosition.IsMateFor(SideOnMove)
-        ? RulesViolation.MoveToCheck // TODO: Not tested!
-        : RulesViolation.NoViolations;
+      if (move.BoardSnapshotAfter.IsCheckFor(SideOnMove)) 
+        return RulesViolation.MoveToCheck;// TODO: Not tested!
+
+      if (KnownPositions.CountSimilar(move.BoardSnapshotAfter) >= 4)
+        if (move.BoardSnapshotAfter.IsCheckFor(Opponent(SideOnMove)))
+          return RulesViolation.PerpetualCheck;
+
+      return RulesViolation.NoViolations;
     }
     internal RulesViolation ValidateUsualMove(UsualMove move)
     {
       if (move == null) throw new ArgumentNullException("move");
+
+      move.CheckIsNotValidatedAtAll();
+
       var movingPiece = GetPieceAt(move.From);
 
       if (movingPiece == null)
@@ -397,7 +434,7 @@ namespace Yasc.ShogiCore.Snapshots
       if (!analyser.Contains(move.To))
         return RulesViolation.PieceDoesntMoveThisWay;
 
-      return ShortValidateUsualMove(move);
+      return ValidateUsualMoveHard(move);
     }
     internal void SetPiece(Position position, IColoredPiece value)
     {
@@ -408,12 +445,8 @@ namespace Yasc.ShogiCore.Snapshots
 
     #region ' Implemetation '
 
-    private BoardSnapshot(List<IPieceType> blackHand, List<IPieceType> whiteHand)
-    {
-      _blackHand = blackHand;
-      _whiteHand = whiteHand;
-    }
     private BoardSnapshot(BoardSnapshot board, Move move)
+      : this()
     {
       Move = move;
       SideOnMove = board.SideOnMove;
@@ -492,8 +525,10 @@ namespace Yasc.ShogiCore.Snapshots
 
       return false;
     }
-    private RulesViolation ShortValidateUsualMove(UsualMove move)
+    private RulesViolation ValidateUsualMoveHard(UsualMove move)
     {
+      move.CheckIsNotValidatedAtAll();
+
       if (move.IsPromoting)
       {
         var error = IsPromotionAllowed(GetPieceAt(move.From), move.From, move.To);
@@ -507,9 +542,9 @@ namespace Yasc.ShogiCore.Snapshots
           return error;
       }
 
-      var snapshot = new BoardSnapshot(this, move);
-      return !snapshot.IsCheckFor(move.Who)
-        ? RulesViolation.NoViolations
+      move.MarkPartiallyValid();
+      return !move.BoardSnapshotAfter.IsCheckFor(move.Who) 
+        ? RulesViolation.NoViolations 
         // TODO: Not tested!
         : RulesViolation.MoveToCheck;
     }
@@ -601,7 +636,7 @@ namespace Yasc.ShogiCore.Snapshots
     #region ' Initial Position '
 
     /// <summary>Contains initial position</summary>
-    public static readonly BoardSnapshot InitialPosition =
+    public static readonly BoardSnapshot InitialPosition = 
       new BoardSnapshot(PieceColor.Black, new[]{
                                                  Tuple.Create(Position.Parse("1a"), PT.香.White),
                                                  Tuple.Create(Position.Parse("9a"), PT.香.White),
@@ -684,7 +719,7 @@ namespace Yasc.ShogiCore.Snapshots
       if (!IsThatPromitionZoneFor(coloredPiece, from))
         if (!IsThatPromitionZoneFor(coloredPiece, to))
           return RulesViolation.CantPromoteWithThisMove;
-
+      
       return RulesViolation.NoViolations;
     }
 
@@ -742,7 +777,7 @@ namespace Yasc.ShogiCore.Snapshots
             counter.Value++;
           }
 
-          current = move.BoardSnapshot;
+          current = move.BoardSnapshotBefore;
           if (current == null) break;
           if (current._knownPositions == null) break;
         }
@@ -756,7 +791,7 @@ namespace Yasc.ShogiCore.Snapshots
         {
           var move = current.Move;
           if (move == null) return null;
-          current = move.BoardSnapshot;
+          current = move.BoardSnapshotBefore;
           if (current == null) return null;
           if (current._knownPositions != null) return current._knownPositions;
         }
@@ -765,7 +800,7 @@ namespace Yasc.ShogiCore.Snapshots
       {
         var m = position.Move;
         if (m == null) return 0;
-        var current = m.BoardSnapshot;
+        var current = m.BoardSnapshotBefore;
 
         var counter = 0;
         while (true)
@@ -783,7 +818,7 @@ namespace Yasc.ShogiCore.Snapshots
           {
             counter++;
           }
-          current = move == null ? null : move.BoardSnapshot;
+          current = move == null ? null : move.BoardSnapshotBefore;
 
           if (current == null) break;
         }
@@ -799,3 +834,4 @@ namespace Yasc.ShogiCore.Snapshots
     #endregion
   }
 }
+// TODO: All constructors call : this()?

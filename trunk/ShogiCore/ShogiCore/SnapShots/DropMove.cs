@@ -25,7 +25,7 @@ namespace Yasc.ShogiCore.Snapshots
 
     internal override RulesViolation Validate()
     {
-      return BoardSnapshot.ValidateDropMove(this);
+      return BoardSnapshotBefore.ValidateDropMove(this);
     }
 
     /// <summary>Type of piece being dropped</summary>

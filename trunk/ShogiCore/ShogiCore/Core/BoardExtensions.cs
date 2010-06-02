@@ -45,6 +45,7 @@ namespace Yasc.ShogiCore.Core
     /// <summary>Gets move on the board parsing it from trascript</summary>
     public static IEnumerable<Move> GetMove(this Board board, string text, INotation notation)
     {
+      //TODO: board should have "default notation" property
       if (notation == null) throw new ArgumentNullException("notation");
       return notation.Parse(board.CurrentSnapshot, text);
     }

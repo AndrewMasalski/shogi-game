@@ -34,6 +34,10 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>"Promotion is requested" flag with move outside the opponent's camp</summary>
     CantPromoteWithThisMove,
     /// <summary>Move pawn or lance to the last lines without promotion</summary>
-    CantMoveWithoutPromotion
+    CantMoveWithoutPromotion,
+    /// <summary>Cannot make perpetual check</summary>
+    PerpetualCheck,
+    ValidationInProgress,
+    PartiallyValidated,
   }
 }

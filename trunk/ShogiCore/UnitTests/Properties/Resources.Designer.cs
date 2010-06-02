@@ -59,5 +59,12 @@ namespace ShogiCore.UnitTests.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static byte[] Jan_Jun1992 {
+            get {
+                object obj = ResourceManager.GetObject("Jan_Jun1992", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
