@@ -117,6 +117,7 @@
     <Compile Include="Skins\ReferencedAssemblySkin.cs" />
     <Compile Include="Skins\Skin.cs" />
     <Compile Include="TestLog.cs" />
+    <Compile Include="TextReaderExtensions.cs" />
     <Compile Include="ThreadSafeObservableCollection.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="WeakReference.cs" />

@@ -220,9 +220,9 @@ namespace MainModule.Gui.Game
                   };
       if (dlg.ShowDialog() == true)
       {
-        Board.LoadSnapshotWithHistory(new PsnLoader().Load(
+        Board.LoadSnapshotWithHistory(
           new PsnTranscriber().Load(File.OpenText(dlg.FileName)).
-            First()));
+            First().LoadSnapshot());
       }
     }
 
