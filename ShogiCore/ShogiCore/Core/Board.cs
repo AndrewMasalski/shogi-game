@@ -21,7 +21,7 @@ namespace Yasc.ShogiCore.Core
     private bool _isMovesOrderMaintained = true;
     private readonly Cell[,] _cells = new Cell[9, 9];
     private BoardSnapshot _currentSnapshot;
-    private ShogiGameState _gameState;
+    private ShogiGameState _gameState = ShogiGameState.NotDefined;
 
     #endregion
 
@@ -128,6 +128,14 @@ namespace Yasc.ShogiCore.Core
     public void LoadSnapshot(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
+
+      if (History.Count > 0 && !History.Any(m => ReferenceEquals(snapshot, m.BoardSnapshotAfter)) && !ReferenceEquals(History[0].BoardSnapshotBefore, snapshot))
+      {
+        History.CurrentMoveIndex = -1;
+#error That's what we're checking for
+        LoadSnapshotsHistory(snapshot);
+      }
+
       SideOnMove = GetPlayer(snapshot.SideOnMove);
 
       ResetAll();
@@ -147,6 +155,13 @@ namespace Yasc.ShogiCore.Core
 
       White.Hand.LoadSnapshot(snapshot.WhiteHand);
       Black.Hand.LoadSnapshot(snapshot.BlackHand);
+    }
+    private void LoadSnapshotsHistory(BoardSnapshot board)
+    {
+      var move = board.Move;
+      if (move == null) return;
+      LoadSnapshotsHistory(move.BoardSnapshotBefore);
+      History.Add(move);      
     }
 
     private void FillCells()
@@ -452,7 +467,7 @@ namespace Yasc.ShogiCore.Core
 
     private void MakeMoveInternal(Move move)
     {
-      // TODO: if (CurrentSnapshot != move.BoardSnapshot) throw new Exception();
+      // TODO: if (CurrentSnapshot != move.BoardSnapshotBefore) throw new Exception();
       switch (move.MoveType)
       {
         case MoveType.Drop:
@@ -462,8 +477,10 @@ namespace Yasc.ShogiCore.Core
           MakeUsualMove((UsualMove)move);
           break;
         case MoveType.Resign:
-          GameState = move.Who == PieceColor.White ?
-          ShogiGameState.BlackWin : ShogiGameState.WhiteWin;
+          GameState &= ~ShogiGameState.NotDefined;
+          GameState |= move.Who == PieceColor.White 
+            ? ShogiGameState.BlackWin 
+            : ShogiGameState.WhiteWin;
           break;
       }
     }

@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CellTest.cs" />
+    <Compile Include="Persistence\PsnLoaderTest.cs" />
     <Compile Include="PieceSets\PieceSetTest.cs" />
     <Compile Include="Positions\GetAvailableMovesRunner.cs" />
     <Compile Include="Positions\GetMovesRunner.cs" />
@@ -198,7 +199,9 @@
       <Name>ShogiCore %28ShogiCore\ShogiCore%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Jan-Jun1992.psn" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

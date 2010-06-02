@@ -100,13 +100,13 @@ namespace Yasc.ShogiCore.Moves
       {
         if (CurrentMoveIndex == -1)
         {
-          return Count > 0 ? this[0].BoardSnapshot : null;
+          return Count > 0 ? this[0].BoardSnapshotBefore : null;
         }
         if (CurrentMoveIndex < Count - 1)
         {
-          return this[CurrentMoveIndex + 1].BoardSnapshot;
+          return this[CurrentMoveIndex + 1].BoardSnapshotBefore;
         }
-        return CurrentMove.BoardSnapshot.MakeMove(CurrentMove.Move);
+        return CurrentMove.BoardSnapshotAfter;
       }
     }
 
