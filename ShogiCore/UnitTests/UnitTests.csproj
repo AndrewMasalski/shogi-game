@@ -200,7 +200,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\16th Kio Match.psn" />
+    <None Include="Resources\20th Osho Match.psn" />
+    <None Include="Resources\26th Osho Match.psn" />
+    <None Include="Resources\29th Osho Match.psn" />
+    <None Include="Resources\31st Meijin Match.psn" />
+    <None Include="Resources\31st Oi Match.psn" />
+    <None Include="Resources\32nd Oi Match.psn" />
+    <None Include="Resources\32nd Osho Match.psn" />
+    <None Include="Resources\33rd Meijin Match.psn" />
+    <None Include="Resources\38th Oza Match.psn" />
+    <None Include="Resources\39th Oza Match.psn" />
+    <None Include="Resources\3rd RyuO Match.psn" />
+    <None Include="Resources\40th Osho Match.psn" />
+    <None Include="Resources\48th Meijin Match.psn" />
+    <None Include="Resources\49th Meijin Match.psn" />
+    <None Include="Resources\4th RyuO Match.psn" />
+    <None Include="Resources\56th Kisei Match.psn" />
+    <None Include="Resources\57th Kisei Match.psn" />
+    <None Include="Resources\58th Kisei Match.psn" />
+    <None Include="Resources\59th Kisei Match.psn" />
     <None Include="Resources\Jan-Jun1992.psn" />
+    <None Include="Resources\misc pro games.psn" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

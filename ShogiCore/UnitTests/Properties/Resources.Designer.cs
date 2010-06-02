@@ -60,9 +60,156 @@ namespace ShogiCore.UnitTests.Properties {
             }
         }
         
+        internal static byte[] _16th_Kio_Match {
+            get {
+                object obj = ResourceManager.GetObject("_16th_Kio_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _20th_Osho_Match {
+            get {
+                object obj = ResourceManager.GetObject("_20th_Osho_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _26th_Osho_Match {
+            get {
+                object obj = ResourceManager.GetObject("_26th_Osho_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _29th_Osho_Match {
+            get {
+                object obj = ResourceManager.GetObject("_29th_Osho_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _31st_Meijin_Match {
+            get {
+                object obj = ResourceManager.GetObject("_31st_Meijin_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _31st_Oi_Match {
+            get {
+                object obj = ResourceManager.GetObject("_31st_Oi_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _32nd_Oi_Match {
+            get {
+                object obj = ResourceManager.GetObject("_32nd_Oi_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _32nd_Osho_Match {
+            get {
+                object obj = ResourceManager.GetObject("_32nd_Osho_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _33rd_Meijin_Match {
+            get {
+                object obj = ResourceManager.GetObject("_33rd_Meijin_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _38th_Oza_Match {
+            get {
+                object obj = ResourceManager.GetObject("_38th_Oza_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _39th_Oza_Match {
+            get {
+                object obj = ResourceManager.GetObject("_39th_Oza_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _3rd_RyuO_Match {
+            get {
+                object obj = ResourceManager.GetObject("_3rd_RyuO_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _40th_Osho_Match {
+            get {
+                object obj = ResourceManager.GetObject("_40th_Osho_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _48th_Meijin_Match {
+            get {
+                object obj = ResourceManager.GetObject("_48th_Meijin_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _49th_Meijin_Match {
+            get {
+                object obj = ResourceManager.GetObject("_49th_Meijin_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _4th_RyuO_Match {
+            get {
+                object obj = ResourceManager.GetObject("_4th_RyuO_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _56th_Kisei_Match {
+            get {
+                object obj = ResourceManager.GetObject("_56th_Kisei_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _57th_Kisei_Match {
+            get {
+                object obj = ResourceManager.GetObject("_57th_Kisei_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _58th_Kisei_Match {
+            get {
+                object obj = ResourceManager.GetObject("_58th_Kisei_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] _59th_Kisei_Match {
+            get {
+                object obj = ResourceManager.GetObject("_59th_Kisei_Match", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         internal static byte[] Jan_Jun1992 {
             get {
                 object obj = ResourceManager.GetObject("Jan_Jun1992", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] misc_pro_games {
+            get {
+                object obj = ResourceManager.GetObject("misc_pro_games", resourceCulture);
                 return ((byte[])(obj));
             }
         }
