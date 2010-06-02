@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Yasc.ShogiCore.Snapshots;
@@ -122,6 +123,17 @@ namespace Yasc.ShogiCore.Moves
       // TODO: Using of this method is almost always ugly!
       if (snapshot == null) throw new ArgumentNullException("snapshot");
       return new DecoratedMove(snapshot);
+    }
+
+    public IEnumerable<BoardSnapshot> Snapshots
+    {
+      get
+      {
+        if (Count == 0) yield break;
+        yield return this[0].BoardSnapshotBefore;
+        foreach (var move in this)
+          yield return move.BoardSnapshotAfter;
+      }
     }
   }
 }

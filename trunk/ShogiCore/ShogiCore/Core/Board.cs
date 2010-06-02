@@ -122,19 +122,18 @@ namespace Yasc.ShogiCore.Core
 
       FillCells();
     }
-
-    /// <summary>Resets the pieces on board and from hands and loads a snapshot from scratch</summary>
-    /// <exception cref="NotEnoughPiecesInSetException">When board's piece set has not enough piecese</exception>
-    public void LoadSnapshot(BoardSnapshot snapshot)
+    public void LoadSnapshotWithHistory(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
-
-      if (History.Count > 0 && !History.Any(m => ReferenceEquals(snapshot, m.BoardSnapshotAfter)) && !ReferenceEquals(History[0].BoardSnapshotBefore, snapshot))
-      {
-        History.CurrentMoveIndex = -1;
-#error That's what we're checking for
-        LoadSnapshotsHistory(snapshot);
-      }
+      History.CurrentMoveIndex = -1;
+      LoadSnapshotsHistory(snapshot);
+      LoadSnapshotWithoutHistory(snapshot);
+    }
+    /// <summary>Resets the pieces on board and from hands and loads a snapshot from scratch</summary>
+    /// <exception cref="NotEnoughPiecesInSetException">When board's piece set has not enough piecese</exception>
+    public void LoadSnapshotWithoutHistory(BoardSnapshot snapshot)
+    {
+      if (snapshot == null) throw new ArgumentNullException("snapshot");
 
       SideOnMove = GetPlayer(snapshot.SideOnMove);
 
@@ -161,7 +160,7 @@ namespace Yasc.ShogiCore.Core
       var move = board.Move;
       if (move == null) return;
       LoadSnapshotsHistory(move.BoardSnapshotBefore);
-      History.Add(move);      
+      History.Add(move);
     }
 
     private void FillCells()
@@ -318,6 +317,7 @@ namespace Yasc.ShogiCore.Core
         MakeMoveInternal(move);
         _sideOnMove = _sideOnMove.Opponent;
         History.Add(move);
+        _currentSnapshot = move.BoardSnapshotAfter;
         OnMoved(new MoveEventArgs(move));
       }
     }
@@ -419,7 +419,7 @@ namespace Yasc.ShogiCore.Core
 
       var snapshot = History.CurrentSnapshot;
       OnHistoryNavigating(diff, snapshot);
-      LoadSnapshot(snapshot);
+      LoadSnapshotWithoutHistory(snapshot);
       OnHistoryNavigated(diff, snapshot);
     }
     private void ResetCurrentSnapshot()
@@ -478,8 +478,8 @@ namespace Yasc.ShogiCore.Core
           break;
         case MoveType.Resign:
           GameState &= ~ShogiGameState.NotDefined;
-          GameState |= move.Who == PieceColor.White 
-            ? ShogiGameState.BlackWin 
+          GameState |= move.Who == PieceColor.White
+            ? ShogiGameState.BlackWin
             : ShogiGameState.WhiteWin;
           break;
       }

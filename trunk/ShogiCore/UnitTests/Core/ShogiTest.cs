@@ -44,7 +44,7 @@ namespace ShogiCore.UnitTests.Core
     {
       //    ______________
       //___/ Create board \__________________________________________________
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       //    _________________________________
       //___/ Check pieces which must present \_______________________________
       foreach (var pair in _initialPosition)
@@ -76,7 +76,7 @@ namespace ShogiCore.UnitTests.Core
             (s, e) => handler(new Position(x, y), (Cell)s);
         }
 
-      _board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      _board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       Assert.AreEqual(counter, _initialPosition.Count());
     }
   }

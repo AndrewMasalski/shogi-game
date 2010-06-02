@@ -36,5 +36,7 @@ namespace Yasc.ShogiCore.Primitives
     IColoredPiece GetColored(PieceColor color);
     IColoredPiece White { get; }
     IColoredPiece Black { get; }
+    IPieceType DemoteIfPossible();
+    IPieceType PromoteIfPossible();
   }
 }

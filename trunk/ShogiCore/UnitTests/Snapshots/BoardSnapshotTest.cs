@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using CommonUtils.UnitTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Notations;
 using Yasc.ShogiCore.PieceSets;
 using Yasc.ShogiCore.Primitives;
 using Yasc.ShogiCore.Snapshots;
+using System.Linq;
 
 namespace ShogiCore.UnitTests.Snapshots
 {
@@ -18,7 +20,7 @@ namespace ShogiCore.UnitTests.Snapshots
     public void Init()
     {
       var board = new Board(new StandardPieceSet());
-      board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       _snapshot = board.CurrentSnapshot;
     }
 
@@ -144,7 +146,14 @@ namespace ShogiCore.UnitTests.Snapshots
 
       const string sfenExample = "lns5l/1G7/1pppp4/p4R2p/2BP3p1/PS5PP/1kS1P+p3/1G1G5/LN1K3N+b W GS2Prnl3p 1";
       Assert.AreEqual(sfenExample, BoardSnapshot.ParseSfen(sfenExample).ToSfenString());
-      
+    }
+    [TestMethod]
+    public void PieceDemotesAfterTake()
+    {
+      var board = BoardSnapshot.ParseSfen("7+r+R/9/9/9/9/9/9/9/9 B -");
+      var move = CuteNotation.Instance.Parse(board, "+Rx").First();
+      var after = board.MakeMove(move);
+      Assert.AreEqual(PT.飛, after.BlackHand.First());
     }
   }
 }

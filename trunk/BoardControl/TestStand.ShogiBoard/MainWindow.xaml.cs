@@ -10,7 +10,7 @@ namespace TestStand.ShogiBoard
     {
       InitializeComponent();
       var board = new Board(new StandardPieceSet());
-      board.LoadSnapshot(BoardSnapshot.InitialPosition);
+      board.LoadSnapshotWithoutHistory(BoardSnapshot.InitialPosition);
       DataContext = board;
     }
   }
