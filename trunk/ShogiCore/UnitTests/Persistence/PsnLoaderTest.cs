@@ -75,7 +75,7 @@ namespace ShogiCore.UnitTests.Persistence
             gameTranscription.ParseBody();
             Assert.AreEqual(int.Parse(cout.Value), gameTranscription.Moves.Count);
           }
-//          gameTranscription.LoadSnapshot();
+          gameTranscription.LoadSnapshot();
         }
       }
     }
