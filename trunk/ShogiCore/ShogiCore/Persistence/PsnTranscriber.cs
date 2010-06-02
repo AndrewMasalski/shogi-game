@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Persistence
 {

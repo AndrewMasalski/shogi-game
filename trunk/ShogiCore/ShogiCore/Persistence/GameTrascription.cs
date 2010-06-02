@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Yasc.ShogiCore.Core;
+using Yasc.ShogiCore.Notations;
+using Yasc.ShogiCore.Snapshots;
 
 namespace Yasc.ShogiCore.Persistence
 {
@@ -22,6 +25,24 @@ namespace Yasc.ShogiCore.Persistence
     public void AddProperty(TrascriptionProperty property)
     {
       Properties[property.Name] = property;
+    }
+
+    public BoardSnapshot LoadSnapshot()
+    {
+      var loader = new AmbiguousMoveSequencesLoader(
+        BoardSnapshot.InitialPosition,
+        Moves,
+        CuteNotation.Instance);
+      return loader.Load();
+    }
+    public Board LoadBoard(IPieceSet pieceSet)
+    {
+      var board = new Board(pieceSet);
+      board.LoadSnapshotWithHistory(LoadSnapshot());
+      board.White.Name = Properties["White"].Value;
+      board.Black.Name = Properties["Black"].Value;
+      return board;
+
     }
   }
 }

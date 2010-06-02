@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShogiCore.UnitTests.Properties;
 using Yasc.ShogiCore.Persistence;
+using Yasc.ShogiCore.PieceSets;
 
 namespace ShogiCore.UnitTests.Persistence
 {
@@ -15,10 +16,10 @@ namespace ShogiCore.UnitTests.Persistence
       using (var s = new MemoryStream(Resources.Jan_Jun1992))
       {
         var trascription = new PsnTranscriber().Load(new StreamReader(s)).First();
-        var board = new PsnLoader().Load(trascription);
-//        Assert.AreEqual("Minami Yoshikazu", board.Black.Name);
-//        Assert.AreEqual("Tanigawa Koji", board.White.Name);
-        Assert.AreEqual(trascription.Moves.Count, board.Move.Number);
+        var board = trascription.LoadBoard(new StandardPieceSet());
+        Assert.AreEqual("Minami Yoshikazu", board.Black.Name);
+        Assert.AreEqual("Tanigawa Koji", board.White.Name);
+        Assert.AreEqual(trascription.Moves.Count, board.History.Count);
       }    
     }
     [TestMethod]
@@ -28,8 +29,8 @@ namespace ShogiCore.UnitTests.Persistence
       {
         foreach (var trascription in new PsnTranscriber().Load(new StreamReader(s)))
         {
-          var board = new PsnLoader().Load(trascription);
-          Assert.AreEqual(trascription.Moves.Count, board.Move.Number);
+          var board = trascription.LoadBoard(new StandardPieceSet());
+          Assert.AreEqual(trascription.Moves.Count, board.History.Count);
         }
       }    
     }

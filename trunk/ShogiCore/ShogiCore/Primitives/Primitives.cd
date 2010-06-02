@@ -101,21 +101,21 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEEEAAAAgACEBAAAIAQAAABABAAAAAQIAAAgAAAAAAQ=</HashCode>
+      <HashCode>AEEEAAAAgACEBAAAIAQAAABQBAAAAAQIAAAgAAAgAAQ=</HashCode>
       <FileName>Primitives\IPieceType.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PieceKind" />
       <Property Name="PieceQuality" />
-      <Property Name="Black" />
       <Property Name="White" />
+      <Property Name="Black" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="MoveDirections" />
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="Yasc.ShogiCore.Primitives.IMoveDirection">
-    <Position X="5.5" Y="6.75" Width="1.5" />
+    <Position X="5.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Primitives\IMoveDirection.cs</FileName>

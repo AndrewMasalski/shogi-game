@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Yasc.ShogiCore.Persistence
+namespace Yasc.Utils
 {
   public static class TextReaderExtensions
   {

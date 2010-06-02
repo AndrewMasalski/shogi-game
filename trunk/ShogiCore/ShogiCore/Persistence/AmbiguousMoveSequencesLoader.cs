@@ -12,13 +12,13 @@ namespace Yasc.ShogiCore.Persistence
   ///   so we might need to solve ambiguities from conext. To be more precise
   ///   after ambiguity found, we go on for all variants of transcription until
   ///   some furhter moves don't cross invalid options out.</remarks>
-  internal class AmbiguousMovesSequencesLoader
+  internal class AmbiguousMoveSequencesLoader
   {
     private BoardSnapshot _board;
     private readonly List<string> _moves;
     private readonly INotation _notation;
 
-    public AmbiguousMovesSequencesLoader(
+    public AmbiguousMoveSequencesLoader(
       BoardSnapshot initialPosition, List<string> moves, INotation notation)
     {
       _board = initialPosition;
@@ -26,7 +26,7 @@ namespace Yasc.ShogiCore.Persistence
       _notation = notation;
     }
 
-    public BoardSnapshot Start()
+    public BoardSnapshot Load()
     {
       if (!Start(0)) throw new Exception("Invalid moves?");
       return _board;

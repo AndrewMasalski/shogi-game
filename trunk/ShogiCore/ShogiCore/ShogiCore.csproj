@@ -85,11 +85,9 @@
     <Compile Include="Moves\MoveEvaluation.cs" />
     <Compile Include="Notations\FormalNotation.cs" />
     <Compile Include="Notations\CuteNotation.cs" />
-    <Compile Include="Persistence\AmbiguousMovesSequencesLoader.cs" />
+    <Compile Include="Persistence\AmbiguousMoveSequencesLoader.cs" />
     <Compile Include="Persistence\GameTrascription.cs" />
-    <Compile Include="Persistence\PsnLoader.cs" />
     <Compile Include="Persistence\PsnTranscriber.cs" />
-    <Compile Include="Persistence\TextReaderExtensions.cs" />
     <Compile Include="Persistence\TrascriptionProperty.cs" />
     <Compile Include="PieceSets\StandardPieceSet.cs" />
     <Compile Include="GlobalSuppressions.cs" />
