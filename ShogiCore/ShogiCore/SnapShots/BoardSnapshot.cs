@@ -266,7 +266,6 @@ namespace Yasc.ShogiCore.Snapshots
     {
       if (move == null) throw new ArgumentNullException("move");
 
-      // TODO: move.RulesViolation == RulesViolation.PartiallyValidated is a hack!
       if (move.RulesViolation != RulesViolation.PartiallyValidated &&
           move.RulesViolation != RulesViolation.ValidationInProgress)
       {
@@ -837,4 +836,3 @@ namespace Yasc.ShogiCore.Snapshots
     #endregion
   }
 }
-// TODO: All constructors call : this()?
