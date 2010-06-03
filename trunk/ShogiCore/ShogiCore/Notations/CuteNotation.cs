@@ -20,6 +20,9 @@ namespace Yasc.ShogiCore.Notations
     ///   Doesn't return null but be prepared to receive 0 moves.</returns>
     public IEnumerable<Move> Parse(BoardSnapshot originalBoardState, string move)
     {
+      if (move == "resign") return new[] {
+        new ResignMove(originalBoardState, originalBoardState.SideOnMove) };
+
       _board = originalBoardState;
       _moveText = move;
       return Parse();
@@ -32,7 +35,7 @@ namespace Yasc.ShogiCore.Notations
 
     private IEnumerable<Move> ParseMove()
     {
-      _moveText = _moveText.Replace("x", "");
+      _moveText = _moveText.Replace("x", ""); // TODO: remove line
       var pieceType = GetPieceType();
       var isPromoting = GetIsPromoting();
       var toPosition = GetToPosition();

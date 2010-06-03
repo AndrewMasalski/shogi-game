@@ -144,7 +144,10 @@ namespace ShogiCore.UnitTests.Snapshots
       Assert.AreEqual("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL B - 1",
         BoardSnapshot.InitialPosition.ToSfenString());
 
-      const string sfenExample = "lns5l/1G7/1pppp4/p4R2p/2BP3p1/PS5PP/1kS1P+p3/1G1G5/LN1K3N+b W GS2Prnl3p 1";
+      var sfenExample = "lns5l/1G7/1pppp4/p4R2p/2BP3p1/PS5PP/1kS1P+p3/1G1G5/LN1K3N+b W GS2Prnl3p 1";
+      Assert.AreEqual(sfenExample, BoardSnapshot.ParseSfen(sfenExample).ToSfenString());
+
+      sfenExample = "lng2p3/k1s5R/pp2pg2p/2p3+B2/3P1npp1/2PSP3P/PPNS2P2/1KGS1+r1G1/L6NL B bl3p 1";
       Assert.AreEqual(sfenExample, BoardSnapshot.ParseSfen(sfenExample).ToSfenString());
     }
     [TestMethod]
