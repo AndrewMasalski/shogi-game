@@ -120,7 +120,6 @@ namespace Yasc.ShogiCore.Moves
     /// <summary>Gets move on the board parsing it from snapsot</summary>
     public DecoratedMove Decorate(Move snapshot)
     {
-      // TODO: Using of this method is almost always ugly!
       if (snapshot == null) throw new ArgumentNullException("snapshot");
       return new DecoratedMove(snapshot);
     }

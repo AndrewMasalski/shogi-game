@@ -296,7 +296,7 @@ namespace Yasc.ShogiCore.Core
       if (!IsMovesOrderMaintained)
         SideOnMove = piece.Owner;
 
-      return new DropMove(CurrentSnapshot, piece.ToColoredPiece(), to);
+      return new DropMove(CurrentSnapshot, piece.ColoredPiece, to);
     }
     /// <summary>Gets resign move</summary>
     public Move GetResignMove()
@@ -442,7 +442,7 @@ namespace Yasc.ShogiCore.Core
           from position in Position.OnBoard
           let piece = GetPieceAt(position)
           where piece != null
-          select Tuple.Create(position, piece.ToColoredPiece()),
+          select Tuple.Create(position, piece.ColoredPiece),
 
           from whitePiece in White.Hand
           orderby whitePiece.PieceType

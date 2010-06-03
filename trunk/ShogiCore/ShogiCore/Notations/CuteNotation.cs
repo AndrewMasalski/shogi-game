@@ -35,7 +35,6 @@ namespace Yasc.ShogiCore.Notations
 
     private IEnumerable<Move> ParseMove()
     {
-      _moveText = _moveText.Replace("x", ""); // TODO: remove line
       var pieceType = GetPieceType();
       var isPromoting = GetIsPromoting();
       var toPosition = GetToPosition();

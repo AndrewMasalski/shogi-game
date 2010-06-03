@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShogiCore.UnitTests.Properties;
@@ -138,6 +141,64 @@ namespace ShogiCore.UnitTests.Persistence
       var move = gameTranscription.Moves[0];
       Assert.AreEqual("move", move.MoveNotation);
       Assert.AreEqual(null, move.Comment);
+    }
+    [TestMethod, Ignore]
+    public void LoadFromDisc()
+    {
+      var columns = new HashSet<string>();
+      var dic = new Dictionary<Tuple<int, string>, string>();
+      int counter = 0;
+      foreach (var psn in Directory.GetFiles(@"x:\games\data", "*.psn", SearchOption.AllDirectories))
+      {
+        Debug.WriteLine(Path.GetFileNameWithoutExtension(psn));
+        using (var fileStream = new StreamReader(psn))
+          foreach (var game in new PsnTranscriber().Load(fileStream))
+          {
+            counter++;
+            foreach (var prop in game.Properties.Values)
+            {
+              dic.Add(Tuple.Create(counter, PropName(prop)), prop.Value);
+              columns.Add(PropName(prop));
+            } 
+          }
+      }
+      using (var output = new StreamWriter("out.txt"))
+      {
+        foreach (var column in columns)
+        {
+          output.Write(column);
+          output.Write('\t');
+        }
+        output.WriteLine();
+        for (int i = 1; i <= counter; i++)
+        {
+          foreach (var column in columns)
+          {
+            string value;
+            output.Write('\"');
+            if (dic.TryGetValue(Tuple.Create(i, column), out value))
+              output.Write(value);
+            output.Write('\"');
+            output.Write('\t');
+          }
+          output.WriteLine();
+        }
+        
+      }
+
+    }
+
+    private static string PropName(TrascriptionProperty prop)
+    {
+      switch (prop.Name)
+      {
+        case "Sente": return "Black";
+        case "Gote": return "White";
+        case "SenteGrade": return "Black_grade";
+        case "GoteGrade": return "White_grade";
+        case "Country": return "Venue";
+        default: return prop.Name;
+      }
     }
   }
 }

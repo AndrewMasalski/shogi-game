@@ -35,7 +35,6 @@ namespace Yasc.ShogiCore.Snapshots
     public DropMove(BoardSnapshot boardSnapshot, IColoredPiece coloredPiece, Position to)
       : base(boardSnapshot)
     {
-      // TODO: Change signature to match Board.GetDropMove()
       Piece = coloredPiece;
       To = to;
     }
