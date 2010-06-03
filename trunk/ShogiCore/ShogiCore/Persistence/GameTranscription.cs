@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
@@ -8,28 +9,6 @@ using System.Linq;
 
 namespace Yasc.ShogiCore.Persistence
 {
-  public class MoveTranscription
-  {
-    public string Number { get; set; }
-    public string MoveNotation { get; set; }
-    public string Comment { get; set; }
-    public override string ToString()
-    {
-      var sb = new StringBuilder();
-      if (Number != null)
-      {
-        sb.Append(Number);
-        sb.Append(". ");
-      }
-      sb.Append(MoveNotation);
-      if (!string.IsNullOrWhiteSpace(Comment))
-      {
-        sb.Append(" // ");
-        sb.Append(Comment);
-      }
-      return sb.ToString();
-    }
-  }
   public class GameTranscription
   {
     public Dictionary<string, TrascriptionProperty> Properties { get; private set; }
@@ -94,7 +73,7 @@ namespace Yasc.ShogiCore.Persistence
     private void ReadMove(string moveSeq)
     {
       var split = moveSeq.Split(
-        new[] { ' ', '\t' }, 
+        new[] { ' ', '\t', '.', '\r', '\n' }, 
         StringSplitOptions.RemoveEmptyEntries);
 
       foreach (var move in split)
@@ -103,14 +82,30 @@ namespace Yasc.ShogiCore.Persistence
     }
     private void ReadOneMove(string move)
     {
-      var strings = move.Split('.');
-      var res = new MoveTranscription();
-      if (strings.Length == 2)
+      int num;
+      if (int.TryParse(move, out num))
       {
-        res.Number = strings[0];
+        Moves.Add(new MoveTranscription { Number = num});
       }
-      res.MoveNotation = strings.Last();
-      Moves.Add(res);
+      else
+      {
+        if (Moves.Count > 0 && Moves[Moves.Count - 1].MoveNotation == null)
+        {
+          Moves[Moves.Count - 1].MoveNotation = move;
+        }
+        else
+        {
+          Moves.Add(new MoveTranscription{MoveNotation = move});
+        }
+      }
+//      var strings = move.Split('.');
+//      var res = new MoveTranscription();
+//      if (strings.Length == 2)
+//      {
+//        res.Number = strings[0];
+//      }
+//      res.MoveNotation = strings.Last();
+//      Moves.Add(res);
     }
 
     public void AddProperty(TrascriptionProperty property)
