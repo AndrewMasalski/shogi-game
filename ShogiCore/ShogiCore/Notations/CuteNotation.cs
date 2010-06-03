@@ -93,7 +93,7 @@ namespace Yasc.ShogiCore.Notations
       if (_moveText.StartsWith("x"))
       {
         _moveText = _moveText.TrimStart('x');
-        return ParseTakeByTakenPiece();
+        return ParseTakeByWhoTakes();
       }
       return ParseTakeByWhoTakes();
     }
@@ -114,30 +114,7 @@ namespace Yasc.ShogiCore.Notations
              select m;
     }
 
-    private IEnumerable<UsualMove> ParseTakeByTakenPiece()
-    {
-      var isPromoting = _moveText.EndsWith("+");
-      var pieceType = GetPieceType();
-//      foreach (var m in _board.GetAvailableUsualMoves(_board.SideOnMove))
-//        if (m.IsPromoting == isPromoting
-//                   && _board.GetPieceAt(m.To).PieceType == pieceType
-//                   && m.IsValid)
-//          yield return m;
-      return from m in _board.GetAvailableUsualMoves(_board.SideOnMove)
-             let coloredPiece = _board.GetPieceAt(m.To)
-             where m.IsPromoting == isPromoting
-                && coloredPiece != null
-                && coloredPiece.PieceType == pieceType
-                && m.IsValid
-             select m;
-    }
-
-    private static PieceColor Opponent(PieceColor sideOnMove)
-    {
-
-      return sideOnMove == PieceColor.White ? PieceColor.Black : PieceColor.White;
-    }
-
+  
     private string CurrentKing
     {
       // NOTE: Strictly speaking king type doesnt depend on color...
@@ -147,7 +124,10 @@ namespace Yasc.ShogiCore.Notations
     {
       if (hint.Length == 3 && hint.EndsWith("-"))
       {
-        return new[] { Position.Parse(hint.Substring(0, 2)) };
+        var position = Position.Parse(hint.Substring(0, 2));
+        if (_board.GetPieceAt(position) != null)
+          return new[] { position };
+        hint = "";
       }
       var candidates = (from p in Position.OnBoard
                         where _board.GetPieceAt(p) != null &&

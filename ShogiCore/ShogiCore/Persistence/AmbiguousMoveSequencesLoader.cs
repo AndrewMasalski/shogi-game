@@ -41,7 +41,8 @@ namespace Yasc.ShogiCore.Persistence
       Move[] choice;
       while (true)
       {
-        choice = _notation.Parse(_board, _moves[index]).ToArray();
+        var move = _moves[index];
+        choice = _notation.Parse(_board, move).ToArray();
         if (choice.Length != 1) break;
         _board = _board.MakeMove(choice[0]);
         if (++index == _moves.Count) return true;
