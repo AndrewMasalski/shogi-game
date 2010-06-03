@@ -37,27 +37,27 @@ namespace ShogiCore.UnitTests.Persistence
     [TestMethod]
     public void TranscriptionsCountTest()
     {
-//      CountMoves(36, Resources.Jan_Jun1992);
-//      CountMoves(4, Resources._16th_Kio_Match);
-//      CountMoves(7, Resources._20th_Osho_Match);
-//      CountMoves(6, Resources._26th_Osho_Match);
-//      CountMoves(1, Resources._29th_Osho_Match);
-//      CountMoves(7, Resources._31st_Meijin_Match);
-//      CountMoves(7, Resources._31st_Oi_Match);
-//      CountMoves(6, Resources._32nd_Oi_Match);
-//      CountMoves(4, Resources._32nd_Osho_Match);
-//      CountMoves(7, Resources._33rd_Meijin_Match);
-//      CountMoves(4, Resources._38th_Oza_Match);
-//      CountMoves(6, Resources._39th_Oza_Match);
-//      CountMoves(5, Resources._3rd_RyuO_Match);
-//      CountMoves(6, Resources._40th_Osho_Match);
-//      CountMoves(6, Resources._48th_Meijin_Match);
-//      CountMoves(5, Resources._49th_Meijin_Match);
-//      CountMoves(6, Resources._4th_RyuO_Match);
-//      CountMoves(5, Resources._56th_Kisei_Match);
-//      CountMoves(4, Resources._57th_Kisei_Match);
-//      CountMoves(5, Resources._58th_Kisei_Match);
-//      CountMoves(3, Resources._59th_Kisei_Match);
+      CountMoves(36, Resources.Jan_Jun1992);
+      CountMoves(4, Resources._16th_Kio_Match);
+      CountMoves(7, Resources._20th_Osho_Match);
+      CountMoves(6, Resources._26th_Osho_Match);
+      CountMoves(1, Resources._29th_Osho_Match);
+      CountMoves(7, Resources._31st_Meijin_Match);
+      CountMoves(7, Resources._31st_Oi_Match);
+      CountMoves(6, Resources._32nd_Oi_Match);
+      CountMoves(4, Resources._32nd_Osho_Match);
+      CountMoves(7, Resources._33rd_Meijin_Match);
+      CountMoves(4, Resources._38th_Oza_Match);
+      CountMoves(6, Resources._39th_Oza_Match);
+      CountMoves(5, Resources._3rd_RyuO_Match);
+      CountMoves(6, Resources._40th_Osho_Match);
+      CountMoves(6, Resources._48th_Meijin_Match);
+      CountMoves(5, Resources._49th_Meijin_Match);
+      CountMoves(6, Resources._4th_RyuO_Match);
+      CountMoves(5, Resources._56th_Kisei_Match);
+      CountMoves(4, Resources._57th_Kisei_Match);
+      CountMoves(5, Resources._58th_Kisei_Match);
+      CountMoves(3, Resources._59th_Kisei_Match);
       CountMoves(28, Resources.misc_pro_games);
     }
 

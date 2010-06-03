@@ -28,7 +28,7 @@ namespace Yasc.ShogiCore.Persistence
         }
         else if (line.Trim().Length != 0)
         {
-          _currentTranscription.Body.Append(line);
+          _currentTranscription.Body.AppendLine(line);
           hasBody = true;
         }
       }
