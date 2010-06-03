@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 using Yasc.ShogiCore.Core;
 using Yasc.ShogiCore.Notations;
@@ -32,32 +31,43 @@ namespace Yasc.ShogiCore.Persistence
     public void ParseBody()
     {
       if (Body == null) return;
-
-      var s = Body.ToString();
-
-      A(s, new[] {'(', '{'},  new[] {')', '}'}, ReadMove, ReadComment);
-
+      ParseCommentsAndMoves(Body.ToString(), 
+        new[] {'(', '{'},  new[] {')', '}'});
+      FixResignMove();
       Body = null;
     }
 
-    private void A(string s, char[] open, char[] close, Action<string> readMove, Action<string> readComment)
+    private void FixResignMove()
+    {
+      if (Moves.Count > 0)
+      {
+        var last = Moves[Moves.Count - 1];
+        if (last.MoveNotation == null && last.Comment.ToLower() == "resign")
+        {
+          last.MoveNotation = "resign";
+          last.Comment = null;
+        }
+      }
+    }
+
+    private void ParseCommentsAndMoves(string body, char[] open, char[] close)
     {
       var index = 0;
-      while (index < s.Length)
+      while (index < body.Length)
       {
-        var startIndex = s.IndexOfAny(open, index);
+        var startIndex = body.IndexOfAny(open, index);
         if (startIndex == -1)
         {
-          readMove(index == 0 ? s : s.Substring(index, s.Length - index));
+          ReadMove(index == 0 ? body : body.Substring(index, body.Length - index));
           break;
         }
         if (startIndex - index > 0)
         {
-          readMove(s.Substring(index, startIndex - index ));
+          ReadMove(body.Substring(index, startIndex - index));
         }
-        var openBracetType = Array.IndexOf(open, s[startIndex]);
-        var endIndex = s.IndexOf(close[openBracetType], startIndex);
-        readComment(s.Substring(startIndex+1, endIndex - startIndex-1));
+        var openBracetType = Array.IndexOf(open, body[startIndex]);
+        var endIndex = body.IndexOf(close[openBracetType], startIndex);
+        ReadComment(body.Substring(startIndex+1, endIndex - startIndex-1));
         index = endIndex + 1;
       }
     }
@@ -91,21 +101,32 @@ namespace Yasc.ShogiCore.Persistence
       {
         if (Moves.Count > 0 && Moves[Moves.Count - 1].MoveNotation == null)
         {
-          Moves[Moves.Count - 1].MoveNotation = move;
+          ParseNotation(Moves[Moves.Count - 1], move);
         }
         else
         {
-          Moves.Add(new MoveTranscription{MoveNotation = move});
+          Moves.Add(ParseNotation(new MoveTranscription(), move));
         }
       }
-//      var strings = move.Split('.');
-//      var res = new MoveTranscription();
-//      if (strings.Length == 2)
-//      {
-//        res.Number = strings[0];
-//      }
-//      res.MoveNotation = strings.Last();
-//      Moves.Add(res);
+    }
+
+    private static MoveTranscription ParseNotation(MoveTranscription moveTranscription, string move)
+    {
+      if (move.EndsWith("!?") || move.EndsWith("??") || move.EndsWith("!!"))
+      {
+        moveTranscription.Evaluation = move.Substring(move.Length - 2, 2);
+        moveTranscription.MoveNotation = move.Substring(0, move.Length - 2).TrimEnd();
+      }
+      else if (move.EndsWith("!") || move.EndsWith("?"))
+      {
+        moveTranscription.Evaluation = move.Substring(move.Length - 1, 1);
+        moveTranscription.MoveNotation = move.Substring(0, move.Length - 1).TrimEnd();
+      }
+      else
+      {
+        moveTranscription.MoveNotation = move;
+      }
+      return moveTranscription;
     }
 
     public void AddProperty(TrascriptionProperty property)

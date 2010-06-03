@@ -118,7 +118,10 @@ namespace Yasc.ShogiCore.Snapshots
             }
 
             if (promoted)
+            {
               pieceType = pieceType.Promote();
+              promoted = false;
+            }
 
             var piece = char.IsUpper(ch) ? pieceType.Black : pieceType.White;
 
