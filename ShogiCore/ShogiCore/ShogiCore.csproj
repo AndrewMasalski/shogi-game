@@ -87,6 +87,7 @@
     <Compile Include="Notations\CuteNotation.cs" />
     <Compile Include="Persistence\AmbiguousMoveSequencesLoader.cs" />
     <Compile Include="Persistence\GameTranscription.cs" />
+    <Compile Include="Persistence\Ki2Transcriber.cs" />
     <Compile Include="Persistence\MoveTranscription.cs" />
     <Compile Include="Persistence\PsnTranscriber.cs" />
     <Compile Include="Persistence\TrascriptionProperty.cs" />

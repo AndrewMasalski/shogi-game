@@ -184,4 +184,7 @@
   <data name="_59th_Kisei_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\59th Kisei Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="_25_0102" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\25_0102.ki2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -25,18 +25,7 @@ namespace ShogiCore.UnitTests.Persistence
         Assert.AreEqual(trascription.Moves.Count, board.History.Count);
       }
     }
-    [TestMethod]
-    public void CheckWeCanLoadThemAll()
-    {
-      using (var s = new MemoryStream(Resources.Jan_Jun1992))
-      {
-        foreach (var trascription in new PsnTranscriber().Load(new StreamReader(s)))
-        {
-          var board = trascription.LoadBoard(new StandardPieceSet());
-          Assert.AreEqual(trascription.Moves.Count, board.History.Count);
-        }
-      }
-    }
+  
     [TestMethod]
     public void TranscriptionsCountTest()
     {

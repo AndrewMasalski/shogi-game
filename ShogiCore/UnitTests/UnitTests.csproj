@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\CellTest.cs" />
+    <Compile Include="Persistence\Ki2LoaderTest.cs" />
     <Compile Include="Persistence\PsnLoaderTest.cs" />
     <Compile Include="PieceSets\PieceSetTest.cs" />
     <Compile Include="Positions\GetAvailableMovesRunner.cs" />
@@ -202,6 +203,7 @@
   <ItemGroup>
     <None Include="Resources\16th Kio Match.psn" />
     <None Include="Resources\20th Osho Match.psn" />
+    <None Include="Resources\25_0102.ki2" />
     <None Include="Resources\26th Osho Match.psn" />
     <None Include="Resources\29th Osho Match.psn" />
     <None Include="Resources\31st Meijin Match.psn" />

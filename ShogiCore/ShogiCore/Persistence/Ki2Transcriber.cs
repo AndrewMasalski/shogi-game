@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Yasc.Utils;
 
 namespace Yasc.ShogiCore.Persistence
 {
-  public class PsnTranscriber
+  public class Ki2Transcriber
   {
     public IEnumerable<GameTranscription> Load(TextReader psn)
     {
@@ -13,7 +12,7 @@ namespace Yasc.ShogiCore.Persistence
       var hasBody = false;
       foreach (var line in psn.Lines())
       {
-        if (line.StartsWith("["))
+        if (line.Contains(":") && !line.StartsWith("*"))
         {
           if (curr.Properties.Count > 0 && hasBody)
           {
@@ -36,11 +35,12 @@ namespace Yasc.ShogiCore.Persistence
 
     private static TrascriptionProperty ParseHeader(string line)
     {
-      var res = new TrascriptionProperty();
-      int qi = line.IndexOf('"');
-      res.Name = line.Substring(1, qi - 2);
-      res.Value = line.Substring(qi + 1, line.Length - qi - 3);
-      return res;
+      var header = line.Split(':');
+      return new TrascriptionProperty
+               {
+                 Name = header[0],
+                 Value = header[1]
+               };
     }
   }
 }
