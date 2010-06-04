@@ -74,6 +74,13 @@ namespace ShogiCore.UnitTests.Properties {
             }
         }
         
+        internal static byte[] _25_0102 {
+            get {
+                object obj = ResourceManager.GetObject("_25_0102", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         internal static byte[] _26th_Osho_Match {
             get {
                 object obj = ResourceManager.GetObject("_26th_Osho_Match", resourceCulture);
