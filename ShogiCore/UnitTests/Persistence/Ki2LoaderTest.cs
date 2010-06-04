@@ -14,9 +14,9 @@ namespace ShogiCore.UnitTests.Persistence
     [TestMethod]
     public void LoadTranscription()
     {
-      using (var s = new MemoryStream(Resources._25_0102))
+      using (var s = new StringReader(Resources._25_0102))
       {
-        var trascription = new Ki2Transcriber().Load(new StreamReader(s, Encoding.Unicode)).First();
+        var trascription = new Ki2Transcriber().Load(s).First();
         var board = trascription.LoadBoard(new StandardPieceSet());
         Assert.AreEqual("Minami Yoshikazu", board.Black.Name);
         Assert.AreEqual("Tanigawa Koji", board.White.Name);

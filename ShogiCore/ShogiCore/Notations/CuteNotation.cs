@@ -142,9 +142,9 @@ namespace Yasc.ShogiCore.Notations
 
 
       if (hint.Length == 0) return candidates;
-      var result = candidates.Where(c => c.ToString().Contains(hint)).ToArray();
+      return candidates.Where(c => c.ToString().Contains(hint)).ToArray();
       // if we have a hint and it suits all choices we're parsing something wrong
-      return result.Length == candidates.Length ? new Position[0] : result;
+//      return result.Length == candidates.Length ? new Position[0] : result;
     }
     
     /// <summary>Returns the transcript for a given move</summary>

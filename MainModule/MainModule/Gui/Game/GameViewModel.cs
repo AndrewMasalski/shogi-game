@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Yasc.ShogiCore.Core;
@@ -220,9 +221,21 @@ namespace MainModule.Gui.Game
                   };
       if (dlg.ShowDialog() == true)
       {
-        Board.LoadSnapshotWithHistory(
-          new PsnTranscriber().Load(File.OpenText(dlg.FileName)).
-            First().LoadSnapshot());
+        var games = new PsnTranscriber().Load(File.OpenText(dlg.FileName));
+        var game = games.FirstOrDefault();
+        if (game == null)
+        {
+          MessageBox.Show("File is empty");
+          return;
+        }
+        var boardSnapshot = game.LoadSnapshot();
+        if (boardSnapshot == null)
+        {
+          MessageBox.Show("File has errors:");
+          game.GetBadMoves();
+          return;
+        }
+        Board.LoadSnapshotWithHistory(boardSnapshot);
       }
     }
 

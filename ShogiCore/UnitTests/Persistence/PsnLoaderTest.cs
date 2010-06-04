@@ -16,16 +16,21 @@ namespace ShogiCore.UnitTests.Persistence
     [TestMethod]
     public void LoadTranscription()
     {
-      using (var s = new MemoryStream(Resources.Jan_Jun1992))
+      using (var s = new StringReader(Resources.Jan_Jun1992))
       {
-        var trascription = new PsnTranscriber().Load(new StreamReader(s)).First();
+        var trascription = new PsnTranscriber().Load(s).First();
         var board = trascription.LoadBoard(new StandardPieceSet());
         Assert.AreEqual("Minami Yoshikazu", board.Black.Name);
         Assert.AreEqual("Tanigawa Koji", board.White.Name);
         Assert.AreEqual(trascription.Moves.Count, board.History.Count);
       }
     }
-  
+    [TestMethod]
+    public void EthalonTest()
+    {
+      CountMoves(1, Resources.ethalon);
+    }
+
     [TestMethod]
     public void TranscriptionsCountTest()
     {
@@ -53,11 +58,11 @@ namespace ShogiCore.UnitTests.Persistence
       CountMoves(28, Resources.misc_pro_games);
     }
 
-    private static void CountMoves(int expectedMovesCount, byte[] file)
+    private static void CountMoves(int expectedMovesCount, string file)
     {
-      using (var s = new MemoryStream(file))
+      using (var s = new StringReader(file))
       {
-        var trascriptions = new PsnTranscriber().Load(new StreamReader(s)).ToList();
+        var trascriptions = new PsnTranscriber().Load(s).ToList();
         Assert.AreEqual(expectedMovesCount, trascriptions.Count);
         foreach (var gameTranscription in trascriptions)
         {
@@ -79,9 +84,9 @@ namespace ShogiCore.UnitTests.Persistence
     [TestMethod]
     public void TranscriptionContentTest()
     {
-      using (var s = new MemoryStream(Resources.Jan_Jun1992))
+      using (var s = new StringReader(Resources.Jan_Jun1992))
       {
-        var trascription = new PsnTranscriber().Load(new StreamReader(s)).First();
+        var trascription = new PsnTranscriber().Load(s).First();
         Assert.AreEqual(5, trascription.Properties.Count);
         Assert.AreEqual("1992/01/16", trascription.Properties["Date"].Value);
         Assert.AreEqual("Osho-sen", trascription.Properties["Event"].Value);
@@ -131,7 +136,14 @@ namespace ShogiCore.UnitTests.Persistence
       Assert.AreEqual("move", move.MoveNotation);
       Assert.AreEqual(null, move.Comment);
     }
-    [TestMethod, Ignore]
+    [TestMethod]
+    public void LoadFile()
+    {
+      using (var fileStream = new StreamReader(@"x:\Games\data\By Years\1993\Jan-Jun1993.psn"))
+        foreach (var game in new PsnTranscriber().Load(fileStream))
+          game.LoadSnapshot();
+    }
+    [TestMethod]
     public void LoadFromDisc()
     {
       var columns = new HashSet<string>();
@@ -143,12 +155,13 @@ namespace ShogiCore.UnitTests.Persistence
         using (var fileStream = new StreamReader(psn))
           foreach (var game in new PsnTranscriber().Load(fileStream))
           {
-            counter++;
-            foreach (var prop in game.Properties.Values)
-            {
-              dic.Add(Tuple.Create(counter, PropName(prop)), prop.Value);
-              columns.Add(PropName(prop));
-            } 
+            game.LoadSnapshot();
+            //            counter++;
+            //            foreach (var prop in game.Properties.Values)
+            //            {
+            //              dic.Add(Tuple.Create(counter, PropName(prop)), prop.Value);
+            //              columns.Add(PropName(prop));
+            //            } 
           }
       }
       using (var output = new StreamWriter("out.txt"))
@@ -172,7 +185,7 @@ namespace ShogiCore.UnitTests.Persistence
           }
           output.WriteLine();
         }
-        
+
       }
 
     }
