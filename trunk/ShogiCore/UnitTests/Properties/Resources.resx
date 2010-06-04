@@ -119,72 +119,75 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Jan_Jun1992" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Jan-Jun1992.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\Jan-Jun1992.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="misc_pro_games" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\misc pro games.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\misc pro games.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_16th_Kio_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\16th Kio Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\16th Kio Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_20th_Osho_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\20th Osho Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\20th Osho Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_26th_Osho_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\26th Osho Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\26th Osho Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_29th_Osho_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\29th Osho Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\29th Osho Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_31st_Meijin_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\31st Meijin Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\31st Meijin Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_31st_Oi_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\31st Oi Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\31st Oi Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_32nd_Oi_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\32nd Oi Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\32nd Oi Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_32nd_Osho_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\32nd Osho Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\32nd Osho Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_33rd_Meijin_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\33rd Meijin Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\33rd Meijin Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_38th_Oza_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\38th Oza Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\38th Oza Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_39th_Oza_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\39th Oza Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\39th Oza Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_3rd_RyuO_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3rd RyuO Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\3rd RyuO Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_40th_Osho_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\40th Osho Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\40th Osho Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_48th_Meijin_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\48th Meijin Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\48th Meijin Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_49th_Meijin_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\49th Meijin Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\49th Meijin Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_4th_RyuO_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4th RyuO Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\4th RyuO Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_56th_Kisei_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\56th Kisei Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\56th Kisei Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_57th_Kisei_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\57th Kisei Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\57th Kisei Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_58th_Kisei_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\58th Kisei Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\58th Kisei Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_59th_Kisei_Match" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\59th Kisei Match.psn;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\59th Kisei Match.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_25_0102" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\25_0102.ki2;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\25_0102.ki2;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="ethalon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ethalon.psn;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

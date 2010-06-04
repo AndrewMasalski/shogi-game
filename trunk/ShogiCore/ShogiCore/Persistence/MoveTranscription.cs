@@ -3,12 +3,18 @@ using System.Text;
 
 namespace Yasc.ShogiCore.Persistence
 {
+  public enum ParseTroubleKind
+  {
+    None,
+  }
+
   public class MoveTranscription
   {
     public int Number { get; set; }
     public string MoveNotation { get; set; }
     public string Comment { get; set; }
     public string Evaluation { get; set; }
+    public ParseTroubleKind ParseTrouble  { get; set; }
 
     public override string ToString()
     {

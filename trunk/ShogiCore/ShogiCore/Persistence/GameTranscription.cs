@@ -145,6 +145,7 @@ namespace Yasc.ShogiCore.Persistence
     }
     public Board LoadBoard(IPieceSet pieceSet)
     {
+      // TODO: Should load moves comments into decorated moves
       ParseBody();
       var board = new Board(pieceSet);
       board.LoadSnapshotWithHistory(LoadSnapshot());
@@ -152,6 +153,11 @@ namespace Yasc.ShogiCore.Persistence
       board.Black.Name = Properties["Black"].Value;
       return board;
 
+    }
+
+    public IEnumerable<MoveTranscription> GetBadMoves()
+    {
+      return Moves.Where(m => m.ParseTrouble != ParseTroubleKind.None);
     }
   }
 }

@@ -222,6 +222,7 @@
     <None Include="Resources\57th Kisei Match.psn" />
     <None Include="Resources\58th Kisei Match.psn" />
     <None Include="Resources\59th Kisei Match.psn" />
+    <None Include="Resources\ethalon.psn" />
     <None Include="Resources\Jan-Jun1992.psn" />
     <None Include="Resources\misc pro games.psn" />
   </ItemGroup>
