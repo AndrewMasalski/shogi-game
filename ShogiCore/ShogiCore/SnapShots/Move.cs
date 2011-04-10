@@ -4,15 +4,24 @@ using Yasc.ShogiCore.Primitives;
 
 namespace Yasc.ShogiCore.Snapshots
 {
+  /// <summary>Represents all possible shogi move types</summary>
   public enum MoveType
   {
-    Usual, Drop, Resign
+    /// <summary>Move from one cell on board to another</summary>
+    Usual,
+    /// <summary>Drop from hand move</summary>
+    Drop,
+    /// <summary>Player resignation move</summary>
+    Resign
   }
+
   /// <summary>Base class for lightweight snapshots of usual and drop moves</summary>
   [Serializable]
   public abstract class Move
   {
+    /// <summary>Indicates if the move is usual or drop</summary>
     public abstract MoveType MoveType { get; }
+
     private RulesViolation _errorMessage;
     private BoardSnapshot _boardSnapshotAfter;
 
@@ -22,6 +31,7 @@ namespace Yasc.ShogiCore.Snapshots
     /// <summary>Board snapshot before the move is done</summary>
     public BoardSnapshot BoardSnapshotBefore { get; private set; }
 
+    /// <summary>Board snapshot after the move is done</summary>
     public BoardSnapshot BoardSnapshotAfter
     {
       get
@@ -29,11 +39,7 @@ namespace Yasc.ShogiCore.Snapshots
         Debug.Assert(_errorMessage == RulesViolation.NoViolations
                   || _errorMessage == RulesViolation.PartiallyValidated,
                   "Before you have Move.BoardSnapshotAfter Move should be at least partially validated");
-        if (_boardSnapshotAfter == null)
-        {
-          _boardSnapshotAfter = BoardSnapshotBefore.MakeMove(this);
-        }
-        return _boardSnapshotAfter;
+        return _boardSnapshotAfter ?? (_boardSnapshotAfter = BoardSnapshotBefore.MakeMove(this));
       }
     }
 

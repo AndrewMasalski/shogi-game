@@ -18,7 +18,6 @@
       <Method Name="Equals" Hidden="true" />
       <Method Name="EstimateUsualMoveTargets" Hidden="true" />
       <Method Name="FindTheKing" Hidden="true" />
-      <Method Name="GetAllAvailableUsualMoves" Hidden="true" />
       <Method Name="GetAllValidDropMoves" Hidden="true" />
       <Method Name="GetAllValidUsualMovesDontCheckTheCheck" Hidden="true" />
       <Method Name="GetHandCollection" Hidden="true" />
@@ -45,7 +44,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>QCCACAIMEJAUgAANkgfJJIAAFIAjIpQAAAVhAABAMiU=</HashCode>
+      <HashCode>QCCACAIMEJAUgAANkgfJJIAAFIAiIpQAAAVhAABAMiU=</HashCode>
       <FileName>Snapshots\BoardSnapshot.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -53,7 +52,6 @@
       <Property Name="GameState" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Cells" />
       <Property Name="BlackHand" />
       <Property Name="WhiteHand" />
     </ShowAsCollectionAssociation>

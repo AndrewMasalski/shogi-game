@@ -122,6 +122,8 @@ namespace Yasc.ShogiCore.Core
 
       FillCells();
     }
+    /// <summary>Resets the pieces on board and in hands and loads a snapshot with history from scratch</summary>
+    /// <exception cref="NotEnoughPiecesInSetException">When board's piece set has not enough piecese</exception>
     public void LoadSnapshotWithHistory(BoardSnapshot snapshot)
     {
       if (snapshot == null) throw new ArgumentNullException("snapshot");
@@ -129,7 +131,7 @@ namespace Yasc.ShogiCore.Core
       LoadSnapshotsHistory(snapshot);
       LoadSnapshotWithoutHistory(snapshot);
     }
-    /// <summary>Resets the pieces on board and from hands and loads a snapshot from scratch</summary>
+    /// <summary>Resets the pieces on board and in hands and loads a snapshot from scratch</summary>
     /// <exception cref="NotEnoughPiecesInSetException">When board's piece set has not enough piecese</exception>
     public void LoadSnapshotWithoutHistory(BoardSnapshot snapshot)
     {

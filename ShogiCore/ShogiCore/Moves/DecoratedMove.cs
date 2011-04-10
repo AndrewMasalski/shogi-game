@@ -18,13 +18,16 @@ namespace Yasc.ShogiCore.Moves
     {
       get { return Move.BoardSnapshotBefore; }
     }
+    /// <summary>Board snapshot after the move is done</summary>
     public BoardSnapshot BoardSnapshotAfter
     {
       get { return Move.BoardSnapshotAfter; }
     }
     /// <summary>Move sequential number within the game</summary>
     public int Number { get { return Move.Number; } }
+    /// <summary>Move annotation given by commentator</summary>
     public string Comment { get; set; }
+    /// <summary>Move evaluation given by commentator</summary>
     public MoveEvaluation Evaluation { get; set; }
 
     /// <summary>ctor</summary>

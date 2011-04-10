@@ -124,6 +124,7 @@ namespace Yasc.ShogiCore.Moves
       return new DecoratedMove(snapshot);
     }
 
+    /// <summary>Gets snapshots series of the game</summary>
     public IEnumerable<BoardSnapshot> Snapshots
     {
       get
