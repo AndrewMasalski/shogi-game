@@ -33,10 +33,15 @@ namespace Yasc.ShogiCore.Primitives
     /// <summary>Gets all directions of move piece can do</summary>
     IEnumerable<IMoveDirection> MoveDirections { get; }
 
+    /// <summary>Gets colored piece of the type</summary>
     IColoredPiece GetColored(PieceColor color);
+    /// <summary>Gets white piece of the type</summary>
     IColoredPiece White { get; }
+    /// <summary>Gets black piece of the type</summary>
     IColoredPiece Black { get; }
+    /// <summary>Gets piece type itself or demoted piece type if possible</summary>
     IPieceType DemoteIfPossible();
+    /// <summary>Gets piece type itself or promoted piece type if possible</summary>
     IPieceType PromoteIfPossible();
   }
 }
