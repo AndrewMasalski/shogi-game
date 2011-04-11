@@ -1,0 +1,12 @@
+﻿<Window x:Class="BoardPanelTestStand.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Chess="clr-namespace:Chess;assembly=Chess" Title="MainWindow" Height="350" Width="525">
+  <Grid>
+    <Chess:BoardPanel>
+      <Ellipse Chess:BoardPanel.Position="e4" Width="20" Height="20" 
+               Stroke="Black" StrokeThickness="1" Fill="Beige"/>
+      <Rectangle Chess:BoardPanel.Position="g2" Stretch="Fill"
+               Stroke="Black" StrokeThickness="1" Fill="Beige"/>
+    </Chess:BoardPanel>
+  </Grid>
+</Window>
