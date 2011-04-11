@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DotUsi.UsiEngine">
+  <Class Name="Yasc.DotUsi.UsiEngine">
     <Position X="0.75" Y="0.5" Width="2.25" />
     <Members>
       <Field Name="_debugMode" Hidden="true" />
@@ -9,6 +9,7 @@
       <Field Name="_process" Hidden="true" />
       <Method Name="CreateOptionObject" Hidden="true" />
       <Method Name="IsReady" Hidden="true" />
+      <Method Name="LoadImplicitOptions" Hidden="true" />
       <Method Name="OnBestMove" Hidden="true" />
       <Method Name="OnReadyOK" Hidden="true" />
       <Method Name="OnUsiOK" Hidden="true" />
@@ -16,6 +17,7 @@
       <Method Name="ParseId" Hidden="true" />
       <Method Name="ParseOption" Hidden="true" />
       <Method Name="ReceiveOutputData" Hidden="true" />
+      <Method Name="SetEngine" Hidden="true" />
       <Method Name="SetOption" Hidden="true" />
       <Method Name="VerifyCorrupted" Hidden="true" />
       <Method Name="VerifyIsReady" Hidden="true" />
@@ -26,7 +28,7 @@
       <Method Name="VerifyStarted" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>CIABUAgECaIQBIAgCAgICEQAFoAECgAQOQAAAEBAABA=</HashCode>
+      <HashCode>CIABUAgECaIQBIAgCAoICEQAFoAECgAQeQAAAUBAABA=</HashCode>
       <FileName>UsiEngine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -38,7 +40,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DotUsi.UsiOptionBase">
+  <Class Name="Yasc.DotUsi.Options.Base.UsiOptionBase">
     <Position X="4.25" Y="0.5" Width="1.5" />
     <Members>
       <Property Name="CommitCommand" Hidden="true" />
@@ -46,14 +48,14 @@
       <Method Name="UsiOptionBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAAAAAAgAQAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AAgAAAQAAAAAAAAAAAAAgAQEAAAAAAAABAAAAAAAAAg=</HashCode>
       <FileName>Options\Base\UsiOptionBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="OptionType" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="DotUsi.EngineInfo">
+  <Class Name="Yasc.DotUsi.Info.EngineInfo">
     <Position X="4.25" Y="2.75" Width="2.5" />
     <Members>
       <Field Name="_cpuLoad" Hidden="true" />
@@ -85,7 +87,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DotUsi.ScoreInfo">
+  <Class Name="Yasc.DotUsi.Info.ScoreInfo">
     <Position X="8" Y="2.75" Width="2" />
     <Members>
       <Field Name="_centiPawns" Hidden="true" />
@@ -104,14 +106,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Enum Name="DotUsi.EngineMode">
+  <Enum Name="Yasc.DotUsi.EngineMode">
     <Position X="0.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAEAAAAAIAAAAAIEAAAAAAAAQAACAEA=</HashCode>
       <FileName>EngineMode.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="DotUsi.UsiOptionType">
+  <Enum Name="Yasc.DotUsi.Options.Base.UsiOptionType">
     <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAgAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAJAAAA=</HashCode>

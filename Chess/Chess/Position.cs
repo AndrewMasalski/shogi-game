@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Converters;
+using System.Windows.Markup;
 
 namespace Chess
 {
   /// <summary>Identifies chess board cell coordinates in a user-friendly manner</summary>
   /// <remarks>http://en.wikipedia.org/wiki/Chess</remarks>
+  [TypeConverter(typeof(PositionConverter))]
+  [ValueSerializer(typeof(PositionValueSerializer))]
   [Serializable]
   public struct Position
   {
@@ -126,7 +131,5 @@ namespace Chess
             yield return new Position(j, i);
       }
     }
-
-    
   }
 }
