@@ -186,13 +186,13 @@ namespace Chess
       var widthLeft = Math.Max(availableSize.Width - _cellsWidth - _columnsWidth, 0);
       var heightLeft = Math.Max(availableSize.Height - _cellsHeight - _rowsHeight, 0);
 
-      var horizEdgeCellsConstraint = new Size(_cellsWidth / 8, widthLeft / 2);
-      var vertEdgeCellsConstraint = new Size(heightLeft / 2, _cellsHeight / 8);
+      var horizEdgeCellsConstraint = new Size(_cellsWidth / 8, heightLeft / 2);
+      var vertEdgeCellsConstraint = new Size(widthLeft / 2, _cellsHeight / 8);
 
       var topEdgeCells = _elements[(int)Pos.TopEdgeCell];
-      var bottomEdgeCells = _elements[(int)Pos.LeftEdgeCell];
-      var leftEdgeCells = _elements[(int)Pos.RightEdgeCell];
-      var rightEdgeCells = _elements[(int)Pos.BottomEdgeCell];
+      var bottomEdgeCells = _elements[(int)Pos.BottomEdgeCell];
+      var leftEdgeCells = _elements[(int)Pos.LeftEdgeCell];
+      var rightEdgeCells = _elements[(int)Pos.RightEdgeCell];
 
       topEdgeCells.ForEach(cell => cell.Measure(horizEdgeCellsConstraint));
       bottomEdgeCells.ForEach(cell => cell.Measure(horizEdgeCellsConstraint));
@@ -250,42 +250,58 @@ namespace Chess
     {
       var oldColumnsWidth = _columnsWidth;
       var oldRowsHeight = _rowsHeight;
-      var oldCellsWidth = _cellsWidth;
-      var oldCellsHeight = _cellsHeight;
 
       //-------------------------------------------------------
 
       var excessiveWidth = arrangeSize.Width -
         _cellsWidth - _columnsWidth - _leftEdgeCellsWidth - _rightEdgeCellsWidth;
-      if (excessiveWidth > _leftEdgeCellsWidth + _rightEdgeCellsWidth)
-        excessiveWidth -= _leftEdgeCellsWidth + _rightEdgeCellsWidth;
-      else _leftEdgeCellsWidth = _rightEdgeCellsWidth = excessiveWidth / 2;
-      if (excessiveWidth > _columnsWidth) excessiveWidth -= _columnsWidth;
-      else _columnsWidth = excessiveWidth;
-      _cellsWidth = Math.Max(_cellsWidth + excessiveWidth, 0);
+      if (excessiveWidth >= 0)
+      {
+        _cellsWidth += excessiveWidth;
+      }
+      else
+      {
+        if (-excessiveWidth > _leftEdgeCellsWidth + _rightEdgeCellsWidth)
+        {
+          excessiveWidth += _leftEdgeCellsWidth + _rightEdgeCellsWidth;
+        }
+        else
+        {
+          _leftEdgeCellsWidth = _rightEdgeCellsWidth = -excessiveWidth/2;
+          excessiveWidth = 0;
+        }
+        _columnsWidth = excessiveWidth;
+      }
 
       //-------------------------------------------------------
 
       var excessiveHeight = arrangeSize.Height -
         _cellsHeight - _rowsHeight - _topEdgeCellsHeight - _bottomEdgeCellsHeight;
-      if (excessiveHeight > _topEdgeCellsHeight + _bottomEdgeCellsHeight)
-        excessiveHeight -= _topEdgeCellsHeight + _bottomEdgeCellsHeight;
-      else _topEdgeCellsHeight = _bottomEdgeCellsHeight = excessiveHeight / 2;
-      if (excessiveHeight > _rowsHeight) excessiveHeight -= _rowsHeight;
-      else _rowsHeight = excessiveHeight;
-      _cellsHeight = Math.Max(_cellsHeight + excessiveHeight, 0);
+      if (excessiveHeight >= 0)
+      {
+        _cellsHeight += excessiveHeight;
+      }
+      else
+      {
+        if (-excessiveHeight > _topEdgeCellsHeight + _bottomEdgeCellsHeight)
+        {
+          excessiveHeight += _topEdgeCellsHeight + _bottomEdgeCellsHeight;
+        }
+        else
+        {
+          _topEdgeCellsHeight = _bottomEdgeCellsHeight = -excessiveHeight / 2;
+          excessiveHeight = 0;
+        }
+        _rowsHeight = excessiveHeight;
+      }
 
       //-------------------------------------------------------
 
       _columnsWidthRatio = 1;
       _rowsHeightRatio = 1;
-      _cellsWidthRatio = 1;
-      _cellsHeightRatio = 1;
 
       if (oldColumnsWidth > 0) _columnsWidthRatio = _columnsWidth / oldColumnsWidth;
       if (oldRowsHeight > 0) _rowsHeightRatio = _rowsHeight / oldRowsHeight;
-      if (oldCellsWidth > 0) _cellsWidth = _cellsWidth / oldCellsWidth;
-      if (oldCellsHeight > 0) _cellsHeight = _cellsHeight / oldCellsHeight;
     }
     private void ArrangeBackground(Size arrangeSize)
     {
@@ -294,22 +310,22 @@ namespace Chess
     }
     private void ArrangeCorners()
     {
-      foreach (var e in _elements[(int)Pos.TopLeftCorner])
+      foreach (var e in _elements[(int)Pos.BottomLeftCorner])
         e.Arrange(new Rect(new Point(),
                            new Size(_leftEdgeCellsWidth, _topEdgeCellsHeight)));
 
-      foreach (var e in _elements[(int)Pos.BottomLeftCorner])
+      foreach (var e in _elements[(int)Pos.TopLeftCorner])
         e.Arrange(new Rect(new Point(0,
                                      _cellsHeight + _rowsHeight + _topEdgeCellsHeight),
                            new Size(_leftEdgeCellsWidth, _bottomEdgeCellsHeight)));
 
-      foreach (var e in _elements[(int)Pos.BottomRightCorner])
+      foreach (var e in _elements[(int)Pos.TopRightCorner])
         e.Arrange(new Rect(new Point(
                              _cellsWidth + _columnsWidth + _leftEdgeCellsWidth,
                              _cellsHeight + _rowsHeight + _topEdgeCellsHeight),
                            new Size(_rightEdgeCellsWidth, _bottomEdgeCellsHeight)));
 
-      foreach (var e in _elements[(int)Pos.TopRightCorner])
+      foreach (var e in _elements[(int)Pos.BottomRightCorner])
         e.Arrange(new Rect(new Point(
                              _cellsWidth + _columnsWidth + _leftEdgeCellsWidth, 0),
                            new Size(_rightEdgeCellsWidth, _topEdgeCellsHeight)));
@@ -342,8 +358,6 @@ namespace Chess
     {
       _cols.Initialize();
       _rows.Initialize();
-      _cellWs.Initialize();
-      _cellHs.Initialize();
       _sumWs.Initialize();
       _sumHs.Initialize();
 
@@ -359,20 +373,10 @@ namespace Chess
         _rows[row] = Math.Max(_rows[row], e.DesiredSize.Height);
       }
 
-      foreach (var e in _elements[(int)Pos.Cell])
-      {
-        var row = GetRow(e);
-        _cellHs[row] = Math.Max(_cellHs[row], e.DesiredSize.Height);
-        var col = GetColumn(e);
-        _cellWs[col] = Math.Max(_cellWs[col], e.DesiredSize.Width);
-      }
-
       for (int i = 0; i < 9; i++)
       {
         _cols[i] *= _columnsWidthRatio;
         _rows[i] *= _rowsHeightRatio;
-        _cellWs[i] *= _cellsWidthRatio;
-        _cellHs[i] *= _cellsHeightRatio;
       }
 
       _sumWs[0] = _cols[0] + _leftEdgeCellsWidth;
@@ -380,8 +384,8 @@ namespace Chess
 
       for (int i = 1; i < 9; i++)
       {
-        _sumWs[i] = _sumWs[i - 1] + _cellWs[i] + _cols[i];
-        _sumHs[i] = _sumHs[i - 1] + _cellHs[i] + _rows[i];
+        _sumWs[i] = _sumWs[i - 1] + _cellsWidth / 8 + _cols[i];
+        _sumHs[i] = _sumHs[i - 1] + _cellsHeight / 8 + _rows[i];
       }
     }
     private void ArrangeRowsAndColumns(Size arrangeSize)
@@ -410,7 +414,7 @@ namespace Chess
         var row = GetRow(e);
         e.Arrange(new Rect(
           new Point(_sumWs[col], _sumHs[row]),
-          new Size(_cellWs[col], _cellHs[row])));
+          new Size(_cellsWidth/8, _cellsHeight/8)));
       }
     }
 
@@ -418,13 +422,9 @@ namespace Chess
 
     private double _columnsWidthRatio;
     private double _rowsHeightRatio;
-    private double _cellsWidthRatio;
-    private double _cellsHeightRatio;
 
     private readonly double[] _rows = new double[9];
     private readonly double[] _cols = new double[9];
-    private readonly double[] _cellWs = new double[9];
-    private readonly double[] _cellHs = new double[9];
     private readonly double[] _sumWs = new double[9];
     private readonly double[] _sumHs = new double[9];
 
