@@ -60,7 +60,15 @@ namespace UniTests
       _panel.Arrange(new Rect(1, 3, 80, 88));
       Verify();
     }
-
+    [TestMethod]
+    public void LayoutColumn()
+    {
+      SetupObject(new Vector(3, -1), new Size(16, 88), new Size(16, 88), 
+        new Rect((16*9 - 16)/8*3, 0, 16, 88));
+      _panel.Measure(new Size(16 * 9, 88));
+      _panel.Arrange(new Rect(1, 3, 16 * 9, 88));
+      Verify();
+    }
     private void SetupObject(Vector pos, Size expectedMeasuredSize, Rect expectedArrangeRect)
     {
       SetupObject(pos, expectedMeasuredSize, expectedMeasuredSize, expectedArrangeRect);

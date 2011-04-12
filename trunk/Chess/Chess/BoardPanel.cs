@@ -178,8 +178,9 @@ namespace Chess
       _elements[(int)Pos.Row].ForEach(row => row.Measure(new Size(availableSize.Width, rowConstraint)));
       _elements[(int)Pos.Column].ForEach(column => column.Measure(new Size(columnConstraint, availableSize.Height)));
 
-      _rowsHeight = Sum(_elements[(int)Pos.Row], c => c.DesiredSize.Width);
-      _columnsWidth = Sum(_elements[(int)Pos.Column], c => c.DesiredSize.Height);
+      // bug: don't sum up two values for the same column
+      _rowsHeight = Sum(_elements[(int)Pos.Row], c => c.DesiredSize.Height);
+      _columnsWidth = Sum(_elements[(int)Pos.Column], c => c.DesiredSize.Width);
     }
     private void MeasureEdgeCells(Size availableSize)
     {
