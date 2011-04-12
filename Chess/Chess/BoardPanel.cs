@@ -339,8 +339,8 @@ namespace Chess
 
       foreach (var e in _elements[(int)Pos.TopEdgeCell])
         e.Arrange(new Rect(
-          new Point(_leftEdgeCellsWidth + _columnsWidth / 8 * GetColumn(e), 0),
-          new Size(_columnsWidth / 8, _topEdgeCellsHeight)));
+          new Point(_leftEdgeCellsWidth + _cellsWidth / 8 * GetColumn(e), 0),
+          new Size(_cellsWidth / 8, _topEdgeCellsHeight)));
 
       foreach (var e in _elements[(int)Pos.RightEdgeCell])
         e.Arrange(new Rect(
@@ -350,9 +350,9 @@ namespace Chess
 
       foreach (var e in _elements[(int)Pos.BottomEdgeCell])
         e.Arrange(new Rect(
-          new Point(_leftEdgeCellsWidth + _columnsWidth / 8 * GetColumn(e),
+          new Point(_leftEdgeCellsWidth + _cellsWidth / 8 * GetColumn(e),
             _cellsHeight + _rowsHeight + _topEdgeCellsHeight),
-            new Size(_columnsWidth / 8, _topEdgeCellsHeight)));
+            new Size(_cellsWidth / 8, _bottomEdgeCellsHeight)));
     }
     private void AdjustRowsAndColumns()
     {
@@ -436,8 +436,8 @@ namespace Chess
 
       if (c == 0 && (r >= 1 && r <= 8)) return Pos.LeftEdgeCell;
       if (c == 9 && (r >= 1 && r <= 8)) return Pos.RightEdgeCell;
-      if (r == 0 && (c >= 1 && c <= 8)) return Pos.BottomEdgeCell;
-      if (r == 9 && (c >= 1 && c <= 8)) return Pos.TopEdgeCell;
+      if (r == 0 && (c >= 1 && c <= 8)) return Pos.TopEdgeCell;
+      if (r == 9 && (c >= 1 && c <= 8)) return Pos.BottomEdgeCell;
 
       if (c == 0 && r == 0) return Pos.BottomLeftCorner;
       if (c == 0 && r == 9) return Pos.TopLeftCorner;

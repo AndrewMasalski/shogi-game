@@ -44,6 +44,22 @@ namespace UniTests
       _panel.Arrange(new Rect(1, 3, 80, 88));
       Verify();
     }
+    [TestMethod]
+    public void LayoutTopEdgeCell()
+    {
+      SetupObject(new Vector(3, 0), new Size(0, 44), new Size(7, 9), new Rect(30, 0, 10, 9));
+      _panel.Measure(new Size(80, 88));
+      _panel.Arrange(new Rect(1, 3, 80, 88));
+      Verify();
+    }
+    [TestMethod]
+    public void LayoutBottomEdgeCell()
+    {
+      SetupObject(new Vector(3, 9), new Size(0, 44), new Size(7, 9), new Rect(30, 79, 10, 9));
+      _panel.Measure(new Size(80, 88));
+      _panel.Arrange(new Rect(1, 3, 80, 88));
+      Verify();
+    }
 
     private void SetupObject(Vector pos, Size expectedMeasuredSize, Rect expectedArrangeRect)
     {
