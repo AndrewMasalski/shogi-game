@@ -162,7 +162,11 @@ namespace Chess
 
     private void MeasureCells(Size availableSize)
     {
-      Measure(Pos.Cell, new Size(availableSize.Width / 8, availableSize.Height / 8));
+      var width = availableSize.Width / 8;
+      var height = availableSize.Height / 8;
+      width = height = Math.Min(width, height);
+
+      Measure(Pos.Cell, new Size(width, height));
 
       _cellsWidth = Max(_elements[(int)Pos.Cell], c => c.DesiredSize.Width) * 8;
       _cellsHeight = Max(_elements[(int)Pos.Cell], c => c.DesiredSize.Height) * 8;
@@ -249,8 +253,8 @@ namespace Chess
     }
     private void AdjustMeasures(Size arrangeSize)
     {
-      var oldColumnsWidth = _columnsWidth;
-      var oldRowsHeight = _rowsHeight;
+      var measuredColumnsWidth = _columnsWidth;
+      var measuredRowsHeight = _rowsHeight;
 
       //-------------------------------------------------------
 
@@ -301,8 +305,8 @@ namespace Chess
       _columnsWidthRatio = 1;
       _rowsHeightRatio = 1;
 
-      if (oldColumnsWidth > 0) _columnsWidthRatio = _columnsWidth / oldColumnsWidth;
-      if (oldRowsHeight > 0) _rowsHeightRatio = _rowsHeight / oldRowsHeight;
+      if (measuredColumnsWidth > 0) _columnsWidthRatio = _columnsWidth / measuredColumnsWidth;
+      if (measuredRowsHeight > 0) _rowsHeightRatio = _rowsHeight / measuredRowsHeight;
     }
     private void ArrangeBackground(Size arrangeSize)
     {
@@ -445,8 +449,8 @@ namespace Chess
       if (c == 9 && r == 0) return Pos.BottomRightCorner;
       if (c == 9 && r == 9) return Pos.TopRightCorner;
 
-      if (c == -1 && (r >= 0 && r <= 9)) return Pos.Row;
-      if (r == -1 && (c >= 0 && c <= 9)) return Pos.Column;
+      if (c == -1 && (r >= 0 && r <= 8)) return Pos.Row;
+      if (r == -1 && (c >= 0 && c <= 8)) return Pos.Column;
 
       throw new Exception("The wrong value should have been coerced!");
     }
