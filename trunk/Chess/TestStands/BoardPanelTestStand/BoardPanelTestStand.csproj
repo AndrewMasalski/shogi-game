@@ -86,6 +86,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Alpha.ttf" />
+    <Resource Include="Fonts\CASEFONT.TTF" />
+    <Resource Include="Fonts\CHEQ_TT.TTF" />
+    <Resource Include="Fonts\Chess-7.TTF" />
+    <Resource Include="Fonts\CONDFONT.TTF" />
+    <Resource Include="Fonts\LEIPFONT.TTF" />
+    <Resource Include="Fonts\LUCEFONT.TTF" />
+    <Resource Include="Fonts\MAGNFONT.TTF" />
+    <Resource Include="Fonts\MARRFONT.TTF" />
+    <Resource Include="Fonts\MAYAFONT.TTF" />
+    <Resource Include="Fonts\MVALFONT.TTF" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
