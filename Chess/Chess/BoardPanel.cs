@@ -8,6 +8,27 @@ namespace Chess
 {
   public class BoardPanel : Panel
   {
+    #region ' Common '
+
+    delegate T Aggregate<T>(IEnumerable<UIElement> src, Func<UIElement, T> fetch);
+
+    private enum Pos
+    {
+      Background,
+      Cell,
+      Row, Column,
+      TopEdgeCell, RightEdgeCell, LeftEdgeCell, BottomEdgeCell,
+      TopLeftCorner, TopRightCorner, BottomLeftCorner, BottomRightCorner,
+      Unknown,
+      Count
+    }
+
+    private readonly List<UIElement>[] _elements;
+    private static readonly Size InfiniteSize =
+      new Size(double.PositiveInfinity, double.PositiveInfinity);
+
+    #endregion
+
     public BoardPanel()
     {
       _elements = new List<UIElement>[(int)Pos.Count];
@@ -28,6 +49,8 @@ namespace Chess
       _elements[(int)Pos.TopRightCorner] = new List<UIElement>();
       _elements[(int)Pos.BottomLeftCorner] = new List<UIElement>();
       _elements[(int)Pos.BottomRightCorner] = new List<UIElement>();
+      
+      _elements[(int)Pos.Unknown] = new List<UIElement>();
     }
 
     #region ' Column : int Attached Property '
@@ -135,236 +158,175 @@ namespace Chess
 
     #endregion
 
-    private enum Pos
-    {
-      Background,
-      Cell,
-      Row, Column,
-      TopEdgeCell, RightEdgeCell, LeftEdgeCell, BottomEdgeCell,
-      TopLeftCorner, TopRightCorner, BottomLeftCorner, BottomRightCorner,
-      Count
-    }
+    #region ' Measure Fields '
 
-    private readonly List<UIElement>[] _elements;
+    private double _cellSize;
+    private double _columnsWidth;
+    private double _leftEdgeCellsWidth;
+    private double _rightEdgeCellsWidth;
+    private double _rowsHeight;
+    private double _topEdgeCellsHeight;
+    private double _bottomEdgeCellsHeight;
+
+    private bool _isColumnAndRowVisible;
+    private bool _isEdgeVisible;
+
+    #endregion
 
     #region ' Measure '
 
     protected override Size MeasureOverride(Size availableSize)
     {
-      Measure(Pos.Background, availableSize);
-      MeasureCells(availableSize);
-      MeasureRowsAndCols(availableSize);
-      MeasureEdgeCells(availableSize);
-      MeasureCorners();
+      _cellSize = 0;
+      _columnsWidth = 0;
+      _leftEdgeCellsWidth = 0;
+      _rightEdgeCellsWidth = 0;
+      _rowsHeight = 0;
+      _topEdgeCellsHeight = 0;
+      _bottomEdgeCellsHeight = 0;
+
+      _isColumnAndRowVisible = false;
+      _isEdgeVisible = false;
+
+      //     ____________
+      //____/ Background \____________________________________________________
+      Measure(Pos.Background, availableSize, Max, e => e.DesiredSize);
+
+      //     _______
+      //____/ Cells \_________________________________________________________
+      var max = Measure(Pos.Cell, Max, c => c.DesiredSize);
+      _cellSize = Math.Max(max.Width, max.Height);
+      _isColumnAndRowVisible =
+        _cellSize * 8 < availableSize.Height &&
+        _cellSize * 8 < availableSize.Width;
+
+      //     ________________
+      //____/ Rows & Columns \________________________________________________
+      if (_isColumnAndRowVisible)
+      {
+        // bug: don't sum up two values for the same column
+        _rowsHeight = Measure(Pos.Row, Sum, c => c.DesiredSize.Height);
+        _columnsWidth = Measure(Pos.Column, Sum, c => c.DesiredSize.Width);
+
+        _isEdgeVisible =
+          _cellSize * 8 + _rowsHeight < availableSize.Height &&
+          _cellSize * 8 + _columnsWidth < availableSize.Width;
+      }
+
+      //     _______
+      //____/ Edges \_________________________________________________________
+      if (_isEdgeVisible)
+      {
+        _topEdgeCellsHeight = Measure(Pos.TopEdgeCell, Max, c => c.DesiredSize.Height);
+        _bottomEdgeCellsHeight = Measure(Pos.BottomEdgeCell, Max, c => c.DesiredSize.Height);
+        _leftEdgeCellsWidth = Measure(Pos.LeftEdgeCell, Max, c => c.DesiredSize.Width);
+        _rightEdgeCellsWidth = Measure(Pos.RightEdgeCell, Max, c => c.DesiredSize.Width);
+
+        //     _________
+        //____/ Corners \_____________________________________________________
+        var topLeft = Measure(Pos.TopLeftCorner, Max, c => c.DesiredSize);
+        var topRight = Measure(Pos.TopRightCorner, Max, c => c.DesiredSize);
+        var bottomLeft = Measure(Pos.BottomLeftCorner, Max, c => c.DesiredSize);
+        var bottomRight = Measure(Pos.BottomRightCorner, Max, c => c.DesiredSize);
+
+        _topEdgeCellsHeight = Math.Max(
+          _topEdgeCellsHeight, Math.Max(topLeft.Width, topRight.Width));
+
+        _bottomEdgeCellsHeight = Math.Max(
+          _bottomEdgeCellsHeight, Math.Max(bottomLeft.Width, bottomRight.Width));
+
+        _leftEdgeCellsWidth = Math.Max(
+          _leftEdgeCellsWidth, Math.Max(topLeft.Width, bottomLeft.Width));
+
+        _rightEdgeCellsWidth = Math.Max(
+          _rightEdgeCellsWidth, Math.Max(topRight.Width, bottomRight.Width));
+      }
 
       return GetSize();
-    }
-
-    private void MeasureCells(Size availableSize)
-    {
-      var width = availableSize.Width / 8;
-      var height = availableSize.Height / 8;
-      width = height = Math.Min(width, height);
-
-      Measure(Pos.Cell, new Size(width, height));
-
-      _cellsWidth = Max(_elements[(int)Pos.Cell], c => c.DesiredSize.Width) * 8;
-      _cellsHeight = Max(_elements[(int)Pos.Cell], c => c.DesiredSize.Height) * 8;
-    }
-    private void MeasureRowsAndCols(Size availableSize)
-    {
-      var widthLeft = Math.Max(availableSize.Width - _cellsWidth, 0);
-      var heightLeft = Math.Max(availableSize.Height - _cellsHeight, 0);
-
-      var rowConstraint = heightLeft / 9;
-      var columnConstraint = widthLeft / 9;
-
-      _elements[(int)Pos.Row].ForEach(row => row.Measure(new Size(availableSize.Width, rowConstraint)));
-      _elements[(int)Pos.Column].ForEach(column => column.Measure(new Size(columnConstraint, availableSize.Height)));
-
-      // bug: don't sum up two values for the same column
-      _rowsHeight = Sum(_elements[(int)Pos.Row], c => c.DesiredSize.Height);
-      _columnsWidth = Sum(_elements[(int)Pos.Column], c => c.DesiredSize.Width);
-    }
-    private void MeasureEdgeCells(Size availableSize)
-    {
-      var widthLeft = Math.Max(availableSize.Width - _cellsWidth - _columnsWidth, 0);
-      var heightLeft = Math.Max(availableSize.Height - _cellsHeight - _rowsHeight, 0);
-
-      var horizEdgeCellsConstraint = new Size(_cellsWidth / 8, heightLeft / 2);
-      var vertEdgeCellsConstraint = new Size(widthLeft / 2, _cellsHeight / 8);
-
-      var topEdgeCells = _elements[(int)Pos.TopEdgeCell];
-      var bottomEdgeCells = _elements[(int)Pos.BottomEdgeCell];
-      var leftEdgeCells = _elements[(int)Pos.LeftEdgeCell];
-      var rightEdgeCells = _elements[(int)Pos.RightEdgeCell];
-
-      topEdgeCells.ForEach(cell => cell.Measure(horizEdgeCellsConstraint));
-      bottomEdgeCells.ForEach(cell => cell.Measure(horizEdgeCellsConstraint));
-      leftEdgeCells.ForEach(cell => cell.Measure(vertEdgeCellsConstraint));
-      rightEdgeCells.ForEach(cell => cell.Measure(vertEdgeCellsConstraint));
-
-      _topEdgeCellsHeight = Max(topEdgeCells, cell => cell.DesiredSize.Height);
-      _bottomEdgeCellsHeight = Max(bottomEdgeCells, cell => cell.DesiredSize.Height);
-      _leftEdgeCellsWidth = Max(leftEdgeCells, cell => cell.DesiredSize.Width);
-      _rightEdgeCellsWidth = Max(rightEdgeCells, cell => cell.DesiredSize.Width);
-    }
-    private void MeasureCorners()
-    {
-      Measure(Pos.TopLeftCorner, new Size(_leftEdgeCellsWidth, _topEdgeCellsHeight));
-      Measure(Pos.TopRightCorner, new Size(_rightEdgeCellsWidth, _topEdgeCellsHeight));
-      Measure(Pos.BottomLeftCorner, new Size(_leftEdgeCellsWidth, _bottomEdgeCellsHeight));
-      Measure(Pos.BottomRightCorner, new Size(_rightEdgeCellsWidth, _bottomEdgeCellsHeight));
-    }
-    private void Measure(Pos pos, Size constraint)
-    {
-      _elements[(int)pos].ForEach(c => c.Measure(constraint));
     }
     private Size GetSize()
     {
       return new Size(
-        _cellsWidth + _columnsWidth + _leftEdgeCellsWidth + _rightEdgeCellsWidth,
-        _cellsHeight + _rowsHeight + _topEdgeCellsHeight + _bottomEdgeCellsHeight);
+        _cellSize * 8 + _columnsWidth + _leftEdgeCellsWidth + _rightEdgeCellsWidth,
+        _cellSize * 8 + _rowsHeight + _topEdgeCellsHeight + _bottomEdgeCellsHeight);
     }
 
     #endregion
 
-    private double _cellsWidth;
-    private double _columnsWidth;
-    private double _leftEdgeCellsWidth;
-    private double _rightEdgeCellsWidth;
-    private double _cellsHeight;
-    private double _rowsHeight;
-    private double _topEdgeCellsHeight;
-    private double _bottomEdgeCellsHeight;
+    #region ' Arrange Fields '
+
+    private double _spearHeight;
+    private double _spearWidth;
+    private readonly double[] _rows = new double[9];
+    private readonly double[] _cols = new double[9];
+
+    #endregion
 
     #region ' Arrange '
 
     protected override Size ArrangeOverride(Size arrangeSize)
     {
       AdjustMeasures(arrangeSize);
+      AdjustRowsAndColumns();
+
       ArrangeBackground(arrangeSize);
       ArrangeCorners();
       ArrangeEdges();
-      AdjustRowsAndColumns();
       ArrangeRowsAndColumns(arrangeSize);
       ArrangeCells();
       return arrangeSize;
     }
     private void AdjustMeasures(Size arrangeSize)
     {
-      var measuredColumnsWidth = _columnsWidth;
-      var measuredRowsHeight = _rowsHeight;
+      var vertEdgesWidth = _leftEdgeCellsWidth + _rightEdgeCellsWidth;
+      var horizEdgesHeight = _topEdgeCellsHeight + _bottomEdgeCellsHeight;
 
       //-------------------------------------------------------
 
-      var excessiveWidth = arrangeSize.Width -
-        _cellsWidth - _columnsWidth - _leftEdgeCellsWidth - _rightEdgeCellsWidth;
-      if (excessiveWidth >= 0)
+      if (_cellSize * 8 + _columnsWidth + vertEdgesWidth > arrangeSize.Width)
       {
-        _cellsWidth += excessiveWidth;
+        _leftEdgeCellsWidth = _rightEdgeCellsWidth = vertEdgesWidth = 0;
+        _isEdgeVisible = false;
       }
-      else
+      if (_cellSize * 8 + _columnsWidth > arrangeSize.Width)
       {
-        if (-excessiveWidth > _leftEdgeCellsWidth + _rightEdgeCellsWidth)
-        {
-          excessiveWidth += _leftEdgeCellsWidth + _rightEdgeCellsWidth;
-        }
-        else
-        {
-          _leftEdgeCellsWidth = _rightEdgeCellsWidth = -excessiveWidth/2;
-          excessiveWidth = 0;
-        }
-        _columnsWidth = excessiveWidth;
+        _columnsWidth = _rowsHeight = 0;
+        _isColumnAndRowVisible = false;
       }
 
       //-------------------------------------------------------
 
-      var excessiveHeight = arrangeSize.Height -
-        _cellsHeight - _rowsHeight - _topEdgeCellsHeight - _bottomEdgeCellsHeight;
-      if (excessiveHeight >= 0)
+      if (_cellSize * 8 + _rowsHeight + horizEdgesHeight > arrangeSize.Height)
       {
-        _cellsHeight += excessiveHeight;
+        _topEdgeCellsHeight = _bottomEdgeCellsHeight = horizEdgesHeight = 0;
+        _isEdgeVisible = false;
       }
-      else
+      if (_cellSize * 8 + _rowsHeight > arrangeSize.Height)
       {
-        if (-excessiveHeight > _topEdgeCellsHeight + _bottomEdgeCellsHeight)
-        {
-          excessiveHeight += _topEdgeCellsHeight + _bottomEdgeCellsHeight;
-        }
-        else
-        {
-          _topEdgeCellsHeight = _bottomEdgeCellsHeight = -excessiveHeight / 2;
-          excessiveHeight = 0;
-        }
-        _rowsHeight = excessiveHeight;
+        _columnsWidth = _rowsHeight = 0;
+        _isColumnAndRowVisible = false;
       }
 
       //-------------------------------------------------------
 
-      _columnsWidthRatio = 1;
-      _rowsHeightRatio = 1;
+      var w = arrangeSize.Width - _columnsWidth - vertEdgesWidth;
+      var h = arrangeSize.Height - _rowsHeight - horizEdgesHeight;
 
-      if (measuredColumnsWidth > 0) _columnsWidthRatio = _columnsWidth / measuredColumnsWidth;
-      if (measuredRowsHeight > 0) _rowsHeightRatio = _rowsHeight / measuredRowsHeight;
-    }
-    private void ArrangeBackground(Size arrangeSize)
-    {
-      foreach (var e in _elements[(int)Pos.Background])
-        e.Arrange(new Rect(new Point(), arrangeSize));
-    }
-    private void ArrangeCorners()
-    {
-      foreach (var e in _elements[(int)Pos.BottomLeftCorner])
-        e.Arrange(new Rect(new Point(),
-                           new Size(_leftEdgeCellsWidth, _topEdgeCellsHeight)));
-
-      foreach (var e in _elements[(int)Pos.TopLeftCorner])
-        e.Arrange(new Rect(new Point(0,
-                                     _cellsHeight + _rowsHeight + _topEdgeCellsHeight),
-                           new Size(_leftEdgeCellsWidth, _bottomEdgeCellsHeight)));
-
-      foreach (var e in _elements[(int)Pos.TopRightCorner])
-        e.Arrange(new Rect(new Point(
-                             _cellsWidth + _columnsWidth + _leftEdgeCellsWidth,
-                             _cellsHeight + _rowsHeight + _topEdgeCellsHeight),
-                           new Size(_rightEdgeCellsWidth, _bottomEdgeCellsHeight)));
-
-      foreach (var e in _elements[(int)Pos.BottomRightCorner])
-        e.Arrange(new Rect(new Point(
-                             _cellsWidth + _columnsWidth + _leftEdgeCellsWidth, 0),
-                           new Size(_rightEdgeCellsWidth, _topEdgeCellsHeight)));
-    }
-    private void ArrangeEdges()
-    {
-      foreach (var e in _elements[(int)Pos.LeftEdgeCell])
-        e.Arrange(new Rect(
-          new Point(0, _topEdgeCellsHeight + _cellsHeight / 8 * GetRow(e)),
-          new Size(_leftEdgeCellsWidth, _cellsHeight / 8)));
-
-      foreach (var e in _elements[(int)Pos.TopEdgeCell])
-        e.Arrange(new Rect(
-          new Point(_leftEdgeCellsWidth + _cellsWidth / 8 * GetColumn(e), 0),
-          new Size(_cellsWidth / 8, _topEdgeCellsHeight)));
-
-      foreach (var e in _elements[(int)Pos.RightEdgeCell])
-        e.Arrange(new Rect(
-          new Point(_cellsWidth + _columnsWidth + _leftEdgeCellsWidth,
-            _topEdgeCellsHeight + _cellsHeight / 8 * GetRow(e)),
-            new Size(_rightEdgeCellsWidth, _cellsHeight / 8)));
-
-      foreach (var e in _elements[(int)Pos.BottomEdgeCell])
-        e.Arrange(new Rect(
-          new Point(_leftEdgeCellsWidth + _cellsWidth / 8 * GetColumn(e),
-            _cellsHeight + _rowsHeight + _topEdgeCellsHeight),
-            new Size(_cellsWidth / 8, _bottomEdgeCellsHeight)));
+      var min = Math.Min(w, h);
+      _cellSize = min / 8;
+      
+      _spearWidth = w - min;
+      _spearHeight = h - min;
     }
     private void AdjustRowsAndColumns()
     {
-      _cols.Initialize();
-      _rows.Initialize();
-      _sumWs.Initialize();
-      _sumHs.Initialize();
+      for (int i = 0; i < 9; i++)
+      {
+        _cols[i] = 0;
+        _rows[i] = 0;
+      }
+
+      if (!_isColumnAndRowVisible) return;
 
       foreach (var e in _elements[(int)Pos.Column])
       {
@@ -378,60 +340,93 @@ namespace Chess
         _rows[row] = Math.Max(_rows[row], e.DesiredSize.Height);
       }
 
-      for (int i = 0; i < 9; i++)
-      {
-        _cols[i] *= _columnsWidthRatio;
-        _rows[i] *= _rowsHeightRatio;
-      }
-
-      _sumWs[0] = _cols[0] + _leftEdgeCellsWidth;
-      _sumHs[0] = _rows[0] + _topEdgeCellsHeight;
-
       for (int i = 1; i < 9; i++)
       {
-        _sumWs[i] = _sumWs[i - 1] + _cellsWidth / 8 + _cols[i];
-        _sumHs[i] = _sumHs[i - 1] + _cellsHeight / 8 + _rows[i];
+        _cols[i] = _cols[i - 1] + _cols[i];
+        _rows[i] = _rows[i - 1] + _rows[i];
       }
+    }
+    private void ArrangeBackground(Size arrangeSize)
+    {
+      foreach (var e in _elements[(int)Pos.Background])
+        e.Arrange(new Rect(
+          new Point(_spearWidth / 2, _spearHeight / 2), 
+          arrangeSize));
+    }
+    private void ArrangeCorners()
+    {
+      if (!_isEdgeVisible) return;
+
+      foreach (var e in _elements[(int)Pos.TopLeftCorner])
+        e.Arrange(new Rect(
+          _spearWidth / 2, _spearHeight / 2, 
+          _leftEdgeCellsWidth, _topEdgeCellsHeight));
+
+      foreach (var e in _elements[(int)Pos.BottomLeftCorner])
+        e.Arrange(new Rect(
+          _spearWidth / 2, GetBottomRowOffset(8),
+          _leftEdgeCellsWidth, _bottomEdgeCellsHeight));
+
+      foreach (var e in _elements[(int)Pos.BottomRightCorner])
+        e.Arrange(new Rect(
+          GetRightColumnOffset(8), GetBottomRowOffset(8),
+          _rightEdgeCellsWidth, _bottomEdgeCellsHeight));
+
+      foreach (var e in _elements[(int)Pos.TopRightCorner])
+        e.Arrange(new Rect(
+          GetRightColumnOffset(8), _spearHeight / 2,
+          _rightEdgeCellsWidth, _topEdgeCellsHeight));
+    }
+    private void ArrangeEdges()
+    {
+      if (!_isEdgeVisible) return;
+
+      foreach (var e in _elements[(int)Pos.LeftEdgeCell])
+        e.Arrange(new Rect(
+          _spearWidth / 2, GetBottomRowOffset(GetRow(e)-1),
+          _leftEdgeCellsWidth, _cellSize));
+
+      foreach (var e in _elements[(int)Pos.TopEdgeCell])
+        e.Arrange(new Rect(
+          GetRightColumnOffset(GetColumn(e) - 1), _spearHeight / 2,
+          _cellSize, _topEdgeCellsHeight));
+
+      foreach (var e in _elements[(int)Pos.RightEdgeCell])
+        e.Arrange(new Rect(
+          GetRightColumnOffset(8), GetBottomRowOffset(GetRow(e) - 1),
+          _rightEdgeCellsWidth, _cellSize));
+
+      foreach (var e in _elements[(int)Pos.BottomEdgeCell])
+        e.Arrange(new Rect(
+          GetRightColumnOffset(GetColumn(e) - 1), GetBottomRowOffset(8),
+          _cellSize, _bottomEdgeCellsHeight));
     }
     private void ArrangeRowsAndColumns(Size arrangeSize)
     {
+      if (!_isColumnAndRowVisible) return;
+
       foreach (var e in _elements[(int)Pos.Column])
-      {
-        var col = GetColumn(e);
-        var width = _cols[col];
-        var left = _sumWs[col] - width;
-        e.Arrange(new Rect(new Point(left, 0), new Size(width, arrangeSize.Height)));
-      }
+        e.Arrange(new Rect(
+          new Point(GetLeftColumnOffset(GetColumn(e)), _spearHeight/2),
+          new Size(e.DesiredSize.Width, arrangeSize.Height - _spearHeight)));
 
       foreach (var e in _elements[(int)Pos.Row])
-      {
-        var row = GetRow(e);
-        var height = _rows[row];
-        var top = _sumHs[row] - height;
-        e.Arrange(new Rect(new Point(0, top), new Size(arrangeSize.Width, height)));
-      }
+        e.Arrange(new Rect(
+          new Point(_spearWidth/2, GetTopRowOffset(GetRow(e))),
+          new Size(arrangeSize.Width - _spearWidth, e.DesiredSize.Height)));
     }
     private void ArrangeCells()
     {
       foreach (var e in _elements[(int)Pos.Cell])
-      {
-        var col = GetColumn(e);
-        var row = GetRow(e);
         e.Arrange(new Rect(
-          new Point(_sumWs[col], _sumHs[row]),
-          new Size(_cellsWidth/8, _cellsHeight/8)));
-      }
+          GetRightColumnOffset(GetColumn(e)-1),
+          GetBottomRowOffset(GetRow(e)-1), 
+          _cellSize, _cellSize));
     }
 
     #endregion
 
-    private double _columnsWidthRatio;
-    private double _rowsHeightRatio;
-
-    private readonly double[] _rows = new double[9];
-    private readonly double[] _cols = new double[9];
-    private readonly double[] _sumWs = new double[9];
-    private readonly double[] _sumHs = new double[9];
+    #region ' Utils '
 
     private static Pos GetPos(int c, int r)
     {
@@ -452,16 +447,62 @@ namespace Chess
       if (c == -1 && (r >= 0 && r <= 8)) return Pos.Row;
       if (r == -1 && (c >= 0 && c <= 8)) return Pos.Column;
 
-      throw new Exception("The wrong value should have been coerced!");
+      return Pos.Unknown;
     }
 
+    private T Measure<T>(Pos pos, Aggregate<T> agg, Func<UIElement, T> fetch)
+    {
+      return Measure(pos, InfiniteSize, agg, fetch);
+    }
+    private T Measure<T>(Pos pos, Size constraint, Aggregate<T> agg, Func<UIElement, T> fetch)
+    {
+      var collection = _elements[(int)pos];
+      collection.ForEach(c => c.Measure(constraint));
+      return agg(collection, fetch);
+    }
     private static double Max(IEnumerable<UIElement> src, Func<UIElement, double> fetch)
     {
       return !src.Any() ? 0 : src.Max(fetch);
+    }
+    private static Size Max(IEnumerable<UIElement> src, Func<UIElement, Size> fetch)
+    {
+      return !src.Any()
+               ? new Size(0, 0)
+               : new Size(src.Max(c => fetch(c).Width),
+                          src.Max(c => fetch(c).Height));
     }
     private static double Sum(IEnumerable<UIElement> src, Func<UIElement, double> fetch)
     {
       return !src.Any() ? 0 : src.Sum(fetch);
     }
+
+    private double GetLeftBoardOffset()
+    {
+      return _spearWidth / 2 + _leftEdgeCellsWidth;
+    }
+    private double GetTopBoardOffset()
+    {
+      return _spearHeight / 2 + _topEdgeCellsHeight;
+    }
+    private double GetRightColumnOffset(int col)
+    {
+      return GetLeftBoardOffset() + _cellSize * col + _cols[col];
+    }
+    private double GetBottomRowOffset(int row)
+    {
+      return GetTopBoardOffset() + _cellSize * row + _rows[row];
+    }
+    private double GetLeftColumnOffset(int col)
+    {
+      if (col == 0) return GetLeftBoardOffset();
+      return GetLeftBoardOffset() + _cellSize*col + _cols[col - 1];
+    }
+    private double GetTopRowOffset(int row)
+    {
+      if (row == 0) return GetTopBoardOffset();
+      return GetTopBoardOffset() + _cellSize * row + _rows[row - 1];
+    }
+
+    #endregion
   }
 }

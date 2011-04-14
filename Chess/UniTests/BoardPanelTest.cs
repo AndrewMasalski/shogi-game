@@ -12,6 +12,8 @@ namespace UniTests
   {
     private BoardPanel _panel;
     private List<Mock<UIElement>> _mocks;
+    private static readonly Size InfiniteSize =
+      new Size(double.PositiveInfinity, double.PositiveInfinity);
 
     [TestInitialize]
     public void Init()
@@ -25,7 +27,7 @@ namespace UniTests
     [TestMethod]
     public void LayoutCell()
     {
-      SetupObject(new Vector(3, 2), new Size(10, 11), new Rect(30, 22, 10, 11));
+      SetupObject(new Vector(3, 2), InfiniteSize, new Size(10, 11), new Rect(30, 22, 10, 11));
       _panel.Measure(new Size(80, 88));
       _panel.Arrange(new Rect(1, 3, 80, 88));
       Verify();

@@ -55,9 +55,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="PositionConverter.cs" />
-    <Compile Include="PositionValueSerializer.cs" />
-    <Compile Include="Vector.cs" />
+    <Compile Include="ChessFont.cs" />
+    <Compile Include="Core\Primitives\IMoveDirection.cs" />
+    <Compile Include="Core\Primitives\IPiece.cs" />
+    <Compile Include="Core\Primitives\PieceColor.cs" />
+    <Compile Include="Core\Primitives\PT.cs" />
+    <Compile Include="FontPiece.cs" />
+    <Compile Include="Core\Primitives\PositionConverter.cs" />
+    <Compile Include="Core\Primitives\PositionValueSerializer.cs" />
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Primitives\Vector.cs" />
+    <Compile Include="VisualTreeExtensions.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,9 +81,17 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Position.cs" />
+    <Compile Include="Core\Primitives\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,6 +109,20 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Alpha.ttf" />
+    <Resource Include="Fonts\CASEFONT.TTF" />
+    <Resource Include="Fonts\CHEQ_TT.TTF" />
+    <Resource Include="Fonts\Chess-7.TTF" />
+    <Resource Include="Fonts\CONDFONT.TTF" />
+    <Resource Include="Fonts\LEIPFONT.TTF" />
+    <Resource Include="Fonts\LUCEFONT.TTF" />
+    <Resource Include="Fonts\MAGNFONT.TTF" />
+    <Resource Include="Fonts\MARRFONT.TTF" />
+    <Resource Include="Fonts\MAYAFONT.TTF" />
+    <Resource Include="Fonts\MVALFONT.TTF" />
+    <None Include="Core\Primitives\Primitives.cd" />
+    <Resource Include="Fonts\AVENFONT.TTF" />
+    <Resource Include="Fonts\TT_USUAL.TTF" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
