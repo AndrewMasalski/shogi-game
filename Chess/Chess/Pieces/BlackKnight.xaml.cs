@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for BlackKnight.xaml
   /// </summary>
-  public partial class BlackKnight : UserControl
+  public partial class BlackKnight 
   {
     public BlackKnight()
     {

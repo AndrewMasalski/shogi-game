@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Chess.Pieces.WhiteKnight"
+﻿<local:XamlPiece xmlns:local="clr-namespace:Chess.Pieces"  x:Class="Chess.Pieces.WhiteKnight"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,4 +13,4 @@
     <Path Data="M1060.8046,2946.4108 C1060.8046,2953.0775 1052.9672,2957.7054 1048.7981,2958.0388 1044.6291,2958.3722 1040.6977,2956.0726 1038.9179,2953.9967 1036.4165,2953.4965 1028.579,2954.1632 1024.66,2956.0384 1021.9088,2955.8305 1011.7787,2962.7706 1010.9029,2961.8327 1010.4027,2960.7699 1017.5722,2955.8467 1020.533,2953.9131 1023.5155,2951.9655 1027.4468,2949.4605 1029.2877,2947.5364 1032.9564,2943.7021 1034.4154,2936.9084 1045.9216,2936.1583 1051.7457,2935.7786 1060.8046,2939.7441&#xd;&#xa;1060.8046,2946.4108 z" Fill="Black" Height="25.779" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="49.9" Canvas.Left="48.654" Canvas.Top="52.72"/>
     <Ellipse Height="11.249" Stroke="Black" StrokeThickness="0" Width="12.313" Fill="White" Canvas.Left="77.524" Canvas.Top="58.96"/>
   </Canvas>
-</UserControl>
+</local:XamlPiece>

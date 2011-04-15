@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Chess.Pieces.BlackKnight"
+﻿<local:XamlPiece xmlns:local="clr-namespace:Chess.Pieces"  x:Class="Chess.Pieces.BlackKnight"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,4 +13,4 @@
     <Path Data="M1049.7071,858.4207 C1055.584,858.25011 1060.5009,860.75018 1062.3408,863.52904 1068.0459,872.14602 1072.2509,871.58341 1066.0843,871.75007 1059.9177,871.91673 1062.1676,869.41668 1059.6676,867.08342 1057.1676,864.75016 1055.1682,862.95392 1050.167,863.08343 1043.7502,863.2496 1040.6281,866.43034 1037.9863,869.66481 1031.9777,877.0214 1024.7629,880.42295 1021.0137,880.00594 1023.6655,878.75007 1031.6659,871.91687 1036.4527,866.81862 1041.4868,861.45692 1043.0618,858.6136&#xa;1049.7071,858.4207 z" Fill="White" Height="21.628" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="48.112" Canvas.Left="60.194" Canvas.Top="50.157"/>
     <Path Data="M10.001,3.508 C9.8854353,5.4419652 7.7621999,7.016 5.0005,7.016 2.2388001,7.016 -0.25000575,7.0076664 0,3.508 0.13805135,1.5755098 2.2388001,0 5.0005,0 7.7621999,0 10.25,-0.65899998 10.001,3.508 z" Fill="White" Height="6" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="8.535" Canvas.Left="19.149" Canvas.Top="95.482"/>
   </Canvas>
-</UserControl>
+</local:XamlPiece>

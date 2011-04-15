@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for WhiteQueen.xaml
   /// </summary>
-  public partial class WhiteQueen : UserControl
+  public partial class WhiteQueen 
   {
     public WhiteQueen()
     {

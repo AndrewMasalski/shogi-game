@@ -99,6 +99,7 @@
     <Compile Include="Pieces\WhiteRook.xaml.cs">
       <DependentUpon>WhiteRook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pieces\XamlPiece.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>

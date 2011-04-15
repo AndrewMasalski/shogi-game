@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BoardPanelTestStand.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:local="clr-namespace:Chess;assembly=Chess" Title="MainWindow" 
+        xmlns:local="clr-namespace:Chess;assembly=Chess" xmlns:pcs="clr-namespace:Chess.Pieces;assembly=Chess" Title="MainWindow" 
         Height="480" Width="640">
   <Window.Resources>
     <Style TargetType="TextBlock" x:Key="PieceStyle">
@@ -9,16 +9,24 @@
     </Style>
 
     <Style TargetType="TextBlock" x:Key="EdgeStyle">
-      <Setter Property="Background" Value="Lime"/>
+      <Setter Property="Margin" Value="3,-1,3,1"/>
+<!--            <Setter Property="Background" Value="Lime"/>-->
+      <Setter Property="Foreground" Value="#C0CDD3"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
     <Style TargetType="Rectangle" x:Key="DarkSquare">
       <Setter Property="Fill" Value="#829CA8"/>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
+    <Style TargetType="Rectangle" x:Key="LightSquare">
+      <Setter Property="Fill" Value="White"/>
+      <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
     <Style TargetType="Line">
       <Setter Property="Stretch" Value="Fill"/>
-      <Setter Property="Stroke" Value="Black"/>
+      <Setter Property="Stroke" Value="#C0CDD3"/>
       <Setter Property="StrokeThickness" Value="1"/>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
@@ -28,28 +36,28 @@
       <ColumnDefinition Width="164*" />
       <ColumnDefinition Width="454*" />
     </Grid.ColumnDefinitions>
+    <Border Background="Black" Grid.Column="1"/>
     <local:BoardPanel Margin="10" Grid.Column="1">
-      <!--      <Line X2="1" local:BoardPanel.Row="0"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="1"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="2"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="3"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="4"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="5"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="6"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="7"/>-->
-      <!--      <Line X2="1" local:BoardPanel.Row="8"/>-->
+            <Line X2="1" local:BoardPanel.Row="0"/>
+            <Line X2="1" local:BoardPanel.Row="1"/>
+            <Line X2="1" local:BoardPanel.Row="2"/>
+            <Line X2="1" local:BoardPanel.Row="3"/>
+            <Line X2="1" local:BoardPanel.Row="4"/>
+            <Line X2="1" local:BoardPanel.Row="5"/>
+            <Line X2="1" local:BoardPanel.Row="6"/>
+            <Line X2="1" local:BoardPanel.Row="7"/>
+            <Line X2="1" local:BoardPanel.Row="8"/>
 
-      <!--      <Line Y2="1" local:BoardPanel.Column="0"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="1"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="2"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="3"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="4"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="5"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="6"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="7"/>-->
-      <!--      <Line Y2="1" local:BoardPanel.Column="8"/>-->
+            <Line Y2="1" local:BoardPanel.Column="0"/>
+            <Line Y2="1" local:BoardPanel.Column="1"/>
+            <Line Y2="1" local:BoardPanel.Column="2"/>
+            <Line Y2="1" local:BoardPanel.Column="3"/>
+            <Line Y2="1" local:BoardPanel.Column="4"/>
+            <Line Y2="1" local:BoardPanel.Column="5"/>
+            <Line Y2="1" local:BoardPanel.Column="6"/>
+            <Line Y2="1" local:BoardPanel.Column="7"/>
+            <Line Y2="1" local:BoardPanel.Column="8"/>
 
-      <TextBlock local:BoardPanel.Column="0" local:BoardPanel.Row="1" Text="8" Style="{StaticResource EdgeStyle}"/>
       <TextBlock local:BoardPanel.Column="0" local:BoardPanel.Row="2" Text="7" Style="{StaticResource EdgeStyle}"/>
       <TextBlock local:BoardPanel.Column="0" local:BoardPanel.Row="3" Text="6" Style="{StaticResource EdgeStyle}"/>
       <TextBlock local:BoardPanel.Column="0" local:BoardPanel.Row="4" Text="5" Style="{StaticResource EdgeStyle}"/>
@@ -125,43 +133,119 @@
       <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="5" Style="{StaticResource DarkSquare}"/>
       <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="7" Style="{StaticResource DarkSquare}"/>
 
-      <local:FontPiece Symbol="R" local:BoardPanel.Column="1" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="N" local:BoardPanel.Column="2" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="B" local:BoardPanel.Column="3" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="Q" local:BoardPanel.Column="4" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="K" local:BoardPanel.Column="5" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="B" local:BoardPanel.Column="6" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="N" local:BoardPanel.Column="7" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="R" local:BoardPanel.Column="8" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
+                                                                                             
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
+                                                                                             
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
+                                                                                             
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
+                                                                                             
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
+                                                                                             
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
+                                                                                            
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
+                                                                                            
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
 
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="1" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="2" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="3" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="4" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="5" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="6" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="7" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="P" local:BoardPanel.Column="8" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
+      <pcs:WhiteRook   local:BoardPanel.Column="1" local:BoardPanel.Row="8"/>
+      <pcs:WhiteKnight local:BoardPanel.Column="2" local:BoardPanel.Row="8"/>
+      <pcs:WhiteBishop local:BoardPanel.Column="3" local:BoardPanel.Row="8"/>
+      <pcs:WhiteQueen  local:BoardPanel.Column="4" local:BoardPanel.Row="8"/>
+      <pcs:WhiteKing   local:BoardPanel.Column="5" local:BoardPanel.Row="8"/>
+      <pcs:WhiteBishop local:BoardPanel.Column="6" local:BoardPanel.Row="8"/>
+      <pcs:WhiteKnight local:BoardPanel.Column="7" local:BoardPanel.Row="8"/>
+      <pcs:WhiteRook   local:BoardPanel.Column="8" local:BoardPanel.Row="8"/>
 
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="1" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="2" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="3" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="4" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="5" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="6" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="7" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="p" local:BoardPanel.Column="8" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
+      <pcs:WhitePawn local:BoardPanel.Column="1" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="2" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="3" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="4" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="5" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="6" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="7" local:BoardPanel.Row="7"/>
+      <pcs:WhitePawn local:BoardPanel.Column="8" local:BoardPanel.Row="7"/>
 
-      <local:FontPiece Symbol="r" local:BoardPanel.Column="1" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="n" local:BoardPanel.Column="2" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="b" local:BoardPanel.Column="3" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="q" local:BoardPanel.Column="4" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="k" local:BoardPanel.Column="5" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="b" local:BoardPanel.Column="6" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="n" local:BoardPanel.Column="7" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
-      <local:FontPiece Symbol="r" local:BoardPanel.Column="8" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>
+      <pcs:BlackPawn local:BoardPanel.Column="1" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="2" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="3" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="4" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="5" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="6" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="7" local:BoardPanel.Row="2"/>
+      <pcs:BlackPawn local:BoardPanel.Column="8" local:BoardPanel.Row="2"/>
+
+      <pcs:BlackRook   local:BoardPanel.Column="1" local:BoardPanel.Row="1"/>
+      <pcs:BlackKnight local:BoardPanel.Column="2" local:BoardPanel.Row="1"/>
+      <pcs:BlackBishop local:BoardPanel.Column="3" local:BoardPanel.Row="1"/>
+      <pcs:BlackQueen  local:BoardPanel.Column="4" local:BoardPanel.Row="1"/>
+      <pcs:BlackKing   local:BoardPanel.Column="5" local:BoardPanel.Row="1"/>
+      <pcs:BlackBishop local:BoardPanel.Column="6" local:BoardPanel.Row="1"/>
+      <pcs:BlackKnight local:BoardPanel.Column="7" local:BoardPanel.Row="1"/>
+      <pcs:BlackRook   local:BoardPanel.Column="8" local:BoardPanel.Row="1"/>
+<!--      <local:FontPiece Symbol="R" local:BoardPanel.Column="1" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="N" local:BoardPanel.Column="2" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="B" local:BoardPanel.Column="3" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="Q" local:BoardPanel.Column="4" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="K" local:BoardPanel.Column="5" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="B" local:BoardPanel.Column="6" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="N" local:BoardPanel.Column="7" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="R" local:BoardPanel.Column="8" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!---->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="1" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="2" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="3" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="4" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="5" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="6" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="7" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="P" local:BoardPanel.Column="8" local:BoardPanel.Row="7" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!---->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="1" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="2" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="3" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="4" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="5" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="6" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="7" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="p" local:BoardPanel.Column="8" local:BoardPanel.Row="2" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!---->
+<!--      <local:FontPiece Symbol="r" local:BoardPanel.Column="1" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="n" local:BoardPanel.Column="2" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="b" local:BoardPanel.Column="3" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="q" local:BoardPanel.Column="4" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="k" local:BoardPanel.Column="5" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="b" local:BoardPanel.Column="6" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="n" local:BoardPanel.Column="7" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
+<!--      <local:FontPiece Symbol="r" local:BoardPanel.Column="8" local:BoardPanel.Row="1" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 
     </local:BoardPanel>
+
     <Viewbox>
       <StackPanel Width="100" Height="300">
         <TextBox Text="{Binding ElementName=_fonts, Path=SelectedItem.PieceMap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
