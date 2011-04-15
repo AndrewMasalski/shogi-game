@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for BlackRook.xaml
   /// </summary>
-  public partial class BlackRook : UserControl
+  public partial class BlackRook 
   {
     public BlackRook()
     {

@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for WhiteRook.xaml
   /// </summary>
-  public partial class WhiteRook : UserControl
+  public partial class WhiteRook 
   {
     public WhiteRook()
     {

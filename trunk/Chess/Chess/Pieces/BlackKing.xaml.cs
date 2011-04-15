@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for BlackKing.xaml
   /// </summary>
-  public partial class BlackKing : UserControl
+  public partial class BlackKing 
   {
     public BlackKing()
     {

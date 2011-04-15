@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for WhitePawn.xaml
   /// </summary>
-  public partial class WhitePawn : UserControl
+  public partial class WhitePawn 
   {
     public WhitePawn()
     {

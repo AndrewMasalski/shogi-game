@@ -17,7 +17,7 @@ namespace Chess.Pieces
   /// <summary>
   /// Interaction logic for WhiteBishop.xaml
   /// </summary>
-  public partial class WhiteBishop : UserControl
+  public partial class WhiteBishop 
   {
     public WhiteBishop()
     {
