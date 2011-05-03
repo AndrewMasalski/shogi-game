@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:local="clr-namespace:Chess;assembly=Chess" xmlns:pcs="clr-namespace:Chess.Pieces;assembly=Chess" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="BoardPanelTestStand.MainWindow"
         Title="MainWindow" 
-        Height="981.5" Width="1266.5">
+        Height="958" Width="1238.3">
   <Window.Resources>
     <Style TargetType="{x:Type TextBlock}" x:Key="PieceStyle">
       <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -23,21 +23,24 @@
       		<LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
       			<GradientStop Color="#FF8FACB8"/>
       			<GradientStop Color="#FF7E97A3" Offset="1"/>
-      		</LinearGradientBrush>
-      		    	
+      		</LinearGradientBrush>      		    	
 		</Setter.Value>
       	</Setter>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
+      <Setter Property="Margin" Value="-1"/>
     </Style>
     <Style TargetType="{x:Type Rectangle}" x:Key="LightSquare">
       <Setter Property="Fill" Value="White"/>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
+      <Setter Property="Margin" Value="-1"/>
     </Style>
     <Style TargetType="{x:Type Line}">
       <Setter Property="Stretch" Value="Fill"/>
       <Setter Property="Stroke" Value="#C0CDD3"/>
       <Setter Property="StrokeThickness" Value="1"/>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
+      <Setter Property="Panel.ZIndex" Value="100"/>
+      <Setter Property="Opacity" Value=".5"/>
     </Style>
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   </Window.Resources>
@@ -103,126 +106,111 @@
       <TextBlock local:BoardPanel.Column="7" local:BoardPanel.Row="9" Text="G" Style="{StaticResource EdgeStyle}"/>
       <TextBlock local:BoardPanel.Column="8" local:BoardPanel.Row="9" Text="H" Style="{StaticResource EdgeStyle}"/>
 
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="2" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="4" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="6" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="8" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="1" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="3" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="5" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="7" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="2" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="4" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="6" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="8" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="1" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="3" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="5" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="7" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="2" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="4" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="6" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="8" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="1" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="3" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="5" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="7" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="2" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="4" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="6" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="8" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="1" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="3" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="5" Style="{StaticResource DarkSquare}"/>
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="7" Style="{StaticResource DarkSquare}"/>
-
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="2" Panel.ZIndex="10" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="4" Panel.ZIndex="11" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="6" Panel.ZIndex="12" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="8" Panel.ZIndex="13" Style="{StaticResource DarkSquare}"/>
+	    <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="1" Panel.ZIndex="14" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="3" Panel.ZIndex="15" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="5" Panel.ZIndex="16" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="7" Panel.ZIndex="18" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="2" Panel.ZIndex="19" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="4" Panel.ZIndex="20" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="6" Panel.ZIndex="21" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="8" Panel.ZIndex="22" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="1" Panel.ZIndex="23" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="3" Panel.ZIndex="24" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="5" Panel.ZIndex="25" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="7" Panel.ZIndex="26" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="1" Panel.ZIndex="28" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="3" Panel.ZIndex="29" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="5" Panel.ZIndex="30" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="7" Panel.ZIndex="31" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="2" Panel.ZIndex="32" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="4" Panel.ZIndex="33" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="6" Panel.ZIndex="34" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="8" Panel.ZIndex="35" Style="{StaticResource DarkSquare}"/>
+  	  <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="2" Panel.ZIndex="36" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="4" Panel.ZIndex="38" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="6" Panel.ZIndex="39" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="8" Panel.ZIndex="40" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="1" Panel.ZIndex="41" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="3" Panel.ZIndex="42" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="5" Panel.ZIndex="43" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="7" Panel.ZIndex="44" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="2" Panel.ZIndex="45" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="4" Panel.ZIndex="46" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="6" Panel.ZIndex="48" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="8" Panel.ZIndex="49" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="1" Panel.ZIndex="50" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="3" Panel.ZIndex="51" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="5" Panel.ZIndex="52" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="7" Panel.ZIndex="53" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="1" Panel.ZIndex="54" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="3" Panel.ZIndex="55" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="5" Panel.ZIndex="56" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="7" Panel.ZIndex="58" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="2" Panel.ZIndex="59" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="4" Panel.ZIndex="60" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="6" Panel.ZIndex="61" Style="{StaticResource LightSquare}" Opacity="0.62"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="8" Panel.ZIndex="62" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="2" Panel.ZIndex="63" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="4" Panel.ZIndex="64" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="6" Panel.ZIndex="65" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="8" Panel.ZIndex="66" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="1" Panel.ZIndex="68" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="3" Panel.ZIndex="69" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="5" Panel.ZIndex="70" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="7" Panel.ZIndex="71" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="1" Panel.ZIndex="72" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="3" Panel.ZIndex="73" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="5" Panel.ZIndex="74" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="7" Panel.ZIndex="75" Style="{StaticResource DarkSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="2" Panel.ZIndex="76" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="4" Panel.ZIndex="78" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="6" Panel.ZIndex="79" Style="{StaticResource LightSquare}"/>
+      <Rectangle local:BoardPanel.Column="8" local:BoardPanel.Row="8" Panel.ZIndex="80" Style="{StaticResource LightSquare}"/>
                                                                                              
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
-                                                                                             
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
-                                                                                             
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="5" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
-                                                                                             
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="4" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
-                                                                                             
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="3" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
-                                                                                            
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="2" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="4" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="6" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="2" local:BoardPanel.Row="8" Style="{StaticResource LightSquare}"/>
-                                                                                            
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="1" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
+      <pcs:WhiteRook   local:BoardPanel.Column="1" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteKnight local:BoardPanel.Column="2" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteBishop local:BoardPanel.Column="3" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteQueen  local:BoardPanel.Column="4" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteKing   local:BoardPanel.Column="5" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteBishop local:BoardPanel.Column="6" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteKnight local:BoardPanel.Column="7" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
+      <pcs:WhiteRook   local:BoardPanel.Column="8" local:BoardPanel.Row="8" Panel.ZIndex="110"/>
 
-      <pcs:WhiteRook   local:BoardPanel.Column="1" local:BoardPanel.Row="8"/>
-      <pcs:WhiteKnight local:BoardPanel.Column="2" local:BoardPanel.Row="8"/>
-      <pcs:WhiteBishop local:BoardPanel.Column="3" local:BoardPanel.Row="8"/>
-      <pcs:WhiteQueen  local:BoardPanel.Column="4" local:BoardPanel.Row="8"/>
-      <pcs:WhiteKing   local:BoardPanel.Column="5" local:BoardPanel.Row="8"/>
-      <pcs:WhiteBishop local:BoardPanel.Column="6" local:BoardPanel.Row="8"/>
-      <pcs:WhiteKnight local:BoardPanel.Column="7" local:BoardPanel.Row="8"/>
-      <pcs:WhiteRook   local:BoardPanel.Column="8" local:BoardPanel.Row="8"/>
+      <pcs:WhitePawn local:BoardPanel.Column="1" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="2" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="3" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="4" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="5" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="6" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="7" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
+      <pcs:WhitePawn local:BoardPanel.Column="8" local:BoardPanel.Row="7" Panel.ZIndex="110"/>
 
-      <pcs:WhitePawn local:BoardPanel.Column="1" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="2" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="3" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="4" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="5" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="6" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="7" local:BoardPanel.Row="7"/>
-      <pcs:WhitePawn local:BoardPanel.Column="8" local:BoardPanel.Row="7"/>
+      <pcs:BlackPawn local:BoardPanel.Column="1" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="2" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="3" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="4" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="5" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="6" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="7" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <pcs:BlackPawn local:BoardPanel.Column="8" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
 
-      <pcs:BlackPawn local:BoardPanel.Column="1" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="2" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="3" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="4" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="5" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="6" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="7" local:BoardPanel.Row="2"/>
-      <pcs:BlackPawn local:BoardPanel.Column="8" local:BoardPanel.Row="2"/>
+      <pcs:BlackRook   local:BoardPanel.Column="1" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackKnight local:BoardPanel.Column="2" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackBishop local:BoardPanel.Column="3" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackQueen  local:BoardPanel.Column="4" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackKing   local:BoardPanel.Column="5" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackBishop local:BoardPanel.Column="6" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackKnight local:BoardPanel.Column="7" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
+      <pcs:BlackRook   local:BoardPanel.Column="8" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
 
-      <pcs:BlackRook   local:BoardPanel.Column="1" local:BoardPanel.Row="1"/>
-      <pcs:BlackKnight local:BoardPanel.Column="2" local:BoardPanel.Row="1"/>
-      <pcs:BlackBishop local:BoardPanel.Column="3" local:BoardPanel.Row="1"/>
-      <pcs:BlackQueen  local:BoardPanel.Column="4" local:BoardPanel.Row="1"/>
-      <pcs:BlackKing   local:BoardPanel.Column="5" local:BoardPanel.Row="1"/>
-      <pcs:BlackBishop local:BoardPanel.Column="6" local:BoardPanel.Row="1"/>
-      <pcs:BlackKnight local:BoardPanel.Column="7" local:BoardPanel.Row="1"/>
-      <pcs:BlackRook   local:BoardPanel.Column="8" local:BoardPanel.Row="1"/>
-
-      <Image Source="Untitled.png" Visibility="{Binding ElementName=_checkBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
-             Margin="-7,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="1" SnapsToDevicePixels="True"
+      <Image Source="Untitled.png" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=_checkBox}"
+             Margin="-6.531,14.953,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="201" SnapsToDevicePixels="True"
              Width="874" Height="873"
-             RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+             RenderOptions.BitmapScalingMode="NearestNeighbor" d:IsHidden="True"/>
 <!--      <local:FontPiece Symbol="R" local:BoardPanel.Column="1" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 <!--      <local:FontPiece Symbol="N" local:BoardPanel.Column="2" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 <!--      <local:FontPiece Symbol="B" local:BoardPanel.Column="3" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
@@ -263,7 +251,7 @@
 
     <Viewbox>
       <StackPanel Width="100" Height="300">
-        <CheckBox Name="_checkBox" Content="Is Visible"/>
+        <CheckBox x:Name="_checkBox" Content="Is Visible" IsChecked="True"/>
         <TextBox Text="{Binding SelectedItem.PieceMap, ElementName=_fonts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <ListBox x:Name="_fonts" IsSynchronizedWithCurrentItem="True" SelectedIndex="0">
           <local:ChessFont FontFamily="Fonts/#Chess Alpha" PieceMap="pbhrqkonjtwl"/>
@@ -282,5 +270,15 @@
         </ListBox>
       </StackPanel>
     </Viewbox>
+    <Rectangle Height="13.043" Margin="352.598,0,0,109.557" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="40.435" VerticalAlignment="Bottom" Grid.Column="1">
+  		<Rectangle.RenderTransform>
+  			<TransformGroup>
+  				<ScaleTransform ScaleY="-1"/>
+  				<SkewTransform/>
+  				<RotateTransform/>
+  				<TranslateTransform/>
+  			</TransformGroup>
+  		</Rectangle.RenderTransform>
+  	</Rectangle>
   </Grid>
 </Window>
