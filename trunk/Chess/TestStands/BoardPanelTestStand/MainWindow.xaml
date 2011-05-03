@@ -39,6 +39,7 @@
       <Setter Property="StrokeThickness" Value="1"/>
       <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
   </Window.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
@@ -181,7 +182,6 @@
       <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="3" Style="{StaticResource LightSquare}"/>
       <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="5" Style="{StaticResource LightSquare}"/>
       <Rectangle local:BoardPanel.Column="1" local:BoardPanel.Row="7" Style="{StaticResource LightSquare}"/>
-      <Image Source="Untitled.png" Margin="-8.049,8.377,10.701,8.623" Opacity="0.425" Panel.ZIndex="1" />
 
       <pcs:WhiteRook   local:BoardPanel.Column="1" local:BoardPanel.Row="8"/>
       <pcs:WhiteKnight local:BoardPanel.Column="2" local:BoardPanel.Row="8"/>
@@ -218,6 +218,11 @@
       <pcs:BlackBishop local:BoardPanel.Column="6" local:BoardPanel.Row="1"/>
       <pcs:BlackKnight local:BoardPanel.Column="7" local:BoardPanel.Row="1"/>
       <pcs:BlackRook   local:BoardPanel.Column="8" local:BoardPanel.Row="1"/>
+
+      <Image Source="Untitled.png" Visibility="{Binding ElementName=_checkBox, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+             Margin="-7,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="1" SnapsToDevicePixels="True"
+             Width="874" Height="873"
+             RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 <!--      <local:FontPiece Symbol="R" local:BoardPanel.Column="1" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 <!--      <local:FontPiece Symbol="N" local:BoardPanel.Column="2" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 <!--      <local:FontPiece Symbol="B" local:BoardPanel.Column="3" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
@@ -258,6 +263,7 @@
 
     <Viewbox>
       <StackPanel Width="100" Height="300">
+        <CheckBox Name="_checkBox" Content="Is Visible"/>
         <TextBox Text="{Binding SelectedItem.PieceMap, ElementName=_fonts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <ListBox x:Name="_fonts" IsSynchronizedWithCurrentItem="True" SelectedIndex="0">
           <local:ChessFont FontFamily="Fonts/#Chess Alpha" PieceMap="pbhrqkonjtwl"/>
