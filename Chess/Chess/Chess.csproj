@@ -101,7 +101,7 @@
     <Compile Include="Pieces\WhiteRook.xaml.cs">
       <DependentUpon>WhiteRook.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pieces\XamlPiece.cs" />
+    <Compile Include="XamlPiece.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -196,39 +196,27 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Fonts\Alpha.ttf" />
-    <Resource Include="Fonts\CASEFONT.TTF" />
-    <Resource Include="Fonts\CHEQ_TT.TTF" />
-    <Resource Include="Fonts\Chess-7.TTF" />
-    <Resource Include="Fonts\CONDFONT.TTF" />
-    <Resource Include="Fonts\LEIPFONT.TTF" />
-    <Resource Include="Fonts\LUCEFONT.TTF" />
-    <Resource Include="Fonts\MAGNFONT.TTF" />
-    <Resource Include="Fonts\MARRFONT.TTF" />
-    <Resource Include="Fonts\MAYAFONT.TTF" />
-    <Resource Include="Fonts\MVALFONT.TTF" />
     <None Include="Core\Primitives\Primitives.cd" />
-    <Resource Include="Fonts\AVENFONT.TTF" />
-    <Resource Include="Fonts\TT_USUAL.TTF" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Pieces\BkackKing.PNG" />
-    <Resource Include="Pieces\BkackKnight.PNG" />
-    <Resource Include="Pieces\BkackQueen.PNG" />
-    <Resource Include="Pieces\BlackBishop.PNG" />
-    <Resource Include="Pieces\BlackPiece.PNG" />
-    <Resource Include="Pieces\BlackRook.PNG" />
-    <Resource Include="Pieces\WhiteBishop.PNG" />
-    <Resource Include="Pieces\WhiteKing.PNG" />
-    <Resource Include="Pieces\WhiteKnight.PNG" />
-    <Resource Include="Pieces\WhitePiece.PNG" />
-    <Resource Include="Pieces\WhiteQueen.PNG" />
-    <Resource Include="Pieces\WhiteRook.PNG" />
+    <Resource Include="Pieces\Raster\BlackKing.png" />
+    <Resource Include="Pieces\Raster\BlackKnight.png" />
+    <Resource Include="Pieces\Raster\BlackQueen.png" />
+    <Resource Include="Pieces\Raster\BlackBishop.png" />
+    <Resource Include="Pieces\Raster\BlackPawn.png" />
+    <Resource Include="Pieces\Raster\BlackRook.png" />
+    <Resource Include="Pieces\Raster\WhiteBishop.png" />
+    <Resource Include="Pieces\Raster\WhiteKing.png" />
+    <Resource Include="Pieces\Raster\WhiteKnight.png" />
+    <Resource Include="Pieces\Raster\WhitePawn.png" />
+    <Resource Include="Pieces\Raster\WhiteQueen.png" />
+    <Resource Include="Pieces\Raster\WhiteRook.png" />
     <Resource Include="Untitled.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
