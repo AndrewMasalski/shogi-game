@@ -152,7 +152,7 @@
       <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="7" Panel.ZIndex="58" Style="{StaticResource DarkSquare}"/>
       <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="2" Panel.ZIndex="59" Style="{StaticResource LightSquare}"/>
       <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="4" Panel.ZIndex="60" Style="{StaticResource LightSquare}"/>
-      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="6" Panel.ZIndex="61" Style="{StaticResource LightSquare}" Opacity="0.62"/>
+      <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="6" Panel.ZIndex="61" Style="{StaticResource LightSquare}" />
       <Rectangle local:BoardPanel.Column="6" local:BoardPanel.Row="8" Panel.ZIndex="62" Style="{StaticResource LightSquare}"/>
       <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="2" Panel.ZIndex="63" Style="{StaticResource DarkSquare}"/>
       <Rectangle local:BoardPanel.Column="7" local:BoardPanel.Row="4" Panel.ZIndex="64" Style="{StaticResource DarkSquare}"/>
