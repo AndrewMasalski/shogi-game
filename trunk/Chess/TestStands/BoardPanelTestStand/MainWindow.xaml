@@ -197,6 +197,10 @@
       <pcs:BlackPawn local:BoardPanel.Column="6" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
       <pcs:BlackPawn local:BoardPanel.Column="7" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
       <pcs:BlackPawn local:BoardPanel.Column="8" local:BoardPanel.Row="2" Panel.ZIndex="110"/>
+      <Image Source="Untitled.png" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=_checkBox}"
+             Margin="-7.198,14.953,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="201" SnapsToDevicePixels="True"
+             Width="874" Height="873"
+             RenderOptions.BitmapScalingMode="NearestNeighbor" d:IsHidden="True"/>
 
       <pcs:BlackRook   local:BoardPanel.Column="1" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
       <pcs:BlackKnight local:BoardPanel.Column="2" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
@@ -206,11 +210,6 @@
       <pcs:BlackBishop local:BoardPanel.Column="6" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
       <pcs:BlackKnight local:BoardPanel.Column="7" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
       <pcs:BlackRook   local:BoardPanel.Column="8" local:BoardPanel.Row="1" Panel.ZIndex="110"/>
-
-      <Image Source="Untitled.png" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=_checkBox}"
-             Margin="-6.531,14.953,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Panel.ZIndex="201" SnapsToDevicePixels="True"
-             Width="874" Height="873"
-             RenderOptions.BitmapScalingMode="NearestNeighbor" d:IsHidden="True"/>
 <!--      <local:FontPiece Symbol="R" local:BoardPanel.Column="1" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 <!--      <local:FontPiece Symbol="N" local:BoardPanel.Column="2" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->
 <!--      <local:FontPiece Symbol="B" local:BoardPanel.Column="3" local:BoardPanel.Row="8" ChessFont="{Binding ElementName=_fonts, Path=SelectedItem}"/>-->

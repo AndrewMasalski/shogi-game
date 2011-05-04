@@ -1,22 +1,25 @@
-﻿<local:XamlPiece xmlns:local="clr-namespace:Chess.Pieces"  x:Class="Chess.Pieces.BlackKing"
+﻿<UserControl xmlns:local="clr-namespace:Chess.Pieces"  x:Class="Chess.Pieces.BlackKing"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Width="214.25" Height="214.75">
-  <Canvas>
-    <Path Data="M570.74858,879.99956 L476.99905,844.49952 381.24953,881.99957 402.74943,971.24969 549.2487,973.24969 z" Fill="White" Height="128.75" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="189.5" Canvas.Left="11.733" Canvas.Top="38.75"/>
-    <Path Data="M473.47686,958.66532 C473.47686,958.66532 410.66744,958.66563 399.33419,958.66563 341.66613,923.66566 377.16622,853.49969 425.50029,853.49969 460.50664,853.49969 472.97684,894.66482 472.97684,894.66482 z" Fill="Black" Height="105.167" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="103.959" Canvas.Top="47.75"/>
-    <Path Data="M473.47686,958.66532 C473.47686,958.66532 410.66744,958.66563 399.33419,958.66563 341.66613,923.66566 377.16622,853.49969 425.50029,853.49969 460.50664,853.49969 472.97684,894.66482 472.97684,894.66482 z" Fill="Black" Height="105.167" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="104.541" RenderTransformOrigin="0.5,0.5" Canvas.Left="109.709" Canvas.Top="48">
-      <Path.RenderTransform>
-        <ScaleTransform ScaleX="-1"/>
-      </Path.RenderTransform>
-    </Path>
-    <Path Data="M468.5,805.75001 L484.5,805.75001 483.125,822.4998 499.76087,818.25001 499.51087,835.4998 483.125,830.7497 484.25,846.12451 C484.25,846.12451 498.74999,849.49889 502.75,854.49941 498.12499,859.87376 488.37499,861.99947 477.125,887.875 465.75,862.87446 456.37498,858.62397 449.875,855.49946 453.37499,850.12393 468.375,845.99985 468.375,845.99985 L470.12489,830.99991 453.5,835.24964 453.87485,818.74995 469.62489,822.99994 z" Fill="Black" Height="82.126" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="52.875" Canvas.Left="80.358"/>
-    <Path Data="M402.5,965.25 L550.75,964.75 551.25,1014.5 C551.25,1014.5 549.75,1019.5 546.5,1020.25 546.54689,1020.2656 407,1020.5 407,1020.5 407,1020.5 404,1020.0003 402.25,1016.2502 402.23456,1016.2346 402.5,965.25 402.5,965.25 z" Fill="Black" Height="55.75" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="149.001" Canvas.Left="32.732" Canvas.Top="159"/>
-    <Path Data="M409.17161,1005.9376 L409.1246,976.49962 432.25,991.25 z" Fill="White" Height="29.438" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="23.125" Canvas.Left="39.608" Canvas.Top="170.75"/>
-    <Path Data="M454.25,991 L476.5,976.5 497.5,991 477.5,1006.75 z" Fill="White" Height="30.25" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="43.25" Canvas.Left="84.733" Canvas.Top="170.75"/>
-    <Path Data="M542.75,977.75 L542.25,1005.25 520.25,991.5 z" Fill="White" Height="27.5" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="22.5" Canvas.Left="150.733" Canvas.Top="172"/>
-  </Canvas>
-</local:XamlPiece>
+             d:DesignWidth="400"
+             d:DesignHeight="400">
+  <Viewbox Stretch="Fill">
+		<Canvas Height="20" Width="20">
+			<Path Data="M570.74858,879.99956 L476.99905,844.49952 381.24953,881.99957 403.4312,971.33699 549.2487,973.24969 z" Fill="White" Height="8.764" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="12.898" Canvas.Left="3.349" Canvas.Top="4.754"/>
+			<Path Data="M473.47686,958.66532 C473.47686,958.66532 410.66744,958.66563 399.33419,958.66563 341.66613,923.66566 377.16622,853.49969 425.50029,853.49969 460.50664,853.49969 472.97684,894.66482 472.97684,894.66482 z" Fill="Black" Height="7.158" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="7.076" Canvas.Top="5.367" Canvas.Left="2.55"/>
+			<Path Data="M473.47686,958.66532 C473.47686,958.66532 410.66744,958.66563 399.33419,958.66563 341.66613,923.66566 377.16622,853.49969 425.50029,853.49969 460.50664,853.49969 472.97684,894.66482 472.97684,894.66482 z" Fill="Black" Height="7.159" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="7.116" RenderTransformOrigin="0.5,0.5" Canvas.Left="10.018" Canvas.Top="5.383">
+				<Path.RenderTransform>
+					<ScaleTransform ScaleX="-1"/>
+				</Path.RenderTransform>
+			</Path>
+			<Path Data="M468.5,805.75001 L484.5,805.75001 483.125,822.4998 499.76087,818.25001 499.51087,835.4998 483.125,830.7497 484.25,846.12451 C484.25,846.12451 498.74999,849.49889 502.75,854.49941 498.12499,859.87376 488.37499,861.99947 477.125,887.875 465.75,862.87446 456.37498,858.62397 449.875,855.49946 453.37499,850.12393 468.375,845.99985 468.375,845.99985 L470.12489,830.99991 453.5,835.24964 453.87485,818.74995 469.62489,822.99994 z" Fill="Black" Height="5.59" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="3.599" Canvas.Left="8.02" Canvas.Top="2.116"/>
+			<Path Data="M402.5,965.25 L550.75,964.75 551.25,1014.5 C551.25,1014.5 549.75,1019.5 546.5,1020.25 546.54689,1020.2656 407,1020.5 407,1020.5 407,1020.5 404,1020.0003 402.25,1016.2502 402.23456,1016.2346 402.5,965.25 402.5,965.25 z" Fill="Black" Height="3.795" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="10.142" Canvas.Left="4.778" Canvas.Top="12.939"/>
+			<Path Data="M409.17161,1005.9376 L409.1246,976.49962 432.25,991.25 z" Fill="White" Height="2.003" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="1.573" Canvas.Left="5.247" Canvas.Top="13.739"/>
+			<Path Data="M454.25,991 L476.5,976.5 497.5,991 477.5,1006.75 z" Fill="White" Height="2.058" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="2.945" Canvas.Left="8.317" Canvas.Top="13.739"/>
+			<Path Data="M542.75,977.75 L542.25,1005.25 520.25,991.5 z" Fill="White" Height="1.871" Stretch="Fill" Stroke="Black" StrokeThickness="0" Width="1.532" Canvas.Left="12.81" Canvas.Top="13.824"/>
+		</Canvas>
+	</Viewbox>
+</UserControl>
