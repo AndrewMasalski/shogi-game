@@ -1,7 +1,0 @@
-﻿<Window x:Class="Chess.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Chess="clr-namespace:Chess" Title="MainWindow" Height="350" Width="525">
-  <Grid>
-    <Chess:UserControl1/>
-  </Grid>
-</Window>
